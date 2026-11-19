@@ -70,23 +70,22 @@ private func addLineBar(to legend: UIView, color: UIColor, roundTop: Bool, round
   return bar
 }
 
-/// The selected line's badge: the stops in a ride belong to that line only, unlike the summary strip's
-/// parallel-line numbers.
+/// The selected line's badge; without a line number it shows the transport icon alone.
 final class TransitLineBadgeView: UIView {
-  init(step: MWMRouterTransitStepInfo) {
+  init(line: TransitDetailsLine) {
     super.init(frame: .zero)
-    backgroundColor = step.color
+    backgroundColor = line.color
     layer.setCornerRadius(.buttonSmall)
-    let foreground = TransportTransitTrain.foregroundColor(for: step.color)
-    let number = step.lineNumber.isEmpty ? step.number : step.lineNumber
+    let foreground = TransportTransitTrain.foregroundColor(for: line.color)
 
-    let icon = UIImageView(image: step.type.icon)
+    let icon = UIImageView(image: line.type.icon)
     icon.tintColor = foreground
     let label = UILabel()
-    label.text = number
-    label.font = TransportTransitTrain.Config.labelTextFont
+    label.text = line.number
+    // Only the font is styled, so it follows Dynamic Type; the color contrasts with the line color.
+    label.setFontStyle(.bold14)
     label.textColor = foreground
-    label.isHidden = number.isEmpty
+    label.isHidden = line.number.isEmpty
 
     let stack = UIStackView(arrangedSubviews: [icon, label])
     stack.spacing = 2
@@ -98,7 +97,7 @@ final class TransitLineBadgeView: UIView {
     heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.badgeHeight).isActive = true
 
     isAccessibilityElement = true
-    accessibilityLabel = step.type.accessibilityLabel(number: number)
+    accessibilityLabel = line.type.accessibilityLabel(number: line.number)
   }
 
   @available(*, unavailable)
@@ -112,13 +111,12 @@ final class TransitLineBadgeView: UIView {
 final class TransitDetailsRideView: UIView {
   private let intermediatesLabel: UILabel
   private let summaryChevron = UIImageView()
-  private let hasIntermediates: Bool
+  private let canExpand: Bool
   private(set) var isExpanded = false
 
   init(ride: TransitDetailsRide) {
-    let step = ride.step
-    hasIntermediates = !step.intermediateStopNames.isEmpty
-    intermediatesLabel = makeLabel(step.intermediateStopNames.joined(separator: "\n"),
+    canExpand = ride.canExpand
+    intermediatesLabel = makeLabel(ride.intermediateStops.joined(separator: "\n"),
                                    font: .regular16, color: .blackSecondary)
     super.init(frame: .zero)
 
@@ -131,7 +129,7 @@ final class TransitDetailsRideView: UIView {
       content.addArrangedSubview(label)
       content.setCustomSpacing(Layout.stopNameSpacing, after: label)
     }
-    let disclosure = makeDisclosure(step: step)
+    let disclosure = makeDisclosure(ride: ride)
     content.addArrangedSubview(disclosure)
     disclosure.widthAnchor.constraint(equalTo: content.widthAnchor).isActive = true
     intermediatesLabel.isHidden = true
@@ -144,7 +142,7 @@ final class TransitDetailsRideView: UIView {
 
     // At a transfer the line runs on square into the transfer row, which draws the break.
     let legend = UIView()
-    let bar = addLineBar(to: legend, color: step.color, roundTop: !ride.startsAtTransfer,
+    let bar = addLineBar(to: legend, color: ride.line.color, roundTop: !ride.startsAtTransfer,
                          roundBottom: !ride.endsAtTransfer)
     NSLayoutConstraint.activate([
       bar.topAnchor.constraint(equalTo: legend.topAnchor),
@@ -159,14 +157,14 @@ final class TransitDetailsRideView: UIView {
   }
 
   /// The line badge over "N stops · duration". As on Android, the whole full-width block expands the stops.
-  private func makeDisclosure(step: MWMRouterTransitStepInfo) -> UIView {
-    let badge = TransitLineBadgeView(step: step)
-    let stops = step.stopCount > 0 ? String(format: L("transit_stops_count"), step.stopCount) : nil
-    let label = makeLabel(makeSummaryText(stops, timeInSec: step.timeInSec), font: .regular16, color: .blackSecondary)
+  private func makeDisclosure(ride: TransitDetailsRide) -> UIView {
+    let badge = TransitLineBadgeView(line: ride.line)
+    let stops = ride.stopCount > 0 ? String(format: L("transit_stops_count"), ride.stopCount) : nil
+    let label = makeLabel(makeSummaryText(stops, timeInSec: ride.timeInSec), font: .regular16, color: .blackSecondary)
 
     // Only a ride with intermediate stops is an expandable disclosure.
     summaryChevron.tintColor = .blackSecondaryText
-    summaryChevron.isHidden = !hasIntermediates
+    summaryChevron.isHidden = !canExpand
     updateChevron()
     let summary = UIStackView(arrangedSubviews: [summaryChevron, label])
     summary.spacing = 4
@@ -176,7 +174,7 @@ final class TransitDetailsRideView: UIView {
     disclosure.axis = .vertical
     disclosure.alignment = .leading
     disclosure.spacing = Layout.lineSpacing
-    if hasIntermediates {
+    if canExpand {
       disclosure.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleIntermediates)))
       disclosure.isAccessibilityElement = true
       disclosure.accessibilityLabel = [badge.accessibilityLabel, label.text].compactMap { $0 }.joined(separator: ", ")
@@ -187,7 +185,7 @@ final class TransitDetailsRideView: UIView {
 
   @objc
   func toggleIntermediates() {
-    guard hasIntermediates else { return }
+    guard canExpand else { return }
     isExpanded.toggle()
     updateChevron()
     UIView.animate(withDuration: Layout.expandAnimationDuration) {
@@ -233,7 +231,7 @@ final class TransitDetailsTransferView: UIView {
 
 /// A walking leg: dots with a walk icon in the legend, "Walking" and "distance · duration" beside them.
 final class TransitDetailsWalkView: UIView {
-  init(step: MWMRouterTransitStepInfo) {
+  init(walk: TransitDetailsWalk) {
     super.init(frame: .zero)
 
     let walkIcon = UIImageView(image: UIImage(resource: .icWalk))
@@ -248,10 +246,10 @@ final class TransitDetailsWalkView: UIView {
     legend.setCustomSpacing(Layout.walkIconSpacing, after: legend.arrangedSubviews[1])
     legend.setCustomSpacing(Layout.walkIconSpacing, after: walkIcon)
 
-    let distance = step.distance.isEmpty ? nil : "\(step.distance) \(step.distanceUnits)"
+    let distance = walk.distance.isEmpty ? nil : walk.distance
     let content = UIStackView(arrangedSubviews: [
       makeLabel(L("routing_options_walking"), font: .medium16, color: .blackPrimary),
-      makeLabel(makeSummaryText(distance, timeInSec: step.timeInSec), font: .regular16, color: .blackSecondary),
+      makeLabel(makeSummaryText(distance, timeInSec: walk.timeInSec), font: .regular16, color: .blackSecondary),
     ])
     content.axis = .vertical
     content.spacing = Layout.lineSpacing / 2
@@ -280,10 +278,9 @@ final class TransitDetailsPointView: UIView {
   /// Markers exist for the first 20 points, matching the summary strip.
   private static let maxNumberedMarker = 20
 
-  convenience init(waypointIndex: Int, name: String?) {
-    let marker = "route-point-\(min(waypointIndex + 1, Self.maxNumberedMarker))"
-    self.init(icon: UIImage(named: marker), iconSize: Layout.waypointIconSize,
-              title: name ?? String(format: L("transit_waypoint_label"), waypointIndex + 1))
+  convenience init(waypointNumber: Int, title: String) {
+    let marker = "route-point-\(min(waypointNumber, Self.maxNumberedMarker))"
+    self.init(icon: UIImage(named: marker), iconSize: Layout.waypointIconSize, title: title)
   }
 
   convenience init(destination: String) {

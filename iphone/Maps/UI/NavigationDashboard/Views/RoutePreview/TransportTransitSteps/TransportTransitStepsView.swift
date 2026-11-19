@@ -7,14 +7,14 @@ final class TransportTransitStepsView: SolidTouchView {
 
   private var stepsCollectionView: TransportTransitStepsCollectionView!
   private var stepsCollectionViewHeight: NSLayoutConstraint!
-  private let chevronView = UIImageView(image: UIImage(systemName: "chevron.forward"))
+  /// The VoiceOver control for opening details; the line badges stay individually focusable.
+  private let chevronButton = UIButton(type: .system)
   private var chevronWidth: NSLayoutConstraint!
   private var chevronSpacing: NSLayoutConstraint!
-  private var steps: [MWMRouterTransitStepInfo] = []
   private lazy var detailsTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
 
-  /// Called with the route's steps when a public transport strip is tapped to open its details.
-  var onTap: (([MWMRouterTransitStepInfo]) -> Void)?
+  /// Called when the strip is tapped while the route's details can be opened.
+  var onTap: (() -> Void)?
 
   var onContentHeightChanged: (() -> Void)?
 
@@ -40,22 +40,24 @@ final class TransportTransitStepsView: SolidTouchView {
       self.onContentHeightChanged?()
     }
 
-    chevronView.tintColor = .blackSecondaryText
-    chevronView.contentMode = .scaleAspectFit
+    chevronButton.setImage(UIImage(systemName: "chevron.forward"), for: .normal)
+    chevronButton.tintColor = .blackSecondaryText
+    chevronButton.accessibilityLabel = L("transit_details_title")
+    chevronButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
 
+    // The whole strip opens details too; UIKit keeps this recognizer from also firing for a button tap.
     addGestureRecognizer(detailsTapRecognizer)
-    accessibilityTraits = .button
   }
 
   private func layout() {
     addSubview(stepsCollectionView)
-    addSubview(chevronView)
+    addSubview(chevronButton)
     stepsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-    chevronView.translatesAutoresizingMaskIntoConstraints = false
+    chevronButton.translatesAutoresizingMaskIntoConstraints = false
 
     stepsCollectionViewHeight = stepsCollectionView.heightAnchor.constraint(equalToConstant: 0)
-    chevronWidth = chevronView.widthAnchor.constraint(equalToConstant: 0)
-    chevronSpacing = stepsCollectionView.trailingAnchor.constraint(equalTo: chevronView.leadingAnchor)
+    chevronWidth = chevronButton.widthAnchor.constraint(equalToConstant: 0)
+    chevronSpacing = stepsCollectionView.trailingAnchor.constraint(equalTo: chevronButton.leadingAnchor)
 
     NSLayoutConstraint.activate([
       stepsCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top),
@@ -65,33 +67,28 @@ final class TransportTransitStepsView: SolidTouchView {
       stepsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom)
         .withPriority(UILayoutPriority(999)),
       stepsCollectionViewHeight,
-      chevronView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.contentInsets.right),
-      chevronView.centerYAnchor.constraint(equalTo: stepsCollectionView.centerYAnchor),
+      chevronButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.contentInsets.right),
+      chevronButton.centerYAnchor.constraint(equalTo: stepsCollectionView.centerYAnchor),
       chevronWidth,
     ])
   }
 
-  /// - Parameter isRouteReady: while a route is still being built the steps belong to the previous route, so
-  ///   they must not open details for the new route points.
-  func setNavigationInfo(_ navigationInfo: MWMNavigationDashboardEntity?, isRouteReady: Bool = false) {
-    setSteps(navigationInfo?.transitSteps ?? [], isRouteReady: isRouteReady)
+  /// - Parameter canOpenDetails: decided by the dashboard from the route these steps were calculated for.
+  func setNavigationInfo(_ navigationInfo: MWMNavigationDashboardEntity?, canOpenDetails: Bool = false) {
+    setSteps(navigationInfo?.transitSteps ?? [], canOpenDetails: canOpenDetails)
   }
 
-  func setSteps(_ steps: [MWMRouterTransitStepInfo], isRouteReady: Bool) {
-    self.steps = steps
+  func setSteps(_ steps: [MWMRouterTransitStepInfo], canOpenDetails: Bool) {
     stepsCollectionView.steps = steps
     isHidden = steps.isEmpty
-    // Ruler routes reuse the strip for their waypoints, but only public transport has per-leg details.
-    let hasDetails = isRouteReady && !steps.isEmpty && !steps.contains { $0.type == .ruler }
-    detailsTapRecognizer.isEnabled = hasDetails
-    chevronView.isHidden = !hasDetails
-    chevronWidth.constant = hasDetails ? Constants.chevronWidth : 0
-    chevronSpacing.constant = hasDetails ? -Constants.chevronSpacing : 0
-    accessibilityLabel = hasDetails ? L("transit_details_title") : nil
+    detailsTapRecognizer.isEnabled = canOpenDetails
+    chevronButton.isHidden = !canOpenDetails
+    chevronWidth.constant = canOpenDetails ? Constants.chevronWidth : 0
+    chevronSpacing.constant = canOpenDetails ? -Constants.chevronSpacing : 0
   }
 
   @objc
   private func didTap() {
-    onTap?(steps)
+    onTap?()
   }
 }

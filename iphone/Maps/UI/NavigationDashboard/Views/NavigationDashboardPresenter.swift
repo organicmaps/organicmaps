@@ -1,10 +1,10 @@
 extension NavigationDashboard {
   final class Presenter: NSObject {
     private weak var view: NavigationDashboardViewController?
-    private var viewModel: ViewModel = .initial
+    private(set) var viewModel: ViewModel = .initial
     private var isSearchOpened: Bool = false
 
-    init(view: NavigationDashboardViewController) {
+    init(view: NavigationDashboardViewController?) {
       self.view = view
       super.init()
     }

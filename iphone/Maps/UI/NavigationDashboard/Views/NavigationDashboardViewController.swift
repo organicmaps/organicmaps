@@ -270,8 +270,8 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func setupTransportTransitStepsView() {
-    transportTransitStepsView.onTap = { [weak self] steps in
-      self?.interactor?.process(.transitStepsDidTap(steps))
+    transportTransitStepsView.onTap = { [weak self] in
+      self?.interactor?.process(.transitStepsDidTap)
     }
   }
 
@@ -613,7 +613,7 @@ extension NavigationDashboardViewController {
       transportOptionsView.set(transportOptions: viewModel.transportOptions,
                                selectedRouterType: viewModel.routerType)
       estimatesView.setState(viewModel.estimatesState)
-      transportTransitStepsView.setNavigationInfo(viewModel.entity, isRouteReady: viewModel.dashboardState == .ready)
+      transportTransitStepsView.setNavigationInfo(viewModel.entity, canOpenDetails: viewModel.canOpenTransitDetails)
       updateElevationProfile(with: viewModel.routeElevationPreviewData,
                              activePointDistance: viewModel.routeElevationActivePointDistance)
       routePointsView.setRoutePoints(viewModel.routePoints)

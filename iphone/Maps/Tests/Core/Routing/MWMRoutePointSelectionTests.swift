@@ -227,6 +227,75 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     XCTAssertEqual(titleForButton(.routeAddDestination, false), L("route_add_destination"))
   }
 
+  func test_GivenTransitRoute_WhenPointPickerIsCancelled_ThenDetailsStayAvailable() {
+    let presenter = NavigationDashboard.Presenter(view: nil)
+    showReadyTransitRoute(on: presenter)
+    XCTAssertTrue(presenter.viewModel.canOpenTransitDetails)
+
+    presenter.process(.updateSearchState(.mapPointPicker))
+    XCTAssertFalse(presenter.viewModel.canOpenTransitDetails)
+    presenter.process(.updateSearchState(.closed))
+
+    // The dashboard comes back in .prepare with the calculated route still shown.
+    XCTAssertEqual(presenter.viewModel.dashboardState, .prepare)
+    XCTAssertTrue(presenter.viewModel.canOpenTransitDetails)
+  }
+
+  func test_GivenTransitRoute_WhenRebuilding_ThenDetailsWaitForTheNewRoute() {
+    let presenter = NavigationDashboard.Presenter(view: nil)
+    showReadyTransitRoute(on: presenter)
+
+    presenter.process(.updateState(.planning))
+    XCTAssertFalse(presenter.viewModel.canOpenTransitDetails)
+
+    presenter.process(.updateRouteBuildingProgress(1, routerType: .publicTransport))
+    presenter.process(.updateState(.ready))
+    XCTAssertTrue(presenter.viewModel.canOpenTransitDetails)
+
+    presenter.process(.updateState(.error))
+    XCTAssertFalse(presenter.viewModel.canOpenTransitDetails)
+  }
+
+  func test_GivenStepsOfOtherRoutes_ThenDetailsAreUnavailable() {
+    let presenter = NavigationDashboard.Presenter(view: nil)
+    showReadyTransitRoute(on: presenter)
+
+    // A removed endpoint leaves the previous route's steps behind.
+    presenter.process(.show(points: [makePoint(type: .start, title: "start", coordinate: 10)],
+                            routerType: .publicTransport))
+    XCTAssertFalse(presenter.viewModel.canOpenTransitDetails)
+
+    // Ruler routes reuse the strip for their waypoints but have no per-leg details.
+    showReadyTransitRoute(on: presenter, routerType: .ruler)
+    XCTAssertFalse(presenter.viewModel.canOpenTransitDetails)
+  }
+
+  func test_GivenNoRouteInfoYet_ThenDetailsAreUnavailable() {
+    // The initial entity has no transit steps at all, not even an empty list.
+    var viewModel = NavigationDashboard.ViewModel.initial
+    viewModel.routerType = .publicTransport
+    viewModel.routePoints = NavigationDashboard.RoutePoints(points: [
+      makePoint(type: .start, title: "start", coordinate: 10),
+      makePoint(type: .finish, title: "finish", coordinate: 13),
+    ])
+    viewModel.dashboardState = .ready
+    viewModel.progress = 1
+
+    XCTAssertFalse(viewModel.canOpenTransitDetails)
+  }
+
+  private func showReadyTransitRoute(on presenter: NavigationDashboard.Presenter,
+                                     routerType: MWMRouterType = .publicTransport) {
+    let ride = MWMRouterTransitStepInfo()
+    ride.type = .bus
+    presenter.process(.updateRouteBuildingProgress(1, routerType: routerType))
+    presenter.process(.show(points: [makePoint(type: .start, title: "start", coordinate: 10),
+                                     makePoint(type: .finish, title: "finish", coordinate: 13)],
+                            routerType: routerType))
+    presenter.process(.updateNavigationInfo(TransitStepsEntity(steps: [ride])))
+    presenter.process(.updateState(.ready))
+  }
+
   private func seedEndpoints() {
     MWMRouter.addPoint(makePoint(type: .start, title: "start", coordinate: 10))
     MWMRouter.addPoint(makePoint(type: .finish, title: "finish", coordinate: 13))
@@ -269,4 +338,16 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     wait(for: [ready], timeout: 5)
     XCTAssertTrue(MWMRouter.isRoutingActive())
   }
+}
+
+/// The core builds transit steps only for a calculated public transport route.
+private final class TransitStepsEntity: MWMNavigationDashboardEntity {
+  private let steps: [MWMRouterTransitStepInfo]
+
+  init(steps: [MWMRouterTransitStepInfo]) {
+    self.steps = steps
+    super.init()
+  }
+
+  override var transitSteps: [MWMRouterTransitStepInfo] { steps }
 }

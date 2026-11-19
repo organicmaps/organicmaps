@@ -65,6 +65,17 @@ extension NavigationDashboard.ViewModel {
       MWMRouter.isRouteValid()
   }
 
+  /// The steps and points come from the same finished calculation. Cancelling the point picker returns to
+  /// `.prepare` with that route still shown, while a rebuild resets the progress.
+  var canOpenTransitDetails: Bool {
+    routerType == .publicTransport &&
+      routePoints.hasStartAndFinish &&
+      (dashboardState == .ready || dashboardState == .prepare) &&
+      progress == 1 &&
+      // Nil until the first route info arrives.
+      !(entity.transitSteps ?? []).isEmpty
+  }
+
   var startButtonState: StartRouteButton.State {
     if routePoints.count < 2 ||
       routePoints.start == nil ||

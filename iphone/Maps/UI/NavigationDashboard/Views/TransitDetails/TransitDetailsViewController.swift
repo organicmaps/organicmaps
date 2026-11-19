@@ -11,19 +11,9 @@ final class TransitDetailsViewController: MWMViewController {
   private let scrollView = UIScrollView()
   private let stackView = UIStackView()
 
-  init(steps: [MWMRouterTransitStepInfo], routePoints: [MWMRoutePoint]) {
-    let destination = routePoints.last { $0.type == .finish }?.title
-    var waypointNames: [Int: String] = [:]
-    for point in routePoints where point.type == .intermediate && Self.hasName(point) {
-      waypointNames[point.intermediateIndex] = point.title
-    }
-    rows = TransitDetailsRows.make(steps: steps, destination: destination, waypointNames: waypointNames)
+  init(rows: [TransitDetailsRow]) {
+    self.rows = rows
     super.init(nibName: nil, bundle: nil)
-  }
-
-  /// An unnamed point's title is its formatted coordinates; such a stop is shown by its number instead.
-  static func hasName(_ point: MWMRoutePoint) -> Bool {
-    point.isMyPosition || (!point.title.isEmpty && point.title != point.latLonString)
   }
 
   @available(*, unavailable)
@@ -74,10 +64,10 @@ final class TransitDetailsViewController: MWMViewController {
 
   private func view(for row: TransitDetailsRow) -> UIView {
     switch row {
-    case .walk(let step): TransitDetailsWalkView(step: step)
+    case .walk(let walk): TransitDetailsWalkView(walk: walk)
     case .ride(let ride): TransitDetailsRideView(ride: ride)
     case .transfer(let stop, let from, let to): TransitDetailsTransferView(stop: stop, from: from, to: to)
-    case .waypoint(let index, let name): TransitDetailsPointView(waypointIndex: index, name: name)
+    case .waypoint(let number, let title): TransitDetailsPointView(waypointNumber: number, title: title)
     case .destination(let name): TransitDetailsPointView(destination: name)
     }
   }

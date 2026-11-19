@@ -90,8 +90,12 @@ extension NavigationDashboard {
         router.saveRouteAsTrack()
         return .setRouteAsTrackSaved
 
-      case .transitStepsDidTap(let steps):
-        let details = TransitDetailsViewController(steps: steps, routePoints: router.points())
+      case .transitStepsDidTap:
+        let viewModel = presenter.viewModel
+        guard viewModel.canOpenTransitDetails else { return .none }
+        let rows = TransitDetailsRows.make(steps: viewModel.entity.transitSteps,
+                                           routePoints: viewModel.routePoints.points)
+        let details = TransitDetailsViewController(rows: rows)
         mapViewController.navigationController?.pushViewController(details, animated: true)
         return .none
 
