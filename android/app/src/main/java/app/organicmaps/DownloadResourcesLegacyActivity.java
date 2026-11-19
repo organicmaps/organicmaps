@@ -16,6 +16,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,7 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ConnectionState;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.syria.WelcomeNarrator;
+import app.organicmaps.syria.tracking.MapUpdateLogger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -69,6 +71,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private ActivityResultLauncher<Intent> mApiRequest;
 
   private boolean mAreResourcesDownloaded;
+
+  // World maps of the first launch, for the map_download activity event (MapUpdateLogger).
+  private long mWorldBytes;
+  private long mWorldStartedAt;
 
   private static final int DOWNLOAD = 0;
   private static final int PAUSE = 1;
@@ -285,6 +291,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     if (bytes > 0)
     {
+      mWorldBytes = bytes;
       setDownloadMessage(bytes);
 
       mProgress.setMax(bytes);
@@ -333,6 +340,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void doDownload()
   {
+    if (mWorldStartedAt == 0)
+      mWorldStartedAt = SystemClock.elapsedRealtime();
     if (nativeStartNextFileDownload(mResourcesDownloadListener) == ERR_NO_MORE_FILES)
       finishFilesDownload(ERR_NO_MORE_FILES);
   }
@@ -437,6 +446,11 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model.
       Framework.nativeReloadWorldMaps();
+      if (mWorldBytes > 0 && mWorldStartedAt > 0)
+      {
+        MapUpdateLogger.recordFirstLaunchWorld(this, mWorldBytes, SystemClock.elapsedRealtime() - mWorldStartedAt);
+        mWorldBytes = 0;
+      }
 
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
@@ -447,6 +461,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         setProgressValue(0);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
+        MapUpdateLogger.markFirstLaunch(mCurrentCountry);
         MapManagerHelper.startDownload(this, mCurrentCountry);
         setAction(PROCEED_TO_MAP);
       }

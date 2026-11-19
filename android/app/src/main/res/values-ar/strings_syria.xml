@@ -87,7 +87,7 @@
   <string name="syria_pref_logout">تسجيل الخروج</string>
   <string name="syria_pref_logout_confirm">تسجيل الخروج؟ تبقى التسجيلات غير المتزامنة على هذا الجهاز.</string>
   <string name="syria_pref_log_map_updates">تسجيل تحديثات بيانات الخريطة</string>
-  <string name="syria_pref_log_map_updates_summary">تسجيل تنزيلات الخريطة وتحديثاتها في سجل نشاطك</string>
+  <string name="syria_pref_log_map_updates_summary">تسجيل تنزيلات الخريطة وتحديثاتها (مدتها وحجمها) في سجل نشاطك</string>
   <string name="syria_pref_app_language">لغة التطبيق</string>
   <string name="syria_language_changed_title">تم تغيير اللغة</string>
   <string name="syria_language_changed_message">أعد تشغيل التطبيق لتستخدم الخريطة والبحث والإرشاد الصوتي اللغة الجديدة.</string>

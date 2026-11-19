@@ -95,7 +95,7 @@
   <string name="syria_pref_logout">Sign out</string>
   <string name="syria_pref_logout_confirm">Sign out? Recordings that are not synced yet stay on this device.</string>
   <string name="syria_pref_log_map_updates">Log map data updates</string>
-  <string name="syria_pref_log_map_updates_summary">Record map downloads and updates in your activity log</string>
+  <string name="syria_pref_log_map_updates_summary">Record map downloads and updates (how long they took and their size) in your activity log</string>
   <string name="syria_pref_app_language">App language</string>
   <!-- Each language is shown in its own script, so a user can find it whatever the current language. -->
   <string-array name="syria_app_language_entries" translatable="false">

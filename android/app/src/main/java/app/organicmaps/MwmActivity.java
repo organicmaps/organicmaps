@@ -69,7 +69,6 @@ import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaPrefs;
 import app.organicmaps.syria.account.LoginActivity;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
-import app.organicmaps.syria.tracking.MapUpdateLogger;
 import app.organicmaps.syria.tracking.TrackingActivity;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
@@ -257,7 +256,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       saveAndStopTrackRecording();
     }
 
-    MapUpdateLogger.init(this);
     // New map data is published on our server without an app update.
     MapManager.nativeCheckForUpdates();
     SyriaDefaults.applyOnce(this);
