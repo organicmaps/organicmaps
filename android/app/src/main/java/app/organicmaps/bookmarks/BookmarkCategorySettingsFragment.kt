@@ -149,7 +149,8 @@ class BookmarkCategorySettingsFragment :
 
     private fun updateColorButtonsVisibility() {
         val current = BookmarkManager.INSTANCE.getCategoryById(category.id)
-        colorBookmarksBtn.isVisible = current.bookmarksCount > 0
+        colorBookmarksBtn.isVisible =
+            current.bookmarksCount > 0 && !BookmarkManager.INSTANCE.isContactCategory(category.id)
         colorTracksBtn.isVisible = current.tracksCount > 0
     }
 

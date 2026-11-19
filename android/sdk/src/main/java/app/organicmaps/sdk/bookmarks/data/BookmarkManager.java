@@ -247,6 +247,18 @@ public enum BookmarkManager {
     return nativeGetBookmarkInfo(bmkId);
   }
 
+  /** Whether the bookmark uses the contact person presentation. */
+  public boolean isContactBookmark(long bmkId)
+  {
+    return nativeIsContactBookmark(bmkId);
+  }
+
+  /** Whether the category is the tagged Contacts list. */
+  public boolean isContactCategory(long categoryId)
+  {
+    return nativeIsContactCategory(categoryId);
+  }
+
   @NonNull
   public Track getTrack(long trackId)
   {
@@ -616,6 +628,8 @@ public enum BookmarkManager {
 
   @Nullable
   private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
+  private native boolean nativeIsContactBookmark(long bmkId);
+  private native boolean nativeIsContactCategory(long categoryId);
 
   @NonNull
   private native Track nativeGetTrack(long trackId, Class<Track> trackClazz);
@@ -642,6 +656,17 @@ public enum BookmarkManager {
    * @return category Id
    */
   private native long nativeCreateCategory(@NonNull String name);
+
+  /** Explicit contact import. Returns category ID, added, updated, unchanged, locally edited, skipped counts. */
+  @NonNull
+  public native long[] importContactBookmarks(@NonNull String categoryName, @NonNull String[] keys,
+                                              @NonNull String[] names, @NonNull String[] addresses,
+                                              @NonNull double[] latitudes, @NonNull double[] longitudes,
+                                              @NonNull String[][] supersededKeys, @NonNull String[] sourceFingerprints);
+
+  /** Original source locations, with full coordinate precision and ownership metadata. */
+  @NonNull
+  public native ImportedBookmarkLocation[] getImportedContactLocations();
 
   private native void nativeShowBookmarkOnMap(long bmkId);
 

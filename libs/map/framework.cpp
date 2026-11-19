@@ -545,6 +545,8 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
+    // A deferred deregistration can finish after the initial deletion notification.
+    GetSearchAPI().ClearCaches();
   };
 
   // Call action on thread in which the framework was created

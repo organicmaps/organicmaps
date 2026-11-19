@@ -7,6 +7,8 @@ set(SRC
   benchmark_tools.cpp
   bookmark.cpp
   bookmark.hpp
+  bookmark_import.cpp
+  bookmark_import.hpp
   bookmark_helpers.cpp
   bookmark_helpers.hpp
   bookmark_manager.cpp

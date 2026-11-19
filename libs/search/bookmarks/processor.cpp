@@ -10,6 +10,8 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <map>
+#include <set>
 
 namespace search
 {
@@ -33,7 +35,12 @@ struct DocVecWrapper
 
 struct RankingInfo
 {
-  bool operator<(RankingInfo const & rhs) const { return m_cosineSimilarity > rhs.m_cosineSimilarity; }
+  bool operator<(RankingInfo const & rhs) const
+  {
+    if (m_matchedTokens != rhs.m_matchedTokens)
+      return m_matchedTokens > rhs.m_matchedTokens;
+    return m_cosineSimilarity > rhs.m_cosineSimilarity;
+  }
 
   bool operator>(RankingInfo const & rhs) const { return rhs < *this; }
 
@@ -41,6 +48,7 @@ struct RankingInfo
   bool operator!=(RankingInfo const & rhs) const { return !(*this == rhs); }
 
   double m_cosineSimilarity = 0.0;
+  size_t m_matchedTokens = 0;
 };
 
 struct IdInfoPair
@@ -202,27 +210,34 @@ void Processor::DetachFromGroup(Id const & id, GroupId const & group)
 
 void Processor::Search(Params const & params) const
 {
-  std::set<Id> ids;
-  auto insertId = [&ids](Id const & id, bool /* exactMatch */) { ids.insert(id); };
+  std::map<Id, size_t> ids;
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
     BailIfCancelled();
 
     auto const & token = params.GetToken(i);
+    std::set<Id> tokenIds;
+    auto insertId = [&tokenIds](Id const & id, bool /* exactMatch */) { tokenIds.insert(id); };
     if (params.IsPrefixToken(i))
       Retrieve<strings::PrefixDFAModifier<strings::LevenshteinDFA>>(token, insertId);
     else
       Retrieve<strings::LevenshteinDFA>(token, insertId);
+    if (params.m_requireAllTokens && tokenIds.empty())
+      return;
+    for (auto const & id : tokenIds)
+      ++ids[id];
   }
 
   IdfMap idfs(*this, 1.0 /* unknownIdf */);
   auto qv = GetQueryVec(idfs, params);
 
   std::vector<IdInfoPair> idInfos;
-  for (auto const & id : ids)
+  for (auto const & [id, matchedTokens] : ids)
   {
     BailIfCancelled();
+    if (params.m_requireAllTokens && matchedTokens != params.GetNumTokens())
+      continue;
 
     if (params.m_groupId != kInvalidGroupId)
     {
@@ -236,6 +251,7 @@ void Processor::Search(Params const & params) const
     auto const & doc = it->second;
 
     RankingInfo info;
+    info.m_matchedTokens = matchedTokens;
     FillRankingInfo(qv, idfs, doc, info);
 
     idInfos.emplace_back(id, info);

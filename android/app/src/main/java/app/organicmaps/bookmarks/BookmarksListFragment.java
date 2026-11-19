@@ -406,6 +406,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mSelectionActionColor = view.findViewById(R.id.selection_action_color);
     mSelectionActionMove = view.findViewById(R.id.selection_action_move);
     mSelectionActionDelete = view.findViewById(R.id.selection_action_delete);
+    mSelectionActionColor.setVisibility(
+        BookmarkManager.INSTANCE.isContactCategory(mCategoryDataSource.getData().getId()) ? View.GONE : View.VISIBLE);
     mSelectionActionColor.setOnClickListener(v -> onChangeSelectionColorSelected());
     mSelectionActionMove.setOnClickListener(v -> onMoveSelectionSelected());
     mSelectionActionDelete.setOnClickListener(v -> onDeleteSelectionSelected());
@@ -871,6 +873,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     else if (itemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
+      if (BookmarkManager.INSTANCE.isContactCategory(bookmark.getCategoryId()))
+        return;
       mViewModel.focusItem(bookmark.getBookmarkId(), itemType);
       ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
     }
@@ -1294,6 +1298,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void onChangeSelectionColorSelected()
   {
     if (mViewModel.getSelectedCount() == 0)
+      return;
+    if (BookmarkManager.INSTANCE.isContactCategory(mCategoryDataSource.getData().getId()))
       return;
     ColorPickerFragment.show(getChildFragmentManager(), getInitialSelectionColor());
   }

@@ -34,6 +34,9 @@ public:
     // If valid, only show results with bookmarks attached to |m_groupId|.
     GroupId m_groupId = kInvalidGroupId;
 
+    // Global map search must not return a name matching only an unrelated query fragment.
+    bool m_requireAllTokens = false;
+
     size_t m_maxNumResults = SearchParams::kDefaultNumResultsEverywhere;
   };
 

@@ -64,13 +64,22 @@ public:
   df::DepthLayer GetDepthLayerEx(settings::Placement p) const override;
 
   dp::Anchor GetAnchor() const override;
+  df::DepthLayer GetDepthLayer() const override
+  {
+    return HasPoiPresentation() ? df::DepthLayer::SearchMarkLayer : df::DepthLayer::UserMarkLayer;
+  }
+  bool GetDepthTestEnabled() const override { return !HasPoiPresentation(); }
+  bool IsMarkAboveText() const override { return HasPoiPresentation(); }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
   df::ColorConstant GetColorConstant() const override;
 
   kml::MarkGroupId GetGroupId() const override;
 
-  int GetMinZoom() const override { return m_data.m_minZoom; }
+  // Imported contacts use the POI presentation and are useful from the same zoom as other POIs.
+  // The icon appears at 14; the caption stays at 15.
+  int GetMinZoom() const override { return HasPoiPresentation() && m_data.m_minZoom > 14 ? 14 : m_data.m_minZoom; }
+  int GetMinTitleZoom() const override { return HasPoiPresentation() ? 15 : GetMinZoom(); }
 
   // Whether m_data.m_properties suitable to fill "Key info" part of placepage.
   bool CanFillPlacePageMetadata() const;
@@ -79,6 +88,7 @@ public:
   void Detach();
 
 private:
+  bool HasPoiPresentation() const;
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
 
   kml::BookmarkData m_data;

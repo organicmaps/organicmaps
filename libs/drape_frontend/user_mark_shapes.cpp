@@ -1,5 +1,6 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape.hpp"
@@ -19,6 +20,8 @@
 #include "drape/utils/projection.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/scales.hpp"
 
@@ -406,6 +409,26 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
     params.m_markId = renderInfo.m_markId;
     params.m_tileCenter = tileCenter;
     params.m_titleDecl = titleDecl;
+    if (titleDecl.m_usePoiCaption)
+    {
+      drule::KeysT keys;
+      auto const & cl = classif();
+      cl.GetObject(cl.GetTypeByPath({"amenity", "fuel"}))
+          ->GetSuitable(tileKey.m_zoomLevel, feature::GeomType::Point, keys);
+      for (auto const & key : keys)
+      {
+        if (key.m_type != drule::caption)
+          continue;
+        auto const * caption = drule::GetCurrentRules().Find(key)->GetCaption();
+        if (!caption || !caption->primary)
+          continue;
+        auto const & rule = *caption->primary;
+        params.m_titleDecl.m_primaryTextFont =
+            dp::FontDecl(ToDrapeColor(rule.color), static_cast<float>(rule.height),
+                         rule.stroke_color == 0 ? dp::Color::Transparent() : ToDrapeColor(rule.stroke_color));
+        break;
+      }
+    }
 
     // Here we use visual scale to adapt texts sizes and offsets
     // to different screen resolutions and DPI.

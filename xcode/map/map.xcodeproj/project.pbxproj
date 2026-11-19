@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C017AC710000000000000001 /* bookmark_import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C017AC710000000000000003 /* bookmark_import.cpp */; };
+		C017AC710000000000000002 /* bookmark_import.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C017AC710000000000000004 /* bookmark_import.hpp */; };
 		0831F23C200E53600034C365 /* bookmarks_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0831F23B200E53600034C365 /* bookmarks_search_params.hpp */; };
 		34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BCD1C88556800F94664 /* place_page_info.cpp */; };
 		34583BD01C88556800F94664 /* place_page_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BCE1C88556800F94664 /* place_page_info.hpp */; };
@@ -147,6 +149,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C017AC710000000000000003 /* bookmark_import.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_import.cpp; sourceTree = "<group>"; };
+		C017AC710000000000000004 /* bookmark_import.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bookmark_import.hpp; sourceTree = "<group>"; };
 		0831F23B200E53600034C365 /* bookmarks_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmarks_search_params.hpp; sourceTree = "<group>"; };
 		34583BCD1C88556800F94664 /* place_page_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = place_page_info.cpp; sourceTree = "<group>"; };
 		34583BCE1C88556800F94664 /* place_page_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = place_page_info.hpp; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 				45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */,
 				45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */,
 				BBA014AB2073C783007402E4 /* bookmark_helpers.cpp */,
+				C017AC710000000000000003 /* bookmark_import.cpp */,
+				C017AC710000000000000004 /* bookmark_import.hpp */,
 				BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */,
 				675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */,
 				675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */,
@@ -478,6 +484,7 @@
 				BBB7060C23E45F3400A7F29A /* isolines_manager.hpp in Headers */,
 				39E3C60323312BA800FB0C37 /* features_fetcher.hpp in Headers */,
 				BBA014AE2073C784007402E4 /* bookmark_helpers.hpp in Headers */,
+				C017AC710000000000000002 /* bookmark_import.hpp in Headers */,
 				F6B283061C1B03320081957A /* gps_track_filter.hpp in Headers */,
 				3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
@@ -687,6 +694,7 @@
 				39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */,
 				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */,
+				C017AC710000000000000001 /* bookmark_import.cpp in Sources */,
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,

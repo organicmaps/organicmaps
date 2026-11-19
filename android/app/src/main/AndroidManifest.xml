@@ -26,6 +26,7 @@
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+  <uses-permission-sdk-23 android:name="android.permission.READ_CONTACTS" />
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <!--
@@ -576,6 +577,10 @@
         android:exported="false"
         android:enabled="true"
         android:stopWithTask="false"/>
+
+    <service android:name=".contacts.ContactsImportService"
+        android:foregroundServiceType="dataSync" android:exported="false"
+        android:stopWithTask="false" />
 
     <provider
       android:name="androidx.core.content.FileProvider"
