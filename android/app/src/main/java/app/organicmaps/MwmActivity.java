@@ -1413,6 +1413,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onNavigationStartFailed()
+  {
+    // The failure may have happened while this activity was detached.
+    onResetToPlanningState();
+    Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
+    Toast.makeText(this, R.string.navigation_start_error, Toast.LENGTH_LONG).show();
+  }
+
+  @Override
   public void onPlanningStarted()
   {
     closeFloatingToolbarsAndPanels();

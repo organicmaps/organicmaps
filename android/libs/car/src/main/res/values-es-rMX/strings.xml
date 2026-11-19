@@ -46,6 +46,8 @@
     <string name="trip_finished">¡Ya llegó!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenar favoritos</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">No se pudo iniciar la navegación. Por favor, inténtelo de nuevo.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Cargando</string>

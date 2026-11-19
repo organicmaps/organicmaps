@@ -101,6 +101,8 @@
     <string name="by_date">Ըստ ամսաթվի</string>
     <!-- Android -->
     <string name="by_name">Ըստ անվան</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Նավիգացիան չի կարող սկսվել։ Խնդրում ենք փորձել կրկին։</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Ներբեռնում</string>

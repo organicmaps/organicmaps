@@ -101,6 +101,8 @@
     <string name="by_date">Eftir dagsetningu</string>
     <!-- Android -->
     <string name="by_name">Eftir nafni</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Ómögulegt að hefja leiðsögn. Vinsamlegast reyndu aftur.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Sæki</string>

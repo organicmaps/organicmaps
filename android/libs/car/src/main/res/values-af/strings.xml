@@ -101,6 +101,8 @@
     <string name="by_date">Volgens datum</string>
     <!-- Android -->
     <string name="by_name">Op Naam</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Navigasie kon nie begin nie. Probeer asseblief weer.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Laai tans af</string>

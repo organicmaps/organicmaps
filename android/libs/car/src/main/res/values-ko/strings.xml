@@ -101,6 +101,8 @@
     <string name="by_date">날짜 별</string>
     <!-- Android -->
     <string name="by_name">이름별</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">내비게이션을 시작할 수 없습니다. 다시 시도해 주세요.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">다운로드 중</string>

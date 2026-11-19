@@ -101,6 +101,8 @@
     <string name="by_date">Per tanggal</string>
     <!-- Android -->
     <string name="by_name">Berdasarkan Nama</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Tidak dapat memulai navigasi. Silakan coba lagi.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Mengunduh</string>

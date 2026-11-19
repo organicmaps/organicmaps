@@ -329,6 +329,8 @@
     <string name="trip_finished">Aportesti.</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Ordenar…</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Nun pudo aniciase la navegación. Por favor, vuelvi intentalo.</string>
     <string name="editor_add_select_category_all_subtitle">Toles categoríes</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

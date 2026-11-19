@@ -6,4 +6,8 @@
     <string name="cancel">বাতিল</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">অনুসন্ধান</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">নেভিগেশন শুরু করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
 </resources>

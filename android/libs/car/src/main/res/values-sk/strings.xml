@@ -101,6 +101,8 @@
     <string name="by_date">Podľa dátumu</string>
     <!-- Android -->
     <string name="by_name">Podľa mena</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Navigáciu sa nepodarilo spustiť. Skúste to prosím znova.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Sťahovanie</string>

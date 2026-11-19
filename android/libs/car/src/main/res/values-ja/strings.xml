@@ -101,6 +101,8 @@
     <string name="by_date">日付で</string>
     <!-- Android -->
     <string name="by_name">名前で</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">ナビゲーションを開始できませんでした。もう一度お試しください。</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">ダウンロード中</string>

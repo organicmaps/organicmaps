@@ -101,6 +101,8 @@
     <string name="by_date">Pagal datą</string>
     <!-- Android -->
     <string name="by_name">Pagal pavadinimą</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Nepavyko paleisti navigacijos. Bandykite dar kartą.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Atsiunčiama</string>

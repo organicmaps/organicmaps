@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 import app.organicmaps.sdk.util.log.Logger;
@@ -95,6 +97,88 @@ public class RoutingControllerNavigationStateTest
       assertTrue(events.isEmpty());
       verifyNoInteractions(container);
     }
+  }
+
+  @Test
+  public void refusedStartReturnsToPlanningAndNotifiesTheHostOnce() throws ReflectiveOperationException
+  {
+    final int[] builds = {0};
+    final RoutingController controller = new RoutingController() {
+      @Override
+      void build()
+      {
+        ++builds[0];
+      }
+    };
+    final List<Boolean> events = new ArrayList<>();
+    controller.addNavigationStateListener(events::add);
+    final RoutingController.Container container = mock(RoutingController.Container.class);
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      setState(controller, "NAVIGATION");
+      controller.attach(container);
+      controller.onNavigationStartFailed();
+      controller.onNavigationStartFailed();
+    }
+    assertTrue(controller.isPlanning());
+    assertFalse(controller.isNavigating());
+    assertEquals(1, builds[0]);
+    assertEquals(List.of(true, false), events);
+    verify(container).onResetToPlanningState();
+    verify(container).onNavigationStartFailed();
+  }
+
+  @Test
+  public void refusedStartWithoutAHostCanRestorePlanningLater() throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController() {
+      @Override
+      void build()
+      {}
+    };
+    final RoutingController.Container container = mock(RoutingController.Container.class);
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      setState(controller, "NAVIGATION");
+      controller.onNavigationStartFailed();
+      controller.attach(container);
+      controller.restore();
+      controller.restore();
+    }
+    assertTrue(controller.isPlanning());
+    verify(container).onNavigationStartFailed();
+  }
+
+  @Test
+  public void cancellationDiscardsAStartFailureWaitingForAHost() throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController() {
+      @Override
+      void build()
+      {}
+    };
+    final RoutingController.Container container = mock(RoutingController.Container.class);
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      setState(controller, "NAVIGATION");
+      controller.onNavigationStartFailed();
+      setState(controller, "NONE");
+      controller.attach(container);
+      controller.restore();
+    }
+    verify(container, never()).onNavigationStartFailed();
+  }
+
+  @Test
+  public void refusedStartAfterCancellationDoesNotRestoreTheRoute()
+  {
+    final RoutingController controller = new RoutingController();
+    final RoutingController.Container container = mock(RoutingController.Container.class);
+    controller.attach(container);
+    controller.onNavigationStartFailed();
+    assertFalse(controller.isPlanning());
+    assertFalse(controller.isNavigating());
+    verifyNoInteractions(container);
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})

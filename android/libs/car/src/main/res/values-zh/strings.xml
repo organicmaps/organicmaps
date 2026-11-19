@@ -101,6 +101,8 @@
     <string name="by_date">按时间</string>
     <!-- Android -->
     <string name="by_name">按名称</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">无法启动导航。请重试。</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">正在下载</string>

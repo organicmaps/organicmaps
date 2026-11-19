@@ -284,6 +284,12 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @Override
+  public void onNavigationStartFailed()
+  {
+    CarToast.makeText(getCarContext(), R.string.navigation_start_error, CarToast.LENGTH_LONG).show();
+  }
+
+  @Override
   public void onBuiltRoute()
   {
     Framework.nativeDeactivateMapSelectionCircle(true);

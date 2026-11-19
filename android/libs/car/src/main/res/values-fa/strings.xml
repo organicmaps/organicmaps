@@ -101,6 +101,8 @@
     <string name="by_date">بر اساس تاریخ</string>
     <!-- Android -->
     <string name="by_name">بر اساس اسم</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">مسیریابی شروع نشد. لطفاً دوباره تلاش کنید.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">در حال دانلود</string>

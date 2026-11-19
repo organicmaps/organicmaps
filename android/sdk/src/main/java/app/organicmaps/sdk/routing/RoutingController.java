@@ -11,6 +11,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
@@ -81,6 +82,7 @@ public class RoutingController
     default void updateMenu() {}
     default void onNavigationCancelled() {}
     default void onNavigationStarted() {}
+    default void onNavigationStartFailed() {}
     default void onPlanningCancelled() {}
     default void onPlanningStarted() {}
     default void onAddedStop() {}
@@ -138,6 +140,7 @@ public class RoutingController
   private boolean mPendingOptionsRebuild;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
+  private boolean mPendingNavigationStartFailure;
   private int mLastResultCode;
   private String[] mLastMissingMaps;
   @Nullable
@@ -239,6 +242,8 @@ public class RoutingController
     Logger.d(TAG, "[S] State: " + mState + " -> " + newState + ", BuildState: " + mBuildState);
     final boolean wasNavigating = mState == State.NAVIGATION;
     mState = newState;
+    if (newState != State.PREPARE)
+      mPendingNavigationStartFailure = false;
     final boolean isNavigating = mState == State.NAVIGATION;
 
     if (isNavigating != wasNavigating)
@@ -356,6 +361,8 @@ public class RoutingController
     updateProgress();
     if (mContainer == container)
       processRoutingEvent();
+    if (mContainer == container)
+      notifyNavigationStartFailed();
   }
 
   /**
@@ -702,6 +709,24 @@ public class RoutingController
       return true;
     }
     return false;
+  }
+
+  /** Returns a refused navigation start to planning, preserving the itinerary for retry. */
+  public void onNavigationStartFailed()
+  {
+    if (!resetToPlanningStateIfNavigating())
+      return;
+    mPendingNavigationStartFailure = true;
+    notifyNavigationStartFailed();
+  }
+
+  private void notifyNavigationStartFailed()
+  {
+    if (!mPendingNavigationStartFailure || mHasContainerSavedState || mContainer == null)
+      return;
+    Assert.debug(isPlanning(), "A refused navigation start must return to planning");
+    mPendingNavigationStartFailure = false;
+    mContainer.onNavigationStartFailed();
   }
 
   // Each caller has already requested a route build; this only changes the navigation and planning UI.
