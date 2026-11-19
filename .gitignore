@@ -114,6 +114,7 @@ plans
 /Syria/keystore/
 /Syria/dist/
 /Syria/CONCEPT_NOTE.md
+/Syria/screenshots/
 
 # Third-party code is pinned by upstream Organic Maps (submodules and vendored files); local builds
 # and experiments there are never committed. Submodule noise is also hidden locally with

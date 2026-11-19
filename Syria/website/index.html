@@ -60,6 +60,11 @@
   .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-inline-end: 6px; vertical-align: middle; }
   ul { padding-inline-start: 22px; margin: 6px 0; }
   li { margin: 4px 0; }
+  .downloads { display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0; }
+  .dl { display: inline-flex; flex-direction: column; gap: 2px; padding: 12px 18px; border-radius: 12px; text-decoration: none;
+        background: var(--accent); color: #fff; font-weight: 700; min-width: 220px; }
+  .dl.alt { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+  .dl small { font-weight: 400; opacity: .9; }
   .note { border-inline-start: 4px solid var(--accent); padding: 6px 14px; background: var(--accent-soft); border-radius: 8px; }
   footer { text-align: center; color: var(--muted); font-size: .9rem; padding: 10px 0 40px; }
   bdi, .ltr { unicode-bidi: isolate; direction: ltr; }
@@ -171,12 +176,23 @@
 </header>
 
 <nav class="toc" aria-label="المحتويات">
+  <a href="#download">تنزيل التطبيق</a>
   <a href="#features">ميزات Organic Maps</a>
   <a href="#new">الجديد في نسخة سوريا</a>
   <a href="#data">لماذا نجمع البيانات</a>
   <a href="#about">عن المشروع</a>
   <a href="privacy.html">سياسة الخصوصية</a>
 </nav>
+
+<section id="download">
+  <h2>تنزيل التطبيق</h2>
+  <p>التطبيق لأجهزة أندرويد. اختر النسخة المناسبة لهاتفك:</p>
+  <div class="downloads">
+    <a class="dl" href="apps/SyriaOrganicMaps-google.apk" download>معظم هواتف أندرويد<small>Samsung وXiaomi وغيرها · <span class="ver" data-flavor="google"></span></small></a>
+    <a class="dl alt" href="apps/SyriaOrganicMaps-huawei.apk" download>هواتف Huawei<small>من دون خدمات Google · <span class="ver" data-flavor="huawei"></span></small></a>
+  </div>
+  <p class="note">بعد التنزيل افتح الملف، واسمح للمتصفح بتثبيت التطبيقات إذا طلب الهاتف ذلك. عند صدور نسخة جديدة يُعلمك التطبيق بنفسه، وتبقى خرائطك وتسجيلاتك كما هي.</p>
+</section>
 
 <section id="features">
   <h2>ميزات Organic Maps التي يتضمّنها التطبيق</h2>
@@ -241,5 +257,12 @@
 </footer>
 
 </div>
+<script>
+  // The version of each download, from the file the app's "new version" check reads too.
+  fetch('apps/version.json', {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(v => {
+    if (!v) return;
+    document.querySelectorAll('.ver').forEach(e => { const f = v[e.dataset.flavor]; if (f) e.textContent = f.versionName; });
+  }).catch(() => {});
+</script>
 </body>
 </html>
