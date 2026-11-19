@@ -4,6 +4,8 @@
 
 #include "routing/routing_options.hpp"
 
+#include "base/assert.hpp"
+
 #include <bit>
 
 static_assert(MWMRoutingAvoidanceToll == static_cast<NSUInteger>(routing::RoutingOptions::Toll));
@@ -21,6 +23,17 @@ static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routi
 @end
 
 @implementation MWMRoutingOptions
+
++ (MWMTransitModes)transitModes
+{
+  return static_cast<MWMTransitModes>(routing::LoadTransitModes());
+}
+
++ (void)setTransitModes:(MWMTransitModes)modes
+{
+  CHECK(modes != 0 && modes <= routing::transit::kAllModes, (static_cast<NSUInteger>(modes)));
+  routing::SaveTransitModes(static_cast<routing::transit::ModeMask>(modes));
+}
 
 + (MWMBicycleSurfacePreference)bicycleSurfacePreference
 {

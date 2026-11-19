@@ -54,12 +54,14 @@ public:
   }
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
+  bool IsRideAllowed(Segment const & segment) const;
 
   // Fills |out| with gate accesses (see GateAccess) within |radiusM| of |point| (mercator) matching
   // |isEnter|.
   void GetGatesNear(m2::PointD const & point, double radiusM, bool isEnter, GateAccessesT & out) const;
 
-  void Fill(transit::GraphData const & transitData, Endings const & gateEndings);
+  void Fill(transit::GraphData const & transitData, Endings const & gateEndings,
+            transit::ModeMask modes = transit::kAllModes);
 
   // Return nullptr if |segment| is not a gate/edge.
   GateInfo const * FindGate(Segment const & segment) const;
@@ -77,10 +79,7 @@ private:
                std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
 
-  // Adds transit edge to fake graph, returns corresponding transit segment. Also adds gate to
-  // temporary stopToBack, stopToFront maps used while TransitGraph::Fill.
-  Segment AddEdge(transit::Edge const & edge, std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-                  StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+  Segment AddEdge(transit::Edge const & edge, std::map<transit::StopId, LatLonWithAltitude> const & stopCoords);
 
   // Adds connections to fake graph.
   void AddConnections(StopToSegmentsMap const & connections, StopToSegmentsMap const & stopToBack,
@@ -96,9 +95,10 @@ private:
   std::map<Segment, transit::Edge> m_segmentToEdgeSubway;
   std::map<Segment, GateInfo> m_segmentToGateSubway;
   std::map<transit::LineId, double> m_transferPenaltiesSubway;
+  std::vector<bool> m_blockedRides;
 };
 
 void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
-                     TransitGraph::Endings & gateEndings);
+                     TransitGraph::Endings & gateEndings, bool avoidFerries = false);
 
 }  // namespace routing

@@ -29,20 +29,30 @@ final class RoutingOptionsSettingsInteractor {
   }
 
   private func set(_ option: RoutingOption, enabled: Bool) {
-    guard state != nil else { return }
+    guard let state else { return }
+    if case .transitMode(let mode) = option {
+      precondition(state.options.routerType == .publicTransport)
+      let selected = RoutingOptions.transitModes
+      let modes = enabled ? selected.union(mode) : selected.subtracting(mode)
+      if !modes.isEmpty {
+        RoutingOptions.transitModes = modes
+      }
+      present(state, animatingDifferences: false)
+      return
+    }
     // CarPlay can change avoidance options while this screen is open. Preserve those changes when saving.
     let options = routingOptionsProvider()
     // Navigation can start while the screen is open (e.g. from CarPlay): recheck it and refresh the switch.
-    let state = makeState(options: options)
-    if option != .routeOptimization || state.canChangeOptimization {
+    let updated = makeState(options: options)
+    if option != .routeOptimization || updated.canChangeOptimization {
       option.setEnabled(enabled, in: options)
       // Optimization persists in its setter; only avoidance options need saving.
       if option != .routeOptimization {
         options.save()
       }
     }
-    self.state = state
-    present(state, animatingDifferences: false)
+    self.state = updated
+    present(updated, animatingDifferences: false)
   }
 
   /// Optimizes the route once after leaving the screen, if the final selection turned optimization on.

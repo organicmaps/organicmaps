@@ -21,9 +21,10 @@ namespace routing
 class TransitGraphLoaderImpl : public TransitGraphLoader
 {
 public:
-  TransitGraphLoaderImpl(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator)
+  TransitGraphLoaderImpl(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator, transit::ModeMask modes)
     : m_dataSource(dataSource)
     , m_estimator(estimator)
+    , m_modes(modes)
   {}
 
   TransitGraph & GetTransitGraph(NumMwmId numMwmId, IndexGraph & indexGraph) override
@@ -59,9 +60,10 @@ private:
       transitData.DeserializeForRouting(*reader.GetPtr());
 
       TransitGraph::Endings gateEndings;
-      MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings);
+      MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings,
+                      !transit::HasMode(m_modes, transit::Mode::Ferry));
 
-      graph->Fill(transitData, gateEndings);
+      graph->Fill(transitData, gateEndings, m_modes);
 
       LOG(LINFO, (TRANSIT_FILE_TAG, "section for", mwmValue.GetCountryFileName(), "loaded in", timer.ElapsedSeconds(),
                   "seconds"));
@@ -79,14 +81,16 @@ private:
 
   MwmDataSource & m_dataSource;
   std::shared_ptr<EdgeEstimator> m_estimator;
+  transit::ModeMask const m_modes;
   std::unordered_map<NumMwmId, std::unique_ptr<TransitGraph>> m_graphs;
 };
 
 // static
 std::unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(MwmDataSource & dataSource,
-                                                               std::shared_ptr<EdgeEstimator> estimator)
+                                                               std::shared_ptr<EdgeEstimator> estimator,
+                                                               transit::ModeMask modes)
 {
-  return std::make_unique<TransitGraphLoaderImpl>(dataSource, estimator);
+  return std::make_unique<TransitGraphLoaderImpl>(dataSource, estimator, modes);
 }
 
 }  // namespace routing

@@ -27,7 +27,8 @@ class TransitWorldGraph final : public WorldGraph
 {
 public:
   TransitWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> indexLoader,
-                    std::unique_ptr<TransitGraphLoader> transitLoader, std::shared_ptr<EdgeEstimator> estimator);
+                    std::unique_ptr<TransitGraphLoader> transitLoader, std::shared_ptr<EdgeEstimator> estimator,
+                    RoutingOptions roadAvoids = {});
 
   // WorldGraph overrides:
   ~TransitWorldGraph() override = default;
@@ -64,6 +65,7 @@ public:
   double CalculateETAWithoutPenalty(Segment const & segment) override;
 
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
+  bool IsRoutingOptionsGood(Segment const & segment) override;
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_indexLoader->GetIndexGraph(numMwmId); }
 
@@ -91,6 +93,7 @@ private:
   std::unique_ptr<IndexGraphLoader> m_indexLoader;
   std::unique_ptr<TransitGraphLoader> m_transitLoader;
   std::shared_ptr<EdgeEstimator> m_estimator;
+  RoutingOptions const m_roadAvoids;
   WorldGraphMode m_mode = WorldGraphMode::NoLeaps;
 };
 }  // namespace routing
