@@ -2161,7 +2161,7 @@ void Framework::EnableDebugRectRendering(bool enabled)
 void Framework::StartTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
-  tracker.SetEnabled(true);
+  tracker.Start();
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
@@ -2183,13 +2183,14 @@ ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
   return GpsTracker::Instance().GetElevationInfo();
 }
 
-void Framework::StopTrackRecording()
+size_t Framework::StopTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
-  tracker.SetEnabled(false);
+  auto const pointCount = tracker.Stop();
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
+  return pointCount;
 }
 
 void Framework::DiscardTrackRecording()
@@ -2198,18 +2199,19 @@ void Framework::DiscardTrackRecording()
   GpsTracker::Instance().Clear();
 }
 
-void Framework::SaveTrackRecordingWithName(std::string const & name)
+bool Framework::SaveTrackRecordingWithName(std::string const & name)
 {
-  auto const trackId = GetBookmarkManager().SaveTrackRecording(name);
-  if (m_drapeEngine)
-    m_drapeEngine->ClearGpsTrackPoints();
+  auto const pointCount = StopTrackRecording();
+  auto & tracker = GpsTracker::Instance();
+  if (pointCount < 2)
+  {
+    tracker.Clear();
+    return false;
+  }
+  auto const trackId = GetBookmarkManager().SaveTrackRecording(name, pointCount);
+  tracker.Clear();
   ShowTrack(trackId);
-  GpsTracker::Instance().Clear();
-}
-
-bool Framework::IsTrackRecordingEmpty() const
-{
-  return GpsTracker::Instance().IsEmpty();
+  return true;
 }
 
 bool Framework::IsTrackRecordingEnabled() const

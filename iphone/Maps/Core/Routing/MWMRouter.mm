@@ -70,9 +70,6 @@ using namespace routing;
     return nil;
 
   auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-  // Uniform profiles can be fallback values when elevation data is unavailable.
-  if (altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
-    return nil;
 
   TrackStatistics trackStatistics;
   trackStatistics.m_ascent = altitudesInfo.GetTotalAscent();
@@ -80,7 +77,7 @@ using namespace routing;
   trackStatistics.m_maxElevation = altitudesInfo.m_maxAltitude;
   trackStatistics.m_minElevation = altitudesInfo.m_minAltitude;
 
-  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:trackStatistics];
+  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:trackStatistics hasElevationInfo:YES];
   ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
                                                                        elevationInfo:elevationInfo];
   return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];

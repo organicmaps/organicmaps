@@ -26,8 +26,16 @@ struct TrackStatistics
   /// Incrementally adds a GPS point (for live track recording).
   void AddGpsInfoPoint(location::GpsInfo const & point);
 
+  /// Show elevation once the recording has positive distance, complete heights and a nonzero height.
+  /// One accepted fix without height hides the chart and elevation totals for the rest of the recording.
+  bool HasGpsElevationProfile() const
+  {
+    return m_length > 0 && !m_hasMissingAltitude && (m_minElevation != 0 || m_maxElevation != 0);
+  }
+
 private:
   m2::PointD m_previousPoint;
   geometry::Altitude m_previousAltitude = geometry::kInvalidAltitude;
+  bool m_hasMissingAltitude = false;
   double m_previousTimestamp = -1;
 };

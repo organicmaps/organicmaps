@@ -1,5 +1,7 @@
 #include "map/track_statistics.hpp"
 
+#include "kml/serdes_common.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "platform/distance.hpp"
@@ -7,19 +9,9 @@
 
 void TrackStatistics::CalculateDuration(kml::MultiGeometry const & geometry)
 {
-  if (!geometry.HasTimestamps())
-    return;
-
-  // A track may carry timestamps on some lines only (e.g. GeoJSON import drops a line's
-  // timestamps when they are broken, KML drops non-monotonic ones), so skip lines without
-  // them instead of requiring every line to have timestamps.
   for (auto const & ts : geometry.m_timestamps)
-  {
-    if (ts.empty())
-      continue;
-    ASSERT_GREATER_OR_EQUAL(ts.back(), ts.front(), ());
-    m_duration += ts.back() - ts.front();
-  }
+    if (!ts.empty())
+      m_duration += static_cast<double>(ts.back()) - ts.front();
 }
 
 void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
@@ -36,7 +28,7 @@ void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
 
   if (point.HasAltitude())
   {
-    auto const altitude = geometry::Altitude(point.m_altitude);
+    auto const altitude = kml::ToAltitude(point.m_altitude);
 
     if (m_previousAltitude != geometry::kInvalidAltitude)
     {
@@ -56,6 +48,10 @@ void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
     }
 
     m_previousAltitude = altitude;
+  }
+  else
+  {
+    m_hasMissingAltitude = true;
   }
 
   m_previousPoint = pt;

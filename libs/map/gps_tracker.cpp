@@ -44,18 +44,21 @@ GpsTracker::GpsTracker() : m_enabled(GetSettingsIsEnabled()), m_track(GetFilePat
     m_track.Start();
 }
 
-void GpsTracker::SetEnabled(bool enabled)
+void GpsTracker::Start()
 {
-  if (enabled == m_enabled)
+  if (m_enabled)
     return;
 
-  SetSettingsIsEnabled(enabled);
-  m_enabled = enabled;
+  SetSettingsIsEnabled(true);
+  m_track.Start();
+  m_enabled = true;
+}
 
-  if (enabled)
-    m_track.Start();
-  else
-    m_track.Finalize();
+size_t GpsTracker::Stop()
+{
+  if (m_enabled.exchange(false))
+    SetSettingsIsEnabled(false);
+  return m_track.Finalize();
 }
 
 void GpsTracker::Clear()
@@ -66,11 +69,6 @@ void GpsTracker::Clear()
 bool GpsTracker::IsEnabled() const
 {
   return m_enabled;
-}
-
-bool GpsTracker::IsEmpty() const
-{
-  return m_track.IsEmpty();
 }
 
 TrackStatistics GpsTracker::GetTrackStatistics()

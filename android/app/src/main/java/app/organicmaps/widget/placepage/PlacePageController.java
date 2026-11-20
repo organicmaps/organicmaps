@@ -38,7 +38,6 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
-import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
@@ -728,8 +727,7 @@ public class PlacePageController
         else if (mapObject.isTrackRecording())
         {
           buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE);
-          if (!TrackRecorder.nativeIsTrackRecordingEmpty())
-            buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+          buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
         }
         else
         {

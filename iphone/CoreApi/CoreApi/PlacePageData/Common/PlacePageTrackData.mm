@@ -62,7 +62,8 @@
     std::string const description = track.GetDescription();
     _trackDescription = [NSString stringWithCString:description.c_str() encoding:NSUTF8StringEncoding];
     _isHtmlDescription = strings::IsHTML(description);
-    _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track.GetStatistics()];
+    auto const [statistics, elevationInfo] = track.GetStatisticsAndElevationInfo();
+    _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:statistics hasElevationInfo:elevationInfo != nullptr];
     _activePointDistance = bm.GetElevationActivePoint(_trackId);
     _myPositionDistance = bm.GetElevationMyPosition(_trackId);
     _onActivePointChangedHandler = onActivePointChangedHandler;
@@ -90,7 +91,6 @@
     }
     _trackSelectionCandidates = trackSelectionCandidates;
 
-    auto const * elevationInfo = track.GetElevationInfo();
     if (elevationInfo)
       _elevationProfileData = [[ElevationProfileData alloc] initWithTrackId:_trackId elevationInfo:*elevationInfo];
   }

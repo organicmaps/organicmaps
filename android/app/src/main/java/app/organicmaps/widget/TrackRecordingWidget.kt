@@ -75,7 +75,13 @@ class TrackRecordingWidget : AppWidgetProvider() {
             if (TrackRecordingService.isRecording().value == true) {
                 val stats = TrackRecordingService.getStatistics().value
                 val now = SystemClock.elapsedRealtime()
-                val delayMs = TrackRecordingWidgetContent.formatDelayMs(lastContent, stats?.duration ?: 0.0, now)
+                val delayMs =
+                    TrackRecordingWidgetContent.formatDelayMs(
+                        lastContent,
+                        stats?.duration ?: 0.0,
+                        stats?.hasElevationInfo() == true,
+                        now,
+                    )
                 if (!force && delayMs > 0) {
                     scheduleUpdate(context, delayMs)
                     return
@@ -121,15 +127,20 @@ class TrackRecordingWidget : AppWidgetProvider() {
             stats: TrackStatistics?,
             elapsedRealtimeMs: Long,
         ): TrackRecordingWidgetContent {
-            // Whole meters, as on the place page.
+            val distance = StringUtils.nativeFormatDistance(stats?.length ?: 0.0).toString(context)
             val texts =
-                TrackRecordingWidgetContent.Texts(
-                    distance = StringUtils.nativeFormatDistance(stats?.length ?: 0.0).toString(context),
-                    ascent = formatAltitude((stats?.ascent ?: 0.0).toInt()),
-                    descent = formatAltitude((stats?.descent ?: 0.0).toInt()),
-                    maxElevation = formatAltitude(stats?.maxElevation ?: 0),
-                    minElevation = formatAltitude(stats?.minElevation ?: 0),
-                )
+                if (stats != null && stats.hasElevationInfo()) {
+                    // Whole meters, as on the place page.
+                    TrackRecordingWidgetContent.Texts(
+                        distance = distance,
+                        ascent = formatAltitude(stats.ascent.toInt()),
+                        descent = formatAltitude(stats.descent.toInt()),
+                        maxElevation = formatAltitude(stats.maxElevation),
+                        minElevation = formatAltitude(stats.minElevation),
+                    )
+                } else {
+                    IDLE_TEXTS.copy(distance = distance, showElevation = false)
+                }
             return TrackRecordingWidgetContent.create(
                 texts,
                 stats?.duration ?: 0.0,
@@ -186,6 +197,10 @@ class TrackRecordingWidget : AppWidgetProvider() {
 
         private fun setTexts(views: RemoteViews, texts: TrackRecordingWidgetContent.Texts) {
             views.setTextViewText(R.id.distance, texts.distance)
+            views.setViewVisibility(R.id.stats, if (texts.showElevation) View.VISIBLE else View.GONE)
+            if (!texts.showElevation) {
+                return
+            }
             views.setTextViewText(R.id.ascent, texts.ascent)
             views.setTextViewText(R.id.descent, texts.descent)
             views.setTextViewText(R.id.max_elevation, texts.maxElevation)

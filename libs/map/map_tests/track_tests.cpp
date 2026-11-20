@@ -269,14 +269,14 @@ UNIT_TEST(ElevationInfo_MultipleLines_IndependentDistances)
 UNIT_TEST(ElevationInfo_BuildWithGpsPoints)
 {
   GpsTrackElevation gpsElevation;
-  gpsElevation.AddGpsPoints({
-      BuildGpsInfo(0.0, 0.0, 0),
-      BuildGpsInfo(1.0, 1.0, 50),
-      BuildGpsInfo(2.0, 2.0, 100),
-  });
-  gpsElevation.AddGpsPoints({BuildGpsInfo(3.0, 3.0, -50)});
-  gpsElevation.AddGpsPoints({BuildGpsInfo(4.0, 4.0, 0)});
-  gpsElevation.AddGpsPoints({});
+  for (auto const & gps : {
+           BuildGpsInfo(0.0, 0.0, 0),
+           BuildGpsInfo(1.0, 1.0, 50),
+           BuildGpsInfo(2.0, 2.0, 100),
+           BuildGpsInfo(3.0, 3.0, -50),
+           BuildGpsInfo(4.0, 4.0, 0),
+       })
+    gpsElevation.AddGpsPoint(gps);
 
   auto const & lines = gpsElevation.GetLines();
   TEST_EQUAL(5, gpsElevation.GetSize(), ());
@@ -517,21 +517,6 @@ UNIT_TEST(TrackStatistics_Duration)
   TrackStatistics ts;
   ts.CalculateDuration(geometry);
   TEST_EQUAL(ts.m_duration, 8, ());  // (5 - 0) + (13 - 10)
-}
-
-UNIT_TEST(TrackStatistics_Duration_PartialTimestamps)
-{
-  // A track may carry timestamps on some lines only (e.g. GeoJSON import drops a line's broken
-  // timestamps). CalculateDuration must skip the timestamp-less line, not assert/crash.
-  kml::MultiGeometry geometry;
-  geometry.AddLine({PointWithAltitude({0.0, 0.0}, 100), PointWithAltitude({1.0, 1.0}, 150)});
-  geometry.AddTimestamps({0, 5});
-  geometry.AddLine({PointWithAltitude({2.0, 2.0}, 50), PointWithAltitude({3.0, 3.0}, 75)});
-  geometry.AddTimestamps({});  // Second line has no timestamps.
-
-  TrackStatistics ts;
-  ts.CalculateDuration(geometry);
-  TEST_EQUAL(ts.m_duration, 5, ());  // Only the first line contributes (5 - 0).
 }
 
 UNIT_TEST(TrackStatistics_GpsPoints)

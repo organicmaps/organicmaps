@@ -1167,10 +1167,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
             return;
           switch (state)
           {
-          case TrackRecordingStateInactive:
-            [self stopObservingTrackRecordingUpdates];
-            [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateClosed];
-            break;
+          case TrackRecordingStateInactive: [self stopObservingTrackRecordingUpdates]; break;
           case TrackRecordingStateActive:
             if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
               return;
@@ -1184,8 +1181,10 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)stopObservingTrackRecordingUpdates
 {
   [self.trackRecordingManager removeObserver:self];
-  if (self.trackRecordingManager.isActive)
-    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateVisible];
+  // Saving can open the completed track while the recording place page still owns the button.
+  [self.controlsManager setTrackRecordingButtonState:self.trackRecordingManager.isActive
+                                                         ? TrackRecordingButtonStateVisible
+                                                         : TrackRecordingButtonStateClosed];
 }
 
 // MARK: - Handle macOS trackpad gestures

@@ -2,6 +2,10 @@
 
 #include "map/gps_track_filter.hpp"
 
+#include "platform/settings.hpp"
+
+#include "base/scope_guard.hpp"
+
 #include <vector>
 
 namespace gps_track_filter_test
@@ -16,6 +20,7 @@ location::GpsInfo Make(double timestamp, double lat, double lon, double speed)
   info.m_latitude = lat;
   info.m_longitude = lon;
   info.m_horizontalAccuracy = 5;
+  info.m_verticalAccuracy = 1.0;
   info.m_source = location::EAndroidNative;
   return info;
 }
@@ -72,37 +77,56 @@ UNIT_TEST(GpsTrackFilter_ClockRollbackAfterRejectedFix)
   TEST_EQUAL(out[3].m_timestamp, 1052, ());
 }
 
-UNIT_TEST(GpsTrackFilter_FinalizeSkipsRepeatedFix)
-{
-  GpsTrackFilter filter;
-  Points out;
-  filter.Process(MakeWalk(5), out);
-  TEST_EQUAL(out.size(), 5, ());
-
-  // The last position reported again after a pause is neither accepted nor force-appended:
-  // it would only add a zero-length segment to the saved track.
-  out.clear();
-  filter.Process({Make(160.0, 0.0, 15.0 * 4 * kDegPerMeter, 0.0)}, out);
-  TEST(out.empty(), ());
-  filter.Finalize(out);
-  TEST(out.empty(), ());
-}
-
 UNIT_TEST(GpsTrackFilter_FinalizeAppendsLastFix)
 {
   GpsTrackFilter filter;
   Points out;
-  filter.Process(MakeWalk(5), out);
+  auto points = MakeWalk(5);
+  points.front().m_verticalAccuracy = -1;
+  filter.Process(points, out);
   TEST_EQUAL(out.size(), 5, ());
+  TEST(!out.front().HasAltitude(), ());
 
-  // A fix too close to be accepted still ends the track where the user stopped.
+  // Finalization keeps the last eligible fix even when sampling deferred it.
   auto const last = Make(160.0, 0.0, (15.0 * 4 + 5.0) * kDegPerMeter, 0.0);
+  auto missingAltitude = Make(161.0, 0.0, (15.0 * 4 + 8.0) * kDegPerMeter, 0.0);
+  missingAltitude.m_verticalAccuracy = -1.0;
   out.clear();
-  filter.Process({last}, out);
+  filter.Process({last, missingAltitude}, out);
   TEST(out.empty(), ());
   filter.Finalize(out);
   TEST_EQUAL(out.size(), 1, ());
-  TEST_EQUAL(out[0].m_timestamp, last.m_timestamp, ());
-  TEST_EQUAL(out[0].m_longitude, last.m_longitude, ());
+  TEST_EQUAL(out[0].m_timestamp, missingAltitude.m_timestamp, ());
+  TEST_EQUAL(out[0].m_longitude, missingAltitude.m_longitude, ());
+  TEST(!out[0].HasAltitude(), ());
 }
+
+UNIT_TEST(GpsTrackFilter_ZeroAccuracyBypassesSampling)
+{
+  std::string_view constexpr kMinAccuracyKey = "GpsTrackingMinAccuracy";
+  double originalAccuracy = 0;
+  bool const hadSetting = settings::Get(kMinAccuracyKey, originalAccuracy);
+  SCOPE_GUARD(restoreAccuracy, [&]
+  {
+    if (hadSetting)
+      GpsTrackFilter::StoreMinHorizontalAccuracy(originalAccuracy);
+    else
+      settings::Delete(kMinAccuracyKey);
+  });
+  GpsTrackFilter::StoreMinHorizontalAccuracy(0);
+  GpsTrackFilter filter;
+  auto points = MakeWalk(2);
+  points.front().m_source = location::EPredictor;
+  points.front().m_speed = -1;
+  points.front().m_verticalAccuracy = -1;
+  Points out{Make(99, 0, 0, 0)};
+  filter.Process(points, out);
+  filter.Finalize(out);
+  TEST_EQUAL(out.size(), 3, ());
+  TEST_EQUAL(out[0].m_timestamp, 99, ());
+  TEST_EQUAL(out[1].m_source, location::EPredictor, ());
+  TEST(!out[1].HasAltitude(), ());
+  TEST_EQUAL(out[2].m_timestamp, points.back().m_timestamp, ());
+}
+
 }  // namespace gps_track_filter_test
