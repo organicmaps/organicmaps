@@ -1352,7 +1352,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       // prohibition does not establish that the road excludes all motor traffic.
       auto const motorcar = p->GetTag("motorcar");
       bool motorVehiclesForbidden = false;
-      if ((motorcar.empty() || IsNegativeTagValue(motorcar)) && !p->HasTag("motorcar:conditional") &&
+      if ((bicycleDesignated || bicycleStreet) && (motorcar.empty() || IsNegativeTagValue(motorcar)) &&
+          !p->HasTag("motorcar:conditional") &&
           !p->HasTag("motor_vehicle:conditional") && !p->HasTag("vehicle:conditional") &&
           !p->HasTag("access:conditional"))
       {
@@ -1365,8 +1366,24 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           break;
         }
       }
-      if (motorVehiclesForbidden && (bicycleDesignated || bicycleStreet))
+      if (motorVehiclesForbidden)
         cyclewayType = CachedTypes::CyclewayTrack;
+
+      // The one-way marker follows stored geometry. A dedicated bikeway without
+      // independent direction or motor access can safely store the bicycle direction.
+      if (p->GetTag("oneway:bicycle") == "-1" && p->GetTag("highway") == "cycleway" &&
+          (!addOneway || noOneway))
+      {
+        auto const hasAccessException = [&](char const * key)
+        {
+          auto const value = p->GetTag(key);
+          return !value.empty() && !IsNegativeTagValue(value);
+        };
+        if (!hasAccessException("motorcar") && !hasAccessException("motor_vehicle") && !hasAccessException("vehicle") &&
+            !p->HasTag("motorcar:conditional") && !p->HasTag("motor_vehicle:conditional") &&
+            !p->HasTag("vehicle:conditional") && !p->HasTag("access:conditional"))
+          params.SetReversedGeometry(true);
+      }
 
       if (cyclewayType != CachedTypes::Count && !IsBicycleDesignatedHighway(vType))
         AddParam(cyclewayType);
