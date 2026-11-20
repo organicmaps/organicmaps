@@ -65,4 +65,34 @@ UNIT_TEST(GpsTrackFilter_FinalizeAppendsLastFix)
   TEST_EQUAL(out[0].m_timestamp, last.m_timestamp, ());
   TEST_EQUAL(out[0].m_longitude, last.m_longitude, ());
 }
+
+UNIT_TEST(GpsTrackFilter_InaccurateFixKeepsNextFixes)
+{
+  Points const walk = MakeWalk(6);
+  // A coarse fix, e.g. from Wi-Fi after GPS is lost indoors, between accurate ones.
+  auto coarse = Make(102.5, 0.0, 10000.0 * kDegPerMeter, 15.0);
+  coarse.m_horizontalAccuracy = 1000;
+  GpsTrackFilter filter;
+  Points out;
+  filter.Process({walk[0], walk[1], walk[2], coarse, walk[3], walk[4], walk[5]}, out);
+  TEST_EQUAL(out.size(), 6, ());
+  TEST_EQUAL(out[3].m_timestamp, walk[3].m_timestamp, ());
+}
+
+UNIT_TEST(GpsTrackFilter_FinalizeSkipsInaccurateFix)
+{
+  GpsTrackFilter filter;
+  Points out;
+  filter.Process(MakeWalk(3), out);
+  TEST_EQUAL(out.size(), 3, ());
+
+  // A coarse fix, e.g. from Wi-Fi after GPS is lost indoors, is not force-appended either.
+  auto coarse = Make(103.0, 0.0, 10000.0 * kDegPerMeter, 15.0);
+  coarse.m_horizontalAccuracy = 1000;
+  out.clear();
+  filter.Process({coarse}, out);
+  TEST(out.empty(), ());
+  filter.Finalize(out);
+  TEST(out.empty(), ());
+}
 }  // namespace gps_track_filter_test
