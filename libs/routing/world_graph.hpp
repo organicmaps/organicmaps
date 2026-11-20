@@ -113,7 +113,8 @@ public:
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
   virtual CrossMwmGraph & GetCrossMwmGraph();
   using TwinSegmentsListT = SmallList<Segment>;
-  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins) = 0;
+  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                             TwinSegmentsListT & twins) = 0;
 
   virtual RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
 

@@ -11,9 +11,9 @@ namespace routing
 {
 namespace transit
 {
-std::optional<TransitType> GetTransitType(std::string_view type)
+std::optional<TransitType> TryGetTransitType(std::string_view type)
 {
-  if (type.empty() || type == "subway")
+  if (type == "subway")
     return TransitType::Subway;
   if (type == "train" || type == "rail")
     return TransitType::Train;
@@ -42,6 +42,13 @@ std::optional<TransitType> GetTransitType(std::string_view type)
   return {};
 }
 
+TransitType GetTransitType(std::string_view type)
+{
+  auto const parsed = TryGetTransitType(type);
+  CHECK(parsed, ("Unknown transit line type", type));
+  return *parsed;
+}
+
 Mode GetMode(TransitType type)
 {
   switch (type)
@@ -61,7 +68,7 @@ Mode GetMode(TransitType type)
   case Funicular: return Mode::Cable;
   case AirService: return Mode::Air;
   case IntermediatePoint:
-  case Pedestrian: return Mode::None;
+  case Pedestrian: break;
   }
   UNREACHABLE();
 }

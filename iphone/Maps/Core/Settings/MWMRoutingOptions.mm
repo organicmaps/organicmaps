@@ -4,8 +4,6 @@
 
 #include "routing/routing_options.hpp"
 
-#include "base/assert.hpp"
-
 #include <bit>
 
 static_assert(MWMRoutingAvoidanceToll == static_cast<NSUInteger>(routing::RoutingOptions::Toll));
@@ -14,6 +12,18 @@ static_assert(MWMRoutingAvoidanceFerry == static_cast<NSUInteger>(routing::Routi
 static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::RoutingOptions::Dirty));
 static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::RoutingOptions::Steps));
 static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routing::RoutingOptions::DifficultTrail));
+
+using routing::transit::Mode;
+static_assert(MWMTransitModesBus == static_cast<NSUInteger>(Mode::Bus));
+static_assert(MWMTransitModesTram == static_cast<NSUInteger>(Mode::Tram));
+static_assert(MWMTransitModesSubway == static_cast<NSUInteger>(Mode::Subway));
+static_assert(MWMTransitModesRail == static_cast<NSUInteger>(Mode::Rail));
+static_assert(MWMTransitModesFerry == static_cast<NSUInteger>(Mode::Ferry));
+static_assert(MWMTransitModesTrolleybus == static_cast<NSUInteger>(Mode::Trolleybus));
+static_assert(MWMTransitModesMonorail == static_cast<NSUInteger>(Mode::Monorail));
+static_assert(MWMTransitModesCable == static_cast<NSUInteger>(Mode::Cable));
+static_assert(MWMTransitModesAir == static_cast<NSUInteger>(Mode::Air));
+static_assert(MWMTransitModesAll == routing::transit::kAllModes);
 
 @interface MWMRoutingOptions ()
 {
@@ -26,13 +36,12 @@ static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routi
 
 + (MWMTransitModes)transitModes
 {
-  return static_cast<MWMTransitModes>(routing::LoadTransitModes());
+  return static_cast<MWMTransitModes>(routing::RoutePlanningOptions::LoadTransitModes());
 }
 
 + (void)setTransitModes:(MWMTransitModes)modes
 {
-  CHECK(modes != 0 && modes <= routing::transit::kAllModes, (static_cast<NSUInteger>(modes)));
-  routing::SaveTransitModes(static_cast<routing::transit::ModeMask>(modes));
+  routing::RoutePlanningOptions::SaveTransitModes(static_cast<uint64_t>(modes));
 }
 
 + (MWMBicycleSurfacePreference)bicycleSurfacePreference

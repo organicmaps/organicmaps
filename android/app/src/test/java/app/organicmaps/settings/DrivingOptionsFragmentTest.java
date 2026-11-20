@@ -14,9 +14,11 @@ import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
+import app.organicmaps.sdk.routing.RoutingOptions.TransitMode;
 import app.organicmaps.sdk.settings.RoadType;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
@@ -26,6 +28,9 @@ import org.mockito.MockedStatic;
 
 public class DrivingOptionsFragmentTest
 {
+  private static final int ALL_TRANSIT_MODES =
+      Arrays.stream(TransitMode.values()).mapToInt(mode -> mode.bit).reduce(0, (a, b) -> a | b);
+
   @Test
   public void onlyTheActiveModeChangesRebuildTheRoute() throws ReflectiveOperationException
   {
@@ -65,9 +70,10 @@ public class DrivingOptionsFragmentTest
   @Test
   public void transitModeChangesRebuildOnlyTransit() throws ReflectiveOperationException
   {
-    verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.Any, 1), never())
+    verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.Any, TransitMode.Bus.bit), never())
         .onRoutingOptionsChanged();
-    verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, 1)).onRoutingOptionsChanged();
+    verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, TransitMode.Bus.bit))
+        .onRoutingOptionsChanged();
   }
 
   private static Router initialRouter(Router requested) throws ReflectiveOperationException
@@ -93,7 +99,7 @@ public class DrivingOptionsFragmentTest
                                         Map<Router, Set<RoadType>> current, BicycleSurfacePreference surface)
       throws ReflectiveOperationException
   {
-    return stop(loaded, route, current, surface, 511);
+    return stop(loaded, route, current, surface, ALL_TRANSIT_MODES);
   }
 
   private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
@@ -104,7 +110,7 @@ public class DrivingOptionsFragmentTest
     doReturn(mock(FragmentActivity.class)).when(fragment).requireActivity();
     setField(fragment, "mRoadTypes", withAllModes(loaded));
     setField(fragment, "mBicycleSurfaceOnLoad", BicycleSurfacePreference.Any);
-    setField(fragment, "mTransitModesOnLoad", 511);
+    setField(fragment, "mTransitModesOnLoad", ALL_TRANSIT_MODES);
     RoutingController controller = mock(RoutingController.class);
     when(controller.getLastRouterType()).thenReturn(route);
 

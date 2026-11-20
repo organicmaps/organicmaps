@@ -72,9 +72,6 @@ enum class BicycleSurfacePreference : int64_t
   AvoidUnpaved = 3
 };
 
-transit::ModeMask LoadTransitModes();
-void SaveTransitModes(transit::ModeMask modes);
-
 struct RoutePlanningOptions
 {
   RoutingOptions m_avoid;
@@ -84,6 +81,9 @@ struct RoutePlanningOptions
   static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
   static BicycleSurfacePreference LoadBicycleSurfacePreference();
   static void SaveBicycleSurfacePreference(BicycleSurfacePreference preference);
+  static transit::ModeMask LoadTransitModes();
+  // Preserve all platform bits until validation.
+  static void SaveTransitModes(uint64_t modes);
   bool operator==(RoutePlanningOptions const &) const = default;
 };
 

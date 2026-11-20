@@ -29,11 +29,11 @@ namespace
 {
 struct Fixture
 {
-  Fixture()
+  explicit Fixture(std::string const & lastLineType = "water_service")
     : m_estimator(routing::EdgeEstimator::Create(routing::VehicleType::Pedestrian, 60, routing::SpeedKMpH(3), nullptr,
                                                  nullptr, nullptr))
   {
-    m_data.DeserializeFromJson(R"({
+    std::string json = R"({
       "stops": [
         {"id": 1, "osm_id": "1", "line_ids": [1], "point": {"x": 0, "y": 0}},
         {"id": 2, "osm_id": "2", "line_ids": [1], "point": {"x": 0.001, "y": 0}},
@@ -58,11 +58,13 @@ struct Fixture
         {"id": 2, "interval": 91, "network_id": 1, "number": "2", "stop_ids": [3, 4, 5],
          "type": "bus", "color": "green"},
         {"id": 3, "interval": 0, "network_id": 1, "number": "3", "stop_ids": [5, 6],
-         "type": "water_service", "color": "blue"}
+         "type": "LAST_LINE_TYPE", "color": "blue"}
       ],
       "networks": [{"id": 1, "title": "Transit test"}]
-    })",
-                               {});
+    })";
+    std::string_view constexpr typePlaceholder = "LAST_LINE_TYPE";
+    json.replace(json.find(typePlaceholder), typePlaceholder.size(), lastLineType);
+    m_data.DeserializeFromJson(json, {});
     routing::LatLonWithAltitude const roadPoint(mercator::ToLatLon({-0.00001, 0}));
     routing::FakeEnding ending;
     ending.m_originJunction = routing::LatLonWithAltitude(mercator::ToLatLon({0, 0}));
@@ -132,12 +134,10 @@ UNIT_TEST(TransitGraph_ModeFiltersKeepIdsAndRemoveConnectionsInBothDirections)
   TEST(all->GetFakeEdges(bus, true).contains(ferry), ());
   TEST(all->GetFakeEdges(bus, false).contains(subwayRide), ());
   TEST_EQUAL(all->FindEdge(bus)->GetLineId(), subway->FindEdge(bus)->GetLineId(), ());
-  TEST(!subway->IsRideAllowed(bus), ());
-  TEST(!subway->IsRideAllowed(ferry), ());
-  TEST(subway->IsRideAllowed(subwayRide), ());
   TEST(!subway->GetFakeEdges(subwayRide, true).contains(bus), ());
   TEST(subway->GetFakeEdges(bus, true).empty(), ());
   TEST(subway->GetFakeEdges(bus, false).empty(), ());
+  TEST(subway->GetFakeEdges(ferry, false).empty(), ());
   TEST(subway->GetFakeEdges(Gate(*subway, true), true).contains(fixture.Edge(1, 2)), ());
 
   auto const busAndFerry = fixture.MakeGraph(0, static_cast<ModeMask>(Mode::Bus) | static_cast<ModeMask>(Mode::Ferry));
@@ -149,13 +149,26 @@ UNIT_TEST(TransitGraph_ModeFiltersKeepIdsAndRemoveConnectionsInBothDirections)
 UNIT_TEST(TransitGraph_NormalizesModeGroups)
 {
   using namespace routing::transit;
-  TEST(GetTransitType("") == TransitType::Subway, ());
   TEST(GetTransitType("rail") == TransitType::Train, ());
-  TEST(GetMode(*GetTransitType("light_rail")) == Mode::Rail, ());
-  TEST(GetMode(*GetTransitType("water_service")) == Mode::Ferry, ());
-  TEST(GetMode(*GetTransitType("aerial_lift")) == Mode::Cable, ());
-  TEST(GetMode(*GetTransitType("air_service")) == Mode::Air, ());
-  TEST(!GetTransitType("unknown transit service"), ());
+  TEST(GetMode(GetTransitType("light_rail")) == Mode::Rail, ());
+  TEST(GetMode(GetTransitType("water_service")) == Mode::Ferry, ());
+  TEST(GetMode(GetTransitType("aerial_lift")) == Mode::Cable, ());
+  TEST(GetMode(GetTransitType("air_service")) == Mode::Air, ());
+}
+
+UNIT_TEST(TransitGraph_UnknownTypesRequireUnfilteredModes)
+{
+  using namespace routing::transit;
+  for (auto const * type : {"", "unknown transit service"})
+  {
+    Fixture fixture(type);
+    auto const bus = fixture.Edge(3, 5);
+    auto const unknown = fixture.Edge(5, 6);
+    TEST(fixture.MakeGraph()->GetFakeEdges(bus, true).contains(unknown), (type));
+    auto const busOnly = fixture.MakeGraph(0, static_cast<ModeMask>(Mode::Bus));
+    TEST(!busOnly->GetFakeEdges(bus, true).contains(unknown), (type));
+    TEST(busOnly->GetFakeEdges(unknown, false).empty(), (type));
+  }
 }
 
 UNIT_TEST(TransitGraph_GateMetadataPreservesTraversal)

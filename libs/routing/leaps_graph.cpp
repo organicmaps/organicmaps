@@ -63,7 +63,7 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing, EdgeList
     auto const segMwmId = segment.GetMwmId();
 
     WorldGraph::TwinSegmentsListT twins;
-    m_starter.GetGraph().GetTwinsInner(segment, isOutgoing, twins);
+    m_starter.GetGraph().GetTwinsInner(segment, isOutgoing, true /* useRoutingOptions */, twins);
     for (auto const & twin : twins)
       edges.emplace_back(twin, m_hierarchyHandler.GetCrossBorderPenalty(segMwmId, twin.GetMwmId()));
 

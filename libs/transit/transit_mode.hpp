@@ -27,13 +27,13 @@ enum class TransitType : uint32_t
   WaterService
 };
 
-std::optional<TransitType> GetTransitType(std::string_view type);
+std::optional<TransitType> TryGetTransitType(std::string_view type);
+TransitType GetTransitType(std::string_view type);
 std::string DebugPrint(TransitType type);
 
 using ModeMask = uint16_t;
 enum class Mode : ModeMask
 {
-  None = 0,
   Bus = 1u << 0,
   Tram = 1u << 1,
   Subway = 1u << 2,
@@ -45,7 +45,7 @@ enum class Mode : ModeMask
   Air = 1u << 8
 };
 
-ModeMask constexpr kAllModes = (1u << 9) - 1;
+ModeMask constexpr kAllModes = (static_cast<ModeMask>(Mode::Air) << 1) - 1;
 
 Mode GetMode(TransitType type);
 constexpr bool HasMode(ModeMask modes, Mode mode)

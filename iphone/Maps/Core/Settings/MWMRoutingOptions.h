@@ -29,7 +29,10 @@ typedef NS_OPTIONS(NSUInteger, MWMTransitModes) {
   MWMTransitModesTrolleybus = 1u << 5,
   MWMTransitModesMonorail = 1u << 6,
   MWMTransitModesCable = 1u << 7,
-  MWMTransitModesAir = 1u << 8
+  MWMTransitModesAir = 1u << 8,
+  MWMTransitModesAll = MWMTransitModesBus | MWMTransitModesTram | MWMTransitModesSubway | MWMTransitModesRail |
+      MWMTransitModesFerry | MWMTransitModesTrolleybus | MWMTransitModesMonorail | MWMTransitModesCable |
+      MWMTransitModesAir
 } NS_SWIFT_NAME(TransitModes);
 
 NS_SWIFT_NAME(RoutingOptions)

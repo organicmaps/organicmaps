@@ -433,7 +433,8 @@ UNIT_TEST(TurnPenalty_UnequalBorderTwinPartOfSegment)
     double CalculateETA(Segment const &, Segment const &, time_t) override { UNREACHABLE(); }
     double CalculateETAWithoutPenalty(Segment const &) override { UNREACHABLE(); }
     IndexGraph & GetIndexGraph(NumMwmId id) override { return m_inner.GetIndexGraph(id); }
-    void GetTwinsInner(Segment const & s, bool outgoing, TwinSegmentsListT & twins) override
+    void GetTwinsInner(Segment const & s, bool outgoing, bool /* useRoutingOptions */,
+                       TwinSegmentsListT & twins) override
     {
       if (!outgoing && s == Segment(kTestNumMwmId, 0, 0, true /* forward */))
         twins.emplace_back(kTestNumMwmId + 1, 0, 0, true /* forward */);

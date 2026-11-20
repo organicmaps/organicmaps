@@ -16,9 +16,11 @@ final class RoutingOptionsSettingsInteractor {
 
   private func makeState(options: RoutingOptions) -> RoutingOptionsSettingsState {
     let bicycleSurface = options.routerType == .bicycle ? RoutingOptions.bicycleSurfacePreference : .any
+    let transitModes = options.routerType == .publicTransport ? RoutingOptions.transitModes : .all
     return RoutingOptionsSettingsState(options: options,
                                        canChangeOptimization: canChangeOptimization,
-                                       bicycleSurface: bicycleSurface)
+                                       bicycleSurface: bicycleSurface,
+                                       transitModes: transitModes)
   }
 
   func loadSettings() {
@@ -32,12 +34,14 @@ final class RoutingOptionsSettingsInteractor {
     guard let state else { return }
     if case .transitMode(let mode) = option {
       precondition(state.options.routerType == .publicTransport)
-      let selected = RoutingOptions.transitModes
+      let selected = state.transitModes
       let modes = enabled ? selected.union(mode) : selected.subtracting(mode)
       if !modes.isEmpty {
         RoutingOptions.transitModes = modes
       }
-      present(state, animatingDifferences: false)
+      let updated = makeState(options: state.options)
+      self.state = updated
+      present(updated, animatingDifferences: false)
       return
     }
     // CarPlay can change avoidance options while this screen is open. Preserve those changes when saving.

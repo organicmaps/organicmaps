@@ -433,13 +433,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetBicycleS
 
 JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetTransitModes(JNIEnv *, jclass)
 {
-  return routing::LoadTransitModes();
+  return routing::RoutePlanningOptions::LoadTransitModes();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetTransitModes(JNIEnv *, jclass, jint modes)
 {
-  CHECK(modes > 0 && modes <= routing::transit::kAllModes, (modes));
-  routing::SaveTransitModes(static_cast<routing::transit::ModeMask>(modes));
+  routing::RoutePlanningOptions::SaveTransitModes(static_cast<uint64_t>(modes));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)
