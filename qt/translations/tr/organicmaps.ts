@@ -36,6 +36,11 @@
 <source>Search</source>
 <translation>Ara</translation>
 </message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>Şu anda bu aygıt veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</translation>
+</message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
 <source>Show on the map</source>
@@ -292,6 +297,16 @@
 <source>Help</source>
 <translation>Yardım</translation>
 </message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>Pusulayı kalibre etmek için telefonu sekiz biçiminde oynatarak ok yönünü iyileştirin.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz biçiminde oynatın.</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
@@ -485,6 +500,10 @@
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>Metro</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>Harita Stilleri ve Katmanlar</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -683,6 +702,14 @@
 <source>3D Terrain</source>
 <translation>3B Arazi</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>İzohipsleri görmek için bu bölgeyi güncelleyin</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>İzohipsleri görmek için haritayı büyütün</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
@@ -788,6 +815,11 @@
 <extracomment>Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed</extracomment>
 <source>ft</source>
 <translation>fit</translation>
+</message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>Rotaları görüntülemek için haritalar güncellenmelidir.</translation>
 </message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
