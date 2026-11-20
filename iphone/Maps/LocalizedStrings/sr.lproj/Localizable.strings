@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Молим Вас да подесите успутну тачку.";
 "dialog_routing_system_error" = "Системска грешка";
 "dialog_routing_application_error" = "Не могу да направим руту због грешке у апликацији.";
-"dialog_routing_try_again" = "Молим Вас, покушајте поново";
 "dialog_routing_download_and_build_cross_route" = "Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?";
 "dialog_routing_download_cross_route" = "Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.";
 "dialog_routing_download_files" = "Преузимање потребних фајлова";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Избегавај степенице";
 "avoid_motorways" = "Избегавај аутопутеве";
-"unable_to_calc_alert_title" = "Није могуће израчунати руту";
-"unable_to_calc_alert_subtitle" = "Рута није пронађена. Узрок могу бити опције рутирања или непотпуни OpenStreetMap подаци. Молим Вас да промените ваше опције рутирања и покушате поново.";
 "toll_road" = "Путеви са путаринама";
 "unpaved_road" = "Неасфалтирани путеви";
 "ferry_crossing" = "Линије трајекта";

@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Змяніце прамежкавы пункт.";
 "dialog_routing_system_error" = "Памылка сістэмы";
 "dialog_routing_application_error" = "Не ўдалося пракласці маршрут з-за памылкі праграмы.";
-"dialog_routing_try_again" = "Паспрабуйце зноў";
 "dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?";
 "dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.";
 "dialog_routing_download_files" = "Спампуйце неабходныя файлы";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Пазбягаць лесвіц";
 "avoid_motorways" = "Пазбягаць аўтамагістраляў";
-"unable_to_calc_alert_title" = "Немагчыма пракласці маршрут";
-"unable_to_calc_alert_subtitle" = "Не ўдалося пракласці маршрут. Магчыма гэта звязана з наладамі пракладвання маршрутаў або няпоўнымі данымі OpenStreetMap. Змяніце налады і паспрабуйце зноў.";
 "toll_road" = "Платная дарога";
 "unpaved_road" = "Грунтавая дарога";
 "ferry_crossing" = "Паромная пераправа";

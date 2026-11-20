@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "중간 지점을 조정하세요.";
 "dialog_routing_system_error" = "시스템 오류";
 "dialog_routing_application_error" = "애플리케이션 오류로 인해 경로를 설정하지 못했습니다.";
-"dialog_routing_try_again" = "다시 시도해주세요.";
 "dialog_routing_download_and_build_cross_route" = "지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?";
 "dialog_routing_download_cross_route" = "이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.";
 "dialog_routing_download_files" = "필수 파일 다운로드";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "계단 피하기";
 "avoid_motorways" = "고속도로 피하기";
-"unable_to_calc_alert_title" = "루트를 계산할 수 없습니다";
-"unable_to_calc_alert_subtitle" = "아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요";
 "toll_road" = "유료 도로";
 "unpaved_road" = "비포장 도로";
 "ferry_crossing" = "여객선 횡단길";

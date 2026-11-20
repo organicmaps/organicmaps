@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Моля, коригирайте междинната си точка на маршрута.";
 "dialog_routing_system_error" = "Грешка в системата";
 "dialog_routing_application_error" = "Не е възможно да се създаде маршрут поради грешка в приложението.";
-"dialog_routing_try_again" = "Моля, опитайте отново";
 "dialog_routing_download_and_build_cross_route" = "Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?";
 "dialog_routing_download_cross_route" = "За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.";
 "dialog_routing_download_files" = "Изтегляне на необходимите файлове";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Избягване на стълби";
 "avoid_motorways" = "Избягвайте магистралата";
-"unable_to_calc_alert_title" = "Не е възможнос изчисляване на маршрут";
-"unable_to_calc_alert_subtitle" = "За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.";
 "toll_road" = "Път с винетка";
 "unpaved_road" = "Път без настилка";
 "ferry_crossing" = "Преминаване с ферибот";

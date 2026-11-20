@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Vui lòng điều chỉnh điểm trung gian của bạn.";
 "dialog_routing_system_error" = "Lỗi hệ thống";
 "dialog_routing_application_error" = "Không thể tạo tuyến đường do lỗi ứng dụng.";
-"dialog_routing_try_again" = "Vui lòng thử lại";
 "dialog_routing_download_and_build_cross_route" = "Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?";
 "dialog_routing_download_cross_route" = "Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.";
 "dialog_routing_download_files" = "Tải xuống các tệp yêu cầu";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Tránh bậc thang";
 "avoid_motorways" = "Tránh xa lộ";
-"unable_to_calc_alert_title" = "Không thể tạo tuyến đường";
-"unable_to_calc_alert_subtitle" = "Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại";
 "toll_road" = "Đường trả phí";
 "unpaved_road" = "Đường đất";
 "ferry_crossing" = "Bến phà";

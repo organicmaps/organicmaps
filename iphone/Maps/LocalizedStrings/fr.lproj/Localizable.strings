@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Veuillez modifier votre point intermédiaire.";
 "dialog_routing_system_error" = "Erreur système";
 "dialog_routing_application_error" = "Impossible de créer l'itinéraire à cause d'une erreur dans l'application.";
-"dialog_routing_try_again" = "Veuillez réessayer";
 "dialog_routing_download_and_build_cross_route" = "Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte ?";
 "dialog_routing_download_cross_route" = "Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.";
 "dialog_routing_download_files" = "Téléchargez les fichiers requis";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Éviter les escaliers";
 "avoid_motorways" = "Éviter les autoroutes";
-"unable_to_calc_alert_title" = "Impossible de calculer l'itinéraire";
-"unable_to_calc_alert_subtitle" = "Un tracé n'a pu être établi. Cela peut être causé par les options choisies ou des données OpenStreetMap incomplètes. Merci de modifier vos options et de réessayer.";
 "toll_road" = "Route à péage";
 "unpaved_road" = "Routes non revêtues";
 "ferry_crossing" = "Traversées en ferry";

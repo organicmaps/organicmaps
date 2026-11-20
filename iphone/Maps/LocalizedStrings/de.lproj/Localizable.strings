@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Bitte passe deinen Zwischenstopp an.";
 "dialog_routing_system_error" = "Systemfehler";
 "dialog_routing_application_error" = "Route kann wegen eines Anwendungsfehlers nicht erstellt werden.";
-"dialog_routing_try_again" = "Bitte versuche es erneut";
 "dialog_routing_download_and_build_cross_route" = "Möchtest du die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?";
 "dialog_routing_download_cross_route" = "Lade zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.";
 "dialog_routing_download_files" = "Erforderliche Dateien herunterladen";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Treppen vermeiden";
 "avoid_motorways" = "Autobahnen vermeiden";
-"unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
-"unable_to_calc_alert_subtitle" = "Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.";
 "toll_road" = "Mautstraße";
 "unpaved_road" = "Unbefestigte Straße";
 "ferry_crossing" = "Fährstelle";

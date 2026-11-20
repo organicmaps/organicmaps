@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Tafadhali badilisha eneo lako la kati.";
 "dialog_routing_system_error" = "Hitilafu ya mfumo";
 "dialog_routing_application_error" = "Haiwezekani kuunda njia kutokana na hitilafu ya programu.";
-"dialog_routing_try_again" = "Tafadhali jaribu tena";
 "dialog_routing_download_and_build_cross_route" = "Je, ungependa kupakua ramani na kuunda njia bora zaidi inayojumuisha ramani zaidi ya moja?";
 "dialog_routing_download_cross_route" = "Pakua ramani za ziada ili kuunda njia bora inayovuka mipaka ya ramani hii.";
 "dialog_routing_download_files" = "Pakua faili zinazohitajika";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Epuka ngazi";
 "avoid_motorways" = "Epuka barabara";
-"unable_to_calc_alert_title" = "Haiwezi kukokotoa njia";
-"unable_to_calc_alert_subtitle" = "Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena";
 "toll_road" = "Barabara ya kulipia";
 "unpaved_road" = "Barabara ya vumbi";
 "ferry_crossing" = "Kivuko cha feri";

@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Schimbă punctul intermediar.";
 "dialog_routing_system_error" = "Eroare de sistem";
 "dialog_routing_application_error" = "Crearea traseului a eșuat din cauza unei erori a aplicației.";
-"dialog_routing_try_again" = "Încearcă din nou";
 "dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?";
 "dialog_routing_download_cross_route" = "Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.";
 "dialog_routing_download_files" = "Descarcă fișierele necesare";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Evită scările";
 "avoid_motorways" = "Evitați autostrăzile";
-"unable_to_calc_alert_title" = "Nu poate fi creat un traseu";
-"unable_to_calc_alert_subtitle" = "Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.";
 "toll_road" = "Drum cu plată";
 "unpaved_road" = "Drum neasfaltat";
 "ferry_crossing" = "Trecere cu bac";

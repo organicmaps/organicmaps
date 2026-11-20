@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
 "dialog_routing_system_error" = "System error";
 "dialog_routing_application_error" = "Unable to create route due to an application error.";
-"dialog_routing_try_again" = "Please try again";
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
 "dialog_routing_download_files" = "Download required files";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Avoid stairs";
 "avoid_motorways" = "Avoid freeways";
-"unable_to_calc_alert_title" = "Unable to calculate route";
-"unable_to_calc_alert_subtitle" = "A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.";
 "toll_road" = "Toll road";
 "unpaved_road" = "Unpaved road";
 "ferry_crossing" = "Ferry crossing";

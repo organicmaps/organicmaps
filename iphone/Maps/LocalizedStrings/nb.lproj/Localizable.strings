@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Kontroller og juster mellomstopp.";
 "dialog_routing_system_error" = "Systemfeil";
 "dialog_routing_application_error" = "En applikasjonsfeil førte til at ruten ikke kunne opprettes.";
-"dialog_routing_try_again" = "Vennligst prøv igjen";
 "dialog_routing_download_and_build_cross_route" = "Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?";
 "dialog_routing_download_cross_route" = "Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.";
 "dialog_routing_download_files" = "Last ned nødvendige filer";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Unngå trapper";
 "avoid_motorways" = "Unngå motorveien";
-"unable_to_calc_alert_title" = "Kan ikke beregne rute";
-"unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
 "toll_road" = "Bompengevei";
 "unpaved_road" = "Uasfaltert vei";
 "ferry_crossing" = "Fergeovergang";

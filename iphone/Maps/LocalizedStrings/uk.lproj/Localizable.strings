@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Будь ласка, вкажіть місцерозташування проміжної точки вручну.";
 "dialog_routing_system_error" = "Системна помилка";
 "dialog_routing_application_error" = "Не вдалося прокласти маршрут через помилки програми.";
-"dialog_routing_try_again" = "Спробуйте знову";
 "dialog_routing_download_and_build_cross_route" = "Бажаєте завантажити мапу та побудувати оптимальний маршрут через декілька регіонів?";
 "dialog_routing_download_cross_route" = "Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.";
 "dialog_routing_download_files" = "Завантажте необхідні файли";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Уникати сходів";
 "avoid_motorways" = "Уникати автострад";
-"unable_to_calc_alert_title" = "Неможливо побудувати маршрут";
-"unable_to_calc_alert_subtitle" = "Не вдалося знайти маршрут. Це може бути пов'язано з вашими параметрами прокладання маршруту або неповними даними OpenStreetMap. Змініть параметри і спробуйте ще раз.";
 "toll_road" = "Платна дорога";
 "unpaved_road" = "Ґрунтова дорога";
 "ferry_crossing" = "Поромна переправа";

@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "कृपया तुमचा मध्यबिंदू समायोजित करा.";
 "dialog_routing_system_error" = "सिस्टम त्रुटी";
 "dialog_routing_application_error" = "ऍप त्रुटीमुळे मार्ग तयार करण्यात अक्षम.";
-"dialog_routing_try_again" = "कृपया पुर्नरप्रयत्न करा";
 "dialog_routing_download_and_build_cross_route" = "एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?";
 "dialog_routing_download_cross_route" = "या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.";
 "dialog_routing_download_files" = "आवश्यक फाईली डाउनलोड करा";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "पायऱ्या टाळा";
 "avoid_motorways" = "मोटरवे टाळा";
-"unable_to_calc_alert_title" = "मार्गाची गणना करण्यात अक्षम";
-"unable_to_calc_alert_subtitle" = "दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.";
 "toll_road" = "टोल मार्ग";
 "unpaved_road" = "कच्चे मार्ग";
 "ferry_crossing" = "जल मार्ग";

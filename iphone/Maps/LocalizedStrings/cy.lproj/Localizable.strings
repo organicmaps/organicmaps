@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Addaswch eich pwynt rhyngol.";
 "dialog_routing_system_error" = "Gwall system";
 "dialog_routing_application_error" = "Methu creu llwybr oherwydd gwall yn y rhaglen.";
-"dialog_routing_try_again" = "Rhowch gynnig arall arni";
 "dialog_routing_download_and_build_cross_route" = "Hoffech chi lawrlwytho'r map a chreu llwybr mwy effeithiol sy'n ymestyn i fwy nag un map?";
 "dialog_routing_download_cross_route" = "Lawrlwythwch fapiau ychwanegol i greu llwybr gwell sy'n croesi ffiniau'r map hwn.";
 "dialog_routing_download_files" = "Lawrlwytho'r ffeiliau gofynnol";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Osgoi grisiau";
 "avoid_motorways" = "Osgoi traffyrdd";
-"unable_to_calc_alert_title" = "Methu cyfrifo llwybr";
-"unable_to_calc_alert_subtitle" = "Ni ellid dod o hyd i lwybr. Gall hyn fod wedi'i achosi gan eich opsiynau llwybro neu ddata OpenStreetMap anghyflawn. Newidiwch eich opsiynau llwybro a cheisiwch eto.";
 "toll_road" = "Ffordd doll";
 "unpaved_road" = "Ffordd heb ei phalmantu";
 "ferry_crossing" = "Croesfan fferi";

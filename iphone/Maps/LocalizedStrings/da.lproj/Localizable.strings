@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Rediger det mellemliggende punkt.";
 "dialog_routing_system_error" = "Systemfejl";
 "dialog_routing_application_error" = "Kan ikke oprette rute på grund af en applikationsfejl.";
-"dialog_routing_try_again" = "Prøv venligst igen";
 "dialog_routing_download_and_build_cross_route" = "Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?";
 "dialog_routing_download_cross_route" = "Download yderligere kort for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.";
 "dialog_routing_download_files" = "Download de nødvendige filer";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Undgå trapper";
 "avoid_motorways" = "Undgå motorveje";
-"unable_to_calc_alert_title" = "Kan ikke beregne rute";
-"unable_to_calc_alert_subtitle" = "Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.";
 "toll_road" = "Betalingsvej";
 "unpaved_road" = "Ikke-asfalteret vej";
 "ferry_crossing" = "Færgeoverfart";

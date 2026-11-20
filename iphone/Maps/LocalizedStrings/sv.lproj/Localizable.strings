@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Justera din mellanliggande punkt.";
 "dialog_routing_system_error" = "Systemfel";
 "dialog_routing_application_error" = "Det går inte att skapa rutten på grund av ett programfel.";
-"dialog_routing_try_again" = "Försök igen";
 "dialog_routing_download_and_build_cross_route" = "Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?";
 "dialog_routing_download_cross_route" = "Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.";
 "dialog_routing_download_files" = "Ladda ned nödvändiga filer";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Undvik trappor";
 "avoid_motorways" = "Undvik motorvägen";
-"unable_to_calc_alert_title" = "Det går inte att hitta rutt";
-"unable_to_calc_alert_subtitle" = "Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.";
 "toll_road" = "Betalväg";
 "unpaved_road" = "Oasfalterad väg";
 "ferry_crossing" = "Färjetrafik";
