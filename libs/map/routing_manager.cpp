@@ -42,6 +42,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <map>
 
 using namespace routing;
@@ -1600,7 +1601,8 @@ bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
 
   ei.Assign(route->GetSegDistanceMeters(), altitudes);
   ei.Simplify();
-  return true;
+  return std::ranges::any_of(ei.GetLines().front(),
+                             [](auto const & point) { return point.m_altitude != geometry::kDefaultAltitudeMeters; });
 }
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const

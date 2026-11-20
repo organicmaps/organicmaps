@@ -7,6 +7,8 @@
 #include "map/user_mark.hpp"
 #include "map/user_mark_id_storage.hpp"
 
+#include "kml/serdes_common.hpp"
+
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -1141,46 +1143,33 @@ void BookmarkManager::OnTrackDeselected()
   m_selectedTrackId = kml::kInvalidTrackId;
 }
 
-kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
+kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName, size_t pointCount)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto & tracker = GpsTracker::Instance();
-  CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
+  ASSERT(!tracker.IsEnabled(), ());
+  ASSERT_GREATER_OR_EQUAL(pointCount, 2, ());
 
-  kml::MultiGeometry geometry;
-  geometry.m_lines.emplace_back();
-  geometry.m_timestamps.emplace_back();
-  auto & line = geometry.m_lines.back();
-  auto & timestamps = geometry.m_timestamps.back();
+  kml::TrackData trackData;
+  auto & line = trackData.m_geometry.m_lines.emplace_back();
+  auto & timestamps = trackData.m_geometry.m_timestamps.emplace_back();
 
-  auto const trackSize = tracker.Finalize();
-  line.reserve(trackSize);
-  timestamps.reserve(trackSize);
+  line.reserve(pointCount);
+  timestamps.reserve(pointCount);
 
-  tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)
+  tracker.ForEachTrackPoint([&](location::GpsInfo const & pt, size_t)
   {
-    /// @todo pt.HasAltitude() ?
-    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude),
-                      static_cast<geometry::Altitude>(pt.m_altitude));
+    auto const altitude = pt.HasAltitude() ? kml::ToAltitude(pt.m_altitude) : geometry::kInvalidAltitude;
+    line.emplace_back(mercator::FromLatLon(pt.GetLatLon()), altitude);
     timestamps.emplace_back(static_cast<kml::MultiGeometry::TimeInt>(pt.m_timestamp));
     return true;
   });
-
-  kml::TrackData trackData;
-  trackData.m_geometry = std::move(geometry);
 
   if (trackName.empty())
     trackName = GenerateTrackRecordingName();
   kml::SetDefaultStr(trackData.m_name, trackName);
 
-  kml::ColorData colorData;
-  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
-  kml::TrackLayer layer;
-  layer.m_color = std::move(colorData);
-
-  std::vector<kml::TrackLayer> m_layers;
-  m_layers.emplace_back(layer);
-  trackData.m_layers = std::move(m_layers);
+  trackData.m_layers.emplace_back().m_color.m_rgba = GenerateTrackRecordingColor().GetRGBA();
   trackData.m_timestamp = kml::TimestampClock::now();
 
   auto editSession = GetEditSession();
@@ -2358,14 +2347,6 @@ void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
   track->SetColor(color);
-}
-
-void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  // GetTrackForEdit() already marks the line dirty for re-rendering. Visibility is changed only
-  // via SetTrackVisibility(), so the selection mark needs no update here.
-  GetTrackForEdit(trackId)->SetData(trackData);
 }
 
 bool BookmarkManager::IsTrackEffectivelyVisible(kml::TrackId trackId) const
@@ -3671,11 +3652,6 @@ void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroup
 void BookmarkManager::EditSession::UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm)
 {
   return m_bmManager.UpdateBookmark(bmId, bm);
-}
-
-void BookmarkManager::EditSession::UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData)
-{
-  return m_bmManager.UpdateTrack(trackId, trackData);
 }
 
 void BookmarkManager::EditSession::ChangeTrackColor(kml::TrackId trackId, dp::Color color)

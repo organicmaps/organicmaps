@@ -128,19 +128,17 @@ final class TrackRecordingManager: NSObject {
 
   func stopAndSave(withName name: String = "", completion: ((StopTrackRecordingResult) -> Void)? = nil) {
     unsubscribeFromTrackRecordingProgressUpdates()
-    trackRecorder.stopTrackRecording()
     trackRecordingInfo = .empty()
     activityManager?.stop()
+    let saved = trackRecorder.saveTrackRecording(withName: name)
     notifyObservers()
 
-    guard !trackRecorder.isTrackRecordingEmpty() else {
-      trackRecorder.discardTrackRecording()
+    guard saved else {
       Toast.show(withText: L("track_recording_toast_nothing_to_save"))
       completion?(.trackIsEmpty)
       return
     }
 
-    trackRecorder.saveTrackRecording(withName: name)
     completion?(.success)
   }
 

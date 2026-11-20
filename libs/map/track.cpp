@@ -13,14 +13,13 @@ Track::Track(kml::TrackData && data)
   , m_data(std::move(data))
 {
   m_data.m_id = GetId();
-  CHECK(m_data.m_geometry.IsValid(), ());
+  CHECK(m_data.m_geometry.HasLines(), (m_data.m_id));
+  ASSERT(m_data.m_geometry.IsValid(), (m_data.m_id));
 }
 
 void Track::CacheDataForInteraction() const
 {
-  m_interactionData = InteractionData();
-  m_interactionData->m_lengths = GetLengthsImpl();
-  m_interactionData->m_limitRect = GetLimitRectImpl();
+  m_interactionData = InteractionData{GetLengthsImpl(), GetLimitRectImpl()};
 }
 
 std::vector<Track::Lengths> Track::GetLengthsImpl() const
@@ -29,7 +28,6 @@ std::vector<Track::Lengths> Track::GetLengthsImpl() const
   std::vector<Lengths> lengths;
   for (auto const & line : m_data.m_geometry.m_lines)
   {
-    ASSERT(!line.empty(), ());
     Lengths lineLengths;
     lineLengths.emplace_back(distance);
     for (size_t j = 1; j < line.size(); ++j)
@@ -93,15 +91,6 @@ void Track::SetDescription(std::string const & description)
   kml::SetDefaultStr(m_data.m_description, description);
 }
 
-void Track::SetData(kml::TrackData const & data)
-{
-  m_isDirty = true;
-  m_data = data;
-
-  m_elevationInfo.reset();
-  m_interactionData.reset();
-}
-
 m2::RectD Track::GetLimitRect() const
 {
   if (m_interactionData)
@@ -113,8 +102,7 @@ double Track::GetLengthMeters() const
 {
   if (!m_interactionData)
     CacheDataForInteraction();
-  auto const & lengths = m_interactionData->m_lengths;
-  return lengths.empty() ? 0 : lengths.back().back();
+  return m_interactionData->m_lengths.back().back();
 }
 
 double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
@@ -190,8 +178,6 @@ bool Track::IsVisible() const
 
 void Track::SetVisibility(bool visible)
 {
-  // Visibility doesn't affect geometry, so (unlike SetData) the elevation/interaction caches
-  // stay valid and are intentionally preserved across a hide/show toggle.
   m_isDirty = true;
   m_data.m_visible = visible;
 }
@@ -277,13 +263,14 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
-TrackStatistics Track::GetStatistics() const
+std::pair<TrackStatistics, ElevationInfo const *> Track::GetStatisticsAndElevationInfo() const
 {
   TrackStatistics ts;
   ts.m_length = GetLengthMeters();
   ts.CalculateDuration(m_data.m_geometry);
 
-  if (auto const * ei = GetElevationInfo())
+  auto const * ei = GetElevationInfo();
+  if (ei)
   {
     // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
     auto const threshold =
@@ -294,15 +281,15 @@ TrackStatistics Track::GetStatistics() const
     ts.m_minElevation = altInfo.m_minAltitude;
     ts.m_maxElevation = altInfo.m_maxAltitude;
   }
-  return ts;
+  return {ts, ei};
 }
 
 ElevationInfo const * Track::GetElevationInfo() const
 {
-  if (!HasAltitudes())
-    return nullptr;
   if (!m_elevationInfo)
   {
+    if (!HasAltitudes())
+      return nullptr;
     m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
 
     // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.

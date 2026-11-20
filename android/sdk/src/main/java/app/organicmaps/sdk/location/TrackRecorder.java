@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.location;
 
 import androidx.annotation.Keep;
+import androidx.annotation.Nullable;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 
@@ -12,28 +13,19 @@ public class TrackRecorder
 
   public static native void nativeDiscardTrackRecording();
 
-  public static native void nativeSaveTrackRecordingWithName(String name);
-
-  public static native boolean nativeIsTrackRecordingEmpty();
+  public static native boolean nativeSaveTrackRecordingWithName(String name);
 
   public static native boolean nativeIsTrackRecordingEnabled();
 
   public static native void nativeSetTrackRecordingStatsListener(TrackRecorder.TrackRecordingUpdateHandler listener);
 
+  @Nullable
   public static native ElevationInfo nativeGetElevationInfo();
 
-  /** Saves the recorded track, if there is anything to save, stops the recording and reports whether it saved. */
+  /** Stops the recording. Returns {@code true} when it creates a track. The file is written asynchronously. */
   public static boolean saveAndStop()
   {
-    final boolean saved = !nativeIsTrackRecordingEmpty();
-    if (saved)
-    {
-      nativeSaveTrackRecordingWithName("");
-      nativeStopTrackRecording();
-    }
-    else
-      nativeDiscardTrackRecording();
-    return saved;
+    return nativeSaveTrackRecordingWithName("");
   }
 
   public interface TrackRecordingUpdateHandler

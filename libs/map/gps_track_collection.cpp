@@ -1,64 +1,32 @@
 #include "map/gps_track_collection.hpp"
 
+#include "kml/type_utils.hpp"
+
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
-
-namespace
-{
-
-// Simple rollbacker which restores deque state
-template <typename T>
-class Rollbacker
-{
-public:
-  Rollbacker(std::deque<T> & cont) : m_cont(&cont), m_size(cont.size()) {}
-  ~Rollbacker()
-  {
-    if (m_cont && m_cont->size() > m_size)
-      m_cont->erase(m_cont->begin() + m_size, m_cont->end());
-  }
-  void Reset() { m_cont = nullptr; }
-
-private:
-  std::deque<T> * m_cont;
-  size_t const m_size;
-};
-
-}  // namespace
-
-GpsTrackCollection::GpsTrackCollection() : m_lastId(0), m_elevationInfoDirty(true) {}
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
-  size_t startId = m_lastId;
-  size_t added = 0;
-
-  // Rollbacker ensure strong guarantee if exception happens while adding items
-  Rollbacker<TItem> rollbacker(m_items);
+  auto const startId = m_lastId;
 
   for (auto const & item : items)
   {
-    if (!m_items.empty() && m_items.back().m_timestamp > item.m_timestamp)
-      continue;
-
-    m_statistics.AddGpsInfoPoint(item);
-
+    if (!m_items.empty())
+    {
+      auto const & last = m_items.back();
+      if (last.m_timestamp > item.m_timestamp ||
+          kml::IsSameTrackPoint(mercator::FromLatLon(last.GetLatLon()), mercator::FromLatLon(item.GetLatLon())))
+        continue;
+    }
     m_items.emplace_back(item);
-    ++added;
+    m_statistics.AddGpsInfoPoint(item);
+    ++m_lastId;
   }
 
-  m_elevationInfoDirty = true;
-
-  rollbacker.Reset();
-
-  if (0 == added)
-  {
-    // Invalid timestamp order
-    return std::make_pair(kInvalidId, kInvalidId);  // Nothing was added
-  }
-
-  m_lastId += added;
-
-  return std::make_pair(startId, startId + added - 1);
+  if (m_lastId == startId)
+    return {kInvalidId, kInvalidId};
+  return {startId, m_lastId - 1};
 }
 
 std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
@@ -94,20 +62,13 @@ size_t GpsTrackCollection::GetSize() const
 
 ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 {
-  if (!m_elevationInfoDirty)
-    return m_elevationInfo;
-
-  auto const elevationSize = m_elevationInfo.GetSize();
-  if (elevationSize < m_items.size())
+  if (!m_statistics.HasGpsElevationProfile())
   {
-    std::vector<TItem> const missedPoints(m_items.begin() + elevationSize, m_items.end());
-    m_elevationInfo.AddGpsPoints(missedPoints);
+    m_elevationInfo.Clear();
+    return m_elevationInfo;
   }
-  m_elevationInfoDirty = false;
-  return m_elevationInfo;
-}
 
-bool GpsTrackCollection::IsEmpty() const
-{
-  return m_items.size() < 2;
+  for (auto it = m_items.begin() + m_elevationInfo.GetSize(); it != m_items.end(); ++it)
+    m_elevationInfo.AddGpsPoint(*it);
+  return m_elevationInfo;
 }

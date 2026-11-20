@@ -585,11 +585,6 @@ void Framework::ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm)
   m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
 }
 
-void Framework::ReplaceTrack(kml::TrackId trackId, kml::TrackData & trackData)
-{
-  m_work.GetBookmarkManager().GetEditSession().UpdateTrack(trackId, trackData);
-}
-
 void Framework::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
 {
   m_work.GetBookmarkManager().GetEditSession().ChangeTrackColor(trackId, color);
@@ -1345,10 +1340,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
 {
   ElevationInfo ei;
   if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
-  {
-    LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
-  }
 
   auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
 

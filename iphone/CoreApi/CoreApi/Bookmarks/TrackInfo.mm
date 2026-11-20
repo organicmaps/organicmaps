@@ -5,25 +5,29 @@
 
 + (TrackInfo *)emptyInfo
 {
-  return [[TrackInfo alloc] initWithTrackStatistics:TrackStatistics()];
+  return [[TrackInfo alloc] initWithTrackStatistics:TrackStatistics() hasElevationInfo:NO];
 }
 
 @end
 
 @implementation TrackInfo (Core)
 
-- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics
+- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics hasElevationInfo:(BOOL)hasElevationInfo
 {
   if (self = [super init])
   {
     _distance = ToNSString(statistics.GetFormattedLength());
     _duration = ToNSString(statistics.GetFormattedDuration());
-    _ascent = ToNSString(statistics.GetFormattedAscent());
-    _descent = ToNSString(statistics.GetFormattedDescent());
-    _maxElevation = ToNSString(statistics.GetFormattedMaxElevation());
-    _minElevation = ToNSString(statistics.GetFormattedMinElevation());
-    _hasElevationInfo = statistics.m_ascent != 0 || statistics.m_descent != 0 || statistics.m_maxElevation != 0 ||
-                        statistics.m_minElevation != 0;
+    _hasElevationInfo = hasElevationInfo;
+    if (hasElevationInfo)
+    {
+      _ascent = ToNSString(statistics.GetFormattedAscent());
+      _descent = ToNSString(statistics.GetFormattedDescent());
+      _maxElevation = ToNSString(statistics.GetFormattedMaxElevation());
+      _minElevation = ToNSString(statistics.GetFormattedMinElevation());
+    }
+    else
+      _ascent = _descent = _maxElevation = _minElevation = @"";
   }
   return self;
 }

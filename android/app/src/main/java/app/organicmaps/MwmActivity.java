@@ -2117,10 +2117,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       closePlacePage();
   }
 
-  private void saveAndStopTrackRecording()
+  private boolean saveAndStopTrackRecording()
   {
-    TrackRecorder.saveAndStop();
+    final boolean saved = TrackRecorder.saveAndStop();
     stopTrackRecording();
+    return saved;
   }
 
   private void onTrackRecordingOptionSelected()
@@ -2204,7 +2205,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onTrackRecordingSaved()
   {
-    saveAndStopTrackRecording();
+    if (!saveAndStopTrackRecording())
+      Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
   }
 
   public void onTrackRecordingCancelled()

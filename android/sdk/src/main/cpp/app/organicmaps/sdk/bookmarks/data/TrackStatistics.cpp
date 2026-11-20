@@ -2,27 +2,10 @@
 
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
-jobject ToJavaTrackStatistics(JNIEnv * env, TrackStatistics const & trackStats)
+jobject ToJavaTrackStatistics(JNIEnv * env, TrackStatistics const & stats, bool hasElevationInfo)
 {
-  static jclass clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/TrackStatistics");
-  // clang-format off
-  static jmethodID const cId = jni::GetConstructorID(env, clazz,
-    "("
-    "D"  // m_length
-    "D"  // m_duration
-    "D"  // m_ascent
-    "D"  // m_descent
-    "I"  // m_minElevation
-    "I"  // m_maxElevation
-    ")V"
-  );
-  return env->NewObject(clazz, cId,
-    trackStats.m_length,
-    trackStats.m_duration,
-    trackStats.m_ascent,
-    trackStats.m_descent,
-    static_cast<jint>(trackStats.m_minElevation),
-    static_cast<jint>(trackStats.m_maxElevation)
-  );
-  // clang-format on
+  static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDIIZ)V");
+  return env->NewObject(g_trackStatisticsClazz, cId, stats.m_length, stats.m_duration, stats.m_ascent, stats.m_descent,
+                        static_cast<jint>(stats.m_minElevation), static_cast<jint>(stats.m_maxElevation),
+                        static_cast<jboolean>(hasElevationInfo));
 }

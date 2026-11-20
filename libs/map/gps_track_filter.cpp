@@ -1,7 +1,5 @@
 #include "map/gps_track_filter.hpp"
 
-#include "coding/point_coding.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
@@ -24,13 +22,6 @@ double constexpr kClosePointDistanceMeters = 10;
 double constexpr kMaxAcceptableAcceleration = 2;  // m / sec ^ 2
 
 double constexpr kCosine45degrees = 0.70710678118;
-
-// Same tolerance as the KML/GPX import, which drops such points from imported tracks.
-bool IsSamePoint(location::GpsInfo const & a, location::GpsInfo const & b)
-{
-  return AlmostEqualAbs(mercator::FromLatLon(a.m_latitude, a.m_longitude),
-                        mercator::FromLatLon(b.m_latitude, b.m_longitude), kMwmPointAccuracy);
-}
 
 m2::PointD GetDirection(location::GpsInfo const & from, location::GpsInfo const & to)
 {
@@ -80,12 +71,7 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
 
   for (location::GpsInfo const & currInfo : inPoints)
   {
-    // Do not accept points from the predictor
-    if (currInfo.m_source == location::EPredictor)
-      continue;
-
-    // Skip any function without speed
-    if (!currInfo.HasSpeed())
+    if (currInfo.m_source == location::EPredictor || !currInfo.HasSpeed())
       continue;
 
     // A replayed fix (same time and position) must not enter the history: IsGoodVector() would take a zero
@@ -112,11 +98,10 @@ void GpsTrackFilter::Finalize(GpsVectorT & outPoints)
 {
   if (m_countLastInfo > 0)
   {
-    // Force append the last point, if wasn't added before. A repeated fix would only make a zero-length
-    // segment in the saved track, which the track geometry does not accept.
+    // Offer the final fix even if sampling skipped it. The collection filters duplicate positions.
     auto const & info = GetLastInfo();
     auto const & lastAccepted = GetLastAcceptedInfo();
-    if (info.m_timestamp > lastAccepted.m_timestamp && !IsSamePoint(lastAccepted, info))
+    if (info.m_timestamp > lastAccepted.m_timestamp)
     {
       outPoints.push_back(info);
       m_lastAcceptedInfo = info;

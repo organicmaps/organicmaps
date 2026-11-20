@@ -44,8 +44,6 @@ public:
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   void Clear();
 
-  bool IsEmpty() const;
-
   /// Notification callback about a change of the gps track.
   /// @param toAdd - collection of points and ids to add.
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
