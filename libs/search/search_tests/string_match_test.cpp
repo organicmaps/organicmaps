@@ -1,6 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "search/approximate_string_match.hpp"
+#include "search/string_utils.hpp"
+
+#include "indexer/search_string_utils.hpp"
 
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -14,6 +17,62 @@ namespace string_match_test
 using namespace search;
 using namespace std;
 using namespace strings;
+
+UNIT_TEST(AddressQuery_ApartmentAndCanadianPostcode)
+{
+  for (auto const * query :
+       {"578 Corydon Ave #10, Winnipeg, MB R3L 0P2, Canada", "578 Corydon Ave Apt. 10, Winnipeg MB r3l0p2 Canada",
+        "Unit 10, 578 Corydon Ave, Winnipeg, MB R3L0P2, Canada", "578 Corydon Ave, Suite #10, Winnipeg, MB, Canada",
+        "578 Corydon Ave#10, Winnipeg MB R3L-0P2 Canada", "578 Corydon Ave Unit 10-A, Winnipeg MB Canada"})
+    TEST_EQUAL(NormalizeAndTokenizeString(RemoveAddressDetails(query)),
+               NormalizeAndTokenizeString("578 Corydon Ave Winnipeg MB Canada"), (query));
+  TEST_EQUAL(NormalizeAndTokenizeString(RemoveAddressDetails("#10, 578 Corydon Avenue, Winnipeg MB R3L 0P2")),
+             NormalizeAndTokenizeString("578 Corydon Avenue Winnipeg MB"), ());
+}
+
+UNIT_TEST(AddressQuery_LongSeparatorRuns)
+{
+  for (char separator : {' ', '\t', '\n', '\r', '\v', '\f'})
+  {
+    auto const query = "123 Main Street" + std::string(4000, separator) + "X";
+    TEST_EQUAL(RemoveAddressDetails(query), query, (static_cast<int>(separator)));
+    auto const unit = "Unit 10," + std::string(3900, separator) + "123 Main Street, Springfield";
+    TEST_EQUAL(NormalizeAndTokenizeString(RemoveAddressDetails(unit)),
+               NormalizeAndTokenizeString("123 Main Street Springfield"), (static_cast<int>(separator)));
+  }
+  auto const ordinary = "123 Main Street" + std::string(4000, ' ') + "X";
+  TEST_EQUAL(RemoveAddressDetails(ordinary), ordinary, ());
+  auto const address = "Unit 10," + std::string(3900, ' ') + "123 Main Street, Springfield";
+  TEST_EQUAL(NormalizeAndTokenizeString(RemoveAddressDetails(address)),
+             NormalizeAndTokenizeString("123 Main Street Springfield"), ());
+  auto const unknown = "123" + std::string(4000, ' ') + "X";
+  TEST_EQUAL(RemoveAddressDetails(unknown), unknown, ());
+}
+
+UNIT_TEST(AddressQuery_PreservesOrdinaryQueriesAndContext)
+{
+  auto const longQuery = std::string(10000, '9') + " Corydon Ave #10";
+  TEST_EQUAL(RemoveAddressDetails(longQuery), longQuery, ());
+  for (auto const * query :
+       {"coffee #10", "#10 restaurant", "R3L 0P2", "578 Corydon Ave R3L 0P2", "578 Corydon Ave, Winnipeg, MB, Canada",
+        "578 Corydon Ave #coffee", "578 Corydon Ave, Winnipeg, MB R3L", "999999999999999999999999 restaurant #10"})
+    TEST_EQUAL(RemoveAddressDetails(query), query, ());
+  TEST_EQUAL(
+      NormalizeAndTokenizeString(RemoveAddressDetails("999999999999999999999999 Corydon Ave #10, Winnipeg MB Canada")),
+      NormalizeAndTokenizeString("999999999999999999999999 Corydon Ave Winnipeg MB Canada"), ());
+}
+
+UNIT_TEST(AddressQuery_LocalityAbbreviations)
+{
+  for (auto const * locality : {"Langley Twp", "Langley TWP.", "Langley Twnshp"})
+    TEST_EQUAL(
+        NormalizeAndTokenizeString(RemoveAddressDetails(std::string("8877 Wright St, ") + locality + ", BC, Canada")),
+        NormalizeAndTokenizeString("8877 Wright St Langley Township BC Canada"), ());
+  TEST_EQUAL(NormalizeAndTokenizeString(RemoveAddressDetails("123 Main St, Queens Boro., NY")),
+             NormalizeAndTokenizeString("123 Main St Queens Borough NY"), ());
+  for (auto const * query : {"Langley Twp", "Twp cafe", "123 Twp Street, Langley", "123 Main St, Twpville Co"})
+    TEST_EQUAL(RemoveAddressDetails(query), query, ());
+}
 
 struct MatchCostMock
 {
