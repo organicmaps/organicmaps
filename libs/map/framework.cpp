@@ -2502,6 +2502,23 @@ void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
     m_drapeEngine->DeselectObject(restoreViewport);
 }
 
+void Framework::SetRouteElevationActivePoint(double distanceMeters)
+{
+  // An open place page owns the selection circle; chart scrubbing must not replace or clear it.
+  if (!m_drapeEngine || HasPlacePageInfo())
+    return;
+  if (auto const point = m_routingManager.GetRoutePointAtDistance(distanceMeters))
+    m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
+                                false /* isAnim */, false /* isGeometrySelectionAllowed */,
+                                true /* isSelectionShapeVisible */);
+}
+
+void Framework::ResetRouteElevationActivePoint()
+{
+  if (!HasPlacePageInfo())
+    DeactivateMapSelectionCircle(false /* restoreViewport */);
+}
+
 void Framework::SwitchFullScreen()
 {
   if (m_onSwitchFullScreen)
@@ -2547,7 +2564,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
-  if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
+  // GetRenderRouterType() and not the persisted type: a followed track is never a Ruler route,
+  // and turning its taps into route continuations would deny the place page for the whole
+  // follow session (there are no route marks to continue).
+  if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
       !placePageInfo.IsRoutePoint())
   {
     DeactivateMapSelection();
@@ -3233,7 +3253,9 @@ bool Framework::LoadAutoZoom()
 
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
-  routing::RouterType const type = m_routingManager.GetRouter();
+  // The follow profile, not the persisted router type: a track followed on foot must get the
+  // pedestrian camera even when the last used router was a car one (and vice versa).
+  routing::RouterType const type = m_routingManager.GetRenderRouterType();
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
 
   if (m_drapeEngine != nullptr)

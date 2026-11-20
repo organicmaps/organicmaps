@@ -914,12 +914,6 @@ Route const * RoutingSession::GetRoute() const
   return m_route.get();
 }
 
-bool RoutingSession::HasRouteAltitude() const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_route && m_route->HaveAltitudes();
-}
-
 bool RoutingSession::IsRouteId(uint64_t routeId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

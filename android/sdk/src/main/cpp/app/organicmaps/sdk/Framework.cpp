@@ -1338,11 +1338,12 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
 {
-  ElevationInfo ei;
-  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
+  auto const & manager = frm()->GetRoutingManager();
+  auto const data = manager.GetRouteElevationData();
+  if (!data)
     return nullptr;
-
-  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+  auto const & ei = data->m_elevationInfo;
+  auto const & statistics = data->m_statistics;
 
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
   static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
@@ -1368,25 +1369,20 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   env->ReleaseDoubleArrayElements(jDistances, distances, 0);
   env->ReleaseIntArrayElements(jElevs, elevations, 0);
 
-  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(altInfo.GetTotalAscent()),
-                        static_cast<jint>(altInfo.GetTotalDescent()), static_cast<jint>(altInfo.m_minAltitude),
-                        static_cast<jint>(altInfo.m_maxAltitude));
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(statistics.m_ascent),
+                        static_cast<jint>(statistics.m_descent), static_cast<jint>(statistics.m_minElevation),
+                        static_cast<jint>(statistics.m_maxElevation));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,
                                                                                      jdouble distanceMeters)
 {
-  if (frm()->GetDrapeEngine() == nullptr)
-    return;
-  if (auto const pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters))
-    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(), false,
-                                          false, true);
+  frm()->SetRouteElevationActivePoint(distanceMeters);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)
 {
-  if (frm()->GetDrapeEngine() != nullptr)
-    frm()->GetDrapeEngine()->DeselectObject(false);
+  frm()->ResetRouteElevationActivePoint();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env, jclass, jstring countryId,

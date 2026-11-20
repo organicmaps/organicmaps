@@ -383,6 +383,7 @@ extension ChartView: ChartPreviewViewDelegate {
 
 extension ChartView: ChartInfoViewDelegate {
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
+    guard bounds.width > 0 else { return }
     let p = convert(CGPoint(x: pointX, y: 0), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     notifySelectedPointChanged(at: chartX)

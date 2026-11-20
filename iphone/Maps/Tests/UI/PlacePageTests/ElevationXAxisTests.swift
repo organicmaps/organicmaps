@@ -264,6 +264,19 @@ final class ElevationXAxisTests: XCTestCase {
     XCTAssertEqual(try XCTUnwrap(selectedDistance), 21000, accuracy: 0.001)
   }
 
+  func testSelectionDoesNotEmitADistanceWhenChartWidthIsZero() {
+    let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
+    chart.chartData = makeData(distances: [0, 600, 1200])
+    chart.layoutIfNeeded()
+    var selectedDistances: [Double] = []
+    chart.onSelectedPointChanged = { selectedDistances.append($0) }
+
+    chart.bounds.size.width = 0
+    chart.chartInfoView(chart.chartInfoView, didMoveToPoint: 0)
+
+    XCTAssertTrue(selectedDistances.isEmpty)
+  }
+
   func testUnitsAreReadOnEachUpdate() {
     var units = Units.metric
     let f = ElevationProfileFormatter(unitsProvider: { units }, locale: locale)
