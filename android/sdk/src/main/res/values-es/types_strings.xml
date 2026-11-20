@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Ciénaga</string>
     <string name="type.noexit">Sin salida</string>
     <string name="type.office">Oficina</string>
+    <string name="type.office.accountant">Oficina de contabilidad</string>
     <string name="type.office.architect">Estudio de arquitectura</string>
     <string name="type.office.company">Oficina</string>
     <string name="type.office.educational_institution">Institución educativa</string>

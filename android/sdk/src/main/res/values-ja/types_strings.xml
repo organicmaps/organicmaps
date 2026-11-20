@@ -725,6 +725,7 @@
     <string name="type.natural.wetland.marsh">沼地</string>
     <string name="type.noexit">行き止まり</string>
     <string name="type.office">オフィス</string>
+    <string name="type.office.accountant">会計事務所</string>
     <string name="type.office.architect">建築設計事務所</string>
     <string name="type.office.company">会社事務所</string>
     <string name="type.office.educational_institution">教育機関</string>

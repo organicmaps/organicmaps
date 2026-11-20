@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Soo</string>
     <string name="type.noexit">Tupiktee</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.accountant">Raamatupidamisbüroo</string>
     <string name="type.office.architect">Arhitektibüroo</string>
     <string name="type.office.company">Ettevõtte kontor</string>
     <string name="type.office.educational_institution">Haridusasutus</string>

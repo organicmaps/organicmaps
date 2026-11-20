@@ -733,6 +733,7 @@
     <string name="type.natural.wetland.bog">Suo</string>
     <string name="type.natural.wetland.marsh">Marsh</string>
     <string name="type.office">Toimisto</string>
+    <string name="type.office.accountant">Tilitoimisto</string>
     <string name="type.office.architect">Arkkitehtitoimisto</string>
     <string name="type.office.company">Yhtiön toimisto</string>
     <string name="type.office.educational_institution">Oppilaitos</string>

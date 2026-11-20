@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Sazlık</string>
     <string name="type.noexit">Çıkmaz</string>
     <string name="type.office">Ofis</string>
+    <string name="type.office.accountant">Muhasebe Bürosu</string>
     <string name="type.office.architect">Mimarlık bürosu</string>
     <string name="type.office.company">Şirket Bürosu</string>
     <string name="type.office.educational_institution">Eğitim kurumu</string>

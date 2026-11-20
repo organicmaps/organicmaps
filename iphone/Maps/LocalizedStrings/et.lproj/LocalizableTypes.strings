@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Soo";
 "type.noexit" = "Tupiktee";
 "type.office" = "Kontor";
+"type.office.accountant" = "Raamatupidamisbüroo";
 "type.office.architect" = "Arhitektibüroo";
 "type.office.company" = "Ettevõtte kontor";
 "type.office.educational_institution" = "Haridusasutus";

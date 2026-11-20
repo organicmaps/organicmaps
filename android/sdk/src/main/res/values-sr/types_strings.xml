@@ -765,6 +765,7 @@
     <string name="type.natural.wetland.marsh">Мочвара</string>
     <string name="type.noexit">Крај пута</string>
     <string name="type.office">Канцеларија</string>
+    <string name="type.office.accountant">Рачуновођа</string>
     <string name="type.office.architect">Архитектонски биро</string>
     <string name="type.office.company">Компанија</string>
     <string name="type.office.educational_institution">Образовна установа</string>

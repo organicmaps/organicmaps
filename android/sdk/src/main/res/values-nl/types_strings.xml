@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Moeras</string>
     <string name="type.noexit">Doodlopende weg</string>
     <string name="type.office">Kantoor</string>
+    <string name="type.office.accountant">Accountantskantoor</string>
     <string name="type.office.architect">Architectenbureau</string>
     <string name="type.office.company">Bedrijfskantoor</string>
     <string name="type.office.educational_institution">Onderwijsinstelling</string>

@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Palude</string>
     <string name="type.noexit">Strada senza uscita</string>
     <string name="type.office">Ufficio</string>
+    <string name="type.office.accountant">Commercialista</string>
     <string name="type.office.architect">Studio di architettura</string>
     <string name="type.office.company">Ufficio aziendale</string>
     <string name="type.office.educational_institution">Istituzione educativa</string>

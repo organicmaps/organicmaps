@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">草沼</string>
     <string name="type.noexit">死巷</string>
     <string name="type.office">辦公室</string>
+    <string name="type.office.accountant">會計師事務所</string>
     <string name="type.office.architect">建築師事務所</string>
     <string name="type.office.company">公司辦公室</string>
     <string name="type.office.educational_institution">教育機構</string>

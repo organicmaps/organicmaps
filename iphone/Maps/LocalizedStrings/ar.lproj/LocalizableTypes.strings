@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "هور";
 "type.noexit" = "طريق مسدود";
 "type.office" = "مكتب";
+"type.office.accountant" = "مكتب محاسبة";
 "type.office.architect" = "مكتب معماري";
 "type.office.company" = "مكتب شركة";
 "type.office.educational_institution" = "مؤسسة تعليمية";

@@ -742,6 +742,7 @@
     <string name="type.natural.wetland.marsh">Bataqlıq</string>
     <string name="type.noexit">Çıxılmaz</string>
     <string name="type.office">Ofis</string>
+    <string name="type.office.accountant">Mühasibat ofisi</string>
     <string name="type.office.architect">Memar ofisi</string>
     <string name="type.office.company">Şirkət ofisi</string>
     <string name="type.office.educational_institution">Təhsil müəssisəsi</string>

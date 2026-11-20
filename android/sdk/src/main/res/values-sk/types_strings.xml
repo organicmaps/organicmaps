@@ -743,6 +743,7 @@
     <string name="type.natural.wetland.marsh">Močiar</string>
     <string name="type.noexit">Koniec cesty</string>
     <string name="type.office">Kancelária</string>
+    <string name="type.office.accountant">Účtovnícka kancelária</string>
     <string name="type.office.architect">Architektonická kancelária</string>
     <string name="type.office.company">Sídlo spoločnosti</string>
     <string name="type.office.educational_institution">Vzdelávacia inštitúcia</string>

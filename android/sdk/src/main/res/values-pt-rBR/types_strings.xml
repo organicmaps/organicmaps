@@ -276,6 +276,7 @@
     <string name="type.natural.water">Água</string>
     <string name="type.natural.wetland">Pantanal</string>
     <string name="type.natural.wetland.marsh">Pântano</string>
+    <string name="type.office.accountant">Escritório de contabilidade</string>
     <string name="type.office.company">Escritório de empresa</string>
     <string name="type.office.estate_agent">Corretor imobiliário</string>
     <string name="type.office.government">Gabinete governamental</string>

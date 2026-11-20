@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Mlaştină";
 "type.noexit" = "Dead End";
 "type.office" = "Birou";
+"type.office.accountant" = "Birou de contabilitate";
 "type.office.architect" = "Birou de arhitectură";
 "type.office.company" = "Sediu companei";
 "type.office.educational_institution" = "Instituție de învățământ";

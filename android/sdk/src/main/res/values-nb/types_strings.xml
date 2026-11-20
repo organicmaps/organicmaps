@@ -660,6 +660,7 @@
     <string name="type.natural.wetland.bog">Myr</string>
     <string name="type.natural.wetland.marsh">Sump</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.accountant">Regnskapskontor</string>
     <string name="type.office.architect">Arkitektkontor</string>
     <string name="type.office.company">Firmakontor</string>
     <string name="type.office.educational_institution">Utdanningsinstitusjon</string>

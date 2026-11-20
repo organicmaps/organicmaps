@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Liūnas</string>
     <string name="type.noexit">Akligatvis</string>
     <string name="type.office">Biuras</string>
+    <string name="type.office.accountant">Buhalteris</string>
     <string name="type.office.architect">Architektūros biuras</string>
     <string name="type.office.company">Įmonės biuras</string>
     <string name="type.office.educational_institution">Švietimo įstaiga</string>
