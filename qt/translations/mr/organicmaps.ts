@@ -31,10 +31,20 @@
 <source>Miles</source>
 <translation>मैल</translation>
 </message>
+<message id="later">
+<extracomment>Update maps later button text</extracomment>
+<source>Later</source>
+<translation>नंतर</translation>
+</message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
 <translation>शोधा</translation>
+</message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू करा.</translation>
 </message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
@@ -50,6 +60,31 @@
 <source>About Organic Maps</source>
 <translation>Organic Maps बद्दल</translation>
 </message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>सर्वांसाठी विनामूल्य, आवडीने तयार केलेले</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• जाहिराती नाही, माहितीचा मागोवा नाही, डेटा संग्रहण नाही</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• बॅटरी संपत नाही, ऑफलाइन कार्य करते</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>उत्साही आणि स्वयंसेवकांनी तयार केलेले मुक्त-स्रोत अनुप्रयोग.</translation>
+</message>
 <message id="close">
 <source>Close</source>
 <translation>बंद</translation>
@@ -57,6 +92,11 @@
 <message id="download">
 <source>Download</source>
 <translation>डाउनलोड करा</translation>
+</message>
+<message id="download_country_failed">
+<extracomment>Show popup notification on top of the map when country download has failed.</extracomment>
+<source>%1 download has failed</source>
+<translation>%1 डाउनलोड अयशस्वी</translation>
 </message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
@@ -78,10 +118,45 @@
 <source>Settings</source>
 <translation>सेटिंग</translation>
 </message>
+<message id="maps_storage">
+<extracomment>Header of settings activity where user defines storage path</extracomment>
+<source>Save maps to</source>
+<translation>नकाशे येथे साठवा</translation>
+</message>
+<message id="maps_storage_summary">
+<extracomment>Detailed description of Maps Storage settings button</extracomment>
+<source>Select the folder to download maps to.</source>
+<translation>नकाशे डाउनलोड करायचे ठिकाण निवडा</translation>
+</message>
+<message id="maps_storage_downloaded">
+<extracomment>E.g. &quot;Downloaded maps: 500Mb&quot; in Maps Storage settings</extracomment>
+<source>Downloaded maps</source>
+<translation>डाउनलोड केलेले नकाशे</translation>
+</message>
+<message id="maps_storage_free_size">
+<extracomment>Free space out of total storage size in Maps Storage settings, e.g. &quot;300 MB free of 2 GB&quot;</extracomment>
+<source>%1 free of %2</source>
+<translation>%1 %2 पैकी मोकळे</translation>
+</message>
+<message id="move_maps">
+<extracomment>Question dialog for transferring maps from one storage to another</extracomment>
+<source>Move maps?</source>
+<translation>नकाशे हलवायचे?</translation>
+</message>
+<message id="move_maps_error">
+<extracomment>Error moving map files from one storage to another</extracomment>
+<source>Error moving map files</source>
+<translation>नकाशा फाइल्स हलवताना त्रुटी</translation>
+</message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>मापन एकके</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>मैल की किलोमीटर ह्यामध्ये निवडा</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +268,11 @@
 <source>RV Facilities</source>
 <translation>कँपिंग वाहन सोयी</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>तुमचे स्थान अद्याप निश्चित केलेले नाही</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +313,42 @@
 <source>Email</source>
 <translation>ई-मेल</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>क्लिपबोर्डावर कॉपी केले: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>ट्रॅक</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>माझे स्थान सामायिक करा</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>सर्वसामान्य सेटिंग</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>माहिती</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>मार्गनिर्देशन</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>नकाशावर + आणि - बटणे</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>नकाशावर दाखवा</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +365,16 @@
 <source>On</source>
 <translation>चालू</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>त्रिमिती (3D) इमारती</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +384,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>सर्व्हर URL</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>{z}/{x}/{y} असलेली वैध URL प्रविष्ट करा</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,39 +405,164 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>सानुकूल टाइल स्रोत आपण पुरवता. केवळ ज्या सेवांमध्ये प्रवेशाची परवानगी आपल्याला आहे त्याच वापरा. श्रेय, परवाना अटी, API की, कोटा आणि वापर मर्यादांसाठी आपण जबाबदार आहात.</translation>
 </message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>मेनू</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>संकेतस्थळ</translation>
+</message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>बातम्या</translation>
 </message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>मदत</translation>
 </message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>वारंवार विचारलेले प्रश्न</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>दान करा</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>प्रकल्पाला पाठठिंबा द्या</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>प्रकाशन अधिकार (कॉपीराईट)</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>त्रुटी कळवा</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>कंपास कॅलिब्रेट करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवून बाणाची दिशा सुधारा.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>होकायंत्र कॅलिब्रेट करण्यासाठी आणि नकाशावर बाणाची दिशा निश्चित करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवा.</translation>
+</message>
+<message id="downloader_update_all_button">
+<extracomment>Update all button text</extracomment>
+<source>Update All</source>
+<translation>सर्व अद्ययावत</translation>
+</message>
+<message id="downloader_cancel_all">
+<extracomment>Cancel all button text</extracomment>
+<source>Cancel All</source>
+<translation>सर्व रद्द</translation>
+</message>
+<message id="downloader_downloaded_subtitle">
+<extracomment>Downloaded maps list header</extracomment>
+<source>Downloaded</source>
+<translation>डाउनलोड केले</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
 <translation>रांगेत</translation>
+</message>
+<message id="downloader_near_me_subtitle">
+<source>Near me</source>
+<translation>माझ्या जवळ</translation>
+</message>
+<message id="downloader_status_maps">
+<extracomment>In maps downloader and country place page shows how many maps are downloaded / to download, e.g. &quot;Maps: 3 of 10&quot;</extracomment>
+<source>Maps</source>
+<translation>नकाशे</translation>
+</message>
+<message id="downloader_download_all_button">
+<source>Download All</source>
+<translation>सर्व डाउनलोड</translation>
+</message>
+<message id="downloader_downloading">
+<source>Downloading:</source>
+<translation>डाउनलोड करत आहे:</translation>
+</message>
+<message id="downloader_download_map">
+<extracomment>Context menu item for downloader.</extracomment>
+<source>Download map</source>
+<translation>नकाशा डाउनलोड करा</translation>
 </message>
 <message id="downloader_retry">
 <extracomment>Item status in downloader.</extracomment>
 <source>Retry</source>
 <translation>पुनर्प्रयत्न</translation>
 </message>
+<message id="downloader_update_map">
+<extracomment>Item in context menu.</extracomment>
+<source>Update Map</source>
+<translation>नकाशा अद्ययावत करा</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Organic Maps आवृत्ती: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>दर्शनी रूप</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>प्रकाश</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>अंधार</translation>
+</message>
+<message id="downloader_available_maps">
+<extracomment>Downloaded maps category</extracomment>
+<source>Available</source>
+<translation>उपलब्ध</translation>
+</message>
+<message id="downloader_status_outdated">
+<extracomment>Status of outdated country in the list</extracomment>
+<source>Update</source>
+<translation>अद्ययावत करा</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
 <source>bookmark</source>
 <translation>खूणपत्र</translation>
 </message>
+<message id="search_select_map">
+<source>Select Map</source>
+<translation>नकाशा निवडा</translation>
+</message>
 <message id="categories">
 <source>Categories</source>
 <translation>प्रवर्ग</translation>
+</message>
+<message id="search_not_found">
+<source>Oops, no results found.</source>
+<translation>अरेच्चा, काहीच सापडले नाही.</translation>
+</message>
+<message id="search_not_found_query">
+<extracomment>The message when user did not find anything in the search.</extracomment>
+<source>Download the region where you are searching or try adding a nearby town/village name.</source>
+<translation>तुम्ही जिथे शोधत आहात तो प्रदेश डाउनलोड करा किंवा जवळच्या शहर/गावाचे नाव जोडण्याचा प्रयत्न करा.</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -337,6 +585,10 @@
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>व्यवसायाची वेळ</translation>
+</message>
+<message id="autodownload">
+<source>Auto-download maps</source>
+<translation>स्वयं डाउनलोड</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -380,14 +632,44 @@
 <source>Floor</source>
 <translation>मजला</translation>
 </message>
+<message id="downloader_search_field_hint">
+<source>Find map</source>
+<translation>नकाशा शोधा</translation>
+</message>
+<message id="common_check_internet_connection_dialog">
+<source>Please make sure your device is connected to the Internet.</source>
+<translation>कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.</translation>
+</message>
+<message id="downloader_no_space_title">
+<source>Not enough space</source>
+<translation>पुरेशी जागा नाही</translation>
+</message>
+<message id="downloader_no_space_message">
+<extracomment>Message shown when there is not enough space to download maps</extracomment>
+<source>Please delete any unnecessary data</source>
+<translation>कृपया अनावश्यक डेटा पुसून टाका</translation>
+</message>
 <message id="editor_edit_place_category_title">
 <source>Category</source>
 <translation>प्रवर्ग</translation>
+</message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>समुदाय-निर्मित OpenStreetMap डेटा %1 नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या</translation>
 </message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
 <translation>%2 पैकी %1</translation>
+</message>
+<message id="download_over_mobile_header">
+<source>Download over a cellular network connection?</source>
+<translation>मोबाईल डेटा वापरून डाउनलोड करायचे?</translation>
+</message>
+<message id="download_over_mobile_message">
+<source>This could be considerably expensive with some plans or if roaming.</source>
+<translation>रोमिंग वर असल्यास हे बरेच महाग पडू शकते.</translation>
 </message>
 <message id="editor_storey_number">
 <source>Number of floors (maximum of %1)</source>
@@ -396,6 +678,14 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>ऑपरेटर</translation>
+</message>
+<message id="downloader_no_downloaded_maps_title">
+<source>You haven&#x27;t downloaded any maps</source>
+<translation>तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत</translation>
+</message>
+<message id="downloader_no_downloaded_maps_message">
+<source>Download maps to search and navigate offline.</source>
+<translation>स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.</translation>
 </message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
@@ -445,9 +735,34 @@
 <source>Decline</source>
 <translation>नाकारा</translation>
 </message>
+<message id="mobile_data_option_always">
+<source>Use Always</source>
+<translation>नेहमी वापरा</translation>
+</message>
+<message id="mobile_data">
+<source>Mobile Internet</source>
+<translation>मोबाइल इंटरनेट</translation>
+</message>
+<message id="mobile_data_description">
+<extracomment>NOTE to translators: please synchronize your translation with the English one.</extracomment>
+<source>Mobile internet is required for map update notifications and uploading edits.</source>
+<translation>नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.</translation>
+</message>
+<message id="mobile_data_option_never">
+<source>Never Use</source>
+<translation>कधीही वापरू नका</translation>
+</message>
+<message id="mobile_data_option_ask">
+<source>Always Ask</source>
+<translation>नेहमी विचारा</translation>
+</message>
 <message id="big_font">
 <source>Increase size for map labels</source>
 <translation>नकाशावर अक्षरांचा आकार वाढवा</translation>
+</message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>लॉग चालू करा</translation>
 </message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
@@ -467,6 +782,14 @@
 <source>Please wait…</source>
 <translation>कृपया थांबा…</translation>
 </message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>गोपनीयता धोरण</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>वापरण्याच्या अटी</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>ट्रॅफिक</translation>
@@ -481,10 +804,19 @@
 <source>Cycling</source>
 <translation>सायकलिंग</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>उपग्रह</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>मेट्रो/भुयारी मार्ग</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>नकाशा शैली आणि स्तर</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +833,26 @@
 <source>Export GeoJSON</source>
 <translation>GeoJSON निर्यात करा</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>ऊर्जा बचत मोड</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>काही कार्यप्रणालींचा त्याग करून बॅटरीतील ऊर्जा वाचवण्याचा प्रयत्न करा.</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>कधीच नाही</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>स्वयंचलित</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>कमाल वीज बचत</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +865,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>तळाशी दाखवा</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -610,6 +966,10 @@
 <source>Update</source>
 <translation>अद्ययावत करा</translation>
 </message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>लॉग फाइल आकारमान: %1</translation>
+</message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
 <translation>%1 डाउनलोड करत आहे…</translation>
@@ -683,15 +1043,47 @@
 <source>3D Terrain</source>
 <translation>3D भूप्रदेश</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>स्क्रीन चालू ठेवा</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>सक्षम असतानानकाशाशप्रदर्शितिकरतानानस्क्रीनीनेहमीमचालूाअसेलसेल.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>नकाशाची भाषा</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/mr/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -736,6 +1128,21 @@
 <source>Follow the system</source>
 <translation>प्रणालीचे अनुसरण करा</translation>
 </message>
+<message id="whats_new_auto_update_title">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update downloaded maps</source>
+<translation>तुमचे डाउनलोड केलेले नकाशे अद्ययावत करा</translation>
+</message>
+<message id="whats_new_auto_update_message">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Updating maps keeps the information about objects up to date</source>
+<translation>नकाशे अद्ययावत केल्याने वस्तूंची माहिती अद्यतनित राहते</translation>
+</message>
+<message id="whats_new_auto_update_button_size">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update (%1)</source>
+<translation>अद्ययावत करा (%1)</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
@@ -744,6 +1151,15 @@
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
 <translation>ठिकाण जोडा</translation>
+</message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>एमबी</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
 </message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
@@ -754,6 +1170,16 @@
 <extracomment>Default bookmark list name</extracomment>
 <source>My Places</source>
 <translation>माझी ठिकाणे</translation>
+</message>
+<message id="maps_storage_internal">
+<extracomment>Internal storage type in Maps Storage settings (not accessible by the user)</extracomment>
+<source>Internal private storage</source>
+<translation>आंतरिक खाजगी संग्रहण</translation>
+</message>
+<message id="maps_storage_removable">
+<extracomment>Removable external storage type in Maps Storage settings, e.g. an SD card</extracomment>
+<source>SD card</source>
+<translation>एसडी कार्ड</translation>
 </message>
 <message id="category_wifi">
 <extracomment>Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!</extracomment>
@@ -789,6 +1215,11 @@
 <source>ft</source>
 <translation>फूट</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>मार्ग दाखवण्यासाठी नकाशे अद्ययावत केले पाहिजेत.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1228,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>प्रवेशद्वार</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>जांभळे डाउनलोड केलेले प्रदेश</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
@@ -1257,6 +1693,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="mobile_data_downloads_off">
+<extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
+<source>Map downloads over mobile internet are turned off in the settings.</source>
+<translation>Map downloads over mobile internet are turned off in the settings.</translation>
+</message>
+<message id="maps_storage_restart">
+<extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
+<source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
+<translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
 </message>
 </context>
 </TS>

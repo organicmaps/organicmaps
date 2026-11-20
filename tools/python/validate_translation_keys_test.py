@@ -118,7 +118,7 @@ class QtValidationTest(unittest.TestCase):
     def _validate(definitions, sources):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for name in ("data/strings", "libs", "qt", "android", "iphone/Maps", "iphone/CoreApi"):
+            for name in ("data/strings", "libs", "qt", "android", "iphone/Maps", "iphone/CoreApi", "sailfish"):
                 (root / name).mkdir(parents=True, exist_ok=True)
             strings = "[[Strings]]\n\n" + "\n".join(
                 f"[{key}]\ntags = {tags}\nen = Message\n" for key, tags in definitions.items()
@@ -200,6 +200,25 @@ class QtValidationTest(unittest.TestCase):
         self.assertEqual(result, 1, output)
         self.assertIn("no longer used in the codebase", output)
 
+    def test_missing_sailfish_definition_reports_source_line(self):
+        result, output = self._validate(
+            {"live": "qt"},
+            {
+                "sailfish/qml/Page.qml": 'qsTrId("live")\nqsTrId("missing_qml")',
+                "sailfish/app.cpp": 'qt::Tr("missing_cpp")',
+            },
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("referenced in code but missing from strings.txt", output)
+        self.assertIn("sailfish/qml/Page.qml:2", output)
+        self.assertIn("sailfish/app.cpp:1", output)
+        self.assertNotIn("no longer used", output)
+
+    def test_sailfish_reference_requires_qt_tag(self):
+        result, output = self._validate({"shared": "android-app"}, {"sailfish/qml/Page.qml": 'qsTrId("shared")'})
+        self.assertEqual(result, 1, output)
+        self.assertIn("- shared (qt)", output)
+
 
 class IosMatcherTest(unittest.TestCase):
     def test_swift_and_objc_literal(self):
@@ -280,6 +299,16 @@ class AndroidMatcherTest(unittest.TestCase):
             '<TextView android:text="@string/real"/>\n'
         )
         self.assertEqual(match(source), {"real": 3})
+
+
+class SailfishMatcherTest(unittest.TestCase):
+    def test_qml_literals(self):
+        self.assertEqual(v._sailfish_qml_matcher('qsTrId("a")'), {"a": 0})
+        self.assertEqual(v._sailfish_qml_matcher("qsTrId('b').arg(count)"), {"b": 0})
+
+    def test_qml_ternary(self):
+        line = 'qsTrId(model.isVisible ? "hide_track" : "show_track")'
+        self.assertEqual(v._sailfish_qml_matcher(line), {"hide_track": 0, "show_track": 0})
 
 
 class PlistAndXibMatcherTest(unittest.TestCase):
@@ -409,6 +438,13 @@ class StrictMatcherTest(unittest.TestCase):
             self._match("core", ".cpp", line),
             {"category_bank", "category_children"},
         )
+
+    def test_sailfish_accepts_its_accessors_only(self):
+        # A misspelled key would be shown raw, as translate() falls back to it.
+        self.assertEqual(self._match("sailfish", ".qml", 'qsTrId("k")'), {"k"})
+        self.assertEqual(self._match("sailfish", ".js", 'qsTrId(a ? "k" : "l")'), {"k", "l"})
+        self.assertEqual(self._match("sailfish", ".cpp", 'qt::Tr("k")'), {"k"})
+        self.assertEqual(self._match("sailfish", ".cpp", 'add("k", value);'), set())
 
     def test_android_is_not_scanned(self):
         # R.string may resolve to donottranslate.xml or a framework resource.
