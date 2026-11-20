@@ -184,14 +184,13 @@ private:
 - (void)testEndpointAlertsOfferSettingsWithActiveAvoidance
 {
   using routing::RouterResultCode;
+  using routing::RoutingOptions;
   storage::CountriesSet const absentCountries;
   [MWMRouter setType:MWMRouterTypePedestrian];
-  auto * options = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouterTypePedestrian];
-  options.avoidFerry = NO;
   for (bool const avoidSteps : {false, true})
   {
-    options.avoidSteps = avoidSteps;
-    [options save];
+    RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian,
+                                   RoutingOptions(avoidSteps ? RoutingOptions::Steps : 0));
     for (auto const failure : {RouterResultCode::StartPointNotFound, RouterResultCode::EndPointNotFound,
                                RouterResultCode::IntermediatePointNotFound})
     {
