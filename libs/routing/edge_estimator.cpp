@@ -390,10 +390,32 @@ public:
       return std::min(speedMpS, GetMaxWeightSpeedMpS());
     });
 
-    return ApplyStrategy(purpose, weight, distanceM);
+    if (purpose == Purpose::ETA)
+      return weight;
+    return ApplyStrategy(purpose, weight, distanceM) * SurfacePreferenceFactor(road.GetSurface());
   }
 
 private:
+  double SurfacePreferenceFactor(RoadGeometry::Surface surface) const
+  {
+    using enum RoadGeometry::Surface;
+    // Missing surface data is common. Bias only surfaces the map classifies.
+    // A modest paved penalty can make a nearby gravel detour worthwhile. Prefer paved applies
+    // stronger penalties on top of normal bicycle speeds to favor a smoother ride.
+    switch (GetBicycleSurfaceBias())
+    {
+    case BicycleSurfaceBias::PreferPaved:
+      if (surface == UnpavedGood)
+        return 1.4;
+      if (surface == UnpavedBad)
+        return 1.8;
+      return 1.0;
+    case BicycleSurfaceBias::PreferUnpaved: return surface == Paved ? 1.3 : 1.0;
+    case BicycleSurfaceBias::Any: return 1.0;
+    }
+    UNREACHABLE();
+  }
+
   // On flat, good surfaces, cycleways and ordinary streets down to in-city
   // residential/living_street (12) tie by distance. Primary (10), tracks (8-10), paths (6-7),
   // dismount footways (2) and steps (1) stay below the cap. Climb and surface penalties remain

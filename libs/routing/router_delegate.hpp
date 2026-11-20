@@ -19,10 +19,10 @@ public:
   static auto constexpr kNoTimeout = std::numeric_limits<uint32_t>::max();
 
   RouterDelegate();
-  explicit RouterDelegate(std::optional<RoutingOptions> routingOptions);
+  explicit RouterDelegate(std::optional<RoutePlanningOptions> routingOptions);
 
-  /// Avoidance options for this request. If unset, IndexRouter loads the saved settings.
-  std::optional<RoutingOptions> GetRoutingOptions() const { return m_routingOptions; }
+  /// Options captured for this request. If unset, IndexRouter loads the saved settings.
+  std::optional<RoutePlanningOptions> GetRoutePlanningOptions() const { return m_routingOptions; }
 
   /// Set routing progress. Waits current progress status from 0 to 100.
   void OnProgress(float progress) const;
@@ -42,7 +42,7 @@ private:
   ProgressCallback m_progressCallback;
   PointCheckCallback m_pointCallback;
 
-  std::optional<RoutingOptions> const m_routingOptions;
+  std::optional<RoutePlanningOptions> const m_routingOptions;
   base::Cancellable m_cancellable;
 };
 }  //  namespace routing

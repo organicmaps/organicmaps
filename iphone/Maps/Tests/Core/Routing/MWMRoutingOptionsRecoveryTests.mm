@@ -55,8 +55,9 @@ private:
       if (!gate->m_mayRead.try_acquire_for(5s))
         return routing::RouterResultCode::InternalError;
     }
-    auto const submittedOptions = delegate.GetRoutingOptions();
-    auto const options = submittedOptions ? *submittedOptions : routing::RoutingOptions::LoadFromSettings(m_vehicle);
+    auto const submittedOptions = delegate.GetRoutePlanningOptions();
+    auto const options =
+        submittedOptions ? submittedOptions->m_avoid : routing::RoutingOptions::LoadFromSettings(m_vehicle);
     bool const avoid = options.Has(m_road);
     if (gate)
     {
