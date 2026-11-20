@@ -300,12 +300,9 @@ private:
 
   struct RoadInfo
   {
-    RoadInfo() = default;
-
-    explicit RoadInfo(m2::PointD const & pt, FeatureID const & featureId) : m_startPoint(pt), m_featureId(featureId) {}
-
     m2::PointD m_startPoint;
     FeatureID m_featureId;
+    // Span length in metres, or zero for point warnings.
     double m_distance = 0.0;
   };
   using RoadWarningsCollection = std::map<RoadWarningMarkType, std::vector<RoadInfo>>;
@@ -326,9 +323,6 @@ private:
                          std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
 
-  // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
-  void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                           double baseDistance, RoadWarningsCollection & roadWarnings);
   // Point warnings (gate/lift_gate): barrier nodes precomputed on the routing thread and stored in
   // the route (see routing::RouteBase::GetWarnings); here we just map them to mark types.
   void CollectRoadPointWarnings(routing::RouteBase const & route, RoadWarningsCollection & roadWarnings);

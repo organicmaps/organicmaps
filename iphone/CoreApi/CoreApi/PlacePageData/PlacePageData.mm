@@ -25,9 +25,11 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   case RoadWarningMarkType::Ferry: return PlacePageRoadTypeFerry;
   case RoadWarningMarkType::Dirty: return PlacePageRoadTypeDirty;
   case RoadWarningMarkType::Steps: return PlacePageRoadTypeSteps;
-  // Gate/lift_gate warnings have no "avoid" routing option, so no special road action button.
+  // Gate and trail warnings have no place-page routing action.
   case RoadWarningMarkType::Gate:
   case RoadWarningMarkType::LiftGate:
+  case RoadWarningMarkType::DifficultTrail:
+  case RoadWarningMarkType::ExpertTrail:
   case RoadWarningMarkType::Count: return PlacePageRoadTypeNone;
   }
 }

@@ -34,6 +34,8 @@ public:
     RoadWarningFirstSteps,
     RoadWarningFirstGate,
     RoadWarningFirstLiftGate,
+    RoadWarningFirstDifficultTrail,
+    RoadWarningFirstExpertTrail,
   };
 
   enum Type : uint32_t
