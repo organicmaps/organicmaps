@@ -58,6 +58,7 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
   {
     NSString * kSeparator = @" • ";
     _title = [@[trackInfo.duration, trackInfo.distance] componentsJoinedByString:kSeparator];
+    _secondaryTitle = NSLocalizedString(@"track_recording_title", nil);
   }
   return self;
 }

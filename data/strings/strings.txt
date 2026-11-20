@@ -39971,7 +39971,7 @@ zh-Hant = 停止軌跡記錄
 
 [track_recording_title]
 comment = Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.
-tags = android-app
+tags = android-app,apple-maps
 en = Track Recording
 af = Spooropname
 ar = تسجيل المسار

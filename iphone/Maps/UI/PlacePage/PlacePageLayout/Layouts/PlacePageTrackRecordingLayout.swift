@@ -62,7 +62,8 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
 
 private extension PlacePageTrackRecordingLayout {
   func updateTrackRecordingRelatedSections() {
-    headerViewController.setTitle(placePageData.previewData.title, secondaryTitle: nil)
+    let preview = placePageData.previewData
+    headerViewController.setTitle(preview.title, secondaryTitle: preview.secondaryTitle)
 
     let state = placePageData.trackData.flatMap(ElevationProfileBuilder.makeTrackRecordingState)
     elevationProfileViewController.view.isHidden = state == nil
