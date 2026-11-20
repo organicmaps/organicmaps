@@ -14,12 +14,11 @@ namespace routing
 TransitWorldGraph::TransitWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
                                      std::unique_ptr<IndexGraphLoader> indexLoader,
                                      std::unique_ptr<TransitGraphLoader> transitLoader,
-                                     std::shared_ptr<EdgeEstimator> estimator, RoutingOptions roadAvoids)
+                                     std::shared_ptr<EdgeEstimator> estimator)
   : m_crossMwmGraph(std::move(crossMwmGraph))
   , m_indexLoader(std::move(indexLoader))
   , m_transitLoader(std::move(transitLoader))
   , m_estimator(std::move(estimator))
-  , m_roadAvoids(roadAvoids)
 {
   CHECK(m_indexLoader, ());
   CHECK(m_transitLoader, ());
@@ -241,21 +240,23 @@ void TransitWorldGraph::GetGatesNear(NumMwmId mwmId, m2::PointD const & point, d
 
 bool TransitWorldGraph::IsRoutingOptionsGood(Segment const & segment)
 {
-  if (TransitGraph::IsTransitSegment(segment))
-    return GetTransitGraph(segment.GetMwmId()).IsRideAllowed(segment);
-  return m_roadAvoids.GetOptions() == 0 ||
-         GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()).SuitableForOptions(m_roadAvoids);
+  ASSERT(!TransitGraph::IsTransitSegment(segment), (segment));
+  return GetIndexGraph(segment.GetMwmId()).IsRoutingOptionsGood(segment.GetFeatureId());
 }
 
-void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
+void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                                      TwinSegmentsListT & twins)
 {
   if (m_mode == WorldGraphMode::SingleMwm || !m_crossMwmGraph || !m_crossMwmGraph->IsTransition(segment, isOutgoing))
     return;
   m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
-  // Cross-map shortcuts enter the twin's neighbourhood without traversing its vertex.
-  twins.erase(
-      std::remove_if(twins.begin(), twins.end(), [this](Segment const & twin) { return !IsRoutingOptionsGood(twin); }),
-      twins.end());
+  if (useRoutingOptions && !TransitGraph::IsTransitSegment(segment))
+  {
+    // Twin expansion skips the incoming-road check. Different map versions can disagree on ferry tags.
+    twins.erase(
+        std::remove_if(twins.begin(), twins.end(), [this](auto const & twin) { return !IsRoutingOptionsGood(twin); }),
+        twins.end());
+  }
 }
 
 RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId)

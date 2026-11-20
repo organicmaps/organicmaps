@@ -27,8 +27,7 @@ class TransitWorldGraph final : public WorldGraph
 {
 public:
   TransitWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> indexLoader,
-                    std::unique_ptr<TransitGraphLoader> transitLoader, std::shared_ptr<EdgeEstimator> estimator,
-                    RoutingOptions roadAvoids = {});
+                    std::unique_ptr<TransitGraphLoader> transitLoader, std::shared_ptr<EdgeEstimator> estimator);
 
   // WorldGraph overrides:
   ~TransitWorldGraph() override = default;
@@ -75,7 +74,8 @@ public:
 
 private:
   // WorldGraph overrides:
-  void GetTwinsInner(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins) override;
+  void GetTwinsInner(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+                     TwinSegmentsListT & twins) override;
 
   static double MaxPedestrianTimeSec(double startToFinishDistanceM)
   {
@@ -93,7 +93,6 @@ private:
   std::unique_ptr<IndexGraphLoader> m_indexLoader;
   std::unique_ptr<TransitGraphLoader> m_transitLoader;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  RoutingOptions const m_roadAvoids;
   WorldGraphMode m_mode = WorldGraphMode::NoLeaps;
 };
 }  // namespace routing

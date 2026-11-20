@@ -119,13 +119,6 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
   return m_fake.FindReal(fake, real);
 }
 
-bool TransitGraph::IsRideAllowed(Segment const & segment) const
-{
-  ASSERT(IsTransitSegment(segment), (segment));
-  auto const id = segment.GetFeatureId() - FakeFeatureIds::kTransitGraphFeaturesStart;
-  return id >= m_blockedRides.size() || !m_blockedRides[id];
-}
-
 void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & gateEndings, transit::ModeMask modes)
 {
   // Line has information about transit interval.
@@ -135,7 +128,10 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   for (auto const & line : transitData.GetLines())
   {
     m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2.0;
-    auto const type = transit::GetTransitType(line.GetType());
+    // Preserve unfiltered graph connectivity without decoding types of unused lines.
+    if (modes == transit::kAllModes)
+      continue;
+    auto const type = transit::TryGetTransitType(line.GetType());
     if (!type || !transit::HasMode(modes, transit::GetMode(*type)))
       blockedLines.insert(line.GetId());
   }
@@ -164,12 +160,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
     CHECK_EQUAL(edgeSegment.GetFeatureId(), i + FakeFeatureIds::kTransitGraphFeaturesStart, (i, edge));
     // Keep every vertex so the cross-map transit IDs remain stable.
     if (!edge.GetTransfer() && blockedLines.contains(edge.GetLineId()))
-    {
-      if (m_blockedRides.empty())
-        m_blockedRides.resize(edges.size());
-      m_blockedRides[i] = true;
       continue;
-    }
     stopToBack[edge.GetStop1Id()].insert(edgeSegment);
     stopToFront[edge.GetStop2Id()].insert(edgeSegment);
     outgoing[edge.GetStop1Id()].insert(edgeSegment);
@@ -312,15 +303,12 @@ void TransitGraph::AddConnections(StopToSegmentsMap const & connections, StopToS
 }
 
 void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
-                     TransitGraph::Endings & gateEndings, bool avoidFerries)
+                     TransitGraph::Endings & gateEndings)
 {
   for (auto const & gate : gates)
   {
     auto const & gateSegment = gate.GetBestPedestrianSegment();
-    if (!gateSegment.IsValid())
-      continue;
-    if (avoidFerries &&
-        indexGraph.GetRoadGeometry(gateSegment.GetFeatureId()).GetRoutingOptions().Has(RoutingOptions::Ferry))
+    if (!gateSegment.IsValid() || !indexGraph.IsRoutingOptionsGood(gateSegment.GetFeatureId()))
       continue;
 
     Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());

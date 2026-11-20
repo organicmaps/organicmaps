@@ -60,8 +60,7 @@ private:
       transitData.DeserializeForRouting(*reader.GetPtr());
 
       TransitGraph::Endings gateEndings;
-      MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings,
-                      !transit::HasMode(m_modes, transit::Mode::Ferry));
+      MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings);
 
       graph->Fill(transitData, gateEndings, m_modes);
 

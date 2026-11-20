@@ -84,7 +84,7 @@ std::string GetSharedLineNumbers(TransitDisplayInfo const & info, StopId boardId
   std::vector<std::string> numbers;
   for (auto const & [_, line] : info.m_linesSubway)
   {
-    if (routing::transit::GetTransitType(line.GetType()) != type || !LineVisitsInOrder(line, boardId, alightId))
+    if (routing::transit::TryGetTransitType(line.GetType()) != type || !LineVisitsInOrder(line, boardId, alightId))
       continue;
     auto const & number = line.GetNumber();
     if (!number.empty() && std::find(numbers.cbegin(), numbers.cend(), number) == numbers.cend())
@@ -310,9 +310,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
 
   auto const & line = ssp.m_displayInfo.m_linesSubway.at(currentLineId);
   auto const currentColor = df::GetTransitColorName(line.GetColor());
-  auto const type = routing::transit::GetTransitType(line.GetType());
-  ASSERT(type, (line.GetId(), line.GetType()));
-  sp.m_transitType = *type;
+  sp.m_transitType = routing::transit::GetTransitType(line.GetType());
 
   // List all parallel lines a rider can take for this whole leg (same boarding and alighting stops),
   // not just the one A* picked, so they can board whichever bus comes first. The leg's board/alight

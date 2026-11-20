@@ -5,11 +5,7 @@ enum RoutingOptionsSettingsSection: String {
   case optimization
 }
 
-extension TransitModes: Hashable {
-  public func hash(into hasher: inout Hasher) {
-    hasher.combine(rawValue)
-  }
-}
+extension TransitModes: Hashable {}
 
 enum RoutingOption: Hashable {
   case routeOptimization
@@ -56,9 +52,9 @@ extension RoutingOption {
       }
     case .transitMode(let mode):
       switch mode {
-      case .bus: return L("transit_type_bus")
-      case .tram: return L("transit_type_tram")
-      case .subway: return L("button_layer_subway")
+      case .bus: return L("transit_mode_bus")
+      case .tram: return L("transit_mode_tram")
+      case .subway: return L("transit_mode_subway")
       case .rail: return L("transit_mode_rail")
       case .ferry: return L("transit_mode_ferry")
       case .trolleybus: return L("transit_mode_trolleybus")
@@ -96,6 +92,7 @@ struct RoutingOptionsSettingsState {
   let options: RoutingOptions
   let canChangeOptimization: Bool
   let bicycleSurface: BicycleSurfacePreference
+  let transitModes: TransitModes
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>

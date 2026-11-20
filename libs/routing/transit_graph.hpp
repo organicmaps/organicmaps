@@ -54,7 +54,6 @@ public:
   }
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
-  bool IsRideAllowed(Segment const & segment) const;
 
   // Fills |out| with gate accesses (see GateAccess) within |radiusM| of |point| (mercator) matching
   // |isEnter|.
@@ -95,10 +94,9 @@ private:
   std::map<Segment, transit::Edge> m_segmentToEdgeSubway;
   std::map<Segment, GateInfo> m_segmentToGateSubway;
   std::map<transit::LineId, double> m_transferPenaltiesSubway;
-  std::vector<bool> m_blockedRides;
 };
 
 void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
-                     TransitGraph::Endings & gateEndings, bool avoidFerries = false);
+                     TransitGraph::Endings & gateEndings);
 
 }  // namespace routing

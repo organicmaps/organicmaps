@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
@@ -45,7 +43,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private boolean mOptimizationEnabledOnLoad;
   private BicycleSurfacePreference mBicycleSurfaceOnLoad;
   private int mTransitModesOnLoad;
-  private final Map<TransitMode, CheckBox> mTransitModeButtons = new EnumMap<>(TransitMode.class);
+  private final Map<TransitMode, SwitchCompat> mTransitModeButtons = new EnumMap<>(TransitMode.class);
   @NonNull
   private Router mRouter = Router.Vehicle;
   private View mContent;
@@ -197,18 +195,16 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private void initTransitModeOptions(@NonNull View root)
   {
     LinearLayout options = root.findViewById(R.id.transit_mode_options);
+    LayoutInflater inflater = LayoutInflater.from(options.getContext());
     for (TransitMode mode : TransitMode.values())
     {
-      CheckBox button = new AppCompatCheckBox(requireContext());
+      SwitchCompat button = (SwitchCompat) inflater.inflate(R.layout.item_transit_mode_switch, options, false);
       button.setText(transitModeTitle(mode));
-      button.setMinHeight(getResources().getDimensionPixelSize(R.dimen.height_block_base));
       button.setOnClickListener(v -> {
         final int modes = RoutingOptions.getTransitModes();
         final int changed = button.isChecked() ? modes | mode.bit : modes & ~mode.bit;
-        // The settings may have changed elsewhere since the buttons were last rendered.
-        if (changed != 0)
-          RoutingOptions.setTransitModes(changed);
-        refreshTransitModes(changed == 0 ? modes : changed);
+        RoutingOptions.setTransitModes(changed);
+        refreshTransitModes(changed);
       });
       mTransitModeButtons.put(mode, button);
       options.addView(button);
@@ -228,9 +224,9 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     return switch (mode)
     {
-      case Bus -> R.string.transit_type_bus;
-      case Tram -> R.string.transit_type_tram;
-      case Subway -> R.string.button_layer_subway;
+      case Bus -> R.string.transit_mode_bus;
+      case Tram -> R.string.transit_mode_tram;
+      case Subway -> R.string.transit_mode_subway;
       case Rail -> R.string.transit_mode_rail;
       case Ferry -> R.string.transit_mode_ferry;
       case Trolleybus -> R.string.transit_mode_trolleybus;

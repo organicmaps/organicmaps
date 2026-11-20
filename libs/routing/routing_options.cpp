@@ -134,7 +134,7 @@ void RoutePlanningOptions::SaveBicycleSurfacePreference(BicycleSurfacePreference
                      settings::ToString(static_cast<uint32_t>(avoids.GetOptions()))}});
 }
 
-transit::ModeMask LoadTransitModes()
+transit::ModeMask RoutePlanningOptions::LoadTransitModes()
 {
   uint32_t value = 0;
   settings::TryGet(kTransitModesKey, value);
@@ -142,9 +142,9 @@ transit::ModeMask LoadTransitModes()
   return modes == 0 ? transit::kAllModes : modes;
 }
 
-void SaveTransitModes(transit::ModeMask modes)
+void RoutePlanningOptions::SaveTransitModes(uint64_t modes)
 {
-  CHECK(modes != 0 && (modes & ~transit::kAllModes) == 0, (modes));
+  CHECK(modes != 0 && (modes & ~uint64_t{transit::kAllModes}) == 0, (modes));
   settings::Set(kTransitModesKey, static_cast<uint32_t>(modes));
 }
 

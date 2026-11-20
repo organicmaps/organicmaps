@@ -43,6 +43,7 @@ public final class RoutingOptions
     nativeSetBicycleSurfacePreference(preference.nativeValue);
   }
 
+  // Keep the bits in sync with routing::transit::Mode in transit/transit_mode.hpp.
   public enum TransitMode
   {
     Bus(1 << 0),

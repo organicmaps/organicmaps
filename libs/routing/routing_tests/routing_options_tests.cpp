@@ -251,14 +251,14 @@ UNIT_TEST(TransitModeSettingsDefaultAndIgnoreUnsupportedBits)
   });
 
   settings::Delete(key);
-  TEST_EQUAL(LoadTransitModes(), transit::kAllModes, ());
+  TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), transit::kAllModes, ());
   auto const bus = static_cast<transit::ModeMask>(transit::Mode::Bus);
-  SaveTransitModes(bus);
+  RoutePlanningOptions::SaveTransitModes(bus);
   TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Transit).m_transitModes, bus, ());
   TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Pedestrian).m_transitModes, transit::kAllModes, ());
   settings::Set(key, 0x10000u | bus);
-  TEST_EQUAL(LoadTransitModes(), bus, ());
+  TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), bus, ());
   settings::Set(key, 0x10000u);
-  TEST_EQUAL(LoadTransitModes(), transit::kAllModes, ());
+  TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), transit::kAllModes, ());
 }
 }  // namespace

@@ -189,7 +189,8 @@ RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, ui
   return m_loader->GetGeometry(mwmId).GetRoad(featureId);
 }
 
-void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
+void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, bool /* useRoutingOptions */,
+                                            TwinSegmentsListT & twins)
 {
   m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
 }

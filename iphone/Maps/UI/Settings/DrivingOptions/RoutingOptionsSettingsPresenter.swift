@@ -30,7 +30,7 @@ final class RoutingOptionsSettingsPresenter {
       sections.append(SettingsSectionViewModel(section: .bicycleSurface, header: L("bicycle_surface"), items: items))
     }
     if state.options.routerType == .publicTransport {
-      let selected = RoutingOptions.transitModes
+      let selected = state.transitModes
       let modes: [TransitModes] = [.bus, .tram, .subway, .rail, .ferry, .trolleybus, .monorail, .cable, .air]
       let items = modes.map { mode in
         let option = RoutingOption.transitMode(mode)
