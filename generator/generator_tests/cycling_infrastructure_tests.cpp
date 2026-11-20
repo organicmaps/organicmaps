@@ -80,4 +80,17 @@ UNIT_TEST(CyclingInfrastructure_DirectionAndStoredGeometryPolicy)
   reversed->Reverse();
   TEST_EQUAL(cycling::Encode(*normal), cycling::Encode(*reversed), ());
 }
+
+UNIT_TEST(CyclingInfrastructure_ExplicitDirectionWinsOverContraflowInference)
+{
+  using cycling::Direction;
+  for (auto const & [tag, direction] :
+       {std::pair{"no", Direction::Both}, {"yes", Direction::Forward}, {"-1", Direction::Backward},
+        {"unknown", Direction::Unknown}, {"", Direction::Backward}})
+  {
+    auto const sides = generator::ReadCyclingSides(
+        Way({{"cycleway:left", "opposite_lane"}, {"cycleway:left:oneway", tag}}), false);
+    TEST(sides && sides->m_left.m_direction == direction, (tag));
+  }
+}
 }  // namespace cycling_infrastructure_tests
