@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/animation/animation.hpp"
+#include "drape_frontend/animation/arrow_animation.hpp"
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/my_position.hpp"
@@ -17,10 +17,11 @@
 
 #include <cstdint>
 #include <functional>
+#include <optional>
 
 namespace df
 {
-using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)>;
+class AnimationSystem;
 
 class DrapeNotifier;
 
@@ -34,17 +35,16 @@ public:
     virtual void PositionChanged(m2::PointD const & position, bool hasPosition) = 0;
     // Show map with center in "center" point and current zoom.
     virtual void ChangeModelView(m2::PointD const & center, int zoomLevel,
-                                 TAnimationCreator const & parallelAnimCreator) = 0;
+                                 std::optional<ArrowPose> const & arrowTarget) = 0;
     // Change azimuth of current ModelView.
-    virtual void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void ChangeModelView(double azimuth, std::optional<ArrowPose> const & arrowTarget) = 0;
     // Somehow show map that "rect" will see.
-    virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void ChangeModelView(m2::RectD const & rect, std::optional<ArrowPose> const & arrowTarget) = 0;
     // Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos".
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel,
-                                 Animation::TAction const & onFinishAction,
-                                 TAnimationCreator const & parallelAnimCreator) = 0;
+                                 std::optional<ArrowPose> const & arrowTarget) = 0;
     virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
-                                 m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) = 0;
+                                 m2::PointD const & pxZero, std::optional<ArrowPose> const & arrowTarget) = 0;
   };
 
   struct Params
@@ -67,9 +67,10 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
   };
 
-  MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier);
+  MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier, AnimationSystem & animationSystem);
 
   void UpdatePosition();
+  void UpdateViewportForLocation(AnimationClock::time_point now);
   void OnUpdateScreen(ScreenBase const & screen);
   void SetVisibleViewport(m2::RectD const & rect);
 
@@ -81,7 +82,7 @@ public:
 
   bool IsModeHasPosition() const;
 
-  void DragStarted();
+  void DragStarted(ScreenBase const & screen);
   void DragEnded(m2::PointD const & distance);
 
   void ScaleStarted();
@@ -121,7 +122,7 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-              int zoomLevel, FrameValues const & frameValues);
+              int zoomLevel, FrameValues const & frameValues, AnimationClock::time_point now);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
@@ -129,7 +130,7 @@ public:
   bool IsModeChangeViewport() const;
 
   bool IsWaitingForLocation() const;
-  m2::PointD GetDrawablePosition();
+  m2::PointD GetDrawablePosition() const;
   void UpdateRoutingOffsetY(bool useDefault, int offsetY);
 
 private:
@@ -139,8 +140,7 @@ private:
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel,
-                       Animation::TAction const & onFinishAction = nullptr);
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
 
   void UpdateViewport(int zoomLevel);
@@ -148,17 +148,18 @@ private:
   m2::PointD GetRotationPixelCenter() const;
   m2::PointD GetRoutingRotationPixelCenter() const;
 
-  double GetDrawableAzimut();
-  void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);
+  ArrowPose GetDrawablePose() const;
+  void AnimateArrow(ArrowPose const & oldPose, ScreenBase const & screen);
 
   bool AlmostCurrentPosition(m2::PointD const & pos) const;
   bool AlmostCurrentAzimut(double azimut) const;
 
   void CheckNotFollowRouting();
-  void CheckBlockAutoZoom();
+  void CheckBlockAutoZoom(AnimationClock::time_point now);
   void CheckUpdateLocation();
 
   ref_ptr<DrapeNotifier> m_notifier;
+  AnimationSystem & m_animationSystem;
 
   location::EMyPositionMode m_mode;
   location::EMyPositionMode m_desiredInitMode;
@@ -178,18 +179,17 @@ private:
   double m_horizontalAccuracy;
   m2::PointD m_position;  // position in mercator.
   double m_drawDirection;
-  m2::PointD m_oldPosition;  // position in mercator.
-  double m_oldDrawDirection;
 
   bool m_enablePerspectiveInRouting;
   bool m_enableAutoZoomInRouting;
   double m_autoScale2d;
   double m_autoScale3d;
+  double m_lastAutoScale = 0.0;
 
   base::Timer m_lastGPSBearingTimer;
   base::Timer m_routingNotFollowTimer;
   bool m_blockRoutingNotFollowTimer = false;
-  base::Timer m_blockAutoZoomTimer;
+  std::optional<AnimationClock::time_point> m_autoZoomBlockedUntil;
   base::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
 
@@ -199,16 +199,13 @@ private:
 
   bool m_isDirtyViewport;
   bool m_isDirtyAutoZoom;
-  bool m_isPendingAnimation;
-
-  TAnimationCreator m_animCreator;
+  std::optional<ArrowPose> m_arrowTarget;
 
   bool m_isPositionAssigned;
   bool m_isDirectionAssigned;
   bool m_isCompassAvailable;
 
   bool m_positionIsObsolete;
-  bool m_needBlockAutoZoom;
 
   uint64_t m_routingNotFollowNotifyId;
   uint64_t m_blockAutoZoomNotifyId;

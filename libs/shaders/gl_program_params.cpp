@@ -111,8 +111,8 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
   Parameter::CheckApply(guard, "u_zScale", params.m_zScale);
-  Parameter::CheckApply(guard, "u_interpolation", params.m_interpolation);
   Parameter::CheckApply(guard, "u_isOutlinePass", params.m_isOutlinePass);
+  Parameter::CheckApply(guard, "u_bookmarkScale", params.m_bookmarkScale);
   Parameter::CheckApply(guard, "u_contrastGamma", params.m_contrastGamma);
   Parameter::CheckApply(guard, "u_terrainLightDir", params.m_terrainLightDir);
 }

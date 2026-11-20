@@ -509,7 +509,7 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
     return;
 
   place_page::BuildInfo info;
-  info.m_needAnimationOnSelection = false;
+  info.m_animateSelection = false;
   info.m_mercator = mercator::FromLatLon(m_mapPoints[0].m_lat, m_mapPoints[0].m_lon);
   // Other details will be filled in by BuildPlacePageInfo().
   fm.BuildAndSetPlacePageInfo(info);

@@ -40,8 +40,16 @@ public:
   bool IsInUserAction() const { return m_inUserAction; }
   void SetInUserAction(bool isInUserAction) { m_inUserAction = isInUserAction; }
 
-  bool IsCopyrightActive() const { return m_isCopyrightActive; }
-  void DeactivateCopyright() { m_isCopyrightActive = false; }
+  enum class CopyrightState
+  {
+    Pending,
+    Visible,
+    Fading,
+    Hidden
+  };
+  CopyrightState GetCopyrightState() const { return m_copyrightState; }
+  void SetCopyrightState(CopyrightState state) { m_copyrightState = state; }
+  bool IsCopyrightActive() const { return m_copyrightState != CopyrightState::Hidden; }
 
   void ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler);
   void CallOnCompassTappedHandler();
@@ -52,7 +60,7 @@ public:
 private:
   RulerHelper m_rulerHelper;
 
-  bool m_isCopyrightActive = true;
+  CopyrightState m_copyrightState = CopyrightState::Pending;
 
   Shape::TTapHandler m_onCompassTappedHandler;
 

@@ -97,8 +97,7 @@ using namespace routing;
     return;
 
   framework.GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
-                                           false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                                           true /* isSelectionShapeVisible */);
+                                           false /* isGeometrySelectionAllowed */, false /* animateSelection */);
 }
 
 + (void)resetRouteElevationActivePoint

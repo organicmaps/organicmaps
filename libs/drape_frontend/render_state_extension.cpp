@@ -1,6 +1,7 @@
 #include "drape_frontend/render_state_extension.hpp"
 
 #include <array>
+#include <tuple>
 
 namespace
 {
@@ -16,6 +17,8 @@ std::array<RenderStateExtension, static_cast<size_t>(DepthLayer::LayersCount)> k
     RenderStateExtension(DepthLayer::GuiLayer),         RenderStateExtension(DepthLayer::SelectedUserLineLayer),
     RenderStateExtension(DepthLayer::UserAreaLayer)};
 
+RenderStateExtension kAnimatedBookmarkState(DepthLayer::UserMarkLayer, true /* animateBookmark */);
+
 struct RenderStateExtensionFactory
 {
   static ref_ptr<RenderStateExtension> Get(DepthLayer depthLayer)
@@ -28,16 +31,21 @@ struct RenderStateExtensionFactory
 
 namespace df
 {
-RenderStateExtension::RenderStateExtension(DepthLayer depthLayer) : m_depthLayer(depthLayer) {}
+RenderStateExtension::RenderStateExtension(DepthLayer depthLayer, bool animateBookmark)
+  : m_depthLayer(depthLayer)
+  , m_animateBookmark(animateBookmark)
+{}
 
 bool RenderStateExtension::Less(ref_ptr<dp::BaseRenderStateExtension> other) const
 {
-  return m_depthLayer < ref_ptr<RenderStateExtension>(other)->m_depthLayer;
+  auto const rhs = ref_ptr<RenderStateExtension>(other);
+  return std::tie(m_depthLayer, m_animateBookmark) < std::tie(rhs->m_depthLayer, rhs->m_animateBookmark);
 }
 
 bool RenderStateExtension::Equal(ref_ptr<dp::BaseRenderStateExtension> other) const
 {
-  return m_depthLayer == ref_ptr<RenderStateExtension>(other)->m_depthLayer;
+  auto const rhs = ref_ptr<RenderStateExtension>(other);
+  return m_depthLayer == rhs->m_depthLayer && m_animateBookmark == rhs->m_animateBookmark;
 }
 
 DepthLayer GetDepthLayer(dp::RenderState const & state)
@@ -45,8 +53,13 @@ DepthLayer GetDepthLayer(dp::RenderState const & state)
   return state.GetRenderStateExtension<RenderStateExtension>()->GetDepthLayer();
 }
 
-dp::RenderState CreateRenderState(gpu::Program program, DepthLayer depthLayer)
+dp::RenderState CreateRenderState(gpu::Program program, DepthLayer depthLayer, bool animateBookmark)
 {
+  if (animateBookmark)
+  {
+    ASSERT_EQUAL(depthLayer, kAnimatedBookmarkState.GetDepthLayer(), ());
+    return dp::RenderState(program, make_ref(&kAnimatedBookmarkState));
+  }
   return dp::RenderState(program, RenderStateExtensionFactory::Get(depthLayer));
 }
 }  // namespace df
