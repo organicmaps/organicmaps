@@ -9,18 +9,68 @@
 #include <algorithm>
 #include <bit>
 #include <cmath>
-#include <limits>
 #include <optional>
 
 namespace df
 {
+namespace
+{
+bool IsFinite(double value)
+{
+  return (std::bit_cast<uint64_t>(value) & 0x7ff0000000000000ULL) != 0x7ff0000000000000ULL;
+}
+
+m2::PointD OffsetPoint(std::vector<m2::PointD> const & road, size_t index, float offset, double scale)
+{
+  auto const pixels = LinePixelOffset(road, index, offset);
+  return road[index] + m2::PointD(pixels.x, pixels.y) / scale;
+}
+
+bool IntersectsRoad(std::vector<m2::PointD> const & road, m2::PointD const & start, m2::PointD const & end)
+{
+  for (size_t i = 1; i < road.size(); ++i)
+    if (m2::SegmentsIntersect(start, end, road[i - 1], road[i]))
+      return true;
+  return false;
+}
+
+// Only a short, forward endpoint adjustment on the same side of the road is allowed.
+bool CanJoinEndpoint(std::vector<m2::PointD> const & road, size_t segment, m2::PointD const & point,
+                     m2::PointD const & endpoint, m2::PointD const & neighbor, double bound)
+{
+  if ((point - endpoint).SquaredLength() > bound * bound || DotProduct(point - neighbor, endpoint - neighbor) <= 0)
+    return false;
+  auto const & origin = road[segment - 1];
+  auto const direction = road[segment] - origin;
+  if (CrossProduct(direction, point - origin) * CrossProduct(direction, neighbor - origin) <= 0)
+    return false;
+  return !IntersectsRoad(road, point, neighbor);
+}
+
+// Return the parameter on the first segment, for a unique finite intersection.
+std::optional<double> IntersectionFraction(m2::PointD const & start, m2::PointD const & finish,
+                                           m2::PointD const & node, m2::PointD const & approach)
+{
+  auto const direction = finish - start;
+  auto const ray = approach - node;
+  auto const relative = node - start;
+  double const cross = CrossProduct(direction, ray);
+  if (cross == 0)
+    return {};
+  double const t = CrossProduct(relative, ray) / cross;
+  double const u = CrossProduct(relative, direction) / cross;
+  if (t < 0 || t > 1 || u < 0 || u > 1)
+    return {};
+  return t;
+}
+}  // namespace
+
 std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const & path,
                                                  std::vector<ConnectorTarget> const & targets, double scaleGtoP,
                                                  double tolerance)
 {
-  auto const finite = [](double value)
-  { return (std::bit_cast<uint64_t>(value) & 0x7ff0000000000000ULL) != 0x7ff0000000000000ULL; };
-  if (path.size() < 2 || targets.empty() || !finite(scaleGtoP) || scaleGtoP <= 0 || !finite(tolerance) || tolerance < 0)
+  if (path.size() < 2 || targets.empty() || !IsFinite(scaleGtoP) || scaleGtoP <= 0 || !IsFinite(tolerance) ||
+      tolerance < 0)
     return {};
   // A closed loop has no unambiguous terminal. Self-crossing geometry would also
   // make the clipped-vertex mapping below attach an offset to the wrong pass.
@@ -38,59 +88,146 @@ std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const &
     auto const & neighbor = path[end == 0 ? 1 : end - 1];
     if ((neighbor - endpoint).SquaredLength() == 0)
       continue;
-    double best = std::numeric_limits<double>::max();
-    std::optional<m2::PointD> candidate;
-    bool connected = false;
+    std::vector<m2::PointD> candidates;
+    std::vector<m2::PointD> terminalHits;
+    std::vector<ConnectorTarget const *> incidentRoads;
+    bool leaveConnected = false;
+    size_t const terminal = end == 0 ? 1 : end;
     for (auto const & target : targets)
     {
       auto const & road = target.m_roadPath;
       double const offset = target.m_offsetPixels;
       // Contacts at the other end of a long connector must not suppress this end.
-      if ((endpoint - target.m_junction).Length() > tolerance || road.size() < 2 || !finite(offset) || offset == 0 ||
-          !finite(4 * offset / scaleGtoP))
+      if ((endpoint - target.m_junction).Length() > tolerance || road.size() < 2 || !IsFinite(offset) || offset == 0 ||
+          !IsFinite(4 * offset / scaleGtoP))
         continue;
+      incidentRoads.push_back(&target);
+      // A through connection is not a terminal merge even when its endpoint is at another arm.
+      for (size_t j = 1; j < path.size(); ++j)
+        if (j != terminal && IntersectsRoad(road, path[j - 1], path[j]))
+          leaveConnected = true;
       double const bound = std::min(4 * std::abs(offset) / scaleGtoP, (neighbor - endpoint).Length());
       for (size_t i = 1; i < road.size(); ++i)
       {
         auto const axis = m2::ParametrizedSegment<m2::PointD>(road[i - 1], road[i]);
         if ((axis.ClosestPointTo(target.m_junction) - target.m_junction).Length() > tolerance)
           continue;
-        auto const a = LinePixelOffset(road, i - 1, offset);
-        auto const b = LinePixelOffset(road, i, offset);
-        auto const start = road[i - 1] + m2::PointD(a.x, a.y) / scaleGtoP;
-        auto const finish = road[i] + m2::PointD(b.x, b.y) / scaleGtoP;
+        auto const start = OffsetPoint(road, i - 1, offset, scaleGtoP);
+        auto const finish = OffsetPoint(road, i, offset, scaleGtoP);
+        bool intersects = false;
         for (size_t j = 1; j < path.size(); ++j)
-          connected |= m2::SegmentsIntersect(start, finish, path[j - 1], path[j]);
-        auto const point = m2::ParametrizedSegment<m2::PointD>(start, finish).ClosestPointTo(endpoint);
-        double const distance = (point - endpoint).SquaredLength();
-        if (distance >= best || distance > bound * bound || DotProduct(point - neighbor, endpoint - neighbor) <= 0)
-          continue;
-        // The connector must approach from the lane's side of the road axis.
-        // Segment intersection alone misses a crossing past the road endpoint.
-        auto const axisDirection = road[i] - road[i - 1];
-        auto const candidateSide = CrossProduct(axisDirection, point - road[i - 1]);
-        auto const approachSide = CrossProduct(axisDirection, neighbor - road[i - 1]);
-        if (candidateSide * approachSide < 0)
-          continue;
-        // Never authorize a terminal adjustment through the car-road axis.
-        bool crosses = false;
-        for (size_t j = 1; j < road.size(); ++j)
-          crosses |= m2::SegmentsIntersect(point, neighbor, road[j - 1], road[j]);
-        if (!crosses)
         {
-          best = distance;
-          candidate = point;
+          if (!m2::SegmentsIntersect(start, finish, path[j - 1], path[j]))
+            continue;
+          intersects = true;
+          if (j == terminal)
+          {
+            if (auto const hit = IntersectionFraction(endpoint, neighbor, start, finish))
+            {
+              auto const point = endpoint + (neighbor - endpoint) * *hit;
+              // Trim a terminal overrun to the lane. Never move an endpoint that already ends at the lane.
+              if ((point - endpoint).Length() > 0.5 / scaleGtoP &&
+                  CanJoinEndpoint(road, i, point, endpoint, neighbor, bound))
+              {
+                terminalHits.push_back(point);
+                continue;
+              }
+            }
+          }
+          leaveConnected = true;
+        }
+        if (!intersects && start != finish)
+        {
+          auto const point = m2::ParametrizedSegment<m2::PointD>(start, finish).ClosestPointTo(endpoint);
+          if (CanJoinEndpoint(road, i, point, endpoint, neighbor, bound))
+            candidates.push_back(point);
         }
       }
     }
-    if (!connected && candidate)
+    if (leaveConnected)
+      continue;
+    bool const trimming = !terminalHits.empty();
+    if (trimming)
+      candidates.swap(terminalHits);
+    // The proposed terminal must clear every known road arm, not only the target lane's road.
+    std::erase_if(candidates, [&](auto const & point)
     {
+      return std::any_of(incidentRoads.begin(), incidentRoads.end(), [&](auto const * road)
+      { return IntersectsRoad(road->m_roadPath, point, neighbor); });
+    });
+    if (!candidates.empty())
+    {
+      auto const distance = [&](auto const & point) { return (point - endpoint).Length(); };
+      auto const candidate = std::min_element(candidates.begin(), candidates.end(),
+                                              [&](auto const & a, auto const & b) { return distance(a) < distance(b); });
+      double const tie = 0.5 / scaleGtoP;
+      if (std::any_of(candidates.begin(), candidates.end(), [&](auto const & point)
+      {
+        return (trimming || distance(point) <= distance(*candidate) + tie) &&
+               (point - *candidate).Length() > tie;
+      }))
+        continue;
       auto const pixels = (*candidate - endpoint) * scaleGtoP;
       result[end] = m2::PointF(pixels.x, pixels.y);
       changed = true;
     }
   }
+  if (changed && path.size() == 2)
+  {
+    auto const axis = path.back() - path.front();
+    auto const delta = result.back() - result.front();
+    if (DotProduct(axis, axis + m2::PointD(delta.x, delta.y) / scaleGtoP) <= 0)
+      return {};
+  }
   return changed ? result : std::vector<m2::PointF>{};
+}
+
+std::vector<double> LaneContactDistances(std::vector<m2::PointD> const & road,
+                                         std::vector<m2::PointD> const & junctions,
+                                         std::vector<std::vector<m2::PointD>> const & approaches, float offsetPixels,
+                                         double scaleGtoP, double tolerance)
+{
+  if (road.size() < 2 || junctions.empty() || approaches.empty() || offsetPixels == 0 || !IsFinite(offsetPixels) ||
+      !IsFinite(scaleGtoP) || scaleGtoP <= 0 || !IsFinite(tolerance) || tolerance < 0 ||
+      !IsFinite(4.0 * offsetPixels / scaleGtoP))
+    return {};
+  std::vector<double> result;
+  double along = 0;
+  for (size_t i = 1; i < road.size(); ++i)
+  {
+    double const length = (road[i] - road[i - 1]).Length();
+    if (length == 0)
+      continue;
+    auto const axis = m2::ParametrizedSegment<m2::PointD>(road[i - 1], road[i]);
+    auto const start = OffsetPoint(road, i - 1, offsetPixels, scaleGtoP);
+    auto const finish = OffsetPoint(road, i, offsetPixels, scaleGtoP);
+    auto const direction = finish - start;
+    double const denominator = direction.SquaredLength();
+    if (denominator > 0)
+      for (size_t j = 0; j < std::min(junctions.size(), approaches.size()); ++j)
+      {
+        auto const & node = junctions[j];
+        if ((axis.ClosestPointTo(node) - node).Length() > tolerance)
+          continue;
+        for (auto const & approach : approaches[j])
+        {
+          auto t = IntersectionFraction(start, finish, node, approach);
+          if (!t)
+          {
+            double const bound = std::min(4.0 * std::abs(offsetPixels) / scaleGtoP, (approach - node).Length());
+            auto const join = m2::ParametrizedSegment<m2::PointD>(start, finish).ClosestPointTo(node);
+            if (!CanJoinEndpoint(road, i, join, node, approach, bound))
+              continue;
+            t = std::clamp(DotProduct(join - start, direction) / denominator, 0.0, 1.0);
+          }
+          result.push_back(along + *t * length);
+        }
+      }
+    along += length;
+  }
+  std::sort(result.begin(), result.end());
+  result.erase(std::unique(result.begin(), result.end()), result.end());
+  return result;
 }
 
 glsl::vec2 InterpolateLinePixelOffset(std::vector<m2::PointD> const & path, std::vector<m2::PointF> const & offsets,
