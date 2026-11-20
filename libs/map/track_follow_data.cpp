@@ -104,13 +104,14 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
     {
       auto const & from = line[segment].GetPoint();
       auto const & to = line[segment + 1].GetPoint();
-      auto const direction = to - from;
       double const minFraction = lineIndex == bound.m_line && segment == bound.m_segment ? bound.m_fraction : 0.0;
       double const fraction = std::max(minFraction, m2::SegmentProjectionFraction(from, to, point));
-      auto const projected = fraction == 1.0 ? to : from + direction * fraction;
-      auto const fromBound = from + direction * minFraction;
+      auto const projected = m2::SegmentPointAt(from, to, fraction);
       if (!canProject)
+      {
+        auto const fromBound = m2::SegmentPointAt(from, to, minFraction);
         canProject = mercator::DistanceOnEarth(departureCenter, fromBound) > departureRadiusM;
+      }
       double const distanceM = mercator::DistanceOnEarth(projected, point);
       if (canProject && distanceM <= kMaxStopDistanceM &&
           (!isSourceVertex || projected.EqualDxDy(point, mercator::kPointEqualityEps)) &&
@@ -151,7 +152,7 @@ TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFrom
 std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::PointD const & selectedPoint,
                                                      double distanceFromBeginningM)
 {
-  if (!math::is_finite(distanceFromBeginningM) || distanceFromBeginningM < 0.0)
+  if (distanceFromBeginningM < 0.0)
     return std::nullopt;
 
   auto const & lengths = track.GetCumulativeLengths();
@@ -173,7 +174,7 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::Po
       auto const & from = line[segment].GetPoint();
       auto const & to = line[segment + 1].GetPoint();
       double const fraction = m2::SegmentProjectionFraction(from, to, selectedPoint);
-      auto const projected = fraction == 1.0 ? to : from + (to - from) * fraction;
+      auto const projected = m2::SegmentPointAt(from, to, fraction);
       double const selectedDistance = std::lerp(start, *end, fraction);
       if (projected.EqualDxDy(selectedPoint, mercator::kPointEqualityEps) &&
           AlmostEqualAbs(distanceFromBeginningM, selectedDistance, kSelectionDistanceToleranceM))

@@ -126,7 +126,7 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       auto const & from = line[ptIndex].GetPoint();
       auto const & to = line[ptIndex + 1].GetPoint();
       double const fraction = m2::SegmentProjectionFraction(from, to, tapPoint);
-      auto const closestPoint = fraction == 1.0 ? to : from + (to - from) * fraction;
+      auto const closestPoint = m2::SegmentPointAt(from, to, fraction);
       auto const squaredDist = closestPoint.SquaredLength(tapPoint);
       if (squaredDist >= info.m_squareDist)
         continue;

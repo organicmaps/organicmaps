@@ -37,7 +37,6 @@
 #include "coding/file_writer.hpp"
 
 #include "base/logging.hpp"
-#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
@@ -1215,8 +1214,6 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (auto const result = CheckFollowedTrackEditable(); result != FollowTrackResult::Ok)
     return result;
-  if (!math::is_finite(distanceM))
-    return FollowTrackResult::InvalidSelection;
 
   auto const source = m_followSession->m_source;
   distanceM = std::clamp(distanceM, 0.0, source->GetLengthMeters());

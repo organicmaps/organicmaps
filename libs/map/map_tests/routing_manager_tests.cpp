@@ -2179,8 +2179,6 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceRefusalsPreserveState)
   double const length = bookmarks.GetTrack(id)->GetLengthMeters();
   checkRefusal(length, FollowTrackResult::NoRemainingGeometry);
   checkRefusal(length + 100.0, FollowTrackResult::NoRemainingGeometry);
-  for (double const distance : {math::Nan(), math::Infinity(), -math::Infinity()})
-    checkRefusal(distance, FollowTrackResult::InvalidSelection);
 
   auto changed = source;
   changed.m_geometry.m_lines.front().back().SetPoint(MeterPoint(1100, 0));

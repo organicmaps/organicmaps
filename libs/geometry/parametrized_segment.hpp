@@ -19,6 +19,12 @@ inline double SegmentProjectionFraction(PointD const & from, PointD const & to, 
   return math::Clamp(DotProduct(point - from, direction) / squaredLength, 0.0, 1.0);
 }
 
+// Preserve the exact endpoint when reconstructing a projected point.
+inline PointD SegmentPointAt(PointD const & from, PointD const & to, double fraction)
+{
+  return fraction == 1.0 ? to : from + (to - from) * fraction;
+}
+
 // This class holds a parametrization of the
 // line segment between two points p0 and p1.
 // The parametrization is of the form

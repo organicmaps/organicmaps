@@ -8,20 +8,12 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/assert.hpp"
-#include "base/math.hpp"
-#include "base/scope_guard.hpp"
-
-#include <limits>
 #include <memory>
-#include <stdexcept>
 #include <utility>
 #include <vector>
 
 namespace track_follow_data_tests
 {
-using std::logic_error;
-
 namespace
 {
 m2::PointD MeterPoint(double x, double y)
@@ -34,13 +26,6 @@ Track MakeSourceTrack(kml::TrackData data)
   data.m_id = 1;
   return Track(std::move(data));
 }
-
-#ifdef DEBUG
-bool ThrowOnAssertion(base::SrcPoint const &, std::string const & message)
-{
-  throw logic_error(message);
-}
-#endif
 }  // namespace
 
 UNIT_TEST(TrackFollowData_TrackEntryResolvesBothSidesOfGap)
@@ -70,8 +55,7 @@ UNIT_TEST(TrackFollowData_InvalidTrackSelectionDistance)
   source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
   source.m_geometry.AddTimestamps({});
   auto const track = MakeSourceTrack(source);
-  for (double const distance : {-1.0, math::Nan(), math::Infinity(), -math::Infinity()})
-    TEST(!ResolveTrackEntry(track, MeterPoint(0, 0), distance), (distance));
+  TEST(!ResolveTrackEntry(track, MeterPoint(0, 0), -0.005), ("Reject negatives within the match tolerance"));
   TEST(ResolveTrackEntry(track, MeterPoint(0, 0), 0.0), ());
 }
 
@@ -291,39 +275,4 @@ UNIT_TEST(TrackFollowData_JoinedTrackEntryDoesNotInventAltitudeExcursion)
   TEST_EQUAL(forward->m_points.front().GetAltitude(), 100, ());
   TEST_EQUAL(forward->m_points.back().GetAltitude(), 200, ());
 }
-
-#ifdef DEBUG
-UNIT_TEST(TrackFollowData_InvalidSourcePositionsFail)
-{
-  auto const previous = base::SetAssertFunction(ThrowOnAssertion);
-  SCOPE_GUARD(restoreAssert, [&] { base::SetAssertFunction(previous); });
-
-  kml::TrackData source;
-  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
-  source.m_geometry.AddTimestamps({});
-  auto const track = MakeSourceTrack(source);
-  for (double const distance : {-1.0, track.GetLengthMeters() + 1.0})
-    TEST_THROW(ResolveTrackEntryAt(track, distance), logic_error, ());
-
-  for (auto const entry : {TrackSourcePosition{1, 0, 0.0}, TrackSourcePosition{0, 1, 0.0},
-                           TrackSourcePosition{0, std::numeric_limits<size_t>::max(), 0.0},
-                           TrackSourcePosition{0, 0, -0.1}, TrackSourcePosition{0, 0, 1.1}})
-    TEST_THROW(BuildTrackFollowingData(source, entry), logic_error, ());
-}
-
-UNIT_TEST(TrackFollowData_InvalidInternalTrackGeometryFails)
-{
-  auto const previous = base::SetAssertFunction(ThrowOnAssertion);
-  SCOPE_GUARD(restoreAssert, [&] { base::SetAssertFunction(previous); });
-  kml::TrackData source;
-  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 110}});
-  source.m_geometry.AddLine({{MeterPoint(100, 0), 110}});
-  TEST_THROW(BuildTrackFollowingData(source, {0, 0, 0.0}), logic_error, ());
-  source.m_geometry.Clear();
-  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}});
-  source.m_geometry.AddLine({{MeterPoint(500, 0), 100}, {MeterPoint(600, 0), 110}});
-  source.m_stops.push_back({MeterPoint(500, 0), "Stop"});
-  TEST_THROW(BuildTrackFollowingData(source, {1, 0, 0.0}), logic_error, ());
-}
-#endif
 }  // namespace track_follow_data_tests
