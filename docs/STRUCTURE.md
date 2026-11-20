@@ -8,6 +8,8 @@
 
 - `qt/` - desktop application.
 
+- `sailfish/` - Sailfish OS application.
+
 ## Data
 
 `data/` folder contains data files for the application: maps, styles, country borders, etc.:
