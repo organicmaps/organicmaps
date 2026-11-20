@@ -467,16 +467,13 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       m_lastAltRoute.reset();
       m_lastAltFakeEdges.reset();
     }
-    auto const surface = m_requestRoutingOptions->m_bicycleSurface;
-    if (m_previousRoutingOptions.m_bicycleSurface != surface)
-      m_activeStrategy = EdgeEstimator::Strategy::Normal;
     m_previousRoutingOptions = *m_requestRoutingOptions;
-    m_estimator->SetBicycleSurfacePreference(surface);
+    m_estimator->SetBicycleSurfacePreference(m_requestRoutingOptions->m_bicycleSurface);
     SCOPE_GUARD(featureRoadGraphClear, [this]
     {
       ClearRouteCalculationState();
       m_requestRoutingOptions.reset();
-      m_estimator->SetBicycleSurfacePreference(BicycleSurfacePreference::Any);
+      m_estimator->SetBicycleSurfacePreference(BicycleSurfaceBias::Any);
     });
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.

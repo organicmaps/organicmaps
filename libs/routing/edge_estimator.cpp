@@ -399,17 +399,19 @@ private:
   double SurfacePreferenceFactor(RoadGeometry::Surface surface) const
   {
     using enum RoadGeometry::Surface;
+    // Missing surface data is common. Bias only surfaces the map classifies.
+    // A modest paved penalty can make a nearby gravel detour worthwhile. Prefer paved applies
+    // stronger penalties on top of normal bicycle speeds to favor a smoother ride.
     switch (GetBicycleSurfacePreference())
     {
-    case BicycleSurfacePreference::PreferPaved:
+    case BicycleSurfaceBias::PreferPaved:
       if (surface == UnpavedGood)
         return 1.4;
       if (surface == UnpavedBad)
         return 1.8;
       return 1.0;
-    case BicycleSurfacePreference::PreferUnpaved: return surface == PavedGood || surface == PavedBad ? 1.3 : 1.0;
-    case BicycleSurfacePreference::Any:
-    case BicycleSurfacePreference::AvoidUnpaved: return 1.0;
+    case BicycleSurfaceBias::PreferUnpaved: return surface == Paved ? 1.3 : 1.0;
+    case BicycleSurfaceBias::Any: return 1.0;
     }
     UNREACHABLE();
   }

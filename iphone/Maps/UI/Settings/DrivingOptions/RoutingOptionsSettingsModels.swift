@@ -21,7 +21,7 @@ extension RoutingOption {
     switch self {
     case .routeOptimization: return true
     case .tollRoads: return options.supportedOptions.contains(.toll)
-    case .unpavedRoads: return options.supportedOptions.contains(.dirty)
+    case .unpavedRoads: return options.routerType != .bicycle && options.supportedOptions.contains(.dirty)
     case .ferryCrossings: return options.supportedOptions.contains(.ferry)
     case .motorways: return options.supportedOptions.contains(.motorway)
     case .steps: return options.supportedOptions.contains(.steps)
@@ -72,6 +72,7 @@ extension RoutingOption {
 struct RoutingOptionsSettingsState {
   let options: RoutingOptions
   let canChangeOptimization: Bool
+  let bicycleSurface: BicycleSurfacePreference
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>

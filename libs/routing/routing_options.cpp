@@ -98,39 +98,35 @@ void RoutingOptions::SaveToSettings(VehicleType vehicleType, RoutingOptions opti
 RoutePlanningOptions RoutePlanningOptions::LoadFromSettings(VehicleType vehicle)
 {
   RoutePlanningOptions options{RoutingOptions::LoadFromSettings(vehicle)};
-  if (vehicle != VehicleType::Bicycle)
+  if (vehicle != VehicleType::Bicycle || options.m_avoid.Has(RoutingOptions::Dirty))
     return options;
-
-  if (options.m_avoid.Has(RoutingOptions::Dirty))
-  {
-    options.m_bicycleSurface = BicycleSurfacePreference::AvoidUnpaved;
-    return options;
-  }
 
   uint32_t value = 0;
   if (settings::Get(kBicycleSurfacePreferenceKey, value) &&
-      value <= static_cast<uint32_t>(BicycleSurfacePreference::PreferUnpaved))
-    options.m_bicycleSurface = static_cast<BicycleSurfacePreference>(value);
+      value < static_cast<uint32_t>(BicycleSurfacePreference::AvoidUnpaved))
+    options.m_bicycleSurface = static_cast<BicycleSurfaceBias>(value);
   return options;
 }
 
-BicycleSurfacePreference LoadBicycleSurfacePreference()
+BicycleSurfacePreference RoutePlanningOptions::LoadBicycleSurfacePreference()
 {
-  return RoutePlanningOptions::LoadFromSettings(VehicleType::Bicycle).m_bicycleSurface;
+  auto const options = LoadFromSettings(VehicleType::Bicycle);
+  if (options.m_avoid.Has(RoutingOptions::Dirty))
+    return BicycleSurfacePreference::AvoidUnpaved;
+  return static_cast<BicycleSurfacePreference>(options.m_bicycleSurface);
 }
 
-void SaveBicycleSurfacePreference(BicycleSurfacePreference preference)
+void RoutePlanningOptions::SaveBicycleSurfacePreference(BicycleSurfacePreference preference)
 {
-  auto const value = static_cast<uint32_t>(preference);
-  CHECK_LESS_OR_EQUAL(value, static_cast<uint32_t>(BicycleSurfacePreference::AvoidUnpaved), ());
+  auto const value = static_cast<int64_t>(preference);
+  CHECK(preference >= BicycleSurfacePreference::Any && preference <= BicycleSurfacePreference::AvoidUnpaved, (value));
   auto avoids = RoutingOptions::LoadFromSettings(VehicleType::Bicycle);
-  bool const avoidUnpaved = preference == BicycleSurfacePreference::AvoidUnpaved;
-  if (avoidUnpaved)
+  // The place page also updates the Dirty bit for Avoid unpaved.
+  if (preference == BicycleSurfacePreference::AvoidUnpaved)
     avoids.Add(RoutingOptions::Dirty);
   else
     avoids.Remove(RoutingOptions::Dirty);
-  // Keep the existing hard avoid in the bicycle road mask.
-  settings::Update({{std::string(kBicycleSurfacePreferenceKey), settings::ToString(avoidUnpaved ? 0u : value)},
+  settings::Update({{std::string(kBicycleSurfacePreferenceKey), settings::ToString(value)},
                     {std::string(SettingsKey(VehicleType::Bicycle)),
                      settings::ToString(static_cast<uint32_t>(avoids.GetOptions()))}});
 }
@@ -269,6 +265,12 @@ RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask, Veh
   std::string value;
   if (!key.empty() && settings::Get(key, value))
     m_saved = value;
+  if (vehicleType == VehicleType::Bicycle)
+  {
+    if (settings::Get(kBicycleSurfacePreferenceKey, value))
+      m_savedBicycleSurface = value;
+    settings::Delete(kBicycleSurfacePreferenceKey);
+  }
   RoutingOptions::SaveToSettings(vehicleType, RoutingOptions(roadsMask));
 }
 
@@ -281,6 +283,13 @@ RoutingOptionSetter::~RoutingOptionSetter()
     settings::Set(key, *m_saved);
   else
     settings::Delete(key);
+  if (m_vehicleType == VehicleType::Bicycle)
+  {
+    if (m_savedBicycleSurface)
+      settings::Set(kBicycleSurfacePreferenceKey, *m_savedBicycleSurface);
+    else
+      settings::Delete(kBicycleSurfacePreferenceKey);
+  }
 }
 
 }  // namespace routing

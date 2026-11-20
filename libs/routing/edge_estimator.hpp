@@ -60,7 +60,7 @@ public:
     m_tightHeuristicAllowed = tightHeuristicAllowed;
   }
   Strategy GetStrategy() const { return m_strategy; }
-  void SetBicycleSurfacePreference(BicycleSurfacePreference preference) { m_bicycleSurfacePreference = preference; }
+  void SetBicycleSurfacePreference(BicycleSurfaceBias preference) { m_bicycleSurfacePreference = preference; }
 
   /// The endings of the current search that are on service roads, see GetTurnPenaltyFactor().
   struct ServiceEndings
@@ -127,7 +127,7 @@ public:
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
 protected:
-  BicycleSurfacePreference GetBicycleSurfacePreference() const { return m_bicycleSurfacePreference; }
+  BicycleSurfaceBias GetBicycleSurfacePreference() const { return m_bicycleSurfacePreference; }
 
   /// Applies Strategy::DistanceBiased to a Normal |weight|: roads not slower than the cap tie by
   /// pure distance, slower ones keep their full cost. No-op for Purpose::ETA and Strategy::Normal.
@@ -144,7 +144,7 @@ private:
   SpeedKMpH const m_offroadSpeedKMpH;
   Strategy m_strategy = Strategy::Normal;
   bool m_tightHeuristicAllowed = true;
-  BicycleSurfacePreference m_bicycleSurfacePreference = BicycleSurfacePreference::Any;
+  BicycleSurfaceBias m_bicycleSurfacePreference = BicycleSurfaceBias::Any;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitAltBoardingPenaltyS = 0.0;
   ServiceEndings m_serviceEndings;

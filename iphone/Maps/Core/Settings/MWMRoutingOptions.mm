@@ -4,8 +4,6 @@
 
 #include "routing/routing_options.hpp"
 
-#include "base/assert.hpp"
-
 #include <bit>
 
 static_assert(MWMRoutingAvoidanceToll == static_cast<NSUInteger>(routing::RoutingOptions::Toll));
@@ -25,14 +23,13 @@ static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::Routi
 
 + (MWMBicycleSurfacePreference)bicycleSurfacePreference
 {
-  return static_cast<MWMBicycleSurfacePreference>(routing::LoadBicycleSurfacePreference());
+  return static_cast<MWMBicycleSurfacePreference>(routing::RoutePlanningOptions::LoadBicycleSurfacePreference());
 }
 
 + (void)setBicycleSurfacePreference:(MWMBicycleSurfacePreference)preference
 {
-  CHECK(preference >= MWMBicycleSurfacePreferenceAny && preference <= MWMBicycleSurfacePreferenceAvoidUnpaved,
-        (static_cast<NSInteger>(preference)));
-  routing::SaveBicycleSurfacePreference(static_cast<routing::BicycleSurfacePreference>(preference));
+  routing::RoutePlanningOptions::SaveBicycleSurfacePreference(
+      static_cast<routing::BicycleSurfacePreference>(preference));
 }
 
 - (instancetype)initWithRouterType:(MWMRouterType)routerType
