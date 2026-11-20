@@ -66,16 +66,16 @@ public class RoutingControllerCarLifecycleTest
     {
       controller.attach(previous);
       controller.onSaveState(previous);
-      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
       screen.onCreate(owner);
-      verify(previous, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-      verify(screen, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+      verify(previous, never()).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
+      verify(screen, never()).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
 
       screen.onResume(owner);
       screen.onResume(owner);
     }
 
-    verify(screen, times(1)).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(screen, times(1)).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 
   @Test
@@ -114,9 +114,9 @@ public class RoutingControllerCarLifecycleTest
          MockedStatic<NavigationService> service = mockStatic(NavigationService.class))
     {
       screen.onDestroy(mock(LifecycleOwner.class));
-      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
 
-      verify(phone).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+      verify(phone).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
       service.verifyNoInteractions();
     }
   }

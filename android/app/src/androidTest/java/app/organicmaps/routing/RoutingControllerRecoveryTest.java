@@ -4,12 +4,20 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
+import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.IntentCompat;
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -21,6 +29,8 @@ import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingListener;
+import app.organicmaps.sdk.routing.RoutingOptions;
+import app.organicmaps.sdk.settings.RoadType;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
@@ -211,7 +221,7 @@ public class RoutingControllerRecoveryTest
     final RoutingListener events = (RoutingListener) listener.get(mController);
     onMain(() -> {
       mController.prepare(point("Start", 1), point("Finish", 2), Router.Ruler);
-      events.onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
+      events.onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0], null);
       assertTrue(mController.cancel());
       mController.prepare(null, null, Router.Ruler);
       mContainer = new RoutingController.Container() {};
@@ -224,16 +234,7 @@ public class RoutingControllerRecoveryTest
   @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
-    // A location permission dialog would pause the Activity during recreation.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-    {
-      mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_COARSE_LOCATION);
-      mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_FINE_LOCATION);
-    }
-    onMain(() -> {
-      mController = RoutingController.get();
-      mController.initialize(mApplication.getLocationHelper());
-    });
+    usePhoneController();
     try (ActivityScenario<MwmActivity> scenario = ActivityScenario.launch(MwmActivity.class))
     {
       final AtomicReference<MwmActivity> original = new AtomicReference<>();
@@ -263,6 +264,125 @@ public class RoutingControllerRecoveryTest
         assertTrue(Framework.nativeHasSavedRoutePoints());
       });
     }
+  }
+
+  @Test
+  @SdkSuppress(minSdkVersion = Build.VERSION_CODES.P)
+  public void routeErrorGuidanceAndReportSurviveActivityRecreation() throws Exception
+  {
+    usePhoneController();
+    final AtomicBoolean hadSteps = new AtomicBoolean();
+    try (ActivityScenario<MwmActivity> scenario = ActivityScenario.launch(MwmActivity.class))
+    {
+      scenario.onActivity(activity -> {
+        mController.setRouterType(Router.Pedestrian);
+        hadSteps.set(RoutingOptions.hasOption(Router.Pedestrian, RoadType.Steps));
+        RoutingOptions.addOption(Router.Pedestrian, RoadType.Steps);
+        activity.onRouteBuildError(ResultCodes.START_POINT_NOT_FOUND, new String[0], null);
+        final RoutingErrorDialogFragment fragment = routeErrorDialog(activity);
+        final AlertDialog dialog = (AlertDialog) fragment.requireDialog();
+        assertEquals(activity.getText(app.organicmaps.R.string.driving_options_title),
+                     dialog.getButton(DialogInterface.BUTTON_POSITIVE).getText());
+        final TextView message = dialog.findViewById(app.organicmaps.R.id.tv__message);
+        assertTrue(
+            message.getText().toString().contains(activity.getString(R.string.dialog_routing_select_closer_start)));
+        fragment.dismissNow();
+
+        // The map-region check fails for points in the open ocean before looking for a road.
+        final MapObject start = MapObject.createMapObject(MapObject.API_POINT, "Start", "", 0, -140);
+        final MapObject finish = MapObject.createMapObject(MapObject.API_POINT, "Finish", "", 0, -141);
+        mController.prepare(start, finish, Router.Pedestrian);
+      });
+
+      final AtomicBoolean failed = new AtomicBoolean();
+      final long deadline = SystemClock.uptimeMillis() + TimeUnit.SECONDS.toMillis(15);
+      while (!failed.get() && SystemClock.uptimeMillis() < deadline)
+      {
+        onMain(() -> failed.set(mController.getBuildState() == RoutingController.BuildState.ERROR));
+        if (!failed.get())
+          Thread.sleep(10);
+      }
+      assertTrue("Expected the route outside map coverage to fail", failed.get());
+      scenario.recreate();
+      scenario.onActivity(activity -> {
+        final AlertDialog dialog = (AlertDialog) routeErrorDialog(activity).requireDialog();
+        assertEquals(activity.getText(app.organicmaps.R.string.report_a_bug),
+                     dialog.getButton(DialogInterface.BUTTON_POSITIVE).getText());
+        final TextView message = dialog.findViewById(app.organicmaps.R.id.tv__message);
+        assertEquals(activity.getText(R.string.dialog_routing_application_error), message.getText());
+      });
+      verifyRoutingReportDraft(scenario);
+    }
+    finally
+    {
+      if (!hadSteps.get())
+        onMain(() -> RoutingOptions.removeOption(Router.Pedestrian, RoadType.Steps));
+    }
+  }
+
+  private void verifyRoutingReportDraft(ActivityScenario<MwmActivity> scenario) throws InterruptedException
+  {
+    final CountDownLatch opened = new CountDownLatch(1);
+    final AtomicReference<String> body = new AtomicReference<>();
+    final Instrumentation.ActivityMonitor monitor = new Instrumentation.ActivityMonitor() {
+      @Override
+      public Instrumentation.ActivityResult onStartActivity(Intent intent)
+      {
+        if (!Intent.ACTION_CHOOSER.equals(intent.getAction()))
+          return null;
+        final Intent draft = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_INTENT, Intent.class);
+        if (draft == null || !Intent.ACTION_SEND.equals(draft.getAction()))
+          return null;
+        body.set(draft.getStringExtra(Intent.EXTRA_TEXT));
+        opened.countDown();
+        return new Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null);
+      }
+    };
+    mInstrumentation.addMonitor(monitor);
+    try
+    {
+      scenario.onActivity(activity -> {
+        final AlertDialog dialog = (AlertDialog) routeErrorDialog(activity).requireDialog();
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+      });
+      assertTrue("The report should open an editable draft", opened.await(10, TimeUnit.SECONDS));
+      final String report = body.get();
+      assertNotNull(report);
+      assertTrue(report.startsWith("Routing error: InternalError"));
+      assertTrue(report.contains("RoutingOptions: { | steps | }"));
+      final int start = report.indexOf(", -140);");
+      assertTrue(start >= 0 && report.indexOf(", -141);") > start);
+      assertTrue(report.contains("No map region covers checkpoint 1"));
+      assertTrue(report.contains("Map data version:"));
+    }
+    finally
+    {
+      mInstrumentation.removeMonitor(monitor);
+    }
+  }
+
+  private static RoutingErrorDialogFragment routeErrorDialog(MwmActivity activity)
+  {
+    final var manager = activity.getSupportFragmentManager();
+    manager.executePendingTransactions();
+    final RoutingErrorDialogFragment fragment =
+        (RoutingErrorDialogFragment) manager.findFragmentByTag(RoutingErrorDialogFragment.class.getSimpleName());
+    assertNotNull(fragment);
+    return fragment;
+  }
+
+  private void usePhoneController() throws Exception
+  {
+    // A location permission dialog would pause the Activity during recreation.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+    {
+      mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_COARSE_LOCATION);
+      mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_FINE_LOCATION);
+    }
+    onMain(() -> {
+      mController = RoutingController.get();
+      mController.initialize(mApplication.getLocationHelper());
+    });
   }
 
   private static void saveRouteWithStop()

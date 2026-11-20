@@ -1467,18 +1467,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {}
 
   @Override
-  public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
+  public void onRouteBuildError(int resultCode, @NonNull String[] missingMaps, @Nullable String report)
   {
     RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(
-        getSupportFragmentManager().getFragmentFactory(), getApplicationContext(), lastResultCode, lastMissingMaps);
+        getSupportFragmentManager().getFragmentFactory(), getApplicationContext(), resultCode, missingMaps, report);
     fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
-  @Override
-  public void onDrivingOptionsBuildError()
+  public void reportRoutingError(@NonNull String report)
   {
-    mRoutingPlanViewModel.triggerDrivingOptionsError();
+    Utils.sendBugReport(mShareLauncher, this, "Routing error", report);
   }
+
   @Override
   public void onDrivingOptionsWarning()
   {

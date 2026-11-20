@@ -82,13 +82,13 @@ public class RoutingControllerRestoreTest
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
     {
       controller.rebuildLastRoute();
-      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0], null);
       controller.attach(container);
       controller.restore();
     }
     assertTrue(controller.isPlanning());
     assertTrue(controller.isErrorEncountered());
     assertEquals(1, controller.builds);
-    verify(container).onCommonBuildError(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
+    verify(container).onRouteBuildError(ResultCodes.ROUTE_NOT_FOUND, new String[0], null);
   }
 }

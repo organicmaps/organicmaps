@@ -91,8 +91,7 @@ public class RoutingController
     default void onBuiltRoute() {}
     default void onDrivingOptionsWarning() {}
 
-    default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
-    default void onDrivingOptionsBuildError() {}
+    default void onRouteBuildError(int resultCode, @NonNull String[] missingMaps, @Nullable String report) {}
 
     /**
      * Reports build progress. A final progress update may arrive after a build result; read
@@ -137,9 +136,8 @@ public class RoutingController
   private Router mLastRouterType;
   private boolean mPendingOptionsRebuild;
   private boolean mHasContainerSavedState;
-  private boolean mContainsCachedResult;
-  private int mLastResultCode;
-  private String[] mLastMissingMaps;
+  @Nullable
+  private BuildResult mPendingResult;
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
   @Nullable
@@ -147,18 +145,20 @@ public class RoutingController
 
   private boolean mRouteSaved;
 
+  record BuildResult(int code, @NonNull String[] missingMaps, @Nullable String report)
+  {
+  }
+
   @SuppressWarnings("FieldCanBeLocal")
   private final RoutingListener mRoutingListener = new RoutingListener() {
     @MainThread
     @Override
-    public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
+    public void onRoutingEvent(int resultCode, @NonNull String[] missingMaps, @Nullable String report)
     {
       Logger.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
-      mLastResultCode = resultCode;
-      mLastMissingMaps = missingMaps;
-      mContainsCachedResult = true;
+      mPendingResult = new BuildResult(resultCode, missingMaps, report);
 
-      if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
+      if (resultCode == ResultCodes.NO_ERROR || resultCode == ResultCodes.HAS_WARNINGS)
         onBuiltRoute();
 
       processRoutingEvent();
@@ -195,20 +195,21 @@ public class RoutingController
 
   private void processRoutingEvent()
   {
-    if (!mContainsCachedResult || mContainer == null || mHasContainerSavedState)
+    final BuildResult result = mPendingResult;
+    if (result == null || mContainer == null || mHasContainerSavedState)
       return;
 
-    mContainsCachedResult = false;
-
-    if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
+    mPendingResult = null;
+    final int code = result.code();
+    if (code == ResultCodes.NO_ERROR || code == ResultCodes.HAS_WARNINGS)
     {
-      if (mLastResultCode == ResultCodes.HAS_WARNINGS)
+      if (code == ResultCodes.HAS_WARNINGS)
         mContainer.onDrivingOptionsWarning();
       updatePlan();
       return;
     }
 
-    if (mLastResultCode == ResultCodes.CANCELLED)
+    if (code == ResultCodes.CANCELLED)
     {
       setBuildState(BuildState.NONE);
       updatePlan();
@@ -216,22 +217,14 @@ public class RoutingController
     }
 
     // NEED_MORE_MAPS comes after a found route when the missing maps may give a better one, or instead of it.
-    if (mLastResultCode != ResultCodes.NEED_MORE_MAPS || !isBuilt())
+    if (code != ResultCodes.NEED_MORE_MAPS || !isBuilt())
     {
       setBuildState(BuildState.ERROR);
       mLastBuildProgress = 0;
       updateProgress();
     }
 
-    if (isDrivingOptionsBuildError())
-      mContainer.onDrivingOptionsBuildError();
-    else
-      mContainer.onCommonBuildError(mLastResultCode, mLastMissingMaps);
-  }
-
-  private boolean isDrivingOptionsBuildError()
-  {
-    return mLastResultCode != ResultCodes.NEED_MORE_MAPS && RoutingOptions.hasAnyOptions(mLastRouterType);
+    mContainer.onRouteBuildError(code, result.missingMaps(), result.report());
   }
 
   private void setState(State newState)
@@ -383,7 +376,7 @@ public class RoutingController
   @VisibleForTesting
   void build()
   {
-    mContainsCachedResult = false;
+    mPendingResult = null;
     Logger.d(TAG, "build");
     mLastBuildProgress = 0;
     mRouteSaved = false;
@@ -494,7 +487,7 @@ public class RoutingController
   public void rebuildLastRoute()
   {
     checkMapsReady();
-    mContainsCachedResult = false;
+    mPendingResult = null;
     setState(State.PREPARE);
     setBuildState(BuildState.NONE);
     startPlanning(getStartPoint(), getEndPoint());
@@ -755,7 +748,7 @@ public class RoutingController
 
   private void cancelInternal(boolean deleteSavedRoute)
   {
-    mContainsCachedResult = false;
+    mPendingResult = null;
     Logger.d(TAG, "cancelInternal");
 
     resetPoiPickState();

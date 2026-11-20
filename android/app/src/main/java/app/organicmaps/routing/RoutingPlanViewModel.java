@@ -3,7 +3,6 @@ package app.organicmaps.routing;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import app.organicmaps.util.SingleLiveEvent;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.util.Objects;
 
@@ -17,7 +16,6 @@ public class RoutingPlanViewModel extends ViewModel
   private final MutableLiveData<Integer> mMenuUpdateTrigger = new MutableLiveData<>(0);
   private final MutableLiveData<int[]> mBuildProgress = new MutableLiveData<>();
   private final MutableLiveData<Integer> mDrivingOptionsCount = new MutableLiveData<>(0);
-  private final SingleLiveEvent<Void> mDrivingOptionsError = new SingleLiveEvent<>();
   private int mBottomSheetState = BottomSheetBehavior.STATE_COLLAPSED;
 
   public int getBottomSheetState()
@@ -114,15 +112,5 @@ public class RoutingPlanViewModel extends ViewModel
   public void setDrivingOptionsCount(int count)
   {
     mDrivingOptionsCount.setValue(count);
-  }
-
-  public LiveData<Void> getDrivingOptionsError()
-  {
-    return mDrivingOptionsError;
-  }
-
-  public void triggerDrivingOptionsError()
-  {
-    mDrivingOptionsError.call();
   }
 }

@@ -75,10 +75,10 @@ public class RoutingControllerContainerTest
     controller.attach(current);
     controller.restore();
     controller.onSaveState(previous);
-    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
 
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-    verify(previous, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(current).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
+    verify(previous, never()).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 
   @Test
@@ -88,13 +88,13 @@ public class RoutingControllerContainerTest
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(current);
     controller.onSaveState(current);
-    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-    verify(current, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
+    verify(current, never()).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
 
     controller.restore();
     controller.restore();
 
-    verify(current, times(1)).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(current, times(1)).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 
   @Test
@@ -108,10 +108,10 @@ public class RoutingControllerContainerTest
     controller.onSaveState(previous);
     controller.detach(previous);
     controller.attach(current);
-    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
 
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-    verify(previous, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(current).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
+    verify(previous, never()).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 
   @Test
@@ -129,12 +129,12 @@ public class RoutingControllerContainerTest
         .showNavigation(true);
 
     controller.startNavigation();
-    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
     controller.attach(current);
     controller.restore();
 
     verify(previous, never()).onNavigationStarted();
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(current).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 
   @Test
@@ -206,7 +206,7 @@ public class RoutingControllerContainerTest
   {
     final RoutingController.Container previous =
         assertReplacementPreservesQueuedResult(container -> container.updateBuildProgress(anyInt(), any()));
-    verify(previous, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(previous, never()).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 
   private static RoutingController.Container assertReplacementPreservesQueuedResult(
@@ -232,7 +232,7 @@ public class RoutingControllerContainerTest
     controller.restore();
     controller.restore();
 
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(current).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
     return previous;
   }
 
@@ -240,6 +240,6 @@ public class RoutingControllerContainerTest
   {
     controller.attach(container);
     controller.onSaveState(container);
-    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
   }
 }
