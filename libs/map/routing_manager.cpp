@@ -244,7 +244,8 @@ private:
 };
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
-                                            double baseDistance, double baseDepth, routing::RouterType routerType)
+                                            double baseDistance, double baseDepth, routing::RouterType routerType,
+                                            bool isGeometric, double approachMerc)
 {
   auto subroute = make_unique_dp<df::Subroute>();
   subroute->m_baseDistance = baseDistance;
@@ -272,11 +273,12 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
     return nullptr;
   }
 
-  if (routerType == RouterType::Ruler)
+  // Geometry-only routes use real-segment styling; ordinary connectors keep their fake-edge style.
+  if (isGeometric)
   {
-    auto const subrouteLen = segments.back().GetDistFromBeginningMerc() - baseDistance;
-    subroute->m_headFakeDistance = -kBias;
-    subroute->m_tailFakeDistance = subrouteLen + kBias;
+    // The straight approach to a track entry is the only dashed head of a geometric route.
+    subroute->m_headFakeDistance = approachMerc > 0.0 ? approachMerc : -kBias;
+    subroute->m_tailFakeDistance = segments.back().GetDistFromBeginningMerc() - baseDistance + kBias;
     subroute->m_polyline = m2::PolylineD(std::move(points));
     return subroute;
   }
@@ -303,9 +305,6 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
   }
   else
   {
-    CHECK_NOT_EQUAL(firstReal, kInvalidId, ());
-    CHECK_NOT_EQUAL(lastReal, kInvalidId, ());
-
     auto constexpr kEps = 1e-5;
 
     // To prevent visual artefacts, in the case when all head segments are real
@@ -813,7 +812,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
 
   RoadWarningsCollection roadWarnings;
 
-  bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
+  bool const isTransitRoute = (GetRenderRouterType() == RouterType::Transit);
   auto const makeTransitRouteDisplay = [this]()
   {
     // clang-format off
@@ -848,7 +847,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
 
-  if (!isFollowing && m_currentRouterType != RouterType::Ruler && result.m_routes.size() >= 2)
+  if (!isFollowing && GetRenderRouterType() != RouterType::Ruler && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
 
   {
@@ -883,6 +882,8 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     return;
 
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
+  auto const renderRouterType = GetRenderRouterType();
+  bool const isGeometric = renderRouterType == RouterType::Ruler || route.IsTrack();
 
   std::vector<RouteSegment> segments;
   double distance = 0.0;
@@ -891,15 +892,20 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
-    auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute =
-        CreateDrapeSubroute(segments, startPt, distance,
-                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
+    auto const & attrs = route.GetSubrouteAttrs(subrouteIndex);
+    auto const startPt = attrs.GetStart().GetPoint();
+    double const approachMerc =
+        attrs.GetBeginSegmentIdx() == 0 && route.GetTrackStartDistanceMeters().value_or(0.0) > 0.0
+            ? route.GetRouteSegments().front().GetDistFromBeginningMerc()
+            : 0.0;
+    auto subroute = CreateDrapeSubroute(segments, startPt, distance,
+                                        static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset,
+                                        renderRouterType, isGeometric, approachMerc);
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
     distance = segments.back().GetDistFromBeginningMerc();
-    switch (m_currentRouterType)
+    switch (renderRouterType)
     {
     case RouterType::Vehicle:
     {

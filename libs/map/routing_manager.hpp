@@ -361,8 +361,6 @@ public:
   void UpdatePreviewMode();
   void CancelPreviewMode();
 
-  routing::RouterType GetCurrentRouterType() const { return m_currentRouterType; }
-
 private:
   struct FollowSession;
 
