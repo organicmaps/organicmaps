@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Mocsár";
 "type.noexit" = "Zsákutca";
 "type.office" = "Iroda";
+"type.office.accountant" = "Könyvelőiroda";
 "type.office.architect" = "Építészeti iroda";
 "type.office.company" = "Vállalati iroda";
 "type.office.educational_institution" = "Oktatási intézmény";

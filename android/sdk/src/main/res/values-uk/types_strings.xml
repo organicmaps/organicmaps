@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Болотиста місцевість</string>
     <string name="type.noexit">Тупик</string>
     <string name="type.office">Офіс</string>
+    <string name="type.office.accountant">Бухгалтер</string>
     <string name="type.office.architect">Архітектурне бюро</string>
     <string name="type.office.company">Організація</string>
     <string name="type.office.educational_institution">Навчальний заклад</string>

@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Болотиста місцевість";
 "type.noexit" = "Тупик";
 "type.office" = "Офіс";
+"type.office.accountant" = "Бухгалтер";
 "type.office.architect" = "Архітектурне бюро";
 "type.office.company" = "Організація";
 "type.office.educational_institution" = "Навчальний заклад";

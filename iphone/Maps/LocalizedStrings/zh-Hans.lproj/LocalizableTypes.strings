@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "草沼";
 "type.noexit" = "死胡同";
 "type.office" = "办公室";
+"type.office.accountant" = "会计师事务所";
 "type.office.architect" = "建筑师事务所";
 "type.office.company" = "企业公司";
 "type.office.educational_institution" = "教育机构";

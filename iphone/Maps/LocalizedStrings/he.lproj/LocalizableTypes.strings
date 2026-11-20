@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "ביצת עשב";
 "type.noexit" = "Dead End";
 "type.office" = "משרד";
+"type.office.accountant" = "רואה חשבון";
 "type.office.architect" = "משרד אדריכלות";
 "type.office.company" = "משרד החברה";
 "type.office.educational_institution" = "מוסד חינוכי";

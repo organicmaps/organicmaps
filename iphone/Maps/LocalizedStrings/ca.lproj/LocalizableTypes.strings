@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Aiguamoll";
 "type.noexit" = "Atzucac";
 "type.office" = "Oficina";
+"type.office.accountant" = "Comptable";
 "type.office.architect" = "Estudi d'arquitectura";
 "type.office.company" = "Oficina d’empresa";
 "type.office.educational_institution" = "Institució educativa";

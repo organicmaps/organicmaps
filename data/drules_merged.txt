@@ -13309,6 +13309,16 @@ type office
   z20
     symbol name=office-m priority=470
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-9530
+type office-accountant
+  z18
+    symbol name=office-m priority=1600
+    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8400
+  z19
+    symbol name=office-m priority=1600
+    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8400
+  z20
+    symbol name=office-m priority=1600
+    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8400
 type office-architect
   z18
     symbol name=office-m priority=500

@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Palude";
 "type.noexit" = "Strada senza uscita";
 "type.office" = "Ufficio";
+"type.office.accountant" = "Commercialista";
 "type.office.architect" = "Studio di architettura";
 "type.office.company" = "Ufficio aziendale";
 "type.office.educational_institution" = "Istituzione educativa";

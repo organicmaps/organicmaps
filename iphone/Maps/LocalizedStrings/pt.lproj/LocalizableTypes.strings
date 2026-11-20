@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Brejo";
 "type.noexit" = "Via sem saída";
 "type.office" = "Escritório";
+"type.office.accountant" = "Contabilista";
 "type.office.architect" = "Escritório de arquitetura";
 "type.office.company" = "Empresa";
 "type.office.educational_institution" = "Instituição de ensino";

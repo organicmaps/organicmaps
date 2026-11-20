@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Bažina";
 "type.noexit" = "Slepý konec";
 "type.office" = "Kancelář";
+"type.office.accountant" = "Účetní kancelář";
 "type.office.architect" = "Architektonická kancelář";
 "type.office.company" = "Kancelář společnosti";
 "type.office.educational_institution" = "Vzdělávací instituce";

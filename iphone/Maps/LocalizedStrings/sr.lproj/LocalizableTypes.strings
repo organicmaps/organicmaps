@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Мочвара";
 "type.noexit" = "Крај пута";
 "type.office" = "Канцеларија";
+"type.office.accountant" = "Рачуновођа";
 "type.office.architect" = "Архитектонски биро";
 "type.office.company" = "Компанија";
 "type.office.educational_institution" = "Образовна установа";

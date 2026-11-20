@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Cors</string>
     <string name="type.noexit">Ffordd Bengaead</string>
     <string name="type.office">Swyddfa</string>
+    <string name="type.office.accountant">Cyfrifydd</string>
     <string name="type.office.architect">Swyddfa Bensaer</string>
     <string name="type.office.company">Swyddfa\'r Cwmni</string>
     <string name="type.office.educational_institution">Sefydliad Addysgol</string>

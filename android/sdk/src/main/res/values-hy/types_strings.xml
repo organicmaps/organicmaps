@@ -772,6 +772,7 @@
     <string name="type.natural.wetland.marsh">Ճահիճ</string>
     <string name="type.noexit">Փակուղի</string>
     <string name="type.office">Գրասենյակ</string>
+    <string name="type.office.accountant">Հաշվապահ</string>
     <string name="type.office.architect">Ճարտարապետական բյուրո</string>
     <string name="type.office.company">Ընկերության գրասենյակ</string>
     <string name="type.office.educational_institution">Ուսումնական հաստատություն</string>

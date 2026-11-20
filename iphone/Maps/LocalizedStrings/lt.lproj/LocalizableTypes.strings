@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Liūnas";
 "type.noexit" = "Akligatvis";
 "type.office" = "Biuras";
+"type.office.accountant" = "Buhalteris";
 "type.office.architect" = "Architektūros biuras";
 "type.office.company" = "Įmonės biuras";
 "type.office.educational_institution" = "Švietimo įstaiga";

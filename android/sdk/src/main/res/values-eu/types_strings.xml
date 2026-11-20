@@ -747,6 +747,7 @@
     <string name="type.natural.wetland.bog">Zohikaztegi</string>
     <string name="type.natural.wetland.marsh">Padura</string>
     <string name="type.office">Bulegoa</string>
+    <string name="type.office.accountant">Kontabilitate bulegoa</string>
     <string name="type.office.architect">Arkitekto bulegoa</string>
     <string name="type.office.company">Bulegoa</string>
     <string name="type.office.educational_institution">Hezkuntza erakundea</string>

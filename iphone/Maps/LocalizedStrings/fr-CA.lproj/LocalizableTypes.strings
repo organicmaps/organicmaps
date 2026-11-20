@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Marais";
 "type.noexit" = "Voie sans issue";
 "type.office" = "Bureau";
+"type.office.accountant" = "Cabinet comptable";
 "type.office.architect" = "Cabinet d'architecte";
 "type.office.company" = "Bureaux d'entreprise";
 "type.office.educational_institution" = "Établissement d'enseignement";

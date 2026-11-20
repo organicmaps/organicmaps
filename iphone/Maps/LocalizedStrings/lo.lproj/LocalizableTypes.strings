@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "ບຶງ";
 "type.noexit" = "ທາງຕັນ";
 "type.office" = "ຫ້ອງການ";
+"type.office.accountant" = "ນັກບັນຊີ";
 "type.office.architect" = "Architect Office";
 "type.office.company" = "ຫ້ອງການບໍລິສັດ";
 "type.office.educational_institution" = "Educational Institution";

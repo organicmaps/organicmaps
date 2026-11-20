@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Mýri";
 "type.noexit" = "Blindgata";
 "type.office" = "Skrifstofa";
+"type.office.accountant" = "Bókhaldsstofa";
 "type.office.architect" = "Arkitektaskrifstofa";
 "type.office.company" = "Skrifstofa fyrirtækis";
 "type.office.educational_institution" = "Menntastofnun";

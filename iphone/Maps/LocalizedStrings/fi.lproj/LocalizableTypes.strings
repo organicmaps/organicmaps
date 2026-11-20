@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Marsh";
 "type.noexit" = "Dead End";
 "type.office" = "Toimisto";
+"type.office.accountant" = "Tilitoimisto";
 "type.office.architect" = "Arkkitehtitoimisto";
 "type.office.company" = "Yhtiön toimisto";
 "type.office.educational_institution" = "Oppilaitos";

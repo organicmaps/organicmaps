@@ -749,6 +749,7 @@
     <string name="type.natural.wetland.marsh">Brejo</string>
     <string name="type.noexit">Via sem saída</string>
     <string name="type.office">Escritório</string>
+    <string name="type.office.accountant">Contabilista</string>
     <string name="type.office.architect">Escritório de arquitetura</string>
     <string name="type.office.company">Empresa</string>
     <string name="type.office.educational_institution">Instituição de ensino</string>

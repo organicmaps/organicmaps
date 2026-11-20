@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Έλος";
 "type.noexit" = "Αδιέξοδο";
 "type.office" = "Γραφείο";
+"type.office.accountant" = "Λογιστικό γραφείο";
 "type.office.architect" = "Αρχιτεκτονικό γραφείο";
 "type.office.company" = "Γραφείο επιχείρησης";
 "type.office.educational_institution" = "Εκπαιδευτικό ίδρυμα";

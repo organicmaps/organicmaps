@@ -773,6 +773,7 @@
     <string name="type.natural.wetland.marsh">Marsk</string>
     <string name="type.noexit">Blind vej</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.accountant">Revisor</string>
     <string name="type.office.architect">Arkitektkontor</string>
     <string name="type.office.company">Selskabskontor</string>
     <string name="type.office.educational_institution">Uddannelsesinstitution</string>

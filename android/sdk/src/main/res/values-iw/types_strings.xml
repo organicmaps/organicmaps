@@ -758,6 +758,7 @@
     <string name="type.natural.wetland.bog">ביצת כבול</string>
     <string name="type.natural.wetland.marsh">ביצת עשב</string>
     <string name="type.office">משרד</string>
+    <string name="type.office.accountant">רואה חשבון</string>
     <string name="type.office.architect">משרד אדריכלות</string>
     <string name="type.office.company">משרד החברה</string>
     <string name="type.office.educational_institution">מוסד חינוכי</string>

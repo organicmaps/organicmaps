@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Marsh";
 "type.noexit" = "Dead End";
 "type.office" = "Office";
+"type.office.accountant" = "Accountant";
 "type.office.architect" = "Architect Office";
 "type.office.company" = "Company Office";
 "type.office.educational_institution" = "Educational Institution";

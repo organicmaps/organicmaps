@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Đầm lầy cỏ";
 "type.noexit" = "Dead End";
 "type.office" = "Văn phòng";
+"type.office.accountant" = "Văn phòng kế toán";
 "type.office.architect" = "Văn phòng kiến trúc";
 "type.office.company" = "Văn phòng công ty";
 "type.office.educational_institution" = "Cơ sở giáo dục";

@@ -656,6 +656,7 @@
     <string name="type.natural.wetland.bog">พรุ</string>
     <string name="type.natural.wetland.marsh">ที่ลุ่มชื้นแฉะ</string>
     <string name="type.office">สำนักงาน</string>
+    <string name="type.office.accountant">สำนักงานบัญชี</string>
     <string name="type.office.architect">สำนักงานสถาปัตยกรรม</string>
     <string name="type.office.company">สำนักงานบริษัท</string>
     <string name="type.office.educational_institution">สถาบันการศึกษา</string>

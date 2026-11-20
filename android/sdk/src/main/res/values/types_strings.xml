@@ -806,6 +806,7 @@
     <string name="type.natural.wetland.marsh">Marsh</string>
     <string name="type.noexit">Dead End</string>
     <string name="type.office">Office</string>
+    <string name="type.office.accountant">Accountant</string>
     <string name="type.office.architect">Architect Office</string>
     <string name="type.office.company">Company Office</string>
     <string name="type.office.educational_institution">Educational Institution</string>

@@ -773,6 +773,7 @@
     <string name="type.natural.wetland.marsh">Балота</string>
     <string name="type.noexit">Тупік</string>
     <string name="type.office">Офіс</string>
+    <string name="type.office.accountant">Бухгалтар</string>
     <string name="type.office.architect">Архітэктурнае бюро</string>
     <string name="type.office.company">Офіс кампаніі</string>
     <string name="type.office.educational_institution">Адукацыйная ўстанова</string>

@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Močiar";
 "type.noexit" = "Koniec cesty";
 "type.office" = "Kancelária";
+"type.office.accountant" = "Účtovnícka kancelária";
 "type.office.architect" = "Architektonická kancelária";
 "type.office.company" = "Sídlo spoločnosti";
 "type.office.educational_institution" = "Vzdelávacia inštitúcia";

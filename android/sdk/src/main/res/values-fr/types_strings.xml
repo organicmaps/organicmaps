@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Marais</string>
     <string name="type.noexit">Voie sans issue</string>
     <string name="type.office">Bureau</string>
+    <string name="type.office.accountant">Cabinet comptable</string>
     <string name="type.office.architect">Cabinet d\'architecte</string>
     <string name="type.office.company">Bureaux d\'entreprise</string>
     <string name="type.office.educational_institution">Établissement d\'enseignement</string>
