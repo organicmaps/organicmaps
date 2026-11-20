@@ -580,7 +580,11 @@ void UserEventStream::ProcessTouch(TouchEvent const & touch)
   {
   case TouchEvent::TOUCH_DOWN: isMapTouch = TouchDown(touchEvent.GetTouches()); break;
   case TouchEvent::TOUCH_MOVE: isMapTouch = TouchMove(touchEvent.GetTouches()); break;
-  case TouchEvent::TOUCH_CANCEL: isMapTouch = TouchCancel(touchEvent.GetTouches()); break;
+  case TouchEvent::TOUCH_CANCEL:
+    isMapTouch = TouchCancel(touchEvent.GetTouches());
+    if (m_state == STATE_TAP_TWO_FINGERS)
+      m_state = STATE_EMPTY;
+    break;
   case TouchEvent::TOUCH_UP: isMapTouch = TouchUp(touchEvent.GetTouches()); break;
   default: ASSERT(false, ()); break;
   }

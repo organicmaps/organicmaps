@@ -381,18 +381,19 @@ UNIT_TEST(OverlayFadeReachesEndpointAfterStalledFrame)
 
 namespace
 {
-class UserEventStreamTest : df::UserEventStream::Listener
+class UserEventStreamTest : public df::UserEventStream::Listener
 {
 public:
   explicit UserEventStreamTest(bool filtrateTouches) : m_filtrate(filtrateTouches)
   {
     m_stream.SetTestBridge(std::bind(&UserEventStreamTest::TestBridge, this, _1));
+    m_stream.SetListener(make_ref(this));
   }
 
   void OnTap(m2::PointD const & pt, bool isLong) override {}
   void OnForceTap(m2::PointD const & pt) override {}
   void OnDoubleTap(m2::PointD const & pt) override {}
-  void OnTwoFingersTap() override {}
+  void OnTwoFingersTap() override { ++m_twoFingersTaps; }
   bool OnSingleTouchFiltrate(m2::PointD const & pt, df::TouchEvent::ETouchType type) override { return m_filtrate; }
   void OnDragStarted() override {}
   void OnDragEnded(m2::PointD const & /* distance */) override {}
@@ -435,6 +436,7 @@ public:
   ScreenBase const & GetScreen() const { return m_stream.GetCurrentScreen(); }
 
   void AddExpectation(char const * action) { m_expectation.push_back(action); }
+  int GetTwoFingersTaps() const { return m_twoFingersTaps; }
 
   void RunTest()
   {
@@ -457,6 +459,7 @@ private:
   df::UserEventStream m_stream{m_animations};
   std::list<char const *> m_expectation;
   bool m_filtrate;
+  int m_twoFingersTaps = 0;
 };
 
 int touchTimeStamp = 1;
@@ -660,6 +663,29 @@ UNIT_CLASS_TEST(VisualParamsFixture, SetCenter_AlignsToVisibleViewportCenter)
     TEST(std::fabs(pixelPos.y - viewportCenter.y) < kEps,
          (pixelPos.y, "expected", viewportCenter.y, "trackVisibleViewport", trackVisibleViewport));
   }
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, DragAfterCancelledTwoFingersTap)
+{
+  UserEventStreamTest test(false);
+  test.AddExpectation(df::UserEventStream::TWO_FINGERS_TAP);
+  m2::PointD const pointer1(10.0, 10.0);
+  m2::PointD const pointer2(-10.0, -10.0);
+  test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_DOWN));
+  test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_CANCEL));
+  test.RunTest();
+  TEST_EQUAL(test.GetTwoFingersTaps(), 0, ());
+
+  test.AddExpectation(df::UserEventStream::TRY_FILTER);
+  test.AddExpectation(df::UserEventStream::BEGIN_TAP_DETECTOR);
+  test.AddExpectation(df::UserEventStream::CANCEL_TAP_DETECTOR);
+  test.AddExpectation(df::UserEventStream::BEGIN_DRAG);
+  test.AddExpectation(df::UserEventStream::END_DRAG);
+  test.AddUserEvent(MakeTouchEvent(m2::PointD(0.0, 0.0), df::TouchEvent::TOUCH_DOWN));
+  test.AddUserEvent(MakeTouchEvent(m2::PointD(100.0, 0.0), df::TouchEvent::TOUCH_MOVE));
+  test.AddUserEvent(MakeTouchEvent(m2::PointD(200.0, 0.0), df::TouchEvent::TOUCH_MOVE));
+  test.AddUserEvent(MakeTouchEvent(m2::PointD(200.0, 0.0), df::TouchEvent::TOUCH_UP));
+  test.RunTest();
 }
 
 #endif
