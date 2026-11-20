@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Organic Maps test">
+  <node id="1" lat="49" lon="-123"/>
+  <node id="2" lat="49" lon="-122.999"/>
+  <node id="3" lat="49.001" lon="-123"/>
+  <node id="4" lat="49.001" lon="-122.999"/>
+  <way id="10">
+    <nd ref="1"/><nd ref="2"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway:bicycle" v="yes"/>
+    <tag k="name" v="Forward cycleway"/>
+  </way>
+  <way id="11">
+    <nd ref="3"/><nd ref="4"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway:bicycle" v="-1"/>
+    <tag k="name" v="Reverse cycleway"/>
+  </way>
+</osm>
