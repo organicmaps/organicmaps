@@ -2219,11 +2219,13 @@ bool Framework::IsTrackRecordingEnabled() const
   return GpsTracker::Instance().IsEnabled();
 }
 
-void Framework::SaveRoute()
+bool Framework::SaveRoute()
 {
   auto const trackId = m_routingManager.SaveRoute();
-  if (trackId != kml::kInvalidTrackId)
-    ShowTrack(trackId);
+  if (trackId == kml::kInvalidTrackId)
+    return false;
+  ShowTrack(trackId);
+  return true;
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,

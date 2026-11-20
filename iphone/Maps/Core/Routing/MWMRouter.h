@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
 
 + (BOOL)hasRouteAltitude;
-+ (void)saveRouteAsTrack;
++ (BOOL)saveRouteAsTrack;
 + (nullable RouteElevationPreviewData *)routeElevationProfileData;
 + (void)setRouteElevationActivePointDistance:(double)distance;
 + (void)resetRouteElevationActivePoint;

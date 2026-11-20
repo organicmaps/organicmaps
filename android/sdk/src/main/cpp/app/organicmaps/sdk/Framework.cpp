@@ -1186,9 +1186,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSelectTrackCandidate(JNI
   frm()->SelectTrackCandidate(c.m_trackId, c.m_relationId);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
 {
-  frm()->SaveRoute();
+  return frm()->SaveRoute();
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)

@@ -17,6 +17,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -524,7 +525,11 @@ final class RoutingBottomMenuController
     // Clear elevation preview marker before saving.
     mRouteElevationChartController.clearSelection();
     Framework.nativeRouteRemoveElevationActivePoint();
-    Framework.nativeSaveRoute();
+    if (!Framework.nativeSaveRoute())
+    {
+      Toast.makeText(mContext, R.string.routing_save_route_error, Toast.LENGTH_SHORT).show();
+      return;
+    }
     RoutingController.get().setRouteSaved();
     setSaveButtonEnabled(false);
   }

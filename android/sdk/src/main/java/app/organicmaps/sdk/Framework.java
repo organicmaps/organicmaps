@@ -463,7 +463,7 @@ public class Framework
 
   public static native void nativeDidSelectProduct(String title, String link);
 
-  public static native void nativeSaveRoute();
+  public static native boolean nativeSaveRoute();
 
   public static native boolean nativeCanShowCrowdfundingPromo();
 

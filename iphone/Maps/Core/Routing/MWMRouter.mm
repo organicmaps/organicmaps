@@ -105,9 +105,9 @@ using namespace routing;
     framework.DeactivateMapSelectionCircle(false /* restoreViewport */);
 }
 
-+ (void)saveRouteAsTrack
++ (BOOL)saveRouteAsTrack
 {
-  GetFramework().SaveRoute();
+  return GetFramework().SaveRoute();
 }
 
 + (void)startRouting
