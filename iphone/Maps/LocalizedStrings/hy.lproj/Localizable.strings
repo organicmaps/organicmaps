@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Խնդրում ենք փոխել միջանկյալ կետը:";
 "dialog_routing_system_error" = "Համակարգային սխալ";
 "dialog_routing_application_error" = "Հնարավոր չէ կառուցել երթուղին ծրագրային սխալի պատճառով:";
-"dialog_routing_try_again" = "Խնդրում ենք փորձել կրկին";
 "dialog_routing_download_and_build_cross_route" = "Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:";
 "dialog_routing_download_cross_route" = "Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:";
 "dialog_routing_download_files" = "Ներբեռնել պահանջվող ֆայլերը";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Խուսափել աստիճաններից";
 "avoid_motorways" = "Խուսափել մայրուղիներից";
-"unable_to_calc_alert_title" = "Հնարավոր չէ հաշվարկել երթուղին";
-"unable_to_calc_alert_subtitle" = "Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։";
 "toll_road" = "Վճարովի ճանապարհ";
 "unpaved_road" = "Գրունտային ճանապարհ";
 "ferry_crossing" = "Լաստանավային ուղի";

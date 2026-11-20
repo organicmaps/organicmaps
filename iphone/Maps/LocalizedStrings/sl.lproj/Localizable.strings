@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Prilagodite svojo vmesno točko.";
 "dialog_routing_system_error" = "Sistemska napaka";
 "dialog_routing_application_error" = "Poti ni mogoče ustvariti zaradi napake v aplikaciji.";
-"dialog_routing_try_again" = "Poskusite znova";
 "dialog_routing_download_and_build_cross_route" = "Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?";
 "dialog_routing_download_cross_route" = "Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.";
 "dialog_routing_download_files" = "Prenesite zahtevane datoteke";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Izogibaj se stopnicam";
 "avoid_motorways" = "Izogibaj se avtocestam";
-"unable_to_calc_alert_title" = "Poti ni mogoče izračunati";
-"unable_to_calc_alert_subtitle" = "Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.";
 "toll_road" = "Cestninska cesta";
 "unpaved_road" = "Makadamska cesta";
 "ferry_crossing" = "Prečkanje s trajektom";

@@ -23,6 +23,23 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 @implementation MWMDefaultAlert
 
++ (instancetype)routeAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                        actionTitle:(NSString *)actionTitle
+                             action:(MWMVoidBlock)action
+                                log:(NSString *)log
+{
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:title
+                                                message:message
+                                       rightButtonTitle:action ? actionTitle : L(@"ok")
+                                        leftButtonTitle:action ? L(@"ok") : nil
+                                      rightButtonAction:action
+                                                    log:log];
+  alert.rightButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+  alert.rightButton.titleLabel.minimumScaleFactor = 0.5;
+  return alert;
+}
+
 + (instancetype)routeFileTooOldAlert
 {
   return [self defaultAlertWithTitle:L(@"dialog_routing_download_files")
@@ -33,14 +50,13 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                  log:@"Route File Too Old Alert"];
 }
 
-+ (instancetype)routeNotFoundAlert
++ (instancetype)routeNotFoundAlertWithSettingsAction:(MWMVoidBlock)action
 {
-  return [self defaultAlertWithTitle:L(@"dialog_routing_unable_locate_route")
-                             message:L(@"dialog_routing_change_start_or_end")
-                    rightButtonTitle:L(@"ok")
-                     leftButtonTitle:nil
-                   rightButtonAction:nil
-                                 log:@"Route Not Found Alert"];
+  return [self routeAlertWithTitle:L(@"dialog_routing_unable_locate_route")
+                           message:L(@"dialog_routing_change_start_or_end")
+                       actionTitle:L(@"driving_options_title")
+                            action:action
+                               log:@"Route Not Found Alert"];
 }
 
 + (instancetype)routeNotFoundNoPublicTransportAlert
@@ -120,50 +136,44 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
-+ (instancetype)endPointNotFoundAlert
++ (instancetype)endPointNotFoundAlertWithSettingsAction:(MWMVoidBlock)action
 {
   NSString * message = [NSString
       stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_end_not_determined"), L(@"dialog_routing_select_closer_end")];
-  return [self defaultAlertWithTitle:L(@"dialog_routing_change_end")
-                             message:message
-                    rightButtonTitle:L(@"ok")
-                     leftButtonTitle:nil
-                   rightButtonAction:nil
-                                 log:@"End Point Not Found Alert"];
+  return [self routeAlertWithTitle:L(@"dialog_routing_change_end")
+                           message:message
+                       actionTitle:L(@"driving_options_title")
+                            action:action
+                               log:@"End Point Not Found Alert"];
 }
 
-+ (instancetype)startPointNotFoundAlert
++ (instancetype)startPointNotFoundAlertWithSettingsAction:(MWMVoidBlock)action
 {
   NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_start_not_determined"),
                                                   L(@"dialog_routing_select_closer_start")];
-  return [self defaultAlertWithTitle:L(@"dialog_routing_change_start")
-                             message:message
-                    rightButtonTitle:L(@"ok")
-                     leftButtonTitle:nil
-                   rightButtonAction:nil
-                                 log:@"Start Point Not Found Alert"];
+  return [self routeAlertWithTitle:L(@"dialog_routing_change_start")
+                           message:message
+                       actionTitle:L(@"driving_options_title")
+                            action:action
+                               log:@"Start Point Not Found Alert"];
 }
 
-+ (instancetype)intermediatePointNotFoundAlert
++ (instancetype)intermediatePointNotFoundAlertWithSettingsAction:(MWMVoidBlock)action
 {
-  return [self defaultAlertWithTitle:L(@"dialog_routing_change_intermediate")
-                             message:L(@"dialog_routing_intermediate_not_determined")
-                    rightButtonTitle:L(@"ok")
-                     leftButtonTitle:nil
-                   rightButtonAction:nil
-                                 log:@"Intermediate Point Not Found Alert"];
+  return [self routeAlertWithTitle:L(@"dialog_routing_change_intermediate")
+                           message:L(@"dialog_routing_intermediate_not_determined")
+                       actionTitle:L(@"driving_options_title")
+                            action:action
+                               log:@"Intermediate Point Not Found Alert"];
 }
 
-+ (instancetype)internalRoutingErrorAlert
++ (instancetype)internalRoutingErrorAlertWithReportAction:(MWMVoidBlock)action
 {
-  NSString * message =
-      [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_application_error"), L(@"dialog_routing_try_again")];
-  return [self defaultAlertWithTitle:L(@"dialog_routing_system_error")
-                             message:message
-                    rightButtonTitle:L(@"ok")
-                     leftButtonTitle:nil
-                   rightButtonAction:nil
-                                 log:@"Internal Routing Error Alert"];
+  return [self routeAlertWithTitle:L(@"dialog_routing_system_error")
+                           message:L(@"dialog_routing_application_error")
+                       actionTitle:L(@"report_a_bug")
+                            action:action
+                               log:@"Internal Routing Error Alert"];
 }
 
 + (instancetype)incorrectFeaturePositionAlertWithOkBlock:(MWMVoidBlock)okBlock

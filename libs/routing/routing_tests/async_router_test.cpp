@@ -5,6 +5,8 @@
 #include "routing/router.hpp"
 #include "routing/routing_tests/tools.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/exception.hpp"
@@ -60,6 +62,7 @@ enum class Outcome
   BlockedSuccess,
   BlockedProgress,
   Failure,
+  ReconstructionFailure,
   Exception
 };
 
@@ -88,6 +91,11 @@ public:
     }
     if (outcome == Outcome::Failure)
       return RouterResultCode::RouteNotFound;
+    if (outcome == Outcome::ReconstructionFailure)
+    {
+      result.m_failureDetails.m_loadedMaps.emplace("test map", 260404);
+      return RouterResultCode::RouteNotFoundRedressRouteError;
+    }
 
     result.MakeFrom(GetName(), MakeValidRoute(checkpoints));
     auto alternative =
@@ -212,7 +220,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterFailedCalculation)
 
   auto failed = make_shared<promise<RouterResultCode>>();
   auto failure = failed->get_future();
-  Calculate(async, [failed](RouterResultCode code) { failed->set_value(code); });
+  Calculate(async, [failed](RouterResultCode code, string const &) { failed->set_value(code); });
   TEST(failure.wait_for(30s) == future_status::ready, ());
   auto const code = failure.get();
   TEST_EQUAL(code, RouterResultCode::RouteNotFound, ());
@@ -220,6 +228,59 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterFailedCalculation)
 
   auto recovered = Calculate(async);
   TEST(async.SwapAltRouteToActive(WaitReady(recovered)), ("A successful build restores promotion."));
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTest, PreviewFailuresReportTheSubmittedRoute)
+{
+  base::ScopedLogAbortLevelChanger allowExpectedError(base::LCRITICAL);
+  AsyncRouter async(nullptr);
+  Checkpoints const checkpoints(CheckpointsGeometry{{1, 2}, {2, 5}, {5, 6}});
+  for (auto const options : {RoutingOptions{}, RoutingOptions(RoutingOptions::Steps)})
+  {
+    async.SetRouter(make_unique<TestRouter>(vector{Outcome::Exception, Outcome::ReconstructionFailure}), nullptr);
+    for (auto const expected : {RouterResultCode::InternalError, RouterResultCode::RouteNotFoundRedressRouteError})
+    {
+      ReadyRequest ready;
+      auto failure = make_shared<promise<pair<RouterResultCode, string>>>();
+      auto report = failure->get_future();
+      async.CalculateRoute(checkpoints, {3, 4}, false /* adjustToPrevRoute */, true /* needAlternatives */,
+                           [result = ready.m_ready](shared_ptr<RoutesResult> route, RouterResultCode code)
+      { result->set_value({route->m_routesId, code}); }, nullptr, [failure](RouterResultCode code, string const & body)
+      { failure->set_value({code, body}); }, nullptr, RouterDelegate::kNoTimeout, options);
+
+      TEST(report.wait_for(30s) == future_status::ready, ());
+      auto const [code, body] = report.get();
+      TEST_EQUAL(code, expected, ());
+      TEST(ready.m_future.wait_for(0s) == future_status::timeout, ("A failed preview is not a ready route."));
+      TEST(!body.contains('\0'), (body));
+      TEST(body.contains(ToString(expected)), (body));
+      TEST(body.contains(DebugPrint(checkpoints)), (body));
+      TEST(body.contains(DebugPrint(options)), (body));
+      if (expected == RouterResultCode::InternalError)
+        TEST(body.contains("\nCause: ") && body.ends_with("Test exception after constructing a valid result\""),
+             (body));
+      else
+        TEST(body.ends_with("Loaded maps:\n  test map 260404"), (body));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTest, ReportIdentifiesCheckpointOutsideMapCoverage)
+{
+  FrozenDataSource dataSource;
+  AsyncRouter async(nullptr);
+  auto finder = make_unique<AbsentRegionsFinder>([](m2::PointD const & point) -> string {
+    return point.x == 1 ? "test map" : "";
+  }, [](string const &) { return true; }, make_shared<NumMwmIds>(), dataSource);
+  async.SetRouter(make_unique<TestRouter>(vector<Outcome>{}), std::move(finder));
+
+  auto failed = make_shared<promise<pair<RouterResultCode, string>>>();
+  auto failure = failed->get_future();
+  Calculate(async, [failed](RouterResultCode code, string const & report) { failed->set_value({code, report}); });
+  TEST(failure.wait_for(30s) == future_status::ready, ());
+  auto const [code, report] = failure.get();
+  TEST_EQUAL(code, RouterResultCode::InternalError, ());
+  TEST(report.contains("No map region covers checkpoint 2"), (report));
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterExceptionalCalculation)
@@ -323,8 +384,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, AlternativesDiscardedDurin
   auto failedFuture = failed->get_future();
   RunOnGui([this, failed]
   {
-    m_session->RebuildRoute({1, 2}, [](RoutesResult const &, RouterResultCode) {}, nullptr, [failed](RouterResultCode)
-    { failed->set_value(); }, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true);
+    m_session->RebuildRoute({1, 2}, [](RoutesResult const &, RouterResultCode) {}, nullptr,
+                            [failed](RouterResultCode, string const &) { failed->set_value(); },
+                            RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true);
     m_session->RouteCall([](RoutesResult const & result)
     {
       TEST_EQUAL(result.m_routes.size(), 1, ());

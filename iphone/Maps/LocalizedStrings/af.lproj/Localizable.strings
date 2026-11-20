@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Werk asb. u tussenstop by.";
 "dialog_routing_system_error" = "Stelselfout";
 "dialog_routing_application_error" = "Kan weens ’n toepassingfout nie ’n roete berkeen nie.";
-"dialog_routing_try_again" = "Probeer asb. weer";
 "dialog_routing_download_and_build_cross_route" = "Wil u die kaart aflaai en ’n meer optimale roete bereken wat oor meer as een kaart loop?";
 "dialog_routing_download_cross_route" = "Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.";
 "dialog_routing_download_files" = "Laai vereiste lêers af";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Vermy trappe";
 "avoid_motorways" = "Vermy snelweë";
-"unable_to_calc_alert_title" = "Kan nie ’n roete bereken nie";
-"unable_to_calc_alert_subtitle" = "’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.";
 "toll_road" = "Tolpaaie";
 "unpaved_road" = "Grondpaaie";
 "ferry_crossing" = "Veerbootkruisings";

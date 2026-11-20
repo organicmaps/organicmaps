@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Palun kohanda vahepunkti.";
 "dialog_routing_system_error" = "Süsteemi viga";
 "dialog_routing_application_error" = "Teekonda ei saa koostada rakenduse vea tõttu.";
-"dialog_routing_try_again" = "Palun proovi uuesti";
 "dialog_routing_download_and_build_cross_route" = "Kas sooviksid kaardi alla laadida ja luua optimaalse rohkem kui ühte kaarti hõlmava teekonna?";
 "dialog_routing_download_cross_route" = "Laadi alla täiendavad kaardid, et luua parem, selle kaardi piire ületav teekond.";
 "dialog_routing_download_files" = "Laadi alla vajalikud failid";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Väldi treppe";
 "avoid_motorways" = "Väldi kiirteed";
-"unable_to_calc_alert_title" = "Teekonna koostamine ei õnnestu";
-"unable_to_calc_alert_subtitle" = "Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.";
 "toll_road" = "Tasuline tee";
 "unpaved_road" = "Sillutamata tee";
 "ferry_crossing" = "Praamiületus";

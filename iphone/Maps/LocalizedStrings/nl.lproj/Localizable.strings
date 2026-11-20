@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Gelieve uw tussenstop aan te passen.";
 "dialog_routing_system_error" = "Systeemfout";
 "dialog_routing_application_error" = "Route samenstellen mislukt door een applicatiefout.";
-"dialog_routing_try_again" = "Probeer het opnieuw";
 "dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
 "dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
 "dialog_routing_download_files" = "Download de vereiste bestanden";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Vermijd trappen";
 "avoid_motorways" = "Vermijd snelwegen";
-"unable_to_calc_alert_title" = "Kan route niet berekenen";
-"unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.";
 "toll_road" = "Tolweg";
 "unpaved_road" = "Onverharde weg";
 "ferry_crossing" = "Veerbootverbinding";

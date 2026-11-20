@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Zəhmət olmasa aralıq nöqtənizi təyin edin.";
 "dialog_routing_system_error" = "Sistem xətası";
 "dialog_routing_application_error" = "Tətbiq xətası səbəbindən marşrut yaratmaq mümkün olmadı.";
-"dialog_routing_try_again" = "Zəhmət olmasa bir daha cəhd edin";
 "dialog_routing_download_and_build_cross_route" = "Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?";
 "dialog_routing_download_cross_route" = "Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.";
 "dialog_routing_download_files" = "Lazımi faylları yükləyin";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Pilləkənlərdən çəkinin";
 "avoid_motorways" = "Magistral yoldan çəkinin";
-"unable_to_calc_alert_title" = "Marşrutu hesablamaq mümkün deyil";
-"unable_to_calc_alert_subtitle" = "Təəssüf ki, seçdiyiniz seçimlərə görə marşrut tapa bilmədik. Seçimləri dəyişdirin və yenidən cəhd edin";
 "toll_road" = "Ücrətli yol";
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Bərə keçidi";

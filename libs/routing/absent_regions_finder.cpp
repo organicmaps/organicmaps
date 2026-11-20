@@ -26,7 +26,7 @@ AbsentRegionsFinder::~AbsentRegionsFinder()
 }
 
 RouterResultCode AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints,
-                                                            RouterDelegate const & delegate)
+                                                            RouterDelegate const & delegate, std::string & failureCause)
 {
   m_absentRegions.clear();
   if (m_routerThread)
@@ -38,14 +38,16 @@ RouterResultCode AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & 
   std::string currCountry, prevCountry;
   bool differentRegions = false;
 
-  for (auto const & checkpoint : checkpoints.GetPoints())
+  for (size_t i = 0; i < checkpoints.GetPoints().size(); ++i)
   {
+    auto const & checkpoint = checkpoints.GetPoint(i);
     currCountry = m_countryFileGetterFn(checkpoint);
     if (currCountry.empty())
     {
       /// @todo We can move checkpoint to the nearest Region's polygon here.
       LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
                      "CountryInfoGetter returns empty. It happens when checkpoint is put at gaps between MWMs."));
+      failureCause = "No map region covers checkpoint " + std::to_string(i + 1);
       return RouterResultCode::InternalError;
     }
 

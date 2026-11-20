@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Labojiet starppunktu.";
 "dialog_routing_system_error" = "Sistēmas kļūda";
 "dialog_routing_application_error" = "Kļūdas dēļ neizdevās izveidot maršrutu.";
-"dialog_routing_try_again" = "Mēģiniet vēlreiz";
 "dialog_routing_download_and_build_cross_route" = "Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?";
 "dialog_routing_download_cross_route" = "Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.";
 "dialog_routing_download_files" = "Lejupielādēt nepieciešamās datnes";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Izvairīties no kāpnēm";
 "avoid_motorways" = "Izvairīties no automaģistrālēm";
-"unable_to_calc_alert_title" = "Neizdevās aprēķināt maršrutu";
-"unable_to_calc_alert_subtitle" = "Maršrutu neatrada. Iespējams, maršruta iestatījumi ir pārāk ierobežojoši vai trūkst „OpenStreetMap“ datu. Mēģiniet mainīt iestatījumus un atkārtot.";
 "toll_road" = "Maksas ceļš";
 "unpaved_road" = "Neasfaltēts ceļš";
 "ferry_crossing" = "Prāmja pārceltuve";

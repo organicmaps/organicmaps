@@ -79,7 +79,7 @@ public:
     RunOnGui([&, built]
     {
       auto onReady = [built](RoutesResult const &, RouterResultCode code) { built->set_value(code); };
-      auto onError = [built](RouterResultCode code) { built->set_value(code); };
+      auto onError = [built](RouterResultCode code, std::string const &) { built->set_value(code); };
       if (manual)
       {
         m_session->SetRoutingCallbacks(onReady, nullptr, nullptr, onError);

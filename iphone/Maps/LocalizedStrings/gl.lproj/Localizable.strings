@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Por favor, axuste a parada intermedia.";
 "dialog_routing_system_error" = "Erro do sistema";
 "dialog_routing_application_error" = "Non se puido crear a ruta debido a un erro na aplicación.";
-"dialog_routing_try_again" = "Tentar novamente";
 "dialog_routing_download_and_build_cross_route" = "Desexa descargar o mapa e crear unha ruta mellor que abarque máis dun mapa?";
 "dialog_routing_download_cross_route" = "Descargue mapas adicionais para crear unha ruta mellor que cruce os límites deste mapa.";
 "dialog_routing_download_files" = "Descargar arquivos requiridos";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Evitar escaleiras";
 "avoid_motorways" = "Evitar autoestradas";
-"unable_to_calc_alert_title" = "Non se pode calcular a ruta";
-"unable_to_calc_alert_subtitle" = "Non se puido atopar unha ruta. Quizá se deba ás opcións de encamiñamento ou a datos faltantes en OpenStreetMap. Revise as súas opcións de encamiñamento e volva tentalo.";
 "toll_road" = "Estrada de peaxe";
 "unpaved_road" = "Camiño sen pavimentar";
 "ferry_crossing" = "Cruzamento de ferri";

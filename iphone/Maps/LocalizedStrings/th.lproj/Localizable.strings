@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "กรุณาปรับจุดระหว่างทางของคุณ";
 "dialog_routing_system_error" = "ระบบเกิดข้อผิดพลาด";
 "dialog_routing_application_error" = "ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน";
-"dialog_routing_try_again" = "กรุณาลองอีกครั้ง";
 "dialog_routing_download_and_build_cross_route" = "คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?";
 "dialog_routing_download_cross_route" = "ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
 "dialog_routing_download_files" = "ดาวน์โหลดไฟล์ที่จำเป็น";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "เลี่ยงบันได";
 "avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
-"unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
-"unable_to_calc_alert_subtitle" = "ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง";
 "toll_road" = "ถนนแบบเสียค่าผ่านทาง";
 "unpaved_road" = "ถนนดิน";
 "ferry_crossing" = "เรือข้ามฟาก";

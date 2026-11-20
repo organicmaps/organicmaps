@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "כוונן את נקודת הביניים.";
 "dialog_routing_system_error" = "שגיאת מערכת";
 "dialog_routing_application_error" = "לא ניתן ליצור מסלול עקב שגיאת אפליקציה.";
-"dialog_routing_try_again" = "נסה שוב";
 "dialog_routing_download_and_build_cross_route" = "האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?";
 "dialog_routing_download_cross_route" = "הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.";
 "dialog_routing_download_files" = "הורד את הקבצים הדרושים";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "הימנע ממדרגות";
 "avoid_motorways" = "הימנע מכבישים מהירים";
-"unable_to_calc_alert_title" = "לא ניתן לחשב מסלול";
-"unable_to_calc_alert_subtitle" = "לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.";
 "toll_road" = "כביש אגרה";
 "unpaved_road" = "דרך לא סלולה";
 "ferry_crossing" = "מעבורת";

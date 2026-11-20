@@ -64,7 +64,8 @@ AbsentRegionsFinder::RegionsSetT TestAbsentRegionsFinder::GetRegions(Checkpoints
   AbsentRegionsFinder finder(m_countryFileGetter, m_localFileChecker, m_numMwmIds, m_callbacks.m_dataSourceGetter());
   RouterDelegate delegate;
 
-  finder.GenerateAbsentRegions(checkpoints, delegate);
+  std::string failureCause;
+  finder.GenerateAbsentRegions(checkpoints, delegate, failureCause);
   return finder.GetAllRegions();
 }
 

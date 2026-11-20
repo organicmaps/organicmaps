@@ -8,7 +8,7 @@
 
 @interface MWMAlertViewController (CPP)
 
-- (void)presentAlert:(routing::RouterResultCode)type;
+- (void)presentRouteError:(routing::RouterResultCode)code action:(nullable MWMVoidBlock)action;
 - (void)presentDownloaderAlertWithCountries:(storage::CountriesSet const &)countries
                                        code:(routing::RouterResultCode)code
                                 cancelBlock:(nonnull MWMVoidBlock)cancelBlock

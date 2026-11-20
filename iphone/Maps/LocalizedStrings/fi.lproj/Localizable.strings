@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Siirrä välipistettä.";
 "dialog_routing_system_error" = "Järjestelmävirhe";
 "dialog_routing_application_error" = "Reittiä ei voi luoda sovellusvirheen vuoksi.";
-"dialog_routing_try_again" = "Yritä uudelleen";
 "dialog_routing_download_and_build_cross_route" = "Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?";
 "dialog_routing_download_cross_route" = "Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.";
 "dialog_routing_download_files" = "Lataa tarvittavat tiedostot";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Vältä portaita";
 "avoid_motorways" = "Vältä moottoritietä";
-"unable_to_calc_alert_title" = "Reittiä ei voi luoda";
-"unable_to_calc_alert_subtitle" = "Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen";
 "toll_road" = "Maksullinen tie";
 "unpaved_road" = "Päällystämätön tie";
 "ferry_crossing" = "Lauttaliikenne";

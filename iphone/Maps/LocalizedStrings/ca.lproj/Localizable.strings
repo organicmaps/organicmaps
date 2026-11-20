@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Ajusteu el punt intermig.";
 "dialog_routing_system_error" = "Error de sistema";
 "dialog_routing_application_error" = "No s'ha pogut crear la ruta a causa d'un error de l'aplicació.";
-"dialog_routing_try_again" = "Torneu-ho a intentar";
 "dialog_routing_download_and_build_cross_route" = "Voleu baixar el mapa i crar una ruta més òptima que travessi més d'un mapa?";
 "dialog_routing_download_cross_route" = "Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.";
 "dialog_routing_download_files" = "Baixa els fitxers necessaris";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Evita escales";
 "avoid_motorways" = "Evita autopistes";
-"unable_to_calc_alert_title" = "No s’ha pogut calcular la ruta";
-"unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
 "toll_road" = "Via de peatge";
 "unpaved_road" = "Via sense pavimentar";
 "ferry_crossing" = "Ferris";

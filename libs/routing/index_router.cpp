@@ -450,10 +450,17 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
 
+  std::string failureCause;
   Route route;
   Route altRoute;
   RouterResultCode code;
   RouterResultCode altCode = RouterResultCode::RouteNotFound;
+  // Keep the loaded maps and effective options available for failed builds.
+  SCOPE_GUARD(featureRoadGraphClear, [this]
+  {
+    ClearRouteCalculationState();
+    m_requestRoutingOptions.reset();
+  });
 
   try
   {
@@ -468,11 +475,6 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       m_lastAltFakeEdges.reset();
     }
     m_previousRoutingOptions = m_requestRoutingOptions->GetOptions();
-    SCOPE_GUARD(featureRoadGraphClear, [this]
-    {
-      ClearRouteCalculationState();
-      m_requestRoutingOptions.reset();
-    });
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.
     // Guides edges are priced at max speed (see SetGuidesGraphParams), above the DistanceBiased cap,
@@ -547,7 +549,14 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   {
     LOG(LERROR, ("Can't find path from", mercator::ToLatLon(startPoint), "to", mercator::ToLatLon(finalPoint), ":\n ",
                  e.what()));
-    return RouterResultCode::InternalError;
+    code = RouterResultCode::InternalError;
+    failureCause = e.what();
+  }
+
+  if (IsInternalRouteError(code))
+  {
+    result.m_failureDetails = {std::move(failureCause), m_dataSource.GetLoadedMapVersions(), m_requestRoutingOptions};
+    return code;
   }
 
   if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)

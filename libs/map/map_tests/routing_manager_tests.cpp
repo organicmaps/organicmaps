@@ -863,7 +863,8 @@ UNIT_TEST(RoutingManager_BuildKeepsResolvedMyPosition)
       bookmarks.MyPositionMark().SetUserPosition(calculationPosition, true /* hasPosition */);
 
       bool built = false;
-      manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+      manager.SetRouteBuildingListener(
+          [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
       {
         TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
         built = true;
@@ -1091,8 +1092,8 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 
   bool failed = false;
   session.RebuildRoute({1, 2}, [](routing::RoutesResult const &, routing::RouterResultCode) {}, nullptr,
-                       [&failed](routing::RouterResultCode) { failed = true; }, routing::RouterDelegate::kNoTimeout,
-                       routing::SessionState::RouteRebuilding, false);
+                       [&failed](routing::RouterResultCode, std::string const &) { failed = true; },
+                       routing::RouterDelegate::kNoTimeout, routing::SessionState::RouteRebuilding, false);
   TEST(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).empty(),
        ("Unavailable controls must disappear immediately."));
   session.RouteCall([](routing::RoutesResult const & result)
@@ -1148,7 +1149,8 @@ UNIT_TEST(RoutingManager_SaveRouteKeepsStopNames)
     routingManager.AddRoutePoint(std::move(finish), false /* optimize */);
 
     bool built = false;
-    routingManager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    routingManager.SetRouteBuildingListener(
+        [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
     {
       TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
       built = true;
@@ -1243,7 +1245,8 @@ UNIT_TEST(RoutingManager_RecoveryWhileActivePreservesTheSnapshot)
     manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false);
     manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2), false);
     bool built = false;
-    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    manager.SetRouteBuildingListener(
+        [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
     {
       TEST(code == routing::RouterResultCode::NoError, ());
       built = true;
@@ -1271,7 +1274,8 @@ UNIT_TEST(RoutingManager_ValidationObserverCanStartANewBuild)
     manager.RoutingSession().SetRouter(std::make_unique<routing::RulerRouter>(), nullptr);
     bool requested = false;
     bool built = false;
-    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    manager.SetRouteBuildingListener(
+        [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
     {
       if (!requested)
       {
@@ -1306,7 +1310,8 @@ UNIT_TEST(RoutingManager_CheckpointPassUpdatesRecoveryBeforeReturning)
     manager.SaveRoutePoints();
     TEST(manager.HasSavedRoutePoints(), ());
     bool built = false;
-    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    manager.SetRouteBuildingListener(
+        [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
     {
       TEST(code == routing::RouterResultCode::NoError, ());
       built = true;
@@ -1334,7 +1339,8 @@ UNIT_TEST(RoutingManager_RemovedCheckpointDoesNotUpdateRecovery)
     manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false);
     manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2), false);
     bool built = false;
-    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    manager.SetRouteBuildingListener(
+        [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
     {
       TEST(code == routing::RouterResultCode::NoError, ());
       built = true;
@@ -1368,7 +1374,8 @@ UNIT_TEST(RoutingManager_RebuildAfterEditingNavigationRetiresOldCheckpoints)
     manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2), false);
     manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 3), false);
     bool built = false;
-    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    manager.SetRouteBuildingListener(
+        [&](routing::RouterResultCode code, storage::CountriesSet const &, std::string const &)
     {
       TEST(code == routing::RouterResultCode::NoError, ());
       built = true;

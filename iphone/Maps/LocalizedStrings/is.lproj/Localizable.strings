@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Aðlagaðu milliáfangann þinn.";
 "dialog_routing_system_error" = "Kerfisvilla";
 "dialog_routing_application_error" = "Tókst ekki að útbúa leið vegna villu í forriti.";
-"dialog_routing_try_again" = "Endilega reyndu aftur";
 "dialog_routing_download_and_build_cross_route" = "Myndirðu vilja sækja landakortið og útbúa þægilegri leið sem spannar fleiri en eitt landakort?";
 "dialog_routing_download_cross_route" = "Sækja viðbótar-landakort til að útbúa þægilegri leið sem fer út fyrir mörk þessa landakorts.";
 "dialog_routing_download_files" = "Sækja nauðsynlegar skrár";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Forðast stiga";
 "avoid_motorways" = "Forðast hraðbrautir";
-"unable_to_calc_alert_title" = "Tókst ekki að reikna leið";
-"unable_to_calc_alert_subtitle" = "Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.";
 "toll_road" = "Vegur með gjaldskyldu";
 "unpaved_road" = "Óbundið slitlag";
 "ferry_crossing" = "Þverun með ferju";

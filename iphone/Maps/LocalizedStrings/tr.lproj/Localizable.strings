@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Lütfen ara noktanızı ayarlayın.";
 "dialog_routing_system_error" = "Sistem hatası";
 "dialog_routing_application_error" = "Uygulama hatası nedeniyle rota oluşturulamadı.";
-"dialog_routing_try_again" = "Lütfen yeniden deneyin";
 "dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden çok haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?";
 "dialog_routing_download_cross_route" = "Bu haritanın bir bölümünden geçen daha uygun rota oluşturmak için harita indir.";
 "dialog_routing_download_files" = "Gerekli dosyaları indir";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Merdivenlerden kaçın";
 "avoid_motorways" = "Otobandan kaçın";
-"unable_to_calc_alert_title" = "Rota hesaplanamıyor";
-"unable_to_calc_alert_subtitle" = "Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.";
 "toll_road" = "Paralı yol";
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Vapur geçişi";

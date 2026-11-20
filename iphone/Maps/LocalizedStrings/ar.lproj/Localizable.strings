@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "الرجاء ضبط النقطة الوسيطة الخاصة بك.";
 "dialog_routing_system_error" = "خطأ في النظام";
 "dialog_routing_application_error" = "تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.";
-"dialog_routing_try_again" = "الرجاء إعادة المحاولة";
 "dialog_routing_download_and_build_cross_route" = "هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟";
 "dialog_routing_download_cross_route" = "تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.";
 "dialog_routing_download_files" = "تنزيل الملفات المطلوبة";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "تجنب الدرج";
 "avoid_motorways" = "تجنب الطريق السريع";
-"unable_to_calc_alert_title" = "لا يمكن حساب الطريق";
-"unable_to_calc_alert_subtitle" = "نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا.";
 "toll_road" = "طريق برسوم مرور";
 "unpaved_road" = "طريق غير معبد";
 "ferry_crossing" = "استخدام عبّارة";

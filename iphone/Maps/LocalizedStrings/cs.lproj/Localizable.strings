@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Upravte mezilehlý bod.";
 "dialog_routing_system_error" = "Systémová chyba";
 "dialog_routing_application_error" = "Trasu se nepodařilo vytvořit z důvodu chyby aplikace.";
-"dialog_routing_try_again" = "Prosím, zkuste to znovu";
 "dialog_routing_download_and_build_cross_route" = "Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?";
 "dialog_routing_download_cross_route" = "Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.";
 "dialog_routing_download_files" = "Stáhnout požadované soubory";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Vyhnout se schodům";
 "avoid_motorways" = "Vyhnout se dálnicím";
-"unable_to_calc_alert_title" = "Nelze vypočítat trasu";
-"unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.";
 "toll_road" = "Silnice s mýtným";
 "unpaved_road" = "Nezpevněná silnice";
 "ferry_crossing" = "Přejezd trajektů";

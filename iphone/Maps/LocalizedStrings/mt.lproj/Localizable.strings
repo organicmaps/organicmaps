@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Jekk jogħġbok irranġa l-punt intermedju tiegħek.";
 "dialog_routing_system_error" = "Żball fis-sistema";
 "dialog_routing_application_error" = "Ir-rotta ma' tistax tinħoloq minħabba żball fl-applikazzjoni.";
-"dialog_routing_try_again" = "Jekk jogħġbok erġa ’pprova";
 "dialog_routing_download_and_build_cross_route" = "Tixtieq tniżżel il-mappa u toħloq rotta aktar ottimali li tkopri aktar minn mappa waħda?";
 "dialog_routing_download_cross_route" = "Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.";
 "dialog_routing_download_files" = "Niżżel il-fajls meħtieġa";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Evita t-taraġ";
 "avoid_motorways" = "Evita l-passaġġi ħielsa";
-"unable_to_calc_alert_title" = "Ir-rotta ma' tistax tiġi kalkulata";
-"unable_to_calc_alert_subtitle" = "Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.";
 "toll_road" = "Triq għall-pedaġġ";
 "unpaved_road" = "Triq mhux pavimentata";
 "ferry_crossing" = "Qsim bil-lanċa";

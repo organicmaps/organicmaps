@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Por favor, ajuste seu ponto intermediário.";
 "dialog_routing_system_error" = "Erro do sistema";
 "dialog_routing_application_error" = "Não foi possível traçar uma rota devido a um erro no aplicativo.";
-"dialog_routing_try_again" = "Por favor, tente novamente";
 "dialog_routing_download_and_build_cross_route" = "Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?";
 "dialog_routing_download_cross_route" = "Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.";
 "dialog_routing_download_files" = "Baixar os arquivos necessários";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Evitar escadas";
 "avoid_motorways" = "Evitar rodovias";
-"unable_to_calc_alert_title" = "Incapaz de calcular rota";
-"unable_to_calc_alert_subtitle" = "Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.";
 "toll_road" = "Pedágio";
 "unpaved_road" = "Pista não pavimentada";
 "ferry_crossing" = "Balsa";

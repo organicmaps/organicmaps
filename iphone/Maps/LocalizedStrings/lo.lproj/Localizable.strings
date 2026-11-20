@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "ກະລຸນາປັບປຸງຈຸດແວ່ພັກຂອງທ່ານ.";
 "dialog_routing_system_error" = "ຂໍ້ຜິດພາດຂອງລະບົບ";
 "dialog_routing_application_error" = "ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ.";
-"dialog_routing_try_again" = "ກະລຸນາລອງໃໝ່";
 "dialog_routing_download_and_build_cross_route" = "ທ່ານຕ້ອງການດາວໂຫລດແຜນທີ່ ແລະ ສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງກວມເອົາຫຼາຍກວ່າໜຶ່ງແຜນທີ່ບໍ່?";
 "dialog_routing_download_cross_route" = "ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.";
 "dialog_routing_download_files" = "ດາວໂຫຼດໄຟລ໌ທີ່ຈຳເປັນ";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "ເລ່ຽງຂັ້ນໄດ";
 "avoid_motorways" = "ເລ່ຽງທາງດ່ວນ";
-"unable_to_calc_alert_title" = "ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້";
-"unable_to_calc_alert_subtitle" = "ບໍ່ພົບເສັ້ນທາງ. ນີ້ອາດຈະເກີດຈາກຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ຫຼື ຂໍ້ມູນ OpenStreetMap ບໍ່ສົມບູນ. ກະລຸນາປ່ຽນຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ແລະ ລອງໃໝ່.";
 "toll_road" = "ທາງເສຍຄ່າທຳນຽມ";
 "unpaved_road" = "ທາງບໍ່ປູຢາງ";
 "ferry_crossing" = "ຈຸດຂ້າມເຮືອຟາກ";

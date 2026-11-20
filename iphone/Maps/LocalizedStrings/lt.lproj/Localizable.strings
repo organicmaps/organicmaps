@@ -461,7 +461,6 @@
 "dialog_routing_intermediate_not_determined" = "Pakoreguokite tarpinį tašką.";
 "dialog_routing_system_error" = "Sistemos klaida";
 "dialog_routing_application_error" = "Maršruto nepavyko apskaičiuoti dėl programinės klaidos.";
-"dialog_routing_try_again" = "Bandykite dar kartą";
 "dialog_routing_download_and_build_cross_route" = "Ar atsiųsti žemėlapį, kad būtų apskaičiuotas geresnis maršrutas, apimantis daugiau nei vieną žemėlapį?";
 "dialog_routing_download_cross_route" = "Atsiųskite papildomus žemėlapius, kad būtų apskaičiuotas geresnis maršrutas, išeinantis už šio žemėlapio ribų.";
 "dialog_routing_download_files" = "Atsiųsti reikalingus failus";
@@ -771,8 +770,6 @@
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "Vengti laiptų";
 "avoid_motorways" = "Vengti greitkelių";
-"unable_to_calc_alert_title" = "Nepavyko apskaičiuoti maršruto";
-"unable_to_calc_alert_subtitle" = "Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.";
 "toll_road" = "Mokamas kelias";
 "unpaved_road" = "Negrįstas kelias";
 "ferry_crossing" = "Persikėlimas keltu";

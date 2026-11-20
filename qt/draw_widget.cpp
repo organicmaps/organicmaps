@@ -105,7 +105,7 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
   auto & routingManager = m_framework.GetRoutingManager();
 
   routingManager.SetRouteBuildingListener(
-      [&routingManager, this](routing::RouterResultCode, storage::CountriesSet const &)
+      [&routingManager, this](routing::RouterResultCode, storage::CountriesSet const &, std::string const &)
   {
     auto & drapeApi = m_framework.GetDrapeApi();
 

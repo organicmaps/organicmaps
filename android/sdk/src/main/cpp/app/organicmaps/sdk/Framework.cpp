@@ -1406,7 +1406,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
   frm()->GetRoutingManager().SetRouteBuildingListener(
-      [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries)
+      [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries,
+                                            std::string const &)
   { CallRoutingListener(rf, static_cast<int>(e), countries); });
 }
 
