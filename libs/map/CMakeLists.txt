@@ -49,6 +49,7 @@ set(SRC
   power_management/power_management_schemas.hpp
   raster_tile_provider.cpp
   raster_tile_provider.hpp
+  road_warning_spans.hpp
   routing_manager.cpp
   routing_manager.hpp
   routing_mark.cpp

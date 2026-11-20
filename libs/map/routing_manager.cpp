@@ -1,5 +1,6 @@
 #include "routing_manager.hpp"
 
+#include "map/road_warning_spans.hpp"
 #include "map/routing_mark.hpp"
 
 #include "routing/absent_regions_finder.hpp"
@@ -586,40 +587,6 @@ void RoutingManager::ClearAlternativeRoutes()
   m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAlternativeSubroutes);
 }
 
-void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments,
-                                         m2::PointD const & startPt, double baseDistance,
-                                         RoadWarningsCollection & roadWarnings)
-{
-  double currentDistance = baseDistance;
-  double startDistance = baseDistance;
-  RoadWarningMarkType lastWarn = RoadWarningMarkType::Count;
-  for (size_t i = 0; i < segments.size(); ++i)
-  {
-    auto const currentWarn = ChooseRoadWarning(segments[i].GetRoadTypes(), m_currentRouterType);
-    if (currentWarn != lastWarn)
-    {
-      if (lastWarn != RoadWarningMarkType::Count)
-      {
-        ASSERT(!roadWarnings[lastWarn].empty(), ());
-        roadWarnings[lastWarn].back().m_distance = segments[i].GetDistFromBeginningMeters() - startDistance;
-      }
-
-      if (currentWarn != RoadWarningMarkType::Count)
-      {
-        startDistance = currentDistance;
-        auto const featureId =
-            FeatureID(GetMwmId(segments[i].GetSegment().GetMwmId()), segments[i].GetSegment().GetFeatureId());
-        auto const markPoint = i == 0 ? startPt : segments[i - 1].GetJunction().GetPoint();
-        roadWarnings[currentWarn].push_back(RoadInfo(markPoint, featureId));
-      }
-      lastWarn = currentWarn;
-    }
-    currentDistance = segments[i].GetDistFromBeginningMeters();
-  }
-  if (lastWarn != RoadWarningMarkType::Count)
-    roadWarnings[lastWarn].back().m_distance = segments.back().GetDistFromBeginningMeters() - startDistance;
-}
-
 void RoutingManager::CollectRoadPointWarnings(RouteBase const & route, RoadWarningsCollection & roadWarnings)
 {
   // The heavy barrier lookup already ran on the routing thread (IndexRouter::RedressRoute);
@@ -632,7 +599,7 @@ void RoutingManager::CollectRoadPointWarnings(RouteBase const & route, RoadWarni
       continue;
 
     // Check for duplicates (from alt routes).
-    RoadInfo const toInsert(warning.m_point, warning.m_featureId);
+    RoadInfo const toInsert{warning.m_point, warning.m_featureId};
     auto & resVec = roadWarnings[markType];
     if (!base::IsExistIf(resVec, [&toInsert](RoadInfo const & ri)
     {
@@ -830,7 +797,8 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
-    auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
+    auto const & attrs = route.GetSubrouteAttrs(subrouteIndex);
+    auto const startPt = attrs.GetStart().GetPoint();
     auto subroute =
         CreateDrapeSubroute(segments, startPt, distance,
                             static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
@@ -882,7 +850,13 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     default: CHECK(false, ("Unknown router type"));
     }
 
-    CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
+    ForEachRoadWarningSpan(
+        route.GetRouteSegments(), attrs, m_currentRouterType,
+        [&](RoadWarningMarkType type, Segment const & segment, m2::PointD const & startPoint, double distanceMeters)
+    {
+      FeatureID const featureId(GetMwmId(segment.GetMwmId()), segment.GetFeatureId());
+      roadWarnings[type].push_back({startPoint, featureId, distanceMeters});
+    });
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
