@@ -41,8 +41,8 @@ enum class RouterType
 };
 
 std::string ToString(RouterType type);
-/// Returns Vehicle for unknown identifiers.
-RouterType FromString(std::string const & str);
+/// Returns the fallback for unknown identifiers.
+RouterType FromString(std::string const & str, RouterType fallback = RouterType::Vehicle);
 std::string DebugPrint(RouterType type);
 
 class IRouter
