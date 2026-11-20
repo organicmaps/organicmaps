@@ -47,7 +47,7 @@ void Checker(std::vector<RoutingOptions::Road> const & include)
     TEST(options.Has(type), ());
 
   auto max = static_cast<RoadType>(RoutingOptions::Road::Max);
-  for (uint8_t i = 1; i < max; i <<= 1)
+  for (uint32_t i = 1; i < max; i <<= 1)
   {
     bool hasInclude = false;
     auto type = static_cast<RoutingOptions::Road>(i);
@@ -158,6 +158,15 @@ UNIT_TEST(RoutingOptions_StepsSubtypes)
     TEST(classifier.Get(classif().GetTypeByPath(path)) == RoutingOptions::Steps, (path));
 }
 
+UNIT_TEST(RoutingOptions_TrailGradesAndTruncatedSubtypes)
+{
+  classificator::Load();
+  auto const & classifier = RoutingOptionsClassifier::Instance(VehicleType::Pedestrian);
+  TEST(classifier.Get(classif().GetTypeByPath({"highway", "path", "difficult"})) == RoutingOptions::DifficultTrail, ());
+  TEST(classifier.Get(classif().GetTypeByPath({"highway", "path", "expert"})) == RoutingOptions::ExpertTrail, ());
+  TEST(classifier.Get(classif().GetTypeByPath({"highway", "motorway", "bridge"})) == RoutingOptions::Motorway, ());
+}
+
 UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
 {
   for (auto const road : {RoutingOptions::Usual, RoutingOptions::Toll, RoutingOptions::Motorway, RoutingOptions::Ferry,
@@ -167,7 +176,7 @@ UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
     TEST(parsed, (road));
     TEST_EQUAL(*parsed, road, ());
   }
-  for (uint32_t const invalid : {0u, 3u, 6u, 33u, 64u, 256u, 0xffffffffu})
+  for (uint32_t const invalid : {0u, 3u, 6u, 33u, 64u, 128u, 256u, 0xffffffffu})
     TEST(!RoutingOptions::RoadFromId(invalid), (invalid));
   TEST(RoutingOptions::GetVehicleType(RouterType::Vehicle) == VehicleType::Car, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Bicycle) == VehicleType::Bicycle, ());

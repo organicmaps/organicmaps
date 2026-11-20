@@ -42,6 +42,13 @@ UNIT_TEST(RoadWarning_IsWarningShownFor)
   TEST(IsWarningShownFor(Steps, RouterType::Bicycle), ());
   TEST(!IsWarningShownFor(Steps, RouterType::Vehicle), ());
 
+  for (auto const type : {DifficultTrail, ExpertTrail})
+  {
+    TEST(IsWarningShownFor(type, RouterType::Pedestrian), (type));
+    TEST(!IsWarningShownFor(type, RouterType::Bicycle), (type));
+    TEST(!IsWarningShownFor(type, RouterType::Vehicle), (type));
+  }
+
   // Ferry / gate: car, pedestrian and bicycle.
   for (auto const r : {RouterType::Vehicle, RouterType::Pedestrian, RouterType::Bicycle})
   {
@@ -51,7 +58,7 @@ UNIT_TEST(RoadWarning_IsWarningShownFor)
 
   // Transit / ruler: no warnings at all.
   for (auto const r : {RouterType::Transit, RouterType::Ruler})
-    for (auto const t : {Toll, Ferry, Dirty, Steps, Gate, LiftGate})
+    for (auto const t : {Toll, Ferry, Dirty, Steps, Gate, LiftGate, DifficultTrail, ExpertTrail})
       TEST(!IsWarningShownFor(t, r), (t, r));
 }
 
@@ -90,6 +97,12 @@ UNIT_TEST(RoadWarning_ChooseRoadWarning)
   for (auto const r : {RouterType::Vehicle, RouterType::Pedestrian, RouterType::Bicycle})
     TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::Ferry}), r), Ferry, (r));
 
+  TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::DifficultTrail, Road::Dirty}), RouterType::Pedestrian),
+             DifficultTrail, ());
+  TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::ExpertTrail, Road::Steps}), RouterType::Pedestrian), ExpertTrail, ());
+  TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::Ferry, Road::ExpertTrail}), RouterType::Pedestrian), Ferry, ());
+  TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::DifficultTrail}), RouterType::Bicycle), Count, ());
+
   // Transit / ruler never warn.
   TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::Ferry, Road::Steps}), RouterType::Transit), Count, ());
   TEST_EQUAL(ChooseRoadWarning(MakeOptions({Road::Dirty}), RouterType::Ruler), Count, ());
@@ -108,6 +121,8 @@ UNIT_TEST(RoadWarning_IsAvoidableRoadWarning)
   // No avoid option -> must not surface the "driving options" affordance.
   TEST(!IsAvoidableRoadWarning(Gate), ());
   TEST(!IsAvoidableRoadWarning(LiftGate), ());
+  TEST(!IsAvoidableRoadWarning(DifficultTrail), ());
+  TEST(!IsAvoidableRoadWarning(ExpertTrail), ());
 }
 
 UNIT_TEST(RoadWarning_SpanBoundaries)
