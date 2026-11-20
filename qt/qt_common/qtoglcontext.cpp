@@ -84,39 +84,29 @@ void QtRenderOGLContext::PrepareBackFrame()
   }
 }
 
-bool QtRenderOGLContext::AcquireFrame()
+GLuint QtRenderOGLContext::AcquireFrameTexture()
 {
   if (!m_isContextAvailable)
-    return false;
+    return 0;
 
   ASSERT(QOpenGLContext::currentContext(), ());
   ASSERT(QOpenGLContext::currentContext() != m_ctx.get(), ());
   ASSERT(QOpenGLContext::areSharing(QOpenGLContext::currentContext(), m_ctx.get()), ());
 
   std::unique_lock lock(m_frameMutex);
-  if (!m_frameUpdated)
-    return m_acquiredFrame != nullptr;
-
-  // Finish the consumer's reads before returning its texture to the producer.
-  if (m_acquiredFrame)
+  if (m_frameUpdated)
   {
-    // The consumer keeps ownership while the producer can publish a newer front frame.
-    lock.unlock();
-    GLFunctions::glFinish();
-    lock.lock();
+    if (m_acquiredFrame)
+    {
+      // Keep ownership until sampling finishes while allowing the producer to publish a newer frame.
+      lock.unlock();
+      GLFunctions::glFinish();
+      lock.lock();
+    }
+    std::swap(m_acquiredFrame, m_frontFrame);
+    m_frameUpdated = false;
   }
-  std::swap(m_acquiredFrame, m_frontFrame);
-  m_frameUpdated = false;
-
-  return true;
-}
-
-GLuint QtRenderOGLContext::GetTextureHandle() const
-{
-  if (!m_acquiredFrame)
-    return 0;
-
-  return m_acquiredFrame->texture();
+  return m_acquiredFrame ? m_acquiredFrame->texture() : 0;
 }
 
 QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
