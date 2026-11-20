@@ -8,6 +8,41 @@ import java.util.Set;
 
 public final class RoutingOptions
 {
+  public enum BicycleSurfacePreference
+  {
+    Any(0),
+    PreferPaved(1),
+    PreferUnpaved(2),
+    AvoidUnpaved(3);
+
+    public final int nativeValue;
+
+    BicycleSurfacePreference(int nativeValue)
+    {
+      this.nativeValue = nativeValue;
+    }
+
+    @NonNull
+    public static BicycleSurfacePreference fromNativeValue(int value)
+    {
+      for (BicycleSurfacePreference preference : values())
+        if (preference.nativeValue == value)
+          return preference;
+      throw new IllegalArgumentException("Unknown bicycle surface preference: " + value);
+    }
+  }
+
+  @NonNull
+  public static BicycleSurfacePreference getBicycleSurfacePreference()
+  {
+    return BicycleSurfacePreference.fromNativeValue(nativeGetBicycleSurfacePreference());
+  }
+
+  public static void setBicycleSurfacePreference(@NonNull BicycleSurfacePreference preference)
+  {
+    nativeSetBicycleSurfacePreference(preference.nativeValue);
+  }
+
   public static void addOption(@NonNull Router router, @NonNull RoadType roadType)
   {
     nativeAddOption(router.getType(), roadType.nativeValue);
@@ -69,6 +104,10 @@ public final class RoutingOptions
   private static native void nativeAddOption(int routerType, int option);
 
   private static native void nativeRemoveOption(int routerType, int option);
+
+  private static native int nativeGetBicycleSurfacePreference();
+
+  private static native void nativeSetBicycleSurfacePreference(int preference);
 
   private static native boolean nativeIsRouteOptimizationEnabled();
 

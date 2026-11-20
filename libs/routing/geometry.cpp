@@ -4,6 +4,7 @@
 #include "routing/maxspeeds.hpp"
 
 #include "indexer/altitude_loader.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
 
@@ -65,6 +66,22 @@ public:
 
 namespace
 {
+RoadGeometry::Surface GetMappedSurface(feature::TypesHolder const & types)
+{
+  using Surface = RoadGeometry::Surface;
+  auto const & c = classif();
+  static std::pair<uint32_t, Surface> const surfaces[] = {
+      {c.GetTypeByPath({"psurface", "paved_good"}), Surface::Paved},
+      {c.GetTypeByPath({"psurface", "paved_bad"}), Surface::Paved},
+      {c.GetTypeByPath({"psurface", "unpaved_good"}), Surface::UnpavedGood},
+      {c.GetTypeByPath({"psurface", "unpaved_bad"}), Surface::UnpavedBad},
+  };
+  for (auto const & [type, surface] : surfaces)
+    if (types.Has(type))
+      return surface;
+  return Surface::Unknown;
+}
+
 class RoadGeometryLoader : public GeometryLoader
 {
 protected:
@@ -183,6 +200,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   feature::TypesHolder types(feature);
   m_highwayType = vehicleModel.GetHighwayType(types);
+  m_surface = GetMappedSurface(types);
 
   m_valid = vehicleModel.IsRoad(types);
   m_isOneWay = vehicleModel.IsOneWay(types);

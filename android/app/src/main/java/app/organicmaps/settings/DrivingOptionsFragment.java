@@ -15,6 +15,7 @@ import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
+import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -31,10 +32,12 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private static final String BUNDLE_ROUTER = "router_type";
   private static final String BUNDLE_ROAD_TYPES = "road_type_ids";
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
+  private static final String BUNDLE_BICYCLE_SURFACE = "bicycle_surface";
   // Road types of every mode, as the route mode can change while this screen is open (e.g. by Android Auto).
   @NonNull
   private final Map<Router, Set<RoadType>> mRoadTypes = new EnumMap<>(Router.class);
   private boolean mOptimizationEnabledOnLoad;
+  private BicycleSurfacePreference mBicycleSurfaceOnLoad;
   @NonNull
   private Router mRouter = Router.Vehicle;
   private View mContent;
@@ -57,6 +60,11 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     }
     mOptimizationEnabledOnLoad = savedInstanceState != null ? savedInstanceState.getBoolean(BUNDLE_ROUTE_OPTIMIZATION)
                                                             : RoutingOptions.isRouteOptimizationEnabled();
+    // A restored bundle may lack the surface choice. Use the current preference as its baseline.
+    mBicycleSurfaceOnLoad =
+        savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_BICYCLE_SURFACE)
+            ? BicycleSurfacePreference.fromNativeValue(savedInstanceState.getInt(BUNDLE_BICYCLE_SURFACE))
+            : RoutingOptions.getBicycleSurfacePreference();
     return root;
   }
 
@@ -97,6 +105,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       outState.putIntegerArrayList(roadTypesKey(entry.getKey()), savedRoadTypes);
     }
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
+    outState.putInt(BUNDLE_BICYCLE_SURFACE, mBicycleSurfaceOnLoad.nativeValue);
   }
 
   @Override
@@ -107,17 +116,21 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     if (requireActivity().isChangingConfigurations())
       return;
 
-    final Router router = RoutingController.get().getLastRouterType();
-    final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router));
+    final RoutingController controller = RoutingController.get();
+    final Router router = controller.getLastRouterType();
+    final BicycleSurfacePreference bicycleSurface = RoutingOptions.getBicycleSurfacePreference();
+    final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router))
+                         || (router == Router.Bicycle && bicycleSurface != mBicycleSurfaceOnLoad);
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
-    final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
+    final boolean reordered = enabled && !mOptimizationEnabledOnLoad && controller.optimizeRoutePoints();
     if (changed || reordered)
-      RoutingController.get().onRoutingOptionsChanged();
+      controller.onRoutingOptionsChanged();
     // Re-baseline so leaving this screen again (e.g. after Home) reports only what changed since.
     for (Router each : Router.values())
       mRoadTypes.put(each, RoutingOptions.getActiveRoadTypes(each));
     mOptimizationEnabledOnLoad = enabled;
+    mBicycleSurfaceOnLoad = bicycleSurface;
   }
 
   private void initViews(@NonNull View root)
@@ -153,13 +166,38 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     bindOption(root, R.id.avoid_dirty_roads_btn, RoadType.Dirty);
     bindOption(root, R.id.avoid_steps_btn, RoadType.Steps);
     bindOption(root, R.id.avoid_difficult_trails_btn, RoadType.DifficultTrail);
+    bindBicycleSurfaceOptions(root);
+  }
+
+  private void bindBicycleSurfaceOptions(@NonNull View root)
+  {
+    final boolean cycling = mRouter == Router.Bicycle;
+    UiUtils.showIf(cycling, root.findViewById(R.id.bicycle_surface_options));
+    if (!cycling)
+      return;
+
+    final BicycleSurfacePreference selected = RoutingOptions.getBicycleSurfacePreference();
+    bindSurfaceOption(root, R.id.bicycle_surface_any, BicycleSurfacePreference.Any, selected);
+    bindSurfaceOption(root, R.id.bicycle_surface_paved, BicycleSurfacePreference.PreferPaved, selected);
+    bindSurfaceOption(root, R.id.bicycle_surface_unpaved, BicycleSurfacePreference.PreferUnpaved, selected);
+    bindSurfaceOption(root, R.id.bicycle_surface_avoid_unpaved, BicycleSurfacePreference.AvoidUnpaved, selected);
+  }
+
+  private void bindSurfaceOption(@NonNull View root, @IdRes int buttonId, BicycleSurfacePreference option,
+                                 BicycleSurfacePreference selected)
+  {
+    RadioButton button = root.findViewById(buttonId);
+    button.setChecked(option == selected);
+    button.setOnClickListener(v -> RoutingOptions.setBicycleSurfacePreference(option));
   }
 
   private void bindOption(@NonNull View root, @IdRes int buttonId, @NonNull RoadType roadType)
   {
     final Router router = mRouter;
     SwitchCompat button = root.findViewById(buttonId);
-    UiUtils.showIf(RoutingOptions.supportsOption(router, roadType), (View) button.getParent());
+    UiUtils.showIf(
+        (router != Router.Bicycle || roadType != RoadType.Dirty) && RoutingOptions.supportsOption(router, roadType),
+        (View) button.getParent());
     button.setOnCheckedChangeListener(null);
     button.setChecked(RoutingOptions.hasOption(router, roadType));
     // Another mode's settings are shown as they are, without animating the switches.

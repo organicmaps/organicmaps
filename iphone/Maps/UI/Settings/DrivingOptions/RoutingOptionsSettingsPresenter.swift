@@ -19,6 +19,16 @@ final class RoutingOptionsSettingsPresenter {
       sections.append(SettingsSectionViewModel(section: .options,
                                                items: avoidances.map { item($0, state: state) }))
     }
+    if state.options.routerType == .bicycle {
+      let preferences: [BicycleSurfacePreference] = [.any, .preferPaved, .preferUnpaved, .avoidUnpaved]
+      let items = preferences.map { preference in
+        let option = RoutingOption.bicycleSurface(preference)
+        return RoutingOptionsSettingsItemViewModel(item: option,
+                                                   title: option.title,
+                                                   kind: .selectable(isSelected: state.bicycleSurface == preference))
+      }
+      sections.append(SettingsSectionViewModel(section: .bicycleSurface, header: L("bicycle_surface"), items: items))
+    }
     sections.append(SettingsSectionViewModel(section: .optimization,
                                              header: L("routing_options_all_modes"),
                                              footer: L("route_optimization_description"),

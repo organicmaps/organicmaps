@@ -241,6 +241,50 @@
             android:padding="@dimen/margin_half_double_plus"/>
         </LinearLayout>
       </LinearLayout>
+      <LinearLayout
+        android:id="@+id/bicycle_surface_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base">
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/margin_half_double_plus"
+          android:text="@string/bicycle_surface"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="?android:attr/textColorSecondary"/>
+        <RadioGroup
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+          <RadioButton
+            android:id="@+id/bicycle_surface_any"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/bicycle_surface_any"/>
+          <RadioButton
+            android:id="@+id/bicycle_surface_paved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/bicycle_surface_prefer_paved"/>
+          <RadioButton
+            android:id="@+id/bicycle_surface_unpaved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/bicycle_surface_prefer_unpaved"/>
+          <RadioButton
+            android:id="@+id/bicycle_surface_avoid_unpaved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/avoid_unpaved"/>
+        </RadioGroup>
+      </LinearLayout>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
 </LinearLayout>
