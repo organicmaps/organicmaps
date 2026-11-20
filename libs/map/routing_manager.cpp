@@ -44,6 +44,7 @@
 
 #include <glaze/json.hpp>
 
+#include <array>
 #include <map>
 
 using namespace routing;
@@ -58,16 +59,20 @@ struct RoutePointJson
   double x = 0.0;
   double y = 0.0;
   bool replaceWithMyPosition = false;
+  std::optional<std::array<double, 2>> waterwayPosition;
 };
 
 RoutePointJson ToRoutePointJson(RouteMarkData const & data)
 {
-  return {.type = static_cast<int>(data.m_pointType),
-          .title = data.m_title,
-          .subtitle = data.m_subTitle,
-          .x = data.m_position.x,
-          .y = data.m_position.y,
-          .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
+  RoutePointJson point{.type = static_cast<int>(data.m_pointType),
+                       .title = data.m_title,
+                       .subtitle = data.m_subTitle,
+                       .x = data.m_position.x,
+                       .y = data.m_position.y,
+                       .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
+  if (data.m_waterwayPosition)
+    point.waterwayPosition = {data.m_waterwayPosition->x, data.m_waterwayPosition->y};
+  return point;
 }
 
 RouteMarkData ToRouteMarkData(RoutePointJson const & point)
@@ -77,6 +82,8 @@ RouteMarkData ToRouteMarkData(RoutePointJson const & point)
   data.m_title = point.title;
   data.m_subTitle = point.subtitle;
   data.m_position = {point.x, point.y};
+  if (point.waterwayPosition)
+    data.m_waterwayPosition.emplace((*point.waterwayPosition)[0], (*point.waterwayPosition)[1]);
   data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
   return data;
 }
@@ -563,6 +570,19 @@ void RoutingManager::SetRouterImpl(RouterType type)
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(std::move(router), std::move(absentFinder));
   m_currentRouterType = type;
+  if (type == RouterType::Water && m_bmManager)
+  {
+    RoutePointsLayout layout(*m_bmManager);
+    for (auto * mark : layout.GetRoutePoints())
+    {
+      if (mark->GetMarkData().m_waterwayPosition)
+      {
+        auto data = mark->GetMarkData();
+        data.ApplyWaterwayPosition();
+        mark->SetMarkData(std::move(data));
+      }
+    }
+  }
 }
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
@@ -1117,6 +1137,8 @@ bool RoutingManager::CouldAddIntermediatePoint() const
 
 bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 {
+  if (m_currentRouterType == RouterType::Water)
+    markData.ApplyWaterwayPosition();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   bool const isIntermediate = markData.m_pointType == RouteMarkType::Intermediate;
@@ -1148,6 +1170,8 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 
 void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
+  if (m_currentRouterType == RouterType::Water)
+    markData.ApplyWaterwayPosition();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto * target = routePoints.GetRoutePointForEdit(type, intermediateIndex);
@@ -1188,6 +1212,8 @@ bool RoutingManager::OptimizeRoutePoints()
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
+  if (m_currentRouterType == RouterType::Water)
+    markData.ApplyWaterwayPosition();
   ASSERT(m_bmManager != nullptr, ());
   ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1772,7 +1798,11 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
   editSession.ClearGroup(UserMark::Type::ROUTING);
   RoutePointsLayout routePoints(*m_bmManager);
   for (auto & markData : routeMarks)
+  {
+    if (m_currentRouterType == RouterType::Water)
+      markData.ApplyWaterwayPosition();
     routePoints.AddRoutePoint(std::move(markData));
+  }
 }
 
 bool RoutingManager::HasSavedRoutePoints() const

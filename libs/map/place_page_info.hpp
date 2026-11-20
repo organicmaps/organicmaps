@@ -136,6 +136,9 @@ public:
   void SetBuildInfo(place_page::BuildInfo const & info) { m_buildInfo = info; }
   place_page::BuildInfo const & GetBuildInfo() const { return m_buildInfo; }
 
+  // Projection on the waterway actually picked by the tap, independent of the active profile.
+  std::optional<m2::PointD> m_waterwayPosition;
+
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
   bool IsBookmark() const;

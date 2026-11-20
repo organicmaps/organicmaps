@@ -20,7 +20,9 @@ measure straight segments.
 
 Select a start with **Route from**, choose **Water**, and select a destination
 and optional intermediate points. Any checkpoint may be on land; the selected
-order is preserved. River selections snap to the displayed centerline.
+order is preserved. Selecting a mapped waterway places the checkpoint on its centerline in Water.
+If you pick the waterway in another profile and then switch to Water, the same
+selection is used. A point chosen on land keeps its original location.
 
 For an off-water checkpoint, the router selects the nearest known water within
 1 km and calculates the approach or exit with the existing pedestrian router.

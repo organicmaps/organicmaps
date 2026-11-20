@@ -57,6 +57,9 @@ public class MapObject implements PlacePageData
   private final String mSubtitle;
   @NonNull
   private String mPreviewSubtitle;
+  // Mercator coordinates on the waterway selected by the map tap.
+  @Nullable
+  public double[] mWaterwayPosition;
   private final String mAddress;
   private double mLat;
   private double mLon;
@@ -128,6 +131,7 @@ public class MapObject implements PlacePageData
     mOsmDescription = source.readString();
     mRoadWarningMarkType = RoadWarningMarkType.values()[source.readInt()];
     mPreviewSubtitle = Objects.requireNonNull(source.readString());
+    mWaterwayPosition = source.createDoubleArray();
     mRawTypes = source.createStringArrayList();
   }
 
@@ -388,6 +392,7 @@ public class MapObject implements PlacePageData
     dest.writeString(mPreviewSubtitle);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
+    dest.writeDoubleArray(mWaterwayPosition);
     dest.writeStringList(mRawTypes);
   }
 

@@ -112,6 +112,12 @@ static jobject CreateMapObjectImpl(JNIEnv * env, place_page::Info const & info)
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   jobject const mapObject = CreateMapObjectImpl(env, info);
+  if (info.m_waterwayPosition)
+  {
+    static jfieldID const id = env->GetFieldID(g_mapObjectClazz, "mWaterwayPosition", "[D");
+    jni::TScopedLocalRef const position(env, routing_jni::ToWaterwayPosition(env, info.m_waterwayPosition));
+    env->SetObjectField(mapObject, id, position.get());
+  }
   static jfieldID const previewSubtitleId = env->GetFieldID(g_mapObjectClazz, "mPreviewSubtitle", "Ljava/lang/String;");
   jni::TScopedLocalRef const previewSubtitle(env,
                                              jni::ToJavaStringWithSupplementalCharsFix(env, info.GetPreviewSubtitle()));

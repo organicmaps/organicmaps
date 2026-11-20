@@ -6,6 +6,7 @@
 #include "routing/routing_options.hpp"  // routing::RoutingOptions
 
 #include <functional>
+#include <optional>
 #include <string>
 
 enum class RouteMarkType : uint8_t
@@ -27,6 +28,14 @@ struct RouteMarkData
   bool m_isPassed = false;
   bool m_replaceWithMyPositionAfterRestart = false;
   m2::PointD m_position;
+  std::optional<m2::PointD> m_waterwayPosition;
+
+  void ApplyWaterwayPosition()
+  {
+    if (m_waterwayPosition && !m_isMyPosition)
+      m_position = *m_waterwayPosition;
+    m_waterwayPosition.reset();
+  }
 };
 
 class RouteMarkPoint : public UserMark
