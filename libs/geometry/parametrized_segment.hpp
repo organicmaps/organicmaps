@@ -9,6 +9,22 @@
 
 namespace m2
 {
+// Returns the fraction along [from, to] closest to point, or zero for a degenerate segment.
+inline double SegmentProjectionFraction(PointD const & from, PointD const & to, PointD const & point)
+{
+  auto const direction = to - from;
+  double const squaredLength = direction.SquaredLength();
+  if (squaredLength == 0.0)
+    return 0.0;
+  return math::Clamp(DotProduct(point - from, direction) / squaredLength, 0.0, 1.0);
+}
+
+// Preserve the exact endpoint when reconstructing a projected point.
+inline PointD SegmentPointAt(PointD const & from, PointD const & to, double fraction)
+{
+  return fraction == 1.0 ? to : from + (to - from) * fraction;
+}
+
 // This class holds a parametrization of the
 // line segment between two points p0 and p1.
 // The parametrization is of the form
