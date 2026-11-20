@@ -43,6 +43,11 @@ enum class RouterResultCode
   HasWarnings = 16,
 };
 
+inline bool IsInternalRouteError(RouterResultCode code)
+{
+  return code == RouterResultCode::InternalError || code == RouterResultCode::RouteNotFoundRedressRouteError;
+}
+
 enum class SessionState
 {
   NoValidRoute,      // No valid route: no route after application launching or the route was removed.
@@ -78,7 +83,7 @@ using PointCheckCallback = std::function<void(ms::LatLon const &)>;
 using ProgressCallback = std::function<void(float)>;
 using ReadyCallback = std::function<void(RoutesResult const &, RouterResultCode)>;
 using ReadyCallbackOwnership = std::function<void(std::shared_ptr<RoutesResult>, RouterResultCode)>;
-using RemoveRouteCallback = std::function<void(RouterResultCode)>;
+using RemoveRouteCallback = std::function<void(RouterResultCode, std::string const & report)>;
 using RouteCallback = std::function<void(RoutesResult const &)>;
 using ChangeSessionStateCallback = std::function<void(SessionState previous, SessionState current)>;
 using SpeedCameraShowCallback = std::function<void(m2::PointD const & point, double cameraSpeedKmPH)>;

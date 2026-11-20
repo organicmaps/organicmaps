@@ -598,6 +598,8 @@ public:
   std::vector<RouteBase> m_routes;
   size_t m_activeIdx = 0;
   std::string m_routerName;
+  // Diagnostic details captured by the router when a build fails.
+  std::string m_failureDetails;
   // Session-unique id, shared by all alternatives in this result.
   uint64_t m_routesId = 0;
 };

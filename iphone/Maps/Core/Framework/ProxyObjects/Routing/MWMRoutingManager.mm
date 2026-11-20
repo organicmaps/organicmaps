@@ -295,6 +295,7 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
+                          report:(std::string const &)report
 {
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   MWMRouterResultCode objCCode = MWMRouterResultCode(code);

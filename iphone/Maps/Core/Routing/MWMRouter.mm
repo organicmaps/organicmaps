@@ -544,6 +544,7 @@ using namespace routing;
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
+                          report:(std::string const &)report
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
@@ -551,28 +552,25 @@ using namespace routing;
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;
   case routing::RouterResultCode::HasWarnings: [self onRouteReady:YES]; break;
   case routing::RouterResultCode::NeedMoreMaps:
-    [self presentRouteBuilderAlert:code countries:absentCountries];
+    [self presentRouteBuilderAlert:code countries:absentCountries report:report];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
     // the user may decline extra maps and still navigate along the current route.
     if (![MWMRouter isRouteValid])
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
+  case routing::RouterResultCode::Cancelled: [mapViewControlsManager onRoutePrepare]; break;
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
   case routing::RouterResultCode::StartPointNotFound:
   case routing::RouterResultCode::EndPointNotFound:
   case routing::RouterResultCode::IntermediatePointNotFound:
-    [self presentRouteBuilderAlert:code countries:absentCountries];
-    [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
-    break;
-  case routing::RouterResultCode::Cancelled: [mapViewControlsManager onRoutePrepare]; break;
   case routing::RouterResultCode::NoCurrentPosition:
   case routing::RouterResultCode::PointsInDifferentMWM:
   case routing::RouterResultCode::InternalError:
   case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
   case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
   case routing::RouterResultCode::RouteNotFoundRedressRouteError:
-    [[MWMAlertViewController activeAlertController] presentAlert:code];
+    [self presentRouteBuilderAlert:code countries:absentCountries report:report];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
   }
@@ -596,7 +594,9 @@ using namespace routing;
 
 #pragma mark - Alerts
 
-- (void)presentRouteBuilderAlert:(routing::RouterResultCode)code countries:(storage::CountriesSet const &)countries
+- (void)presentRouteBuilderAlert:(routing::RouterResultCode)code
+                       countries:(storage::CountriesSet const &)countries
+                          report:(std::string const &)report
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
   if (!countries.empty())
@@ -614,20 +614,21 @@ using namespace routing;
           [[MWMStorage sharedStorage] downloadMaps:array onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{ [MWMRouter rebuildWithBestRouter:NO]; }];
+    return;
+  }
+
+  MWMVoidBlock action = nil;
+  if (routing::IsInternalRouteError(code))
+  {
+    NSString * body = [NSString
+        stringWithFormat:@"%@\nMap data version: %lld", @(report.c_str()), GetFramework().GetCurrentDataVersion()];
+    action = ^{ [MailComposer sendBugReportWithTitle:@"Routing error" body:body]; };
   }
   else if ([MWMRouter hasActiveDrivingOptions])
   {
-    [activeAlertController
-        presentDefaultAlertWithTitle:L(@"unable_to_calc_alert_title")
-                             message:L(@"unable_to_calc_alert_subtitle")
-                    rightButtonTitle:L(@"settings")
-                     leftButtonTitle:L(@"cancel")
-                   rightButtonAction:^{ [[MapViewController sharedController] openDrivingOptions]; }];
+    action = ^{ [[MapViewController sharedController] openDrivingOptions]; };
   }
-  else
-  {
-    [activeAlertController presentAlert:code];
-  }
+  [activeAlertController presentRouteError:code action:action];
 }
 
 #pragma mark - Save / Load route points

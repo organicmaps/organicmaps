@@ -69,27 +69,31 @@
                                        downloadCompleteBlock:downloadCompleteBlock];
 }
 
-+ (MWMAlert *)alert:(routing::RouterResultCode)type
++ (MWMAlert *)routeError:(routing::RouterResultCode)code action:(MWMVoidBlock)action
 {
-  switch (type)
+  switch (code)
   {
   case routing::RouterResultCode::NoCurrentPosition: return [MWMDefaultAlert noCurrentPositionAlert];
-  case routing::RouterResultCode::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
-  case routing::RouterResultCode::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
+  case routing::RouterResultCode::StartPointNotFound:
+    return [MWMDefaultAlert startPointNotFoundAlertWithSettingsAction:action];
+  case routing::RouterResultCode::EndPointNotFound:
+    return [MWMDefaultAlert endPointNotFoundAlertWithSettingsAction:action];
   case routing::RouterResultCode::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
   case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
     return [MWMDefaultAlert routeNotFoundNoPublicTransportAlert];
   case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
     return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
-  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
-  case routing::RouterResultCode::RouteNotFound: return [MWMDefaultAlert routeNotFoundAlert];
+  case routing::RouterResultCode::RouteNotFound: return [MWMDefaultAlert routeNotFoundAlertWithSettingsAction:action];
   case routing::RouterResultCode::FileTooOld: return [MWMDefaultAlert routeFileTooOldAlert];
-  case routing::RouterResultCode::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
+  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+  case routing::RouterResultCode::InternalError:
+    return [MWMDefaultAlert internalRoutingErrorAlertWithReportAction:action];
   case routing::RouterResultCode::Cancelled:
   case routing::RouterResultCode::NoError:
   case routing::RouterResultCode::HasWarnings:
   case routing::RouterResultCode::NeedMoreMaps: return nil;
-  case routing::RouterResultCode::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
+  case routing::RouterResultCode::IntermediatePointNotFound:
+    return [MWMDefaultAlert intermediatePointNotFoundAlertWithSettingsAction:action];
   }
 }
 

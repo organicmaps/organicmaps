@@ -8,6 +8,7 @@
 #include "base/lru_cache.hpp"
 
 #include <map>
+#include <ostream>
 #include <unordered_map>
 
 namespace routing
@@ -54,6 +55,19 @@ public:
     m_featureSources.Clear();
     m_handles.clear();
     m_handles2.clear();
+  }
+
+  void AppendLoadedMapVersions(std::ostream & out) const
+  {
+    if (m_handles.empty())
+      return;
+
+    out << "\nLoaded maps:";
+    for (auto const & [numMwmId, handle] : m_handles)
+    {
+      auto const & info = *handle.GetId().GetInfo();
+      out << "\n  " << info.GetCountryName() << " " << info.GetVersion();
+    }
   }
 
   bool IsLoaded(platform::CountryFile const & file) const { return m_dataSource.IsLoaded(file); }

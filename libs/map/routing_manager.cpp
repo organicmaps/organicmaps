@@ -332,8 +332,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
   m_routingSession.SetRoutingCallbacks([this](RoutesResult const & result, RouterResultCode code)
   { OnBuildRouteReady(result, code); }, [this](RoutesResult const & result, RouterResultCode code)
-  { OnRebuildRouteReady(result, code); }, [this](uint64_t routeId, storage::CountriesSet const & absentCountries)
-  { OnNeedMoreMaps(routeId, absentCountries); }, [this](RouterResultCode code) { OnRemoveRoute(code); });
+  { OnRebuildRouteReady(result, code); }, [this](uint64_t routeId, storage::CountriesSet const & absentCountries) {
+    OnNeedMoreMaps(routeId, absentCountries);
+  }, [this](RouterResultCode code, std::string const & report) { OnRemoveRoute(code, report); });
 
   m_routingSession.SetChangeSessionStateCallback([this](SessionState, SessionState state)
   {
@@ -444,11 +445,11 @@ void RoutingManager::OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet cons
   CallRouteBuilded(RouterResultCode::NeedMoreMaps, absentCountries);
 }
 
-void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
+void RoutingManager::OnRemoveRoute(routing::RouterResultCode code, std::string const & report)
 {
   HidePreviewSegments();
   RemoveRoute(true /* deactivateFollowing */);
-  CallRouteBuilded(code, storage::CountriesSet());
+  CallRouteBuilded(code, {}, report);
 }
 
 void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
@@ -1517,10 +1518,11 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   }
 }
 
-void RoutingManager::CallRouteBuilded(RouterResultCode code, storage::CountriesSet const & absentCountries)
+void RoutingManager::CallRouteBuilded(RouterResultCode code, storage::CountriesSet const & absentCountries,
+                                      std::string const & report)
 {
   CHECK(m_routingBuildingCallback, ());
-  m_routingBuildingCallback(code, absentCountries);
+  m_routingBuildingCallback(code, absentCountries, report);
 }
 
 void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)

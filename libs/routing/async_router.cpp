@@ -8,6 +8,7 @@
 #include "base/timer.hpp"
 
 #include <functional>
+#include <sstream>
 
 namespace routing
 {
@@ -57,16 +58,14 @@ void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId, std::set
   m_onNeedMoreMaps(routeId, absentCounties);
 }
 
-void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode)
+void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode, std::string const & report)
 {
-  if (!m_onRemoveRoute)
-    return;
   {
     lock_guard l(m_guard);
     if (m_delegate.IsCancelled())
       return;
   }
-  m_onRemoveRoute(resultCode);
+  m_onRemoveRoute(resultCode, report);
 }
 
 void AsyncRouter::RouterDelegateProxy::Cancel()
@@ -296,7 +295,6 @@ void AsyncRouter::CalculateRoute()
   std::shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
   std::shared_ptr<IRouter> router;
   uint64_t routeId = 0;
-  std::string routerName;
 
   {
     lock_guard ul(m_guard);
@@ -318,7 +316,6 @@ void AsyncRouter::CalculateRoute()
     router = m_router;
     absentRegionsFinder = m_absentRegionsFinder;
     routeId = ++m_routeCounter;
-    routerName = router->GetName();
     router->SetGuides(std::move(m_guides));
     m_guides.clear();
     m_isCalculating = true;
@@ -329,6 +326,26 @@ void AsyncRouter::CalculateRoute()
 
   base::Timer timer;
   double elapsedSec = 0.0;
+
+  auto const postFailure = [&](RouterResultCode failure)
+  {
+    std::string report;
+    if (IsInternalRouteError(failure))
+    {
+      std::ostringstream body;
+      body << "Routing error: " << ToString(failure) << "\nRouter: " << result->m_routerName
+           << "\nCheckpoints: " << DebugPrint(checkpoints);
+      if (startDirection != m2::PointD::Zero())
+        body << "\nStart direction: " << DebugPrint(startDirection);
+      if (auto const options = delegateProxy->GetDelegate().GetRoutingOptions())
+        body << "\n" << DebugPrint(*options) << " (mask " << options->GetOptions() << ")";
+      body << "\nAdjust previous route: " << adjustToPrevRoute << "\nSearch alternatives: " << needAlternatives;
+      body << result->m_failureDetails;
+      report = std::move(body).str();
+    }
+    GetPlatform().RunTask(Platform::Thread::Gui, [delegateProxy, failure, report = std::move(report)]()
+    { delegateProxy->OnRemoveRoute(failure, report); });
+  };
 
   try
   {
@@ -344,12 +361,14 @@ void AsyncRouter::CalculateRoute()
       m_isCalculating = false;
     });
 
-    LOG(LINFO, ("Calculating the route of direct length", checkpoints.GetSummaryLengthBetweenPointsMeters(),
-                "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", router->GetName()));
+    LOG(LINFO,
+        ("Calculating the route of direct length", checkpoints.GetSummaryLengthBetweenPointsMeters(),
+         "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", result->m_routerName));
 
     // Can be nullptr for the Ruler router.
     if (absentRegionsFinder)
-      code = absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
+      code = absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate(),
+                                                        result->m_failureDetails);
 
     if (code == RouterResultCode::NoError)
     {
@@ -368,10 +387,16 @@ void AsyncRouter::CalculateRoute()
   {
     code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
-    // Note. After call of this method |result| should be used only on ui thread.
-    // And |result| should stop using on routing background thread, in this method.
-    GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegateProxy, result, code]() { delegateProxy->OnReady(result, code); });
+    if (delegateProxy->HasRemoveRouteCallback())
+    {
+      result->m_failureDetails = std::string("\nCause: ") + e.what();
+      postFailure(code);
+    }
+    else
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [delegateProxy, result, code]() { delegateProxy->OnReady(result, code); });
+    }
     return;
   }
 
@@ -407,9 +432,9 @@ void AsyncRouter::CalculateRoute()
       GetPlatform().RunTask(Platform::Thread::Gui,
                             [delegateProxy, routeId, absent]() { delegateProxy->OnNeedMoreMaps(routeId, absent); });
     }
-    else
+    else if (delegateProxy->HasRemoveRouteCallback())
     {
-      GetPlatform().RunTask(Platform::Thread::Gui, [delegateProxy, code]() { delegateProxy->OnRemoveRoute(code); });
+      postFailure(code);
     }
   }
 }

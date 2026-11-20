@@ -15,6 +15,10 @@ final class MailComposer: NSObject {
 
   /// Composes an email with the additional app information and the log file attachment for the developers.
   static func sendBugReportWith(title: String) {
+    sendBugReportWith(title: title, body: "")
+  }
+
+  static func sendBugReportWith(title: String, body details: String) {
     func subject() -> String {
       let appInfo = AppInfo.shared()
       return String(format: "[%@-%@ iOS] %@", appInfo.bundleVersion, appInfo.buildNumber, title)
@@ -22,7 +26,8 @@ final class MailComposer: NSObject {
 
     func body() -> String {
       let appInfo = AppInfo.shared()
-      return String(format: "\n\n\n\n- %@ (%@)\n- Organic Maps %@-%@\n- %@-%@\n- %@\n",
+      return String(format: "%@\n\n\n\n- %@ (%@)\n- Organic Maps %@-%@\n- %@-%@\n- %@\n",
+                    details,
                     appInfo.deviceModel, UIDevice.current.systemVersion,
                     appInfo.bundleVersion, appInfo.buildNumber,
                     Locale.current.languageCode ?? "",

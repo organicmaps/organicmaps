@@ -14,7 +14,9 @@
 @end
 
 @implementation MWMSynchronousRouteObserver
-- (void)processRouteBuilderEvent:(routing::RouterResultCode)code countries:(storage::CountriesSet const &)countries
+- (void)processRouteBuilderEvent:(routing::RouterResultCode)code
+                       countries:(storage::CountriesSet const &)countries
+                          report:(std::string const &)report
 {
   XCTAssertTrue(NSThread.isMainThread);
   [self.codes addObject:@(static_cast<int>(code))];

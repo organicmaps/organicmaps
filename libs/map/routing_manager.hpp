@@ -96,7 +96,8 @@ public:
     PowerManagerGetter m_powerManagerGetter;
   };
 
-  using RouteBuildingCallback = std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
+  using RouteBuildingCallback =
+      std::function<void(routing::RouterResultCode, storage::CountriesSet const &, std::string const & report)>;
   using RouteSpeedCamShowCallback = std::function<void(m2::PointD const &, double)>;
   using RouteSpeedCamsClearCallback = std::function<void()>;
 
@@ -248,11 +249,12 @@ public:
   void RemoveRoute(bool deactivateFollowing);
 
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries);
+  void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries,
+                        std::string const & report = {});
   void OnBuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
   void OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet const & absentCountries);
-  void OnRemoveRoute(routing::RouterResultCode code);
+  void OnRemoveRoute(routing::RouterResultCode code, std::string const & report);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo const & info);
 

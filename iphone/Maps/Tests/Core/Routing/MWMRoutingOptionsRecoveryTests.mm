@@ -86,6 +86,9 @@ private:
 
 @interface MWMDefaultAlert (RoutingOptionsRecoveryTests)
 @property(nonatomic, readonly) UIButton * rightButton;
+@property(nonatomic, readonly) UIButton * leftButton;
+@property(nonatomic, readonly) UILabel * titleLabel;
+@property(nonatomic, readonly) UILabel * messageLabel;
 @end
 
 @interface MWMRoutingOptionsRecoveryTests : XCTestCase <MWMFrameworkRouteBuilderObserver>
@@ -134,7 +137,9 @@ private:
   [super tearDown];
 }
 
-- (void)processRouteBuilderEvent:(routing::RouterResultCode)code countries:(storage::CountriesSet const &)countries
+- (void)processRouteBuilderEvent:(routing::RouterResultCode)code
+                       countries:(storage::CountriesSet const &)countries
+                          report:(std::string const &)report
 {
   m_result = code;
   ++self.eventsCount;
@@ -181,7 +186,36 @@ private:
   [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter rebuildWithBestRouter:NO]; }];
 }
 
-- (void)testEndpointAlertsOfferSettingsWithActiveAvoidance
+- (void)testRouteErrorAlertsKeepTheirTitlesWithActiveAvoidance
+{
+  using routing::RouterResultCode;
+  using routing::RoutingOptions;
+  storage::CountriesSet const absentCountries;
+  std::string const emptyReport;
+  std::pair<RouterResultCode, NSString *> const errors[] = {
+      {RouterResultCode::StartPointNotFound, @"dialog_routing_change_start"},
+      {RouterResultCode::EndPointNotFound, @"dialog_routing_change_end"},
+      {RouterResultCode::IntermediatePointNotFound, @"dialog_routing_change_intermediate"},
+      {RouterResultCode::RouteNotFound, @"dialog_routing_unable_locate_route"}};
+
+  [MWMRouter setType:MWMRouterTypePedestrian];
+  for (bool const avoidSteps : {false, true})
+  {
+    RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian,
+                                   RoutingOptions(avoidSteps ? RoutingOptions::Steps : 0));
+    for (auto const & [code, title] : errors)
+    {
+      [MWMRouter.router processRouteBuilderEvent:code countries:absentCountries report:emptyReport];
+      auto * alert = (MWMDefaultAlert *)MWMAlertViewController.activeAlertController.view.subviews.lastObject;
+      XCTAssertEqualObjects(alert.titleLabel.text, L(title));
+      XCTAssertEqualObjects(alert.rightButton.currentTitle, avoidSteps ? L(@"driving_options_title") : L(@"ok"));
+      XCTAssertEqual(alert.leftButton.hidden, !avoidSteps);
+      [self closeRouteAlert];
+    }
+  }
+}
+
+- (void)testInternalRouteErrorsOfferBugReport
 {
   using routing::RouterResultCode;
   using routing::RoutingOptions;
@@ -191,12 +225,15 @@ private:
   {
     RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian,
                                    RoutingOptions(avoidSteps ? RoutingOptions::Steps : 0));
-    for (auto const failure : {RouterResultCode::StartPointNotFound, RouterResultCode::EndPointNotFound,
-                               RouterResultCode::IntermediatePointNotFound})
+    for (auto const code : {RouterResultCode::InternalError, RouterResultCode::RouteNotFoundRedressRouteError})
     {
-      [MWMRouter.router processRouteBuilderEvent:failure countries:absentCountries];
+      auto const report = routing::ToString(code);
+      [MWMRouter.router processRouteBuilderEvent:code countries:absentCountries report:report];
       auto * alert = (MWMDefaultAlert *)MWMAlertViewController.activeAlertController.view.subviews.lastObject;
-      XCTAssertEqualObjects(alert.rightButton.currentTitle, avoidSteps ? L(@"settings") : L(@"ok"));
+      XCTAssertEqualObjects(alert.titleLabel.text, L(@"dialog_routing_system_error"));
+      XCTAssertEqualObjects(alert.messageLabel.text, L(@"dialog_routing_application_error"));
+      XCTAssertEqualObjects(alert.rightButton.currentTitle, L(@"report_a_bug"));
+      XCTAssertEqualObjects(alert.leftButton.currentTitle, L(@"ok"));
       [self closeRouteAlert];
     }
   }

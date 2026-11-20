@@ -85,7 +85,8 @@ private:
 
     void OnReady(std::shared_ptr<RoutesResult> result, RouterResultCode resultCode);
     void OnNeedMoreMaps(uint64_t routeId, std::set<std::string> const & absentCounties);
-    void OnRemoveRoute(RouterResultCode resultCode);
+    void OnRemoveRoute(RouterResultCode resultCode, std::string const & report);
+    bool HasRemoveRouteCallback() const { return static_cast<bool>(m_onRemoveRoute); }
     void Cancel();
 
     RouterDelegate const & GetDelegate() const { return m_delegate; }

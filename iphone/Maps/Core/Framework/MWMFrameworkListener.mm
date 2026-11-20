@@ -86,10 +86,11 @@ void NotifyObservers(Observers * observers, TLoopBlock block)
   using namespace storage;
   Observers * observers = self.routeBuildingObservers;
   auto & rm = GetFramework().GetRoutingManager();
-  rm.SetRouteBuildingListener([observers](RouterResultCode code, CountriesSet const & absentCountries)
+  rm.SetRouteBuildingListener(
+      [observers](RouterResultCode code, CountriesSet const & absentCountries, std::string const & report)
   {
-    NotifyObservers(observers, [code, &absentCountries](TRouteBuildingObserver observer)
-    { [observer processRouteBuilderEvent:code countries:absentCountries]; });
+    NotifyObservers(observers, [code, &absentCountries, &report](TRouteBuildingObserver observer)
+    { [observer processRouteBuilderEvent:code countries:absentCountries report:report]; });
   });
   rm.SetRouteProgressListener([observers](float progress)
   {

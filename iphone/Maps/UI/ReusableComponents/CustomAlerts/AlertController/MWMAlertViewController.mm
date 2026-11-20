@@ -135,9 +135,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert locationServicesDisabledAlert]];
 }
 
-- (void)presentAlert:(routing::RouterResultCode)type
+- (void)presentRouteError:(routing::RouterResultCode)code action:(MWMVoidBlock)action
 {
-  [self displayAlert:[MWMAlert alert:type]];
+  [self displayAlert:[MWMAlert routeError:code action:action]];
 }
 
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock

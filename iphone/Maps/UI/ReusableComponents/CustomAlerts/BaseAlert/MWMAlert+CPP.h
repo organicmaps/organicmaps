@@ -9,7 +9,7 @@ using MWMDownloadBlock = void (^)(storage::CountriesVec const &, MWMVoidBlock);
 
 @interface MWMAlert (CPP)
 
-+ (MWMAlert *)alert:(routing::RouterResultCode)type;
++ (MWMAlert *)routeError:(routing::RouterResultCode)code action:(nullable MWMVoidBlock)action;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::CountriesSet const &)countries
                                             code:(routing::RouterResultCode)code
                                      cancelBlock:(MWMVoidBlock)cancelBlock
