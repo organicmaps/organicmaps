@@ -95,6 +95,7 @@ struct LineViewParams : CommonViewParams
   std::vector<double> m_dashContacts;
   double m_dashPhaseOffset = 0.0;
   bool m_dashPhaseReversed = false;
+  bool m_stableDashPhase = false;
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
 

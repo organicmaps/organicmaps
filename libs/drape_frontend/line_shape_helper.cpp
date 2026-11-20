@@ -201,9 +201,7 @@ std::vector<double> LaneContactDistances(std::vector<m2::PointD> const & road,
     auto const axis = m2::ParametrizedSegment<m2::PointD>(road[i - 1], road[i]);
     auto const start = OffsetPoint(road, i - 1, offsetPixels, scaleGtoP);
     auto const finish = OffsetPoint(road, i, offsetPixels, scaleGtoP);
-    auto const direction = finish - start;
-    double const denominator = direction.SquaredLength();
-    if (denominator > 0)
+    if (start != finish)
       for (size_t j = 0; j < std::min(junctions.size(), approaches.size()); ++j)
       {
         auto const & node = junctions[j];
@@ -211,16 +209,10 @@ std::vector<double> LaneContactDistances(std::vector<m2::PointD> const & road,
           continue;
         for (auto const & approach : approaches[j])
         {
-          auto t = IntersectionFraction(start, finish, node, approach);
-          if (!t)
-          {
-            double const bound = std::min(4.0 * std::abs(offsetPixels) / scaleGtoP, (approach - node).Length());
-            auto const join = m2::ParametrizedSegment<m2::PointD>(start, finish).ClosestPointTo(node);
-            if (!CanJoinEndpoint(road, i, join, node, approach, bound))
-              continue;
-            t = std::clamp(DotProduct(join - start, direction) / denominator, 0.0, 1.0);
-          }
-          result.push_back(along + *t * length);
+          // A road feature cannot know which candidate a separate connector feature chose.
+          // Only fill the dash at a crossing of the mapped approach and the lane.
+          if (auto const t = IntersectionFraction(start, finish, node, approach))
+            result.push_back(along + *t * length);
         }
       }
     along += length;

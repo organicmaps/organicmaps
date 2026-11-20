@@ -419,9 +419,12 @@ vertex DashedLineFragment_T vsDashedLine(const DashedLineVertex_T in [[stage_in]
   }
 
   // The unbounded offset (distance in mask-length units) wraps in the fragment shader.
-  float uOffset = length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView) * in.a_maskTexCoord.x;
+  // Negative mask width denotes phase already in tile-build mask units.
+  float scale = in.a_maskTexCoord.z < 0.0 ? 1.0 :
+      length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView);
+  float uOffset = scale * in.a_maskTexCoord.x;
   out.maskTexCoord = float2(uOffset, in.a_maskTexCoord.w);
-  out.maskBase = in.a_maskTexCoord.yz;
+  out.maskBase = float2(in.a_maskTexCoord.y, abs(in.a_maskTexCoord.z));
 
   //out.halfLength = float2(sign(in.a_normal.z) * halfWidth, abs(in.a_normal.z));
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
