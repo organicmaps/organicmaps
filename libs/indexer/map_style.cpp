@@ -2,23 +2,19 @@
 
 #include "base/assert.hpp"
 
+#include <cstddef>
+
 MapStyle const kDefaultMapStyle = MapStyleDefaultLight;
 
 MapStyle MapStyleFromSettings(std::string const & str)
 {
-  // MapStyleMerged is service style. It's unavailable for users.
-  if (str == "MapStyleDefaultLight")
-    return MapStyleDefaultLight;
-  else if (str == "MapStyleDefaultDark")
-    return MapStyleDefaultDark;
-  else if (str == "MapStyleVehicleLight")
-    return MapStyleVehicleLight;
-  else if (str == "MapStyleVehicleDark")
-    return MapStyleVehicleDark;
-  else if (str == "MapStyleOutdoorsLight")
-    return MapStyleOutdoorsLight;
-  else if (str == "MapStyleOutdoorsDark")
-    return MapStyleOutdoorsDark;
+  for (size_t i = 0; i < MapStyleCount; ++i)
+  {
+    auto const style = static_cast<MapStyle>(i);
+    // MapStyleMerged is a service style. It's unavailable for users.
+    if (style != MapStyleMerged && str == MapStyleToString(style))
+      return style;
+  }
 
   return kDefaultMapStyle;
 }
@@ -34,6 +30,8 @@ std::string MapStyleToString(MapStyle mapStyle)
   case MapStyleVehicleLight: return "MapStyleVehicleLight";
   case MapStyleOutdoorsDark: return "MapStyleOutdoorsDark";
   case MapStyleOutdoorsLight: return "MapStyleOutdoorsLight";
+  case MapStyleCyclingDark: return "MapStyleCyclingDark";
+  case MapStyleCyclingLight: return "MapStyleCyclingLight";
 
   case MapStyleCount: break;
   }
@@ -48,7 +46,8 @@ std::string DebugPrint(MapStyle mapStyle)
 
 bool MapStyleIsDark(MapStyle mapStyle)
 {
-  for (auto const darkStyle : {MapStyleDefaultDark, MapStyleVehicleDark, MapStyleOutdoorsDark})
+  ASSERT(mapStyle >= MapStyleDefaultLight && mapStyle < MapStyleCount, (static_cast<int>(mapStyle)));
+  for (auto const darkStyle : {MapStyleDefaultDark, MapStyleVehicleDark, MapStyleOutdoorsDark, MapStyleCyclingDark})
     if (mapStyle == darkStyle)
       return true;
   return false;
@@ -59,30 +58,50 @@ bool MapStyleIsVehicle(MapStyle mapStyle)
   return mapStyle == MapStyleVehicleLight || mapStyle == MapStyleVehicleDark;
 }
 
-MapStyle GetDarkMapStyleVariant(MapStyle mapStyle)
+MapStyleMode GetMapStyleMode(MapStyle mapStyle)
 {
-  if (MapStyleIsDark(mapStyle) || mapStyle == MapStyleMerged)
-    return mapStyle;
-
   switch (mapStyle)
   {
-  case MapStyleDefaultLight: return MapStyleDefaultDark;
-  case MapStyleVehicleLight: return MapStyleVehicleDark;
-  case MapStyleOutdoorsLight: return MapStyleOutdoorsDark;
-  default: CHECK(false, ()); return MapStyleDefaultDark;
+  case MapStyleOutdoorsLight:
+  case MapStyleOutdoorsDark: return MapStyleMode::Outdoors;
+  case MapStyleCyclingLight:
+  case MapStyleCyclingDark: return MapStyleMode::Cycling;
+  case MapStyleDefaultLight:
+  case MapStyleDefaultDark:
+  case MapStyleVehicleLight:
+  case MapStyleVehicleDark:
+  case MapStyleMerged: return MapStyleMode::Default;
+  case MapStyleCount: CHECK(false, ());
   }
+  UNREACHABLE();
 }
 
-MapStyle GetLightMapStyleVariant(MapStyle mapStyle)
+MapStyle GetMapStyleForMode(MapStyleMode mode, bool dark)
 {
-  if (!MapStyleIsDark(mapStyle))
-    return mapStyle;
-
-  switch (mapStyle)
+  switch (mode)
   {
-  case MapStyleDefaultDark: return MapStyleDefaultLight;
-  case MapStyleVehicleDark: return MapStyleVehicleLight;
-  case MapStyleOutdoorsDark: return MapStyleOutdoorsLight;
-  default: CHECK(false, ()); return MapStyleDefaultLight;
+  case MapStyleMode::Default: return dark ? MapStyleDefaultDark : MapStyleDefaultLight;
+  case MapStyleMode::Outdoors: return dark ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
+  case MapStyleMode::Cycling: return dark ? MapStyleCyclingDark : MapStyleCyclingLight;
   }
+  UNREACHABLE();
+}
+
+std::string_view MapStyleModeToString(MapStyleMode mode)
+{
+  switch (mode)
+  {
+  case MapStyleMode::Default: return "Default";
+  case MapStyleMode::Outdoors: return "Outdoors";
+  case MapStyleMode::Cycling: return "Cycling";
+  }
+  UNREACHABLE();
+}
+
+std::optional<MapStyleMode> MapStyleModeFromSettings(std::string_view str)
+{
+  for (auto const mode : {MapStyleMode::Default, MapStyleMode::Outdoors, MapStyleMode::Cycling})
+    if (str == MapStyleModeToString(mode))
+      return mode;
+  return {};
 }

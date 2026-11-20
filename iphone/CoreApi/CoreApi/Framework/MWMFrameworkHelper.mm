@@ -8,6 +8,7 @@
 
 #include "Framework.h"
 
+#include "base/assert.hpp"
 #include "base/sunrise_sunset.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -52,29 +53,15 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (void)setTheme:(MWMTheme)theme
 {
   auto & f = GetFramework();
-
-  auto const style = f.GetMapStyle();
-  auto const isOutdoor = ^BOOL(MapStyle style) {
-    switch (style)
-    {
-    case MapStyleOutdoorsLight:
-    case MapStyleOutdoorsDark: return YES;
-    default: return NO;
-    }
-  }(style);
-  auto const newStyle = ^MapStyle(MWMTheme theme) {
-    switch (theme)
-    {
-    case MWMThemeDay: return isOutdoor ? MapStyleOutdoorsLight : MapStyleDefaultLight;
-    case MWMThemeVehicleDay: return MapStyleVehicleLight;
-    case MWMThemeNight: return isOutdoor ? MapStyleOutdoorsDark : MapStyleDefaultDark;
-    case MWMThemeVehicleNight: return MapStyleVehicleDark;
-    case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleDefaultLight;
-    }
-  }(theme);
-
-  if (style != newStyle)
-    f.SetMapStyle(newStyle);
+  switch (theme)
+  {
+  case MWMThemeDay: return f.SetMapStyleForCurrentMode(false /* dark */, false /* vehicleStyle */);
+  case MWMThemeVehicleDay: return f.SetMapStyleForCurrentMode(false /* dark */, true /* vehicleStyle */);
+  case MWMThemeNight: return f.SetMapStyleForCurrentMode(true /* dark */, false /* vehicleStyle */);
+  case MWMThemeVehicleNight: return f.SetMapStyleForCurrentMode(true /* dark */, true /* vehicleStyle */);
+  case MWMThemeAuto: CHECK(false, ("Expected resolved theme"));
+  }
+  UNREACHABLE();
 }
 
 + (MWMDayTime)daytimeAtLocation:(CLLocation *)location

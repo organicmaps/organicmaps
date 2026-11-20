@@ -91,10 +91,16 @@ activity. `MapRenderingListener.onRenderingCreated()` reports engine creation;
 `onRenderingRestored()` reports a surface resize or restoration. These are
 separate from the completion of initial map loading.
 
-Use `MapStyle.mark()` before renderer creation and `MapStyle.set()` when changing
-an existing renderer. Forward system-bar and cutout insets through the controller's
-widget-offset methods: compass offsets are from the right and top edges; bottom
-widget offsets are from the left and bottom edges. Values are screen pixels.
+Use `MapStyle.setForCurrentMode(dark, vehicleNavigation, isRendererActive)` to
+synchronize the map with the host's appearance and navigation state. Pass
+`false` for `isRendererActive` before the renderer is created. Use
+`Framework.nativeSetOutdoorsLayerEnabled()` or
+`Framework.nativeSetCyclingLayerEnabled()` to change the saved style selection.
+
+Forward system-bar and cutout insets through the controller's widget-offset
+methods. Compass offsets are measured from the right and top edges. Bottom
+widget offsets are measured from the left and bottom edges. Values are screen
+pixels.
 
 ## Location and selection
 

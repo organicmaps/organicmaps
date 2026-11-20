@@ -477,9 +477,9 @@
 <translation>Піші прогулянки</translation>
 </message>
 <message id="button_layer_cycling">
-<extracomment>Cycling routes layer name in the Styles and Layers dialog</extracomment>
+<extracomment>Name of the Cycling map style in the Styles and Layers dialog</extracomment>
 <source>Cycling</source>
-<translation>Велоспорт</translation>
+<translation>Веломапа</translation>
 </message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>

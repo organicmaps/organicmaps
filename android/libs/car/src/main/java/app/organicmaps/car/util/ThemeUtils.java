@@ -60,21 +60,8 @@ public final class ThemeUtils
     final ThemeMode newThemeMode =
         oldThemeMode == ThemeMode.AUTO ? (context.isDarkMode() ? ThemeMode.NIGHT : ThemeMode.LIGHT) : oldThemeMode;
 
-    MapStyle newMapStyle;
-    if (newThemeMode == ThemeMode.NIGHT)
-      newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleDark : MapStyle.Dark;
-    else
-      newMapStyle = RoutingController.get().isVehicleNavigation() ? MapStyle.VehicleClear : MapStyle.Clear;
-
-    if (MapStyle.get() == newMapStyle)
-      return;
-
-    // If rendering is not active we can mark map style, because all graphics
-    // will be recreated after rendering activation.
-    if (isRenderingActive)
-      MapStyle.set(newMapStyle);
-    else
-      MapStyle.mark(newMapStyle);
+    MapStyle.setForCurrentMode(newThemeMode == ThemeMode.NIGHT, RoutingController.get().isVehicleNavigation(),
+                               isRenderingActive);
   }
 
   @SuppressLint("ApplySharedPref")

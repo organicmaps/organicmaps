@@ -184,6 +184,7 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key, drule::RulesHo
   case drule::shield:
     ASSERT(dRule->GetShield() && !m_shieldRule && geomType == GeomType::Line,
            (m_shieldRule == nullptr, geomType, f.DebugString()));
+    ASSERT_GREATER(dRule->GetShield()->height, 0, (f.DebugString()));
     m_shieldRule = dRule->GetShield();
     break;
   case drule::line:

@@ -88,8 +88,7 @@ public:
   void PauseSurfaceRendering();
   void ResumeSurfaceRendering();
 
-  void SetMapStyle(MapStyle mapStyle);
-  void MarkMapStyle(MapStyle mapStyle);
+  void SetMapStyleForCurrentMode(bool dark, bool vehicleStyle, bool isRendererActive);
   MapStyle GetMapStyle() const;
 
   void SetupMeasurementSystem();

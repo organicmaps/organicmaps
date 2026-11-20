@@ -33,7 +33,6 @@ struct ApplyFeatureParams
   void Init(TileKey const & tileKey);
 
   bool IsSimplifyLines() const { return (m_tileKey.m_zoomLevel >= 10 && m_tileKey.m_zoomLevel <= 12); }
-  bool IsRelationRoutes() const { return m_tileKey.m_zoomLevel >= 12; }
 
   /// @return (created, obsolete)
   std::pair<bool, bool> GetEditStatus(FeatureID const & fid) const;

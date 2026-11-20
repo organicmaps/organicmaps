@@ -18,6 +18,7 @@ set(SRC
   gps_track_test.cpp
   isolines_manager_tests.cpp
   kmz_unarchive_test.cpp
+  map_style_mode_tests.cpp
   mwm_url_tests.cpp
   power_manager_tests.cpp
   raster_tile_provider_tests.cpp

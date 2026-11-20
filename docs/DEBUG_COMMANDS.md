@@ -2,20 +2,24 @@
 
 Organic Maps exposes debug commands to help you control the native components (engine, editor, navigation, ...). **These commands are not intended for regular users** and are only used for debug purposes. Please only use these commands if you are working on Organic Maps.
 
-Each command is entered in the search input (Android and iOS) and are activated as soon as the full search keyword is entered. Unless specified, the effects triggered are discarded after a restart.
+Enter a command in the search field on Android, iOS, or desktop. It runs as soon as the full keyword is entered. Commands are temporary unless documented otherwise.
 
-For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../map/framework.cpp).
+For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../libs/map/framework.cpp).
 
 ## Drape
 
 ### Themes
 
+These commands preview a map style for the current session. A style selection or appearance change restores the app's normal style.
+
 - `?dark` or `mapstyle:dark`: Enable night mode for the map view only. You may need to change the zoom level to reload the view.
 - `?light` or `mapstyle:light`: Enable light mode for the map view only. You may need to change the zoom level to reload the view.
 - `?odark` or `mapstyle:outdoors_dark`: Same as `?dark`, but using the outdoor variant.
 - `?olight` or `mapstyle:outdoors_light`: Same as `?light`, but using the outdoor variant.
-- `?vdark` or `mapstyle:vdark`: Same as `?dark`, but using the vehicle variant.
-- `?vlight` or `mapstyle:vlight`: Same as `?light`, but using the vehicle variant.
+- `?cdark` or `mapstyle:cycling_dark`: Same as `?dark`, but using the cycling variant.
+- `?clight` or `mapstyle:cycling_light`: Same as `?light`, but using the cycling variant.
+- `?vdark` or `mapstyle:vehicle_dark`: Same as `?dark`, but using the vehicle variant.
+- `?vlight` or `mapstyle:vehicle_light`: Same as `?light`, but using the vehicle variant.
 
 ### Post processing
 

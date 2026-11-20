@@ -150,6 +150,7 @@ if (PLATFORM_MAC)
     classificator.txt
     colors.txt
     countries.json
+    drules_cycling.bin
     drules_default.bin
     drules_outdoors.bin
     drules_vehicle.bin

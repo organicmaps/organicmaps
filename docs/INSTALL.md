@@ -366,14 +366,15 @@ Steps to generate coverage report:
 
 Organic Maps has some "hidden" debug commands that you can trigger by entering them into the search box.
 
-For example you can switch theme which is very useful for checking [styles](STYLES.md) changes.
-To switch themes you can enter this commands:
+Enter one of these commands to preview a [map style](STYLES.md):
 - `?light` - Day theme
 - `?dark` - Night theme
 - `?vlight` - Day theme for vehicle navigation
 - `?vdark` - Night theme for vehicle navigation
 - `?olight` - Outdoors day theme
 - `?odark` - Outdoors night theme
+- `?clight` - Cycling day theme
+- `?cdark` - Cycling night theme
 
 There are also other commands for turning on/off isolines, anti-aliasing, etc. Check [DEBUG_COMMANDS.md](DEBUG_COMMANDS.md) to learn about them.
 

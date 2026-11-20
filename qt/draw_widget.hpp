@@ -10,7 +10,6 @@
 #include "search/result.hpp"
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/map_style.hpp"
 
 #include <QtWidgets/QRubberBand>
 
@@ -62,8 +61,6 @@ public:
     return m_guideTracks.empty() ? kml::kInvalidTrackId : m_guideTracks.begin()->first;
   }
 
-  void SetMapStyle(MapStyle mapStyle);
-
   void SetRuler(bool enabled);
 
   RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
@@ -79,9 +76,6 @@ public:
   void EditPlace(FeatureID const & featureId);
 
   void RefreshDrawingRules();
-  void SetMapStyleToDefault();
-  void SetMapStyleToVehicle();
-  void SetMapStyleToOutdoors();
 
 protected:
   /// @name Overriden from MapWidget.
