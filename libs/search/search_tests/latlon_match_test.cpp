@@ -189,4 +189,89 @@ UNIT_TEST(LatLon_Match_False)
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
 }
 
+
+// Space-separated DMS (no degree/minute/second symbols), phone-friendly.
+UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
+{
+  double lat, lon;
+
+  TEST(MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // Direction-first.
+  TEST(MatchLatLonDegree("N 37 00 27.73 W 08 56 41.59", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // D M only (no seconds).
+  TEST(MatchLatLonDegree("51 30 N 0 7 W", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, -7.0 / 60.0);
+
+  // Explicit D M S with correct sexagesimal values.
+  TEST(MatchLatLonDegree("1 2 3.4 N 5 6 7.8 E", lat, lon), ());
+  TestAlmostEqual(lat, 1.0 + 2.0 / 60.0 + 3.4 / 3600.0);
+  TestAlmostEqual(lon, 5.0 + 6.0 / 60.0 + 7.8 / 3600.0);
+
+  TEST(MatchLatLonDegree("N 1 2 3 E 4 5 6", lat, lon), ());
+  TestAlmostEqual(lat, 1.0 + 2.0 / 60.0 + 3.0 / 3600.0);
+  TestAlmostEqual(lon, 4.0 + 5.0 / 60.0 + 6.0 / 3600.0);
+
+  // Comma as group delimiter (not a second decimal mark).
+  TEST(MatchLatLonDegree("N 37 00 27.73, W 08 56 41.59", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // Decimal degrees with suffix hemispheres still work (general parser).
+  TEST(MatchLatLonDegree("51.5 N, 11.2 E", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, 11.2);
+
+  // Multi-dot garbage must not match.
+  TEST(!MatchLatLonDegree("1.2.3 N 4.5.6 E", lat, lon), ());
+
+  // Plus without spaces must not invent minutes/seconds.
+  TEST(!MatchLatLonDegree("1 2+3 N 4 5+6 E", lat, lon), ());
+
+  // Ambiguous six-token run (unique 2+2 is ok; 3+3 vs mixed is not always).
+  TEST(!MatchLatLonDegree("N 1 08 8 56 41 E", lat, lon), ());
+
+  // Extra trailing text: "West" must not become a hemisphere.
+  TEST(!MatchLatLonDegree("51 30 N 0 7 West Street", lat, lon), ());
+
+  // Extra trailing hemisphere rejected (full query not consumed cleanly).
+  TEST(!MatchLatLonDegree("37 0 0 N 8 0 0 E N", lat, lon), ());
+
+  // Same-axis rejected.
+  TEST(!MatchLatLonDegree("51 30 N 0 7 N", lat, lon), ());
+
+  // Incomplete.
+  TEST(!MatchLatLonDegree("51 30 N", lat, lon), ());
+
+  // Non-finite / signed components rejected in grouped grammar.
+  TEST(!MatchLatLonDegree("51 0 -nan N 0 7 0 W", lat, lon), ());
+  TEST(!MatchLatLonDegree("N -51 30 W 0 7", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 51 -30 W 0 7", lat, lon), ());
+
+  // Minutes / seconds out of range.
+  TEST(!MatchLatLonDegree("N 51 60 0 W 0 0 0", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 51 0 60 W 0 0 0", lat, lon), ());
+
+  // Latitude / longitude absolute bounds.
+  TEST(!MatchLatLonDegree("91 0 0 N 0 0 0 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("0 0 0 N 181 0 0 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("0 0 0 N 180 0 1 E", lat, lon), ());
+
+  // Accepted poles / date line boundary.
+  TEST(MatchLatLonDegree("90 0 0 N 180 0 0 E", lat, lon), ());
+  TestAlmostEqual(lat, 90.0);
+  TestAlmostEqual(lon, 180.0);
+
+  // Longitude-first space DMS.
+  TEST(MatchLatLonDegree("W 08 56 41.59 N 37 00 27.73", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+}
+
 }  // namespace latlon_match_test
