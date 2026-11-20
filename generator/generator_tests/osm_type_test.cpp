@@ -679,6 +679,23 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
+    Tags tags{{"highway", "secondary"}, {"cycleway", "no"}, {"cycleway:right", "lane"}};
+    for (bool const denied : {false, true})
+    {
+      if (denied)
+        tags.emplace_back("bicycle", "no");
+      for (int i = 0; i != 2; ++i)
+      {
+        auto const params = GetFeatureBuilderParams(tags);
+        TEST_EQUAL(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), !denied, ());
+        TEST_EQUAL(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), denied, ());
+        TEST(!params.IsTypeExist(GetType({"hwtag", "nocycleway"})), ());
+        std::reverse(tags.begin(), tags.end());
+      }
+    }
+  }
+
+  {
     struct TestCase
     {
       char const * m_value;
@@ -1154,6 +1171,23 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
       TEST(params.IsTypeExist(GetType({"cyclewaytag", "track"})), (params, key));
       TEST(!params.IsTypeExist(GetType({"cyclewaytag", "shared_lane"})), (params, key));
     }
+  }
+
+  {
+    Tags const bicycleRoad{{"highway", "residential"}, {"bicycle", "designated"}};
+    auto const checkProtection = [&](Tags access, bool protectedFromTraffic)
+    {
+      access.insert(access.end(), bicycleRoad.begin(), bicycleRoad.end());
+      auto const params = GetFeatureBuilderParams(access);
+      TEST_EQUAL(params.IsTypeExist(GetType({"cyclewaytag", "track"})), protectedFromTraffic, (params));
+    };
+    checkProtection({{"access", "no"}, {"motor_vehicle", "yes"}}, false);
+    checkProtection({{"access", "no"}, {"vehicle", "yes"}}, false);
+    checkProtection({{"motor_vehicle", "no"}, {"motorcar", "yes"}}, false);
+    checkProtection({{"motor_vehicle", "no"}, {"motorcar", "private"}}, false);
+    checkProtection({{"vehicle", "yes"}, {"motor_vehicle", "no"}}, true);
+    checkProtection({{"motorcar", "no"}}, false);
+    checkProtection({{"motor_vehicle", "no"}, {"motor_vehicle:conditional", "yes @ (Mo-Fr)"}}, false);
   }
 
   {
