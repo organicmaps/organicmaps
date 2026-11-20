@@ -100,6 +100,7 @@
   <color name="routing_button_tint">@color/dark_gray</color>
   <color name="routing_button_activated_tint">@color/base_accent</color>
   <color name="routing_tab_active_bg">#FFFFFFFF</color>
+  <color name="routing_options_tabs_bg">@color/bg_search</color>
   <color name="routing_bottom_button_tint">@color/light_gray</color>
   <color name="routing_bottom_manage_route_background">@color/light_gray</color>
   <color name="routing_bottom_button_bg">@color/light_gray</color>
