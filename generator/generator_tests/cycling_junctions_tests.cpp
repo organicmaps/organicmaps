@@ -82,6 +82,8 @@ UNIT_TEST(CyclingJunctions_ThroughCrossingDoesNotBecomeTwoTerminalJoins)
   };
   check({near, far}, false);
   check({far, near}, false);
+  far.m_isCrossing = true;
+  check({near, far}, false);
   auto continuous = near;
   continuous.m_nodes.insert(continuous.m_nodes.begin(), far.m_nodes.back());
   check({continuous}, false);
@@ -220,6 +222,14 @@ UNIT_CLASS_TEST(TestRawGenerator, CyclingJunctions_NormalGeneration)
       TEST_EQUAL(sides->m_left.m_junctions.size(), 1, ());
     else if (name == "Junction road reversed")
       TEST_EQUAL(sides->m_right.m_junctions.size(), 1, ());
+    else if (name == "Junction road tagged crossing")
+    {
+      // The crossing way shares node 27 but must not hide the cycleway that also meets the road there.
+      TEST_EQUAL(sides->m_left.m_junctions.size(), 1, ());
+      TEST_EQUAL(sides->m_left.m_approaches.front().size(), 1, ());
+      TEST_GREATER(sides->m_left.m_approaches.front().front().y, sides->m_left.m_junctions.front().y, ());
+      TEST(sides->m_right.m_junctions.empty(), ());
+    }
     else
     {
       TEST(sides->m_left.m_junctions.empty(), (name));
@@ -231,6 +241,6 @@ UNIT_CLASS_TEST(TestRawGenerator, CyclingJunctions_NormalGeneration)
       }
     }
   });
-  TEST_EQUAL(roads, 7, ());
-  TEST_EQUAL(connectors, 2, ());
+  TEST_EQUAL(roads, 8, ());
+  TEST_EQUAL(connectors, 3, ());
 }

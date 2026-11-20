@@ -29,7 +29,8 @@ enum class RecordKind : uint8_t
 {
   BlockedNode,
   Road,
-  Connector
+  Connector,
+  Crossing
 };
 struct Record
 {
@@ -82,8 +83,9 @@ Record ReadRecord(Source & source)
   Record record;
   rw::Read(source, record.m_country);
   record.m_kind = static_cast<RecordKind>(ReadPrimitiveFromSource<uint8_t>(source));
-  CHECK_LESS_OR_EQUAL(static_cast<uint8_t>(record.m_kind), static_cast<uint8_t>(RecordKind::Connector), ());
+  CHECK_LESS_OR_EQUAL(static_cast<uint8_t>(record.m_kind), static_cast<uint8_t>(RecordKind::Crossing), ());
   auto & way = record.m_way;
+  way.m_isCrossing = record.m_kind == RecordKind::Crossing;
   way.m_id = ReadPrimitiveFromSource<uint64_t>(source);
   rw::Read(source, way.m_layer);
   rw::Read(source, way.m_level);
@@ -184,6 +186,8 @@ std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> 
         continue;
       for (auto const & incident : found->second)
       {
+        if (incident.m_way->m_isCrossing)
+          continue;
         int const sign = ApproachSide(road, i, *incident.m_way, incident.m_point);
         if (sign == 0 || HasOppositeApproach(road, i, found->second, sign))
           continue;
@@ -237,7 +241,7 @@ std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorC
   std::set<uint64_t> overflow;
   for (auto const & connector : connectors)
   {
-    if (connector.m_nodes.size() < 2)
+    if (connector.m_isCrossing || connector.m_nodes.size() < 2)
       continue;
     for (size_t end : {size_t{0}, connector.m_nodes.size() - 1})
     {
@@ -303,19 +307,6 @@ std::shared_ptr<CollectorInterface> CyclingJunctionCollector::Clone(IDRInterface
 
 void CyclingJunctionCollector::Collect(OsmElement const & element)
 {
-  using namespace cycling_junctions_detail;
-  if (element.IsWay() && element.HasTag("highway") &&
-      (element.GetTag("cycleway") == "crossing" || element.GetTag("footway") == "crossing" ||
-       element.GetTag("path") == "crossing"))
-  {
-    Record record;
-    record.m_kind = RecordKind::BlockedNode;
-    for (auto const id : element.m_nodes)
-    {
-      record.m_way.m_id = id;
-      WriteRecord(*m_writer, record);
-    }
-  }
   if (!element.IsNode())
     return;
   if (!cycling_junctions_detail::Accessible(element) ||
@@ -338,9 +329,17 @@ void CyclingJunctionCollector::CollectFeature(feature::FeatureBuilder const & fb
   auto const highway = element.GetTag("highway");
   if (highway.empty() || highway == "construction" || highway == "proposed")
     return;
+  // Keep a crossing as topology evidence, but never move its own endpoint.
+  bool const isCrossing = element.GetTag("cycleway") == "crossing" || element.GetTag("footway") == "crossing" ||
+                          element.GetTag("path") == "crossing";
   cycling_junctions_detail::Record record;
-  record.m_kind = cycling_junctions_detail::Dedicated(element) ? cycling_junctions_detail::RecordKind::Connector
-                                                               : cycling_junctions_detail::RecordKind::Road;
+  using cycling_junctions_detail::RecordKind;
+  if (isCrossing)
+    record.m_kind = RecordKind::Crossing;
+  else if (cycling_junctions_detail::Dedicated(element))
+    record.m_kind = RecordKind::Connector;
+  else
+    record.m_kind = RecordKind::Road;
   // Match the tested junction opt-in boundary. Modifier-only side facilities
   // keep their side rendering, but do not acquire new inferred tapers here.
   if (record.m_kind == cycling_junctions_detail::RecordKind::Road && !element.HasTag("cycleway:left") &&
@@ -470,7 +469,8 @@ void ApplyCountryCyclingJunctions(std::string const & filename, std::string cons
     CHECK_EQUAL(record.m_country, country, ());
     if (record.m_kind == cycling_junctions_detail::RecordKind::Road)
       roads.push_back(std::move(record.m_way));
-    else if (record.m_kind == cycling_junctions_detail::RecordKind::Connector)
+    else if (record.m_kind == cycling_junctions_detail::RecordKind::Connector ||
+             record.m_kind == cycling_junctions_detail::RecordKind::Crossing)
       connectors.push_back(std::move(record.m_way));
   }
   auto const junctions = FindCyclingJunctions(roads, connectors, isBlocked);

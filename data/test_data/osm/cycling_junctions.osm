@@ -25,6 +25,11 @@
   <node id="23" lat="49" lon="-122.949"/>
   <node id="24" lat="49" lon="-122.948"/>
   <node id="25" lat="49.001" lon="-122.949"/>
+  <node id="26" lat="49" lon="-122.94"/>
+  <node id="27" lat="49" lon="-122.939"/>
+  <node id="28" lat="49" lon="-122.938"/>
+  <node id="29" lat="49.001" lon="-122.939"/>
+  <node id="30" lat="49.001" lon="-122.9395"/>
   <way id="10"><nd ref="1"/><nd ref="2"/><nd ref="3"/>
     <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
     <tag k="name" v="Junction road connected"/>
@@ -55,10 +60,16 @@
     <tag k="cycleway:both:lane" v="exclusive"/>
     <tag k="name" v="Junction road modifier only"/>
   </way>
+  <way id="17"><nd ref="26"/><nd ref="27"/><nd ref="28"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="name" v="Junction road tagged crossing"/>
+  </way>
   <way id="20"><nd ref="2"/><nd ref="4"/><tag k="highway" v="cycleway"/></way>
   <way id="21"><nd ref="6"/><nd ref="8"/><tag k="highway" v="cycleway"/></way>
   <way id="22"><nd ref="12"/><nd ref="13"/><tag k="highway" v="cycleway"/></way>
   <way id="23"><nd ref="15"/><nd ref="17"/><tag k="highway" v="cycleway"/><tag k="layer" v="1"/></way>
   <way id="24"><nd ref="19"/><nd ref="21"/><tag k="highway" v="cycleway"/></way>
   <way id="25"><nd ref="23"/><nd ref="25"/><tag k="highway" v="cycleway"/><tag k="bicycle" v="no"/></way>
+  <way id="26"><nd ref="27"/><nd ref="29"/><tag k="highway" v="cycleway"/><tag k="cycleway" v="crossing"/></way>
+  <way id="27"><nd ref="27"/><nd ref="30"/><tag k="highway" v="cycleway"/></way>
 </osm>
