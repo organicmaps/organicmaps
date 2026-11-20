@@ -162,8 +162,8 @@ private extension iCloudDocumentsMonitor {
     LOG(.debug, "Query did finish gathering")
     do {
       let currentContents = try Self.getCurrentContents(notification)
-      LOG(.info, "Cloud contents (\(currentContents.count)):")
-      currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
+      LOG(.info, "Cloud contents (\(currentContents.count))")
+      currentContents.forEach { LOG(.debug, $0.synchronizationDebugDescription) }
       delegate?.didFinishGathering(currentContents)
     } catch {
       delegate?.didReceiveCloudMonitorError(error)
@@ -177,16 +177,20 @@ private extension iCloudDocumentsMonitor {
     LOG(.debug, "Query did update")
     do {
       let changedContents = try Self.getChangedContents(notification)
-      /* The metadataQuery can send the same changes multiple times with only uploading/downloading process updates.
-       This unnecessary updated should be skipped. */
+      // NSMetadataQuery may repeat the same batch. Skip exact duplicates, but keep download
+      // progress and state changes because the resolver acts on them.
       if changedContents != previouslyChangedContents {
-        previouslyChangedContents = changedContents
         let currentContents = try Self.getCurrentContents(notification)
-        LOG(.info, "Cloud contents (\(currentContents.count)):")
-        currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
-        LOG(.info, "Added to the cloud content (\(changedContents.added.count)): \n\(changedContents.added.shortDebugDescription)")
-        LOG(.info, "Updated in the cloud content (\(changedContents.updated.count)): \n\(changedContents.updated.shortDebugDescription)")
-        LOG(.info, "Removed from the cloud content (\(changedContents.removed.count)): \n\(changedContents.removed.shortDebugDescription)")
+        previouslyChangedContents = changedContents
+        // The inventory is the bulk of the log and repeats itself on every update, so it stays at
+        // the debug level. The changed items are a handful per update and are what a sync bug is
+        // read from, so they are kept in a default report. One record each: a single record is
+        // truncated by the system log at about 1 KB.
+        LOG(.info, "Cloud contents (\(currentContents.count)), added \(changedContents.added.count), updated \(changedContents.updated.count), removed \(changedContents.removed.count)")
+        currentContents.forEach { LOG(.debug, $0.synchronizationDebugDescription) }
+        changedContents.added.forEach { LOG(.info, "Added: \($0.synchronizationDebugDescription)") }
+        changedContents.updated.forEach { LOG(.info, "Updated: \($0.synchronizationDebugDescription)") }
+        changedContents.removed.forEach { LOG(.info, "Removed: \($0.synchronizationDebugDescription)") }
         delegate?.didUpdate(currentContents, changedContents)
       }
     } catch {
