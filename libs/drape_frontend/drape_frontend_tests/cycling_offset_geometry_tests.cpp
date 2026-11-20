@@ -18,6 +18,28 @@ UNIT_TEST(CyclingOffset_PixelGapAndDeviceScale)
   TEST_EQUAL(df::SideOffsetPixels(10, 2, 2, 0), 0, ());
 }
 
+UNIT_TEST(CyclingOffset_AdjacentClipsSharePhaseAtFractionalZoom)
+{
+  m2::SharedSpline const road(std::vector<m2::PointD>{{0, 0}, {5.5, 0}, {11, 0}});
+  std::vector<m2::SplineClipInfo> leftRanges, rightRanges;
+  auto const left = m2::ClipSplineByRect({0, -1, 5.5, 1}, road, &leftRanges);
+  auto const right = m2::ClipSplineByRect({5.5, -1, 11, 1}, road, &rightRanges);
+  TEST_EQUAL(left.size(), 1, ());
+  TEST_EQUAL(right.size(), 1, ());
+  double constexpr kPeriod = 2;
+  for (bool const reversed : {false, true})
+  {
+    double const leftStart = df::AdvanceDashPhase(31, leftRanges.front().m_startDistance, reversed);
+    double const rightStart = df::AdvanceDashPhase(31, rightRanges.front().m_startDistance, reversed);
+    double const first = df::AdvanceDashPhase(df::WrapDashPhase(leftStart, kPeriod), left.front()->GetLength(), reversed);
+    double const second = df::WrapDashPhase(rightStart, kPeriod);
+    TEST_ALMOST_EQUAL_ABS(df::WrapDashPhase(first / kPeriod, 1), second / kPeriod, 1e-9, ());
+    // The old shader applied the viewport scale after the two clips wrapped separately.
+    TEST(std::abs(df::WrapDashPhase(first / kPeriod * 1.25, 1) -
+                  df::WrapDashPhase(second / kPeriod * 1.25, 1)) > 0.1, ());
+  }
+}
+
 UNIT_TEST(CyclingOffset_ZeroAndBoundedMiter)
 {
   std::vector<m2::PointD> path{{0, 0}, {1, 0}, {0, 0.000001}};
@@ -161,7 +183,7 @@ UNIT_TEST(CyclingOffset_DashContactsUseSameSideAndRenderedGeometry)
   { return df::LaneContactDistances(road, {{40, 0}}, approaches, -8, scale, 0.01); };
   TEST_EQUAL(contacts({{{50, 10}}}), std::vector<double>{48}, ());
   TEST_EQUAL(contacts({{{50, 10}}}, 2), std::vector<double>{44}, ());
-  TEST_EQUAL(contacts({{{50, 4}}}), std::vector<double>{40}, ("Same-side endpoint adjustment"));
+  TEST(contacts({{{50, 4}}}).empty(), ("Do not paint a dash for an unconfirmed endpoint adjustment"));
   TEST(contacts({{{40, -12}}}).empty(), ("Opposite side"));
   TEST(contacts({{{41, 1}}}).empty(), ("No contact if the endpoint movement is too large"));
   TEST(contacts({}).empty(), ("Legacy data does not anchor dashes"));

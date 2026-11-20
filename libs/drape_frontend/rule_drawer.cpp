@@ -347,7 +347,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
     dashPhaseOffset = metalineInfo->m_dashPhaseOffset;
     dashPhaseReversed = metalineInfo->m_dashPhaseReversed;
   }
-  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, dashPhaseOffset, dashPhaseReversed);
+  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, dashPhaseOffset, dashPhaseReversed,
+                                     needsDashPhase);
   applyGeom.BuildGeometry(m_zoomLevel, isIsoline, s.m_lineGeometryPadding);
 
   if (applyGeom.HasGeometry())

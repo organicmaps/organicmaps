@@ -31,10 +31,13 @@ void main()
                                                     u_modelView, halfWidth);
   }
   // The unbounded offset (distance in mask-length units) wraps in the fragment shader.
-  float uOffset = length(vec4(kShapeCoordScalar, 0, 0, 0) * u_modelView) * a_maskTexCoord.x;
+  // A negative mask width marks phase already expressed in tile-build mask units.
+  // Scaling it again would make discarded whole repeats visible during smooth zoom.
+  float scale = a_maskTexCoord.z < 0.0 ? 1.0 : length(vec4(kShapeCoordScalar, 0, 0, 0) * u_modelView);
+  float uOffset = scale * a_maskTexCoord.x;
   v_colorTexCoord = a_colorTexCoord;
   v_maskTexCoord = vec2(uOffset, a_maskTexCoord.w);
-  v_maskBase = a_maskTexCoord.yz;
+  v_maskBase = vec2(a_maskTexCoord.y, abs(a_maskTexCoord.z));
   //v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * u_projection;
   gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);
