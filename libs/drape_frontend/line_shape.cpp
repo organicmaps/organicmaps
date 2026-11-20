@@ -29,9 +29,12 @@ public:
     , m_maskSize(m_region.GetMaskPixelSize())
   {}
 
-  glsl::vec4 GetTexCoordsByDistance(float distance, bool isLeft) const
+  glsl::vec4 GetTexCoordsByDistance(float distance, bool isLeft, bool paintContact) const
   {
     m2::RectF const & texRect = m_region.GetTexRect();
+    // Regular dash masks start with a painted texel. A zero U span samples it at every zoom.
+    if (paintContact)
+      return {0, texRect.minX(), 0, texRect.minY()};
     return {distance / GetMaskLength(), texRect.minX(), texRect.SizeX(), isLeft ? texRect.minY() : texRect.maxY()};
   }
 
@@ -306,12 +309,12 @@ public:
   }
 
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart,
-                    glsl::vec2 const & offset)
+                    glsl::vec2 const & offset, bool paintContact)
   {
     float const halfWidth = GetHalfWidth();
     m_geometry.emplace_back(pivot, TNormal(offset + halfWidth * normal, halfWidth * GetSide(isLeft)),
                             isLeft ? m_colorCoordLeft : m_colorCoordRight,
-                            m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft));
+                            m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft, paintContact));
   }
 
 private:
@@ -384,23 +387,55 @@ void LineShape::ForEachSplineSection(FnT && fn) const
 template <>
 void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 {
-  // The dash phase is computed per-fragment from the continuous distance (see the dashed_line
-  // shaders), so each spline section is emitted as a single segment with a monotonically growing
-  // offset. Splitting the geometry here would reset the phase and create visible seams.
+  // Keep the ordinary phase through each painted contact, including across tile clips.
   double offset = WrapDashPhase(m_params.m_dashPhaseOffset, builder.GetMaskLengthG());
+  double distance = 0;
+  auto const & contacts = m_params.m_dashContacts;
+  double const radius = contacts.empty() ? 0 :
+      std::min<double>(m_params.m_width, m_params.m_pattern.front()) / (2 * m_params.m_baseGtoPScale);
+  auto contact = contacts.begin();
   ForEachSplineSection(
-      [&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const &, float toDraw, glsl::vec2 const & leftNormal,
+      [&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const &, double toDraw, glsl::vec2 const & leftNormal,
           glsl::vec2 const & rightNormal, int, glsl::vec2 const & offset1, glsl::vec2 const & offset2)
   {
     double const nextOffset = AdvanceDashPhase(offset, toDraw, m_params.m_dashPhaseReversed);
-    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */, static_cast<float>(offset), offset1);
-    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */, static_cast<float>(offset), offset1);
-    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */, static_cast<float>(nextOffset),
-                         offset2);
-    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */, static_cast<float>(nextOffset),
-                         offset2);
-
+    auto const vertexPair = [&](glsl::vec2 const & point, glsl::vec2 const & extrusion, float phase, bool paint)
+    {
+      builder.SubmitVertex({point, m_params.m_depth}, rightNormal, false, phase, extrusion, paint);
+      builder.SubmitVertex({point, m_params.m_depth}, leftNormal, true, phase, extrusion, paint);
+    };
+    double const end = distance + toDraw;
+    if (toDraw <= 0 || contact == contacts.end() || *contact - radius >= end)
+    {
+      vertexPair(p1, offset1, offset, false);
+      vertexPair(p2, offset2, nextOffset, false);
+    }
+    else
+    {
+      double cursor = distance;
+      auto const emitTo = [&](double finish, bool paint)
+      {
+        if (finish <= cursor)
+          return;
+        for (double at : {cursor, finish})
+        {
+          float const t = (at - distance) / toDraw;
+          vertexPair(p1 + t * (p2 - p1), offset1 + t * (offset2 - offset1),
+                     AdvanceDashPhase(offset, at - distance, m_params.m_dashPhaseReversed), paint);
+        }
+        cursor = finish;
+      };
+      for (; contact != contacts.end() && *contact - radius < end; ++contact)
+      {
+        emitTo(std::max(distance, *contact - radius), false);
+        emitTo(std::min(end, *contact + radius), true);
+        if (*contact + radius > end)
+          break;
+      }
+      emitTo(end, false);
+    }
     offset = nextOffset;
+    distance = end;
   });
 }
 

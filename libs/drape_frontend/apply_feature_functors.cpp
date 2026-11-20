@@ -817,6 +817,8 @@ void ApplyLineFeatureGeometry::ProcessSideRules(m2::SharedSpline const & source,
     double const span = std::max(geographicSpan, 4.0 * std::abs(lateralOffset) / m_params.m_currentScaleGtoP);
     auto const taper = MakeJunctionTaper(source, side.m_junctions, span, geographicSpan / 8, side.m_approaches);
     auto const & taperedSource = taper.m_spline;
+    auto const contacts = LaneContactDistances(taperedSource->GetPath(), side.m_junctions, side.m_approaches,
+                                               lateralOffset, m_params.m_currentScaleGtoP, geographicSpan / 8);
     std::vector<m2::SplineClipInfo> ranges;
     auto const pieces = m2::ClipSplineByRect(m_params.m_tileRect, taperedSource, &ranges);
     for (size_t index = 0; index < pieces.size(); ++index)
@@ -859,6 +861,14 @@ void ApplyLineFeatureGeometry::ProcessSideRules(m2::SharedSpline const & source,
         params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
         params.m_dashPhaseReversed = m_dashPhaseReversed;
         params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -clippedOffset : clippedOffset);
+        if (params.m_pattern.size() == 2)
+        {
+          double const radius = std::min<double>(params.m_width, params.m_pattern.front()) /
+                                (2 * params.m_baseGtoPScale);
+          auto contact = std::lower_bound(contacts.begin(), contacts.end(), clippedOffset - radius);
+          for (; contact != contacts.end() && *contact <= range.m_endDistance + radius; ++contact)
+            params.m_dashContacts.push_back(*contact - clippedOffset);
+        }
         m_params.m_insertShape(make_unique_dp<LineShape>(piece, params));
       }
       if (side.m_arrowRule)
