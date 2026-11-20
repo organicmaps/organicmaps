@@ -2,6 +2,7 @@ enum RoutingOptionsSettingsSection: String {
   case options
   case bicycleSurface
   case transitModes
+  case transitPreference
   case optimization
 }
 
@@ -17,6 +18,7 @@ enum RoutingOption: Hashable {
   case difficultTrails
   case bicycleSurface(BicycleSurfacePreference)
   case transitMode(TransitModes)
+  case transitPreference(TransitPreference)
 }
 
 extension RoutingOption {
@@ -32,7 +34,7 @@ extension RoutingOption {
     case .steps: return options.supportedOptions.contains(.steps)
     case .difficultTrails: return options.supportedOptions.contains(.difficultTrail)
     case .bicycleSurface: return options.routerType == .bicycle
-    case .transitMode: return options.routerType == .publicTransport
+    case .transitMode, .transitPreference: return options.routerType == .publicTransport
     }
   }
 
@@ -66,6 +68,13 @@ extension RoutingOption {
       case .air: return L("transit_mode_air")
       default: preconditionFailure("Expected one transit mode")
       }
+    case .transitPreference(let preference):
+      switch preference {
+      case .recommended: return L("transit_preference_recommended")
+      case .lessWalking: return L("transit_preference_less_walking")
+      case .fewerTransfers: return L("transit_preference_fewer_transfers")
+      @unknown default: preconditionFailure("Unknown transit preference")
+      }
     }
   }
 
@@ -86,7 +95,7 @@ extension RoutingOption {
     case .motorways: return \.avoidMotorway
     case .steps: return \.avoidSteps
     case .difficultTrails: return \.avoidDifficultTrails
-    case .bicycleSurface: preconditionFailure("Surface preference uses a selection")
+    case .bicycleSurface, .transitPreference: preconditionFailure("Preferences use a selection")
     case .transitMode: preconditionFailure("Transit modes use the transit mode mask")
     }
   }
@@ -97,6 +106,7 @@ struct RoutingOptionsSettingsState {
   let canChangeOptimization: Bool
   let bicycleSurface: BicycleSurfacePreference
   let transitModes: TransitModes
+  let transitPreference: TransitPreference
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>

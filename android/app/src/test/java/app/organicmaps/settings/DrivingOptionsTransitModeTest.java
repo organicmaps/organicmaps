@@ -25,6 +25,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
 import app.organicmaps.sdk.routing.RoutingOptions.TransitMode;
+import app.organicmaps.sdk.routing.RoutingOptions.TransitPreference;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
@@ -51,6 +52,7 @@ public class DrivingOptionsTransitModeTest
     {
       controller.when(RoutingController::get).thenReturn(routing);
       settings.when(RoutingOptions::getBicycleSurfacePreference).thenReturn(BicycleSurfacePreference.Any);
+      settings.when(RoutingOptions::getTransitPreference).thenReturn(TransitPreference.Recommended);
       settings.when(RoutingOptions::getTransitModes).thenAnswer(unused -> selectedModes.get());
       settings.when(() -> RoutingOptions.setTransitModes(TransitMode.Bus.bit)).thenAnswer(unused -> {
         selectedModes.set(TransitMode.Bus.bit);

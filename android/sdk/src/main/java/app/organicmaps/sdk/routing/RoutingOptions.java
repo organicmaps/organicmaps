@@ -74,6 +74,41 @@ public final class RoutingOptions
     nativeSetTransitModes(modes);
   }
 
+  // Keep the values in sync with routing::TransitPreference in routing/routing_options.hpp.
+  public enum TransitPreference
+  {
+    Recommended(0),
+    LessWalking(1),
+    FewerTransfers(2);
+
+    public final int nativeValue;
+
+    TransitPreference(int nativeValue)
+    {
+      this.nativeValue = nativeValue;
+    }
+
+    @NonNull
+    public static TransitPreference fromNativeValue(int value)
+    {
+      for (TransitPreference preference : values())
+        if (preference.nativeValue == value)
+          return preference;
+      throw new IllegalArgumentException("Unknown transit preference: " + value);
+    }
+  }
+
+  @NonNull
+  public static TransitPreference getTransitPreference()
+  {
+    return TransitPreference.fromNativeValue(nativeGetTransitPreference());
+  }
+
+  public static void setTransitPreference(@NonNull TransitPreference preference)
+  {
+    nativeSetTransitPreference(preference.nativeValue);
+  }
+
   public static void addOption(@NonNull Router router, @NonNull RoadType roadType)
   {
     nativeAddOption(router.getType(), roadType.nativeValue);
@@ -143,6 +178,10 @@ public final class RoutingOptions
   private static native int nativeGetTransitModes();
 
   private static native void nativeSetTransitModes(int modes);
+
+  private static native int nativeGetTransitPreference();
+
+  private static native void nativeSetTransitPreference(int preference);
 
   private static native boolean nativeIsRouteOptimizationEnabled();
 

@@ -12,6 +12,9 @@ static_assert(MWMRoutingAvoidanceFerry == static_cast<NSUInteger>(routing::Routi
 static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::RoutingOptions::Dirty));
 static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::RoutingOptions::Steps));
 static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routing::RoutingOptions::DifficultTrail));
+static_assert(MWMTransitPreferenceRecommended == static_cast<NSInteger>(routing::TransitPreference::Recommended));
+static_assert(MWMTransitPreferenceLessWalking == static_cast<NSInteger>(routing::TransitPreference::LessWalking));
+static_assert(MWMTransitPreferenceFewerTransfers == static_cast<NSInteger>(routing::TransitPreference::FewerTransfers));
 
 using routing::transit::Mode;
 static_assert(MWMTransitModesBus == static_cast<NSUInteger>(Mode::Bus));
@@ -33,6 +36,16 @@ static_assert(MWMTransitModesAll == routing::transit::kAllModes);
 @end
 
 @implementation MWMRoutingOptions
+
++ (MWMTransitPreference)transitPreference
+{
+  return static_cast<MWMTransitPreference>(routing::RoutePlanningOptions::LoadTransitPreference());
+}
+
++ (void)setTransitPreference:(MWMTransitPreference)preference
+{
+  routing::RoutePlanningOptions::SaveTransitPreference(static_cast<NSInteger>(preference));
+}
 
 + (MWMTransitModes)transitModes
 {

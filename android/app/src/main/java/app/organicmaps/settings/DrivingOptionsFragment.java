@@ -19,6 +19,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
 import app.organicmaps.sdk.routing.RoutingOptions.TransitMode;
+import app.organicmaps.sdk.routing.RoutingOptions.TransitPreference;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -37,12 +38,14 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
   private static final String BUNDLE_BICYCLE_SURFACE = "bicycle_surface";
   private static final String BUNDLE_TRANSIT_MODES = "transit_modes";
+  private static final String BUNDLE_TRANSIT_PREFERENCE = "transit_preference";
   // Road types of every mode, as the route mode can change while this screen is open (e.g. by Android Auto).
   @NonNull
   private final Map<Router, Set<RoadType>> mRoadTypes = new EnumMap<>(Router.class);
   private boolean mOptimizationEnabledOnLoad;
   private BicycleSurfacePreference mBicycleSurfaceOnLoad;
   private int mTransitModesOnLoad;
+  private TransitPreference mTransitPreferenceOnLoad;
   private final Map<TransitMode, SwitchCompat> mTransitModeButtons = new EnumMap<>(TransitMode.class);
   @NonNull
   private Router mRouter = Router.Vehicle;
@@ -74,6 +77,10 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     mTransitModesOnLoad = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_TRANSIT_MODES)
                             ? savedInstanceState.getInt(BUNDLE_TRANSIT_MODES)
                             : RoutingOptions.getTransitModes();
+    mTransitPreferenceOnLoad =
+        savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_TRANSIT_PREFERENCE)
+            ? TransitPreference.fromNativeValue(savedInstanceState.getInt(BUNDLE_TRANSIT_PREFERENCE))
+            : RoutingOptions.getTransitPreference();
     return root;
   }
 
@@ -115,6 +122,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
     outState.putInt(BUNDLE_BICYCLE_SURFACE, mBicycleSurfaceOnLoad.nativeValue);
     outState.putInt(BUNDLE_TRANSIT_MODES, mTransitModesOnLoad);
+    outState.putInt(BUNDLE_TRANSIT_PREFERENCE, mTransitPreferenceOnLoad.nativeValue);
   }
 
   @Override
@@ -129,9 +137,11 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     final Router router = controller.getLastRouterType();
     final BicycleSurfacePreference bicycleSurface = RoutingOptions.getBicycleSurfacePreference();
     final int transitModes = RoutingOptions.getTransitModes();
+    final TransitPreference transitPreference = RoutingOptions.getTransitPreference();
     final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router))
                          || (router == Router.Bicycle && bicycleSurface != mBicycleSurfaceOnLoad)
-                         || (router == Router.Transit && transitModes != mTransitModesOnLoad);
+                         || (router == Router.Transit
+                             && (transitModes != mTransitModesOnLoad || transitPreference != mTransitPreferenceOnLoad));
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
     final boolean reordered = enabled && !mOptimizationEnabledOnLoad && controller.optimizeRoutePoints();
@@ -143,6 +153,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     mOptimizationEnabledOnLoad = enabled;
     mBicycleSurfaceOnLoad = bicycleSurface;
     mTransitModesOnLoad = transitModes;
+    mTransitPreferenceOnLoad = transitPreference;
   }
 
   @Override
@@ -192,8 +203,21 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     final boolean transit = mRouter == Router.Transit;
     UiUtils.showIf(!transit, root.findViewById(R.id.road_avoidance_options));
     UiUtils.showIf(transit, root.findViewById(R.id.transit_mode_options));
+    UiUtils.showIf(transit, root.findViewById(R.id.transit_preference_options));
     if (transit)
+    {
       refreshTransitModes(RoutingOptions.getTransitModes());
+      final TransitPreference selected = RoutingOptions.getTransitPreference();
+      bindTransitPreference(root, R.id.transit_preference_recommended, TransitPreference.Recommended, selected);
+      bindTransitPreference(root, R.id.transit_preference_less_walking, TransitPreference.LessWalking, selected);
+      bindTransitPreference(root, R.id.transit_preference_fewer_transfers, TransitPreference.FewerTransfers, selected);
+    }
+  }
+
+  private static void bindTransitPreference(@NonNull View root, @IdRes int buttonId, TransitPreference preference,
+                                            TransitPreference selected)
+  {
+    bindChoice(root, buttonId, preference == selected, v -> RoutingOptions.setTransitPreference(preference));
   }
 
   private void initTransitModeOptions(@NonNull View root)
@@ -258,9 +282,15 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private void bindSurfaceOption(@NonNull View root, @IdRes int buttonId, BicycleSurfacePreference option,
                                  BicycleSurfacePreference selected)
   {
+    bindChoice(root, buttonId, option == selected, v -> RoutingOptions.setBicycleSurfacePreference(option));
+  }
+
+  private static void bindChoice(@NonNull View root, @IdRes int buttonId, boolean checked,
+                                 @NonNull View.OnClickListener listener)
+  {
     RadioButton button = root.findViewById(buttonId);
-    button.setChecked(option == selected);
-    button.setOnClickListener(v -> RoutingOptions.setBicycleSurfacePreference(option));
+    button.setChecked(checked);
+    button.setOnClickListener(listener);
   }
 
   private void bindOption(@NonNull View root, @IdRes int buttonId, @NonNull RoadType roadType)

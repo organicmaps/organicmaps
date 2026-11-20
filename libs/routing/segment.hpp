@@ -72,9 +72,9 @@ public:
   SegmentEdgeWeight() = default;
   // This overload treats the total as segment cost. Keep separate penalties for partial edges.
   explicit SegmentEdgeWeight(RouteWeight const & weight) : m_total(weight), m_segmentWeight(weight.GetWeight()) {}
-  SegmentEdgeWeight(double segmentWeight, RouteWeight const & penalties)
-    : m_total(RouteWeight(segmentWeight) + penalties)
-    , m_segmentWeight(segmentWeight)
+  SegmentEdgeWeight(RouteWeight const & segmentWeight, RouteWeight const & penalties)
+    : m_total(segmentWeight + penalties)
+    , m_segmentWeight(segmentWeight.GetWeight())
   {}
 
   RouteWeight const & GetTotal() const { return m_total; }
@@ -83,7 +83,11 @@ public:
   {
     auto partial = *this;
     partial.m_segmentWeight *= fraction;
-    partial.m_total += RouteWeight(partial.m_segmentWeight - m_segmentWeight);
+    // On partial road edges the measured travel times belong to the segment. Keep the turn and boarding penalties.
+    double const removedFraction = 1.0 - fraction;
+    partial.m_total +=
+        RouteWeight(partial.m_segmentWeight - m_segmentWeight, 0, 0, -removedFraction * m_total.GetTransitTime(),
+                    -removedFraction * m_total.GetWalkingTime());
     return partial;
   }
 

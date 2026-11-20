@@ -55,8 +55,11 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     let preferences: [BicycleSurfacePreference] = [.any, .preferPaved, .preferUnpaved, .avoidUnpaved]
     for preference in preferences {
       bike.avoidDirty = preference == .avoidUnpaved
-      let state = RoutingOptionsSettingsState(options: bike, canChangeOptimization: true, bicycleSurface: preference,
-                                              transitModes: .all)
+      let state = RoutingOptionsSettingsState(options: bike,
+                                              canChangeOptimization: true,
+                                              bicycleSurface: preference,
+                                              transitModes: .all,
+                                              transitPreference: .recommended)
       let sections = presenter.sections(from: state)
       XCTAssertFalse(sections.flatMap(\.items).contains { $0.item == .unpavedRoads })
       let selected = sections.first { $0.section == .bicycleSurface }?.items
@@ -130,10 +133,11 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     let state = RoutingOptionsSettingsState(options: RoutingOptions(routerType: .publicTransport),
                                             canChangeOptimization: true,
                                             bicycleSurface: .any,
-                                            transitModes: .subway)
+                                            transitModes: .subway,
+                                            transitPreference: .recommended)
     let sections = presenter.sections(from: state)
-    XCTAssertEqual(sections.map(\.section), [.transitModes, .optimization])
-    XCTAssertEqual(sections.first?.items.first { $0.item == .transitMode(.subway) }?.kind,
+    XCTAssertEqual(sections.map(\.section), [.transitPreference, .transitModes, .optimization])
+    XCTAssertEqual(sections.first { $0.section == .transitModes }?.items.first { $0.item == .transitMode(.subway) }?.kind,
                    .switcher(isOn: true, isEnabled: false))
     XCTAssertEqual(sections.last?.header, L("routing_options_all_modes"))
     XCTAssertEqual(sections.last?.items.map(\.item), [.routeOptimization])
@@ -144,6 +148,32 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     interactor.handle(.didChangeSwitch(.transitMode(.bus), isOn: true))
     interactor.handle(.didChangeSwitch(.transitMode(.subway), isOn: false))
     XCTAssertEqual(RoutingOptions.transitModes, .bus)
+  }
+
+  func test_TransitPreferenceSelectionComesFromState() {
+    let options = RoutingOptions(routerType: .publicTransport)
+    let presenter = RoutingOptionsSettingsPresenter(viewController: RoutingOptionsSettingsViewController())
+    for preference in [TransitPreference.recommended, .lessWalking, .fewerTransfers] {
+      let state = RoutingOptionsSettingsState(options: options,
+                                              canChangeOptimization: true,
+                                              bicycleSurface: .any,
+                                              transitModes: .all,
+                                              transitPreference: preference)
+      let selected = presenter.sections(from: state).first { $0.section == .transitPreference }?.items
+        .filter { $0.kind == .selectable(isSelected: true) }
+      XCTAssertEqual(selected?.map(\.item), [.transitPreference(preference)])
+    }
+  }
+
+  func test_TransitPreferenceSelectionPersists() {
+    let saved = RoutingOptions.transitPreference
+    defer { RoutingOptions.transitPreference = saved }
+    let interactor = RoutingOptionsSettingsInteractor(routerType: .publicTransport)
+    interactor.handle(.didLoad)
+    interactor.handle(.didSelect(.transitPreference(.lessWalking)))
+    XCTAssertEqual(RoutingOptions.transitPreference, .lessWalking)
+    interactor.handle(.didSelect(.transitPreference(.fewerTransfers)))
+    XCTAssertEqual(RoutingOptions.transitPreference, .fewerTransfers)
   }
 
   func test_DashboardKeepsSettingsVisibleAndDisablesRulerSettings() throws {
@@ -174,8 +204,11 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     }
     let presenter = RoutingOptionsSettingsPresenter(viewController: RoutingOptionsSettingsViewController())
     for option in options {
-      let state = RoutingOptionsSettingsState(options: option, canChangeOptimization: true, bicycleSurface: .any,
-                                              transitModes: .all)
+      let state = RoutingOptionsSettingsState(options: option,
+                                              canChangeOptimization: true,
+                                              bicycleSurface: .any,
+                                              transitModes: .all,
+                                              transitPreference: .recommended)
       let sections = presenter.sections(from: state)
       XCTAssertEqual(sections.last?.section, .optimization)
       XCTAssertEqual(sections.last?.header, L("routing_options_all_modes"))

@@ -79,14 +79,6 @@ double constexpr kTransitMaxSpeedKMpH = 60.0;
 // Transit alternatives are exempt because they intentionally trade time for less walking.
 double constexpr kMaxAltEtaRatio = 1.5;
 
-// Transit has no distance-biased road model: its alternative biases walking legs and boardings
-// instead (e.g. a direct bus instead of subway + walk). The boarding penalty is a fixed amount per
-// boarding rather than a multiple of the line's expected wait: scaling the wait penalises
-// low-frequency lines (900 s default bus interval) instead of the number of transfers and hides a
-// direct bus behind a subway + bus combination.
-double constexpr kTransitAltWalkFactor = 3.0;
-double constexpr kTransitAltBoardingPenaltyS = 5 * 60.0;
-
 bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, double alternativeEtaSec)
 {
   return vehicleType == VehicleType::Transit || alternativeEtaSec <= kMaxAltEtaRatio * activeEtaSec;
@@ -98,6 +90,12 @@ EdgeEstimator::Strategy OtherStrategy(EdgeEstimator::Strategy strategy)
 {
   return strategy == EdgeEstimator::Strategy::Normal ? EdgeEstimator::Strategy::DistanceBiased
                                                      : EdgeEstimator::Strategy::Normal;
+}
+
+TransitPreference AlternativeTransitPreference(TransitPreference preferred)
+{
+  return preferred == TransitPreference::Recommended ? TransitPreference::LessWalkingAndFewerTransfers
+                                                     : TransitPreference::Recommended;
 }
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
@@ -393,16 +391,17 @@ void IndexRouter::ClearState()
   m_lastAltFakeEdges.reset();
   // A new route starts from the default variant again.
   m_activeStrategy = EdgeEstimator::Strategy::Normal;
+  m_transitAltActive = false;
 }
 
 void IndexRouter::SwapAltRouteToActive()
 {
   std::swap(m_lastRoute, m_lastAltRoute);
   std::swap(m_lastFakeEdges, m_lastAltFakeEdges);
-  // Keep rebuilding the variant the user follows instead of the fastest one (issue #13205). Transit
-  // keeps the default weights: its alternative also scales the walking weights that
-  // TransitWorldGraph::CheckLength budgets, so a rebuild with them could find no route at all.
-  if (m_vehicleType != VehicleType::Transit)
+  // Keep the selected variant's objective during rebuilds (issue #13205).
+  if (m_vehicleType == VehicleType::Transit)
+    m_transitAltActive = !m_transitAltActive;
+  else
     m_activeStrategy = OtherStrategy(m_activeStrategy);
 }
 
@@ -463,6 +462,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
+    bool const isTransit = m_vehicleType == VehicleType::Transit;
     auto const submittedOptions = delegate.GetRoutePlanningOptions();
     auto const options = submittedOptions ? *submittedOptions : RoutePlanningOptions::LoadFromSettings(m_vehicleType);
     ASSERT(m_vehicleType == VehicleType::Bicycle || options.m_bicycleSurfaceBias == BicycleSurfaceBias::Any,
@@ -474,15 +474,23 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       m_lastFakeEdges.reset();
       m_lastAltRoute.reset();
       m_lastAltFakeEdges.reset();
+      m_transitAltActive = false;
     }
     m_previousRoutingOptions = options;
     m_estimator->SetBicycleSurfaceBias(options.m_bicycleSurfaceBias);
-    SCOPE_GUARD(featureRoadGraphClear, [this]
+    auto const preferred = options.m_transitPreference;
+    auto const alternative = AlternativeTransitPreference(preferred);
+    auto const activeTransitPreference = m_transitAltActive ? alternative : preferred;
+    if (isTransit)
+      m_estimator->SetTransitPreference(activeTransitPreference);
+    SCOPE_GUARD(featureRoadGraphClear, ([this, isTransit]
     {
       ClearRouteCalculationState();
       m_requestRoutingOptions.reset();
       m_estimator->SetBicycleSurfaceBias(BicycleSurfaceBias::Any);
-    });
+      if (isTransit)
+        m_estimator->SetTransitPreference(TransitPreference::Recommended);
+    }));
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.
     // Guides edges are priced at max speed (see SetGuidesGraphParams), above the DistanceBiased cap,
@@ -516,9 +524,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       // Compute an alternative alongside the active route. Only on a full (non-adjust) build and only
       // within a reasonable distance budget — the alternative search costs about 0.5-1x of the
       // normal one (measured; the tight DistanceBiased heuristic keeps it cheap, see
-      // EdgeEstimator::CalcHeuristic). Non-transit profiles get the route of the other strategy;
-      // transit gets a less-walking / fewer-transfers alternative (e.g. a direct bus instead of
-      // subway + walk).
+      // EdgeEstimator::CalcHeuristic). Transit compares the user's preference with Recommended,
+      // or biases both walking and transfers when the user's preference is Recommended.
       double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
       if (needAlternatives && (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) &&
           !delegate.IsCancelled() && mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
@@ -529,7 +536,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         SCOPE_GUARD(restoreActive, [&]
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
-          m_estimator->SetTransitAltFactors(1.0, 0.0);
+          if (isTransit)
+            m_estimator->SetTransitPreference(activeTransitPreference);
           // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
           m_lastAltFakeEdges = std::move(m_lastFakeEdges);
@@ -538,11 +546,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
           m_lastFakeEdges = std::move(savedLastFakeEdges);
         });
 
-        if (m_vehicleType == VehicleType::Transit)
-        {
-          // Rewrite walking weights and add a boarding penalty for the alternative route.
-          m_estimator->SetTransitAltFactors(kTransitAltWalkFactor, kTransitAltBoardingPenaltyS);
-        }
+        if (isTransit)
+          m_estimator->SetTransitPreference(m_transitAltActive ? preferred : alternative);
         else
         {
           // Guides edges are priced at max speed (see SetGuidesGraphParams call below), above the
