@@ -816,7 +816,7 @@
 "others_sorttype" = "Khác";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Không thể Lập Lộ trình";
+"routing_planning_error" = "Không thể lập lộ trình";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
@@ -1236,3 +1236,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Đảo ngược tuyến đường";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Dẫn đường";
+
+/* Track start point label. */
+"navigate_track_start" = "Điểm đầu hành trình";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Điểm cuối hành trình";
