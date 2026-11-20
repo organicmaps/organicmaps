@@ -187,6 +187,13 @@ UNIT_TEST(LatLon_Match_False)
 {
   double lat, lon;
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
+
+  // Reject signs embedded inside decimal components.
+  TEST(!MatchLatLonDegree("1.2-3 N 4.5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1.2--3 N 4.5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1,2-3 N 4,5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("-1,2-3 N 4,5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 51* 33.217-4 E 11* 10.113", lat, lon), ());
 }
 
 }  // namespace latlon_match_test
