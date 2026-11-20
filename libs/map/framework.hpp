@@ -484,6 +484,9 @@ public:
   /// Finishes recording and returns the point count. The backup is retained until save or discard.
   size_t StopTrackRecording();
   void DiscardTrackRecording();
+  /// @pre Recording is active.
+  /// Returns whether the current recording would create a track if saved now.
+  bool CanSaveTrackRecording();
   /// Returns true when finalization created a bookmark track. Bookmark persistence is asynchronous.
   bool SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEnabled() const;

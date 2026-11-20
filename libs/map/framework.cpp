@@ -2199,11 +2199,16 @@ void Framework::DiscardTrackRecording()
   GpsTracker::Instance().Clear();
 }
 
+bool Framework::CanSaveTrackRecording()
+{
+  return GpsTracker::Instance().CanSave();
+}
+
 bool Framework::SaveTrackRecordingWithName(std::string const & name)
 {
   auto const pointCount = StopTrackRecording();
   auto & tracker = GpsTracker::Instance();
-  if (pointCount < 2)
+  if (pointCount < GpsTrack::kMinValidTrackPoints)
   {
     tracker.Clear();
     return false;
