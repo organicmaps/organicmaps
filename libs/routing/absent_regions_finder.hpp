@@ -25,7 +25,7 @@ public:
 
   // Creates new thread |m_routerThread| and starts routing in it.
   RouterResultCode GenerateAbsentRegions(Checkpoints const & checkpoints, RouterDelegate const & delegate,
-                                         std::string & failureDetails);
+                                         std::string & failureCause);
 
   using RegionsSetT = std::set<std::string>;
 

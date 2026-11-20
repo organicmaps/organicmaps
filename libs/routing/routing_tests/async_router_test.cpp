@@ -92,7 +92,10 @@ public:
     if (outcome == Outcome::Failure)
       return RouterResultCode::RouteNotFound;
     if (outcome == Outcome::ReconstructionFailure)
+    {
+      result.m_failureDetails.m_loadedMaps.emplace("test map", 260404);
       return RouterResultCode::RouteNotFoundRedressRouteError;
+    }
 
     result.MakeFrom(GetName(), MakeValidRoute(checkpoints));
     auto alternative =
@@ -231,29 +234,34 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, PreviewFailuresReportTheSubmittedRoute)
 {
   base::ScopedLogAbortLevelChanger allowExpectedError(base::LCRITICAL);
   AsyncRouter async(nullptr);
-  async.SetRouter(make_unique<TestRouter>(vector{Outcome::Exception, Outcome::ReconstructionFailure}), nullptr);
-
   Checkpoints const checkpoints(CheckpointsGeometry{{1, 2}, {2, 5}, {5, 6}});
-  auto const opts = RoutingOptions(RoutingOptions::Steps);
-  for (auto const expected : {RouterResultCode::InternalError, RouterResultCode::RouteNotFoundRedressRouteError})
+  for (auto const options : {RoutingOptions{}, RoutingOptions(RoutingOptions::Steps)})
   {
-    ReadyRequest ready;
-    auto failure = make_shared<promise<pair<RouterResultCode, string>>>();
-    auto report = failure->get_future();
-    async.CalculateRoute(checkpoints, {3, 4}, false /* adjustToPrevRoute */, true /* needAlternatives */,
-                         [result = ready.m_ready](shared_ptr<RoutesResult> route, RouterResultCode code)
-    { result->set_value({route->m_routesId, code}); }, nullptr, [failure](RouterResultCode code, string const & body)
-    { failure->set_value({code, body}); }, nullptr, RouterDelegate::kNoTimeout, opts);
+    async.SetRouter(make_unique<TestRouter>(vector{Outcome::Exception, Outcome::ReconstructionFailure}), nullptr);
+    for (auto const expected : {RouterResultCode::InternalError, RouterResultCode::RouteNotFoundRedressRouteError})
+    {
+      ReadyRequest ready;
+      auto failure = make_shared<promise<pair<RouterResultCode, string>>>();
+      auto report = failure->get_future();
+      async.CalculateRoute(checkpoints, {3, 4}, false /* adjustToPrevRoute */, true /* needAlternatives */,
+                           [result = ready.m_ready](shared_ptr<RoutesResult> route, RouterResultCode code)
+      { result->set_value({route->m_routesId, code}); }, nullptr, [failure](RouterResultCode code, string const & body)
+      { failure->set_value({code, body}); }, nullptr, RouterDelegate::kNoTimeout, options);
 
-    TEST(report.wait_for(30s) == future_status::ready, ());
-    auto const [code, body] = report.get();
-    TEST_EQUAL(code, expected, ());
-    TEST(ready.m_future.wait_for(0s) == future_status::timeout, ("A failed preview is not a ready route."));
-    TEST(body.contains(ToString(expected)), (body));
-    TEST(body.contains(DebugPrint(checkpoints)), (body));
-    TEST(body.contains(DebugPrint(opts)), (body));
-    if (expected == RouterResultCode::InternalError)
-      TEST(body.contains("Test exception after constructing a valid result"), (body));
+      TEST(report.wait_for(30s) == future_status::ready, ());
+      auto const [code, body] = report.get();
+      TEST_EQUAL(code, expected, ());
+      TEST(ready.m_future.wait_for(0s) == future_status::timeout, ("A failed preview is not a ready route."));
+      TEST(!body.contains('\0'), (body));
+      TEST(body.contains(ToString(expected)), (body));
+      TEST(body.contains(DebugPrint(checkpoints)), (body));
+      TEST(body.contains(DebugPrint(options)), (body));
+      if (expected == RouterResultCode::InternalError)
+        TEST(body.contains("\nCause: ") && body.ends_with("Test exception after constructing a valid result\""),
+             (body));
+      else
+        TEST(body.ends_with("Loaded maps:\n  test map 260404"), (body));
+    }
   }
 }
 

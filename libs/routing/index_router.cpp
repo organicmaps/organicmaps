@@ -55,7 +55,6 @@
 #include <deque>
 #include <iterator>
 #include <map>
-#include <sstream>
 
 namespace routing
 {
@@ -451,11 +450,12 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
 
-  result.m_failureDetails.clear();
+  std::string failureCause;
   Route route;
   Route altRoute;
   RouterResultCode code;
   RouterResultCode altCode = RouterResultCode::RouteNotFound;
+  // Keep the loaded maps and effective options available for failed builds.
   SCOPE_GUARD(featureRoadGraphClear, [this]
   {
     ClearRouteCalculationState();
@@ -550,14 +550,12 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     LOG(LERROR, ("Can't find path from", mercator::ToLatLon(startPoint), "to", mercator::ToLatLon(finalPoint), ":\n ",
                  e.what()));
     code = RouterResultCode::InternalError;
-    result.m_failureDetails = std::string("\nCause: ") + e.what();
+    failureCause = e.what();
   }
 
   if (IsInternalRouteError(code))
   {
-    std::ostringstream maps;
-    m_dataSource.AppendLoadedMapVersions(maps);
-    result.m_failureDetails += std::move(maps).str();
+    result.m_failureDetails = {std::move(failureCause), m_dataSource.GetLoadedMapVersions(), m_requestRoutingOptions};
     return code;
   }
 

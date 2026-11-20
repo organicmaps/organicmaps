@@ -2,13 +2,13 @@
 
 @interface MWMDefaultAlert : MWMAlert
 
-+ (instancetype)routeNotFoundAlertWithSettingsAction:(nullable MWMVoidBlock)action;
++ (instancetype)routeNotFoundAlertWithSettingsAction:(MWMVoidBlock)action;
 + (instancetype)routeNotFoundNoPublicTransportAlert;
 + (instancetype)routeNotFoundTooLongPedestrianAlert;
 + (instancetype)routeFileTooOldAlert;
-+ (instancetype)endPointNotFoundAlertWithSettingsAction:(nullable MWMVoidBlock)action;
-+ (instancetype)startPointNotFoundAlertWithSettingsAction:(nullable MWMVoidBlock)action;
-+ (instancetype)intermediatePointNotFoundAlertWithSettingsAction:(nullable MWMVoidBlock)action;
++ (instancetype)endPointNotFoundAlertWithSettingsAction:(MWMVoidBlock)action;
++ (instancetype)startPointNotFoundAlertWithSettingsAction:(MWMVoidBlock)action;
++ (instancetype)intermediatePointNotFoundAlertWithSettingsAction:(MWMVoidBlock)action;
 + (instancetype)internalRoutingErrorAlertWithReportAction:(MWMVoidBlock)action;
 + (instancetype)incorrectFeaturePositionAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)notEnoughSpaceAlert;

@@ -337,10 +337,21 @@ void AsyncRouter::CalculateRoute()
            << "\nCheckpoints: " << DebugPrint(checkpoints);
       if (startDirection != m2::PointD::Zero())
         body << "\nStart direction: " << DebugPrint(startDirection);
-      if (auto const options = delegateProxy->GetDelegate().GetRoutingOptions())
-        body << "\n" << DebugPrint(*options) << " (mask " << options->GetOptions() << ")";
-      body << "\nAdjust previous route: " << adjustToPrevRoute << "\nSearch alternatives: " << needAlternatives;
-      body << result->m_failureDetails;
+      auto const & details = result->m_failureDetails;
+      auto const options =
+          details.m_routingOptions ? details.m_routingOptions : delegateProxy->GetDelegate().GetRoutingOptions();
+      if (options)
+        body << "\n" << DebugPrint(*options);
+      body << std::boolalpha << "\nAdjust previous route: " << adjustToPrevRoute
+           << "\nSearch alternatives: " << needAlternatives;
+      if (!details.m_cause.empty())
+        body << "\nCause: " << details.m_cause;
+      if (!details.m_loadedMaps.empty())
+      {
+        body << "\nLoaded maps:";
+        for (auto const & [name, version] : details.m_loadedMaps)
+          body << "\n  " << name << " " << version;
+      }
       report = std::move(body).str();
     }
     GetPlatform().RunTask(Platform::Thread::Gui, [delegateProxy, failure, report = std::move(report)]()
@@ -368,7 +379,7 @@ void AsyncRouter::CalculateRoute()
     // Can be nullptr for the Ruler router.
     if (absentRegionsFinder)
       code = absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate(),
-                                                        result->m_failureDetails);
+                                                        result->m_failureDetails.m_cause);
 
     if (code == RouterResultCode::NoError)
     {
@@ -389,11 +400,12 @@ void AsyncRouter::CalculateRoute()
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     if (delegateProxy->HasRemoveRouteCallback())
     {
-      result->m_failureDetails = std::string("\nCause: ") + e.what();
+      result->m_failureDetails.m_cause = e.what();
       postFailure(code);
     }
     else
     {
+      // Navigation reroutes handle failures in their ready callback.
       GetPlatform().RunTask(Platform::Thread::Gui,
                             [delegateProxy, result, code]() { delegateProxy->OnReady(result, code); });
     }

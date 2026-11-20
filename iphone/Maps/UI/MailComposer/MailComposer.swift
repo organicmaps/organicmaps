@@ -26,8 +26,9 @@ final class MailComposer: NSObject {
 
     func body() -> String {
       let appInfo = AppInfo.shared()
-      return String(format: "%@\n\n\n\n- %@ (%@)\n- Organic Maps %@-%@\n- %@-%@\n- %@\n",
-                    details,
+      let diagnosticSection = details.isEmpty ? "" : details + "\n\n"
+      return String(format: "\n\n\n\n%@- %@ (%@)\n- Organic Maps %@-%@\n- %@-%@\n- %@\n",
+                    diagnosticSection,
                     appInfo.deviceModel, UIDevice.current.systemVersion,
                     appInfo.bundleVersion, appInfo.buildNumber,
                     Locale.current.languageCode ?? "",

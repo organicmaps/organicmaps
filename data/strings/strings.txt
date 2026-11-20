@@ -13538,7 +13538,7 @@ zh-Hans = 由于应用程序出错，因此无法规划路线。
 zh-Hant = 由於應用程式出錯，因此無法規劃路線。
 
 [dialog_routing_try_again]
-tags = android-libs-routing,apple-maps
+tags = android-libs-routing
 en = Please try again
 af = Probeer asb. weer
 ar = الرجاء إعادة المحاولة
@@ -28230,7 +28230,7 @@ zh-Hans = 避开高速公路
 zh-Hant = 避開高速公路
 
 [unable_to_calc_alert_title]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car
 en = Unable to calculate route
 af = Kan nie ’n roete bereken nie
 ar = لا يمكن حساب الطريق
@@ -28287,7 +28287,7 @@ zh-Hans = 无法规划路线
 zh-Hant = 無法規劃路線
 
 [unable_to_calc_alert_subtitle]
-tags = android-app,apple-maps
+tags = android-app
 en = A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.
 af = ’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.
 ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا.

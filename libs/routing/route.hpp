@@ -23,6 +23,7 @@
 #include "base/math.hpp"
 
 #include <limits>
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
@@ -598,8 +599,13 @@ public:
   std::vector<RouteBase> m_routes;
   size_t m_activeIdx = 0;
   std::string m_routerName;
-  // Diagnostic details captured by the router when a build fails.
-  std::string m_failureDetails;
+  struct FailureDetails
+  {
+    std::string m_cause;
+    std::map<std::string, int64_t> m_loadedMaps;
+    std::optional<RoutingOptions> m_routingOptions;
+  };
+  FailureDetails m_failureDetails;
   // Session-unique id, shared by all alternatives in this result.
   uint64_t m_routesId = 0;
 };
