@@ -1613,6 +1613,9 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);
+    // Walking avoids also apply to the partial road at a checkpoint.
+    if (m_router.m_vehicleType == VehicleType::Pedestrian && !m_graph.IsRoutingOptionsGood(segment))
+      return false;
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds[1]) &&
         m_deadEnds[1].count(segment) == 0)
     {

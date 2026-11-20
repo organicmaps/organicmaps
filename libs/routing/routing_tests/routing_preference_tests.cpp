@@ -337,6 +337,37 @@ UNIT_CLASS_TEST(StepsRoutingFixture, RequiredStepsFailTheRoute)
   }
 }
 
+UNIT_CLASS_TEST(StepsRoutingFixture, WalkingEndpointsDoNotUsePartOfAvoidedStairs)
+{
+  // The approaches belong to large components even with the stairs excluded.
+  auto const onSteps = mercator::FromLatLon(3, 1.055);
+  auto const onRoad = mercator::FromLatLon(3, 1.09);
+  auto router = Router(VehicleType::Pedestrian);
+  for (bool const startOnSteps : {true, false})
+  {
+    Checkpoints const checkpoints(startOnSteps ? onSteps : onRoad, startOnSteps ? onRoad : onSteps);
+    auto const calculate = [&](RoutesResult & result)
+    { return router->CalculateRoute(checkpoints, {}, false, false, {}, result); };
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, {});
+    RoutesResult withoutAvoidance;
+    TEST_EQUAL(calculate(withoutAvoidance), RouterResultCode::NoError, (startOnSteps));
+    TEST(UsesRoadType(withoutAvoidance.GetActive(), RoutingOptions::Steps), (startOnSteps));
+
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::Steps));
+    RoutesResult withAvoidance;
+    auto const code = calculate(withAvoidance);
+    if (code == RouterResultCode::NoError)
+      TEST(!UsesRoadType(withAvoidance.GetActive(), RoutingOptions::Steps), (startOnSteps));
+    else
+    {
+      TEST(code == RouterResultCode::StartPointNotFound || code == RouterResultCode::EndPointNotFound ||
+               code == RouterResultCode::RouteNotFound,
+           (startOnSteps, code));
+      TEST(withAvoidance.m_routes.empty(), (startOnSteps));
+    }
+  }
+}
+
 class TrailDifficultyFixture : public RoutingPreferenceFixture
 {
 public:
