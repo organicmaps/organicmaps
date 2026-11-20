@@ -58,10 +58,14 @@ std::optional<cycling::Sides> ReadCyclingSides(OsmElement const & element, bool 
     auto const oneway = tag(key + ":oneway");
     if (oneway == "yes" || oneway == "1" || oneway == "true")
       side.m_direction = Direction::Forward;
-    else if (oneway == "-1" || value.starts_with("opposite_"))
+    else if (oneway == "-1")
       side.m_direction = Direction::Backward;
     else if (negative(oneway))
       side.m_direction = Direction::Both;
+    else if (!oneway.empty())
+      side.m_direction = Direction::Unknown;
+    else if (value.starts_with("opposite_"))
+      side.m_direction = Direction::Backward;
     return side;
   };
   auto const both = read("cycleway:both", {});
