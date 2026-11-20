@@ -1658,3 +1658,6 @@ amenity|recycling|container
 *railway|station|subway|suzhou
 *railway|subway_entrance|suzhou
 *organicapp|twm_border
+*cyclewaytag|track
+*cyclewaytag|lane
+*cyclewaytag|shared_lane

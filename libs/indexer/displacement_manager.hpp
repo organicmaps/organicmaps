@@ -156,7 +156,6 @@ private:
       drule::KeysT keys;
       feature::GetDrawRule(types, zoomLevel, keys);
 
-      // While the function has "runtime" in its name, it merely filters by metadata-based rules.
       feature::FilterRulesByRuntimeSelector(ft, zoomLevel, drule::GetCurrentRules(), keys);
       drule::MakeUnique(keys);
 
