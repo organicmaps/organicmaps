@@ -2665,6 +2665,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"natural", "volcano"},
       {"natural", "water"},
       {"natural", "wetland"},
+      {"office", "accountant"},
       {"office", "architect"},
       {"office", "company"},
       {"office", "diplomatic"},
