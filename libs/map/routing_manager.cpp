@@ -549,7 +549,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
   // Ruler has no road profile and uses Transit session settings.
   VehicleType const vehicleType = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit);
 
-  m_loadAltitudes = vehicleType != VehicleType::Car;
+  bool const loadAltitudes = vehicleType != VehicleType::Car;
 
   std::unique_ptr<IRouter> router;
   std::unique_ptr<AbsentRegionsFinder> absentFinder;
@@ -581,7 +581,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
     auto const getMwmRectByName = [this](std::string const & countryId)
     { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
 
-    router = std::make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
+    router = std::make_unique<IndexRouter>(vehicleType, loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                            countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree,
                                            m_routingSession, dataSource);
     absentFinder = std::make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
@@ -1852,28 +1852,51 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   });
 }
 
-bool RoutingManager::HasRouteAltitude() const
+std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
 {
-  return m_loadAltitudes && m_routingSession.HasRouteAltitude();
-}
+  RouteElevationData data;
+  if (IsPreviewingTrack())
+  {
+    auto const & source = *m_followSession->m_source;
+    auto const [statistics, elevationInfo] = source.GetStatisticsAndElevationInfo();
+    if (!elevationInfo)
+      return std::nullopt;
+    data.m_elevationInfo = *elevationInfo;
+    data.m_statistics = statistics;
+    data.m_trackId = source.GetId();
+    return data;
+  }
 
-bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
-{
   auto const * route = m_routingSession.GetRoute();
   if (!route || !route->IsValid() || !route->HaveAltitudes())
-    return false;
+    return std::nullopt;
 
   geometry::Altitudes altitudes;
   route->GetAltitudes(altitudes);
 
-  ei.Assign(route->GetSegDistanceMeters(), altitudes);
-  ei.Simplify();
-  return std::ranges::any_of(ei.GetLines().front(),
-                             [](auto const & point) { return point.m_altitude != geometry::kDefaultAltitudeMeters; });
+  data.m_elevationInfo.Assign(route->GetSegDistanceMeters(), altitudes);
+  data.m_elevationInfo.Simplify();
+  if (!std::ranges::any_of(data.m_elevationInfo.GetLines().front(),
+                           [](auto const & point) { return point.m_altitude != geometry::kDefaultAltitudeMeters; }))
+  {
+    return std::nullopt;
+  }
+  auto const info = data.m_elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+  data.m_statistics.m_ascent = info.GetTotalAscent();
+  data.m_statistics.m_descent = info.GetTotalDescent();
+  data.m_statistics.m_minElevation = info.m_minAltitude;
+  data.m_statistics.m_maxElevation = info.m_maxAltitude;
+  return data;
 }
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
+  if (IsPreviewingTrack())
+  {
+    if (distanceMeters == m_followSession->m_info.m_entryDistanceM)
+      return m_followSession->m_data->m_points.front().GetPoint();
+    return m_followSession->m_source->GetPoint(distanceMeters);
+  }
   auto const * route = m_routingSession.GetRoute();
   if (!route || !route->IsValid())
     return std::nullopt;

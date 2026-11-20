@@ -66,7 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
                   finishPoint:(MWMRoutePoint *)finishPoint;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
 
-+ (BOOL)hasRouteAltitude;
 + (BOOL)saveRouteAsTrack;
 + (nullable RouteElevationPreviewData *)routeElevationProfileData;
 + (void)setRouteElevationActivePointDistance:(double)distance;

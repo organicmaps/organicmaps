@@ -2502,6 +2502,23 @@ void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
     m_drapeEngine->DeselectObject(restoreViewport);
 }
 
+void Framework::SetRouteElevationActivePoint(double distanceMeters)
+{
+  // An open place page owns the selection circle; chart scrubbing must not replace or clear it.
+  if (!m_drapeEngine || HasPlacePageInfo())
+    return;
+  if (auto const point = m_routingManager.GetRoutePointAtDistance(distanceMeters))
+    m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
+                                false /* isAnim */, false /* isGeometrySelectionAllowed */,
+                                true /* isSelectionShapeVisible */);
+}
+
+void Framework::ResetRouteElevationActivePoint()
+{
+  if (!HasPlacePageInfo())
+    DeactivateMapSelectionCircle(false /* restoreViewport */);
+}
+
 void Framework::SwitchFullScreen()
 {
   if (m_onSwitchFullScreen)

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "map/bookmark_manager.hpp"
+#include "map/elevation_info.hpp"
 #include "map/extrapolation/extrapolator.hpp"
 #include "map/routing_mark.hpp"
 #include "map/track_follow_data.hpp"
+#include "map/track_statistics.hpp"
 #include "map/transit/transit_display.hpp"
 #include "map/transit/transit_reader.hpp"
 
@@ -89,6 +91,13 @@ enum class FollowTrackResult
 };
 
 std::string DebugPrint(FollowTrackResult result);
+
+struct RouteElevationData
+{
+  ElevationInfo m_elevationInfo;
+  TrackStatistics m_statistics;
+  kml::TrackId m_trackId = kml::kInvalidTrackId;
+};
 
 class RoutingManager final
 {
@@ -332,15 +341,13 @@ public:
     m_routingSession.SetTurnNotificationsUnits(units);
   }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
-  /// \returns true if altitude information along |m_route| is available and
-  /// false otherwise.
-  bool HasRouteAltitude() const;
 
-  /// Returns true for a valid route with complete heights and a nonzero height after simplification.
-  bool GetRouteElevationInfo(ElevationInfo & ei) const;
+  // Preview charts use the captured full track; navigation charts use the active route.
+  // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
+  std::optional<RouteElevationData> GetRouteElevationData() const;
 
-  /// \brief Interpolates a point along the current route polyline at the given distance from start.
-  /// \return Nullopt if the route is invalid.
+  // Resolve a finite chart distance on the same geometry as GetRouteElevationData().
+  // The accepted preview entry identifies its section at a shared boundary distance.
   std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
   uint32_t OpenRoutePointsTransaction();
@@ -376,6 +383,7 @@ private:
   // Resolve a live source selection without changing the session.
   std::expected<SelectedTrack, FollowTrackResult> CheckTrackFollowable(kml::TrackId trackId) const;
   FollowTrackResult CheckFollowedTrackEditable(bool allowFollowing = false) const;
+  bool IsPreviewingTrack() const { return m_followSession && !IsRoutingFollowing(); }
 
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
                                        double entryDistanceM, routing::RouterType profile, bool keepViewport = false);
@@ -456,7 +464,6 @@ private:
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
-  bool m_loadAltitudes = false;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
 

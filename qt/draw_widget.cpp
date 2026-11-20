@@ -114,16 +114,8 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
     if (RoutingSettings::TurnsEnabled())
       m_turnsVisualizer.Visualize(routingManager, drapeApi);
 
-    auto const routerType = routingManager.GetLastUsedRouter();
-    if (routerType == routing::RouterType::Pedestrian || routerType == routing::RouterType::Bicycle)
-    {
-      ElevationInfo ei;
-      if (!routingManager.GetRouteElevationInfo(ei))
-        return;
-
-      auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-      LOG(LINFO, ("Ascent:", altInfo.GetTotalAscent(), "Descent:", altInfo.GetTotalDescent()));
-    }
+    if (auto const data = routingManager.GetRouteElevationData())
+      LOG(LINFO, ("Ascent:", data->m_statistics.m_ascent, "Descent:", data->m_statistics.m_descent));
   });
 
   routingManager.SetRouteRecommendationListener([this](RoutingManager::Recommendation r) { OnRouteRecommendation(r); });

@@ -309,18 +309,10 @@ double GetFollowedTrackLengthMeters(RoutingManager const & manager)
   return route->GetTotalDistanceMeters() - *route->GetTrackStartDistanceMeters();
 }
 
-kml::TrackId SaveRouteGeometry(RoutingManager & manager, BookmarkManager & bookmarks, kml::TrackGeometry const & points)
+void AssignRouteGeometry(RoutingManager & manager, kml::TrackGeometry const & points)
 {
-  bookmarks.EnableTestMode(true);
-  SCOPE_GUARD(restoreTestMode, [&] { bookmarks.EnableTestMode(false); });
-  // Saving is profile-independent; Ruler initializes without map regions.
-  manager.SetRouter(routing::RouterType::Ruler);
-  manager.Init(std::make_shared<routing::NumMwmIds>());
   auto const & start = points.front();
   auto const & finish = points.back();
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, start.GetPoint().x), false);
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, finish.GetPoint().x), false);
-
   routing::Segment const fake(routing::kFakeNumMwmId, 0, 0, false);
   std::vector<routing::RouteSegment> segments;
   double distance = 0.0;
@@ -341,6 +333,20 @@ kml::TrackId SaveRouteGeometry(RoutingManager & manager, BookmarkManager & bookm
   manager.RoutingSession().AssignRouteForTesting(routing::Route(result.GetActive()),
                                                  routing::RouterResultCode::NoError);
   TEST(manager.IsRouteValid(), ());
+}
+
+kml::TrackId SaveRouteGeometry(RoutingManager & manager, BookmarkManager & bookmarks, kml::TrackGeometry const & points)
+{
+  bookmarks.EnableTestMode(true);
+  SCOPE_GUARD(restoreTestMode, [&] { bookmarks.EnableTestMode(false); });
+  // Saving is profile-independent; Ruler initializes without map regions.
+  manager.SetRouter(routing::RouterType::Ruler);
+  manager.Init(std::make_shared<routing::NumMwmIds>());
+  auto const & start = points.front();
+  auto const & finish = points.back();
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, start.GetPoint().x), false);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, finish.GetPoint().x), false);
+  AssignRouteGeometry(manager, points);
   return manager.SaveRoute();
 }
 
@@ -1296,6 +1302,88 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 }
 
+UNIT_TEST(RoutingManager_RouteElevationDataUsesMeasuredTransitAltitudes)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  manager.SetRouter(routing::RouterType::Transit);
+  AssignRouteGeometry(manager, {{{0.0, 0.0}, 100}, {{0.001, 0.0}, 110}});
+  auto const data = manager.GetRouteElevationData();
+  TEST(data, ());
+  TEST_EQUAL(data->m_statistics.m_maxElevation, 110, ());
+}
+
+UNIT_TEST(RoutingManager_TrackChartUsesCapturedSourceUntilNavigation)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  TEST(!manager.GetRouteElevationData(), ());
+  TEST(!manager.GetRoutePointAtDistance(0.0), ());
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {},
+                                  {{MeterPoint(0, 0), 100}, {MeterPoint(400, 0), 180}, {MeterPoint(1000, 0), 120}});
+  auto const * track = bookmarks.GetTrack(id);
+  double const entryDistance = track->GetLengthMeters() * 0.6;
+  bookmarks.SetTrackSelectionInfo({id, track->GetPoint(entryDistance), entryDistance}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(500, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  auto const source = manager.GetFollowedTrack();
+  TEST(manager.GetRouteElevationData(), ("The source chart is available while its approach is building"));
+  fixture.WaitForBuildResult();
+  bookmarks.GetEditSession().DeleteTrack(id);
+
+  auto const checkPreview = [&]
+  {
+    auto const data = manager.GetRouteElevationData();
+    TEST(data, ());
+    TEST_EQUAL(data->m_trackId, id, ());
+    TEST_EQUAL(data->m_statistics.m_maxElevation, 180, ());
+    TEST_EQUAL(data->m_statistics.m_length, source->GetLengthMeters(), ());
+    TEST_EQUAL(manager.GetRoutePointAtDistance(-1.0), std::optional(MeterPoint(0, 0)), ());
+    TEST_EQUAL(manager.GetRoutePointAtDistance(source->GetLengthMeters() + 1.0), std::optional(MeterPoint(1000, 0)),
+               ());
+  };
+  checkPreview();
+
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+  auto const data = manager.GetRouteElevationData();
+  TEST(data, ());
+  TEST_EQUAL(data->m_trackId, kml::kInvalidTrackId, ());
+  TEST_LESS(data->m_statistics.m_maxElevation, 180, ("The earlier hill is outside the followed remainder"));
+  TEST_EQUAL(manager.GetRoutePointAtDistance(0.0), std::optional(MeterPoint(500, 0)), ());
+
+  TEST_EQUAL(manager.ResetFollowedTrackToPlanning(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  checkPreview();
+}
+
+UNIT_TEST(RoutingManager_TrackChartKeepsMapEntryOnSparseSegment)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const from = mercator::FromLatLon(45.0, 19.0);
+  auto const to = mercator::FromLatLon(45.25, 19.25);
+  auto const selectedPoint = (from + to) / 2.0;
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{from, 100}, {to, 200}});
+  auto const * track = bookmarks.GetTrack(id);
+  Track::TrackSelectionInfo selection;
+  track->UpdateSelectionInfo(selectedPoint, selection);
+  bookmarks.SetTrackSelectionInfo(selection, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+
+  double const distance = manager.GetFollowedTrackInfo()->m_entryDistanceM;
+  TEST_ALMOST_EQUAL_ABS(distance, track->GetLengthMeters() * 0.5, 0.01, ());
+  auto const marker = manager.GetRoutePointAtDistance(distance);
+  TEST(marker && marker->EqualDxDy(selectedPoint, mercator::kPointEqualityEps), ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(distance), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const & route = manager.RoutingSession().GetRoute()->GetPoly();
+  TEST(route.GetPoint(1).EqualDxDy(selectedPoint, mercator::kPointEqualityEps), ());
+}
+
 UNIT_TEST(RoutingManager_SetRouterReplacesTrackRouter)
 {
   for (bool const sameProfile : {false, true})
@@ -2189,8 +2277,7 @@ UNIT_TEST(RoutingManager_SaveRouteKeepsStopNames)
     routingManager.BuildRoute();
     guiThread.RunUntil([&] { return built; });
     TEST(routingManager.IsRouteValid(), ());
-    ElevationInfo elevation;
-    TEST(!routingManager.GetRouteElevationInfo(elevation), ());
+    TEST(!routingManager.GetRouteElevationData(), ());
 
     // Save the fix used by the build, even if the user moved again before saving.
     bmManager.MyPositionMark().SetUserPosition({0.0008, 0.0008}, true /* hasPosition */);
@@ -2452,8 +2539,7 @@ UNIT_TEST(RoutingManager_SaveRoutePreservesSingleSegmentGeometry)
     TEST_NOT_EQUAL(id, kml::kInvalidTrackId, ());
     auto const * track = bookmarks.GetTrack(id);
     TEST(track != nullptr, ());
-    ElevationInfo preview;
-    TEST(manager.GetRouteElevationInfo(preview), ());
+    TEST(manager.GetRouteElevationData(), ());
     TEST(track->GetElevationInfo(), ());
     TEST_EQUAL(track->GetData().m_geometry.m_lines.size(), 1, ());
     TEST_EQUAL(track->GetGeometry(), (kml::TrackGeometry{start, finish}), ());
@@ -2468,8 +2554,7 @@ UNIT_TEST(RoutingManager_SaveRouteWithMissingStartHidesElevation)
     kml::TrackGeometry const points = {{{19, 0}, geometry::kInvalidAltitude}, {{19.001, 0}, 100}, {{19.002, 0}, 110}};
     auto const id = SaveRouteGeometry(manager, bookmarks, points);
     TEST_NOT_EQUAL(id, kml::kInvalidTrackId, ());
-    ElevationInfo preview;
-    TEST(!manager.GetRouteElevationInfo(preview), ());
+    TEST(!manager.GetRouteElevationData(), ());
     auto const * track = bookmarks.GetTrack(id);
     TEST(track, ());
     TEST_EQUAL(track->GetGeometry(), points, ());
@@ -2498,8 +2583,7 @@ UNIT_TEST(RoutingManager_RoutePreviewHidesZeroOnlyProfilesAfterSimplification)
       TEST(track, ());
       TEST_EQUAL(track->GetGeometry(), points, ());
 
-      ElevationInfo preview;
-      TEST_EQUAL(manager.GetRouteElevationInfo(preview), expectPreview, (endAltitude, midAltitude));
+      TEST_EQUAL(manager.GetRouteElevationData().has_value(), expectPreview, (endAltitude, midAltitude));
     });
   }
 }
