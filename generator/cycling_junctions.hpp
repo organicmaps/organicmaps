@@ -28,6 +28,7 @@ struct CyclingWay
   uint64_t m_id = 0;
   std::string m_layer, m_level, m_sides;
   bool m_reversed = false;
+  bool m_isCrossing = false;
   std::vector<Node> m_nodes;
   bool operator==(CyclingWay const &) const = default;
 };
