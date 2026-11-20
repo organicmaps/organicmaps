@@ -14,7 +14,6 @@
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 #include "map/routing_mark.hpp"
-#include "map/track.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -63,10 +62,8 @@
 
 #include "ge0/url_generator.hpp"
 
-#include <algorithm>
 #include <functional>
 #include <memory>
-#include <optional>
 #include <string>
 #include <vector>
 

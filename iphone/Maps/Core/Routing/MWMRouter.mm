@@ -48,14 +48,14 @@ using namespace routing;
   return router;
 }
 
-+ (BOOL)hasRouteAltitude
-{
-  return GetFramework().GetRoutingManager().HasRouteAltitude();
-}
-
 + (RouteElevationPreviewData *)routeElevationProfileData
 {
-  auto const data = GetFramework().GetRoutingManager().GetRouteElevationData();
+  auto const & manager = GetFramework().GetRoutingManager();
+  auto const profile = manager.GetRenderRouterType();
+  if (!manager.IsFollowingTrack() && profile != RouterType::Pedestrian && profile != RouterType::Bicycle)
+    return nil;
+
+  auto const data = manager.GetRouteElevationData();
   if (!data)
     return nil;
 

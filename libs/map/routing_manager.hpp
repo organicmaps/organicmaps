@@ -76,6 +76,22 @@ struct FollowedTrackInfo
   routing::RouterType m_profile = routing::RouterType::Vehicle;
 };
 
+/// Everything but Ok leaves the routing session exactly as it was.
+enum class FollowTrackResult
+{
+  Ok,
+  /// The requested live source track does not exist.
+  NoTrack,
+  /// Active navigation or a pending Start prevents this operation.
+  Busy,
+  /// The selected occurrence is missing or no longer matches its source.
+  InvalidSelection,
+  /// No horizontal geometry remains in the selected connected section.
+  NoRemainingGeometry,
+};
+
+std::string DebugPrint(FollowTrackResult result);
+
 struct RouteElevationData
 {
   ElevationInfo m_elevationInfo;
@@ -325,9 +341,8 @@ public:
     m_routingSession.SetTurnNotificationsUnits(units);
   }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
-  // Preview charts use the captured full track; navigation charts use the active route.
-  bool HasRouteAltitude() const;
 
+  // Preview charts use the captured full track; navigation charts use the active route.
   // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
   std::optional<RouteElevationData> GetRouteElevationData() const;
 
@@ -368,6 +383,7 @@ private:
   // Resolve a live source selection without changing the session.
   std::expected<SelectedTrack, FollowTrackResult> CheckTrackFollowable(kml::TrackId trackId) const;
   FollowTrackResult CheckFollowedTrackEditable(bool allowFollowing = false) const;
+  bool IsPreviewingTrack() const { return m_followSession && !IsRoutingFollowing(); }
 
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
                                        double entryDistanceM, routing::RouterType profile, bool keepViewport = false);

@@ -114,8 +114,13 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
     if (RoutingSettings::TurnsEnabled())
       m_turnsVisualizer.Visualize(routingManager, drapeApi);
 
-    if (auto const data = routingManager.GetRouteElevationData())
-      LOG(LINFO, ("Ascent:", data->m_statistics.m_ascent, "Descent:", data->m_statistics.m_descent));
+    auto const profile = routingManager.GetRenderRouterType();
+    if (routingManager.IsFollowingTrack() || profile == routing::RouterType::Pedestrian ||
+        profile == routing::RouterType::Bicycle)
+    {
+      if (auto const data = routingManager.GetRouteElevationData())
+        LOG(LINFO, ("Ascent:", data->m_statistics.m_ascent, "Descent:", data->m_statistics.m_descent));
+    }
   });
 
   routingManager.SetRouteRecommendationListener([this](RoutingManager::Recommendation r) { OnRouteRecommendation(r); });
@@ -512,7 +517,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
     routing::FollowingInfo loc;
     routingManager.GetRouteFollowingInfo(loc);
-    if (routingManager.GetRouter() == routing::RouterType::Pedestrian)
+    if (routingManager.GetRenderRouterType() == routing::RouterType::Pedestrian)
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, DebugPrint(loc.m_pedestrianTurn), "in",
                    loc.m_distToTurn.ToString(), loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName));

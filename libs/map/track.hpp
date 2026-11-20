@@ -35,6 +35,8 @@ public:
 
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
+  // One cumulative distance per vertex, measured from the beginning of the full track, excluding gaps.
+  std::vector<Lengths> const & GetCumulativeLengths() const;
   double GetDurationInSeconds() const;
 
   std::pair<TrackStatistics, ElevationInfo const *> GetStatisticsAndElevationInfo() const;
@@ -120,8 +122,6 @@ private:
   m2::RectD GetLimitRectImpl() const;
 
   void CacheDataForInteraction() const;
-
-  double GetLengthMetersImpl(size_t lineIndex, size_t ptIdx) const;
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;

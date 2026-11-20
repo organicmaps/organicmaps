@@ -1,5 +1,7 @@
 #include "map/track_follow_data.hpp"
 
+#include "map/track.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 
@@ -9,6 +11,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iterator>
 #include <tuple>
 #include <unordered_map>
 #include <utility>
@@ -104,11 +107,8 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
       auto const & to = line[segment + 1].GetPoint();
       auto const direction = to - from;
       double const minFraction = lineIndex == bound.m_line && segment == bound.m_segment ? bound.m_fraction : 0.0;
-      double const fraction =
-          direction.SquaredLength() > 0.0
-              ? math::Clamp(m2::DotProduct(point - from, direction) / direction.SquaredLength(), minFraction, 1.0)
-              : minFraction;
-      auto const projected = from + direction * fraction;
+      double const fraction = std::max(minFraction, m2::SegmentProjectionFraction(from, to, point));
+      auto const projected = fraction == 1.0 ? to : from + direction * fraction;
       auto const fromBound = from + direction * minFraction;
       if (!canProject)
         canProject = mercator::DistanceOnEarth(departureCenter, fromBound) > departureRadiusM;
@@ -132,71 +132,57 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
 }
 }  // namespace
 
-std::string DebugPrint(FollowTrackResult result)
+TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFromBeginningM)
 {
-  switch (result)
-  {
-  case FollowTrackResult::Ok: return "Ok";
-  case FollowTrackResult::NoTrack: return "NoTrack";
-  case FollowTrackResult::Busy: return "Busy";
-  case FollowTrackResult::InvalidSelection: return "InvalidSelection";
-  case FollowTrackResult::NoRemainingGeometry: return "NoRemainingGeometry";
-  }
-  UNREACHABLE();
+  auto const & lengths = track.GetCumulativeLengths();
+  ASSERT(math::is_finite(distanceFromBeginningM) && distanceFromBeginningM >= 0.0 &&
+             distanceFromBeginningM <= lengths.back().back(),
+         (distanceFromBeginningM, lengths.back().back()));
+  auto const line =
+      std::ranges::lower_bound(lengths, distanceFromBeginningM, {}, [](auto const & l) { return l.back(); });
+  // Search segment ends. At equal distances this keeps the first occurrence, including at a gap.
+  auto const end = std::lower_bound(line->begin() + 1, line->end(), distanceFromBeginningM);
+  double const start = *std::prev(end);
+  double const length = *end - start;
+  double const fraction = length > 0.0 ? (distanceFromBeginningM - start) / length : 0.0;
+  auto const lineIndex = static_cast<size_t>(line - lengths.begin());
+  auto const segment = static_cast<size_t>(end - line->begin() - 1);
+  return NormalizePosition(track.GetData().m_geometry, {lineIndex, segment, fraction});
 }
 
-TrackSourcePosition ResolveTrackEntryAt(kml::MultiGeometry const & geometry, double distanceFromBeginningM)
-{
-  double distance = 0.0;
-  for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
-  {
-    auto const & line = geometry.m_lines[lineIndex];
-    for (size_t segment = 0; segment + 1 < line.size(); ++segment)
-    {
-      double const length = mercator::DistanceOnEarth(line[segment].GetPoint(), line[segment + 1].GetPoint());
-      double const end = distance + length;
-      if (distanceFromBeginningM <= end)
-      {
-        double const fraction = length > 0.0 ? (distanceFromBeginningM - distance) / length : 0.0;
-        return NormalizePosition(geometry, {lineIndex, segment, fraction});
-      }
-      distance = end;
-    }
-  }
-  ASSERT_LESS_OR_EQUAL(distanceFromBeginningM, distance, ("Chart distance exceeds source length"));
-  UNREACHABLE();
-}
-
-std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & geometry,
-                                                     m2::PointD const & selectedPoint, double distanceFromBeginningM)
+std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::PointD const & selectedPoint,
+                                                     double distanceFromBeginningM)
 {
   ASSERT(math::is_finite(distanceFromBeginningM), (distanceFromBeginningM));
   if (distanceFromBeginningM < 0.0)
     return std::nullopt;
 
-  double distance = 0.0;
-  for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
+  auto const & lengths = track.GetCumulativeLengths();
+  auto const & geometry = track.GetData().m_geometry;
+  auto const endsTooEarly = [&](double end) { return distanceFromBeginningM - end > kSelectionDistanceToleranceM; };
+  auto const firstLine = std::ranges::partition_point(lengths, endsTooEarly, [](auto const & l) { return l.back(); });
+  for (auto lineIt = firstLine; lineIt != lengths.end(); ++lineIt)
   {
+    size_t const lineIndex = lineIt - lengths.begin();
     auto const & line = geometry.m_lines[lineIndex];
-    for (size_t segment = 0; segment + 1 < line.size(); ++segment)
+    auto const & lineLengths = *lineIt;
+    auto const firstEnd = std::partition_point(lineLengths.begin() + 1, lineLengths.end(), endsTooEarly);
+    for (auto end = firstEnd; end != lineLengths.end(); ++end)
     {
+      double const start = *std::prev(end);
+      if (start - distanceFromBeginningM > kSelectionDistanceToleranceM)
+        return std::nullopt;
+      size_t const segment = end - lineLengths.begin() - 1;
       auto const & from = line[segment].GetPoint();
       auto const & to = line[segment + 1].GetPoint();
-      double const length = mercator::DistanceOnEarth(from, to);
-      m2::ParametrizedSegment<m2::PointD> const edge(from, to);
-      auto const projected = edge.ClosestPointTo(selectedPoint);
-      auto const delta = to - from;
-      double const fraction = delta.SquaredLength() > 0.0
-                                ? math::Clamp(m2::DotProduct(projected - from, delta) / delta.SquaredLength(), 0.0, 1.0)
-                                : 0.0;
-      double const end = distance + length;
-      double const selectedDistance = std::lerp(distance, end, fraction);
+      double const fraction = m2::SegmentProjectionFraction(from, to, selectedPoint);
+      auto const projected = fraction == 1.0 ? to : from + (to - from) * fraction;
+      double const selectedDistance = std::lerp(start, *end, fraction);
       if (projected.EqualDxDy(selectedPoint, mercator::kPointEqualityEps) &&
           AlmostEqualAbs(distanceFromBeginningM, selectedDistance, kSelectionDistanceToleranceM))
       {
         return NormalizePosition(geometry, {lineIndex, segment, fraction});
       }
-      distance = end;
     }
   }
   return std::nullopt;

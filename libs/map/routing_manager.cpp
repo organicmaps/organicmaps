@@ -246,7 +246,7 @@ private:
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
                                             double baseDistance, double baseDepth, routing::RouterType routerType,
-                                            std::optional<double> trackApproachMerc)
+                                            bool isGeometric, double approachMerc)
 {
   auto subroute = make_unique_dp<df::Subroute>();
   subroute->m_baseDistance = baseDistance;
@@ -275,10 +275,10 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
   }
 
   // Geometry-only routes use real-segment styling; ordinary connectors keep their fake-edge style.
-  if (routerType == RouterType::Ruler || trackApproachMerc)
+  if (isGeometric)
   {
     // The straight approach to a track entry is the only dashed head of a geometric route.
-    subroute->m_headFakeDistance = trackApproachMerc && *trackApproachMerc > 0.0 ? *trackApproachMerc : -kBias;
+    subroute->m_headFakeDistance = approachMerc > 0.0 ? approachMerc : -kBias;
     subroute->m_tailFakeDistance = segments.back().GetDistFromBeginningMerc() - baseDistance + kBias;
     subroute->m_polyline = m2::PolylineD(std::move(points));
     return subroute;
@@ -330,6 +330,19 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
   return subroute;
 }
 }  // namespace
+
+std::string DebugPrint(FollowTrackResult result)
+{
+  switch (result)
+  {
+  case FollowTrackResult::Ok: return "Ok";
+  case FollowTrackResult::NoTrack: return "NoTrack";
+  case FollowTrackResult::Busy: return "Busy";
+  case FollowTrackResult::InvalidSelection: return "InvalidSelection";
+  case FollowTrackResult::NoRemainingGeometry: return "NoRemainingGeometry";
+  }
+  UNREACHABLE();
+}
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(std::move(callbacks))
@@ -871,6 +884,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
   auto const renderRouterType = GetRenderRouterType();
+  bool const isGeometric = renderRouterType == RouterType::Ruler || route.IsTrack();
 
   std::vector<RouteSegment> segments;
   double distance = 0.0;
@@ -881,16 +895,13 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
     auto const & attrs = route.GetSubrouteAttrs(subrouteIndex);
     auto const startPt = attrs.GetStart().GetPoint();
-    std::optional<double> trackApproachMerc;
-    if (route.IsTrack())
-    {
-      trackApproachMerc = 0.0;
-      if (*route.GetTrackStartDistanceMeters() > 0.0 && attrs.GetBeginSegmentIdx() == 0)
-        trackApproachMerc = route.GetRouteSegments().front().GetDistFromBeginningMerc();
-    }
+    double const approachMerc =
+        attrs.GetBeginSegmentIdx() == 0 && route.GetTrackStartDistanceMeters().value_or(0.0) > 0.0
+            ? route.GetRouteSegments().front().GetDistFromBeginningMerc()
+            : 0.0;
     auto subroute = CreateDrapeSubroute(segments, startPt, distance,
                                         static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset,
-                                        renderRouterType, trackApproachMerc);
+                                        renderRouterType, isGeometric, approachMerc);
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
@@ -1105,7 +1116,7 @@ std::expected<RoutingManager::SelectedTrack, FollowTrackResult> RoutingManager::
   auto const selection = m_bmManager->GetTrackSelectionInfo(trackId);
   if (!selection.IsValid())
     return std::unexpected(FollowTrackResult::InvalidSelection);
-  auto const entry = ResolveTrackEntry(track->GetData().m_geometry, selection.m_trackPoint, selection.m_distFromBegM);
+  auto const entry = ResolveTrackEntry(*track, selection.m_trackPoint, selection.m_distFromBegM);
   if (!entry)
     return std::unexpected(FollowTrackResult::InvalidSelection);
   return SelectedTrack{track, *entry, selection.m_distFromBegM};
@@ -1209,9 +1220,8 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
   auto const source = m_followSession->m_source;
   distanceM = std::clamp(distanceM, 0.0, source->GetLengthMeters());
   // Both ends of a gap share a chart distance.
-  auto const entry = distanceM == m_followSession->m_info.m_entryDistanceM
-                       ? m_followSession->m_entry
-                       : ResolveTrackEntryAt(source->GetData().m_geometry, distanceM);
+  auto const entry = distanceM == m_followSession->m_info.m_entryDistanceM ? m_followSession->m_entry
+                                                                           : ResolveTrackEntryAt(*source, distanceM);
   return BuildFollowedTrack(source, entry, distanceM, m_followSession->m_info.m_profile, true /* keepViewport */);
 }
 
@@ -1844,20 +1854,10 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   });
 }
 
-bool RoutingManager::HasRouteAltitude() const
-{
-  if (m_followSession && !IsRoutingFollowing())
-    return m_followSession->m_source->HasAltitudes();
-  // A TrackRouter route always carries the track altitudes, whatever the follow profile is.
-  auto const profile = GetRenderRouterType();
-  return (IsFollowingTrack() || profile == RouterType::Pedestrian || profile == RouterType::Bicycle) &&
-         m_routingSession.HasRouteAltitude();
-}
-
 std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
 {
   RouteElevationData data;
-  if (m_followSession && !IsRoutingFollowing())
+  if (IsPreviewingTrack())
   {
     auto const & source = *m_followSession->m_source;
     auto const [statistics, elevationInfo] = source.GetStatisticsAndElevationInfo();
@@ -1894,7 +1894,7 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
   ASSERT(math::is_finite(distanceMeters), (distanceMeters));
-  if (m_followSession && !IsRoutingFollowing())
+  if (IsPreviewingTrack())
   {
     if (distanceMeters == m_followSession->m_info.m_entryDistanceM)
       return m_followSession->m_data->m_points.front().GetPoint();

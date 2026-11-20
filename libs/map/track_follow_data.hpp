@@ -5,7 +5,8 @@
 #include "kml/types.hpp"
 
 #include <optional>
-#include <string>
+
+class Track;
 
 struct TrackSourcePosition
 {
@@ -16,29 +17,12 @@ struct TrackSourcePosition
   bool operator==(TrackSourcePosition const &) const = default;
 };
 
-/// \brief Why a follow-track request was refused. Everything but Ok leaves the routing session
-/// exactly as it was.
-enum class FollowTrackResult
-{
-  Ok,
-  /// The requested live source track does not exist.
-  NoTrack,
-  /// Active navigation or a pending Start prevents this operation.
-  Busy,
-  /// The selected occurrence is missing or no longer matches its source.
-  InvalidSelection,
-  /// No horizontal geometry remains in the selected connected section.
-  NoRemainingGeometry,
-};
-
-std::string DebugPrint(FollowTrackResult result);
-
 // Resolve the selected source occurrence using both its coordinate and finite chart distance.
-std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & geometry,
-                                                     m2::PointD const & selectedPoint, double distanceFromBeginningM);
+std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::PointD const & selectedPoint,
+                                                     double distanceFromBeginningM);
 
-// The caller supplies a finite distance in [0, source length], summed like Track::GetLengthMeters().
-TrackSourcePosition ResolveTrackEntryAt(kml::MultiGeometry const & geometry, double distanceFromBeginningM);
+// The caller supplies a finite distance in [0, track length]. A gap uses the preceding section.
+TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFromBeginningM);
 
 // Whether horizontal geometry remains after a valid source position, without preparing stops.
 bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourcePosition const & entry);
