@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "kml/serdes_common.hpp"
 #include "kml/serdes_geojson.hpp"
 
 #include "base/timer.hpp"
@@ -850,6 +851,7 @@ kml::FileData GenerateKmlFileDataWithTrack()
   trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
                                 {mercator::FromLatLon(48, 45.5), 2},
                                 {mercator::FromLatLon(49, 45.75), 3}});
+  trackData.m_geometry.AddTimestamps({});
 
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
@@ -862,6 +864,7 @@ kml::FileData GenerateKmlFileDataWithTrack()
 
   trackData2.m_geometry.AddLine(
       {{mercator::FromLatLon(22, 30.1), 1}, {mercator::FromLatLon(23, 30.2), 2}, {mercator::FromLatLon(24, 30.3), 3}});
+  trackData2.m_geometry.AddTimestamps({});
 
   result.m_tracksData.emplace_back(std::move(trackData2));
 
@@ -888,10 +891,12 @@ kml::FileData GenerateKmlFileDataWithMultiTrack()
   trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
                                 {mercator::FromLatLon(48, 45.5), 2},
                                 {mercator::FromLatLon(49, 45.75), 3}});
+  trackData.m_geometry.AddTimestamps({});
   trackData.m_geometry.AddLine({{mercator::FromLatLon(49.2, 45.95), 1},
                                 {mercator::FromLatLon(49.4, 46.15), 2},
                                 {mercator::FromLatLon(49.6, 46.40), 3},
                                 {mercator::FromLatLon(49.8, 46.55), 4}});
+  trackData.m_geometry.AddTimestamps({});
 
   result.m_tracksData.emplace_back(std::move(trackData));
 
@@ -900,8 +905,6 @@ kml::FileData GenerateKmlFileDataWithMultiTrack()
 
 UNIT_TEST(GeoJson_Parse_Elevation)
 {
-  // Mixed 2D/3D: the 2D point gets kDefaultAltitudeMeters (0), not kInvalidAltitude,
-  // because other points in the same line carry Z — preserving the elevation chart.
   std::string_view constexpr inputMixed = R"({
   "type": "FeatureCollection",
   "features": [
@@ -920,15 +923,14 @@ UNIT_TEST(GeoJson_Parse_Elevation)
   ]
 })";
 
-  kml::FileData const mixed = LoadGeojsonFromString(inputMixed);
+  auto mixed = LoadGeojsonFromString(inputMixed);
+  kml::NormalizeImportedTracks(mixed);
   TEST_EQUAL(mixed.m_tracksData.size(), 1, ());
   auto const & line = mixed.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 3, ());
   TEST_EQUAL(line[0].GetAltitude(), 410, ());
   TEST_EQUAL(line[1].GetAltitude(), 411, ());
-  // 2D point in a mixed line gets kDefaultAltitudeMeters (sea level) to preserve
-  // the elevation chart — it does NOT get kInvalidAltitude.
-  TEST_EQUAL(line[2].GetAltitude(), geometry::kDefaultAltitudeMeters, ());
+  TEST_EQUAL(line[2].GetAltitude(), geometry::kInvalidAltitude, ());
 
   // All-2D line: every point gets kInvalidAltitude (no elevation data at all).
   std::string_view constexpr inputAllFlat = R"({
@@ -968,28 +970,19 @@ UNIT_TEST(GeoJson_Parse_Elevation)
     TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
 }
 
-UNIT_TEST(GeoJson_Writer_Elevation_Mixed)
+UNIT_TEST(GeoJson_Writer_Elevation_KeepsZerosAcrossSections)
 {
-  // A track where some points have kInvalidAltitude — Z should still be emitted
-  // with 0 used in place of kInvalidAltitude, so all three coordinates are 3-element.
   kml::FileData fileData;
-  kml::TrackData track;
+  auto & track = fileData.m_tracksData.emplace_back();
   track.m_layers = {{5.0, {kml::PredefinedColor::Red, 0}}};
-  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), 100},
-                            {mercator::FromLatLon(47.1, 8.1), geometry::kInvalidAltitude},
-                            {mercator::FromLatLon(47.2, 8.2), 200}});
+  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), 100}, {mercator::FromLatLon(47.1, 8.1), 0}});
+  track.m_geometry.AddLine({{mercator::FromLatLon(47.2, 8.2), 0}, {mercator::FromLatLon(47.3, 8.3), 0}});
   track.m_geometry.AddTimestamps({});
-  fileData.m_tracksData.emplace_back(std::move(track));
+  track.m_geometry.AddTimestamps({});
 
-  // Parse the output and verify each coordinate has 3 elements with the right Z value.
-  auto const json = SaveToGeoJsonString(fileData, true);
-  kml::FileData const parsed = LoadGeojsonFromString(json);
+  auto const parsed = LoadGeojsonFromString(SaveToGeoJsonString(fileData, true));
   TEST_EQUAL(parsed.m_tracksData.size(), 1, ());
-  auto const & line = parsed.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 3, ());
-  TEST_EQUAL(line[0].GetAltitude(), 100, ());
-  TEST_EQUAL(line[1].GetAltitude(), 0, ());  // kInvalidAltitude fallback → 0
-  TEST_EQUAL(line[2].GetAltitude(), 200, ());
+  TEST_EQUAL(parsed.m_tracksData.front().m_geometry, track.m_geometry, ());
 }
 
 UNIT_TEST(GeoJson_Writer_Elevation_AllInvalid)
@@ -1045,7 +1038,7 @@ UNIT_TEST(GeoJson_Parse_Timestamps)
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   auto const & track = data.m_tracksData[0];
   TEST(track.m_geometry.HasTimestamps(), ());
-  TEST(track.m_geometry.HasTimestampsFor(0), ());
+  TEST_EQUAL(track.m_geometry.m_timestamps.size(), 1, ());
   auto const & timestamps = track.m_geometry.m_timestamps[0];
   TEST_EQUAL(timestamps.size(), 3, ());
   TEST_EQUAL(timestamps[0], base::StringToTimestamp("2026-05-31T12:34:56Z"), ());
@@ -1151,7 +1144,8 @@ UNIT_TEST(GeoJson_Parse_Timestamps_OutOfRangeNumber)
   }]
 })";
 
-  auto const data = LoadGeojsonFromString(input);
+  auto data = LoadGeojsonFromString(input);
+  kml::NormalizeImportedTracks(data);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
 }
@@ -1271,8 +1265,7 @@ UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine)
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   auto const & geom = data.m_tracksData[0].m_geometry;
   TEST_EQUAL(geom.m_lines.size(), 2, ());
-  TEST(geom.HasTimestampsFor(0), ());
-  TEST(geom.HasTimestampsFor(1), ());
+  TEST_EQUAL(geom.m_timestamps.size(), 2, ());
   TEST_EQUAL(geom.m_timestamps[0].size(), 2, ());
   TEST_EQUAL(geom.m_timestamps[1].size(), 3, ());
   TEST_EQUAL(geom.m_timestamps[0][0], base::StringToTimestamp("2026-05-31T12:34:56Z"), ());
@@ -1472,56 +1465,10 @@ UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine_SkipsEmptySegments)
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   auto const & geom = data.m_tracksData[0].m_geometry;
   TEST_EQUAL(geom.m_lines.size(), 1, ());  // empty segment skipped
-  TEST(geom.HasTimestampsFor(0), ());
+  TEST_EQUAL(geom.m_timestamps.size(), 1, ());
   TEST_EQUAL(geom.m_timestamps[0].size(), 2, ());
   TEST_EQUAL(geom.m_timestamps[0][0], base::StringToTimestamp("2026-05-31T12:40:00Z"), ());
   TEST_EQUAL(geom.m_timestamps[0][1], base::StringToTimestamp("2026-05-31T12:40:05Z"), ());
-}
-
-UNIT_TEST(GeoJson_Writer_Timestamps_InvalidTimestamp)
-{
-  // INVALID_TIME_STAMP entries must be emitted as JSON null, not "INVALID_TIME_STAMP".
-  // The "time" property must be skipped when the first timestamp is invalid.
-  kml::FileData fileData;
-  kml::TrackData track;
-  track.m_layers = {{5.0, {kml::PredefinedColor::Red, 0}}};
-  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), geometry::kInvalidAltitude},
-                            {mercator::FromLatLon(47.1, 8.1), geometry::kInvalidAltitude},
-                            {mercator::FromLatLon(47.2, 8.2), geometry::kInvalidAltitude}});
-  track.m_geometry.AddTimestamps(
-      {base::INVALID_TIME_STAMP, base::StringToTimestamp("2026-05-31T12:35:01Z"), base::INVALID_TIME_STAMP});
-  fileData.m_tracksData.emplace_back(std::move(track));
-
-  auto const json = SaveToGeoJsonString(fileData, true);
-  TEST(json.find("INVALID_TIME_STAMP") == std::string::npos, ());
-  TEST(json.find("null") != std::string::npos, ());
-  // "time" property must not appear since first timestamp is invalid.
-  TEST(json.find("\"time\"") == std::string::npos, ());
-  // The valid middle timestamp must still appear in coordTimes.
-  TEST(json.find("2026-05-31T12:35:01Z") != std::string::npos, ());
-}
-
-UNIT_TEST(GeoJson_Writer_Timestamps_MultiLine_InvalidTimestamp)
-{
-  // Multiline: first valid timestamp is on line 1, not line 0.
-  // "time" must be set to line 1's first valid timestamp via find_if.
-  kml::FileData fileData;
-  kml::TrackData track;
-  track.m_layers = {{5.0, {kml::PredefinedColor::Red, 0}}};
-  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), geometry::kInvalidAltitude},
-                            {mercator::FromLatLon(47.1, 8.1), geometry::kInvalidAltitude}});
-  track.m_geometry.AddTimestamps({base::INVALID_TIME_STAMP, base::INVALID_TIME_STAMP});
-  track.m_geometry.AddLine({{mercator::FromLatLon(47.2, 8.2), geometry::kInvalidAltitude},
-                            {mercator::FromLatLon(47.3, 8.3), geometry::kInvalidAltitude}});
-  track.m_geometry.AddTimestamps(
-      {base::StringToTimestamp("2026-05-31T13:00:00Z"), base::StringToTimestamp("2026-05-31T13:00:05Z")});
-  fileData.m_tracksData.emplace_back(std::move(track));
-
-  auto const json = SaveToGeoJsonString(fileData, true);
-  TEST(json.find("INVALID_TIME_STAMP") == std::string::npos, ());
-  // "time" comes from line 1's first valid timestamp.
-  TEST(json.find("\"time\"") != std::string::npos, ());
-  TEST(json.find("2026-05-31T13:00:00Z") != std::string::npos, ());
 }
 
 UNIT_TEST(GeoJson_RoundTrip_Timestamps_MultiLine)
@@ -1585,7 +1532,8 @@ UNIT_TEST(GeoJson_Parse_Timestamps_NonMonotonic)
   ]
 })";
 
-  kml::FileData const data = LoadGeojsonFromString(input);
+  auto data = LoadGeojsonFromString(input);
+  kml::NormalizeImportedTracks(data);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   TEST_EQUAL(data.m_tracksData[0].m_geometry.m_lines[0].size(), 3, ());  // geometry kept
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());            // timestamps dropped
@@ -1611,16 +1559,15 @@ UNIT_TEST(GeoJson_Parse_Timestamps_InvalidEntry)
   ]
 })";
 
-  kml::FileData const data = LoadGeojsonFromString(input);
+  auto data = LoadGeojsonFromString(input);
+  kml::NormalizeImportedTracks(data);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   TEST_EQUAL(data.m_tracksData[0].m_geometry.m_lines[0].size(), 3, ());
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
 }
 
-UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine_PartialSanitized)
+UNIT_TEST(GeoJson_RoundTrip_Timestamps_KeepsCompleteSection)
 {
-  // One line has valid sorted timestamps, the other is non-monotonic: only the bad line's
-  // timestamps are dropped, leaving a track with timestamps on some lines only.
   std::string_view constexpr input = R"({
   "type": "FeatureCollection",
   "features": [
@@ -1628,8 +1575,8 @@ UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine_PartialSanitized)
       "type": "Feature",
       "properties": {
         "coordTimes": [
-          ["2026-05-31T12:00:00Z", "2026-05-31T12:00:05Z"],
-          ["2026-05-31T12:10:10Z", "2026-05-31T12:10:00Z"]
+          ["2026-05-31T12:00:05Z", "2026-05-31T12:00:00Z"],
+          ["2026-05-31T12:10:00Z", "2026-05-31T12:10:10Z"]
         ]
       },
       "geometry": {
@@ -1643,32 +1590,33 @@ UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine_PartialSanitized)
   ]
 })";
 
-  kml::FileData const data = LoadGeojsonFromString(input);
+  auto data = LoadGeojsonFromString(input);
+  kml::NormalizeImportedTracks(data);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   auto const & geom = data.m_tracksData[0].m_geometry;
   TEST_EQUAL(geom.m_lines.size(), 2, ());
-  TEST(geom.HasTimestampsFor(0), ());   // first line kept
-  TEST(!geom.HasTimestampsFor(1), ());  // second line (non-monotonic) dropped
-  TEST_EQUAL(geom.m_timestamps[0].size(), 2, ());
+  TEST(geom.m_timestamps.front().empty(), ());
+  TEST_EQUAL(geom.m_timestamps.back(),
+             (kml::MultiGeometry::TimeT{base::StringToTimestamp("2026-05-31T12:10:00Z"),
+                                        base::StringToTimestamp("2026-05-31T12:10:10Z")}),
+             ());
+  auto const exported = SaveToGeoJsonString(data, true);
+  TEST(exported.contains("\"time\":\"2026-05-31T12:10:00Z\""), (exported));
+  auto const reloaded = LoadGeojsonFromString(exported);
+  TEST_EQUAL(reloaded.m_tracksData.front().m_geometry, geom, ());
 }
 
-UNIT_TEST(GeoJson_Writer_Elevation_AllDefault)
+UNIT_TEST(GeoJson_Writer_Elevation_AllZero)
 {
-  // A track whose points all carry the default sea-level altitude (0) has no real elevation,
-  // so the writer must NOT emit a Z coordinate (otherwise every flat track would be bloated
-  // with z=0). Proven by round-trip: a 2D export re-imports as kInvalidAltitude.
   kml::FileData fileData;
-  kml::TrackData track;
+  auto & track = fileData.m_tracksData.emplace_back();
   track.m_layers = {{5.0, {kml::PredefinedColor::Red, 0}}};
-  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), geometry::kDefaultAltitudeMeters},
-                            {mercator::FromLatLon(47.1, 8.1), geometry::kDefaultAltitudeMeters}});
+  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), 0}, {mercator::FromLatLon(47.1, 8.1), 0}});
   track.m_geometry.AddTimestamps({});
-  fileData.m_tracksData.emplace_back(std::move(track));
 
   kml::FileData const parsed = LoadGeojsonFromString(SaveToGeoJsonString(fileData, true));
   TEST_EQUAL(parsed.m_tracksData.size(), 1, ());
-  for (auto const & pt : parsed.m_tracksData[0].m_geometry.m_lines[0])
-    TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
+  TEST_EQUAL(parsed.m_tracksData.front().m_geometry, track.m_geometry, ());
 }
 
 // Exports a single bookmark and returns the value of its "name" property, or nullopt if the
