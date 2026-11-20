@@ -1265,6 +1265,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"motorcar", "designated", [&flags] { flags[Flags::MotorCar] = 1; }},
       });
 
+      bool hasCycleway = false;
+      bool hasRoadWideCyclewayDenial = false;
       for (auto const & tag : p->Tags())
       {
         if (!IsCyclewayKey(tag.m_key))
@@ -1272,15 +1274,15 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           bool const isCyclewayLaneTag = tag.m_key.ends_with(":lane") &&
                                          IsCyclewayKey(tag.m_key.substr(0, tag.m_key.size() - string(":lane").size()));
           if (isCyclewayLaneTag && ProcessCyclewayLaneTag(tag.m_key, tag.m_value))
-            flags[Flags::Cycleway] = 1;
+            hasCycleway = true;
           continue;
         }
 
         bool const appliesToWholeRoad = tag.m_key == "cycleway" || tag.m_key == "cycleway:both";
         if (appliesToWholeRoad && IsNegativeRoutingTagValue(tag.m_value))
-          flags[Flags::Cycleway] = -1;
+          hasRoadWideCyclewayDenial = true;
         else if (IsPositiveRoutingTagValue(tag.m_value))
-          flags[Flags::Cycleway] = 1;
+          hasCycleway = true;
 
         if (tag.m_value == "opposite" || tag.m_value == "opposite_lane" || tag.m_value == "opposite_track" ||
             tag.m_value == "opposite_share_busway")
@@ -1290,6 +1292,9 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
         ProcessCyclewayTypeTag(tag.m_key, tag.m_value);
       }
+      // A facility on any explicitly tagged side or direction beats a road-wide default.
+      // An explicit bicycle access tag still takes precedence in ApplyFlag.
+      flags[Flags::Cycleway] = hasCycleway ? 1 : hasRoadWideCyclewayDenial ? -1 : 0;
 
       if (addOneway && !noOneway)
         params.AddType(types.Get(CachedTypes::OneWay));
@@ -1318,9 +1323,23 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       auto const IsPositiveTag = [](std::string const & value)
       { return !value.empty() && IsPositiveRoutingTagValue(value); };
       bool const bicycleStreet = IsPositiveTag(p->GetTag("bicycle_road")) || IsPositiveTag(p->GetTag("cyclestreet"));
-      bool const motorVehiclesForbidden = IsNegativeTagValue(p->GetTag("motor_vehicle")) ||
-                                          IsNegativeTagValue(p->GetTag("vehicle")) ||
-                                          IsNegativeTagValue(p->GetTag("access"));
+      // An exception for cars can override a wider prohibition, but a cars-only
+      // prohibition does not establish that the road excludes all motor traffic.
+      auto const motorcar = p->GetTag("motorcar");
+      bool motorVehiclesForbidden = false;
+      if ((motorcar.empty() || IsNegativeTagValue(motorcar)) && !p->HasTag("motorcar:conditional") &&
+          !p->HasTag("motor_vehicle:conditional") && !p->HasTag("vehicle:conditional") &&
+          !p->HasTag("access:conditional"))
+      {
+        for (auto const * key : {"motor_vehicle", "vehicle", "access"})
+        {
+          auto const value = p->GetTag(key);
+          if (value.empty())
+            continue;
+          motorVehiclesForbidden = IsNegativeTagValue(value);
+          break;
+        }
+      }
       if (motorVehiclesForbidden && (bicycleDesignated || bicycleStreet))
         cyclewayType = CachedTypes::CyclewayTrack;
 
