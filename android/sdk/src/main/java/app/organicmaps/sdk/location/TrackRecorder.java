@@ -13,6 +13,9 @@ public class TrackRecorder
 
   public static native void nativeDiscardTrackRecording();
 
+  /** Returns whether saving now would create a track. Requires an active recording. */
+  public static native boolean nativeCanSaveTrackRecording();
+
   public static native boolean nativeSaveTrackRecordingWithName(String name);
 
   public static native boolean nativeIsTrackRecordingEnabled();
