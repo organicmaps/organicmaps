@@ -878,6 +878,8 @@
         <item quantity="many">Tħassar %d oġġetti?</item>
         <item quantity="other">Tħassar %d oġġetti?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Inti ċert li trid tħassar din il-mogħdija?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Ħawwad</string>
     <!-- Text for the editing the Track's color button. -->

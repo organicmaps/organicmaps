@@ -1073,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "ट्रैक हटाएँ";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "क्या आप वाकई इस ट्रैक को हटाना चाहते हैं?";
 
 /* Placeholder for track name input on track edit screen */

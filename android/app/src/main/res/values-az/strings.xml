@@ -870,6 +870,8 @@
         <item quantity="one">%d element silmək?</item>
         <item quantity="other">%d element silmək?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Bu treki silmək istədiyinizə əminsiniz?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Hərəkət edin</string>
     <!-- Text for the editing the Track's color button. -->

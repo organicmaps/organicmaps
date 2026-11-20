@@ -827,6 +827,8 @@
         <item quantity="zero">ລຶບ %d ລາຍການບໍ?</item>
         <item quantity="other">ລຶບ %d ລາຍການບໍ?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລຶບເສັ້ນທາງນີ້?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">ຍ້າຍ</string>
     <!-- Text for the editing the Track's color button. -->

@@ -876,6 +876,8 @@
         <item quantity="zero">刪除 %d 項？</item>
         <item quantity="other">刪除 %d 項？</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">您確定要刪除該軌跡嗎？</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">移動</string>
     <!-- Text for the editing the Track's color button. -->

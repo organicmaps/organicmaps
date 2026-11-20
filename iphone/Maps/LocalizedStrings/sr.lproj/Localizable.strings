@@ -1073,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Обриши путању";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Да ли сте сигурни да желите да обришете ову путању?";
 
 /* Placeholder for track name input on track edit screen */

@@ -1073,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "ລຶບເສັ້ນທາງ";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລຶບເສັ້ນທາງນີ້?";
 
 /* Placeholder for track name input on track edit screen */

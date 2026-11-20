@@ -876,6 +876,8 @@
         <item quantity="one">Radera %d objekt?</item>
         <item quantity="other">Radera %d objekt?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Är du säker på att du vill radera det här spåret?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Flytta</string>
     <!-- Text for the editing the Track's color button. -->

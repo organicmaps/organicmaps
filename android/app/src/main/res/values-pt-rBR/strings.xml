@@ -619,6 +619,8 @@
         <item quantity="many">Excluir %d itens?</item>
         <item quantity="other">Excluir %d itens?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Você tem certeza de que deseja excluir essa trilha?</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Mudança de cor</string>
     <!-- Text for the hiding track. -->

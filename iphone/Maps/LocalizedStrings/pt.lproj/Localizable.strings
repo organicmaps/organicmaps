@@ -1073,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Apagar trajeto";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Tem a certeza de que pretende apagar este trajeto?";
 
 /* Placeholder for track name input on track edit screen */

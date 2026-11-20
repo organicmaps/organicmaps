@@ -1073,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Изтриване на маршрут";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Сигурни ли сте, че искате да изтриете този трак?";
 
 /* Placeholder for track name input on track edit screen */

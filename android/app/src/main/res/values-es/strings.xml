@@ -887,6 +887,8 @@
         <item quantity="many">¿Eliminar %d de elementos?</item>
         <item quantity="other">¿Eliminar %d elementos?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">¿Confirma que quiere eliminar este trayecto?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Mover</string>
     <!-- Text for the editing the Track's color button. -->

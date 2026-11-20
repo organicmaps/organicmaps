@@ -863,6 +863,8 @@
     <plurals name="delete_n_items_dialog_title">
         <item quantity="other">%d개 항목을 삭제할까요?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">이 트랙을 삭제하시겠습니까?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">이동</string>
     <!-- Text for the editing the Track's color button. -->

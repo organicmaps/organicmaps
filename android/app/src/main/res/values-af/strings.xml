@@ -864,6 +864,8 @@
         <item quantity="one">Skrap %d item?</item>
         <item quantity="other">Skrap %d items?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Is jy seker jy wil hierdie snit uitvee?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Skuif</string>
     <!-- Text for the editing the Track's color button. -->

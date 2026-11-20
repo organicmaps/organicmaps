@@ -877,6 +877,8 @@
         <item quantity="one">Διαγραφή %d στοιχείου;</item>
         <item quantity="other">Διαγραφή %d στοιχείων;</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το κομμάτι;</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Μετακίνηση</string>
     <!-- Text for the editing the Track's color button. -->
