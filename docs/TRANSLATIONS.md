@@ -15,6 +15,24 @@ If you skip regeneration, a maintainer should run the script and commit the gene
 
 Please make sure to add a [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to your commit descriptions (`git commit -s ...`).
 
+## Translation entry order
+
+In each `[key]` definition in `data/strings/`, put metadata first: `comment`, optional `ref`, and `tags` (when present). English (`en`, including plural forms) comes next. List all other languages after English, sorted alphabetically by language code. Keep each language's plural forms together in the order `zero`, `one`, `two`, `few`, `many`, `other`, omitting unused forms.
+
+For example, `az` follows `ar` and precedes `be`; it must not appear before metadata or English:
+
+```text
+[download_maps]
+comment = Button for opening map downloads
+tags = android-app,apple-maps,qt
+en = Download Maps
+ar = تنزيل الخرائط
+az = Xəritələri yüklə
+be = Спампаваць мапы
+```
+
+When importing translations from Android XML or other generated resources, preserve this source order and the source placeholder syntax (`%@` for string arguments). Review the diff for unrelated changes before regenerating platform resources.
+
 ## String keys and tags
 
 Name keys after the message's meaning and UI context, for example `app_exit` or `placepage_coordinates`. Reuse an existing key when the message and context match. Avoid device categories such as `desktop_` or `mobile_` in new keys.
@@ -25,7 +43,7 @@ Qt also needs the `qt` tag on messages requested by the shared core. Feature-typ
 
 ## Requirements
 
-Python 3.11+ is required to run the `tools/unix/generate_localizations.sh` script.
+Python 3.12+ is required to run the `tools/unix/generate_localizations.sh` script.
 
 Android's `supportedLocalizations` property in [gradle.properties](../android/gradle.properties) controls packaged languages and the per-app language picker. After changing it, run the script to regenerate `android/app/src/main/res/xml/locales_config.xml`.
 

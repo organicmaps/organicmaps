@@ -52,6 +52,10 @@ Validated against `config.xsd` schema. See the XSD for field definitions.
 - `types_strings.txt` -- map feature type names
 - `sound.txt` -- TTS voice direction strings
 
+- Within each definition, keep metadata (`comment`, optional `ref`, `tags`) first, then English (`en`), then all other languages sorted alphabetically by language code. Translations such as `az` must never precede metadata or English.
+- Keep plural forms grouped by language in the order `zero`, `one`, `two`, `few`, `many`, `other`, omitting unused forms.
+- When importing generated translations, preserve this entry order and source placeholders such as `%@`; check the diff for unrelated changes. See [the translation guide](../docs/TRANSLATIONS.md#translation-entry-order).
+
 After editing, run `tools/unix/generate_localizations.sh` and commit generated files separately.
 
 ## Style files (data/styles/)
