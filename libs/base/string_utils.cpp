@@ -176,6 +176,22 @@ size_t Utf8Length(std::string_view const s)
   return utf8::unchecked::distance(s.begin(), s.end());
 }
 
+std::string_view TruncateUtf8(std::string_view s, size_t maxBytes)
+{
+  if (s.size() <= maxBytes)
+    return s;
+
+  // s[end] is the first excluded byte. While it is a continuation byte (10xxxxxx), the cut is
+  // inside a code point. A code point is at most 4 bytes long, so at most 3 steps back are needed
+  // and the loop terminates on malformed input too.
+  size_t end = maxBytes;
+  size_t const limit = end > 3 ? end - 3 : 0;
+  while (end > limit && (static_cast<unsigned char>(s[end]) & 0xC0) == 0x80)
+    --end;
+
+  return s.substr(0, end);
+}
+
 void AsciiToLower(std::string & s)
 {
   std::transform(s.begin(), s.end(), s.begin(), [](char c) { return AsciiToLower(c); });

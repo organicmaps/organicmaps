@@ -86,6 +86,15 @@ final class RootSettingsPresenter {
     viewController?.display(alert)
   }
 
+  func presentFileLoggingError(_ error: Error) {
+    let systemError = error as NSError
+    let alert = UIAlertController(title: L("dialog_routing_system_error"),
+                                  message: systemError.domain == NSCocoaErrorDomain || systemError.domain == NSPOSIXErrorDomain ? systemError.localizedDescription : nil,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("ok"), style: .default))
+    viewController?.display(alert)
+  }
+
   func presentHighlight(_ setting: RootSettings) {
     viewController?.displayHighlight(setting)
   }

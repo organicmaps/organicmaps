@@ -108,6 +108,11 @@ size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 size_t Utf8Length(std::string_view const s);
 
+/// @return The longest prefix of |s| that is not longer than |maxBytes| and does not split a UTF-8
+/// code point. Returns an empty view if even the first code point does not fit. Malformed input is
+/// truncated at most 3 bytes earlier than |maxBytes|, never later.
+std::string_view TruncateUtf8(std::string_view s, size_t maxBytes);
+
 constexpr char AsciiToLower(char c) noexcept
 {
   return c >= 'A' && c <= 'Z' ? static_cast<char>(c - 'A' + 'a') : c;
