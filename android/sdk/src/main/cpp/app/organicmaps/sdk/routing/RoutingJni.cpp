@@ -449,8 +449,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetTransitP
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetTransitPreference(JNIEnv *, jclass,
                                                                                           jint preference)
 {
-  CHECK(preference >= 0 && preference <= static_cast<jint>(routing::TransitPreference::FewerTransfers), (preference));
-  routing::SaveTransitPreference(static_cast<routing::TransitPreference>(preference));
+  routing::SaveTransitPreference(preference);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)

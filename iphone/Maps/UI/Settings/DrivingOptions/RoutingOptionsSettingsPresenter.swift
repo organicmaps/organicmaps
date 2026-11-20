@@ -31,7 +31,7 @@ final class RoutingOptionsSettingsPresenter {
       sections.append(selection(section: .transitPreference,
                                 title: L("transit_preference"),
                                 options: preferences.map(RoutingOption.transitPreference),
-                                selected: .transitPreference(RoutingOptions.transitPreference)))
+                                selected: .transitPreference(state.transitPreference)))
       let selected = state.transitModes
       let modes: [TransitModes] = [.bus, .tram, .subway, .rail, .ferry, .trolleybus, .monorail, .cable, .air]
       let items = modes.map { mode in

@@ -92,11 +92,13 @@ private:
   // Number of access:conditional dangerous zones (when RoadAccess::GetAccess() return
   // |Confidence::Maybe|).
   int8_t m_numAccessConditionalPenalties = 0;
-  // Physical walking seconds for the transit budget. Uses the padding before m_transitTime.
+  // Physical walking seconds for the transit budget. Fits between the access penalties and transit time.
   float m_walkingTime = 0.0f;
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
   double m_transitTime = 0.0;
 };
+
+static_assert(sizeof(RouteWeight) <= 24, "Keep A* route weights compact");
 
 template <>
 constexpr RouteWeight GetAStarWeightMax<RouteWeight>()

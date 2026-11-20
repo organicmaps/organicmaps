@@ -16,11 +16,14 @@ final class RoutingOptionsSettingsInteractor {
 
   private func makeState(options: RoutingOptions) -> RoutingOptionsSettingsState {
     let bicycleSurface = options.routerType == .bicycle ? RoutingOptions.bicycleSurfacePreference : .any
-    let transitModes = options.routerType == .publicTransport ? RoutingOptions.transitModes : .all
+    let isTransit = options.routerType == .publicTransport
+    let transitModes = isTransit ? RoutingOptions.transitModes : .all
+    let transitPreference = isTransit ? RoutingOptions.transitPreference : .recommended
     return RoutingOptionsSettingsState(options: options,
                                        canChangeOptimization: canChangeOptimization,
                                        bicycleSurface: bicycleSurface,
-                                       transitModes: transitModes)
+                                       transitModes: transitModes,
+                                       transitPreference: transitPreference)
   }
 
   func loadSettings() {
@@ -90,6 +93,7 @@ extension RoutingOptionsSettingsInteractor: SettingsViewControllerInteractor {
         precondition(state.options.routerType == .publicTransport)
         RoutingOptions.transitPreference = preference
       default:
+        // The table also reports taps on switch rows.
         return
       }
       let updated = makeState(options: routingOptionsProvider())

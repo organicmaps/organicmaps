@@ -227,9 +227,10 @@ UNIT_TEST(TransitStarter_ETAIncludesWaitAfterFakeConnection)
   TEST_EQUAL(starter.CalculateETA(starter.GetStartSegment(), ride, 0), 150.0, ());
 }
 
-UNIT_TEST(TransitWorldGraph_StationWalkingUsesAlternativeFactors)
+UNIT_TEST(TransitWorldGraph_StationWalkingUsesPreferenceFactors)
 {
   using Purpose = routing::EdgeEstimator::Purpose;
+  using enum routing::TransitPreference;
   Fixture fixture;
   auto const graph = fixture.MakeGraph();
   auto world = fixture.MakeWorldGraph();
@@ -247,10 +248,9 @@ UNIT_TEST(TransitWorldGraph_StationWalkingUsesAlternativeFactors)
     TEST_EQUAL(world->CalcSegmentWeight(projection, Purpose::ETA).GetWeight(), physicalTime, ());
   }
 
-  for (double const factor : {3.0, 1.0})
+  for (auto const & [preference, factor] : {std::pair{LessWalking, 3.0}, {Recommended, 1.0}})
   {
-    fixture.m_estimator->SetTransitPreference(factor == 3.0 ? routing::TransitPreference::LessWalking
-                                                            : routing::TransitPreference::Recommended);
+    fixture.m_estimator->SetTransitPreference(preference);
     for (auto const & segment : walking)
     {
       auto const eta = world->CalcSegmentWeight(segment, Purpose::ETA);

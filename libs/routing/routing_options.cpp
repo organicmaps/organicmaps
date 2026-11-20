@@ -18,6 +18,7 @@ std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnab
 std::string_view constexpr kBicycleSurfacePreferenceKey = "BicycleSurfacePreference";
 std::string_view constexpr kTransitModesKey = "TransitAllowedModes";
 std::string_view constexpr kTransitPreferenceKey = "TransitRoutePreference";
+auto constexpr kMaxStoredTransitPreference = static_cast<int64_t>(TransitPreference::FewerTransfers);
 
 namespace
 {
@@ -155,16 +156,28 @@ void RoutePlanningOptions::SaveTransitModes(uint64_t modes)
 TransitPreference LoadTransitPreference()
 {
   uint32_t value = 0;
-  if (settings::Get(kTransitPreferenceKey, value) && value <= static_cast<uint32_t>(TransitPreference::FewerTransfers))
+  if (settings::Get(kTransitPreferenceKey, value) && value <= kMaxStoredTransitPreference)
     return static_cast<TransitPreference>(value);
   return TransitPreference::Recommended;
 }
 
-void SaveTransitPreference(TransitPreference preference)
+void SaveTransitPreference(int64_t preference)
 {
-  auto const value = static_cast<uint32_t>(preference);
-  CHECK_LESS_OR_EQUAL(value, static_cast<uint32_t>(TransitPreference::FewerTransfers), ());
-  settings::Set(kTransitPreferenceKey, value);
+  CHECK(0 <= preference && preference <= kMaxStoredTransitPreference, (preference));
+  settings::Set(kTransitPreferenceKey, preference);
+}
+
+std::string DebugPrint(TransitPreference preference)
+{
+  switch (preference)
+  {
+    using enum TransitPreference;
+  case Recommended: return "Recommended";
+  case LessWalking: return "LessWalking";
+  case FewerTransfers: return "FewerTransfers";
+  case LessWalkingAndFewerTransfers: return "LessWalkingAndFewerTransfers";
+  }
+  UNREACHABLE();
 }
 
 // static

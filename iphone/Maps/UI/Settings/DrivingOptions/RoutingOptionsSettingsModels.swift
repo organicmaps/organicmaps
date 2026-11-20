@@ -102,6 +102,7 @@ struct RoutingOptionsSettingsState {
   let canChangeOptimization: Bool
   let bicycleSurface: BicycleSurfacePreference
   let transitModes: TransitModes
+  let transitPreference: TransitPreference
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>

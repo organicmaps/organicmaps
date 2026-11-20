@@ -83,10 +83,9 @@ public class DrivingOptionsFragmentTest
   @Test
   public void transitPreferenceChangesRebuildOnlyTransit() throws ReflectiveOperationException
   {
-    verify(
-        stop(Map.of(), Router.Pedestrian, Map.of(), BicycleSurfacePreference.Any, ALL_TRANSIT_MODES,
-             TransitPreference.LessWalking),
-        never())
+    verify(stop(Map.of(), Router.Pedestrian, Map.of(), BicycleSurfacePreference.Any, ALL_TRANSIT_MODES,
+                TransitPreference.LessWalking),
+           never())
         .onRoutingOptionsChanged();
     verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, ALL_TRANSIT_MODES,
                 TransitPreference.LessWalking))

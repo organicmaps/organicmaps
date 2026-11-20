@@ -92,6 +92,12 @@ EdgeEstimator::Strategy OtherStrategy(EdgeEstimator::Strategy strategy)
                                                      : EdgeEstimator::Strategy::Normal;
 }
 
+TransitPreference AlternativeTransitPreference(TransitPreference preferred)
+{
+  return preferred == TransitPreference::Recommended ? TransitPreference::LessWalkingAndFewerTransfers
+                                                     : TransitPreference::Recommended;
+}
+
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;
 // Full rebuild if distance(meters) is less.
@@ -379,9 +385,7 @@ void IndexRouter::ClearState()
   m_lastAltFakeEdges.reset();
   // A new route starts from the default variant again.
   m_activeStrategy = EdgeEstimator::Strategy::Normal;
-  m_activeTransitPreference = TransitPreference::Recommended;
-  m_altTransitPreference = TransitPreference::Recommended;
-  m_previousRoutingOptions = {};
+  m_transitAltActive = false;
 }
 
 void IndexRouter::SwapAltRouteToActive()
@@ -390,7 +394,7 @@ void IndexRouter::SwapAltRouteToActive()
   std::swap(m_lastFakeEdges, m_lastAltFakeEdges);
   // Keep the selected variant's objective during rebuilds (issue #13205).
   if (m_vehicleType == VehicleType::Transit)
-    std::swap(m_activeTransitPreference, m_altTransitPreference);
+    m_transitAltActive = !m_transitAltActive;
   else
     m_activeStrategy = OtherStrategy(m_activeStrategy);
 }
@@ -462,20 +466,23 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       m_lastFakeEdges.reset();
       m_lastAltRoute.reset();
       m_lastAltFakeEdges.reset();
-      m_activeTransitPreference = m_requestRoutingOptions->m_transitPreference;
+      m_transitAltActive = false;
     }
     m_previousRoutingOptions = *m_requestRoutingOptions;
     m_estimator->SetBicycleSurfacePreference(m_requestRoutingOptions->m_bicycleSurface);
+    auto const preferred = m_requestRoutingOptions->m_transitPreference;
+    auto const alternative = AlternativeTransitPreference(preferred);
+    auto const activeTransitPreference = m_transitAltActive ? alternative : preferred;
     if (isTransit)
-      m_estimator->SetTransitPreference(m_activeTransitPreference);
-    SCOPE_GUARD(featureRoadGraphClear, [this]
+      m_estimator->SetTransitPreference(activeTransitPreference);
+    SCOPE_GUARD(featureRoadGraphClear, ([this, isTransit]
     {
       ClearRouteCalculationState();
       m_requestRoutingOptions.reset();
       m_estimator->SetBicycleSurfacePreference(BicycleSurfaceBias::Any);
-      if (m_vehicleType == VehicleType::Transit)
+      if (isTransit)
         m_estimator->SetTransitPreference(TransitPreference::Recommended);
-    });
+    }));
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.
     // Guides edges are priced at max speed (see SetGuidesGraphParams), above the DistanceBiased cap,
@@ -522,7 +529,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
           if (isTransit)
-            m_estimator->SetTransitPreference(m_activeTransitPreference);
+            m_estimator->SetTransitPreference(activeTransitPreference);
           // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
           m_lastAltFakeEdges = std::move(m_lastFakeEdges);
@@ -532,14 +539,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         });
 
         if (isTransit)
-        {
-          auto const preferred = m_requestRoutingOptions->m_transitPreference;
-          auto const alternative = preferred == TransitPreference::Recommended
-                                     ? TransitPreference::LessWalkingAndFewerTransfers
-                                     : TransitPreference::Recommended;
-          m_altTransitPreference = m_activeTransitPreference == preferred ? alternative : preferred;
-          m_estimator->SetTransitPreference(m_altTransitPreference);
-        }
+          m_estimator->SetTransitPreference(m_transitAltActive ? preferred : alternative);
         else
         {
           // Guides edges are priced at max speed (see SetGuidesGraphParams call below), above the

@@ -79,7 +79,8 @@ enum class TransitPreference : uint8_t
 };
 
 TransitPreference LoadTransitPreference();
-void SaveTransitPreference(TransitPreference preference);
+void SaveTransitPreference(int64_t preference);
+std::string DebugPrint(TransitPreference preference);
 
 struct RoutePlanningOptions
 {

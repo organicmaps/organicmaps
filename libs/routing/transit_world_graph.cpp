@@ -192,7 +192,7 @@ double TransitWorldGraph::CalculateETA(Segment const & from, Segment const & to,
       auto const fromLineId = TransitGraph::IsTransitSegment(from)
                                 ? GetTransitGraph(from.GetMwmId()).GetRideLineId(from)
                                 : transit::kInvalidLineId;
-      // Only physical waiting time belongs in ETA; the alternative boarding bias does not.
+      // Include the mean wait in ETA. The boarding penalty only influences the search.
       eta += GetTransitGraph(to.GetMwmId()).GetTransferPenalty(fromLineId, to).GetTransitTime();
     }
     return eta;

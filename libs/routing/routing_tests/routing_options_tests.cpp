@@ -276,14 +276,14 @@ UNIT_TEST(TransitRoutePreferencePersistsOnlyForTransit)
   });
   using enum TransitPreference;
   settings::Delete(key);
-  TEST(LoadTransitPreference() == Recommended, ());
+  TEST_EQUAL(LoadTransitPreference(), Recommended, ());
   for (auto const preference : {LessWalking, FewerTransfers, Recommended})
   {
-    SaveTransitPreference(preference);
-    TEST(RoutePlanningOptions::LoadFromSettings(VehicleType::Transit).m_transitPreference == preference, ());
-    TEST(RoutePlanningOptions::LoadFromSettings(VehicleType::Pedestrian).m_transitPreference == Recommended, ());
+    SaveTransitPreference(static_cast<int64_t>(preference));
+    TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Transit).m_transitPreference, preference, ());
+    TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Pedestrian).m_transitPreference, Recommended, ());
   }
   settings::Set(key, 3u);
-  TEST(LoadTransitPreference() == Recommended, ());
+  TEST_EQUAL(LoadTransitPreference(), Recommended, ());
 }
 }  // namespace

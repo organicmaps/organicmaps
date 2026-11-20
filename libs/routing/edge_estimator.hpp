@@ -49,7 +49,8 @@ public:
   };
 
   EdgeEstimator(double maxWeightSpeedKMpH, double distanceBiasCapSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
-                DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
+                bool isTransit = false, DataSource * dataSourcePtr = nullptr,
+                std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
 
   /// |tightHeuristicAllowed| == false keeps CalcHeuristic() on the loose max-speed bound even under
@@ -147,7 +148,7 @@ private:
   Strategy m_strategy = Strategy::Normal;
   bool m_tightHeuristicAllowed = true;
   BicycleSurfaceBias m_bicycleSurfacePreference = BicycleSurfaceBias::Any;
-  bool m_isTransit = false;
+  bool const m_isTransit;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitBoardingPenaltyS = 0.0;
   ServiceEndings m_serviceEndings;
