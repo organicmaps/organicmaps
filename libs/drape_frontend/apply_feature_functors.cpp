@@ -708,12 +708,13 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
                                                    RelationsDrawSettings const & relsSettings, double dashPhaseOffset,
-                                                   bool dashPhaseReversed)
+                                                   bool dashPhaseReversed, bool stableDashPhase)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
   , m_builder(params)
   , m_dashPhaseOffset(dashPhaseOffset)
   , m_dashPhaseReversed(dashPhaseReversed)
+  , m_stableDashPhase(stableDashPhase)
 {
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
@@ -794,6 +795,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
       params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
       params.m_dashPhaseReversed = m_dashPhaseReversed;
+      params.m_stableDashPhase = m_stableDashPhase;
       m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], params));
     }
 
@@ -824,6 +826,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
         double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
         rParams.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
         rParams.m_dashPhaseReversed = m_dashPhaseReversed;
+        rParams.m_stableDashPhase = m_stableDashPhase;
         m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], rParams));
       }
     }
