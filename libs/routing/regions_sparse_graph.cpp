@@ -54,7 +54,7 @@ std::optional<FakeEnding> RegionsSparseGraph::GetFakeEnding(m2::PointD const & p
 
   FakeEnding ending;
 
-  ending.m_originJunction = LatLonWithAltitude(mercator::ToLatLon(point), 0);
+  ending.m_originJunction = LatLonWithAltitude(mercator::ToLatLon(point));
 
   for (auto const & segmentId : it->second)
   {

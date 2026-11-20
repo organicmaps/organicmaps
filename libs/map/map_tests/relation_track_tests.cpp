@@ -2,9 +2,22 @@
 
 #include "map/relation_track.hpp"
 
+#include "generator/altitude_generator.hpp"
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+
+#include "indexer/classificator_loader.hpp"
+#include "indexer/features_offsets_table.hpp"
+
+#include "platform/platform_tests_support/scoped_dir.hpp"
+
 #include "coding/point_coding.hpp"
 
 #include "geometry/point_with_altitude.hpp"
+
+#include "base/file_name_utils.hpp"
+
+#include "defines.hpp"
 
 #include <initializer_list>
 
@@ -41,6 +54,81 @@ bool CompareRelsOrder(Geometry const & src, std::initializer_list<uint32_t> cons
     ++it;
   }
   return true;
+}
+
+UNIT_TEST(RelationTrack_PreservesAltitudeAvailabilityOfMembers)
+{
+  class MemberAltitudes : public routing::AltitudeGetter
+  {
+    Altitude GetAltitude(m2::PointD const & point) override
+    {
+      if (point.x > 19.0015)
+        return kInvalidAltitude;
+      return point.x < 19.0005 ? 0 : 100;
+    }
+  } altitudes;
+
+  classificator::Load();
+  auto const dir = base::JoinPath(GetPlatform().WritableDir(), "relation_altitude_test");
+  platform::tests_support::ScopedDirCleanup const cleanup(dir);
+  platform::LocalCountryFile country(dir, platform::CountryFile("RelationAltitude"), 1);
+  {
+    generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
+    builder.Add(generator::tests_support::TestStreet({{19, 0}, {19.001, 0}}, "Known", "default"));
+    builder.Add(generator::tests_support::TestStreet({{19.001, 0}, {19.002, 0}}, "Missing", "default"));
+  }
+  auto const path = country.GetPath(MapFileType::Map);
+  routing::BuildRoadAltitudes(path, altitudes);
+
+  int32_t knownId = -1;
+  int32_t missingId = -1;
+  {
+    FrozenDataSource source;
+    auto const [id, status] = source.RegisterMap(country);
+    TEST_EQUAL(status, MwmSet::RegResult::Success, ());
+    FeaturesLoaderGuard guard(source, id);
+    for (uint32_t i = 0; i < guard.GetNumFeatures(); ++i)
+    {
+      auto const feature = guard.GetFeatureByIndex(i);
+      if (feature->GetDefaultName() == "Known")
+        knownId = i;
+      else if (feature->GetDefaultName() == "Missing")
+        missingId = i;
+    }
+  }
+  TEST_GREATER_OR_EQUAL(knownId, 0, ());
+  TEST_GREATER_OR_EQUAL(missingId, 0, ());
+
+  // Add one bicycle relation with both generated feature IDs in traversal order.
+  feature::FeaturesOffsetsTable::Builder offsets;
+  offsets.PushOffset(0);
+  auto const offsetsPath = base::JoinPath(dir, RELATION_OFFSETS_FILE_TAG);
+  feature::FeaturesOffsetsTable::Build(offsets)->Save(offsetsPath);
+  {
+    FilesContainerW container(path, FileWriter::OP_WRITE_EXISTING);
+    container.Write(offsetsPath, RELATION_OFFSETS_FILE_TAG);
+    auto writer = container.GetWriter(RELATIONS_FILE_TAG);
+    WriteToSink(*writer, static_cast<uint8_t>(feature::RouteRelation::Type::Bicycle));
+    WriteToSink(*writer, uint8_t{0});   // Metadata flags.
+    rw::Write(*writer, std::string{});  // Network.
+    rw::Write(*writer, std::string{});  // Ref.
+    WriteVarUint(*writer, uint32_t{2});
+    WriteVarInt(*writer, knownId);
+    WriteVarInt(*writer, missingId - knownId);
+    WriteToSink(*writer, uint8_t{0});  // Relation flags.
+  }
+
+  FrozenDataSource source;
+  auto const [id, status] = source.RegisterMap(country);
+  TEST_EQUAL(status, MwmSet::RegResult::Success, ());
+  auto const relation = RelationTrackBuilder(source, {id, static_cast<uint32_t>(knownId)}).Build({id, 0});
+  TEST(relation, ());
+  TEST_EQUAL(relation->m_lines.size(), 1, ());
+  auto const & line = relation->m_lines.front();
+  TEST_EQUAL(line.Size(), 3, ());
+  TEST_EQUAL(line.m_points[0].GetAltitude(), 0, ());
+  TEST_EQUAL(line.m_points[1].GetAltitude(), 100, ());
+  TEST_EQUAL(line.m_points[2].GetAltitude(), kInvalidAltitude, ());
 }
 
 UNIT_TEST(BuildChain_SingleMember)

@@ -561,17 +561,18 @@ std::vector<RelationTrackBuilder::Geometry> RelationTrackBuilder::LoadMemberGeom
     size_t const pointsCount = ft->GetPointsCount();
     ASSERT_GREATER(pointsCount, 1, ());
 
-    geometry::Altitudes const alts = altLoader.GetAltitudes(ftIdx, pointsCount);
+    auto const [alts, available] = altLoader.GetAltitudes(ftIdx, pointsCount);
     ASSERT_EQUAL(pointsCount, alts.size(), ());
 
+    // Mark DEM gaps as missing so the relation profile is hidden. Map generation owns coverage fixes.
     Geometry line;
     line.Reserve(pointsCount);
-    line.Append({ft->GetPoint(0), alts[0]});
+    line.Append({ft->GetPoint(0), available ? alts[0] : geometry::kInvalidAltitude});
     for (size_t j = 1; j < pointsCount; ++j)
     {
       /// @todo We still have equal points in Line Feature from MWM.
       if (!relation_track_merger::IsEqual(line.BackPoint(), ft->GetPoint(j)))
-        line.Append({ft->GetPoint(j), alts[j]});
+        line.Append({ft->GetPoint(j), available ? alts[j] : geometry::kInvalidAltitude});
     }
 
     if (line.Size() < 2)

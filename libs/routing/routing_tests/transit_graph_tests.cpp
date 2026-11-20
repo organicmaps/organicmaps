@@ -53,9 +53,9 @@ struct Fixture
       "networks": [{"id": 1, "title": "Transit test"}]
     })",
                                {});
-    routing::LatLonWithAltitude const roadPoint(mercator::ToLatLon({-0.00001, 0}), 0);
+    routing::LatLonWithAltitude const roadPoint(mercator::ToLatLon({-0.00001, 0}));
     routing::FakeEnding ending;
-    ending.m_originJunction = routing::LatLonWithAltitude(mercator::ToLatLon({0, 0}), 0);
+    ending.m_originJunction = routing::LatLonWithAltitude(mercator::ToLatLon({0, 0}));
     ending.m_projections.emplace_back(routing::Segment(0, 0, 0, true), true, roadPoint, roadPoint, roadPoint);
     m_endings.emplace(m_data.GetGates().front().GetOsmId(), ending);
   }

@@ -73,9 +73,9 @@ protected:
     , m_optionsClassifier(RoutingOptionsClassifier::Instance(vehicleType))
   {}
 
-  void LoadRoad(FeatureType & feature, geometry::Altitudes const * altitudes, RoadGeometry & road)
+  void LoadRoad(FeatureType & feature, geometry::Altitudes const & altitudes, bool hasAltitude, RoadGeometry & road)
   {
-    road.Load(*m_vehicleModel, feature, altitudes, m_attrsGetter, m_optionsClassifier);
+    road.Load(*m_vehicleModel, feature, altitudes, hasAltitude, m_attrsGetter, m_optionsClassifier);
   }
 
   RoadAttrsGetter m_attrsGetter;
@@ -103,11 +103,10 @@ public:
     auto feature = m_source.GetOriginalFeature(featureId);
     feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    geometry::Altitudes altitudes;
-    if (m_loadAltitudes)
-      altitudes = m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount());
-
-    LoadRoad(*feature, altitudes.empty() ? nullptr : &altitudes, road);
+    auto const [altitudes, available] = m_loadAltitudes
+                                          ? m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount())
+                                          : feature::AltitudeLoaderBase::Result{};
+    LoadRoad(*feature, altitudes, available, road);
   }
 
   Maxspeed GetSavedMaxspeed(uint32_t featureId) override { return m_attrsGetter.m_maxSpeeds.GetMaxspeed(featureId); }
@@ -136,7 +135,7 @@ public:
     feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // Standalone car tools do not need altitudes.
-    LoadRoad(*feature, nullptr /* altitudes */, road);
+    LoadRoad(*feature, {}, false /* hasAltitude */, road);
   }
 
 private:
@@ -169,18 +168,18 @@ RoadGeometry::RoadGeometry(bool oneWay, Maxspeed const & maxspeed, Points const 
 
   m_junctions.reserve(count);
   for (auto const & point : points)
-    m_junctions.emplace_back(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters);
+    m_junctions.emplace_back(mercator::ToLatLon(point));
 
   m_distances.resize(count - 1, -1);
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-                        geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs,
+                        geometry::Altitudes const & altitudes, bool hasAltitude, RoadAttrsGetter & attrs,
                         RoutingOptionsClassifier const & optionsClassifier)
 {
   size_t const count = feature.GetPointsCount();
   CHECK_GREATER(count, 1, ());
-  CHECK(altitudes == nullptr || altitudes->size() == count, ());
+  CHECK(altitudes.empty() || altitudes.size() == count, ());
 
   feature::TypesHolder types(feature);
   m_highwayType = vehicleModel.GetHighwayType(types);
@@ -223,16 +222,16 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   for (size_t i = 0; i < count; ++i)
   {
     auto const ll = mercator::ToLatLon(feature.GetPoint(i));
-    m_junctions.emplace_back(ll, altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
+    m_junctions.emplace_back(ll, altitudes.empty() ? geometry::kDefaultAltitudeMeters : altitudes[i], hasAltitude);
 
 #ifdef DEBUG
     // I'd like to check these big jumps manually, if any.
-    if (altitudes && i > 0)
+    if (hasAltitude && i > 0)
     {
       // Since we store integer altitudes, 1 is a possible error for 2 points.
       geometry::Altitude constexpr kError = 1;
 
-      auto const altDiff = (*altitudes)[i] - (*altitudes)[i - 1];
+      auto const altDiff = altitudes[i] - altitudes[i - 1];
       auto const absDiff = std::abs(altDiff) - kError;
       if (absDiff > 0)
       {

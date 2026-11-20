@@ -129,8 +129,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
 
   std::map<transit::StopId, LatLonWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())
-    stopCoords[stop.GetId()] =
-        LatLonWithAltitude(mercator::ToLatLon(stop.GetPoint()), geometry::kDefaultAltitudeMeters);
+    stopCoords[stop.GetId()] = LatLonWithAltitude(mercator::ToLatLon(stop.GetPoint()));
 
   StopToSegmentsMap stopToBack;
   StopToSegmentsMap stopToFront;

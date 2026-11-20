@@ -28,7 +28,7 @@ Segment GetSegment(uint32_t segmentIdx, bool isReal = false)
 FakeVertex GetFakeVertex(uint32_t index)
 {
   auto const indexCoord = static_cast<double>(index);
-  LatLonWithAltitude const coord({indexCoord, indexCoord}, 0 /* altitude */);
+  LatLonWithAltitude const coord(ms::LatLon{indexCoord, indexCoord});
   //  FakeVertex(NumMwmId numMwmId, LatLonWithAltitude const & from,
   //             LatLonWithAltitude const & to, Type type)
   return FakeVertex(0 /* mwmId */, coord, coord, FakeVertex::Type::PureFake);
