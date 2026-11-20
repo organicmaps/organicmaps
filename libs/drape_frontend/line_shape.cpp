@@ -28,10 +28,14 @@ public:
     , m_maskSize(m_region.GetMaskPixelSize())
   {}
 
-  glsl::vec4 GetTexCoordsByDistance(float distance, bool isLeft) const
+  glsl::vec4 GetTexCoordsByDistance(double distance, bool isLeft, double stableScale) const
   {
     m2::RectF const & texRect = m_region.GetTexRect();
-    return {distance / GetMaskLength(), texRect.minX(), texRect.SizeX(), isLeft ? texRect.minY() : texRect.maxY()};
+    if (stableScale > 0)
+      return {static_cast<float>(distance * stableScale / GetMaskLength()), texRect.minX(), -texRect.SizeX(),
+              isLeft ? texRect.minY() : texRect.maxY()};
+    return {static_cast<float>(distance / GetMaskLength()), texRect.minX(), texRect.SizeX(),
+            isLeft ? texRect.minY() : texRect.maxY()};
   }
 
   uint32_t GetMaskLength() const { return m_maskSize.x; }
@@ -265,16 +269,18 @@ public:
   struct BuilderParams : BaseBuilderParams
   {
     dp::TextureManager::StippleRegion m_stipple;
-    float m_baseGtoP;
+    double m_baseGtoP;
+    bool m_stableDashPhase;
   };
 
   DashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
     : TBase(params, pointsInSpline * 8, (pointsInSpline - 2) * 8)
     , m_texCoordGen(params.m_stipple)
     , m_baseGtoPScale(params.m_baseGtoP)
+    , m_stableScale(params.m_stableDashPhase ? params.m_baseGtoP : 0)
   {}
 
-  float GetMaskLengthG() const { return m_texCoordGen.GetMaskLength() / m_baseGtoPScale; }
+  double GetMaskLengthG() const { return m_texCoordGen.GetMaskLength() / m_baseGtoPScale; }
 
   dp::RenderState GetState() override
   {
@@ -285,17 +291,18 @@ public:
     return state;
   }
 
-  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, double offsetFromStart)
   {
     float const halfWidth = GetHalfWidth();
     m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
                             isLeft ? m_colorCoordLeft : m_colorCoordRight,
-                            m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft));
+                            m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft, m_stableScale));
   }
 
 private:
   TextureCoordGenerator m_texCoordGen;
-  float const m_baseGtoPScale;
+  double const m_baseGtoPScale;
+  double const m_stableScale;
 };
 }  // namespace
 
@@ -360,10 +367,10 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
     double const nextOffset = AdvanceDashPhase(offset, toDraw, m_params.m_dashPhaseReversed);
-    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */, static_cast<float>(offset));
-    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */, static_cast<float>(offset));
-    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */, static_cast<float>(nextOffset));
-    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */, static_cast<float>(nextOffset));
+    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
+    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
+    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */, nextOffset);
+    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */, nextOffset);
 
     offset = nextOffset;
   });
@@ -491,7 +498,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     DashedLineBuilder::BuilderParams p;
     commonParamsBuilder(p);
     p.m_stipple = maskRegion;
-    p.m_baseGtoP = static_cast<float>(m_params.m_baseGtoPScale);
+    p.m_baseGtoP = m_params.m_baseGtoPScale;
+    p.m_stableDashPhase = m_params.m_stableDashPhase;
 
     auto builder = std::make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
     Construct<DashedLineBuilder>(*builder);
