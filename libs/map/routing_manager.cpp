@@ -1473,8 +1473,8 @@ kml::TrackId RoutingManager::SaveRoute()
   if (!RoutingSession().GetRouteJunctionPoints(junctions))
     return kml::kInvalidTrackId;
 
-  base::Unique(junctions, [](geometry::PointWithAltitude const & p1, geometry::PointWithAltitude const & p2)
-  { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); });
+  kml::MultiGeometry::TimeT times;
+  kml::MultiGeometry::RemoveDuplicatePoints(junctions, times);
   if (junctions.size() < 2)
     return kml::kInvalidTrackId;
 

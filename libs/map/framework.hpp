@@ -488,7 +488,7 @@ public:
   bool SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEnabled() const;
 
-  void SaveRoute();
+  bool SaveRoute();
   /// Returns the elevation profile data of the currently recorded track.
   /// To get the data on the every track recording state update, this function should be called after receiving the
   /// callback from the `SetTrackRecordingUpdateHandler`.

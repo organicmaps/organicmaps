@@ -1216,14 +1216,7 @@ kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string c
 
   kml::SetDefaultStr(trackData.m_name, GenerateSavedRouteName(from, to));
 
-  kml::ColorData colorData;
-  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
-  kml::TrackLayer layer;
-  layer.m_color = colorData;
-
-  std::vector<kml::TrackLayer> layers;
-  layers.emplace_back(layer);
-  trackData.m_layers = std::move(layers);
+  trackData.m_layers.emplace_back().m_color.m_rgba = GenerateTrackRecordingColor().GetRGBA();
 
   trackData.m_timestamp = kml::TimestampClock::now();
 

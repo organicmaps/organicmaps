@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 #include "map/track.hpp"
@@ -17,6 +18,9 @@
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
+
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
@@ -1481,8 +1485,49 @@ UNIT_TEST(RoutingManager_SaveRouteRejectsCollapsedGeometry)
 {
   WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
   {
-    geometry::PointWithAltitude const finish({1e-7, 0.0}, 100);
-    TEST_EQUAL(SaveRouteGeometry(manager, bookmarks, {{{0.0, 0.0}, 100}, finish}), kml::kInvalidTrackId, ());
+    for (auto const x : {0.0, 1e-7})
+    {
+      for (auto const altitude : {100, 110})
+      {
+        geometry::PointWithAltitude const finish({x, 0.0}, altitude);
+        TEST_EQUAL(SaveRouteGeometry(manager, bookmarks, {{{0.0, 0.0}, 100}, finish}), kml::kInvalidTrackId,
+                   (x, altitude));
+      }
+    }
+  });
+}
+
+UNIT_TEST(RoutingManager_SaveRouteDeduplicatesWithoutLosingMovement)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
+  {
+    using Line = kml::TrackGeometry;
+    std::pair<Line, Line> const cases[] = {
+        {Line{{{0.0, 0.0}, 100}, {{0.0, 0.0}, 100}, {{0.001, 0.0}, 100}}, Line{{{0.0, 0.0}, 100}, {{0.001, 0.0}, 100}}},
+        {Line{{{19.0, 0.0}, 100}, {{19.000009, 0.0}, 100}, {{19.000017, 0.0}, 100}},
+         Line{{{19.0, 0.0}, 100}, {{19.000017, 0.0}, 100}}},
+        {Line{{{-180.0, 0.0}, 100}, {{179.999991, 0.0}, 100}, {{179.999983, 0.0}, 100}},
+         Line{{{-180.0, 0.0}, 100}, {{179.999983, 0.0}, 100}}},
+        {Line{{{-180.0, 0.0}, 100}, {{179.999991, 0.0}, 200}, {{179.999983, 0.0}, 200}},
+         Line{{{-180.0, 0.0}, 100}, {{179.999983, 0.0}, 200}}}};
+    for (auto const & [source, expected] : cases)
+    {
+      auto const id = SaveRouteGeometry(manager, bookmarks, source);
+      TEST_NOT_EQUAL(id, kml::kInvalidTrackId, (source));
+      auto const * track = bookmarks.GetTrack(id);
+      TEST(track, (source));
+      TEST_EQUAL(track->GetGeometry(), expected, (source));
+
+      kml::FileData data;
+      data.m_tracksData.push_back(track->GetData());
+      std::string kmlText;
+      MemWriter writer(kmlText);
+      TEST(SaveKmlData(data, writer, FileType::Kml), (source));
+      auto const reloaded = LoadKmlData(MemReader(kmlText), FileType::Kml);
+      TEST(reloaded, (source));
+      TEST_EQUAL(reloaded->m_tracksData.size(), 1, (source));
+      TEST_EQUAL(reloaded->m_tracksData.front().m_geometry, track->GetData().m_geometry, (source));
+    }
   });
 }
 }  // namespace routing_manager_tests
