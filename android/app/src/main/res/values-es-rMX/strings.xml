@@ -469,4 +469,8 @@
     <!-- SECTION: gps strings -->
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Ingrese un número de piso válido</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Piso (la planta baja es 0)</string>
 </resources>

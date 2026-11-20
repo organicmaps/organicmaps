@@ -65,6 +65,7 @@ public class EditorHostFragment
   private int mMandatoryNamesCount = 0;
 
   private static final String NOOB_ALERT_SHOWN = "Alert_for_noob_was_shown";
+  private static final String STATE_EDITOR_FIELDS = "EditorFields";
 
   /**
    *   Used in MultilanguageAdapter to show, select and remove items.
@@ -108,7 +109,18 @@ public class EditorHostFragment
     NamesDataSource namesDataSource = Editor.nativeGetNamesDataSource();
     setNames(namesDataSource.getNames());
     setMandatoryNamesCount(namesDataSource.getMandatoryNamesCount());
-    editMapObject();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    Editor.nativeSetNames(getNamesAsArray());
+
+    final EditorFragment editor =
+        (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
+    if (editor != null && editor.getView() != null)
+      outState.putBundle(STATE_EDITOR_FIELDS, editor.saveFields());
   }
 
   @Nullable
@@ -135,6 +147,8 @@ public class EditorHostFragment
     getToolbarController().setTitle(getTitle());
 
     fillNames();
+    final Bundle fields = savedInstanceState == null ? null : savedInstanceState.getBundle(STATE_EDITOR_FIELDS);
+    editMapObject(false /* focusToLastName */, fields);
 
     View fragmentContainer = view.findViewById(R.id.fragment_container);
     ViewCompat.setOnApplyWindowInsetsListener(fragmentContainer, PaddingInsetsListener.excludeTop());
@@ -185,6 +199,11 @@ public class EditorHostFragment
 
   protected void editMapObject(boolean focusToLastName)
   {
+    editMapObject(focusToLastName, null);
+  }
+
+  private void editMapObject(boolean focusToLastName, @Nullable Bundle fields)
+  {
     mMode = Mode.MAP_OBJECT;
     showSearchControls(false);
     getToolbarController().setTitle(getTitle());
@@ -192,6 +211,8 @@ public class EditorHostFragment
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, mNames.size() - 1);
+    if (fields != null)
+      args.putBundle(EditorFragment.EXTRA_FIELDS, fields);
     FragmentManager fragmentManager = getChildFragmentManager();
     final Fragment editorFragment = fragmentManager.getFragmentFactory().instantiate(requireActivity().getClassLoader(),
                                                                                      EditorFragment.class.getName());

@@ -1,6 +1,5 @@
 package app.organicmaps.editor;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -38,12 +37,19 @@ import app.organicmaps.util.UiUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
   final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
+  final static String EXTRA_FIELDS = "Fields";
+  private final static String FIELD_HOUSE_NUMBER = "HouseNumber";
+  private final static String FIELD_WIFI = "Wifi";
+  private final static String FIELD_DESCRIPTION = "Description";
+  private final static int INPUT_TYPE_URI =
+      InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_VARIATION_URI;
 
   private TextView mCategory;
   private View mCardName;
@@ -93,7 +99,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private TextView mStreet;
   private TextInputEditText mHouseNumber;
-  private TextInputEditText mBuildingLevels;
 
   // Define Metadata entries, that have more tricky logic, separately.
   private TextView mPhone;
@@ -103,30 +108,19 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mSelfService;
   private SwitchCompat mOutdoorSeating;
 
-  // Default Metadata entries.
-  private static final class MetadataEntry
-  {
-    TextInputEditText mEdit;
-    TextInputLayout mInput;
-  }
-  Map<Metadata.MetadataType, MetadataEntry> mMetadata = new HashMap<>();
+  private final Map<Metadata.MetadataType, TextInputEditText> mMetadata = new EnumMap<>(Metadata.MetadataType.class);
 
-  private void initMetadataEntry(Metadata.MetadataType type, @StringRes int error)
+  private static boolean isUnchangedOrValid(int id, @NonNull String value)
   {
-    final MetadataEntry e = mMetadata.get(type);
-    final int id = type.toInt();
-    e.mEdit.setText(Editor.nativeGetMetadata(id));
-    e.mEdit.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(e.mInput, Editor.nativeIsMetadataValid(id, s.toString()) ? 0 : error);
-      }
-    });
+    return value.equals(Editor.nativeGetMetadata(id)) || Editor.nativeIsMetadataValid(id, value);
+  }
+
+  private static boolean isHouseNumberUnchangedOrValid(@NonNull String houseNumber)
+  {
+    return houseNumber.equals(Editor.nativeGetHouseNumber()) || Editor.nativeIsHouseValid(houseNumber);
   }
 
   private TextInputLayout mInputHouseNumber;
-  private TextInputLayout mInputBuildingLevels;
 
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
@@ -162,55 +156,46 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        UiUtils.setInputError(mInputHouseNumber,
-                              Editor.nativeIsHouseValid(s.toString()) ? 0 : R.string.error_enter_correct_house_number);
-      }
-    });
-
-    initMetadataEntry(Metadata.MetadataType.FMD_POSTCODE, R.string.error_enter_correct_zip_code);
-
-    mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
-    mBuildingLevels.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        final Context context = mInputBuildingLevels.getContext();
-        final boolean isValid = Editor.nativeIsLevelValid(s.toString());
-        UiUtils.setInputError(mInputBuildingLevels,
-                              isValid ? null
-                                      : context.getString(R.string.error_enter_correct_storey_number,
-                                                          Editor.nativeGetMaxEditableBuildingLevels()));
+        final boolean isValid = isHouseNumberUnchangedOrValid(s.toString());
+        UiUtils.setInputError(mInputHouseNumber, isValid ? 0 : R.string.error_enter_correct_house_number);
       }
     });
 
     mPhone.setText(Editor.nativeGetPhone());
 
-    initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE, R.string.error_enter_correct_web);
-    initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE_MENU, R.string.error_enter_correct_web);
-    initMetadataEntry(Metadata.MetadataType.FMD_EMAIL, R.string.error_enter_correct_email);
-    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.string.error_enter_correct_facebook_page);
-    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.string.error_enter_correct_instagram_page);
-    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_TWITTER, R.string.error_enter_correct_twitter_page);
-    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_VK, R.string.error_enter_correct_vk_page);
-    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_LINE, R.string.error_enter_correct_line_page);
-
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
     String selfServiceMetadata = Editor.nativeGetMetadata(Metadata.MetadataType.FMD_SELF_SERVICE.toInt());
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
-    initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     // mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
+    final Bundle fields = requireArguments().getBundle(EXTRA_FIELDS);
+    if (fields != null)
+      restoreFields(fields);
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
   }
 
-  @Override
-  public void onSaveInstanceState(Bundle outState)
+  @NonNull
+  Bundle saveFields()
   {
-    super.onSaveInstanceState(outState);
-    setEdits();
+    final Bundle fields = new Bundle();
+    fields.putString(FIELD_HOUSE_NUMBER, mHouseNumber.getText().toString());
+    fields.putBoolean(FIELD_WIFI, mWifi.isChecked());
+    fields.putString(FIELD_DESCRIPTION, mDescription.getText().toString());
+    for (var e : mMetadata.entrySet())
+      fields.putString(e.getKey().name(), e.getValue().getText().toString());
+    return fields;
+  }
+
+  private void restoreFields(@NonNull Bundle fields)
+  {
+    mHouseNumber.setText(fields.getString(FIELD_HOUSE_NUMBER));
+    mWifi.setChecked(fields.getBoolean(FIELD_WIFI));
+    mDescription.setText(fields.getString(FIELD_DESCRIPTION));
+    for (var e : mMetadata.entrySet())
+      e.getValue().setText(fields.getString(e.getKey().name()));
   }
 
   boolean setEdits()
@@ -219,7 +204,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return false;
 
     Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
-    Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
 
@@ -228,7 +212,12 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     // "yes", "no");
 
     for (var e : mMetadata.entrySet())
-      Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
+    {
+      final int id = e.getKey().toInt();
+      final String value = e.getValue().getText().toString();
+      if (!value.equals(Editor.nativeGetMetadata(id)))
+        Editor.nativeSetMetadata(id, value);
+    }
 
     return true;
   }
@@ -241,27 +230,17 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private boolean validateFields()
   {
-    if (Editor.nativeIsAddressEditable())
+    if (!isHouseNumberUnchangedOrValid(mHouseNumber.getText().toString()))
     {
-      if (!Editor.nativeIsHouseValid(mHouseNumber.getText().toString()))
-      {
-        mHouseNumber.requestFocus();
-        InputUtils.showKeyboard(mHouseNumber);
-        return false;
-      }
-
-      if (!Editor.nativeIsLevelValid(mBuildingLevels.getText().toString()))
-      {
-        mBuildingLevels.requestFocus();
-        InputUtils.showKeyboard(mBuildingLevels);
-        return false;
-      }
+      mHouseNumber.requestFocus();
+      InputUtils.showKeyboard(mHouseNumber);
+      return false;
     }
 
     for (var e : mMetadata.entrySet())
     {
-      final TextInputEditText edit = e.getValue().mEdit;
-      if (!Editor.nativeIsMetadataValid(e.getKey().toInt(), edit.getText().toString()))
+      final TextInputEditText edit = e.getValue();
+      if (!isUnchangedOrValid(e.getKey().toInt(), edit.getText().toString()))
       {
         edit.requestFocus();
         InputUtils.showKeyboard(edit);
@@ -385,15 +364,36 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   }
 
   private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock, @DrawableRes int idIcon,
-                         @StringRes int idName, int inputType)
+                         @StringRes int hint, @StringRes int error, int inputType)
   {
-    View block = view.findViewById(idBlock);
-    MetadataEntry e = new MetadataEntry();
-    e.mEdit = findInputAndInitBlock(block, idIcon, idName);
-    if (inputType > 0)
-      e.mEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | inputType);
-    e.mInput = block.findViewById(R.id.custom_input);
-    mMetadata.put(type, e);
+    return initBlock(view, type, idBlock, idIcon, getString(hint), error == 0 ? null : getString(error), inputType);
+  }
+
+  private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock, @DrawableRes int idIcon,
+                         @NonNull String hint, @Nullable String error, int inputType)
+  {
+    final View block = view.findViewById(idBlock);
+    final TextInputEditText edit = findInputAndInitBlock(block, idIcon, hint);
+    // setInputType() adds a digits key listener that would strip pasted separators such as ';'.
+    if ((inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_NUMBER)
+      edit.setRawInputType(inputType);
+    else if (inputType != 0)
+      edit.setInputType(inputType);
+
+    final int id = type.toInt();
+    edit.setText(Editor.nativeGetMetadata(id));
+    if (error != null)
+    {
+      final TextInputLayout input = block.findViewById(R.id.custom_input);
+      edit.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
+          UiUtils.setInputError(input, isUnchangedOrValid(id, s.toString()) ? null : error);
+        }
+      });
+    }
+    mMetadata.put(type, edit);
     return block;
   }
 
@@ -418,42 +418,47 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mInputHouseNumber = blockHouseNumber.findViewById(R.id.custom_input);
 
     initBlock(view, Metadata.MetadataType.FMD_POSTCODE, R.id.block_zipcode, R.drawable.ic_address,
-              R.string.editor_zip_code, 0);
+              R.string.editor_zip_code, R.string.error_enter_correct_zip_code, 0);
 
     // Details
-    View mBlockLevels = view.findViewById(R.id.block_levels);
-    mBuildingLevels =
-        findInputAndInitBlock(mBlockLevels, R.drawable.ic_floor,
-                              getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
-    mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
-    mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
+    final int maxBuildingLevels = Editor.nativeGetMaxEditableBuildingLevels();
+    initBlock(view, Metadata.MetadataType.FMD_BUILDING_LEVELS, R.id.block_levels, R.drawable.ic_floor,
+              getString(R.string.editor_storey_number, maxBuildingLevels),
+              getString(R.string.error_enter_correct_storey_number, maxBuildingLevels), InputType.TYPE_CLASS_NUMBER);
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = blockPhone.findViewById(R.id.phone);
     mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
     mEditPhoneLink.setOnClickListener(this);
     mPhone.setOnClickListener(this);
     View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website, R.drawable.ic_website,
-                                  R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
+                                  R.string.website, R.string.error_enter_correct_web, INPUT_TYPE_URI);
     View websiteMenuBlock =
         initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu, R.drawable.ic_website_menu,
-                  R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
-    View emailBlock = initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email, R.drawable.ic_email,
-                                R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                  R.string.website_menu, R.string.error_enter_correct_web, INPUT_TYPE_URI);
+    View emailBlock = initBlock(
+        view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email, R.drawable.ic_email, R.string.email,
+        R.string.error_enter_correct_email,
+        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    View levelBlock =
+        initBlock(view, Metadata.MetadataType.FMD_LEVEL, R.id.block_level, R.drawable.ic_level_white,
+                  R.string.editor_level, R.string.error_enter_correct_level,
+                  InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     View facebookContactBlock =
         initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook, R.drawable.ic_facebook_white,
-                  R.string.facebook, InputType.TYPE_TEXT_VARIATION_URI);
-    View instagramContactBlock =
-        initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
-                  R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
+                  R.string.facebook, R.string.error_enter_correct_facebook_page, INPUT_TYPE_URI);
+    View instagramContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
+                                           R.drawable.ic_instagram_white, R.string.instagram,
+                                           R.string.error_enter_correct_instagram_page, INPUT_TYPE_URI);
     View twitterContactBlock =
         initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter, R.drawable.ic_twitterx_white,
-                  R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
+                  R.string.twitter, R.string.error_enter_correct_twitter_page, INPUT_TYPE_URI);
     View vkContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk, R.drawable.ic_vk_white,
-                                    R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
-    View lineContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,
-                                      R.drawable.ic_line_white, R.string.line, InputType.TYPE_TEXT_VARIATION_URI);
+                                    R.string.vk, R.string.error_enter_correct_vk_page, INPUT_TYPE_URI);
+    View lineContactBlock =
+        initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line, R.drawable.ic_line_white,
+                  R.string.line, R.string.error_enter_correct_line_page, INPUT_TYPE_URI);
     View operatorBlock = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
-                                   R.drawable.ic_operator, R.string.editor_operator, 0);
+                                   R.drawable.ic_operator, R.string.editor_operator, 0, 0);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
@@ -495,6 +500,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_LEVEL, levelBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_OPERATOR, operatorBlock);
 
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, facebookContactBlock);
