@@ -7,6 +7,8 @@
 
 #include <cstdint>
 #include <set>
+#include <algorithm>
+#include <bit>
 #include <utility>
 #include <vector>
 
@@ -27,9 +29,15 @@ inline bool ApplyMetalineOffsets(std::vector<MetalineData> & model, std::vector<
 {
   if (model.size() != offsets.size())
     return false;
+  auto const validPhase = [](double phase)
+  {
+    // Check the exponent before using floating-point comparisons under fast-math.
+    return (std::bit_cast<uint64_t>(phase) & 0x7ff0000000000000ULL) != 0x7ff0000000000000ULL && phase >= 0;
+  };
   for (size_t i = 0; i < model.size(); ++i)
     if (model[i].m_features != offsets[i].m_features || model[i].m_reversed != offsets[i].m_reversed ||
-        offsets[i].m_dashPhaseOffsets.size() != model[i].m_features.size())
+        offsets[i].m_dashPhaseOffsets.size() != model[i].m_features.size() ||
+        !std::all_of(offsets[i].m_dashPhaseOffsets.begin(), offsets[i].m_dashPhaseOffsets.end(), validPhase))
       return false;
   for (size_t i = 0; i < model.size(); ++i)
     model[i].m_dashPhaseOffsets = std::move(offsets[i].m_dashPhaseOffsets);
