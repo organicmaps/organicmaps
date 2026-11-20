@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";
 "elevation_profile_max_elevation" = "कमाल उंची";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "उंची प्रोफाइल पाहण्यासाठी हालचाल सुरू करा";
 "isolines_toast_zooms_1_10" = "समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा";
 "downloader_loading_ios" = "डाउनलोड करत आहे";
 
@@ -1238,6 +1235,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "थांब्यांची कमाल संख्या गाठली आहे";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "मार्ग ट्रॅक म्हणून जतन करता आला नाही";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा";

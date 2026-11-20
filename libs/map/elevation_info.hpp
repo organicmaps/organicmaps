@@ -103,15 +103,9 @@ protected:
 class GpsTrackElevation : public ElevationInfo
 {
 public:
-  using GpsPoints = std::vector<location::GpsInfo>;
-
-  GpsTrackElevation() = default;
-
-  void AddGpsPoints(GpsPoints const & points);
-  void Clear();
+  void AddGpsPoint(location::GpsInfo const & gps);
+  void Clear() { m_lines.clear(); }
 
 private:
   ms::LatLon m_lastLatLon;
-  double m_lastDistance = 0;
-  bool m_hasLastPoint = false;
 };

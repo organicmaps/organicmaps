@@ -14,6 +14,7 @@ internal data class TrackRecordingWidgetContent(
         val descent: String,
         val maxElevation: String,
         val minElevation: String,
+        val showElevation: Boolean = true,
     )
 
     // The chronometer ticks by itself, a new base alone needs no update.
@@ -23,9 +24,16 @@ internal data class TrackRecordingWidgetContent(
     companion object {
         const val MIN_PUSH_INTERVAL_MS = 10_000L
 
-        // Texts change every few meters, so update at most once per interval unless ticking starts or stops.
-        fun formatDelayMs(previous: TrackRecordingWidgetContent?, durationSec: Double, elapsedRealtimeMs: Long): Long {
-            if (previous == null || previous.isTicking != (durationSec > 0)) {
+        // Update immediately when the clock or elevation row changes visibility.
+        fun formatDelayMs(
+            previous: TrackRecordingWidgetContent?,
+            durationSec: Double,
+            showElevation: Boolean,
+            elapsedRealtimeMs: Long,
+        ): Long {
+            if (previous == null || previous.isTicking != (durationSec > 0) ||
+                previous.texts.showElevation != showElevation
+            ) {
                 return 0
             }
             return (previous.createdAtMs + MIN_PUSH_INTERVAL_MS - elapsedRealtimeMs).coerceAtLeast(0)

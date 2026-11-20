@@ -22,13 +22,11 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
 
   private lazy var placePageNavigationViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
 
-  private lazy var elevationProfileViewController: ElevationProfileViewController? = {
-    guard let trackData = placePageData.trackData else {
-      return nil
-    }
-    return ElevationProfileBuilder.build(trackRecordingData: trackData,
-                                         delegate: interactor,
-                                         presentationStyle: .track)
+  private lazy var elevationProfileViewController: ElevationProfileViewController = {
+    let state = placePageData.trackData.flatMap(ElevationProfileBuilder.makeTrackRecordingState)
+    let viewController = ElevationProfileBuilder.build(state: state, delegate: interactor, presentationStyle: .track)
+    viewController.view.isHidden = state == nil
+    return viewController
   }()
 
   private lazy var actionBarViewController: ActionBarViewController = {
@@ -47,17 +45,10 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
   }
 
   private func configureViewControllers() -> [UIViewController] {
-    var viewControllers = [UIViewController]()
-
-    if let elevationProfileViewController {
-      viewControllers.append(elevationProfileViewController)
-    }
-
     placePageData.onTrackRecordingProgressUpdate = { [weak self] in
       self?.updateTrackRecordingRelatedSections()
     }
-
-    return viewControllers
+    return [elevationProfileViewController]
   }
 
   func calculateSteps(inScrollView scrollView: UIScrollView, compact _: Bool) -> [PlacePageState] {
@@ -71,9 +62,13 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
 
 private extension PlacePageTrackRecordingLayout {
   func updateTrackRecordingRelatedSections() {
-    guard let elevationProfileViewController, let trackData = placePageData.trackData else { return }
     headerViewController.setTitle(placePageData.previewData.title, secondaryTitle: nil)
-    elevationProfileViewController.presenter?.update(with: ElevationProfileBuilder.makeTrackRecordingState(trackData: trackData))
+
+    let state = placePageData.trackData.flatMap(ElevationProfileBuilder.makeTrackRecordingState)
+    elevationProfileViewController.view.isHidden = state == nil
+    if let state {
+      elevationProfileViewController.presenter?.update(with: state)
+    }
     presenter?.layoutIfNeeded()
   }
 }

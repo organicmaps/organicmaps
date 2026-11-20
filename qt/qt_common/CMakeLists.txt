@@ -5,6 +5,8 @@ QT6_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
 set_property(SOURCE qrc_resources_common.cpp PROPERTY SKIP_AUTOGEN ON)
 
 set(SRC
+  frame_blit.cpp
+  frame_blit.hpp
   helpers.cpp
   helpers.hpp
   map_widget.cpp

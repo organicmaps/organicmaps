@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";
 "elevation_profile_max_elevation" = "Maks. yükselti";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Yükseklik profilini görmek için hareket etmeye başlayın";
 "isolines_toast_zooms_1_10" = "İzohipsleri görmek için haritayı büyütün";
 "downloader_loading_ios" = "İndiriliyor";
 
@@ -1238,6 +1235,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Maksimum ara nokta sayısına ulaşıldı";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Rota iz olarak kaydedilemedi";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın";

@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";
 "elevation_profile_max_elevation" = "Hám.hæð";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Byrjaðu að hreyfa þig til að sjá hæðarsniðið";
 "isolines_toast_zooms_1_10" = "Renndu að til að skoða hæðarlínur";
 "downloader_loading_ios" = "Sæki";
 
@@ -1238,6 +1235,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Hámarksfjölda stoppa er náð";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Ekki tókst að vista leiðina sem feril";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Hreyfðu og stækkaðu kortið til að staðsetja krossinn";

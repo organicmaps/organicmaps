@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "下降";
 "elevation_profile_min_elevation" = "最小標高";
 "elevation_profile_max_elevation" = "最大標高";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "移動を開始すると標高プロファイルが表示されます";
 "isolines_toast_zooms_1_10" = "等高線を調べるようにズームインしてください";
 "downloader_loading_ios" = "ダウンロード中";
 
@@ -1238,6 +1235,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "経由地の最大数に達しました";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "経路をトラックとして保存できませんでした";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "地図を移動・拡大縮小して、十字を配置してください";

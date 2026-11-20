@@ -65,12 +65,10 @@ public:
   size_t GetDroppedCompilationsCount() const { return m_droppedCompilations; }
   void ResolveAreaStyles();
 
-  static kml::TrackLayer GetDefaultTrackLayer();
-
 private:
   std::string const & GetTagFromEnd(size_t n) const;
-  bool IsProcessTrackTag() const;
-  bool IsProcessTrackCoord() const;
+  bool IsProcessTrackTag(size_t offset = 0) const;
+  void FinishTrackSection();
 
   enum GeometryType
   {
@@ -81,8 +79,6 @@ private:
 
   void ResetPoint();
   void SetOrigin(std::string const & s);
-  static void ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s, char const * blockSeparator,
-                                char const * coordSeparator);
   void ParseLineString(std::string const & s);
 
   bool MakeValid();
@@ -141,8 +137,8 @@ private:
   GeometryType m_geometryType;
 
   MultiGeometry m_geometry;
-  std::map<size_t, std::set<size_t>> m_skipTimes;
-  size_t m_lastTrackPointsCount;
+  std::optional<geometry::PointWithAltitude> m_trackCoordinate;
+  std::vector<size_t> m_skippedTrackCoordinates;
 
   uint32_t m_color;      // current LineStyle color (tracks)
   uint32_t m_iconColor;  // current IconStyle color (custom bookmark color)

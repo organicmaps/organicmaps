@@ -96,7 +96,10 @@ extension NavigationDashboard {
         return .none
 
       case .saveRouteAsTrackButtonDidTap:
-        router.saveRouteAsTrack()
+        guard router.saveRouteAsTrack() else {
+          Toast.show(withText: L("routing_save_route_error"))
+          return .none
+        }
         return .setRouteAsTrackSaved
 
       case .updateRouteBuildingProgress(let progress, let routerType):

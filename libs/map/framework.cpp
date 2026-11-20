@@ -2163,7 +2163,7 @@ void Framework::EnableDebugRectRendering(bool enabled)
 void Framework::StartTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
-  tracker.SetEnabled(true);
+  tracker.Start();
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
@@ -2185,13 +2185,14 @@ ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
   return GpsTracker::Instance().GetElevationInfo();
 }
 
-void Framework::StopTrackRecording()
+size_t Framework::StopTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
-  tracker.SetEnabled(false);
+  auto const pointCount = tracker.Stop();
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
+  return pointCount;
 }
 
 void Framework::DiscardTrackRecording()
@@ -2200,18 +2201,19 @@ void Framework::DiscardTrackRecording()
   GpsTracker::Instance().Clear();
 }
 
-void Framework::SaveTrackRecordingWithName(std::string const & name)
+bool Framework::SaveTrackRecordingWithName(std::string const & name)
 {
-  auto const trackId = GetBookmarkManager().SaveTrackRecording(name);
-  if (m_drapeEngine)
-    m_drapeEngine->ClearGpsTrackPoints();
+  auto const pointCount = StopTrackRecording();
+  auto & tracker = GpsTracker::Instance();
+  if (pointCount < 2)
+  {
+    tracker.Clear();
+    return false;
+  }
+  auto const trackId = GetBookmarkManager().SaveTrackRecording(name, pointCount);
+  tracker.Clear();
   ShowTrack(trackId);
-  GpsTracker::Instance().Clear();
-}
-
-bool Framework::IsTrackRecordingEmpty() const
-{
-  return GpsTracker::Instance().IsEmpty();
+  return true;
 }
 
 bool Framework::IsTrackRecordingEnabled() const
@@ -2219,11 +2221,13 @@ bool Framework::IsTrackRecordingEnabled() const
   return GpsTracker::Instance().IsEnabled();
 }
 
-void Framework::SaveRoute()
+bool Framework::SaveRoute()
 {
   auto const trackId = m_routingManager.SaveRoute();
-  if (trackId != kml::kInvalidTrackId)
-    ShowTrack(trackId);
+  if (trackId == kml::kInvalidTrackId)
+    return false;
+  ShowTrack(trackId);
+  return true;
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
@@ -2927,20 +2931,6 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
     return df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
   }, [](UserMark::Type type) { return type == UserMark::Type::TRACK_INFO || type == UserMark::Type::TRACK_SELECTION; });
   return mark;
-}
-
-void Framework::PredictLocation(double & lat, double & lon, double accuracy, double bearing, double speed,
-                                double elapsedSeconds)
-{
-  double offsetInM = speed * elapsedSeconds;
-  double angle = math::DegToRad(90.0 - bearing);
-
-  m2::PointD mercatorPt = mercator::MetersToXY(lon, lat, accuracy).Center();
-  mercatorPt = mercator::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
-  // GetSmPoint may return extended coordinates past the antimeridian.
-  // Wrap back to [-180, 180] so callers (e.g. iOS CLLocation) get valid longitude.
-  lon = mercator::XToLon(mercator::WrapX(mercatorPt.x));
-  lat = mercator::YToLat(mercatorPt.y);
 }
 
 StringsBundle const & Framework::GetStringsBundle()

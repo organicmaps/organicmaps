@@ -10,6 +10,7 @@
 #include "geometry/any_rect2d.hpp"
 
 #include <string>
+#include <utility>
 
 class Track : public df::UserLineMark
 {
@@ -26,7 +27,6 @@ public:
   void ResetChanges() const override { m_isDirty = false; }
 
   kml::TrackData const & GetData() const { return m_data; }
-  void SetData(kml::TrackData const & data);
 
   std::string GetName() const;
   void SetName(std::string const & name);
@@ -37,7 +37,7 @@ public:
   double GetLengthMeters() const;
   double GetDurationInSeconds() const;
 
-  TrackStatistics GetStatistics() const;
+  std::pair<TrackStatistics, ElevationInfo const *> GetStatisticsAndElevationInfo() const;
   ElevationInfo const * GetElevationInfo() const;
 
   std::pair<m2::PointD, double> GetCenterPoint() const;
@@ -107,9 +107,12 @@ public:
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
+  // Clamp a distance to the source endpoints, using the preceding section at a gap.
   m2::PointD GetPoint(double distanceInMeters) const;
 
   kml::MultiGeometry::LineT GetGeometry() const;
+  /// Elevation charts and totals require complete heights, with at least one nonzero height.
+  /// Incomplete saved tracks retain measured heights for export and still show distance and available duration.
   bool HasAltitudes() const;
 
 private:

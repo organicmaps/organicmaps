@@ -1,5 +1,6 @@
 #include "qt/qt_common/map_widget.hpp"
 
+#include "qt/qt_common/frame_blit.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 
@@ -16,9 +17,6 @@
 #include <functional>
 #include <string>
 
-#include <QOpenGLBuffer>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLVertexArrayObject>
 #include <QTouchEvent>
 
 #include <QtGui/QAction>
@@ -324,45 +322,6 @@ void MapWidget::UpdateScaleControl()
   m_slider->SetPosWithBlockedSignals(m_framework.GetDrawScale());
 }
 
-void MapWidget::Build()
-{
-  std::string_view vertexSrc;
-  std::string_view fragmentSrc;
-#if defined(OMIM_OS_LINUX)
-  vertexSrc = ":common/shaders/gles_300.vsh.glsl";
-  fragmentSrc = ":common/shaders/gles_300.fsh.glsl";
-#else
-  vertexSrc = ":common/shaders/gl_150.vsh.glsl";
-  fragmentSrc = ":common/shaders/gl_150.fsh.glsl";
-#endif
-
-  m_program = std::make_unique<QOpenGLShaderProgram>(this);
-  m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, vertexSrc.data());
-  m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentSrc.data());
-  m_program->link();
-
-  m_vao = std::make_unique<QOpenGLVertexArrayObject>(this);
-  m_vao->create();
-  m_vao->bind();
-
-  m_vbo = std::make_unique<QOpenGLBuffer>(QOpenGLBuffer::VertexBuffer);
-  m_vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
-  m_vbo->create();
-  m_vbo->bind();
-
-  QVector4D vertices[4] = {QVector4D(-1.0, 1.0, 0.0, 1.0), QVector4D(1.0, 1.0, 1.0, 1.0),
-                           QVector4D(-1.0, -1.0, 0.0, 0.0), QVector4D(1.0, -1.0, 1.0, 0.0)};
-  m_vbo->allocate(static_cast<void *>(vertices), sizeof(vertices));
-  QOpenGLFunctions * f = QOpenGLContext::currentContext()->functions();
-  // 0-index of the buffer is linked to "a_position" attribute in vertex shader.
-  // Introduced in https://github.com/organicmaps/organicmaps/pull/9814
-  f->glEnableVertexAttribArray(0);
-  f->glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(QVector4D), nullptr);
-
-  m_program->release();
-  m_vao->release();
-}
-
 namespace
 {
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework, FeatureType & ft)
@@ -468,6 +427,7 @@ void MapWidget::initializeGL()
   }
 #endif
 
+  m_frameBlit = std::make_unique<FrameBlit>();
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
   emit BeforeEngineCreation();
@@ -481,30 +441,7 @@ void MapWidget::initializeGL()
 
 void MapWidget::paintGL()
 {
-  if (m_program == nullptr)
-    Build();
-
-  if (m_contextFactory->AcquireFrame())
-  {
-    m_vao->bind();
-    m_program->bind();
-
-    QOpenGLFunctions * funcs = context()->functions();
-    funcs->glActiveTexture(GL_TEXTURE0);
-    GLuint const image = m_contextFactory->GetTextureHandle();
-    funcs->glBindTexture(GL_TEXTURE_2D, image);
-
-    int const samplerLocation = m_program->uniformLocation("u_sampler");
-    m_program->setUniformValue(samplerLocation, 0);
-
-    funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
-    funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    m_program->release();
-    m_vao->release();
-  }
+  m_frameBlit->Draw(m_contextFactory->AcquireFrameTexture());
 }
 
 void MapWidget::resizeGL(int width, int height)

@@ -391,7 +391,6 @@ final class NavigationDashboardViewController: UIViewController {
   @objc
   private func didTapSaveRouteAsTrackButton() {
     impactGenerator.impactOccurred()
-    saveRouteAsTrackButton.isEnabled = false
     interactor?.process(.saveRouteAsTrackButtonDidTap)
   }
 

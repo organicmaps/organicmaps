@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "generator/altitude_generator.hpp"
 #include "generator/generator_tests_support/test_generator.hpp"
 
 #include "routing/index_router.hpp"
@@ -16,6 +17,7 @@
 
 #include "traffic/traffic_cache.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <map>
 #include <utility>
@@ -35,12 +37,15 @@ public:
   uint32_t m_ferryFeature = 0;
   std::function<void()> m_onCountryLookup;
 
-  explicit RoutingPreferenceFixture(std::string const & fixture = "routing_options.osm")
+  explicit RoutingPreferenceFixture(std::string const & fixture = "routing_options.osm",
+                                    AltitudeGetter * altitudes = nullptr)
   {
     BuildFB(GetPlatform().ReadPathForFile("test_data/osm/" + fixture), "Germany");
     BuildFeatures("Germany");
     BuildRouting("Germany", "Germany");
     BuildCrossMwm("Germany", "Germany");
+    if (altitudes)
+      BuildRoadAltitudes(GetMwmPath("Germany"), *altitudes);
     ForEachFeature("Germany", [this](auto const & ft)
     {
       if (feature::TypesHolder(*ft).Has(classif().GetTypeByPath({"route", "ferry"})))
@@ -55,9 +60,9 @@ public:
     m_tree->Add(m_ids->GetId(file.GetCountryFile()), m_bounds);
   }
 
-  std::unique_ptr<IndexRouter> Router(VehicleType vehicle)
+  std::unique_ptr<IndexRouter> Router(VehicleType vehicle, bool loadAltitudes = false)
   {
-    return std::make_unique<IndexRouter>(vehicle, false, [](std::string const &) { return std::string(); },
+    return std::make_unique<IndexRouter>(vehicle, loadAltitudes, [](std::string const &) { return std::string(); },
                                          [this](m2::PointD const &)
     {
       if (m_onCountryLookup)
@@ -98,7 +103,8 @@ private:
 class SurfaceRoutingFixture : public RoutingPreferenceFixture
 {
 public:
-  SurfaceRoutingFixture() : RoutingPreferenceFixture("routing_surfaces.osm")
+  explicit SurfaceRoutingFixture(AltitudeGetter * altitudes = nullptr)
+    : RoutingPreferenceFixture("routing_surfaces.osm", altitudes)
   {
     ForEachFeature("Germany", [this](auto const & feature)
     { m_features.emplace(feature->GetDefaultName(), feature->GetID().m_index); });
@@ -115,6 +121,102 @@ public:
 private:
   std::map<std::string, uint32_t> m_features;
 };
+
+UNIT_TEST(Routing_PreservesRoadAltitudesAndNumericFallbacks)
+{
+  class RoadAltitudes : public AltitudeGetter
+  {
+  public:
+    explicit RoadAltitudes(bool omitFinish) : m_omitFinish(omitFinish) {}
+
+    geometry::Altitude GetAltitude(m2::PointD const & point) override
+    {
+      // The last road has the same numeric heights when its samples are replaced by the section minimum.
+      if (m_omitFinish && point.x > 1.095)
+        return geometry::kInvalidAltitude;
+      return point.x < 1.02 ? 100 : 0;
+    }
+
+  private:
+    bool m_omitFinish;
+  };
+
+  auto const calculate = [](SurfaceRoutingFixture & fixture, bool loadAltitudes)
+  {
+    auto router = fixture.Router(VehicleType::Bicycle, loadAltitudes);
+    RoutesResult result;
+    TEST_EQUAL(SurfaceRoutingFixture::CalculateRequiredRoad(*router, result), RouterResultCode::NoError, ());
+    return Route(result.GetActive());
+  };
+
+  RoadAltitudes completeHeights(false);
+  SurfaceRoutingFixture completeMap(&completeHeights);
+  auto const complete = calculate(completeMap, true /* loadAltitudes */);
+  TEST(complete.HaveAltitudes(), ());
+  geometry::Altitudes altitudes;
+  complete.GetAltitudes(altitudes);
+  TEST_GREATER(altitudes.front(), 75, ());
+  TEST_LESS(altitudes.front(), 85, ());
+  TEST_EQUAL(altitudes.back(), 0, ());
+  auto const disabled = calculate(completeMap, false /* loadAltitudes */);
+  TEST(!disabled.HaveAltitudes(), ());
+  disabled.GetAltitudes(altitudes);
+  TEST(std::ranges::all_of(altitudes, [](auto altitude) { return altitude == geometry::kInvalidAltitude; }), ());
+
+  RoadAltitudes partialHeights(true);
+  SurfaceRoutingFixture partialMap(&partialHeights);
+  auto const partial = calculate(partialMap, true /* loadAltitudes */);
+  TEST(!partial.HaveAltitudes(), ());
+  partial.GetAltitudes(altitudes);
+  TEST_EQUAL(altitudes.front(), complete.GetSubrouteAttrs(0).GetStart().GetAltitude(), ());
+  TEST(std::ranges::find(altitudes, 0) != altitudes.end(), ());
+  TEST_EQUAL(altitudes.back(), geometry::kInvalidAltitude, ());
+  TEST_EQUAL(partial.GetSubrouteAttrs(0).GetFinish().GetAltitude(), geometry::kInvalidAltitude, ());
+  TEST_EQUAL(partial.GetPoly().GetPoints(), complete.GetPoly().GetPoints(), ());
+  TEST_ALMOST_EQUAL_ABS(partial.GetTotalTimeSec(), complete.GetTotalTimeSec(), 1e-8, ());
+}
+
+UNIT_TEST(Routing_UsesAltitudeFromTheSelectedSnap)
+{
+  class RoadAltitudes : public AltitudeGetter
+  {
+  public:
+    explicit RoadAltitudes(bool omitSideRoad) : m_omitSideRoad(omitSideRoad) {}
+
+    geometry::Altitude GetAltitude(m2::PointD const & point) override
+    {
+      if (m_omitSideRoad && mercator::YToLat(point.y) > 2.00005)
+        return geometry::kInvalidAltitude;
+      return point.x < 1.05 ? 100 : 200;
+    }
+
+  private:
+    bool const m_omitSideRoad;
+  };
+
+  auto const calculate = [](bool omitSideRoad)
+  {
+    RoadAltitudes altitudes(omitSideRoad);
+    RoutingPreferenceFixture fixture("routing_altitude_snap.osm", &altitudes);
+    auto router = fixture.Router(VehicleType::Bicycle, true /* loadAltitudes */);
+    RoutesResult result;
+    Checkpoints const checkpoints(mercator::FromLatLon(2, 1.01), mercator::FromLatLon(2, 1.09));
+    TEST_EQUAL(router->CalculateRoute(checkpoints, {}, false, false, {}, result), RouterResultCode::NoError, ());
+    return Route(result.GetActive());
+  };
+
+  auto const complete = calculate(false /* omitSideRoad */);
+  auto const partial = calculate(true /* omitSideRoad */);
+  TEST(partial.HaveAltitudes(), ());
+  geometry::Altitudes expected, actual;
+  complete.GetAltitudes(expected);
+  partial.GetAltitudes(actual);
+  TEST_EQUAL(actual, expected, ());
+  TEST_EQUAL(actual.front(), 100, ());
+  TEST_EQUAL(actual.back(), 200, ());
+  TEST_EQUAL(partial.GetPoly().GetPoints(), complete.GetPoly().GetPoints(), ());
+  TEST_ALMOST_EQUAL_ABS(partial.GetTotalTimeSec(), complete.GetTotalTimeSec(), 1e-8, ());
+}
 
 UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleDirtyMatchesMappedUnpavedSurfaces)
 {

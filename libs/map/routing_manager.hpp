@@ -269,7 +269,7 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
 
-  /// \return False if current route is invalid or doesn't have altitudes.
+  /// Returns true for a valid route with complete heights and a nonzero height after simplification.
   bool GetRouteElevationInfo(ElevationInfo & ei) const;
 
   /// \brief Interpolates a point along the current route polyline at the given distance from start.

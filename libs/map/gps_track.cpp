@@ -73,21 +73,19 @@ void GpsTrack::Clear()
   ScheduleTask();
 }
 
-bool GpsTrack::IsEmpty() const
-{
-  std::lock_guard lg(m_threadGuard);
-  return m_collection.IsEmpty();
-}
-
 void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
 {
+  bool const subscribed = static_cast<bool>(callback);
   {
     std::lock_guard lg(m_callbackGuard);
     m_callback = std::move(callback);
-    m_needSendSnapshot = true;
+    m_needSendSnapshot = subscribed;
   }
-  std::lock_guard lg(m_threadGuard);
-  ScheduleTask();
+  if (subscribed)
+  {
+    std::lock_guard lg(m_threadGuard);
+    ScheduleTask();
+  }
 }
 
 void GpsTrack::SetStatisticsCallback(TGpsTrackStatisticsCallback callback)

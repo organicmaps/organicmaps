@@ -39,12 +39,8 @@ private struct DescriptionsViewModel {
 }
 
 final class ElevationProfilePresenter: NSObject {
-  private enum Constants {
-    static let placeholderText = L("elevation_profile_placeholder")
-  }
-
   private weak var view: ElevationProfileViewProtocol?
-  private var state: ElevationProfileState
+  private var state: ElevationProfileState?
   private weak var delegate: ElevationProfileViewControllerDelegate?
 
   private let cellSpacing: CGFloat = 8
@@ -52,7 +48,7 @@ final class ElevationProfilePresenter: NSObject {
   private let formatter: ElevationProfileFormatter
 
   init(view: ElevationProfileViewProtocol,
-       state: ElevationProfileState,
+       state: ElevationProfileState?,
        formatter: ElevationProfileFormatter = ElevationProfileFormatter(),
        delegate: ElevationProfileViewControllerDelegate?) {
     self.view = view
@@ -61,7 +57,9 @@ final class ElevationProfilePresenter: NSObject {
     self.state = state
     descriptionModels = []
     super.init()
-    apply(state: state, configureView: false)
+    if let state {
+      apply(state: state, configureView: false)
+    }
   }
 
   private static func descriptionModels(for trackInfo: TrackInfo) -> [DescriptionsViewModel] {
@@ -109,6 +107,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func configure() {
+    guard let state else { return }
     view?.isChartViewHidden = false
 
     switch state {
@@ -122,8 +121,6 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   private func configureInteractiveProfile(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
     view?.reloadDescription()
-    view?.isXAxisViewHidden = false
-    view?.placeholderText = nil
     view?.userInteractionEnabled = true
     view?.isChartViewInfoHidden = false
     view?.setActivePointDistance(data.activePointDistance)
@@ -133,8 +130,6 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   private func configureTrackRecording(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
     view?.reloadDescription()
-    view?.isXAxisViewHidden = data.chartData.isPlaceholder
-    view?.placeholderText = data.chartData.isPlaceholder ? Constants.placeholderText : nil
     view?.userInteractionEnabled = false
     view?.isChartViewInfoHidden = true
   }
@@ -194,45 +189,15 @@ struct ElevationProfileChartData {
   let segmentBoundaryDistances: [Double]
   let maxDistance: Double
   let pointsCount: Int
-  let isPlaceholder: Bool
-
-  static func placeholder(altitude: Double) -> ElevationProfileChartData {
-    // Keep the placeholder invisible while giving the chart a non-degenerate Y range.
-    let values = [
-      ChartValue(xValues: 0, y: CGFloat(altitude)),
-      ChartValue(xValues: 1, y: CGFloat(altitude + 1)),
-    ]
-    return ElevationProfileChartData(chartValues: values,
-                                     chartLines: [Line(values: values, color: .clear, type: .line)],
-                                     distances: [0, 1],
-                                     segmentBoundaryDistances: [],
-                                     isPlaceholder: true)
-  }
 
   init(_ elevationData: ElevationProfileData) {
     let points = elevationData.points
     let chartValues = points.map { ChartValue(xValues: $0.distance, y: $0.altitude) }
-    let lineColor = UIColor.chartLine
-    let lineShadowColor = UIColor.chartShadow
-    let l1 = Line(values: chartValues, color: lineColor, type: .line)
-    let l2 = Line(values: chartValues, color: lineShadowColor, type: .lineArea)
-    self.init(chartValues: chartValues,
-              chartLines: [l1, l2],
-              distances: points.map(\.distance),
-              segmentBoundaryDistances: elevationData.segmentDistances.map(\.doubleValue),
-              isPlaceholder: false)
-  }
-
-  private init(chartValues: [ChartValue],
-               chartLines: [Line],
-               distances: [Double],
-               segmentBoundaryDistances: [Double],
-               isPlaceholder: Bool) {
     self.chartValues = chartValues
-    self.chartLines = chartLines
-    self.distances = distances
-    self.segmentBoundaryDistances = segmentBoundaryDistances
-    self.isPlaceholder = isPlaceholder
+    chartLines = [Line(values: chartValues, color: .chartLine, type: .line),
+                  Line(values: chartValues, color: .chartShadow, type: .lineArea)]
+    distances = points.map(\.distance)
+    segmentBoundaryDistances = elevationData.segmentDistances.map(\.doubleValue)
     maxDistance = distances.last ?? 0
     pointsCount = chartValues.count
   }
@@ -242,5 +207,4 @@ extension ElevationProfileChartData: ChartData {
   var xAxisValues: [Double] { distances }
   var lines: [ChartLine] { chartLines }
   var segmentDistances: [Double] { segmentBoundaryDistances.filter { $0 > 0 && $0 < maxDistance } }
-  var type: ChartType { .regular }
 }

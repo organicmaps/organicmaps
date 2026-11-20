@@ -10,11 +10,12 @@ public final class TrackStatistics
   private final double m_descent;
   private final int m_minElevation;
   private final int m_maxElevation;
+  private final boolean m_hasElevationInfo;
 
   // Used by JNI
   @Keep
   private TrackStatistics(double length, double duration, double ascent, double descent, int minElevation,
-                          int maxElevation)
+                          int maxElevation, boolean hasElevationInfo)
   {
     m_length = length;
     m_duration = duration;
@@ -22,6 +23,7 @@ public final class TrackStatistics
     m_descent = descent;
     m_minElevation = minElevation;
     m_maxElevation = maxElevation;
+    m_hasElevationInfo = hasElevationInfo;
   }
 
   public double getLength()
@@ -52,5 +54,11 @@ public final class TrackStatistics
   public int getMaxElevation()
   {
     return m_maxElevation;
+  }
+
+  /** Whether the elevation statistics are available for display. */
+  public boolean hasElevationInfo()
+  {
+    return m_hasElevationInfo;
   }
 }

@@ -481,14 +481,14 @@ public:
   using TrackRecordingUpdateHandler = platform::SafeCallback<void(TrackStatistics const & trackStatistics)>;
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
-  /// Finishes recording, retaining its backup until saved or explicitly discarded.
-  void StopTrackRecording();
+  /// Finishes recording and returns the point count. The backup is retained until save or discard.
+  size_t StopTrackRecording();
   void DiscardTrackRecording();
-  void SaveTrackRecordingWithName(std::string const & name);
-  bool IsTrackRecordingEmpty() const;
+  /// Returns true when finalization created a bookmark track. Bookmark persistence is asynchronous.
+  bool SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEnabled() const;
 
-  void SaveRoute();
+  bool SaveRoute();
   /// Returns the elevation profile data of the currently recorded track.
   /// To get the data on the every track recording state update, this function should be called after receiving the
   /// callback from the `SetTrackRecordingUpdateHandler`.
@@ -721,11 +721,6 @@ public:
   void AddString(std::string const & name, std::string const & value) { m_stringsBundle.SetString(name, value); }
 
   StringsBundle const & GetStringsBundle();
-
-  /// [in] lat, lon - last known location
-  /// [out] lat, lon - predicted location
-  static void PredictLocation(double & lat, double & lon, double accuracy, double bearing, double speed,
-                              double elapsedSeconds);
 
 public:
   /// @name Api

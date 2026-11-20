@@ -178,7 +178,7 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
                                       kBitsForDouble);
     double const lon = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon,
                                       kBitsForDouble);
-    ending.m_point = LatLonWithAltitude(ms::LatLon(lat, lon), geometry::kDefaultAltitudeMeters);
+    ending.m_point = LatLonWithAltitude(ms::LatLon(lat, lon));
 
     NumMwmId index = ReadPrimitiveFromSource<uint16_t>(src);
     CHECK_LESS(index, mwmNameHashes.size(), ());

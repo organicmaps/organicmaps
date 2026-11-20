@@ -80,17 +80,18 @@ final class TrackRecordingManagerTests: XCTestCase {
 
   func test_GivenStopRecording_WhenLocationEnabled_ThenSuccess() {
     mockTrackRecorder.trackRecordingIsEnabled = true
-    mockTrackRecorder.trackRecordingIsEmpty = false
+    mockTrackRecorder.saveResult = true
 
+    var completed = false
     trackRecordingManager.stopAndSave(withName: "Test Track") { result in
       switch result {
       case .success:
-        XCTAssertTrue(true)
+        completed = true
       case .trackIsEmpty:
         XCTFail("Track should not be empty")
       }
     }
-    XCTAssertTrue(mockTrackRecorder.stopTrackRecordingCalled)
+    XCTAssertTrue(completed)
     XCTAssertTrue(mockTrackRecorder.saveTrackRecordingCalled)
     XCTAssertFalse(mockTrackRecorder.discardTrackRecordingCalled)
     XCTAssertTrue(mockActivityManager.stopCalled)
@@ -99,7 +100,7 @@ final class TrackRecordingManagerTests: XCTestCase {
 
   func test_GivenStopRecording_WhenTrackIsEmpty_ThenShouldFail() {
     mockTrackRecorder.trackRecordingIsEnabled = true
-    mockTrackRecorder.trackRecordingIsEmpty = true
+    mockTrackRecorder.saveResult = false
     let expectation = expectation(description: "Track recording should be empty")
     trackRecordingManager.stopAndSave(withName: "Test Track") { result in
       switch result {
@@ -110,8 +111,8 @@ final class TrackRecordingManagerTests: XCTestCase {
       }
     }
     wait(for: [expectation], timeout: 1.0)
-    XCTAssertFalse(mockTrackRecorder.saveTrackRecordingCalled)
-    XCTAssertTrue(mockTrackRecorder.discardTrackRecordingCalled)
+    XCTAssertTrue(mockTrackRecorder.saveTrackRecordingCalled)
+    XCTAssertFalse(mockTrackRecorder.discardTrackRecordingCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
 
@@ -142,22 +143,22 @@ final class TrackRecordingManagerTests: XCTestCase {
 
 // MARK: - Mock Classes
 
-private final class MockTrackRecorder: TrackRecorder {
+final class MockTrackRecorder: TrackRecorder {
   static var trackRecordingIsEnabled = false
-  static var trackRecordingIsEmpty = false
+  static var saveResult = false
   static var startTrackRecordingCalled = false
-  static var stopTrackRecordingCalled = false
   static var discardTrackRecordingCalled = false
   static var saveTrackRecordingCalled = false
+  static var onSave: (() -> Void)?
   static var trackRecordingElevationProfileData: ElevationProfileData?
 
   static func reset() {
     trackRecordingIsEnabled = false
-    trackRecordingIsEmpty = false
+    saveResult = false
     startTrackRecordingCalled = false
-    stopTrackRecordingCalled = false
     discardTrackRecordingCalled = false
     saveTrackRecordingCalled = false
+    onSave = nil
     trackRecordingElevationProfileData = nil
   }
 
@@ -165,18 +166,9 @@ private final class MockTrackRecorder: TrackRecorder {
     trackRecordingIsEnabled
   }
 
-  static func isTrackRecordingEmpty() -> Bool {
-    trackRecordingIsEmpty
-  }
-
   static func startTrackRecording() {
     startTrackRecordingCalled = true
     trackRecordingIsEnabled = true
-  }
-
-  static func stopTrackRecording() {
-    stopTrackRecordingCalled = true
-    trackRecordingIsEnabled = false
   }
 
   static func discardTrackRecording() {
@@ -184,8 +176,11 @@ private final class MockTrackRecorder: TrackRecorder {
     trackRecordingIsEnabled = false
   }
 
-  static func saveTrackRecording(withName _: String) {
+  static func saveTrackRecording(withName _: String) -> Bool {
     saveTrackRecordingCalled = true
+    trackRecordingIsEnabled = false
+    onSave?()
+    return saveResult
   }
 
   static func setTrackRecordingUpdateHandler(_: ((TrackInfo) -> Void)?) {}
@@ -195,7 +190,7 @@ private final class MockTrackRecorder: TrackRecorder {
   }
 }
 
-private final class MockLocationService: LocationService {
+final class MockLocationService: LocationService {
   static var locationIsProhibited = false
   static var checkLocationStatusCalled = false
 

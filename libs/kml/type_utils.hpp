@@ -112,6 +112,11 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs);
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs);
 
+// Compare Mercator positions with longitude wrapping at kMwmPointAccuracy.
+// At the existing export precision, rounding can bring distinct points within this tolerance.
+// Losing very short sections on reload is an accepted limitation.
+bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs);
+
 template <class T>
 bool IsEqual(std::vector<T> const & lhs, std::vector<T> const & rhs)
 {

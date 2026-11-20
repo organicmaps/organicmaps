@@ -161,6 +161,7 @@ public:
   HttpClient & SetFollowRedirects(bool follow_redirects);
   HttpClient & SetRawHeader(std::string const & key, std::string const & value);
   HttpClient & SetRawHeaders(Headers const & headers);
+  // Maximum wait in seconds for a connection or for progress during a transfer.
   HttpClient & SetTimeout(double timeoutSec);
   HttpClient & SetProgressHandler(ProgressHandler handler);
   // Streaming data callback. When set, response data is delivered through this callback
@@ -221,7 +222,7 @@ private:
   Headers m_headers;
   bool m_followRedirects = false;
   bool m_loadHeaders = false;
-  double m_timeoutSec = 30.0;
+  double m_timeoutSec = 10.0;
   ProgressHandler m_progressHandler;
   DataHandler m_dataHandler;
 };

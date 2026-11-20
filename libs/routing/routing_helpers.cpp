@@ -41,7 +41,8 @@ void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment
 }
 
 void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, base::Cancellable const & cancellable,
-                      RouteJunctions const & path, std::vector<double> const & times, Route & route)
+                      RouteJunctions const & path, geometry::Altitudes const & routeAltitudes,
+                      std::vector<double> const & times, Route & route)
 {
   if (path.empty())
   {
@@ -50,6 +51,7 @@ void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, b
   }
 
   CHECK_EQUAL(path.size(), times.size() + 1, ());
+  ASSERT_EQUAL(path.size(), routeAltitudes.size(), ());
 
   std::vector<RouteSegment> routeSegments;
   if (!engine.Generate(graph, path, cancellable, routeSegments))
@@ -59,6 +61,9 @@ void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, b
     return;
 
   FillSegmentInfo(times, routeSegments);
+  // The directions engine uses numeric junctions as graph keys. Apply the finished route heights to its output.
+  for (size_t i = 0; i < routeSegments.size(); ++i)
+    routeSegments[i].SetAltitude(routeAltitudes[i + 1]);
   route.SetRouteSegments(std::move(routeSegments));
 
   std::vector<m2::PointD> routeGeometry;

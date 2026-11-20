@@ -16,13 +16,10 @@ public:
 
   using TItem = location::GpsInfo;
 
-  /// Constructor
-  GpsTrackCollection();
-
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
   /// @returns range of identifiers of added items or pair(kInvalidId,kInvalidId) if nothing was added
-  /// @note items which does not conform to timestamp sequence, is not added.
+  /// Skips out-of-order fixes and repeats of the last accepted position.
   std::pair<size_t, size_t> Add(std::vector<TItem> const & items);
 
   /// Removes all points from the collection.
@@ -31,9 +28,6 @@ public:
   /// @return range of item identifiers, which were removed or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   std::pair<size_t, size_t> Clear(bool resetIds = true);
-
-  /// Returns true if collection is empty, otherwise returns false.
-  bool IsEmpty() const;
 
   /// Returns number of items in the collection
   size_t GetSize() const;
@@ -66,8 +60,7 @@ public:
 private:
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
-  size_t m_lastId;
+  size_t m_lastId = 0;
   TrackStatistics m_statistics;
   GpsTrackElevation m_elevationInfo;
-  bool m_elevationInfoDirty;
 };

@@ -20,12 +20,12 @@ void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId, CrossBorderS
 }
 
 CrossBorderSegmentEnding::CrossBorderSegmentEnding(m2::PointD const & point, NumMwmId const & mwmId)
-  : m_point(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters)
+  : m_point(mercator::ToLatLon(point))
   , m_numMwmId(mwmId)
 {}
 
 CrossBorderSegmentEnding::CrossBorderSegmentEnding(ms::LatLon const & point, NumMwmId const & mwmId)
-  : m_point(point, 0)
+  : m_point(point)
   , m_numMwmId(mwmId)
 {}
 

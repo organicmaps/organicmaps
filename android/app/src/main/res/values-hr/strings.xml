@@ -923,6 +923,8 @@
     <string name="change_stop_along_route">Promijeni stajalište</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Postignut je maksimalni broj stajališta</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Rutu nije bilo moguće spremiti kao stazu</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Pomaknite i zumirajte kartu kako biste postavili križić</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->

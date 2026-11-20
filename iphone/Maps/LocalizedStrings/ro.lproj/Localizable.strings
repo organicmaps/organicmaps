@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";
 "elevation_profile_max_elevation" = "Max. altitudine";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Începeți să vă deplasați pentru a vedea profilul altitudinii";
 "isolines_toast_zooms_1_10" = "Mărește harta pentru a vedea izoliniile";
 "downloader_loading_ios" = "Se descarcă";
 
@@ -1238,6 +1235,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "S-a atins numărul maxim de opriri";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Nu s-a putut salva ruta ca traseu";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Deplasați și măriți/micșorați harta pentru a poziționa crucea";

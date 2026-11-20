@@ -101,14 +101,15 @@ class ChartPreviewView: ExpandedTouchView {
       for i in (0 ..< chartData.linesCount).reversed() {
         let line = chartData.lineAt(i)
         let v = ChartLineView()
-        v.isPreview = true
         v.chartLine = line
         v.frame = previewContainerView.bounds
         v.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         previewContainerView.addSubview(v)
         previewViews.insert(v, at: 0)
       }
-      previewViews.forEach { $0.setY(min: chartData.lower, max: chartData.upper) }
+      // A flat profile has no Y span to scale: center it instead.
+      let padding: CGFloat = chartData.lower < chartData.upper ? 0 : 1
+      previewViews.forEach { $0.setY(min: chartData.lower - padding, max: chartData.upper + padding) }
       let count = chartData.pointsCount - 1
       minX = 0
       maxX = count
@@ -166,7 +167,7 @@ class ChartPreviewView: ExpandedTouchView {
     guard sender.state == .changed else { return }
 
     let p = sender.translation(in: viewPortView)
-    let count = chartData.labels.count - 1
+    let count = chartData.pointsCount - 1
     let x = Int((viewPortView.frame.minX + p.x) / bounds.width * CGFloat(count))
     let dx = maxX - minX
     let mx = x + dx
@@ -190,7 +191,7 @@ class ChartPreviewView: ExpandedTouchView {
     guard sender.state == .changed else { return }
 
     let p = sender.translation(in: leftBoundView)
-    let count = chartData.labels.count - 1
+    let count = chartData.pointsCount - 1
     let x = Int((viewPortView.frame.minX + p.x) / bounds.width * CGFloat(count))
 
     if x > 0, x < maxX, maxX - x >= count / 10 {
@@ -212,7 +213,7 @@ class ChartPreviewView: ExpandedTouchView {
     guard sender.state == .changed else { return }
 
     let p = sender.translation(in: viewPortView)
-    let count = chartData.labels.count - 1
+    let count = chartData.pointsCount - 1
     let x = Int((viewPortView.frame.maxX + p.x) / bounds.width * CGFloat(count))
 
     if x > minX, x < count, x - minX >= count / 10 {
@@ -241,7 +242,7 @@ class ChartPreviewView: ExpandedTouchView {
   }
 
   func updateViewPort() {
-    let count = CGFloat(chartData.labels.count - 1)
+    let count = CGFloat(chartData.pointsCount - 1)
     viewPortView.frame = CGRect(x: CGFloat(minX) / count * bounds.width,
                                 y: bounds.minY,
                                 width: CGFloat(maxX - minX) / count * bounds.width,

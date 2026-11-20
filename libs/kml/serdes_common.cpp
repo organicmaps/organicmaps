@@ -1,8 +1,10 @@
 #include "kml/serdes_common.hpp"
+#include "kml/types.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -10,6 +12,8 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <set>
+#include <utility>
 
 namespace kml
 {
@@ -23,29 +27,80 @@ std::string PointToString(m2::PointD const & org, char const separator)
   return strings::to_string_dac(lon, kDigitsAfterComma) + separator + strings::to_string_dac(lat, kDigitsAfterComma);
 }
 
+static std::string FormatPointWithAltitude(geometry::PointWithAltitude const & pt, char separator)
+{
+  auto text = PointToString(pt.GetPoint(), separator);
+  if (auto const altitude = pt.GetAltitude(); altitude != geometry::kInvalidAltitude)
+  {
+    text += separator;
+    text += std::to_string(altitude);
+  }
+  return text;
+}
+
 std::string PointToLineString(geometry::PointWithAltitude const & pt)
 {
-  char constexpr kSeparator = ',';
-  if (pt.GetAltitude() != geometry::kInvalidAltitude)
-    return PointToString(pt.GetPoint(), kSeparator) + kSeparator + strings::to_string(pt.GetAltitude());
-  return PointToString(pt.GetPoint(), kSeparator);
+  return FormatPointWithAltitude(pt, ',');
 }
 
 std::string PointToGxString(geometry::PointWithAltitude const & pt)
 {
-  char constexpr kSeparator = ' ';
-  if (pt.GetAltitude() != geometry::kInvalidAltitude)
-    return PointToString(pt.GetPoint(), kSeparator) + kSeparator + strings::to_string(pt.GetAltitude());
-  return PointToString(pt.GetPoint(), kSeparator);
+  // Keep the legacy two-value gx:coord for points with unknown height.
+  return FormatPointWithAltitude(pt, ' ');
 }
 
-bool LineHasAltitude(TrackGeometry const & line)
+void NormalizeImportedTracks(FileData & data)
 {
-  return base::AnyOf(line, [](geometry::PointWithAltitude const & pt)
+  for (auto & track : data.m_tracksData)
   {
-    auto const alt = pt.GetAltitude();
-    return alt != geometry::kInvalidAltitude && alt != geometry::kDefaultAltitudeMeters;
+    auto & geometry = track.m_geometry;
+    ASSERT_EQUAL(geometry.m_lines.size(), geometry.m_timestamps.size(), (track.m_id));
+    size_t keptLines = 0;
+    for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
+    {
+      auto & line = geometry.m_lines[lineIndex];
+      auto & times = geometry.m_timestamps[lineIndex];
+      MultiGeometry::RemoveDuplicatePoints(line, times);
+      if (line.size() < 2)
+      {
+        LOG(LWARNING, ("Degenerate track section", GetDefaultStr(track.m_name)));
+        continue;
+      }
+
+      if (!MultiGeometry::IsValidSectionTimestamps(times, line.size()))
+      {
+        LOG(LWARNING, ("Dropping incomplete or invalid section timestamps", GetDefaultStr(track.m_name), lineIndex));
+        times.clear();
+      }
+
+      if (keptLines != lineIndex)
+      {
+        geometry.m_lines[keptLines] = std::move(line);
+        geometry.m_timestamps[keptLines] = std::move(times);
+      }
+      ++keptLines;
+    }
+    geometry.m_lines.resize(keptLines);
+    geometry.m_timestamps.resize(keptLines);
+    if (!geometry.HasLines())
+      continue;
+
+    if (track.m_layers.empty())
+      track.m_layers.push_back({.m_lineWidth = kDefaultTrackWidth, .m_color = {.m_rgba = kDefaultTrackColor}});
+  }
+
+  std::set<LocalId> removedIds;
+  base::EraseIf(data.m_tracksData, [&removedIds](TrackData const & track)
+  {
+    if (track.m_geometry.HasLines())
+      return false;
+    removedIds.insert(track.m_localId);
+    return true;
   });
+
+  if (!removedIds.empty())
+    for (auto & bookmark : data.m_bookmarksData)
+      base::EraseIf(bookmark.m_boundTracks, [&removedIds](LocalId id) { return removedIds.contains(id); });
 }
 
 bool IsValidLatLon(double lat, double lon)

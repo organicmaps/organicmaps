@@ -44,6 +44,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <array>
 #include <map>
 
@@ -1579,8 +1580,8 @@ kml::TrackId RoutingManager::SaveRoute()
   if (!RoutingSession().GetRouteJunctionPoints(junctions))
     return kml::kInvalidTrackId;
 
-  base::Unique(junctions, [](geometry::PointWithAltitude const & p1, geometry::PointWithAltitude const & p2)
-  { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); });
+  kml::MultiGeometry::TimeT times;
+  kml::MultiGeometry::RemoveDuplicatePoints(junctions, times);
   if (junctions.size() < 2)
     return kml::kInvalidTrackId;
 
@@ -1707,7 +1708,8 @@ bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
 
   ei.Assign(route->GetSegDistanceMeters(), altitudes);
   ei.Simplify();
-  return true;
+  return std::ranges::any_of(ei.GetLines().front(),
+                             [](auto const & point) { return point.m_altitude != geometry::kDefaultAltitudeMeters; });
 }
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const

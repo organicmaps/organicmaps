@@ -167,10 +167,16 @@ void PushPassedSubroutes(Checkpoints const & checkpoints, std::vector<Route::Sub
 {
   for (size_t i = 0; i < checkpoints.GetPassedIdx(); ++i)
   {
-    subroutes.emplace_back(geometry::PointWithAltitude(checkpoints.GetPoint(i), geometry::kDefaultAltitudeMeters),
-                           geometry::PointWithAltitude(checkpoints.GetPoint(i + 1), geometry::kDefaultAltitudeMeters),
+    subroutes.emplace_back(geometry::PointWithAltitude(checkpoints.GetPoint(i), geometry::kInvalidAltitude),
+                           geometry::PointWithAltitude(checkpoints.GetPoint(i + 1), geometry::kInvalidAltitude),
                            0 /* beginSegmentIdx */, 0 /* endSegmentIdx */);
   }
+}
+
+geometry::PointWithAltitude WithProjectionAltitude(LatLonWithAltitude const & checkpoint,
+                                                   LatLonWithAltitude const & projection)
+{
+  return {mercator::FromLatLon(checkpoint.GetLatLon()), projection.GetRouteAltitude()};
 }
 
 bool GetLastRealOrPart(IndexGraphStarter const & starter, std::vector<Segment> const & route, Segment & real)
@@ -864,10 +870,14 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
 
     segments.insert(segments.end(), subroute.begin(), subroute.end());
 
-    size_t subrouteSegmentsEnd = segments.size();
-    subroutes.emplace_back(subrouteStarter.GetStartJunction().ToPointWithAltitude(),
-                           subrouteStarter.GetFinishJunction().ToPointWithAltitude(), subrouteSegmentsBegin,
-                           subrouteSegmentsEnd);
+    size_t const subrouteSegmentsEnd = segments.size();
+    // The edges adjacent to the two synthetic endpoints carry the selected projections.
+    auto const routeStart = WithProjectionAltitude(subrouteStarter.GetStartJunction(),
+                                                   subrouteStarter.GetJunction(subroute[1], true /* front */));
+    auto const routeFinish =
+        WithProjectionAltitude(subrouteStarter.GetFinishJunction(),
+                               subrouteStarter.GetJunction(subroute[subroute.size() - 2], false /* front */));
+    subroutes.emplace_back(routeStart, routeFinish, subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
 
     // For every subroute except for the first one the last real segment is used as a next start segment.
@@ -1332,8 +1342,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   size_t subrouteOffset = result.m_path.size();
   // Append() above copied starter's finish ending from m_lastFakeEdges: it is the whole route's final
   // destination, which differs from this leg's finish while an intermediate checkpoint is pending.
-  subroutes.emplace_back(starter.GetStartJunction().ToPointWithAltitude(), rebuiltSubroute.GetFinish(),
-                         0 /* beginSegmentIdx */, subrouteOffset);
+  auto const & startProjection = starter.GetJunction(result.m_path[1], true /* front */);
+  subroutes.emplace_back(WithProjectionAltitude(starter.GetStartJunction(), startProjection),
+                         rebuiltSubroute.GetFinish(), 0 /* beginSegmentIdx */, subrouteOffset);
 
   for (size_t i = checkpoints.GetPassedIdx() + 1; i < lastSubroutes.size(); ++i)
   {
@@ -1925,9 +1936,30 @@ RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments
   size_t const segsCount = segments.size();
   RouteJunctions junctions;
   junctions.reserve(segsCount + 1);
+  geometry::Altitudes routeAltitudes;
+  routeAltitudes.reserve(segsCount + 1);
 
   for (size_t i = 0; i <= segsCount; ++i)
-    junctions.emplace_back(starter.GetRouteJunction(segments, i).ToPointWithAltitude());
+  {
+    auto const & junction = starter.GetRouteJunction(segments, i);
+    junctions.push_back(junction.ToPointWithAltitude());
+    routeAltitudes.push_back(junction.GetRouteAltitude());
+  }
+
+  // The graph's endpoint altitudes average its snap candidates. Only the selected projection
+  // supplies the height of an endpoint in the finished route, including its duplicated junctions.
+  for (auto const & subroute : route.GetSubroutes())
+  {
+    if (subroute.GetSize() == 0)
+      continue;
+    auto const begin = subroute.GetBeginSegmentIdx();
+    auto const end = subroute.GetEndSegmentIdx();
+    ASSERT_GREATER_OR_EQUAL(subroute.GetSize(), 2, (begin, end));
+    ASSERT_LESS_OR_EQUAL(end, segsCount, (begin, end));
+    routeAltitudes[begin] = routeAltitudes[begin + 1] = subroute.GetStart().GetAltitude();
+    routeAltitudes[end - 1] = subroute.GetFinish().GetAltitude();
+  }
+  routeAltitudes.back() = route.GetSubroutes().back().GetFinish().GetAltitude();
 
   IndexRoadGraph roadGraph(starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
@@ -1946,7 +1978,7 @@ RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments
   }
 
   m_directionsEngine->SetVehicleType(m_vehicleType);
-  ReconstructRoute(*m_directionsEngine, roadGraph, cancellable, junctions, times, route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, cancellable, junctions, routeAltitudes, times, route);
 
   if (cancellable.IsCancelled())
     return RouterResultCode::Cancelled;

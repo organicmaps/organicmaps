@@ -1,12 +1,14 @@
 #pragma once
 
+#include "platform/location.hpp"
+
 namespace location_util
 {
 
-static location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocationSource source)
+static location::GpsInfo gpsInfoFromLocation(CLLocation * l)
 {
   location::GpsInfo info;
-  info.m_source = source;
+  info.m_source = location::EAppleNative;
 
   info.m_latitude = l.coordinate.latitude;
   info.m_longitude = l.coordinate.longitude;

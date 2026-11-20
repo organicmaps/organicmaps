@@ -48,7 +48,7 @@ AltitudeLoaderBase::AltitudeLoaderBase(MwmValue const & mwmValue)
   }
   catch (Reader::OpenException const & e)
   {
-    m_header.Reset();
+    m_reader.reset();
     LOG(LERROR, ("File", m_countryFileName, "Error while reading", ALTITUDES_FILE_TAG, "section.", e.Msg()));
   }
 }
@@ -58,16 +58,16 @@ bool AltitudeLoaderBase::HasAltitudes() const
   return m_reader != nullptr && m_header.m_minAltitude != geometry::kInvalidAltitude;
 }
 
-geometry::Altitudes AltitudeLoaderBase::GetAltitudes(uint32_t featureId, size_t pointCount)
+AltitudeLoaderBase::Result AltitudeLoaderBase::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
   if (!HasAltitudes())
   {
     // There's no altitude section in mwm.
-    return geometry::Altitudes(pointCount, geometry::kDefaultAltitudeMeters);
+    return {geometry::Altitudes(pointCount, geometry::kDefaultAltitudeMeters), false};
   }
 
   if (!m_altitudeAvailability[featureId])
-    return geometry::Altitudes(pointCount, m_header.m_minAltitude);
+    return {geometry::Altitudes(pointCount, m_header.m_minAltitude), false};
 
   uint64_t const r = m_altitudeAvailability.rank(featureId);
   CHECK_LESS(r, m_altitudeAvailability.size(), ("Feature Id", featureId, "of", m_countryFileName));
@@ -89,12 +89,12 @@ geometry::Altitudes AltitudeLoaderBase::GetAltitudes(uint32_t featureId, size_t 
                    [](geometry::Altitude a) { return a == geometry::kInvalidAltitude; }),
            (featureId, m_countryFileName));
 
-    return std::move(altitudes.m_altitudes);
+    return {std::move(altitudes.m_altitudes), true};
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Feature Id", featureId, "of", m_countryFileName, ". Error while getting altitude data:", e.Msg()));
-    return geometry::Altitudes(pointCount, m_header.m_minAltitude);
+    return {geometry::Altitudes(pointCount, m_header.m_minAltitude), false};
   }
 }
 
@@ -104,6 +104,6 @@ geometry::Altitudes const & AltitudeLoaderCached::GetAltitudes(uint32_t featureI
   if (it != m_cache.end())
     return it->second;
 
-  return m_cache.emplace(featureId, AltitudeLoaderBase::GetAltitudes(featureId, pointCount)).first->second;
+  return m_cache.emplace(featureId, AltitudeLoaderBase::GetAltitudes(featureId, pointCount).m_altitudes).first->second;
 }
 }  // namespace feature
