@@ -197,7 +197,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     SwitchCompat button = root.findViewById(buttonId);
     UiUtils.showIf(
         (router != Router.Bicycle || roadType != RoadType.Dirty) && RoutingOptions.supportsOption(router, roadType),
-        (View) button.getParent());
+        button);
     button.setOnCheckedChangeListener(null);
     button.setChecked(RoutingOptions.hasOption(router, roadType));
     // Another mode's settings are shown as they are, without animating the switches.

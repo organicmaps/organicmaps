@@ -96,6 +96,78 @@
     <item name="android:layout_weight">1</item>
   </style>
 
+  <style name="ThemeOverlay.RoutingOptions.Tabs" parent="">
+    <item name="routingTabPillBg">@color/routing_options_tabs_bg</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions"/>
+
+  <style name="MwmWidget.RoutingOptions.Header">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">@dimen/margin_double</item>
+    <item name="android:layout_marginEnd">@dimen/margin_double</item>
+    <item name="android:layout_marginTop">@dimen/margin_base_plus</item>
+    <item name="android:layout_marginBottom">@dimen/margin_half</item>
+    <item name="android:textAppearance">?fontSubtitle2</item>
+    <item name="android:textColor">?colorAccent</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions.Footer">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">@dimen/margin_double</item>
+    <item name="android:layout_marginEnd">@dimen/margin_double</item>
+    <item name="android:layout_marginTop">@dimen/margin_half</item>
+    <item name="android:layout_marginBottom">@dimen/margin_base_plus</item>
+    <item name="android:textAppearance">?fontBody2</item>
+    <item name="android:textColor">?android:attr/textColorSecondary</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions.Card" parent="Widget.MaterialComponents.CardView">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">@dimen/margin_base</item>
+    <item name="android:layout_marginEnd">@dimen/margin_base</item>
+    <item name="cardBackgroundColor">?cardBackground</item>
+    <item name="cardCornerRadius">@dimen/corner_radius_large</item>
+    <item name="cardElevation">0dp</item>
+    <item name="strokeWidth">0dp</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions.Rows">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:divider">?android:attr/listDivider</item>
+    <item name="android:showDividers">middle</item>
+    <item name="android:dividerPadding">@dimen/margin_base</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions.Row">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/height_item_oneline</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:paddingTop">@dimen/margin_half</item>
+    <item name="android:paddingBottom">@dimen/margin_half</item>
+    <item name="android:gravity">start|center_vertical</item>
+    <item name="android:background">?clickableBackground</item>
+    <item name="android:textAppearance">?fontSubtitle1</item>
+    <item name="android:textColor">?android:attr/textColorPrimary</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions.Row.Switch">
+    <item name="switchPadding">@dimen/margin_base</item>
+  </style>
+
+  <style name="MwmWidget.RoutingOptions.Row.Choice">
+    <item name="android:button">@null</item>
+    <item name="drawableEndCompat">?android:attr/listChoiceIndicatorSingle</item>
+    <item name="android:drawablePadding">@dimen/margin_base</item>
+  </style>
+
   <style name="MwmWidget.Button.Primary">
     <item name="android:background">?primaryButtonBackground</item>
     <item name="android:minWidth">@dimen/primary_button_min_width</item>
