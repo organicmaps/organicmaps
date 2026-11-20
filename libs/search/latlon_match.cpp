@@ -124,6 +124,7 @@ double EatDouble(char const * str, char ** strEnd)
       else
         gotDigitBeforeMark = true;
     }
+    // An embedded minus should end the token, not change the number's value.
     else if (IsNegativeSymbol(*p) && p == str)
     {
       modifier = -1.0;
