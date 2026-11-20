@@ -9,6 +9,8 @@
 #include "routing/index_graph_loader.hpp"
 #include "routing/maxspeeds.hpp"
 
+#include "routing_common/bicycle_model.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
@@ -1308,6 +1310,40 @@ UNIT_CLASS_TEST(TestRawGenerator, Tesselator)
       }
     }
   }
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, CyclingInfrastructure_DedicatedOneWaySurvivesGeneration)
+{
+  std::string const mapName = "CyclingOneWay";
+  BuildFB("./data/test_data/osm/cycling_oneway.osm", mapName);
+  BuildFeatures(mapName);
+
+  size_t forward = 0;
+  size_t backward = 0;
+  auto const & model = routing::BicycleModel::AllLimitsInstance();
+  ForEachFeature(mapName, [&](std::unique_ptr<FeatureType> feature)
+  {
+    auto const name = feature->GetDefaultName();
+    if (name != "Forward cycleway" && name != "Reverse cycleway")
+      return;
+    TEST(feature->GetGeomType() == feature::GeomType::Line, (name));
+    TEST(model.IsOneWay(feature::TypesHolder(*feature)), (name));
+    feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
+    TEST_EQUAL(feature->GetPointsCount(), 2, (name));
+    auto const westToEast = feature->GetPoint(0).x < feature->GetPoint(1).x;
+    if (name == "Forward cycleway")
+    {
+      TEST(westToEast, ());
+      ++forward;
+    }
+    else
+    {
+      TEST(!westToEast, ());
+      ++backward;
+    }
+  });
+  TEST_EQUAL(forward, 1, ());
+  TEST_EQUAL(backward, 1, ());
 }
 
 }  // namespace raw_generator_tests
