@@ -21,15 +21,17 @@ final class RoutingOptionsSettingsPresenter {
     }
     if state.options.routerType == .bicycle {
       let preferences: [BicycleSurfacePreference] = [.any, .preferPaved, .preferUnpaved, .avoidUnpaved]
-      let items = preferences.map { preference in
-        let option = RoutingOption.bicycleSurface(preference)
-        return RoutingOptionsSettingsItemViewModel(item: option,
-                                                   title: option.title,
-                                                   kind: .selectable(isSelected: state.bicycleSurface == preference))
-      }
-      sections.append(SettingsSectionViewModel(section: .bicycleSurface, header: L("bicycle_surface"), items: items))
+      sections.append(selection(section: .bicycleSurface,
+                                title: L("bicycle_surface"),
+                                options: preferences.map(RoutingOption.bicycleSurface),
+                                selected: .bicycleSurface(state.bicycleSurface)))
     }
     if state.options.routerType == .publicTransport {
+      let preferences: [TransitPreference] = [.recommended, .lessWalking, .fewerTransfers]
+      sections.append(selection(section: .transitPreference,
+                                title: L("transit_preference"),
+                                options: preferences.map(RoutingOption.transitPreference),
+                                selected: .transitPreference(state.transitPreference)))
       let selected = state.transitModes
       let modes: [TransitModes] = [.bus, .tram, .subway, .rail, .ferry, .trolleybus, .monorail, .cable, .air]
       let items = modes.map { mode in
@@ -45,6 +47,15 @@ final class RoutingOptionsSettingsPresenter {
                                              footer: L("route_optimization_description"),
                                              items: [item(.routeOptimization, state: state)]))
     return sections
+  }
+
+  private func selection(section: RoutingOptionsSettingsSection,
+                         title: String,
+                         options: [RoutingOption],
+                         selected: RoutingOption) -> RoutingOptionsSettingsSectionViewModel {
+    SettingsSectionViewModel(section: section, header: title, items: options.map { option in
+      RoutingOptionsSettingsItemViewModel(item: option, title: option.title, kind: .selectable(isSelected: selected == option))
+    })
   }
 
   private func item(_ option: RoutingOption,
