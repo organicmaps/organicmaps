@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MWMLocationObserver <NSObject>
 
 @optional
-- (void)onHeadingUpdate:(CLHeading *)heading;
+/// Replays the current compass reading on registration, then reports valid readings and nil on loss.
+/// A compass reading can have a magnetic heading without a true heading.
+- (void)onHeadingUpdate:(nullable CLHeading *)heading;
 - (void)onLocationUpdate:(CLLocation *)location;
 - (void)onLocationError:(MWMLocationStatus)locationError;
 

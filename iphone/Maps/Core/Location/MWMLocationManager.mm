@@ -157,7 +157,7 @@ void setShowLocationAlert(BOOL needShow)
 @property(nonatomic) BOOL started;
 @property(nonatomic) CLLocationManager * locationManager;
 @property(nonatomic) GeoMode geoMode;
-@property(nonatomic) CLHeading * lastHeadingInfo;
+@property(nonatomic, nullable) CLHeading * lastHeadingInfo;
 @property(nonatomic) CLLocation * lastLocationInfo;
 @property(nonatomic) MWMLocationStatus lastLocationStatus;
 @property(nonatomic) BOOL useNavigationOtherLocationActivity;
@@ -194,7 +194,7 @@ void setShowLocationAlert(BOOL needShow)
 - (void)dealloc
 {
   [NSNotificationCenter.defaultCenter removeObserver:self];
-  self.locationManager.delegate = nil;
+  _locationManager.delegate = nil;
 }
 
 + (void)start
@@ -219,7 +219,13 @@ void setShowLocationAlert(BOOL needShow)
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
-    [manager processLocationUpdate:manager.lastLocationInfo];
+    // A place page opened while stopped needs this fix if heading resumes before GPS.
+    if (manager.lastLocationInfo && manager.lastLocationStatus == MWMLocationStatusNoError &&
+        [observer respondsToSelector:@selector(onLocationUpdate:)])
+      [observer onLocationUpdate:manager.lastLocationInfo];
+    // Replay after registration so heading changes while this block was queued are not missed.
+    if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
+      [observer onHeadingUpdate:[self lastHeading]];
   });
 }
 
@@ -265,9 +271,7 @@ void setShowLocationAlert(BOOL needShow)
 + (CLHeading *)lastHeading
 {
   MWMLocationManager * manager = [self manager];
-  if (!manager.started || !location_util::isValidHeading(manager.lastHeadingInfo))
-    return nil;
-  return manager.lastHeadingInfo;
+  return manager.started ? manager.lastHeadingInfo : nil;
 }
 
 #pragma mark - Observer notifications
@@ -277,19 +281,26 @@ void setShowLocationAlert(BOOL needShow)
   LOG(LINFO, ("Location status updated from", DebugPrint(self.lastLocationStatus), "to", DebugPrint(locationStatus)));
   self.lastLocationStatus = locationStatus;
   if (self.lastLocationStatus != MWMLocationStatusNoError)
+  {
+    [self processHeadingUpdate:nil];
     GetFramework().OnLocationError((location::TLocationError)self.lastLocationStatus);
+  }
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationError:)])
       [observer onLocationError:self.lastLocationStatus];
 }
 
-- (void)processHeadingUpdate:(CLHeading *)headingInfo
+- (void)processHeadingUpdate:(nullable CLHeading *)headingInfo
 {
-  // Stored first, so +lastHeading keeps reflecting the latest (possibly invalid) state.
-  self.lastHeadingInfo = headingInfo;
   if (!location_util::isValidHeading(headingInfo))
-    return;
-  GetFramework().OnCompassUpdate(location_util::compassInfoFromHeading(headingInfo));
+  {
+    if (!self.lastHeadingInfo)
+      return;
+    headingInfo = nil;
+  }
+  self.lastHeadingInfo = headingInfo;
+  if (headingInfo)
+    GetFramework().OnCompassUpdate(location_util::compassInfoFromHeading(headingInfo));
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
       [observer onHeadingUpdate:headingInfo];
@@ -475,6 +486,7 @@ void setShowLocationAlert(BOOL needShow)
 {
   if (!_locationManager)
   {
+    ASSERT(NSThread.isMainThread, ("Core Location callbacks must run on the main thread"));
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
     [MWMLocationManager refreshGeoModeSettingsFor:_locationManager geoMode:self.geoMode];
@@ -491,8 +503,7 @@ void setShowLocationAlert(BOOL needShow)
   [self processHeadingUpdate:heading];
 }
 
-// The calibration HUD is the only way back to valid headings, which are otherwise skipped, but it
-// must not cover the map while driving, where the arrow follows the route rather than the compass.
+// Allow calibration to recover reliable headings, except while driving, when the HUD must not cover the map.
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
 {
   return self.geoMode != GeoMode::VehicleRouting;
@@ -533,7 +544,9 @@ void setShowLocationAlert(BOOL needShow)
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
   LOG(LWARNING, ("CLLocationManagerDelegate: Did fail with error:", error.localizedDescription.UTF8String));
-  if (self.lastLocationStatus == MWMLocationStatusNoError && error.code == kCLErrorDenied)
+  if (error.code == kCLErrorHeadingFailure)
+    [self processHeadingUpdate:nil];
+  else if (self.lastLocationStatus == MWMLocationStatusNoError && error.code == kCLErrorDenied)
     [self processLocationStatus:MWMLocationStatusDenied];
 }
 
@@ -637,6 +650,7 @@ void setShowLocationAlert(BOOL needShow)
   [locationManager stopUpdatingLocation];
   if ([CLLocationManager headingAvailable])
     [locationManager stopUpdatingHeading];
+  [self processHeadingUpdate:nil];
 }
 
 #pragma mark - Location alert
