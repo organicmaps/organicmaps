@@ -311,10 +311,8 @@ public class ChartView: UIView {
     for i in 0 ..< chartData.linesCount {
       // Compare in the X coordinates of the drawn path: converting the viewport to distances can round past
       // a vertex on the viewport edge, e.g. both vertices of a segment break.
-      let distances = chartData.lineAt(i).aggregatedValues
-      let maxDistance = distances.maxDistance
-      let xScale = maxDistance > 0 ? CGFloat(max(distances.count - 1, 1)) / maxDistance : 0
-      let values = distances.map { ChartValue(xValues: $0.x * xScale, y: $0.y) }
+      let line = chartData.lineAt(i)
+      let values = line.values.map { ChartValue(xValues: $0.x * line.xScale, y: $0.y) }
       // Include the interpolated edges when the viewport cuts through a segment.
       let lowerAltitude = values.interpolatedAltitude(at: minX)
       let upperAltitude = values.interpolatedAltitude(at: maxX)

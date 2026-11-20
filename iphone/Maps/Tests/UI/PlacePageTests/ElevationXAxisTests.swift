@@ -347,7 +347,6 @@ final class ElevationXAxisTests: XCTestCase {
     let distances: [Double]
     var xAxisValues: [Double] { distances }
     var lines: [ChartLine] { [Line(distances: distances)] }
-    var type: ChartType { .regular }
   }
 
   private struct Line: ChartLine {

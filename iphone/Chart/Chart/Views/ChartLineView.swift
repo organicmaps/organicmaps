@@ -8,8 +8,6 @@ class ChartLineView: UIView {
   private var minY: CGFloat = 0
   private var maxY: CGFloat = 0
 
-  var isPreview = false
-
   var lineWidth: CGFloat = 1 {
     didSet {
       shapeLayer.lineWidth = lineWidth
@@ -81,8 +79,8 @@ class ChartLineView: UIView {
   }
 
   private func updateGraph(animationStyle: ChartAnimation = .none) {
-    let p = isPreview ? chartLine.previewPath : chartLine.path
-    guard let realPath = p.copy() as? UIBezierPath else { return }
+    // A flat profile gets its Y span from the owner's setY() or setViewport().
+    guard let chartLine, maxX > minX, maxY > minY else { return }
 
     let xScale = bounds.width / CGFloat(maxX - minX)
     let xTranslate = -bounds.width * CGFloat(minX) / CGFloat(maxX - minX)
@@ -91,7 +89,16 @@ class ChartLineView: UIView {
     let scale = CGAffineTransform.identity.scaledBy(x: xScale, y: yScale)
     let translate = CGAffineTransform.identity.translatedBy(x: xTranslate, y: yTranslate)
     let transform = scale.concatenating(translate)
-    realPath.apply(transform)
+    let realPath = CGMutablePath()
+    realPath.addPath(chartLine.path, transform: transform)
+
+    if chartLine.type == .lineArea, !realPath.isEmpty {
+      // Close area fills at the viewport bottom, regardless of sea level.
+      let startX = chartLine.pathStartX * xScale + xTranslate
+      realPath.addLine(to: CGPoint(x: realPath.currentPoint.x, y: 0))
+      realPath.addLine(to: CGPoint(x: startX, y: 0))
+      realPath.closeSubpath()
+    }
 
     if animationStyle != .none {
       let timingFunction = CAMediaTimingFunction(name: animationStyle == .interactive ? .linear : .easeInEaseOut)
@@ -109,7 +116,7 @@ class ChartLineView: UIView {
       layer.add(animation, forKey: "path")
     }
 
-    shapeLayer.path = realPath.cgPath
+    shapeLayer.path = realPath
   }
 
   override func layoutSubviews() {
