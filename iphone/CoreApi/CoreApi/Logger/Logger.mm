@@ -1,6 +1,7 @@
 #import "Logger.h"
 #import <OSLog/OSLog.h>
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "coding/zip_creator.hpp"
 
@@ -244,11 +245,9 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 + (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message
 {
   // Build the log message string.
-  auto & logHelper = base::LogHelper::Instance();
   std::ostringstream output;
-  // TODO: (KK) Either guard this call, or refactor thread ids in logHelper.
-  logHelper.WriteProlog(output, level);
-  logHelper.WriteLog(output, src, message);
+  base::LogHelper::WriteProlog(output, level);
+  base::LogHelper::WriteLog(output, src, message);
 
   auto const logString = output.str();
 

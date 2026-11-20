@@ -1,16 +1,17 @@
 #include "base/logging.hpp"
 
 #include "base/assert.hpp"
-#include "base/thread.hpp"
+#include "base/timer.hpp"
 
 #include <algorithm>
-#include <cassert>
-#include <cstring>
+#include <atomic>
+#include <cctype>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <mutex>
 #include <sstream>
+#include <utility>
 
 namespace base
 {
@@ -43,42 +44,40 @@ std::array<char, NUM_LOG_LEVELS> const & GetLogLevelNames()
   return kLogLevelNames;
 }
 
-// static
-LogHelper & LogHelper::Instance()
+namespace LogHelper
 {
-  static LogHelper instance;
-  return instance;
-}
-
-int LogHelper::GetThreadID()
+int GetThreadID()
 {
-  int & id = m_threadID[threads::GetCurrentThreadID()];
-  if (id == 0)
-    id = ++m_threadsCount;
+  static std::atomic<int> counter{0};
+  // Ids are never reused, unlike the underlying OS thread ids.
+  thread_local int const id = ++counter;
   return id;
 }
 
-void LogHelper::WriteProlog(std::ostream & s, LogLevel level)
+void WriteProlog(std::ostream & s, LogLevel level)
 {
-  double const sec = m_timer.ElapsedSeconds();
-  s << GetLogLevelNames()[level] << '(' << GetThreadID() << ") " << std::fixed << std::setprecision(5) << sec << ' ';
+  static Timer const kTimer;
+  s << GetLogLevelNames()[level] << '(' << GetThreadID() << ") " << std::fixed << std::setprecision(5)
+    << kTimer.ElapsedSeconds() << ' ';
 }
 
-void LogHelper::WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg)
+void WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg)
 {
   s << DebugPrint(srcPoint) << msg << std::endl;
 }
+}  // namespace LogHelper
 
 void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg)
 {
-  auto & logger = LogHelper::Instance();
   std::ostringstream out;
+  LogHelper::WriteProlog(out, level);
+  LogHelper::WriteLog(out, srcPoint, msg);
 
-  std::lock_guard lock(g_logMutex);
-  logger.WriteProlog(out, level);
-  logger.WriteLog(out, srcPoint, msg);
-
-  std::cerr << out.str();
+  {
+    // The mutex serializes the output only, WriteProlog/WriteLog are thread-safe.
+    std::lock_guard lock(g_logMutex);
+    std::cerr << out.str();
+  }
 
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
