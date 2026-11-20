@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
 "elevation_profile_max_elevation" = "최대 높이";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "고도 프로필을 보려면 움직이기 시작하세요";
 "isolines_toast_zooms_1_10" = "등치선 탐색을 위한 확대";
 "downloader_loading_ios" = "다운로드 중";
 
@@ -1230,6 +1227,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "경유지 최대 개수에 도달했습니다";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "경로를 트랙으로 저장할 수 없습니다";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요";

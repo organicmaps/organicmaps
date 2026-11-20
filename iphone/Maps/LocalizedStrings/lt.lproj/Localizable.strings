@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "Nusileidimas";
 "elevation_profile_min_elevation" = "Min. aukštis";
 "elevation_profile_max_elevation" = "Maks. aukštis";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Pradėkite judėti, kad matytumėte aukščio profilį";
 "isolines_toast_zooms_1_10" = "Priartinkite, jei norite patyrinėti izolinijas";
 "downloader_loading_ios" = "Atsiunčiama";
 
@@ -1230,6 +1227,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Pasiektas maksimalus stotelių skaičius";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Nepavyko išsaugoti maršruto kaip trasos";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Slinkite ir keiskite žemėlapio mastelį, kad nustatytumėte kryžiuko padėtį";
