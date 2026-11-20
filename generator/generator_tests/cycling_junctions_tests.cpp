@@ -65,6 +65,30 @@ UNIT_TEST(CyclingJunctions_RejectCoincidenceWithoutSharedId)
   TEST(Join(Road(), connector).at(10).m_left.m_junctions.empty(), ());
 }
 
+UNIT_TEST(CyclingJunctions_ThroughCrossingDoesNotBecomeTwoTerminalJoins)
+{
+  auto const road = Road();
+  auto const near = Connector();
+  auto far = near;
+  far.m_id = 21;
+  far.m_nodes[1] = {5, {1, -1}};
+  auto const blocked = [](uint64_t) { return false; };
+  auto check = [&](std::vector<generator::CyclingWay> const & paths, bool expectJoin)
+  {
+    auto const junctions = generator::FindCyclingJunctions({road}, paths, blocked);
+    auto const contacts = generator::FindCyclingConnectorContacts({road}, paths, {{10, 42}}, blocked);
+    TEST_EQUAL(!junctions.at(10).m_left.m_junctions.empty(), expectJoin, ());
+    TEST_EQUAL(!contacts.at(20).empty(), expectJoin, ());
+  };
+  check({near, far}, false);
+  check({far, near}, false);
+  auto continuous = near;
+  continuous.m_nodes.insert(continuous.m_nodes.begin(), far.m_nodes.back());
+  check({continuous}, false);
+  far.m_layer = "1";
+  check({near, far}, true);
+}
+
 UNIT_TEST(CyclingJunctions_BarrierGradeAndCollinearRejection)
 {
   TEST(Join(Road(), Connector(), true).at(10).m_left.m_junctions.empty(), ());

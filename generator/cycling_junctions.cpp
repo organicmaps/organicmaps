@@ -107,21 +107,16 @@ std::string Grade(OsmElement const & element, char const * key)
   auto value = element.GetTag(key);
   return value.empty() ? "0" : value;
 }
-}  // namespace cycling_junctions_detail
 
-std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> const & roads,
-                                                        std::vector<CyclingWay> const & connectors,
-                                                        std::function<bool(uint64_t)> const & blocked)
+struct Incident
 {
-  struct Incident
-  {
-    CyclingWay const * m_way;
-    m2::PointD m_point;
-  };
-  std::unordered_set<uint64_t> wanted;
-  for (auto const & road : roads)
-    for (auto const & node : road.m_nodes)
-      wanted.insert(node.m_id);
+  CyclingWay const * m_way;
+  m2::PointD m_point;
+};
+
+template <typename Nodes>
+auto IndexApproaches(std::vector<CyclingWay> const & connectors, Nodes const & wanted)
+{
   std::map<uint64_t, std::vector<Incident>> incidents;
   for (auto const & connector : connectors)
     for (size_t i = 0; i < connector.m_nodes.size(); ++i)
@@ -134,6 +129,41 @@ std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> 
       if (i + 1 < connector.m_nodes.size())
         incidents[id].push_back({&connector, connector.m_nodes[i + 1].m_point});
     }
+  return incidents;
+}
+
+int ApproachSide(CyclingWay const & road, size_t i, CyclingWay const & connector, m2::PointD const & approach)
+{
+  if (connector.m_id == road.m_id || connector.m_layer != road.m_layer || connector.m_level != road.m_level)
+    return 0;
+  auto const tangent =
+      road.m_nodes[std::min(i + 1, road.m_nodes.size() - 1)].m_point - road.m_nodes[i == 0 ? 0 : i - 1].m_point;
+  auto const ray = approach - road.m_nodes[i].m_point;
+  double const norm = tangent.Length() * ray.Length();
+  double const cross = CrossProduct(tangent, ray);
+  if (norm == 0 || std::abs(cross) < 0.15 * norm)
+    return 0;
+  return (cross > 0) != road.m_reversed ? -1 : 1;
+}
+
+bool HasOppositeApproach(CyclingWay const & road, size_t i, std::vector<Incident> const & incidents, int side)
+{
+  // Two ways ending at the same road node can be the two halves of one crossing.
+  return std::any_of(incidents.begin(), incidents.end(), [&](auto const & incident)
+  { return ApproachSide(road, i, *incident.m_way, incident.m_point) == -side; });
+}
+}  // namespace cycling_junctions_detail
+
+std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> const & roads,
+                                                        std::vector<CyclingWay> const & connectors,
+                                                        std::function<bool(uint64_t)> const & blocked)
+{
+  using namespace cycling_junctions_detail;
+  std::unordered_set<uint64_t> wanted;
+  for (auto const & road : roads)
+    for (auto const & node : road.m_nodes)
+      wanted.insert(node.m_id);
+  auto const incidents = IndexApproaches(connectors, wanted);
   std::map<uint64_t, cycling::Sides> result;
   std::set<uint64_t> conflictingRoads;
   for (auto const & road : roads)
@@ -152,19 +182,11 @@ std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> 
       auto const found = incidents.find(node.m_id);
       if (found == incidents.end() || blocked(node.m_id))
         continue;
-      auto const tangent =
-          road.m_nodes[std::min(i + 1, road.m_nodes.size() - 1)].m_point - road.m_nodes[i == 0 ? 0 : i - 1].m_point;
       for (auto const & incident : found->second)
       {
-        if (incident.m_way->m_id == road.m_id || incident.m_way->m_layer != road.m_layer ||
-            incident.m_way->m_level != road.m_level)
+        int const sign = ApproachSide(road, i, *incident.m_way, incident.m_point);
+        if (sign == 0 || HasOppositeApproach(road, i, found->second, sign))
           continue;
-        auto const ray = incident.m_point - node.m_point;
-        double const norm = tangent.Length() * ray.Length();
-        double const cross = tangent.x * ray.y - tangent.y * ray.x;
-        if (norm == 0 || std::abs(cross) / norm < 0.15)
-          continue;
-        int const sign = (cross > 0) != road.m_reversed ? -1 : 1;
         auto & side = sign < 0 ? sides->m_left : sides->m_right;
         if (side.m_kind != cycling::Kind::Track && side.m_kind != cycling::Kind::Lane)
           continue;
@@ -204,11 +226,13 @@ std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorC
     std::vector<CyclingWay> const & roads, std::vector<CyclingWay> const & connectors,
     std::map<uint64_t, uint32_t> const & roadTypes, std::function<bool(uint64_t)> const & blocked)
 {
+  using namespace cycling_junctions_detail;
   std::map<uint64_t, std::vector<std::pair<CyclingWay const *, size_t>>> nodes;
   for (auto const & road : roads)
     if (road.m_nodes.size() >= 2 && roadTypes.contains(road.m_id))
       for (size_t i = 0; i < road.m_nodes.size(); ++i)
         nodes[road.m_nodes[i].m_id].emplace_back(&road, i);
+  auto const incidents = IndexApproaches(connectors, nodes);
   std::map<uint64_t, std::vector<cycling::ConnectorContact>> result;
   std::set<uint64_t> overflow;
   for (auto const & connector : connectors)
@@ -220,21 +244,15 @@ std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorC
       auto const & node = connector.m_nodes[end];
       if (blocked(node.m_id) || !nodes.contains(node.m_id))
         continue;
-      auto const ray = connector.m_nodes[end == 0 ? 1 : end - 1].m_point - node.m_point;
+      auto const & approach = connector.m_nodes[end == 0 ? 1 : end - 1].m_point;
       for (auto const & [road, i] : nodes.at(node.m_id))
       {
-        if (road->m_id == connector.m_id || road->m_layer != connector.m_layer || road->m_level != connector.m_level)
+        int const sign = ApproachSide(*road, i, connector, approach);
+        if (sign == 0 || HasOppositeApproach(*road, i, incidents.at(node.m_id), sign))
           continue;
         auto const sides = cycling::Decode(road->m_sides);
         if (!sides)
           continue;
-        auto const tangent = road->m_nodes[std::min(i + 1, road->m_nodes.size() - 1)].m_point -
-                             road->m_nodes[i == 0 ? 0 : i - 1].m_point;
-        double const norm = tangent.Length() * ray.Length();
-        double const cross = tangent.x * ray.y - tangent.y * ray.x;
-        if (norm == 0 || std::abs(cross) / norm < 0.15)
-          continue;
-        int const sign = (cross > 0) != road->m_reversed ? -1 : 1;
         auto const kind = sign < 0 ? sides->m_left.m_kind : sides->m_right.m_kind;
         if (kind != cycling::Kind::Track && kind != cycling::Kind::Lane)
           continue;
@@ -285,9 +303,23 @@ std::shared_ptr<CollectorInterface> CyclingJunctionCollector::Clone(IDRInterface
 
 void CyclingJunctionCollector::Collect(OsmElement const & element)
 {
+  using namespace cycling_junctions_detail;
+  if (element.IsWay() && element.HasTag("highway") &&
+      (element.GetTag("cycleway") == "crossing" || element.GetTag("footway") == "crossing" ||
+       element.GetTag("path") == "crossing"))
+  {
+    Record record;
+    record.m_kind = RecordKind::BlockedNode;
+    for (auto const id : element.m_nodes)
+    {
+      record.m_way.m_id = id;
+      WriteRecord(*m_writer, record);
+    }
+  }
   if (!element.IsNode())
     return;
   if (!cycling_junctions_detail::Accessible(element) ||
+      element.GetTag("highway") == "crossing" ||
       std::any_of(element.m_tags.begin(), element.m_tags.end(),
                   [](auto const & tag) { return tag.m_key == "barrier"; }))
   {
