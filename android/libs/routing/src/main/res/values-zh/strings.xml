@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">请调整您的途径点。</string>
     <string name="dialog_routing_system_error">系统错误</string>
     <string name="dialog_routing_application_error">由于应用程序出错，因此无法规划路线。</string>
-    <string name="dialog_routing_try_again">请再试一次</string>
     <string name="dialog_routing_download_and_build_cross_route">您是否要下载地图，以规划跨越边界的更佳路线？</string>
     <string name="dialog_routing_download_cross_route">下载地图，以规划一条跨越边界的更佳路线。</string>
 

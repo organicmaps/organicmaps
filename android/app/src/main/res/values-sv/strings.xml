@@ -659,8 +659,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Undvik trappor</string>
     <string name="avoid_motorways">Undvik motorvägen</string>
-    <string name="unable_to_calc_alert_title">Det går inte att hitta rutt</string>
-    <string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.</string>
     <string name="toll_road">Betalväg</string>
     <string name="unpaved_road">Oasfalterad väg</string>
     <string name="ferry_crossing">Färjetrafik</string>

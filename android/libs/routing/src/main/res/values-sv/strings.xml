@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Justera din mellanliggande punkt.</string>
     <string name="dialog_routing_system_error">Systemfel</string>
     <string name="dialog_routing_application_error">Det går inte att skapa rutten på grund av ett programfel.</string>
-    <string name="dialog_routing_try_again">Försök igen</string>
     <string name="dialog_routing_download_and_build_cross_route">Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?</string>
     <string name="dialog_routing_download_cross_route">Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.</string>
 

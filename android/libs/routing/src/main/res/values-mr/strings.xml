@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">कृपया तुमचा मध्यबिंदू समायोजित करा.</string>
     <string name="dialog_routing_system_error">सिस्टम त्रुटी</string>
     <string name="dialog_routing_application_error">ऍप त्रुटीमुळे मार्ग तयार करण्यात अक्षम.</string>
-    <string name="dialog_routing_try_again">कृपया पुर्नरप्रयत्न करा</string>
     <string name="dialog_routing_download_and_build_cross_route">एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?</string>
     <string name="dialog_routing_download_cross_route">या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.</string>
 

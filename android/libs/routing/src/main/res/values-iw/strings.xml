@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">כוונן את נקודת הביניים.</string>
     <string name="dialog_routing_system_error">שגיאת מערכת</string>
     <string name="dialog_routing_application_error">לא ניתן ליצור מסלול עקב שגיאת אפליקציה.</string>
-    <string name="dialog_routing_try_again">נסה שוב</string>
     <string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
     <string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
 

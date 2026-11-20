@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">الرجاء ضبط النقطة الوسيطة الخاصة بك.</string>
     <string name="dialog_routing_system_error">خطأ في النظام</string>
     <string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
-    <string name="dialog_routing_try_again">الرجاء إعادة المحاولة</string>
     <string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
     <string name="dialog_routing_download_cross_route">تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
 

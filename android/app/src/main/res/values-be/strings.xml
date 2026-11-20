@@ -670,8 +670,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Пазбягаць лесвіц</string>
     <string name="avoid_motorways">Пазбягаць аўтамагістраляў</string>
-    <string name="unable_to_calc_alert_title">Немагчыма пракласці маршрут</string>
-    <string name="unable_to_calc_alert_subtitle">Не ўдалося пракласці маршрут. Магчыма гэта звязана з наладамі пракладвання маршрутаў або няпоўнымі данымі OpenStreetMap. Змяніце налады і паспрабуйце зноў.</string>
     <string name="toll_road">Платная дарога</string>
     <string name="unpaved_road">Грунтавая дарога</string>
     <string name="ferry_crossing">Паромная пераправа</string>

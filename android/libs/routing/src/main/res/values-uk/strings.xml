@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Будь ласка, вкажіть місцерозташування проміжної точки вручну.</string>
     <string name="dialog_routing_system_error">Системна помилка</string>
     <string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
-    <string name="dialog_routing_try_again">Спробуйте знову</string>
     <string name="dialog_routing_download_and_build_cross_route">Бажаєте завантажити мапу та побудувати оптимальний маршрут через декілька регіонів?</string>
     <string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
 

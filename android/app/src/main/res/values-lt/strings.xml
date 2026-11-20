@@ -664,8 +664,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Vengti laiptų</string>
     <string name="avoid_motorways">Vengti greitkelių</string>
-    <string name="unable_to_calc_alert_title">Nepavyko apskaičiuoti maršruto</string>
-    <string name="unable_to_calc_alert_subtitle">Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.</string>
     <string name="toll_road">Mokamas kelias</string>
     <string name="unpaved_road">Negrįstas kelias</string>
     <string name="ferry_crossing">Persikėlimas keltu</string>

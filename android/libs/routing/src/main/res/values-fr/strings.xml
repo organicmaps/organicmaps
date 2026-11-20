@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Veuillez modifier votre point intermédiaire.</string>
     <string name="dialog_routing_system_error">Erreur système</string>
     <string name="dialog_routing_application_error">Impossible de créer l\'itinéraire à cause d\'une erreur dans l\'application.</string>
-    <string name="dialog_routing_try_again">Veuillez réessayer</string>
     <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte ?</string>
     <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
 

@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Խնդրում ենք փոխել միջանկյալ կետը:</string>
     <string name="dialog_routing_system_error">Համակարգային սխալ</string>
     <string name="dialog_routing_application_error">Հնարավոր չէ կառուցել երթուղին ծրագրային սխալի պատճառով:</string>
-    <string name="dialog_routing_try_again">Խնդրում ենք փորձել կրկին</string>
     <string name="dialog_routing_download_and_build_cross_route">Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:</string>
     <string name="dialog_routing_download_cross_route">Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:</string>
 

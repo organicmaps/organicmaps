@@ -664,8 +664,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Izbjegni stepenice</string>
     <string name="avoid_motorways">Izbjegni autoputeve</string>
-    <string name="unable_to_calc_alert_title">Nije moguće izračunati rutu</string>
-    <string name="unable_to_calc_alert_subtitle">Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.</string>
     <string name="toll_road">Cesta sa cestarinom</string>
     <string name="unpaved_road">Neasfaltirana cesta</string>
     <string name="ferry_crossing">Prijevoz trajektom</string>

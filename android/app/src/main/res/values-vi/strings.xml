@@ -656,8 +656,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Tránh bậc thang</string>
     <string name="avoid_motorways">Tránh xa lộ</string>
-    <string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
-    <string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
     <string name="toll_road">Đường trả phí</string>
     <string name="unpaved_road">Đường đất</string>
     <string name="ferry_crossing">Bến phà</string>

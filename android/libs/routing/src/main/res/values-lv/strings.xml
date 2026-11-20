@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Labojiet starppunktu.</string>
     <string name="dialog_routing_system_error">Sistēmas kļūda</string>
     <string name="dialog_routing_application_error">Kļūdas dēļ neizdevās izveidot maršrutu.</string>
-    <string name="dialog_routing_try_again">Mēģiniet vēlreiz</string>
     <string name="dialog_routing_download_and_build_cross_route">Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?</string>
     <string name="dialog_routing_download_cross_route">Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.</string>
 

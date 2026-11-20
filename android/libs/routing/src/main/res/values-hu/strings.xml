@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Pontosítsa a köztes célpontot.</string>
     <string name="dialog_routing_system_error">Rendszerhiba</string>
     <string name="dialog_routing_application_error">Nem lehet létrehozni az útvonalat egy alkalmazáshiba miatt.</string>
-    <string name="dialog_routing_try_again">Próbálja meg újra</string>
     <string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet, és egynél több térképen átívelő, optimálisabb útvonalat létrehozni?</string>
     <string name="dialog_routing_download_cross_route">Töltsön le további térképeket, hogy egy jobb útvonalat hozzon létre, amely keresztezi ennek a térképnek a határait.</string>
 

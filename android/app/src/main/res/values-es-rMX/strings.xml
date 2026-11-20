@@ -354,8 +354,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Evite las escaleras</string>
     <string name="avoid_motorways">Evite las autopistas</string>
-    <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
-    <string name="unable_to_calc_alert_subtitle">No se ha podido encontrar una ruta. Esto puede deberse a sus opciones de ruta o a datos incompletos de OpenStreetMap. Cambia tus opciones de ruta y vuelve a intentarlo.</string>
     <string name="toll_road">Autopista de peaje</string>
     <string name="unpaved_road">Carretera sin asfaltar</string>
     <string name="ferry_crossing">Travesía en transbordador</string>

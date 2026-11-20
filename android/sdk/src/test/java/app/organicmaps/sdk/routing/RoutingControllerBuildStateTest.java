@@ -30,37 +30,45 @@ public class RoutingControllerBuildStateTest
   }
 
   @Test
-  public void carAvoidancesDoNotCauseBicycleOptionsError() throws ReflectiveOperationException
-  {
-    verifyModeOptionsError(false);
-  }
-
-  @Test
-  public void bicycleAvoidancesCauseBicycleOptionsError() throws ReflectiveOperationException
-  {
-    verifyModeOptionsError(true);
-  }
-
-  private static void verifyModeOptionsError(boolean bicycleOptions) throws ReflectiveOperationException
+  public void pendingFailureKeepsItsReportUntilTheHostRestores()
   {
     final RoutingController controller = new RoutingController();
     final RoutingController.Container container = mock(RoutingController.Container.class);
     controller.attach(container);
-    final Field router = RoutingController.class.getDeclaredField("mLastRouterType");
-    router.setAccessible(true);
-    router.set(controller, Router.Bicycle);
-    try (MockedStatic<Logger> ignored = mockStatic(Logger.class);
-         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
+    controller.onSaveState(container);
+    final String[] noMaps = new String[0];
+    final String report = "Routing error: InternalError";
+
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
     {
-      options.when(() -> RoutingOptions.hasAnyOptions(Router.Vehicle)).thenReturn(true);
-      options.when(() -> RoutingOptions.hasAnyOptions(Router.Bicycle)).thenReturn(bicycleOptions);
-      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
-      options.verify(() -> RoutingOptions.hasAnyOptions(Router.Vehicle), never());
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.INTERNAL_ERROR, noMaps, report);
+      verify(container, never()).onRouteBuildError(ResultCodes.INTERNAL_ERROR, noMaps, report);
+      controller.restore();
+      controller.restore();
     }
-    if (bicycleOptions)
-      verify(container).onDrivingOptionsBuildError();
-    else
-      verify(container).onCommonBuildError(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
+    verify(container, times(1)).onRouteBuildError(ResultCodes.INTERNAL_ERROR, noMaps, report);
+    assertEquals(RoutingController.BuildState.ERROR, controller.getBuildState());
+  }
+
+  @Test
+  public void laterResultDoesNotReuseAnInternalErrorReport()
+  {
+    final RoutingController controller = new RoutingController();
+    final RoutingController.Container container = mock(RoutingController.Container.class);
+    controller.attach(container);
+    controller.onSaveState(container);
+    final String[] noMaps = new String[0];
+    final String report = "Routing error: InternalError";
+
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      final RoutingListener listener = controller.getRoutingListenerForTesting();
+      listener.onRoutingEvent(ResultCodes.INTERNAL_ERROR, noMaps, report);
+      listener.onRoutingEvent(ResultCodes.START_POINT_NOT_FOUND, noMaps, null);
+      controller.restore();
+    }
+    verify(container, never()).onRouteBuildError(ResultCodes.INTERNAL_ERROR, noMaps, report);
+    verify(container).onRouteBuildError(ResultCodes.START_POINT_NOT_FOUND, noMaps, null);
   }
 
   @Test
@@ -71,10 +79,8 @@ public class RoutingControllerBuildStateTest
       final RoutingController controller = cachedResult(code);
       final RoutingController.Container container = mock(RoutingController.Container.class);
       controller.attach(container);
-      try (MockedStatic<Logger> ignored = mockStatic(Logger.class);
-           MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
+      try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
       {
-        options.when(() -> RoutingOptions.hasAnyOptions(Router.Vehicle)).thenReturn(true);
         controller.restore();
       }
       verify(container, never()).onDrivingOptionsWarning();
@@ -99,8 +105,7 @@ public class RoutingControllerBuildStateTest
   private static RoutingController cachedResult(int code) throws ReflectiveOperationException
   {
     final RoutingController controller = new RoutingController();
-    setField(controller, "mLastResultCode", code);
-    setField(controller, "mContainsCachedResult", true);
+    setField(controller, "mPendingResult", new RoutingController.BuildResult(code, new String[0], null));
     setField(controller, "mLastRouterType", Router.Vehicle);
     return controller;
   }
@@ -125,10 +130,10 @@ public class RoutingControllerBuildStateTest
 
     try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
     {
-      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
     }
 
-    verify(container).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verify(container).onRouteBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS, null);
     return controller.getBuildState();
   }
 }

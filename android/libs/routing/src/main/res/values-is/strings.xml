@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Aðlagaðu milliáfangann þinn.</string>
     <string name="dialog_routing_system_error">Kerfisvilla</string>
     <string name="dialog_routing_application_error">Tókst ekki að útbúa leið vegna villu í forriti.</string>
-    <string name="dialog_routing_try_again">Endilega reyndu aftur</string>
     <string name="dialog_routing_download_and_build_cross_route">Myndirðu vilja sækja landakortið og útbúa þægilegri leið sem spannar fleiri en eitt landakort?</string>
     <string name="dialog_routing_download_cross_route">Sækja viðbótar-landakort til að útbúa þægilegri leið sem fer út fyrir mörk þessa landakorts.</string>
 

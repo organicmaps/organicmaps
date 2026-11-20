@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Addaswch eich pwynt rhyngol.</string>
     <string name="dialog_routing_system_error">Gwall system</string>
     <string name="dialog_routing_application_error">Methu creu llwybr oherwydd gwall yn y rhaglen.</string>
-    <string name="dialog_routing_try_again">Rhowch gynnig arall arni</string>
     <string name="dialog_routing_download_and_build_cross_route">Hoffech chi lawrlwytho\'r map a chreu llwybr mwy effeithiol sy\'n ymestyn i fwy nag un map?</string>
     <string name="dialog_routing_download_cross_route">Lawrlwythwch fapiau ychwanegol i greu llwybr gwell sy\'n croesi ffiniau\'r map hwn.</string>
 

@@ -775,14 +775,21 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 
 extern "C"
 {
-void CallRoutingListener(std::shared_ptr<jobject> listener, int errorCode, storage::CountriesSet const & absentMaps)
+void CallRoutingListener(std::shared_ptr<jobject> listener, int errorCode, storage::CountriesSet const & absentMaps,
+                         std::string const & report)
 {
   JNIEnv * env = jni::GetEnv();
-  jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
+  jmethodID const method =
+      jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;Ljava/lang/String;)V");
   ASSERT(method, ());
 
+  jni::TScopedLocalRef const diagnostic(
+      env, report.empty() ? nullptr
+                          : jni::ToJavaString(
+                                env, report + "\nMap data version: " + std::to_string(frm()->GetCurrentDataVersion())));
   env->CallVoidMethod(*listener, method, errorCode,
-                      jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, absentMaps)).get());
+                      jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, absentMaps)).get(),
+                      diagnostic.get());
 }
 
 void CallRouteProgressListener(std::shared_ptr<jobject> listener, float progress)
@@ -1407,8 +1414,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEn
 {
   frm()->GetRoutingManager().SetRouteBuildingListener(
       [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries,
-                                            std::string const &)
-  { CallRoutingListener(rf, static_cast<int>(e), countries); });
+                                            std::string const & report)
+  { CallRoutingListener(rf, static_cast<int>(e), countries, report); });
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)

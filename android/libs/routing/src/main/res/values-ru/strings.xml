@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Пожалуйста, измените промежуточную точку маршрута.</string>
     <string name="dialog_routing_system_error">Системная ошибка</string>
     <string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
-    <string name="dialog_routing_try_again">Попробуйте снова</string>
     <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
     <string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
 

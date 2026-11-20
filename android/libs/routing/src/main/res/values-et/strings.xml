@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Palun kohanda vahepunkti.</string>
     <string name="dialog_routing_system_error">Süsteemi viga</string>
     <string name="dialog_routing_application_error">Teekonda ei saa koostada rakenduse vea tõttu.</string>
-    <string name="dialog_routing_try_again">Palun proovi uuesti</string>
     <string name="dialog_routing_download_and_build_cross_route">Kas sooviksid kaardi alla laadida ja luua optimaalse rohkem kui ühte kaarti hõlmava teekonna?</string>
     <string name="dialog_routing_download_cross_route">Laadi alla täiendavad kaardid, et luua parem, selle kaardi piire ületav teekond.</string>
 

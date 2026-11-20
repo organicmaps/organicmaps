@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Ajuste la parada intermedia.</string>
     <string name="dialog_routing_system_error">Error del sistema</string>
     <string name="dialog_routing_application_error">No se pudo crear la ruta debido a un error en la aplicación.</string>
-    <string name="dialog_routing_try_again">Intentar nuevamente</string>
     <string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?</string>
     <string name="dialog_routing_download_cross_route">Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.</string>
 

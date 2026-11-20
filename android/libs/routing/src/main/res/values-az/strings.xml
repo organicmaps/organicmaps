@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Zəhmət olmasa aralıq nöqtənizi təyin edin.</string>
     <string name="dialog_routing_system_error">Sistem xətası</string>
     <string name="dialog_routing_application_error">Tətbiq xətası səbəbindən marşrut yaratmaq mümkün olmadı.</string>
-    <string name="dialog_routing_try_again">Zəhmət olmasa bir daha cəhd edin</string>
     <string name="dialog_routing_download_and_build_cross_route">Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?</string>
     <string name="dialog_routing_download_cross_route">Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.</string>
 

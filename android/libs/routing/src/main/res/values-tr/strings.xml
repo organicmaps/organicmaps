@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
     <string name="dialog_routing_system_error">Sistem hatası</string>
     <string name="dialog_routing_application_error">Uygulama hatası nedeniyle rota oluşturulamadı.</string>
-    <string name="dialog_routing_try_again">Lütfen yeniden deneyin</string>
     <string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden çok haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
     <string name="dialog_routing_download_cross_route">Bu haritanın bir bölümünden geçen daha uygun rota oluşturmak için harita indir.</string>
 

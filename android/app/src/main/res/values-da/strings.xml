@@ -659,8 +659,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Undgå trapper</string>
     <string name="avoid_motorways">Undgå motorveje</string>
-    <string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
-    <string name="unable_to_calc_alert_subtitle">Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.</string>
     <string name="toll_road">Betalingsvej</string>
     <string name="unpaved_road">Ikke-asfalteret vej</string>
     <string name="ferry_crossing">Færgeoverfart</string>

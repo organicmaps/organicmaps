@@ -298,7 +298,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @Override
-  public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
+  public void onRouteBuildError(int lastResultCode, @NonNull String[] lastMissingMaps, @Nullable String report)
   {
     // Saved route points are loaded after this screen is created.
     if (mMapObject == null)
@@ -326,12 +326,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
       invalidate();
     }
-  }
-
-  @Override
-  public void onDrivingOptionsBuildError()
-  {
-    onCommonBuildError(-1, new String[0]);
   }
 
   /**

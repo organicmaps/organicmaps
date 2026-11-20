@@ -66,7 +66,6 @@ public class ResultCodesHelper
       cancelBtnResId = R.string.ok;
       break;
     case ResultCodes.ROUTE_NOT_FOUND:
-    case ResultCodes.ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
       if (missingCount == 0)
       {
         titleRes = R.string.dialog_routing_unable_locate_route;
@@ -80,9 +79,10 @@ public class ResultCodesHelper
       }
       break;
     case ResultCodes.INTERNAL_ERROR:
+    case ResultCodes.ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
       titleRes = R.string.dialog_routing_system_error;
       messages.add(resources.getString(R.string.dialog_routing_application_error));
-      messages.add(resources.getString(R.string.dialog_routing_try_again));
+      cancelBtnResId = R.string.ok;
       break;
     case ResultCodes.NEED_MORE_MAPS:
       titleRes = R.string.dialog_routing_download_and_build_cross_route;
@@ -110,9 +110,7 @@ public class ResultCodesHelper
 
     return switch (resultCode)
     {
-      case ResultCodes.ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR, ResultCodes.NEED_MORE_MAPS, ResultCodes.ROUTE_NOT_FOUND,
-          ResultCodes.FILE_TOO_OLD ->
-        true;
+      case ResultCodes.NEED_MORE_MAPS, ResultCodes.ROUTE_NOT_FOUND, ResultCodes.FILE_TOO_OLD -> true;
       default -> false;
     };
   }

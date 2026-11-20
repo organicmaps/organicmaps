@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">중간 지점을 조정하세요.</string>
     <string name="dialog_routing_system_error">시스템 오류</string>
     <string name="dialog_routing_application_error">애플리케이션 오류로 인해 경로를 설정하지 못했습니다.</string>
-    <string name="dialog_routing_try_again">다시 시도해주세요.</string>
     <string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
     <string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
 

@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Mesedez, zehaztu tarteko puntua.</string>
     <string name="dialog_routing_system_error">Sistemaren errorea</string>
     <string name="dialog_routing_application_error">Ibilbidea ezin izan da sortu aplikazioaren errore baten ondorioz.</string>
-    <string name="dialog_routing_try_again">Saiatu berriro</string>
     <string name="dialog_routing_download_and_build_cross_route">Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?</string>
     <string name="dialog_routing_download_cross_route">Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.</string>
 

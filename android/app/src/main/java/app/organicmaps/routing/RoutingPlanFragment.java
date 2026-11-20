@@ -28,7 +28,6 @@ import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class RoutingPlanFragment extends Fragment implements View.OnLayoutChangeListener, RoutingBottomMenuListener
 {
@@ -71,7 +70,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       updateBuildProgress(progress[0], ROUTERS[progress[1]]);
   };
   private final Observer<Integer> mDrivingOptionsCountObserver = this::updateBadgeCount;
-  private final Observer<Void> mDrivingOptionsErrorObserver = e -> onDrivingOptionsBuildError();
 
   @Override
   public void onAttach(@NonNull Context context)
@@ -145,7 +143,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
     mViewModel.getDrivingOptionsCount().observe(getViewLifecycleOwner(), mDrivingOptionsCountObserver);
-    mViewModel.getDrivingOptionsError().observe(getViewLifecycleOwner(), mDrivingOptionsErrorObserver);
 
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
@@ -451,15 +448,5 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mRoutingPlanController.closeFloatingPanels();
     mRoutingPlanController.setFullscreen(false);
     RoutingController.get().start();
-  }
-
-  private void onDrivingOptionsBuildError()
-  {
-    new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.unable_to_calc_alert_title)
-        .setMessage(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(requireActivity()))
-        .setNegativeButton(R.string.cancel, null)
-        .show();
   }
 }

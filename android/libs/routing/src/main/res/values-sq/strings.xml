@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Ju lutemi rregulloni pikën tuaj të ndërmjetme.</string>
     <string name="dialog_routing_system_error">Gabim sistemi</string>
     <string name="dialog_routing_application_error">Nuk mund të krijohet rruga për shkak të një gabimi në aplikacion.</string>
-    <string name="dialog_routing_try_again">Ju lutemi provoni përsëri</string>
     <string name="dialog_routing_download_and_build_cross_route">A dëshironi të shkarkoni hartën dhe të krijoni një rrugë më optimale që përfshin më shumë se një hartë?</string>
     <string name="dialog_routing_download_cross_route">Shkarkoni harta shtesë për të krijuar një rrugë më të mirë që kalon kufijtë e kësaj harte.</string>
 

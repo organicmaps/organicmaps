@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Please adjust your intermediate point.</string>
     <string name="dialog_routing_system_error">System error</string>
     <string name="dialog_routing_application_error">Unable to create route due to an application error.</string>
-    <string name="dialog_routing_try_again">Please try again</string>
     <string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
     <string name="dialog_routing_download_cross_route">Download additional maps to create a better route that crosses the boundaries of this map.</string>
 
