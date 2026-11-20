@@ -124,7 +124,7 @@ double EatDouble(char const * str, char ** strEnd)
       else
         gotDigitBeforeMark = true;
     }
-    else if (IsNegativeSymbol(*p))
+    else if (IsNegativeSymbol(*p) && p == str)
     {
       modifier = -1.0;
     }
