@@ -2,6 +2,11 @@
 <TS version="2.1" language="he">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>חזור</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -31,10 +36,20 @@
 <source>Miles</source>
 <translation>מייל</translation>
 </message>
+<message id="later">
+<extracomment>Update maps later button text</extracomment>
+<source>Later</source>
+<translation>מאוחר יותר</translation>
+</message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
 <translation>חיפוש</translation>
+</message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>שרותי המיקום של מכשיר או ישום זה זה כבויים. יש להפעילם דרך &quot;הגדרות&quot; (Settings).</translation>
 </message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
@@ -50,6 +65,31 @@
 <source>About Organic Maps</source>
 <translation>אודות Organic Maps</translation>
 </message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>חינם לכולם, מיוצרים באהבה</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• ללא מודעות, ללא מעקב, ללא איסוף נתונים</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• אין ריקון סוללה, עובד במצב לא מקוון</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• מהיר, מינימליסטי, שפותח על ידי הקהילה</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>אפליקציית קוד פתוח שנוצרה על ידי חובבים ומתנדבים.</translation>
+</message>
 <message id="close">
 <source>Close</source>
 <translation>סגור</translation>
@@ -57,6 +97,21 @@
 <message id="download">
 <source>Download</source>
 <translation>הורדה</translation>
+</message>
+<message id="download_country_failed">
+<extracomment>Show popup notification on top of the map when country download has failed.</extracomment>
+<source>%1 download has failed</source>
+<translation>הורדה של %1 נכשלה</translation>
+</message>
+<message id="add_new_set">
+<extracomment>&quot;Add new bookmark list&quot; dialog title</extracomment>
+<source>Add a New List</source>
+<translation>הוסף רשימה חדשה</translation>
+</message>
+<message id="bookmark_set_name">
+<extracomment>Add Bookmark list dialog - hint when the list name is empty</extracomment>
+<source>Bookmark List Name</source>
+<translation>שם רשימת הסימניות</translation>
 </message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
@@ -73,15 +128,60 @@
 <source>Name</source>
 <translation>שם</translation>
 </message>
+<message id="list">
+<extracomment>Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.</extracomment>
+<source>List</source>
+<translation>רשימה</translation>
+</message>
 <message id="settings">
 <extracomment>Settings button in system menu</extracomment>
 <source>Settings</source>
 <translation>הגדרות</translation>
 </message>
+<message id="maps_storage">
+<extracomment>Header of settings activity where user defines storage path</extracomment>
+<source>Save maps to</source>
+<translation>שמור מפות אל</translation>
+</message>
+<message id="maps_storage_summary">
+<extracomment>Detailed description of Maps Storage settings button</extracomment>
+<source>Select the folder to download maps to.</source>
+<translation>בחר מיקום במחשבך לשמירת המפות שתוריד.</translation>
+</message>
+<message id="maps_storage_downloaded">
+<extracomment>E.g. &quot;Downloaded maps: 500Mb&quot; in Maps Storage settings</extracomment>
+<source>Downloaded maps</source>
+<translation>מפות שהורדו</translation>
+</message>
+<message id="maps_storage_free_size">
+<extracomment>Free space out of total storage size in Maps Storage settings, e.g. &quot;300 MB free of 2 GB&quot;</extracomment>
+<source>%1 free of %2</source>
+<translation>%1 פנוי מתוך %2</translation>
+</message>
+<message id="move_maps">
+<extracomment>Question dialog for transferring maps from one storage to another</extracomment>
+<source>Move maps?</source>
+<translation>להעביר המפות?</translation>
+</message>
+<message id="move_maps_error">
+<extracomment>Error moving map files from one storage to another</extracomment>
+<source>Error moving map files</source>
+<translation>שגיאה בהעברת הקבצים</translation>
+</message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>יחידות מדידה</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>בחר בין מיילים לקילומטרים</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>בטל הורדה</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +293,31 @@
 <source>RV Facilities</source>
 <translation>עבור קרוואנים</translation>
 </message>
+<message id="description">
+<extracomment>Notes field in Bookmarks view</extracomment>
+<source>Notes</source>
+<translation>הערות</translation>
+</message>
+<message id="load_kmz_successful">
+<extracomment>Kmz file successful loading</extracomment>
+<source>Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</source>
+<translation>הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.</translation>
+</message>
+<message id="load_kmz_failed">
+<extracomment>Kml file loading failed</extracomment>
+<source>Failed to load bookmarks. The file may be corrupted or defective.</source>
+<translation>טעינת הסימניות נכשלה. יתכן שהקובץ פגום.</translation>
+</message>
+<message id="edit">
+<extracomment>resource for context menu</extracomment>
+<source>Edit</source>
+<translation>ערוך</translation>
+</message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>מיקומך לא אותר עדיין</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +358,47 @@
 <source>Email</source>
 <translation>דוא&quot;ל</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>הועתק: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>מסלולים</translation>
 </message>
+<message id="length">
+<extracomment>Length of track in cell that describes route</extracomment>
+<source>Length</source>
+<translation>אורך</translation>
+</message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>שיתוף מיקום שלי</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>הגדרות כלליות</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>מידע</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>ניווט</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>כפתורי + ו- על המפה</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>הצג על המסך</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +415,16 @@
 <source>On</source>
 <translation>מופעל</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>מבנים בתלת-מימד</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +434,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>כתובת URL של השרת</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>הזינו כתובת URL תקינה עם {z}/{x}/{y}</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,39 +455,215 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>מקורות אריחים מותאמים אישית מסופקים על ידך. השתמש רק בשירותים שמותר לך לגשת אליהם. האחריות על ייחוס, תנאי רישיון, מפתחות API, מכסות ומגבלות שימוש מוטלת עליך.</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>הראה במפה</translation>
+</message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>תפריט</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>אתר</translation>
+</message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>חדשות</translation>
 </message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>עזרה</translation>
 </message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>שאלות ותשובות</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>לתרום</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>תמכו בפרויקט</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>זכויות יוצרים</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>דווח על באג</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>שפר את כיוון החץ על ידי הזזת הטלפון בתנועה של שמונה כדי לכייל את המצפן.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>הזז את הטלפון בתנועה של דמות שמונה כדי לכייל את המצפן ולתקן את כיוון החץ במפה.</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>לחץ לחיצה ארוכה במפה כדי להציג את הממשק</translation>
+</message>
+<message id="downloader_update_all_button">
+<extracomment>Update all button text</extracomment>
+<source>Update All</source>
+<translation>עדכן הכל</translation>
+</message>
+<message id="downloader_cancel_all">
+<extracomment>Cancel all button text</extracomment>
+<source>Cancel All</source>
+<translation>בטל הכול</translation>
+</message>
+<message id="downloader_downloaded_subtitle">
+<extracomment>Downloaded maps list header</extracomment>
+<source>Downloaded</source>
+<translation>מפות שהורדת</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
 <translation>נוסף/ו לתור</translation>
+</message>
+<message id="downloader_near_me_subtitle">
+<source>Near me</source>
+<translation>קרוב אלי</translation>
+</message>
+<message id="downloader_status_maps">
+<extracomment>In maps downloader and country place page shows how many maps are downloaded / to download, e.g. &quot;Maps: 3 of 10&quot;</extracomment>
+<source>Maps</source>
+<translation>מפות</translation>
+</message>
+<message id="downloader_download_all_button">
+<source>Download All</source>
+<translation>הורד הכל</translation>
+</message>
+<message id="downloader_downloading">
+<source>Downloading:</source>
+<translation>מוריד:</translation>
+</message>
+<message id="downloader_download_map">
+<extracomment>Context menu item for downloader.</extracomment>
+<source>Download map</source>
+<translation>הורידו את המפה</translation>
 </message>
 <message id="downloader_retry">
 <extracomment>Item status in downloader.</extracomment>
 <source>Retry</source>
 <translation>נסה שוב</translation>
 </message>
+<message id="downloader_update_map">
+<extracomment>Item in context menu.</extracomment>
+<source>Update Map</source>
+<translation>עדכן מפה</translation>
+</message>
+<message id="save">
+<source>Save</source>
+<translation>שמור</translation>
+</message>
+<message id="create">
+<source>create</source>
+<translation>יצירה</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Organic Maps גרסה: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>מראה</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>בהיר</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>כהה</translation>
+</message>
+<message id="downloader_available_maps">
+<extracomment>Downloaded maps category</extracomment>
+<source>Available</source>
+<translation>מפות זמינות</translation>
+</message>
+<message id="downloader_status_outdated">
+<extracomment>Status of outdated country in the list</extracomment>
+<source>Update</source>
+<translation>לעדכן</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
 <source>bookmark</source>
 <translation>סימניה</translation>
 </message>
+<message id="dialog_routing_location_turn_wifi">
+<source>Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</source>
+<translation>בדוק את אות ה-GPS שלך. הפעלת Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.</translation>
+</message>
+<message id="dialog_routing_system_error">
+<source>System error</source>
+<translation>שגיאת מערכת</translation>
+</message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה. לאחר מכן לא תזדקקו יותר לחיבור לאינטרנט.</translation>
+</message>
+<message id="search_select_map">
+<source>Select Map</source>
+<translation>בחר מפה</translation>
+</message>
+<message id="show">
+<extracomment>«Show» context menu</extracomment>
+<source>Show</source>
+<translation>הצג</translation>
+</message>
+<message id="hide">
+<extracomment>«Hide» context menu</extracomment>
+<source>Hide</source>
+<translation>הסתר</translation>
+</message>
 <message id="categories">
 <source>Categories</source>
 <translation>קטגוריות</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>היסטוריה</translation>
+</message>
+<message id="search_not_found">
+<source>Oops, no results found.</source>
+<translation>אופס, לא נמצאו תוצאות.</translation>
+</message>
+<message id="search_not_found_query">
+<extracomment>The message when user did not find anything in the search.</extracomment>
+<source>Download the region where you are searching or try adding a nearby town/village name.</source>
+<translation>יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>חיפושים קודמים</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>נקה היסטוריית חיפוש</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -334,9 +683,55 @@
 <source>Route to</source>
 <translation>מסלול לכאן</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>כל היום (24 שעות)</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>פתוח</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>שעות פתיחה</translation>
+</message>
+<message id="autodownload">
+<source>Auto-download maps</source>
+<translation>הורדה אוטומטית של מפות</translation>
+</message>
+<message id="daily">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Daily</source>
+<translation>יומי</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>24/7</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>סגור</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>חצות</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>צהריים</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>נפתח עוד %1</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>נסגר עוד %1</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>סגור</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -380,14 +775,49 @@
 <source>Floor</source>
 <translation>קומה</translation>
 </message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>רמה: %1</translation>
+</message>
+<message id="downloader_search_field_hint">
+<source>Find map</source>
+<translation>חפש מפה</translation>
+</message>
+<message id="common_check_internet_connection_dialog">
+<source>Please make sure your device is connected to the Internet.</source>
+<translation>נא לוודא כי המכשיר מחובר לאינטרנט.</translation>
+</message>
+<message id="downloader_no_space_title">
+<source>Not enough space</source>
+<translation>אין מספיק מקום</translation>
+</message>
+<message id="downloader_no_space_message">
+<extracomment>Message shown when there is not enough space to download maps</extracomment>
+<source>Please delete any unnecessary data</source>
+<translation>נא לפנות שטח אחסון</translation>
+</message>
 <message id="editor_edit_place_category_title">
 <source>Category</source>
 <translation>קטגוריה</translation>
+</message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%1. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</translation>
 </message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
 <translation>%1 מתוך %2</translation>
+</message>
+<message id="download_over_mobile_header">
+<source>Download over a cellular network connection?</source>
+<translation>להוריד באמצעות חיבור אינטרנט סלולרי?</translation>
+</message>
+<message id="download_over_mobile_message">
+<source>This could be considerably expensive with some plans or if roaming.</source>
+<translation>זה עשוי להיות יקר עם חבילות גלישה מסוימות או בנדידה.</translation>
 </message>
 <message id="editor_storey_number">
 <source>Number of floors (maximum of %1)</source>
@@ -396,6 +826,23 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>מַפעִיל</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>מַפעִיל: %1</translation>
+</message>
+<message id="downloader_no_downloaded_maps_title">
+<source>You haven&#x27;t downloaded any maps</source>
+<translation>לא הורדת אף מפה</translation>
+</message>
+<message id="downloader_no_downloaded_maps_message">
+<source>Download maps to search and navigate offline.</source>
+<translation>הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</translation>
+</message>
+<message id="current_location_unknown_error_title">
+<source>Current location is unknown.</source>
+<translation>המיקום הנוכחי לא ידוע.</translation>
 </message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
@@ -431,9 +878,23 @@
 <source>More</source>
 <translation>עוד</translation>
 </message>
+<message id="placepage_edit_bookmark_button">
+<extracomment>Toolbar title of the Edit Bookmark screen.</extracomment>
+<source>Edit Bookmark</source>
+<translation>ערוך סימניה</translation>
+</message>
+<message id="placepage_personal_notes_hint">
+<source>Personal notes (text or html)</source>
+<translation>הערות אישיות (טקסט או HTML)</translation>
+</message>
 <message id="editor_remove_place_button">
 <source>Delete</source>
 <translation>מחק</translation>
+</message>
+<message id="track_recording">
+<extracomment>Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.</extracomment>
+<source>Recording the track</source>
+<translation>הקלטת המסלול</translation>
 </message>
 <message id="accept">
 <extracomment>For the first routing</extracomment>
@@ -445,9 +906,34 @@
 <source>Decline</source>
 <translation>דחה</translation>
 </message>
+<message id="mobile_data_option_always">
+<source>Use Always</source>
+<translation>השתמש תמיד</translation>
+</message>
+<message id="mobile_data">
+<source>Mobile Internet</source>
+<translation>אינטרנט סלולרי</translation>
+</message>
+<message id="mobile_data_description">
+<extracomment>NOTE to translators: please synchronize your translation with the English one.</extracomment>
+<source>Mobile internet is required for map update notifications and uploading edits.</source>
+<translation>אינטרנט סלולרי נחוץ בשביל הודעות על עדכון מפות ובשביל העלאת עריכות.</translation>
+</message>
+<message id="mobile_data_option_never">
+<source>Never Use</source>
+<translation>אף פעם אל תשתמש</translation>
+</message>
+<message id="mobile_data_option_ask">
+<source>Always Ask</source>
+<translation>שאל תמיד</translation>
+</message>
 <message id="big_font">
 <source>Increase size for map labels</source>
 <translation>הגדל תגיות במפה</translation>
+</message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>הפעל logging</translation>
 </message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
@@ -458,14 +944,56 @@
 <source>Add Stop</source>
 <translation>הוספת עצירה</translation>
 </message>
+<message id="bookmark_lists">
+<source>Lists</source>
+<translation>רשימות</translation>
+</message>
+<message id="bookmark_lists_hide_all">
+<extracomment>Do not display all bookmark lists on the map</extracomment>
+<source>Hide all</source>
+<translation>הסתר הכל</translation>
+</message>
+<message id="bookmark_lists_show_all">
+<source>Show all</source>
+<translation>הצג הכל</translation>
+</message>
+<message id="bookmarks_create_new_group">
+<source>Create a new list</source>
+<translation>צור רשימה חדשה</translation>
+</message>
 <message id="bookmarks_import">
 <extracomment>Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files</extracomment>
 <source>Import Bookmarks and Tracks</source>
 <translation>ייבוא סימניות ומסלולים</translation>
 </message>
+<message id="bookmarks_error_title_share_empty">
+<source>Sharing error</source>
+<translation>שגיאת שיתוף</translation>
+</message>
+<message id="bookmarks_error_title_list_name_already_taken">
+<source>This name is already taken</source>
+<translation>השם הזה כבר תפוס</translation>
+</message>
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>נא להמתין…</translation>
+</message>
+<message id="restore">
+<source>Restore</source>
+<translation>שחזור</translation>
+</message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>פרטיות</translation>
+</message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>מדיניות פרטיות</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>תנאי שימוש</translation>
 </message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
@@ -481,10 +1009,37 @@
 <source>Cycling</source>
 <translation>רכיבה על אופניים</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>לוויין</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>רכבת תחתית</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>סגנונות ושכבות מפה</translation>
+</message>
+<message id="bookmarks_empty_list_title">
+<source>This list is empty</source>
+<translation>רשימה זו ריקה</translation>
+</message>
+<message id="bookmarks_empty_list_message">
+<source>To add a bookmark, tap a place on the map and then tap the star icon</source>
+<translation>כדי להוסיף סימניה, לחץ על מקום במפה ואז לחץ על סימן הכוכב</translation>
+</message>
+<message id="change_all_bookmarks_color">
+<extracomment>Button to change the color of all bookmarks in the current list</extracomment>
+<source>Change color of all bookmarks</source>
+<translation>שנה את צבע כל הסימניות</translation>
+</message>
+<message id="change_all_tracks_color">
+<extracomment>Button to change the color of all tracks in the current list</extracomment>
+<source>Change color of all tracks</source>
+<translation>שנה את צבע כל המסלולים</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,10 +1056,38 @@
 <source>Export GeoJSON</source>
 <translation>ייצא GeoJSON</translation>
 </message>
+<message id="delete_list">
+<source>Delete list</source>
+<translation>מחק רשימה</translation>
+</message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>מצב חיסכון בסוללה</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>נסה להפחית שימוש בסוללה על חשבון פונקציות מסוימות</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>אף פעם</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>כשהסוללה חלשה</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>תמיד</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
 <translation>שמות סימניות על המפה</translation>
+</message>
+<message id="bookmarks_text_placement_description">
+<source>If there are too many bookmarks, displaying their names on the map may slow down the app.</source>
+<translation>אם יש יותר מדי סימניות, הצגת שמותיהן על המפה עלולה להאט את פעולת האפליקציה.</translation>
 </message>
 <message id="show_to_the_right">
 <source>Show to the right</source>
@@ -513,6 +1096,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>הצג בתחתית</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור &quot;דווח על באג&quot; בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -566,9 +1153,34 @@
 <source>No</source>
 <translation>לא</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>כן</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>לא</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>קיבולת: %1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>רשת: %1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>אוקיי</translation>
+</message>
+<message id="sort_bookmarks">
+<extracomment>Android, title, max 20-22 symbols</extracomment>
+<source>Sort bookmarks</source>
+<translation>מיון סימניות</translation>
 </message>
 <message id="week_ago_sorttype">
 <source>A week ago</source>
@@ -594,6 +1206,27 @@
 <source>Others</source>
 <translation>אחרים</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>סגור כעת</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>נפתח מחר ב-%1</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>נפתח ביום %1 ב-%2</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>נפתח מחר ב-%1</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>נסגר ב-%1</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>שם משתמש או סיסמה לא תקינים.</translation>
@@ -606,9 +1239,21 @@
 <source>Select category</source>
 <translation>בחר קטגוריה</translation>
 </message>
+<message id="placepage_bookmark_name_hint">
+<source>Bookmark Name</source>
+<translation>שם סימניה</translation>
+</message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>…עוד</translation>
+</message>
 <message id="refresh">
 <source>Update</source>
 <translation>עדכן</translation>
+</message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>גודל קובץ יומן: %1</translation>
 </message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
@@ -617,6 +1262,27 @@
 <message id="downloader_applying">
 <source>Applying %1…</source>
 <translation>מחיל %1…</translation>
+</message>
+<message id="sort_default">
+<extracomment>iOS</extracomment>
+<source>Sort by default</source>
+<translation>מיין כברירת מחדל</translation>
+</message>
+<message id="sort_type">
+<source>Sort by type</source>
+<translation>מיין לפי סוג</translation>
+</message>
+<message id="sort_distance">
+<source>Sort by distance</source>
+<translation>מיין לפי מרחק</translation>
+</message>
+<message id="sort_date">
+<source>Sort by date</source>
+<translation>מיין לפי תאריך</translation>
+</message>
+<message id="sort_name">
+<source>Sort by name</source>
+<translation>מיין לפי שם</translation>
 </message>
 <message id="food_places">
 <source>Food</source>
@@ -674,29 +1340,114 @@
 <source>Medicine</source>
 <translation>רפואה</translation>
 </message>
+<message id="search_in_the_list">
+<source>Search in the list</source>
+<translation>חפש ברשימה</translation>
+</message>
 <message id="religious_places">
 <source>Religious places</source>
 <translation>מקומות דת</translation>
+</message>
+<message id="select">
+<extracomment>Button that starts multi-selection in a bookmark list.</extracomment>
+<source>Select</source>
+<translation>בחר</translation>
+</message>
+<message id="select_all">
+<extracomment>Action that selects every bookmark and track in a bookmark list.</extracomment>
+<source>Select All</source>
+<translation>בחר הכול</translation>
+</message>
+<message id="deselect_all">
+<extracomment>Action that clears the multi-selection in a bookmark list.</extracomment>
+<source>Deselect All</source>
+<translation>בטל בחירה</translation>
+</message>
+<message id="select_list">
+<source>Select list</source>
+<translation>בחר רשימה</translation>
 </message>
 <message id="button_layer_terrain">
 <extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
 <source>3D Terrain</source>
 <translation>תבליט בתלת-מימד</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>עדכן את האזור הזה כדי לראות קווי מתאר</translation>
+</message>
+<message id="elevation_profile_ascent">
+<source>Ascent</source>
+<translation>עלייה</translation>
+</message>
+<message id="elevation_profile_descent">
+<source>Descent</source>
+<translation>ירידה</translation>
+</message>
+<message id="elevation_profile_min_elevation">
+<source>Min. elevation</source>
+<translation>מינ&#x27; גובה</translation>
+</message>
+<message id="elevation_profile_max_elevation">
+<source>Max. elevation</source>
+<translation>מקס&#x27; גובה</translation>
+</message>
+<message id="elevation_profile_difficulty">
+<source>Difficulty</source>
+<translation>קושי</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>התקרב כדי לחקור קווי מתאר</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>השאר מסך דלוק</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>כאשר מופעל, המסך תמיד יהיה דולק בעת הצגת המפה.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>שפת המפה</translation>
+</message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
 </message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/</translation>
 </message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
+</message>
+<message id="comma_separated_pair">
+<extracomment>A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks</extracomment>
+<source>%1, %2</source>
+<translation>%1, %2</translation>
+</message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
 <translation>טיול רגלי</translation>
+</message>
+<message id="bookmarks_export">
+<extracomment>Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks</extracomment>
+<source>Export all Bookmarks and Tracks</source>
+<translation>ייצא את כל הסימניות והרצועות</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>
@@ -717,6 +1468,11 @@
 <source>Menu Link</source>
 <translation>קישור לתפריט</translation>
 </message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>תפריט תצוגה</translation>
+</message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
 <source>Self-service</source>
@@ -727,23 +1483,121 @@
 <source>Outdoor seating</source>
 <translation>ישיבה בחוץ</translation>
 </message>
+<message id="start_track_recording">
+<extracomment>Prompt to start recording a track.</extracomment>
+<source>Record Track</source>
+<translation>הקלט מסלול</translation>
+</message>
+<message id="stop_track_recording">
+<extracomment>Prompt for stopping a track recording.</extracomment>
+<source>Stop Track Recording</source>
+<translation>הפסק הקלטת מסלול</translation>
+</message>
+<message id="track_recording_title">
+<extracomment>Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.</extracomment>
+<source>Track Recording</source>
+<translation>הקלטת מסלול</translation>
+</message>
+<message id="track_recording_toast_nothing_to_save">
+<extracomment>Message for the toast when saving the track recording is finished but nothing to save.</extracomment>
+<source>Track is empty - nothing to save</source>
+<translation>המסלול ריק - אין מה לשמור</translation>
+</message>
 <message id="choose_color">
 <source>Choose Color</source>
 <translation>בחר צבע</translation>
+</message>
+<message id="edit_track">
+<source>Edit Track</source>
+<translation>עריכת מסלול</translation>
 </message>
 <message id="follow_system">
 <extracomment>Setting option to sync the app&#x27;s theme with the operating system&#x27;s dark/light mode</extracomment>
 <source>Follow the system</source>
 <translation>לפי הגדרות המערכת</translation>
 </message>
+<message id="whats_new_auto_update_title">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update downloaded maps</source>
+<translation>עדכן את המפות שהורדת</translation>
+</message>
+<message id="whats_new_auto_update_message">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Updating maps keeps the information about objects up to date</source>
+<translation>עדכון המפות שומר על המידע על פריטים עדכני</translation>
+</message>
+<message id="whats_new_auto_update_button_size">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update (%1)</source>
+<translation>עדכן (%1)</translation>
+</message>
+<message id="placepage_track_name_hint">
+<extracomment>Placeholder for track name input on track edit screen</extracomment>
+<source>Track Name</source>
+<translation>שם המסלול</translation>
+</message>
+<message id="move">
+<extracomment>move track or bookmark from the list button text</extracomment>
+<source>Move</source>
+<translation>הזז</translation>
+</message>
+<message id="change_color">
+<extracomment>Text for the editing the Track&#x27;s color button.</extracomment>
+<source>Change Color</source>
+<translation>שנה צבע</translation>
+</message>
+<message id="hide_track">
+<extracomment>Text for the hiding track.</extracomment>
+<source>Hide track</source>
+<translation>הסתר מסלול</translation>
+</message>
+<message id="show_track">
+<extracomment>Text for the showing track.</extracomment>
+<source>Show track</source>
+<translation>הצג מסלול</translation>
+</message>
+<message id="backup">
+<extracomment>Title for the &quot;Enable iCloud Syncronization&quot; alert&#x27;s &quot;Backup&quot; action button.</extracomment>
+<source>Backup</source>
+<translation>גיבוי</translation>
+</message>
+<message id="bookmarks_recently_deleted">
+<extracomment>Title for the &quot;Recently Deleted Lists&quot; button on the Bookmarks and Lists screen.</extracomment>
+<source>Recently Deleted Lists</source>
+<translation>רשימות שנמחקו לאחרונה</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
 <translation>נקה</translation>
 </message>
+<message id="delete_all">
+<extracomment>Title for the &quot;Delete All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Delete All</source>
+<translation>מחק הכל</translation>
+</message>
+<message id="recover">
+<extracomment>Title for the &quot;Recover&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover</source>
+<translation>לשחזר</translation>
+</message>
+<message id="recover_all">
+<extracomment>Title for the &quot;Recover All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover All</source>
+<translation>לשחזר הכל</translation>
+</message>
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
 <translation>הוסף מקום</translation>
+</message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
 </message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
@@ -754,6 +1608,16 @@
 <extracomment>Default bookmark list name</extracomment>
 <source>My Places</source>
 <translation>המקומות שלי</translation>
+</message>
+<message id="maps_storage_internal">
+<extracomment>Internal storage type in Maps Storage settings (not accessible by the user)</extracomment>
+<source>Internal private storage</source>
+<translation>אחסון פנימי פרטי</translation>
+</message>
+<message id="maps_storage_removable">
+<extracomment>Removable external storage type in Maps Storage settings, e.g. an SD card</extracomment>
+<source>SD card</source>
+<translation>כרטיס זיכרון</translation>
 </message>
 <message id="category_wifi">
 <extracomment>Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!</extracomment>
@@ -789,6 +1653,11 @@
 <source>ft</source>
 <translation>ft</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>כדי להציג מסלולים, יש לעדכן את המפות.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1666,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>כניסה</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>אזורים שהורדו בסגול</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
@@ -1168,6 +2042,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>בחר במפה</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1177,6 +2056,16 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>יעד</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>הזז את המפה ושנה את רמת הזום כדי למקם את הצלב</translation>
+</message>
+<message id="track_recording_stop_and_save">
+<extracomment>Track recording notification button: stops the recording and saves the recorded track.</extracomment>
+<source>Stop and Save</source>
+<translation>הפסק ושמור</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1257,6 +2146,86 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Less</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copy %1</translation>
+</message>
+<message id="backup_description">
+<extracomment>Sailfish OS: explanation on the bookmarks backup settings page</extracomment>
+<source>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</source>
+<translation>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</translation>
+</message>
+<message id="backup_automatic">
+<extracomment>Sailfish OS: setting for how often bookmarks are backed up automatically</extracomment>
+<source>Automatic backup</source>
+<translation>Automatic backup</translation>
+</message>
+<message id="backup_weekly">
+<extracomment>Sailfish OS: automatic backup option</extracomment>
+<source>Weekly</source>
+<translation>Weekly</translation>
+</message>
+<message id="backup_folder">
+<extracomment>Sailfish OS: setting for the folder bookmark backups are saved to</extracomment>
+<source>Backup folder</source>
+<translation>Backup folder</translation>
+</message>
+<message id="backup_now">
+<extracomment>Sailfish OS: button that backs up all bookmarks and tracks</extracomment>
+<source>Back up now</source>
+<translation>Back up now</translation>
+</message>
+<message id="backup_last">
+<extracomment>Sailfish OS: date of the last bookmarks backup</extracomment>
+<source>Last backup: %1</source>
+<translation>Last backup: %1</translation>
+</message>
+<message id="backup_none">
+<extracomment>Sailfish OS: shown when bookmarks were never backed up</extracomment>
+<source>No backups yet</source>
+<translation>No backups yet</translation>
+</message>
+<message id="backup_failed">
+<extracomment>Sailfish OS: error when bookmarks could not be backed up</extracomment>
+<source>Backup failed</source>
+<translation>Backup failed</translation>
+</message>
+<message id="mobile_data_downloads_off">
+<extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
+<source>Map downloads over mobile internet are turned off in the settings.</source>
+<translation>Map downloads over mobile internet are turned off in the settings.</translation>
+</message>
+<message id="maps_storage_restart">
+<extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
+<source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
+<translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
+</message>
+<message id="elevation_profile_time">
+<extracomment>Sailfish OS: track statistics on the place page, the duration of the track</extracomment>
+<source>Time</source>
+<translation>זמן</translation>
+</message>
+<message id="elevation_profile_diff_level_easy">
+<extracomment>Sailfish OS: track statistics on the place page, an easy difficulty</extracomment>
+<source>Easy</source>
+<translation>קל</translation>
+</message>
+<message id="elevation_profile_diff_level_moderate">
+<extracomment>Sailfish OS: track statistics on the place page, a moderate difficulty</extracomment>
+<source>Moderate</source>
+<translation>מתון</translation>
+</message>
+<message id="elevation_profile_diff_level_hard">
+<extracomment>Sailfish OS: track statistics on the place page, a hard difficulty</extracomment>
+<source>Hard</source>
+<translation>קשה</translation>
 </message>
 </context>
 </TS>

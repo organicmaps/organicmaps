@@ -2,6 +2,11 @@
 <TS version="2.1" language="gl">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>Atrás</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -31,10 +36,20 @@
 <source>Miles</source>
 <translation>Millas</translation>
 </message>
+<message id="later">
+<extracomment>Update maps later button text</extracomment>
+<source>Later</source>
+<translation>Máis tarde</translation>
+</message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
 <translation>Buscar</translation>
+</message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>Non se pode acceder aos servizos de localización neste dispositivo ou aplicación. Actíveos na configuración.</translation>
 </message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
@@ -50,6 +65,31 @@
 <source>About Organic Maps</source>
 <translation>Acerca de Organic Maps</translation>
 </message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>Gratis para todos, feito con amor</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• Sen anuncios, sen rastrexo, sen recompilación de datos</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• Consumo de batería mínimo, funciona sen conexión</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• Rápido, minimalista, desenvolto pola comunidade</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>Aplicación de código aberto creada por entusiastas e voluntarios.</translation>
+</message>
 <message id="close">
 <source>Close</source>
 <translation>Pechar</translation>
@@ -57,6 +97,21 @@
 <message id="download">
 <source>Download</source>
 <translation>Descargar</translation>
+</message>
+<message id="download_country_failed">
+<extracomment>Show popup notification on top of the map when country download has failed.</extracomment>
+<source>%1 download has failed</source>
+<translation>Non se puido descargar %1</translation>
+</message>
+<message id="add_new_set">
+<extracomment>&quot;Add new bookmark list&quot; dialog title</extracomment>
+<source>Add a New List</source>
+<translation>Agregar un grupo novo</translation>
+</message>
+<message id="bookmark_set_name">
+<extracomment>Add Bookmark list dialog - hint when the list name is empty</extracomment>
+<source>Bookmark List Name</source>
+<translation>Nome do grupo de marcadores</translation>
 </message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
@@ -73,15 +128,60 @@
 <source>Name</source>
 <translation>Nome</translation>
 </message>
+<message id="list">
+<extracomment>Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.</extracomment>
+<source>List</source>
+<translation>Lista</translation>
+</message>
 <message id="settings">
 <extracomment>Settings button in system menu</extracomment>
 <source>Settings</source>
 <translation>Configuración</translation>
 </message>
+<message id="maps_storage">
+<extracomment>Header of settings activity where user defines storage path</extracomment>
+<source>Save maps to</source>
+<translation>Gardar mapas en</translation>
+</message>
+<message id="maps_storage_summary">
+<extracomment>Detailed description of Maps Storage settings button</extracomment>
+<source>Select the folder to download maps to.</source>
+<translation>Seleccione o cartafol onde deben descargarse os mapas.</translation>
+</message>
+<message id="maps_storage_downloaded">
+<extracomment>E.g. &quot;Downloaded maps: 500Mb&quot; in Maps Storage settings</extracomment>
+<source>Downloaded maps</source>
+<translation>Mapas descargados</translation>
+</message>
+<message id="maps_storage_free_size">
+<extracomment>Free space out of total storage size in Maps Storage settings, e.g. &quot;300 MB free of 2 GB&quot;</extracomment>
+<source>%1 free of %2</source>
+<translation>%1 libres de %2</translation>
+</message>
+<message id="move_maps">
+<extracomment>Question dialog for transferring maps from one storage to another</extracomment>
+<source>Move maps?</source>
+<translation>Mover mapas?</translation>
+</message>
+<message id="move_maps_error">
+<extracomment>Error moving map files from one storage to another</extracomment>
+<source>Error moving map files</source>
+<translation>Erro ao mover os arquivos de mapas</translation>
+</message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>Unidades de medida</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>Elixir entre millas e quilómetros</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>Cancelar descarga</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +293,31 @@
 <source>RV Facilities</source>
 <translation>Instalacións para autocaravanas</translation>
 </message>
+<message id="description">
+<extracomment>Notes field in Bookmarks view</extracomment>
+<source>Notes</source>
+<translation>Notas</translation>
+</message>
+<message id="load_kmz_successful">
+<extracomment>Kmz file successful loading</extracomment>
+<source>Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</source>
+<translation>Os marcadores cargáronse con éxito! Pode atopalos no mapa ou na pantalla de Xestión de marcadores.</translation>
+</message>
+<message id="load_kmz_failed">
+<extracomment>Kml file loading failed</extracomment>
+<source>Failed to load bookmarks. The file may be corrupted or defective.</source>
+<translation>Non se puideron cargar os marcadores. O arquivo podería ter danos ou defectos.</translation>
+</message>
+<message id="edit">
+<extracomment>resource for context menu</extracomment>
+<source>Edit</source>
+<translation>Editar</translation>
+</message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>Aínda non se determinou a súa localización</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +358,47 @@
 <source>Email</source>
 <translation>Correo electrónico</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>Copiado ao portapapeles: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Traxectos</translation>
 </message>
+<message id="length">
+<extracomment>Length of track in cell that describes route</extracomment>
+<source>Length</source>
+<translation>Lonxitude</translation>
+</message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>Compartir a miña localización</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>Axustes xerais</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>Información</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>Navegación</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>Botóns «+» e «-» no mapa</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>Mostrar no mapa</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +415,16 @@
 <source>On</source>
 <translation>Activado</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>Edificios en 3D</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>Os edificios 3D desactívanse no modo de aforro de enerxía</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +434,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>URL do servidor</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>Introduce un URL válido con {z}/{x}/{y}</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,39 +455,215 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>As fontes de teselas personalizadas fornéceas vostede. Utilice só servizos aos que teña permiso de acceso. Vostede é responsable da atribución, os termos da licenza, as claves API, as cotas e os límites de uso.</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>Ver no mapa</translation>
+</message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>Menú</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>Sitio web</translation>
+</message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>Noticias</translation>
 </message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>Axuda</translation>
 </message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>Preguntas frecuentes</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>Doar</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>Apoie o proxecto</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>Dereitos de autor</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>Informar dun fallo</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>Mellore a dirección da frecha movendo o teléfono en forma de oito para calibrar o compás.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>Mova o teléfono en forma de oito para calibrar o compás e fixar a dirección da frecha no mapa.</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>Volva pulsar prolongadamente sobre o mapa para ver a interface</translation>
+</message>
+<message id="downloader_update_all_button">
+<extracomment>Update all button text</extracomment>
+<source>Update All</source>
+<translation>Actualizar todos</translation>
+</message>
+<message id="downloader_cancel_all">
+<extracomment>Cancel all button text</extracomment>
+<source>Cancel All</source>
+<translation>Cancelar todo</translation>
+</message>
+<message id="downloader_downloaded_subtitle">
+<extracomment>Downloaded maps list header</extracomment>
+<source>Downloaded</source>
+<translation>Descargado</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
 <translation>En cola</translation>
+</message>
+<message id="downloader_near_me_subtitle">
+<source>Near me</source>
+<translation>Preto de min</translation>
+</message>
+<message id="downloader_status_maps">
+<extracomment>In maps downloader and country place page shows how many maps are downloaded / to download, e.g. &quot;Maps: 3 of 10&quot;</extracomment>
+<source>Maps</source>
+<translation>Mapas</translation>
+</message>
+<message id="downloader_download_all_button">
+<source>Download All</source>
+<translation>Descargar todos</translation>
+</message>
+<message id="downloader_downloading">
+<source>Downloading:</source>
+<translation>Descargando:</translation>
+</message>
+<message id="downloader_download_map">
+<extracomment>Context menu item for downloader.</extracomment>
+<source>Download map</source>
+<translation>Descargar mapa</translation>
 </message>
 <message id="downloader_retry">
 <extracomment>Item status in downloader.</extracomment>
 <source>Retry</source>
 <translation>Reintentar</translation>
 </message>
+<message id="downloader_update_map">
+<extracomment>Item in context menu.</extracomment>
+<source>Update Map</source>
+<translation>Actualizar mapa</translation>
+</message>
+<message id="save">
+<source>Save</source>
+<translation>Gardar</translation>
+</message>
+<message id="create">
+<source>create</source>
+<translation>crear</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Versión de Organic Maps: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>Aspecto</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>Claro</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>Escuro</translation>
+</message>
+<message id="downloader_available_maps">
+<extracomment>Downloaded maps category</extracomment>
+<source>Available</source>
+<translation>Dispoñible</translation>
+</message>
+<message id="downloader_status_outdated">
+<extracomment>Status of outdated country in the list</extracomment>
+<source>Update</source>
+<translation>Actualizar</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
 <source>bookmark</source>
 <translation>marcador</translation>
 </message>
+<message id="dialog_routing_location_turn_wifi">
+<source>Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</source>
+<translation>Verifique o sinal do GPS. Activar a Wi-fi mellorará a precisión da súa localización.</translation>
+</message>
+<message id="dialog_routing_system_error">
+<source>System error</source>
+<translation>Erro do sistema</translation>
+</message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>Para empezar a buscar e crear rutas, descargue o mapa. Despois diso, xa non necesitará unha conexión a Internet.</translation>
+</message>
+<message id="search_select_map">
+<source>Select Map</source>
+<translation>Seleccionar mapa</translation>
+</message>
+<message id="show">
+<extracomment>«Show» context menu</extracomment>
+<source>Show</source>
+<translation>Amosar</translation>
+</message>
+<message id="hide">
+<extracomment>«Hide» context menu</extracomment>
+<source>Hide</source>
+<translation>Ocultar</translation>
+</message>
 <message id="categories">
 <source>Categories</source>
 <translation>Categorías</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>Historial</translation>
+</message>
+<message id="search_not_found">
+<source>Oops, no results found.</source>
+<translation>Non se atopou ningún resultado.</translation>
+</message>
+<message id="search_not_found_query">
+<extracomment>The message when user did not find anything in the search.</extracomment>
+<source>Download the region where you are searching or try adding a nearby town/village name.</source>
+<translation>Descargue a rexión na que está a buscar ou probe a engadir o nome dunha cidade/poboo próximo.</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>Historial de procuras</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>Baleirar historial de procuras</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -334,9 +683,55 @@
 <source>Route to</source>
 <translation>Ruta á</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>Todo o día (24 horas)</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>Aberto</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>Horario de apertura</translation>
+</message>
+<message id="autodownload">
+<source>Auto-download maps</source>
+<translation>Descarga automática</translation>
+</message>
+<message id="daily">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Daily</source>
+<translation>Diario</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>24/7</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>Pechado</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>Medianoite</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>Mediodía</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>Abre en %1</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>Pecha en %1</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>Pechado</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -380,14 +775,49 @@
 <source>Floor</source>
 <translation>Piso</translation>
 </message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>Nivel: %1</translation>
+</message>
+<message id="downloader_search_field_hint">
+<source>Find map</source>
+<translation>Buscar o mapa</translation>
+</message>
+<message id="common_check_internet_connection_dialog">
+<source>Please make sure your device is connected to the Internet.</source>
+<translation>Revise a configuración e asegúrese de que o seu dispositivo estea conectado a Internet.</translation>
+</message>
+<message id="downloader_no_space_title">
+<source>Not enough space</source>
+<translation>Non hai suficiente espazo</translation>
+</message>
+<message id="downloader_no_space_message">
+<extracomment>Message shown when there is not enough space to download maps</extracomment>
+<source>Please delete any unnecessary data</source>
+<translation>Elimine os datos innecesarios</translation>
+</message>
 <message id="editor_edit_place_category_title">
 <source>Category</source>
 <translation>Categoría</translation>
+</message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>Datos de OpenStreetMap creados pola comunidade a data de %1. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org</translation>
 </message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
 <translation>%1 de %2</translation>
+</message>
+<message id="download_over_mobile_header">
+<source>Download over a cellular network connection?</source>
+<translation>Descargar con conexión de rede móbil?</translation>
+</message>
+<message id="download_over_mobile_message">
+<source>This could be considerably expensive with some plans or if roaming.</source>
+<translation>Podería ser moi caro con certos plans ou con itinerancia de datos.</translation>
 </message>
 <message id="editor_storey_number">
 <source>Number of floors (maximum of %1)</source>
@@ -396,6 +826,23 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>Operador</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>Operador: %1</translation>
+</message>
+<message id="downloader_no_downloaded_maps_title">
+<source>You haven&#x27;t downloaded any maps</source>
+<translation>Non descargou ningún mapa</translation>
+</message>
+<message id="downloader_no_downloaded_maps_message">
+<source>Download maps to search and navigate offline.</source>
+<translation>Descargue mapas para atopar a localización e navegar sen conexión.</translation>
+</message>
+<message id="current_location_unknown_error_title">
+<source>Current location is unknown.</source>
+<translation>Descoñécese a localización actual.</translation>
 </message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
@@ -431,9 +878,23 @@
 <source>More</source>
 <translation>Más</translation>
 </message>
+<message id="placepage_edit_bookmark_button">
+<extracomment>Toolbar title of the Edit Bookmark screen.</extracomment>
+<source>Edit Bookmark</source>
+<translation>Editar marcador</translation>
+</message>
+<message id="placepage_personal_notes_hint">
+<source>Personal notes (text or html)</source>
+<translation>Notas persoais (texto ou html)</translation>
+</message>
 <message id="editor_remove_place_button">
 <source>Delete</source>
 <translation>Eliminar</translation>
+</message>
+<message id="track_recording">
+<extracomment>Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.</extracomment>
+<source>Recording the track</source>
+<translation>Gravando o traxecto</translation>
 </message>
 <message id="accept">
 <extracomment>For the first routing</extracomment>
@@ -445,9 +906,34 @@
 <source>Decline</source>
 <translation>Declinar</translation>
 </message>
+<message id="mobile_data_option_always">
+<source>Use Always</source>
+<translation>Usar sempre</translation>
+</message>
+<message id="mobile_data">
+<source>Mobile Internet</source>
+<translation>Internet móbil</translation>
+</message>
+<message id="mobile_data_description">
+<extracomment>NOTE to translators: please synchronize your translation with the English one.</extracomment>
+<source>Mobile internet is required for map update notifications and uploading edits.</source>
+<translation>Necesítase Internet móbil para mostrar información detallada dos lugares, como fotografías, prezos e recensións.</translation>
+</message>
+<message id="mobile_data_option_never">
+<source>Never Use</source>
+<translation>Non usar nunca</translation>
+</message>
+<message id="mobile_data_option_ask">
+<source>Always Ask</source>
+<translation>Preguntar sempre</translation>
+</message>
 <message id="big_font">
 <source>Increase size for map labels</source>
 <translation>Aumentar tamaño do texto no mapa</translation>
+</message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>Activar rexistros</translation>
 </message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
@@ -458,14 +944,56 @@
 <source>Add Stop</source>
 <translation>Engadir parada</translation>
 </message>
+<message id="bookmark_lists">
+<source>Lists</source>
+<translation>Listas</translation>
+</message>
+<message id="bookmark_lists_hide_all">
+<extracomment>Do not display all bookmark lists on the map</extracomment>
+<source>Hide all</source>
+<translation>Ocultar todo</translation>
+</message>
+<message id="bookmark_lists_show_all">
+<source>Show all</source>
+<translation>Amosar todo</translation>
+</message>
+<message id="bookmarks_create_new_group">
+<source>Create a new list</source>
+<translation>Crear nova lista</translation>
+</message>
 <message id="bookmarks_import">
 <extracomment>Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files</extracomment>
 <source>Import Bookmarks and Tracks</source>
 <translation>Importar marcadores e traxectos</translation>
 </message>
+<message id="bookmarks_error_title_share_empty">
+<source>Sharing error</source>
+<translation>Erro ao compartir</translation>
+</message>
+<message id="bookmarks_error_title_list_name_already_taken">
+<source>This name is already taken</source>
+<translation>Este nome xa existe</translation>
+</message>
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>Por favor, espere…</translation>
+</message>
+<message id="restore">
+<source>Restore</source>
+<translation>Restaurar</translation>
+</message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>Privacidade</translation>
+</message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>Normativa de privacidade</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>Condiciones de uso</translation>
 </message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
@@ -481,10 +1009,37 @@
 <source>Cycling</source>
 <translation>Ciclismo</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>Satélite</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>Metro</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>Estilos e capas do mapa</translation>
+</message>
+<message id="bookmarks_empty_list_title">
+<source>This list is empty</source>
+<translation>Esta lista está baleira</translation>
+</message>
+<message id="bookmarks_empty_list_message">
+<source>To add a bookmark, tap a place on the map and then tap the star icon</source>
+<translation>Para engadir un marcador, toque un lugar no mapa e despois toque a icona da estrela</translation>
+</message>
+<message id="change_all_bookmarks_color">
+<extracomment>Button to change the color of all bookmarks in the current list</extracomment>
+<source>Change color of all bookmarks</source>
+<translation>Cambiar a cor de todos os marcadores</translation>
+</message>
+<message id="change_all_tracks_color">
+<extracomment>Button to change the color of all tracks in the current list</extracomment>
+<source>Change color of all tracks</source>
+<translation>Cambiar a cor de todos os traxectos</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,10 +1056,38 @@
 <source>Export GeoJSON</source>
 <translation>Exportar GeoJSON</translation>
 </message>
+<message id="delete_list">
+<source>Delete list</source>
+<translation>Eliminar lista</translation>
+</message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>Modo de aforro de enerxía</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>Tratarase de reducir o consumo de enerxía a expensas de certas funcionalidades.</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>Nunca</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>Cando queda pouca enerxía</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>Sempre</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
 <translation>Nomes de marcadores no mapa</translation>
+</message>
+<message id="bookmarks_text_placement_description">
+<source>If there are too many bookmarks, displaying their names on the map may slow down the app.</source>
+<translation>Se hai demasiados marcadores, amosar os seus nomes no mapa pode ralentizar a aplicación.</translation>
 </message>
 <message id="show_to_the_right">
 <source>Show to the right</source>
@@ -513,6 +1096,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>Mostrar na parte inferior</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -566,9 +1153,34 @@
 <source>No</source>
 <translation>Non</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>Si</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>Non</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>Capacidade: %1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>Rede: %1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>Aceptar</translation>
+</message>
+<message id="sort_bookmarks">
+<extracomment>Android, title, max 20-22 symbols</extracomment>
+<source>Sort bookmarks</source>
+<translation>Ordenar marcadores</translation>
 </message>
 <message id="week_ago_sorttype">
 <source>A week ago</source>
@@ -594,6 +1206,27 @@
 <source>Others</source>
 <translation>Outros</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>Pechado agora</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>Abre mañá a Ábreas %1</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>o %1 ás %2</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>Abre a Ábreas %1</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>Pecha ás %1</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>Usuario ou contrasinal incorrectos.</translation>
@@ -606,9 +1239,21 @@
 <source>Select category</source>
 <translation>Seleccionar categoría</translation>
 </message>
+<message id="placepage_bookmark_name_hint">
+<source>Bookmark Name</source>
+<translation>Nomee do marcador</translation>
+</message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>… máis</translation>
+</message>
 <message id="refresh">
 <source>Update</source>
 <translation>Actualizar</translation>
+</message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>Tamaño do arquivo de rexistro: %1</translation>
 </message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
@@ -617,6 +1262,27 @@
 <message id="downloader_applying">
 <source>Applying %1…</source>
 <translation>Aplicando %1…</translation>
+</message>
+<message id="sort_default">
+<extracomment>iOS</extracomment>
+<source>Sort by default</source>
+<translation>Ordenar por defecto</translation>
+</message>
+<message id="sort_type">
+<source>Sort by type</source>
+<translation>Ordenar por tipo</translation>
+</message>
+<message id="sort_distance">
+<source>Sort by distance</source>
+<translation>Ordenar por distancia</translation>
+</message>
+<message id="sort_date">
+<source>Sort by date</source>
+<translation>Ordenar por data</translation>
+</message>
+<message id="sort_name">
+<source>Sort by name</source>
+<translation>Ordenar por nome</translation>
 </message>
 <message id="food_places">
 <source>Food</source>
@@ -674,29 +1340,114 @@
 <source>Medicine</source>
 <translation>Medicina</translation>
 </message>
+<message id="search_in_the_list">
+<source>Search in the list</source>
+<translation>Buscar na lista</translation>
+</message>
 <message id="religious_places">
 <source>Religious places</source>
 <translation>Lugares sacros</translation>
+</message>
+<message id="select">
+<extracomment>Button that starts multi-selection in a bookmark list.</extracomment>
+<source>Select</source>
+<translation>Seleccionar</translation>
+</message>
+<message id="select_all">
+<extracomment>Action that selects every bookmark and track in a bookmark list.</extracomment>
+<source>Select All</source>
+<translation>Seleccionar todo</translation>
+</message>
+<message id="deselect_all">
+<extracomment>Action that clears the multi-selection in a bookmark list.</extracomment>
+<source>Deselect All</source>
+<translation>Deseleccionar todo</translation>
+</message>
+<message id="select_list">
+<source>Select list</source>
+<translation>Seleccionar lista</translation>
 </message>
 <message id="button_layer_terrain">
 <extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
 <source>3D Terrain</source>
 <translation>Relevo 3D</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>Actualice esta rexión para ver as curvas de nivel</translation>
+</message>
+<message id="elevation_profile_ascent">
+<source>Ascent</source>
+<translation>Ascenso</translation>
+</message>
+<message id="elevation_profile_descent">
+<source>Descent</source>
+<translation>Descenso</translation>
+</message>
+<message id="elevation_profile_min_elevation">
+<source>Min. elevation</source>
+<translation>Elevación mín.</translation>
+</message>
+<message id="elevation_profile_max_elevation">
+<source>Max. elevation</source>
+<translation>Elevación máx.</translation>
+</message>
+<message id="elevation_profile_difficulty">
+<source>Difficulty</source>
+<translation>Dificultade</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>Amplíe o mapa para ver as isolíneas</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>Manter pantalla acesa</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>Cando está activada, a pantalla sempre estará acendida cando se mostre o mapa.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>Idioma do mapa</translation>
+</message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
 </message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/gl/</translation>
 </message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
+</message>
+<message id="comma_separated_pair">
+<extracomment>A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks</extracomment>
+<source>%1, %2</source>
+<translation>%1, %2</translation>
+</message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
 <translation>Ao aire libre</translation>
+</message>
+<message id="bookmarks_export">
+<extracomment>Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks</extracomment>
+<source>Export all Bookmarks and Tracks</source>
+<translation>Exportar todos os marcadores e traxectos</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>
@@ -717,6 +1468,11 @@
 <source>Menu Link</source>
 <translation>Enlace ao menú</translation>
 </message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>Ver menú</translation>
+</message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
 <source>Self-service</source>
@@ -727,23 +1483,121 @@
 <source>Outdoor seating</source>
 <translation>Asentos ao aire libre</translation>
 </message>
+<message id="start_track_recording">
+<extracomment>Prompt to start recording a track.</extracomment>
+<source>Record Track</source>
+<translation>Gravar traxecto</translation>
+</message>
+<message id="stop_track_recording">
+<extracomment>Prompt for stopping a track recording.</extracomment>
+<source>Stop Track Recording</source>
+<translation>Deter gravación de traxecto</translation>
+</message>
+<message id="track_recording_title">
+<extracomment>Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.</extracomment>
+<source>Track Recording</source>
+<translation>Grabación de ruta</translation>
+</message>
+<message id="track_recording_toast_nothing_to_save">
+<extracomment>Message for the toast when saving the track recording is finished but nothing to save.</extracomment>
+<source>Track is empty - nothing to save</source>
+<translation>O traxecto está baleiro</translation>
+</message>
 <message id="choose_color">
 <source>Choose Color</source>
 <translation>Elixir cor</translation>
+</message>
+<message id="edit_track">
+<source>Edit Track</source>
+<translation>Editar traxecto</translation>
 </message>
 <message id="follow_system">
 <extracomment>Setting option to sync the app&#x27;s theme with the operating system&#x27;s dark/light mode</extracomment>
 <source>Follow the system</source>
 <translation>Seguir o sistema</translation>
 </message>
+<message id="whats_new_auto_update_title">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update downloaded maps</source>
+<translation>Actualice os seus mapas descargados</translation>
+</message>
+<message id="whats_new_auto_update_message">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Updating maps keeps the information about objects up to date</source>
+<translation>A actualización de mapas mantén actualizada a información sobre obxectos</translation>
+</message>
+<message id="whats_new_auto_update_button_size">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update (%1)</source>
+<translation>Actualizar (%1)</translation>
+</message>
+<message id="placepage_track_name_hint">
+<extracomment>Placeholder for track name input on track edit screen</extracomment>
+<source>Track Name</source>
+<translation>Nome do traxecto</translation>
+</message>
+<message id="move">
+<extracomment>move track or bookmark from the list button text</extracomment>
+<source>Move</source>
+<translation>Mover</translation>
+</message>
+<message id="change_color">
+<extracomment>Text for the editing the Track&#x27;s color button.</extracomment>
+<source>Change Color</source>
+<translation>Cambiar cor</translation>
+</message>
+<message id="hide_track">
+<extracomment>Text for the hiding track.</extracomment>
+<source>Hide track</source>
+<translation>Hide track</translation>
+</message>
+<message id="show_track">
+<extracomment>Text for the showing track.</extracomment>
+<source>Show track</source>
+<translation>Show track</translation>
+</message>
+<message id="backup">
+<extracomment>Title for the &quot;Enable iCloud Syncronization&quot; alert&#x27;s &quot;Backup&quot; action button.</extracomment>
+<source>Backup</source>
+<translation>Copia de seguridade</translation>
+</message>
+<message id="bookmarks_recently_deleted">
+<extracomment>Title for the &quot;Recently Deleted Lists&quot; button on the Bookmarks and Lists screen.</extracomment>
+<source>Recently Deleted Lists</source>
+<translation>Listas eliminadas recentemente</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
 <translation>Limpar</translation>
 </message>
+<message id="delete_all">
+<extracomment>Title for the &quot;Delete All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Delete All</source>
+<translation>Eliminar todo</translation>
+</message>
+<message id="recover">
+<extracomment>Title for the &quot;Recover&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover</source>
+<translation>Recuperar</translation>
+</message>
+<message id="recover_all">
+<extracomment>Title for the &quot;Recover All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover All</source>
+<translation>Recuperar todo</translation>
+</message>
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
 <translation>Engadir lugar</translation>
+</message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
 </message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
@@ -754,6 +1608,16 @@
 <extracomment>Default bookmark list name</extracomment>
 <source>My Places</source>
 <translation>Os meus lugares</translation>
+</message>
+<message id="maps_storage_internal">
+<extracomment>Internal storage type in Maps Storage settings (not accessible by the user)</extracomment>
+<source>Internal private storage</source>
+<translation>Almacenamento interno privado</translation>
+</message>
+<message id="maps_storage_removable">
+<extracomment>Removable external storage type in Maps Storage settings, e.g. an SD card</extracomment>
+<source>SD card</source>
+<translation>Tarxeta SD</translation>
 </message>
 <message id="category_wifi">
 <extracomment>Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!</extracomment>
@@ -789,6 +1653,11 @@
 <source>ft</source>
 <translation>ft</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>Para amosar as rutas, os mapas deben actualizarse.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1666,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>Entrada</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>Rexións descargadas en violeta</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
@@ -1168,6 +2042,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>Escoller no mapa</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1177,6 +2056,16 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>Destino</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>Mova e achegue o mapa para colocar a cruz</translation>
+</message>
+<message id="track_recording_stop_and_save">
+<extracomment>Track recording notification button: stops the recording and saves the recorded track.</extracomment>
+<source>Stop and Save</source>
+<translation>Deter e gardar</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1257,6 +2146,86 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Less</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copy %1</translation>
+</message>
+<message id="backup_description">
+<extracomment>Sailfish OS: explanation on the bookmarks backup settings page</extracomment>
+<source>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</source>
+<translation>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</translation>
+</message>
+<message id="backup_automatic">
+<extracomment>Sailfish OS: setting for how often bookmarks are backed up automatically</extracomment>
+<source>Automatic backup</source>
+<translation>Automatic backup</translation>
+</message>
+<message id="backup_weekly">
+<extracomment>Sailfish OS: automatic backup option</extracomment>
+<source>Weekly</source>
+<translation>Weekly</translation>
+</message>
+<message id="backup_folder">
+<extracomment>Sailfish OS: setting for the folder bookmark backups are saved to</extracomment>
+<source>Backup folder</source>
+<translation>Backup folder</translation>
+</message>
+<message id="backup_now">
+<extracomment>Sailfish OS: button that backs up all bookmarks and tracks</extracomment>
+<source>Back up now</source>
+<translation>Back up now</translation>
+</message>
+<message id="backup_last">
+<extracomment>Sailfish OS: date of the last bookmarks backup</extracomment>
+<source>Last backup: %1</source>
+<translation>Last backup: %1</translation>
+</message>
+<message id="backup_none">
+<extracomment>Sailfish OS: shown when bookmarks were never backed up</extracomment>
+<source>No backups yet</source>
+<translation>No backups yet</translation>
+</message>
+<message id="backup_failed">
+<extracomment>Sailfish OS: error when bookmarks could not be backed up</extracomment>
+<source>Backup failed</source>
+<translation>Backup failed</translation>
+</message>
+<message id="mobile_data_downloads_off">
+<extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
+<source>Map downloads over mobile internet are turned off in the settings.</source>
+<translation>Map downloads over mobile internet are turned off in the settings.</translation>
+</message>
+<message id="maps_storage_restart">
+<extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
+<source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
+<translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
+</message>
+<message id="elevation_profile_time">
+<extracomment>Sailfish OS: track statistics on the place page, the duration of the track</extracomment>
+<source>Time</source>
+<translation>Tempo</translation>
+</message>
+<message id="elevation_profile_diff_level_easy">
+<extracomment>Sailfish OS: track statistics on the place page, an easy difficulty</extracomment>
+<source>Easy</source>
+<translation>Fácil</translation>
+</message>
+<message id="elevation_profile_diff_level_moderate">
+<extracomment>Sailfish OS: track statistics on the place page, a moderate difficulty</extracomment>
+<source>Moderate</source>
+<translation>Moderado</translation>
+</message>
+<message id="elevation_profile_diff_level_hard">
+<extracomment>Sailfish OS: track statistics on the place page, a hard difficulty</extracomment>
+<source>Hard</source>
+<translation>Difícil</translation>
 </message>
 </context>
 </TS>
