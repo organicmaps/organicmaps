@@ -806,6 +806,7 @@ void KmlParser::ResetPoint()
   m_properties.clear();
   m_localId = 0;
   m_trackLayers.clear();
+  m_unresolvedTrackLayers.clear();
   m_trackWidth = kDefaultTrackWidth;
   m_icon = BookmarkIcon::None;
   m_trackStops.clear();
@@ -848,6 +849,24 @@ void KmlParser::ResolveAreaStyles()
       reference = alias->second;
     }
     pending.m_inline.Apply(style);
+  }
+}
+
+void KmlParser::AddPendingTrackStyles()
+{
+  // Called right before the current track is appended to m_tracksData.
+  for (auto & [layerIndex, styleUrl] : m_unresolvedTrackLayers)
+    m_pendingTrackStyles.push_back({m_data.m_tracksData.size(), layerIndex, std::move(styleUrl)});
+  m_unresolvedTrackLayers.clear();
+}
+
+void KmlParser::ResolveTrackStyles()
+{
+  for (auto const & pending : m_pendingTrackStyles)
+  {
+    auto & layers = m_data.m_tracksData[pending.m_trackIndex].m_layers;
+    if (pending.m_layerIndex < layers.size())
+      ApplyTrackStyle(pending.m_styleUrl, layers[pending.m_layerIndex]);
   }
 }
 
@@ -1029,6 +1048,24 @@ double KmlParser::GetTrackWidthForStyle(std::string_view styleUrl) const
   return kDefaultTrackWidth;
 }
 
+bool KmlParser::ApplyTrackStyle(std::string_view styleUrl, TrackLayer & layer) const
+{
+  std::string_view style = styleUrl;
+  uint32_t color = 0;
+  if (!GetColorForStyle(style, color))
+  {
+    // Remove leading '#' symbol; find() avoids inserting empty alias entries on a miss.
+    auto const it = style.empty() ? m_mapStyle2Style.end() : m_mapStyle2Style.find(style.substr(1));
+    if (it == m_mapStyle2Style.end() || it->second.empty() || !GetColorForStyle(it->second, color))
+      return false;
+    style = it->second;
+  }
+  layer.m_lineWidth = GetTrackWidthForStyle(style);
+  layer.m_color.m_predefinedColor = PredefinedColor::None;
+  layer.m_color.m_rgba = (color != 0 ? color : kDefaultTrackColor);
+  return true;
+}
+
 bool KmlParser::Push(std::string movedTag)
 {
   // Collections are not supported: returning false makes XmlParser skip the whole subtree.
@@ -1181,6 +1218,7 @@ void KmlParser::Pop(std::string_view tag)
           trackData.m_localId = m_localId;
           trackData.m_name = bookmarkData.m_name;
           trackData.m_description = bookmarkData.m_description;
+          AddPendingTrackStyles();
           trackData.m_layers = std::move(m_trackLayers);
           trackData.m_timestamp = m_timestamp;
           trackData.m_geometry = std::move(m_geometry);
@@ -1198,6 +1236,7 @@ void KmlParser::Pop(std::string_view tag)
         data.m_localId = m_localId;
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
+        AddPendingTrackStyles();
         data.m_layers = std::move(m_trackLayers);
         data.m_timestamp = m_timestamp;
         data.m_geometry = std::move(m_geometry);
@@ -1528,9 +1567,11 @@ void KmlParser::CharData(std::string & value)
             GetColorForStyle(it->second, m_color);
         }
         TrackLayer layer;
-        layer.m_lineWidth = GetTrackWidthForStyle(value);
+        layer.m_lineWidth = kDefaultTrackWidth;
         layer.m_color.m_predefinedColor = PredefinedColor::None;
-        layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
+        layer.m_color.m_rgba = kDefaultTrackColor;
+        if (!ApplyTrackStyle(value, layer))
+          m_unresolvedTrackLayers.emplace_back(m_trackLayers.size(), value);
         m_trackLayers.push_back(std::move(layer));
       }
       else if (currTag == "description")
