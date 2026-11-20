@@ -10,6 +10,7 @@
 #include "indexer/feature_data.hpp"
 
 #include <cmath>
+#include <utility>
 #include <vector>
 
 // Friend of FeatureType (declared in indexer/feature.hpp). Lets a test set up
@@ -307,6 +308,40 @@ UNIT_TEST(DashedLinePhase_ReversedMetalineMember)
   // Both features meet at the same chain offset even though the second feature's
   // source geometry runs in the opposite direction.
   TEST_ALMOST_EQUAL_ABS(df::WrapDashPhase(forwardEnd, 7.0), df::WrapDashPhase(reversedEnd, 7.0), 1e-12, ());
+}
+
+UNIT_TEST(DashedLinePhase_AdjacentClipsSharePhaseAtFractionalZoom)
+{
+  auto const clip = [](m2::RectD const & rect)
+  {
+    df::ApplyFeatureParams params;
+    params.m_tileKey = df::TileKey(0, 0, kNoSimplifyZoom);
+    params.m_tileRect = rect;
+    params.m_minSegmentSqrLength = kMinSqr;
+    df::ClipSplinesBuilder builder(params);
+    MockTestFeature road({P(0, 0), P(5.5, 0), P(11, 0)});
+    builder.Build(road, kNoSimplifyZoom);
+    auto const pieces = builder.Release(false /* isIsoline */, true /* needSplineOffsets */);
+    auto const & offsets = builder.GetSplineOffsets();
+    TEST_EQUAL(pieces.size(), 1, ());
+    TEST_EQUAL(offsets.size(), 1, ());
+    return std::make_pair(offsets.at(0), pieces.at(0)->GetLength());
+  };
+  auto const [leftOffset, leftLength] = clip({0, -1, 5.5, 1});
+  auto const [rightOffset, rightLength] = clip({5.5, -1, 11, 1});
+  TEST_ALMOST_EQUAL_ABS(leftLength, rightLength, 1e-9, ());
+  double constexpr kPeriod = 2;
+  for (bool const reversed : {false, true})
+  {
+    double const leftStart = df::AdvanceDashPhase(31, leftOffset, reversed);
+    double const rightStart = df::AdvanceDashPhase(31, rightOffset, reversed);
+    double const first = df::AdvanceDashPhase(df::WrapDashPhase(leftStart, kPeriod), leftLength, reversed);
+    double const second = df::WrapDashPhase(rightStart, kPeriod);
+    TEST_ALMOST_EQUAL_ABS(df::WrapDashPhase(first / kPeriod, 1), second / kPeriod, 1e-9, ());
+    // The old shader applied the viewport scale after the two clips wrapped separately.
+    TEST(std::abs(df::WrapDashPhase(first / kPeriod * 1.25, 1) -
+                  df::WrapDashPhase(second / kPeriod * 1.25, 1)) > 0.1, ());
+  }
 }
 
 UNIT_TEST(DashedLinePhase_LargeOffsetIsWrappedBeforeFloatConversion)

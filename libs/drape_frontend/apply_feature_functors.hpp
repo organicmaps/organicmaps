@@ -150,7 +150,7 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings,
-                           double dashPhaseOffset, bool dashPhaseReversed);
+                           double dashPhaseOffset, bool dashPhaseReversed, bool stableDashPhase = false);
   void BuildGeometry(int zoomLevel, bool isIsoline);
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
@@ -166,6 +166,7 @@ private:
   std::vector<m2::SharedSpline> m_clippedSplines;
   double m_dashPhaseOffset = 0.0;
   bool m_dashPhaseReversed = false;
+  bool m_stableDashPhase = false;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   int m_readCount = 0;
