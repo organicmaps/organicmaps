@@ -666,6 +666,17 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 
   {
+    auto const reverse = GetFeatureBuilderParams({{"highway", "cycleway"}, {"oneway:bicycle", "-1"}});
+    TEST(reverse.GetReversedGeometry(), ());
+    TEST(reverse.IsTypeExist(GetType({"hwtag", "onedir_bicycle"})), ());
+    auto const forward = GetFeatureBuilderParams({{"highway", "cycleway"}, {"oneway:bicycle", "yes"}});
+    TEST(!forward.GetReversedGeometry(), ());
+    auto const mixed =
+        GetFeatureBuilderParams({{"highway", "cycleway"}, {"oneway:bicycle", "-1"}, {"motor_vehicle", "yes"}});
+    TEST(!mixed.GetReversedGeometry(), ("Do not flip geometry for motor traffic"));
+  }
+
+  {
     Tags const tags = {
         {"foot", "designated"},
         {"cycleway", "lane"},
