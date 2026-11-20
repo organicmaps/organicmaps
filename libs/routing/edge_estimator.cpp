@@ -291,6 +291,34 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
   return purpose == Purpose::Weight ? time * m_transitWalkWeightFactor : time;
 }
 
+void EdgeEstimator::SetTransitPreference(TransitPreference preference)
+{
+  double constexpr kWalkingMultiplier = 3.0;
+  double constexpr kBoardingPenaltyS = 5 * 60.0;
+  switch (preference)
+  {
+    using enum TransitPreference;
+  case Recommended: SetTransitFactors(1.0, 0.0); return;
+  case LessWalking: SetTransitFactors(kWalkingMultiplier, 0.0); return;
+  case FewerTransfers: SetTransitFactors(1.0, kBoardingPenaltyS); return;
+  case LessWalkingAndFewerTransfers: SetTransitFactors(kWalkingMultiplier, kBoardingPenaltyS); return;
+  }
+  UNREACHABLE();
+}
+
+RouteWeight EdgeEstimator::CalcRoadSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                                                 time_t arrivalTime) const
+{
+  auto const weight = CalcSegmentWeight(segment, road, purpose, arrivalTime);
+  if (!m_isTransit || purpose == Purpose::ETA)
+    return RouteWeight(weight);
+
+  auto const seconds = CalcSegmentWeight(segment, road, Purpose::ETA, arrivalTime);
+  if (road.GetRoutingOptions().Has(RoutingOptions::Ferry))
+    return RouteWeight(weight, 0, 0, seconds);
+  return RouteWeight::TransitWalk(weight, seconds);
+}
+
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
@@ -319,10 +347,9 @@ public:
                                      [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
     { return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude); });
 
-    // Bias the transit alternative away from walking (see SetTransitAltFactors). No-op (factor 1.0)
-    // for standalone pedestrian routing and for the primary transit route.
-    if (purpose == Purpose::Weight)
-      weight *= GetTransitWalkWeightFactor();
+    auto const walkingFactor = GetTransitWalkWeightFactor();
+    if (purpose == Purpose::Weight && walkingFactor != 1.0 && !road.GetRoutingOptions().Has(RoutingOptions::Ferry))
+      weight *= walkingFactor;
 
     return ApplyStrategy(purpose, weight, distanceM);
   }
@@ -523,7 +550,12 @@ std::shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, do
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return std::make_shared<PedestrianEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
+  case VehicleType::Transit:
+  {
+    auto estimator = std::make_shared<PedestrianEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
+    estimator->m_isTransit = vehicleType == VehicleType::Transit;
+    return estimator;
+  }
   case VehicleType::Bicycle: return std::make_shared<BicycleEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
   case VehicleType::Car:
     return std::make_shared<CarEstimator>(dataSourcePtr, numMwmIds, trafficStash, maxWeighSpeedKMpH, offroadSpeedKMpH);

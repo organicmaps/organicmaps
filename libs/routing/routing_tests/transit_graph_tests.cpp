@@ -20,7 +20,7 @@ namespace
 struct Fixture
 {
   explicit Fixture(std::string const & lastLineType = "water_service")
-    : m_estimator(routing::EdgeEstimator::Create(routing::VehicleType::Pedestrian, 60, routing::SpeedKMpH(3), nullptr,
+    : m_estimator(routing::EdgeEstimator::Create(routing::VehicleType::Transit, 60, routing::SpeedKMpH(3), nullptr,
                                                  nullptr, nullptr))
   {
     std::string json = R"({
@@ -199,12 +199,12 @@ UNIT_TEST(TransitWorldGraph_ETAIncludesBoardingWaits)
   TEST_EQUAL(world->CalculateETAWithoutPenalty(ride1), 120.0, ());
   TEST_EQUAL(world->GetTransitInfo(ride1)->GetEdgeSubway().m_rideTimeSec, 120, ());
 
-  fixture.m_estimator->SetTransitAltFactors(3.0, 200.0);
+  fixture.m_estimator->SetTransitPreference(routing::TransitPreference::FewerTransfers);
   TEST_EQUAL(world->CalculateETA(gate, ride1, 0), 150.0, ());
   TEST_EQUAL(world->CalculateETA(transfer, ride3, 0), 145.5, ());
   TEST_EQUAL(world->CalculateETA(ride3, zeroWait, 0), 90.0, ());
   auto const penalty = graph->GetTransferPenalty(graph->GetRideLineId(ride3), zeroWait);
-  TEST_EQUAL(penalty.GetWeight(), 200.0, ());
+  TEST_EQUAL(penalty.GetWeight(), 300.0, ());
   TEST_EQUAL(penalty.GetTransitTime(), 0.0, ());
 }
 
@@ -249,7 +249,8 @@ UNIT_TEST(TransitWorldGraph_StationWalkingUsesAlternativeFactors)
 
   for (double const factor : {3.0, 1.0})
   {
-    fixture.m_estimator->SetTransitAltFactors(factor, 200.0);
+    fixture.m_estimator->SetTransitPreference(factor == 3.0 ? routing::TransitPreference::LessWalking
+                                                            : routing::TransitPreference::Recommended);
     for (auto const & segment : walking)
     {
       auto const eta = world->CalcSegmentWeight(segment, Purpose::ETA);
@@ -257,6 +258,7 @@ UNIT_TEST(TransitWorldGraph_StationWalkingUsesAlternativeFactors)
       TEST_EQUAL(weight.GetWeight(), factor * eta.GetWeight(), (segment));
       TEST_EQUAL(weight.GetTransitTime(), 0.0, (segment));
       TEST_EQUAL(eta.GetTransitTime(), 0.0, (segment));
+      TEST_ALMOST_EQUAL_ABS(weight.GetWalkingTime(), eta.GetWeight(), 1e-5, (segment));
     }
     auto const ride = world->CalcSegmentWeight(fixture.Edge(2, 3), Purpose::Weight);
     TEST_EQUAL(ride.GetWeight(), 80.0, ());
@@ -274,18 +276,20 @@ UNIT_TEST(TransitWorldGraph_StationWalkingCountsTowardBudget)
   Fixture fixture;
   auto const graph = fixture.MakeGraph();
   auto world = fixture.MakeWorldGraph();
-  TEST(world->CheckLength(routing::RouteWeight(kWalkingBudgetSec), 0), ());
-  for (double const factor : {1.0, 3.0})
+  TEST(world->CheckLength(routing::RouteWeight::TransitWalk(kWalkingBudgetSec, kWalkingBudgetSec), 0), ());
+  for (auto const preference : {routing::TransitPreference::Recommended, routing::TransitPreference::LessWalking,
+                                routing::TransitPreference::FewerTransfers})
   {
-    fixture.m_estimator->SetTransitAltFactors(factor, 200.0);
+    fixture.m_estimator->SetTransitPreference(preference);
+    auto const boarding = graph->GetTransferPenalty(routing::transit::kInvalidLineId, fixture.Edge(1, 2));
     for (auto const & segment : {Gate(*graph, true), Gate(*graph, false), fixture.Edge(3, 4)})
     {
       auto const walking = world->CalcSegmentWeight(segment, Purpose::Weight);
-      auto const belowBudget = ((kWalkingBudgetSec - kBoundarySlackSec) / walking.GetWeight()) * walking;
-      auto const aboveBudget = ((kWalkingBudgetSec + kBoundarySlackSec) / walking.GetWeight()) * walking;
-      TEST(world->CheckLength(belowBudget, 0), (segment, factor));
-      TEST(!world->CheckLength(aboveBudget, 0), (segment, factor));
-      TEST(world->CheckLength(aboveBudget, 1000 /* startToFinishDistanceM */), (segment, factor));
+      auto const belowBudget = ((kWalkingBudgetSec - kBoundarySlackSec) / walking.GetWalkingTime()) * walking;
+      auto const aboveBudget = ((kWalkingBudgetSec + kBoundarySlackSec) / walking.GetWalkingTime()) * walking;
+      TEST(world->CheckLength(belowBudget + boarding, 0), (segment));
+      TEST(!world->CheckLength(aboveBudget + boarding, 0), (segment));
+      TEST(world->CheckLength(aboveBudget + boarding, 1000 /* startToFinishDistanceM */), (segment));
     }
   }
   auto const ride = world->CalcSegmentWeight(fixture.Edge(1, 2), Purpose::Weight);
@@ -295,7 +299,7 @@ UNIT_TEST(TransitWorldGraph_StationWalkingCountsTowardBudget)
 UNIT_TEST(TransitWorldGraph_StationConnectionsHaveSymmetricSearchWeights)
 {
   Fixture fixture;
-  fixture.m_estimator->SetTransitAltFactors(3.0, 200.0);
+  fixture.m_estimator->SetTransitPreference(routing::TransitPreference::LessWalkingAndFewerTransfers);
   auto const graph = fixture.MakeGraph();
   auto world = fixture.MakeWorldGraph();
   auto const checkConnection = [&](routing::Segment const & from, routing::Segment const & to, double expected)
@@ -313,8 +317,65 @@ UNIT_TEST(TransitWorldGraph_StationConnectionsHaveSymmetricSearchWeights)
     }
   };
   checkConnection(fixture.Edge(2, 3), fixture.Edge(3, 4), 120.0);
-  checkConnection(fixture.Edge(3, 4), fixture.Edge(4, 5), 345.5);
-  checkConnection(Gate(*graph, true), fixture.Edge(1, 2), 350.0);
+  checkConnection(fixture.Edge(3, 4), fixture.Edge(4, 5), 445.5);
+  checkConnection(Gate(*graph, true), fixture.Edge(1, 2), 450.0);
+}
+
+UNIT_TEST(TransitWorldGraph_PreferencesChooseDifferentJourneys)
+{
+  using namespace routing;
+  Fixture fixture;
+  fixture.m_data = {};
+  fixture.m_endings.clear();
+  fixture.m_data.DeserializeFromJson(R"({
+    "stops": [
+      {"id": 1, "osm_id": "1", "line_ids": [1], "point": {"x": 0, "y": 0}},
+      {"id": 2, "osm_id": "2", "line_ids": [1, 3, 5], "point": {"x": 0.001, "y": 0}},
+      {"id": 3, "osm_id": "3", "line_ids": [1], "point": {"x": 0.002, "y": 0}},
+      {"id": 4, "osm_id": "4", "line_ids": [2], "point": {"x": 0.003, "y": 0}},
+      {"id": 5, "osm_id": "5", "line_ids": [3, 4], "point": {"x": 0.003, "y": 0.001}},
+      {"id": 6, "osm_id": "6", "line_ids": [2, 4, 5], "point": {"x": 0.004, "y": 0}},
+      {"id": 7, "osm_id": "7", "line_ids": [5], "point": {"x": 0.005, "y": 0}}
+    ],
+    "edges": [
+      {"stop1_id": 1, "stop2_id": 2, "weight": 10, "line_id": 4294967295, "transfer": true},
+      {"stop1_id": 2, "stop2_id": 3, "weight": 75, "line_id": 1, "transfer": false},
+      {"stop1_id": 2, "stop2_id": 5, "weight": 125, "line_id": 3, "transfer": false},
+      {"stop1_id": 2, "stop2_id": 6, "weight": 330, "line_id": 5, "transfer": false},
+      {"stop1_id": 3, "stop2_id": 4, "weight": 40, "line_id": 4294967295, "transfer": true},
+      {"stop1_id": 4, "stop2_id": 6, "weight": 75, "line_id": 2, "transfer": false},
+      {"stop1_id": 5, "stop2_id": 6, "weight": 125, "line_id": 4, "transfer": false},
+      {"stop1_id": 6, "stop2_id": 7, "weight": 10, "line_id": 4294967295, "transfer": true}
+    ],
+    "lines": [
+      {"id": 1, "interval": 0, "network_id": 1, "number": "1", "stop_ids": [2, 3], "type": "subway", "color": "red"},
+      {"id": 2, "interval": 0, "network_id": 1, "number": "2", "stop_ids": [4, 6], "type": "subway", "color": "blue"},
+      {"id": 3, "interval": 0, "network_id": 1, "number": "3", "stop_ids": [2, 5], "type": "subway", "color": "green"},
+      {"id": 4, "interval": 0, "network_id": 1, "number": "4", "stop_ids": [5, 6], "type": "subway", "color": "red"},
+      {"id": 5, "interval": 0, "network_id": 1, "number": "5", "stop_ids": [2, 6], "type": "bus", "color": "blue"}
+    ],
+    "networks": [{"id": 1, "title": "Transit test"}]
+  })",
+                                     {});
+  auto world = fixture.MakeWorldGraph();
+  auto const start = fixture.Edge(1, 2);
+  auto const finish = fixture.Edge(6, 7);
+  auto const startEnding = MakeFakeEnding({start}, mercator::FromLatLon(world->GetPoint(start, false)), *world);
+  auto const finishEnding = MakeFakeEnding({finish}, mercator::FromLatLon(world->GetPoint(finish, true)), *world);
+  IndexGraphStarter starter(startEnding, finishEnding, 0, false, *world);
+
+  std::pair<TransitPreference, Segment> const cases[] = {{TransitPreference::Recommended, fixture.Edge(3, 4)},
+                                                         {TransitPreference::LessWalking, fixture.Edge(2, 5)},
+                                                         {TransitPreference::FewerTransfers, fixture.Edge(2, 6)}};
+  for (auto const & [preference, expected] : cases)
+  {
+    fixture.m_estimator->SetTransitPreference(preference);
+    std::vector<Segment> path;
+    double routeCost = 0;
+    auto const result = routing_test::CalculateRoute(starter, path, routeCost);
+    TEST_EQUAL(result, routing_test::AlgorithmForWorldGraph::Result::OK, ());
+    TEST(std::find(path.begin(), path.end(), expected) != path.end(), (expected, path));
+  }
 }
 
 UNIT_TEST(TransitRoute_BoardingWaitPrecedesRideProgress)

@@ -17,6 +17,7 @@ namespace routing
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
 std::string_view constexpr kBicycleSurfacePreferenceKey = "BicycleSurfacePreference";
 std::string_view constexpr kTransitModesKey = "TransitAllowedModes";
+std::string_view constexpr kTransitPreferenceKey = "TransitRoutePreference";
 
 namespace
 {
@@ -100,7 +101,10 @@ RoutePlanningOptions RoutePlanningOptions::LoadFromSettings(VehicleType vehicle)
 {
   RoutePlanningOptions options{RoutingOptions::LoadFromSettings(vehicle)};
   if (vehicle == VehicleType::Transit)
+  {
     options.m_transitModes = LoadTransitModes();
+    options.m_transitPreference = LoadTransitPreference();
+  }
   if (vehicle != VehicleType::Bicycle || options.m_avoid.Has(RoutingOptions::Dirty))
     return options;
 
@@ -146,6 +150,21 @@ void RoutePlanningOptions::SaveTransitModes(uint64_t modes)
 {
   CHECK(modes != 0 && (modes & ~uint64_t{transit::kAllModes}) == 0, (modes));
   settings::Set(kTransitModesKey, static_cast<uint32_t>(modes));
+}
+
+TransitPreference LoadTransitPreference()
+{
+  uint32_t value = 0;
+  if (settings::Get(kTransitPreferenceKey, value) && value <= static_cast<uint32_t>(TransitPreference::FewerTransfers))
+    return static_cast<TransitPreference>(value);
+  return TransitPreference::Recommended;
+}
+
+void SaveTransitPreference(TransitPreference preference)
+{
+  auto const value = static_cast<uint32_t>(preference);
+  CHECK_LESS_OR_EQUAL(value, static_cast<uint32_t>(TransitPreference::FewerTransfers), ());
+  settings::Set(kTransitPreferenceKey, value);
 }
 
 // static

@@ -164,8 +164,8 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment, EdgeEs
     return transitGraph.CalcSegmentWeight(segment, purpose);
   }
 
-  return RouteWeight(m_estimator->CalcSegmentWeight(
-      segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()), purpose));
+  return m_estimator->CalcRoadSegmentWeight(segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()),
+                                            purpose);
 }
 
 RouteWeight TransitWorldGraph::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId) const
@@ -176,7 +176,10 @@ RouteWeight TransitWorldGraph::CalcLeapWeight(ms::LatLon const & from, ms::LatLo
 RouteWeight TransitWorldGraph::CalcOffroadWeight(ms::LatLon const & from, ms::LatLon const & to,
                                                  EdgeEstimator::Purpose purpose) const
 {
-  return RouteWeight(m_estimator->CalcOffroad(from, to, purpose));
+  auto const weight = m_estimator->CalcOffroad(from, to, purpose);
+  return purpose == EdgeEstimator::Purpose::ETA
+           ? RouteWeight(weight)
+           : RouteWeight::TransitWalk(weight, m_estimator->CalcOffroad(from, to, EdgeEstimator::Purpose::ETA));
 }
 
 double TransitWorldGraph::CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime)

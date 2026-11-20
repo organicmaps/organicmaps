@@ -268,6 +268,43 @@
         </RadioGroup>
       </LinearLayout>
       <LinearLayout
+        android:id="@+id/transit_preference_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base">
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/margin_base"
+          android:text="@string/transit_preference"
+          android:textAppearance="?android:attr/textAppearanceMedium"/>
+        <RadioGroup
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+          <RadioButton
+            android:id="@+id/transit_preference_recommended"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/transit_preference_recommended"/>
+          <RadioButton
+            android:id="@+id/transit_preference_less_walking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/transit_preference_less_walking"/>
+          <RadioButton
+            android:id="@+id/transit_preference_fewer_transfers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/transit_preference_fewer_transfers"/>
+        </RadioGroup>
+      </LinearLayout>
+      <LinearLayout
         android:id="@+id/transit_mode_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -33,6 +33,18 @@ static_assert(MWMTransitModesAll == routing::transit::kAllModes);
 
 @implementation MWMRoutingOptions
 
++ (MWMTransitPreference)transitPreference
+{
+  return static_cast<MWMTransitPreference>(routing::LoadTransitPreference());
+}
+
++ (void)setTransitPreference:(MWMTransitPreference)preference
+{
+  CHECK(preference >= MWMTransitPreferenceRecommended && preference <= MWMTransitPreferenceFewerTransfers,
+        (static_cast<NSInteger>(preference)));
+  routing::SaveTransitPreference(static_cast<routing::TransitPreference>(preference));
+}
+
 + (MWMTransitModes)transitModes
 {
   return static_cast<MWMTransitModes>(routing::RoutePlanningOptions::LoadTransitModes());

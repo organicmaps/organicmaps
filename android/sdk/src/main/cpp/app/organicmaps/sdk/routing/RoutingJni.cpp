@@ -441,6 +441,18 @@ JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetTransitM
   routing::RoutePlanningOptions::SaveTransitModes(static_cast<uint64_t>(modes));
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetTransitPreference(JNIEnv *, jclass)
+{
+  return static_cast<jint>(routing::LoadTransitPreference());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetTransitPreference(JNIEnv *, jclass,
+                                                                                          jint preference)
+{
+  CHECK(preference >= 0 && preference <= static_cast<jint>(routing::TransitPreference::FewerTransfers), (preference));
+  routing::SaveTransitPreference(static_cast<routing::TransitPreference>(preference));
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(routing::RoutingOptions::LoadRouteOptimizationFromSettings());

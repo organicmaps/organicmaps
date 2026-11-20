@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/route_weight.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
@@ -77,17 +78,10 @@ public:
   /// @return The GetTurnPenalty() factor for a turn at |junction| onto a road of |to| type.
   double GetTurnPenaltyFactor(std::optional<HighwayType> to, ms::LatLon const & junction) const;
 
-  /// \brief Transit alternative route bias, applied to the routing weight only (Purpose::Weight,
-  /// ETA stays the real time): scales walking legs and adds a fixed penalty per boarding, to favour
-  /// an alternative with less walking and fewer transfers (e.g. a direct bus over subway + walk).
-  /// Defaults to no bias (factor 1.0, penalty 0).
-  void SetTransitAltFactors(double walkWeightFactor, double boardingPenaltyS)
-  {
-    m_transitWalkWeightFactor = walkWeightFactor;
-    m_transitAltBoardingPenaltyS = boardingPenaltyS;
-  }
+  /// Transit search costs. ETA and the walking budget use physical seconds.
+  void SetTransitPreference(TransitPreference preference);
   double GetTransitWalkWeightFactor() const { return m_transitWalkWeightFactor; }
-  double GetTransitAltBoardingPenaltyS() const { return m_transitAltBoardingPenaltyS; }
+  double GetTransitBoardingPenaltyS() const { return m_transitBoardingPenaltyS; }
 
   /// A* heuristic: straight-line time at the maximum possible speed. Under Strategy::DistanceBiased
   /// every estimator weight is >= distance / cap, so when the caller guarantees the search sees no
@@ -111,6 +105,8 @@ public:
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
                                    time_t arrivalTime = 0) const = 0;
+  RouteWeight CalcRoadSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                                    time_t arrivalTime = 0) const;
   virtual double GetUTurnPenalty(Purpose purpose) const = 0;
   virtual double GetFerryLandingPenalty(Purpose purpose) const = 0;
   /// @return Penalty in seconds for a turn from a road of |from| type onto a road of |to| type.
@@ -139,14 +135,21 @@ protected:
   }
 
 private:
+  void SetTransitFactors(double walkWeightFactor, double boardingPenaltyS)
+  {
+    m_transitWalkWeightFactor = walkWeightFactor;
+    m_transitBoardingPenaltyS = boardingPenaltyS;
+  }
+
   double const m_maxWeightSpeedMpS;
   double const m_distanceBiasSecPerM;
   SpeedKMpH const m_offroadSpeedKMpH;
   Strategy m_strategy = Strategy::Normal;
   bool m_tightHeuristicAllowed = true;
   BicycleSurfaceBias m_bicycleSurfacePreference = BicycleSurfaceBias::Any;
+  bool m_isTransit = false;
   double m_transitWalkWeightFactor = 1.0;
-  double m_transitAltBoardingPenaltyS = 0.0;
+  double m_transitBoardingPenaltyS = 0.0;
   ServiceEndings m_serviceEndings;
 
   // DataSource * m_dataSourcePtr;

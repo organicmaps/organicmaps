@@ -261,4 +261,29 @@ UNIT_TEST(TransitModeSettingsDefaultAndIgnoreUnsupportedBits)
   settings::Set(key, 0x10000u);
   TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), transit::kAllModes, ());
 }
+
+UNIT_TEST(TransitRoutePreferencePersistsOnlyForTransit)
+{
+  std::string_view constexpr key = "TransitRoutePreference";
+  std::string saved;
+  bool const existed = settings::Get(key, saved);
+  SCOPE_GUARD(restore, [&]
+  {
+    if (existed)
+      settings::Set(key, saved);
+    else
+      settings::Delete(key);
+  });
+  using enum TransitPreference;
+  settings::Delete(key);
+  TEST(LoadTransitPreference() == Recommended, ());
+  for (auto const preference : {LessWalking, FewerTransfers, Recommended})
+  {
+    SaveTransitPreference(preference);
+    TEST(RoutePlanningOptions::LoadFromSettings(VehicleType::Transit).m_transitPreference == preference, ());
+    TEST(RoutePlanningOptions::LoadFromSettings(VehicleType::Pedestrian).m_transitPreference == Recommended, ());
+  }
+  settings::Set(key, 3u);
+  TEST(LoadTransitPreference() == Recommended, ());
+}
 }  // namespace

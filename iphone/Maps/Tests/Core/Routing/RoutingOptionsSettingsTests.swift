@@ -118,8 +118,8 @@ final class RoutingOptionsSettingsTests: XCTestCase {
                                             bicycleSurface: .any,
                                             transitModes: .subway)
     let sections = presenter.sections(from: state)
-    XCTAssertEqual(sections.map(\.section), [.transitModes, .optimization])
-    XCTAssertEqual(sections.first?.items.first { $0.item == .transitMode(.subway) }?.kind,
+    XCTAssertEqual(sections.map(\.section), [.transitPreference, .transitModes, .optimization])
+    XCTAssertEqual(sections.first { $0.section == .transitModes }?.items.first { $0.item == .transitMode(.subway) }?.kind,
                    .switcher(isOn: true, isEnabled: false))
     XCTAssertEqual(sections.last?.header, L("routing_options_all_modes"))
     XCTAssertEqual(sections.last?.items.map(\.item), [.routeOptimization])
@@ -132,6 +132,17 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     interactor.handle(.didChangeSwitch(.transitMode(.bus), isOn: true))
     interactor.handle(.didChangeSwitch(.transitMode(.subway), isOn: false))
     XCTAssertEqual(RoutingOptions.transitModes, .bus)
+  }
+
+  func test_TransitPreferenceSelectionPersists() {
+    let saved = RoutingOptions.transitPreference
+    defer { RoutingOptions.transitPreference = saved }
+    let interactor = RoutingOptionsSettingsInteractor(routerType: .publicTransport)
+    interactor.handle(.didLoad)
+    interactor.handle(.didSelect(.transitPreference(.lessWalking)))
+    XCTAssertEqual(RoutingOptions.transitPreference, .lessWalking)
+    interactor.handle(.didSelect(.transitPreference(.fewerTransfers)))
+    XCTAssertEqual(RoutingOptions.transitPreference, .fewerTransfers)
   }
 
   func test_DashboardKeepsSettingsVisibleAndDisablesRulerSettings() throws {

@@ -70,11 +70,23 @@ enum class BicycleSurfacePreference : int64_t
   AvoidUnpaved = 3
 };
 
+enum class TransitPreference : uint8_t
+{
+  Recommended = 0,
+  LessWalking = 1,
+  FewerTransfers = 2,
+  LessWalkingAndFewerTransfers  // Offered as an alternative, never stored in settings.
+};
+
+TransitPreference LoadTransitPreference();
+void SaveTransitPreference(TransitPreference preference);
+
 struct RoutePlanningOptions
 {
   RoutingOptions m_avoid;
   BicycleSurfaceBias m_bicycleSurface = BicycleSurfaceBias::Any;
   transit::ModeMask m_transitModes = transit::kAllModes;
+  TransitPreference m_transitPreference = TransitPreference::Recommended;
 
   static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
   static BicycleSurfacePreference LoadBicycleSurfacePreference();

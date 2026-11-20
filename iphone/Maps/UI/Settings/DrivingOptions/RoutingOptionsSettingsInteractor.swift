@@ -80,10 +80,18 @@ extension RoutingOptionsSettingsInteractor: SettingsViewControllerInteractor {
       loadSettings()
     case .didChangeSwitch(let item, isOn: let isOn):
       set(item, enabled: isOn)
-    case .didSelect(.bicycleSurface(let preference)):
+    case .didSelect(let option):
       guard let state else { return }
-      precondition(state.options.routerType == .bicycle)
-      RoutingOptions.bicycleSurfacePreference = preference
+      switch option {
+      case .bicycleSurface(let preference):
+        precondition(state.options.routerType == .bicycle)
+        RoutingOptions.bicycleSurfacePreference = preference
+      case .transitPreference(let preference):
+        precondition(state.options.routerType == .publicTransport)
+        RoutingOptions.transitPreference = preference
+      default:
+        return
+      }
       let updated = makeState(options: routingOptionsProvider())
       self.state = updated
       present(updated, animatingDifferences: false)
