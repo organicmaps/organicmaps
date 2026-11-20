@@ -12,6 +12,18 @@ static_assert(MWMRoutingAvoidanceFerry == static_cast<NSUInteger>(routing::Routi
 static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::RoutingOptions::Dirty));
 static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::RoutingOptions::Steps));
 
+using routing::transit::Mode;
+static_assert(MWMTransitModesBus == static_cast<NSUInteger>(Mode::Bus));
+static_assert(MWMTransitModesTram == static_cast<NSUInteger>(Mode::Tram));
+static_assert(MWMTransitModesSubway == static_cast<NSUInteger>(Mode::Subway));
+static_assert(MWMTransitModesRail == static_cast<NSUInteger>(Mode::Rail));
+static_assert(MWMTransitModesFerry == static_cast<NSUInteger>(Mode::Ferry));
+static_assert(MWMTransitModesTrolleybus == static_cast<NSUInteger>(Mode::Trolleybus));
+static_assert(MWMTransitModesMonorail == static_cast<NSUInteger>(Mode::Monorail));
+static_assert(MWMTransitModesCable == static_cast<NSUInteger>(Mode::Cable));
+static_assert(MWMTransitModesAir == static_cast<NSUInteger>(Mode::Air));
+static_assert(MWMTransitModesAll == routing::transit::kAllModes);
+
 @interface MWMRoutingOptions ()
 {
   routing::RoutingOptions _options;
@@ -20,6 +32,16 @@ static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::Routi
 @end
 
 @implementation MWMRoutingOptions
+
++ (MWMTransitModes)transitModes
+{
+  return static_cast<MWMTransitModes>(routing::RoutePlanningOptions::LoadTransitModes());
+}
+
++ (void)setTransitModes:(MWMTransitModes)modes
+{
+  routing::RoutePlanningOptions::SaveTransitModes(static_cast<uint64_t>(modes));
+}
 
 + (MWMBicycleSurfacePreference)bicycleSurfacePreference
 {

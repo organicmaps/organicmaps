@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
@@ -16,6 +18,7 @@ import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
+import app.organicmaps.sdk.routing.RoutingOptions.TransitMode;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -33,11 +36,14 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private static final String BUNDLE_ROAD_TYPES = "road_type_ids";
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
   private static final String BUNDLE_BICYCLE_SURFACE = "bicycle_surface";
+  private static final String BUNDLE_TRANSIT_MODES = "transit_modes";
   // Road types of every mode, as the route mode can change while this screen is open (e.g. by Android Auto).
   @NonNull
   private final Map<Router, Set<RoadType>> mRoadTypes = new EnumMap<>(Router.class);
   private boolean mOptimizationEnabledOnLoad;
   private BicycleSurfacePreference mBicycleSurfaceOnLoad;
+  private int mTransitModesOnLoad;
+  private final Map<TransitMode, SwitchCompat> mTransitModeButtons = new EnumMap<>(TransitMode.class);
   @NonNull
   private Router mRouter = Router.Vehicle;
   private View mContent;
@@ -64,6 +70,9 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
         savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_BICYCLE_SURFACE)
             ? BicycleSurfacePreference.fromNativeValue(savedInstanceState.getInt(BUNDLE_BICYCLE_SURFACE))
             : RoutingOptions.getBicycleSurfacePreference();
+    mTransitModesOnLoad = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_TRANSIT_MODES)
+                            ? savedInstanceState.getInt(BUNDLE_TRANSIT_MODES)
+                            : RoutingOptions.getTransitModes();
     return root;
   }
 
@@ -71,8 +80,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private static Router initialRouter()
   {
     final Router router = RoutingController.get().getLastRouterType();
-    // Only modes with avoid options have a tab.
-    return router == Router.Pedestrian || router == Router.Bicycle ? router : Router.Vehicle;
+    return router == Router.Ruler ? Router.Vehicle : router;
   }
 
   @NonNull
@@ -105,6 +113,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     }
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
     outState.putInt(BUNDLE_BICYCLE_SURFACE, mBicycleSurfaceOnLoad.nativeValue);
+    outState.putInt(BUNDLE_TRANSIT_MODES, mTransitModesOnLoad);
   }
 
   @Override
@@ -117,8 +126,10 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 
     final Router router = RoutingController.get().getLastRouterType();
     final BicycleSurfacePreference bicycleSurface = RoutingOptions.getBicycleSurfacePreference();
+    final int transitModes = RoutingOptions.getTransitModes();
     final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router))
-                         || (router == Router.Bicycle && bicycleSurface != mBicycleSurfaceOnLoad);
+                         || (router == Router.Bicycle && bicycleSurface != mBicycleSurfaceOnLoad)
+                         || (router == Router.Transit && transitModes != mTransitModesOnLoad);
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
     final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
@@ -129,6 +140,15 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       mRoadTypes.put(each, RoutingOptions.getActiveRoadTypes(each));
     mOptimizationEnabledOnLoad = enabled;
     mBicycleSurfaceOnLoad = bicycleSurface;
+    mTransitModesOnLoad = transitModes;
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    mTransitModeButtons.clear();
+    mContent = null;
+    super.onDestroyView();
   }
 
   private void initViews(@NonNull View root)
@@ -143,6 +163,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     initRouterTab(root, R.id.vehicle, Router.Vehicle);
     initRouterTab(root, R.id.pedestrian, Router.Pedestrian);
     initRouterTab(root, R.id.bicycle, Router.Bicycle);
+    initRouterTab(root, R.id.transit, Router.Transit);
+    initTransitModeOptions(root);
     bindOptions(root);
   }
 
@@ -164,6 +186,54 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     bindOption(root, R.id.avoid_dirty_roads_btn, RoadType.Dirty);
     bindOption(root, R.id.avoid_steps_btn, RoadType.Steps);
     bindBicycleSurfaceOptions(root);
+    final boolean transit = mRouter == Router.Transit;
+    UiUtils.showIf(transit, root.findViewById(R.id.transit_mode_options));
+    if (transit)
+      refreshTransitModes(RoutingOptions.getTransitModes());
+  }
+
+  private void initTransitModeOptions(@NonNull View root)
+  {
+    LinearLayout options = root.findViewById(R.id.transit_mode_options);
+    LayoutInflater inflater = LayoutInflater.from(options.getContext());
+    for (TransitMode mode : TransitMode.values())
+    {
+      SwitchCompat button = (SwitchCompat) inflater.inflate(R.layout.item_transit_mode_switch, options, false);
+      button.setText(transitModeTitle(mode));
+      button.setOnClickListener(v -> {
+        final int modes = RoutingOptions.getTransitModes();
+        final int changed = button.isChecked() ? modes | mode.bit : modes & ~mode.bit;
+        RoutingOptions.setTransitModes(changed);
+        refreshTransitModes(changed);
+      });
+      mTransitModeButtons.put(mode, button);
+      options.addView(button);
+    }
+  }
+
+  private void refreshTransitModes(int modes)
+  {
+    mTransitModeButtons.forEach((mode, button) -> {
+      button.setChecked((modes & mode.bit) != 0);
+      button.setEnabled(modes != mode.bit);
+    });
+  }
+
+  @StringRes
+  private static int transitModeTitle(@NonNull TransitMode mode)
+  {
+    return switch (mode)
+    {
+      case Bus -> R.string.transit_mode_bus;
+      case Tram -> R.string.transit_mode_tram;
+      case Subway -> R.string.transit_mode_subway;
+      case Rail -> R.string.transit_mode_rail;
+      case Ferry -> R.string.transit_mode_ferry;
+      case Trolleybus -> R.string.transit_mode_trolleybus;
+      case Monorail -> R.string.transit_mode_monorail;
+      case Cable -> R.string.transit_mode_cable;
+      case Air -> R.string.transit_mode_air;
+    };
   }
 
   private void bindBicycleSurfaceOptions(@NonNull View root)

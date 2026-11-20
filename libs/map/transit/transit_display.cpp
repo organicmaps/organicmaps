@@ -27,30 +27,6 @@ std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway
                                                             {TransitType::AirService, "transit_air_service"},
                                                             {TransitType::WaterService, "transit_water_service"}};
 
-std::string DebugPrint(TransitType type)
-{
-  switch (type)
-  {
-  case TransitType::IntermediatePoint: return "IntermediatePoint";
-  case TransitType::Pedestrian: return "Pedestrian";
-  case TransitType::Subway: return "Subway";
-  case TransitType::Train: return "Train";
-  case TransitType::LightRail: return "LightRail";
-  case TransitType::Monorail: return "Monorail";
-  case TransitType::Tram: return "Tram";
-  case TransitType::Bus: return "Bus";
-  case TransitType::Ferry: return "Ferry";
-  case TransitType::CableTram: return "CableTram";
-  case TransitType::AerialLift: return "AerialLift";
-  case TransitType::Funicular: return "Funicular";
-  case TransitType::Trolleybus: return "Trolleybus";
-  case TransitType::AirService: return "AirService";
-  case TransitType::WaterService: return "WaterService";
-  }
-
-  UNREACHABLE();
-}
-
 std::string DebugPrint(TransitStepInfo const & info)
 {
   std::ostringstream os;
@@ -81,39 +57,6 @@ int const kGateTitleOffset = 0;
 
 std::string const kZeroIcon = "zero-icon";
 
-TransitType GetTransitType(std::string const & type)
-{
-  if (type == "subway")
-    return TransitType::Subway;
-  if (type == "light_rail")
-    return TransitType::LightRail;
-  if (type == "monorail")
-    return TransitType::Monorail;
-  if (type == "train" || type == "rail")
-    return TransitType::Train;
-
-  if (type == "tram")
-    return TransitType::Tram;
-  if (type == "bus")
-    return TransitType::Bus;
-  if (type == "ferry")
-    return TransitType::Ferry;
-  if (type == "cabletram")
-    return TransitType::CableTram;
-  if (type == "aerial_lift")
-    return TransitType::AerialLift;
-  if (type == "funicular")
-    return TransitType::Funicular;
-  if (type == "trolleybus")
-    return TransitType::Trolleybus;
-  if (type == "air_service")
-    return TransitType::AirService;
-  if (type == "water_service")
-    return TransitType::WaterService;
-
-  UNREACHABLE();
-}
-
 namespace helpers
 {
 using Line = routing::transit::Line;
@@ -141,7 +84,7 @@ std::string GetSharedLineNumbers(TransitDisplayInfo const & info, StopId boardId
   std::vector<std::string> numbers;
   for (auto const & [_, line] : info.m_linesSubway)
   {
-    if (GetTransitType(line.GetType()) != type || !LineVisitsInOrder(line, boardId, alightId))
+    if (routing::transit::TryGetTransitType(line.GetType()) != type || !LineVisitsInOrder(line, boardId, alightId))
       continue;
     auto const & number = line.GetNumber();
     if (!number.empty() && std::find(numbers.cbegin(), numbers.cend(), number) == numbers.cend())
@@ -367,7 +310,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
 
   auto const & line = ssp.m_displayInfo.m_linesSubway.at(currentLineId);
   auto const currentColor = df::GetTransitColorName(line.GetColor());
-  sp.m_transitType = GetTransitType(line.GetType());
+  sp.m_transitType = routing::transit::GetTransitType(line.GetType());
 
   // List all parallel lines a rider can take for this whole leg (same boarding and alighting stops),
   // not just the one A* picked, so they can board whichever bus comes first. The leg's board/alight

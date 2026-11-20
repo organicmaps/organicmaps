@@ -100,6 +100,11 @@
           style="@style/MwmWidget.RoutingToolbarCell"
           android:button="@drawable/ic_bike"
           android:contentDescription="@string/routing_options_cycling"/>
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/transit"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_transit"
+          android:contentDescription="@string/public_transport"/>
       </RadioGroup>
       <LinearLayout
         android:layout_marginTop="@dimen/margin_half_double_plus"
@@ -261,6 +266,20 @@
             android:minHeight="48dp"
             android:text="@string/avoid_unpaved"/>
         </RadioGroup>
+      </LinearLayout>
+      <LinearLayout
+        android:id="@+id/transit_mode_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base">
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="@dimen/margin_base"
+          android:text="@string/transit_mode_options"
+          android:textAppearance="?android:attr/textAppearanceMedium"/>
       </LinearLayout>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>

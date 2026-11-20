@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/height_block_base"
+  android:paddingEnd="@dimen/margin_half_double_plus"
+  android:textAppearance="?android:attr/textAppearanceMedium"
+  android:textColor="?android:attr/textColorPrimary" />

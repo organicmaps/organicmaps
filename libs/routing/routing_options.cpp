@@ -16,6 +16,7 @@ namespace routing
 
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
 std::string_view constexpr kBicycleSurfacePreferenceKey = "BicycleSurfacePreference";
+std::string_view constexpr kTransitModesKey = "TransitAllowedModes";
 
 namespace
 {
@@ -98,6 +99,8 @@ void RoutingOptions::SaveToSettings(VehicleType vehicleType, RoutingOptions opti
 RoutePlanningOptions RoutePlanningOptions::LoadFromSettings(VehicleType vehicle)
 {
   RoutePlanningOptions options{RoutingOptions::LoadFromSettings(vehicle)};
+  if (vehicle == VehicleType::Transit)
+    options.m_transitModes = LoadTransitModes();
   if (vehicle != VehicleType::Bicycle || options.m_avoid.Has(RoutingOptions::Dirty))
     return options;
 
@@ -129,6 +132,20 @@ void RoutePlanningOptions::SaveBicycleSurfacePreference(BicycleSurfacePreference
   settings::Update({{std::string(kBicycleSurfacePreferenceKey), settings::ToString(value)},
                     {std::string(SettingsKey(VehicleType::Bicycle)),
                      settings::ToString(static_cast<uint32_t>(avoids.GetOptions()))}});
+}
+
+transit::ModeMask RoutePlanningOptions::LoadTransitModes()
+{
+  uint32_t value = 0;
+  settings::TryGet(kTransitModesKey, value);
+  auto const modes = static_cast<transit::ModeMask>(value & transit::kAllModes);
+  return modes == 0 ? transit::kAllModes : modes;
+}
+
+void RoutePlanningOptions::SaveTransitModes(uint64_t modes)
+{
+  CHECK(modes != 0 && (modes & ~uint64_t{transit::kAllModes}) == 0, (modes));
+  settings::Set(kTransitModesKey, static_cast<uint32_t>(modes));
 }
 
 // static

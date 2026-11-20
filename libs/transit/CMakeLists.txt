@@ -4,6 +4,7 @@ set(SRC
   transit_display_info.hpp
   transit_graph_data.cpp
   transit_graph_data.hpp
+  transit_mode.hpp
   transit_serdes.hpp
   transit_types.cpp
   transit_types.hpp

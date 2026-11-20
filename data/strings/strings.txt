@@ -27722,6 +27722,56 @@ vi = Đi bộ
 zh-Hans = 步行
 zh-Hant = 步行
 
+[transit_mode_options]
+comment = Heading for the types of public transport that routing may use.
+tags = android-app,apple-maps
+en = Allowed transport
+
+[transit_mode_bus]
+comment = Public transport routing switch that allows buses.
+tags = android-app,apple-maps
+en = Buses
+
+[transit_mode_tram]
+comment = Public transport routing switch that allows trams (streetcars).
+tags = android-app,apple-maps
+en = Trams
+
+[transit_mode_subway]
+comment = Public transport routing switch that allows subways (metro systems).
+tags = android-app,apple-maps
+en = Subways
+
+[transit_mode_rail]
+comment = Public transport routing switch that allows trains and light rail.
+tags = android-app,apple-maps
+en = Trains and light rail
+
+[transit_mode_ferry]
+comment = Public transport routing switch that allows ferries and other public water services.
+tags = android-app,apple-maps
+en = Ferries
+
+[transit_mode_trolleybus]
+comment = Public transport routing switch that allows trolleybuses.
+tags = android-app,apple-maps
+en = Trolleybuses
+
+[transit_mode_monorail]
+comment = Public transport routing switch that allows monorails.
+tags = android-app,apple-maps
+en = Monorails
+
+[transit_mode_cable]
+comment = Public transport routing switch that allows funiculars, cable trams and aerial lifts.
+tags = android-app,apple-maps
+en = Funiculars and cable transport
+
+[transit_mode_air]
+comment = Public transport routing switch that allows air services.
+tags = android-app,apple-maps
+en = Air services
+
 [routing_options_all_modes]
 comment = Section heading for routing settings shared by every routing mode.
 tags = android-app,apple-maps
@@ -44099,7 +44149,7 @@ en = Looking for position…
 
 [public_transport]
 comment = Public transport routing profile, including subway and trains.
-tags = qt
+tags = qt,android-app,apple-maps
 en = Public transport
 
 [bookmarks_mouse_shortcuts_tooltip]

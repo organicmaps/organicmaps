@@ -1348,8 +1348,11 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  RoutingOptions const routingOptions =
-      m_requestRoutingOptions ? m_requestRoutingOptions->m_avoid : RoutingOptions::LoadFromSettings(m_vehicleType);
+  auto const options =
+      m_requestRoutingOptions ? *m_requestRoutingOptions : RoutePlanningOptions::LoadFromSettings(m_vehicleType);
+  auto routingOptions = options.m_avoid;
+  if (m_vehicleType == VehicleType::Transit && !transit::HasMode(options.m_transitModes, transit::Mode::Ferry))
+    routingOptions.Add(RoutingOptions::Ferry);
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);
@@ -1372,7 +1375,7 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
     return graph;
   }
 
-  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_estimator);
+  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_estimator, options.m_transitModes);
   return std::make_unique<TransitWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader),
                                              std::move(transitGraphLoader), m_estimator);
 }
@@ -1606,12 +1609,14 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // (|closestRoads|) which will be used in IsFencedOff() method later and |closestRoads|
   // should contain all roads independently of routing options to prevent crossing roads
   // which are switched off in RoutingOptions.
-  // Then in |IsDeadEndCached(..., true /* useRoutingOptions */, ...)| below we ignore
-  // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
-  // if they don't match RoutingOptions.
+  // Then reject dead ends under the selected options and reject excluded ferry snap candidates for transit.
   auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);
+    // A disabled transit ferry mode excludes even partial road-ferry segments at checkpoints.
+    // Road avoids can still let other profiles snap to the road the user is already on.
+    if (m_router.m_vehicleType == VehicleType::Transit && !m_graph.IsRoutingOptionsGood(segment))
+      return false;
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds[1]) &&
         m_deadEnds[1].count(segment) == 0)
     {
