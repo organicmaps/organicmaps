@@ -15,6 +15,7 @@ namespace routing
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
+std::string_view constexpr kBicycleSurfacePreferenceKey = "BicycleSurfacePreference";
 
 namespace
 {
@@ -92,6 +93,42 @@ void RoutingOptions::SaveToSettings(VehicleType vehicleType, RoutingOptions opti
   auto const key = SettingsKey(vehicleType);
   if (!key.empty())
     settings::Set(key, static_cast<uint32_t>(options.GetOptions() & GetSupportedOptions(vehicleType)));
+}
+
+RoutePlanningOptions RoutePlanningOptions::LoadFromSettings(VehicleType vehicle)
+{
+  RoutePlanningOptions options{RoutingOptions::LoadFromSettings(vehicle)};
+  if (vehicle != VehicleType::Bicycle || options.m_avoid.Has(RoutingOptions::Dirty))
+    return options;
+
+  uint32_t value = 0;
+  if (settings::Get(kBicycleSurfacePreferenceKey, value) &&
+      value < static_cast<uint32_t>(BicycleSurfacePreference::AvoidUnpaved))
+    options.m_bicycleSurface = static_cast<BicycleSurfaceBias>(value);
+  return options;
+}
+
+BicycleSurfacePreference RoutePlanningOptions::LoadBicycleSurfacePreference()
+{
+  auto const options = LoadFromSettings(VehicleType::Bicycle);
+  if (options.m_avoid.Has(RoutingOptions::Dirty))
+    return BicycleSurfacePreference::AvoidUnpaved;
+  return static_cast<BicycleSurfacePreference>(options.m_bicycleSurface);
+}
+
+void RoutePlanningOptions::SaveBicycleSurfacePreference(BicycleSurfacePreference preference)
+{
+  auto const value = static_cast<int64_t>(preference);
+  CHECK(preference >= BicycleSurfacePreference::Any && preference <= BicycleSurfacePreference::AvoidUnpaved, (value));
+  auto avoids = RoutingOptions::LoadFromSettings(VehicleType::Bicycle);
+  // The place page also updates the Dirty bit for Avoid unpaved.
+  if (preference == BicycleSurfacePreference::AvoidUnpaved)
+    avoids.Add(RoutingOptions::Dirty);
+  else
+    avoids.Remove(RoutingOptions::Dirty);
+  settings::Update({{std::string(kBicycleSurfacePreferenceKey), settings::ToString(value)},
+                    {std::string(SettingsKey(VehicleType::Bicycle)),
+                     settings::ToString(static_cast<uint32_t>(avoids.GetOptions()))}});
 }
 
 // static
@@ -228,6 +265,12 @@ RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask, Veh
   std::string value;
   if (!key.empty() && settings::Get(key, value))
     m_saved = value;
+  if (vehicleType == VehicleType::Bicycle)
+  {
+    if (settings::Get(kBicycleSurfacePreferenceKey, value))
+      m_savedBicycleSurface = value;
+    settings::Delete(kBicycleSurfacePreferenceKey);
+  }
   RoutingOptions::SaveToSettings(vehicleType, RoutingOptions(roadsMask));
 }
 
@@ -240,6 +283,13 @@ RoutingOptionSetter::~RoutingOptionSetter()
     settings::Set(key, *m_saved);
   else
     settings::Delete(key);
+  if (m_vehicleType == VehicleType::Bicycle)
+  {
+    if (m_savedBicycleSurface)
+      settings::Set(kBicycleSurfacePreferenceKey, *m_savedBicycleSurface);
+    else
+      settings::Delete(kBicycleSurfacePreferenceKey);
+  }
 }
 
 }  // namespace routing

@@ -46,9 +46,37 @@ public:
   bool Has(Road type) const;
 
   RoadType GetOptions() const { return m_options; }
+  bool operator==(RoutingOptions const &) const = default;
 
 private:
   RoadType m_options = 0;
+};
+
+enum class BicycleSurfaceBias : uint8_t
+{
+  Any = 0,
+  PreferPaved = 1,
+  PreferUnpaved = 2
+};
+
+// Match signed platform inputs without narrowing before validation.
+enum class BicycleSurfacePreference : int64_t
+{
+  Any = static_cast<int64_t>(BicycleSurfaceBias::Any),
+  PreferPaved = static_cast<int64_t>(BicycleSurfaceBias::PreferPaved),
+  PreferUnpaved = static_cast<int64_t>(BicycleSurfaceBias::PreferUnpaved),
+  AvoidUnpaved = 3
+};
+
+struct RoutePlanningOptions
+{
+  RoutingOptions m_avoid;
+  BicycleSurfaceBias m_bicycleSurface = BicycleSurfaceBias::Any;
+
+  static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
+  static BicycleSurfacePreference LoadBicycleSurfacePreference();
+  static void SaveBicycleSurfacePreference(BicycleSurfacePreference preference);
+  bool operator==(RoutePlanningOptions const &) const = default;
 };
 
 class RoutingOptionsClassifier
@@ -76,5 +104,6 @@ public:
 private:
   VehicleType m_vehicleType;
   std::optional<std::string> m_saved;
+  std::optional<std::string> m_savedBicycleSurface;
 };
 }  // namespace routing

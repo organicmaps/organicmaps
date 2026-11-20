@@ -27586,6 +27586,26 @@ vi = Lái xe
 zh-Hans = 驾车
 zh-Hant = 開車
 
+[bicycle_surface]
+comment = Heading for the surface choices in cycling routing settings.
+tags = android-app,apple-maps
+en = Road surface
+
+[bicycle_surface_any]
+comment = Cycle with no preference for paved or unpaved surfaces.
+tags = android-app,apple-maps
+en = Any surface
+
+[bicycle_surface_prefer_paved]
+comment = Prefer paved surfaces for cycling. Unpaved roads are still allowed.
+tags = android-app,apple-maps
+en = Prefer paved
+
+[bicycle_surface_prefer_unpaved]
+comment = Prefer unpaved surfaces for cycling. Paved roads are still allowed.
+tags = android-app,apple-maps
+en = Prefer unpaved
+
 [routing_options_cycling]
 comment = Cycling profile in routing options settings.
 tags = android-app,apple-maps,qt

@@ -203,4 +203,37 @@ UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)
     TEST_EQUAL(RoutingOptions::LoadRouteOptimizationFromSettings(), enabled, ());
   }
 }
+
+UNIT_CLASS_TEST(RoutingOptionsTests, BicycleSurfaceChoicePreservesTheSavedHardAvoid)
+{
+  using enum BicycleSurfacePreference;
+  std::string_view constexpr key = "BicycleSurfacePreference";
+  auto const bicycle = VehicleType::Bicycle;
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == Any, ());
+  settings::Set(key, 256u);
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == Any, ());
+  RoutePlanningOptions::SaveBicycleSurfacePreference(PreferUnpaved);
+  TEST(RoutePlanningOptions::LoadFromSettings(bicycle).m_bicycleSurface == BicycleSurfaceBias::PreferUnpaved, ());
+  TEST(RoutePlanningOptions::LoadFromSettings(VehicleType::Car).m_bicycleSurface == BicycleSurfaceBias::Any, ());
+
+  // A hard avoid from the place page takes priority over a saved preference.
+  RoutingOptions const ferry(RoutingOptions::Ferry);
+  RoutingOptions::SaveToSettings(bicycle, RoutingOptions(RoutingOptions::Dirty | RoutingOptions::Ferry));
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == AvoidUnpaved, ());
+  auto const hardOptions = RoutePlanningOptions::LoadFromSettings(bicycle);
+  TEST(hardOptions.m_avoid.Has(RoutingOptions::Dirty), ());
+  TEST(hardOptions.m_bicycleSurface == BicycleSurfaceBias::Any, ());
+  RoutingOptions::SaveToSettings(bicycle, ferry);
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == PreferUnpaved, ());
+
+  RoutePlanningOptions::SaveBicycleSurfacePreference(AvoidUnpaved);
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == AvoidUnpaved, ());
+  RoutingOptions::SaveToSettings(bicycle, ferry);
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == Any, ());
+
+  RoutePlanningOptions::SaveBicycleSurfacePreference(AvoidUnpaved);
+  RoutePlanningOptions::SaveBicycleSurfacePreference(PreferPaved);
+  TEST(RoutePlanningOptions::LoadBicycleSurfacePreference() == PreferPaved, ());
+  TEST_EQUAL(RoutingOptions::LoadFromSettings(bicycle), ferry, ());
+}
 }  // namespace
