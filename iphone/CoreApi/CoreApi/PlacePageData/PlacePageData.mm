@@ -25,7 +25,7 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   case RoadWarningMarkType::Ferry: return PlacePageRoadTypeFerry;
   case RoadWarningMarkType::Dirty: return PlacePageRoadTypeDirty;
   case RoadWarningMarkType::Steps: return PlacePageRoadTypeSteps;
-  // Gate and trail warnings have no place-page routing action.
+  // Gate and trail warnings are informational here. Trail avoidance is available in Walking settings.
   case RoadWarningMarkType::Gate:
   case RoadWarningMarkType::LiftGate:
   case RoadWarningMarkType::DifficultTrail:

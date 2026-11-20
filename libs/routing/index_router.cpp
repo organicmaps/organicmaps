@@ -606,9 +606,10 @@ std::vector<Segment> IndexRouter::GetBestOutgoingSegments(m2::PointD const & che
 bool IndexRouter::GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges)
 {
   bool dummy = false;
+  bool limitToLocalRoads = false;
   PointsOnEdgesSnapping snapping(*this, graph);
   return snapping.FindBestEdges(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */,
-                                FeaturesRoadGraph::kClosestEdgesRadiusM, edges, dummy);
+                                FeaturesRoadGraph::kClosestEdgesRadiusM, edges, dummy, limitToLocalRoads);
 }
 
 void IndexRouter::AppendPartsOfReal(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2,
@@ -1348,7 +1349,7 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   auto routingOptions =
       m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
-  // Expand the single walking setting when applying it to the graph.
+  // The walking setting covers both grades, which stay distinct on road segments for warnings.
   if (routingOptions.Has(RoutingOptions::DifficultTrail))
     routingOptions.Add(RoutingOptions::ExpertTrail);
   /// @DebugNote
@@ -1546,16 +1547,17 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & che
                                                           bool & bestSegmentIsAlmostCodirectional)
 {
   std::vector<Edge> bestEdges;
+  bool limitToLocalRoads = false;
 
   // Snap to the closest segments first, but keep widening the search radius while we have too few
   // candidates, so A* can choose the best start/finish segment among several alternatives instead of
   // being locked onto the first (often not the best) nearby road. The intentional single codirectional
-  // pick (a car starting in a known direction) short-circuits and is never widened.
+  // pick (a car starting in a known direction) and a nearby excluded walking candidate stop widening.
   for (double const radiusM : {double(kFirstSearchDistanceM), 500.0, 2000.0})
   {
-    if (!FindBestEdges(checkpoint, direction, isOutgoing, radiusM, bestEdges, bestSegmentIsAlmostCodirectional))
-      continue;
-    if (bestSegmentIsAlmostCodirectional || bestEdges.size() >= kMinRoadCandidates)
+    bool const found = FindBestEdges(checkpoint, direction, isOutgoing, radiusM, bestEdges,
+                                     bestSegmentIsAlmostCodirectional, limitToLocalRoads);
+    if (limitToLocalRoads || (found && (bestSegmentIsAlmostCodirectional || bestEdges.size() >= kMinRoadCandidates)))
       break;
   }
 
@@ -1572,7 +1574,8 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & che
 bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkpoint, m2::PointD const & direction,
                                                        bool isOutgoing, double closestEdgesRadiusM,
                                                        std::vector<Edge> & bestEdges,
-                                                       bool & bestSegmentIsAlmostCodirectional)
+                                                       bool & bestSegmentIsAlmostCodirectional,
+                                                       bool & limitToLocalRoads)
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
   auto closestRoads = m_router.m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
@@ -1607,15 +1610,21 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // (|closestRoads|) which will be used in IsFencedOff() method later and |closestRoads|
   // should contain all roads independently of routing options to prevent crossing roads
   // which are switched off in RoutingOptions.
-  // Then in |IsDeadEndCached(..., true /* useRoutingOptions */, ...)| below we ignore
-  // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
-  // if they don't match RoutingOptions.
+  // Then the candidate filter applies routing options when checking for dead ends.
+  auto const isLocalProjection = [&](EdgeProjectionT const & edgeProj)
+  { return mercator::DistanceOnEarth(checkpoint, edgeProj.second.GetPoint()) <= kFirstSearchDistanceM; };
+  bool const isLocalSearch = closestEdgesRadiusM == kFirstSearchDistanceM;
   auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);
-    // Walking avoids also apply to the partial road at a checkpoint.
+    // Walking avoids apply to the whole route, including the partial road at a checkpoint.
     if (m_router.m_vehicleType == VehicleType::Pedestrian && !m_graph.IsRoutingOptionsGood(segment))
+    {
+      // A nearby excluded road limits the snap to local alternatives. A longer connector can
+      // otherwise trace the avoided road or cross unmapped terrain.
+      limitToLocalRoads = limitToLocalRoads || (isLocalSearch && isLocalProjection(edgeProj));
       return false;
+    }
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds[1]) &&
         m_deadEnds[1].count(segment) == 0)
     {
@@ -1629,6 +1638,8 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
   std::vector<EdgeProjectionT> candidates;
   RoadsToNearestEdges(checkpoint, closestRoads, isGood, candidates);
+  if (limitToLocalRoads)
+    base::EraseIf(candidates, [&](auto const & candidate) { return !isLocalProjection(candidate); });
 
   if (candidates.empty())
     return false;
