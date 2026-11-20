@@ -1,4 +1,5 @@
 #import <CoreApi/ElevationProfileData.h>
+#import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 #import <XCTest/XCTest.h>
 
@@ -71,7 +72,7 @@ CLLocation * MakeLocation(double longitude, double accuracy, NSTimeInterval time
     MakeLocation(0.0005, -1, 990), MakeLocation(0, 5, 1000), MakeLocation(0.0005, -1, 1005),
     MakeLocation(0.0005, 5, 1010), latestValid, MakeLocation(0.002, -1, 1040)
   ]];
-  [MWMFrameworkHelper stopTrackRecording];
+  GetFramework().StopTrackRecording();
 
   NSArray<ElevationHeightPoint *> * recorded = MWMFrameworkHelper.trackRecordingElevationInfo.points;
   XCTAssertEqual(recorded.count, 3u);
@@ -89,7 +90,7 @@ CLLocation * MakeLocation(double longitude, double accuracy, NSTimeInterval time
 
   [MWMFrameworkHelper startTrackRecording];
   [self deliverLocations:@[MakeLocation(0, -1, 1000), MakeLocation(0.001, -1, 1020)]];
-  [MWMFrameworkHelper stopTrackRecording];
+  GetFramework().StopTrackRecording();
 
   XCTAssertNil(MWMFrameworkHelper.trackRecordingElevationInfo);
   XCTAssertEqual(self.positionUpdates.count, 0u);
