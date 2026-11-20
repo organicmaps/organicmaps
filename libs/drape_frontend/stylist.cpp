@@ -281,13 +281,15 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   auto const dedicatedCycleway = cl.GetTypeByPath({"highway", "cycleway"});
   auto const bicycleFootway = cl.GetTypeByPathSafe({"highway", "footway", "bicycle"});
   auto const bicyclePath = cl.GetTypeByPathSafe({"highway", "path", "bicycle"});
+  auto const crossing = cl.GetTypeByPath({"highway", "footway", "crossing"});
   auto const isDedicated = [&](uint32_t type)
   {
     return ftype::Trunc(type, 2) == dedicatedCycleway ||
            (bicycleFootway != Classificator::INVALID_TYPE && ftype::Trunc(type, 3) == bicycleFootway) ||
            (bicyclePath != Classificator::INVALID_TYPE && ftype::Trunc(type, 3) == bicyclePath);
   };
-  if (sideData && zoomLevel >= kCyclewaySideMinZoom && std::any_of(types.begin(), types.end(), isDedicated))
+  if (sideData && zoomLevel >= kCyclewaySideMinZoom && std::any_of(types.begin(), types.end(), isDedicated) &&
+      std::none_of(types.begin(), types.end(), [&](auto type) { return ftype::Trunc(type, 3) == crossing; }))
     for (auto const & contact : sideData->m_contacts)
     {
       drule::KeysT roadKeys;
