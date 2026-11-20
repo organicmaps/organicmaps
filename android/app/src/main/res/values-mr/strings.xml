@@ -918,6 +918,8 @@
     <string name="change_stop_along_route">थांबा बदला</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">थांब्यांची कमाल संख्या गाठली आहे</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">मार्ग ट्रॅक म्हणून जतन करता आला नाही</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->

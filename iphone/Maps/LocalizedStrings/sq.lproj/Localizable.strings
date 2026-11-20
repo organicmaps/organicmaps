@@ -966,9 +966,6 @@
 "elevation_profile_descent" = "Zbritje";
 "elevation_profile_min_elevation" = "Lartësia min.";
 "elevation_profile_max_elevation" = "Lartësia maks.";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Filloni të lëvizni për të parë profilin e lartësisë";
 "isolines_toast_zooms_1_10" = "Zmadhoni për të eksploruar izolinat";
 "downloader_loading_ios" = "Duke shkarkuar";
 
@@ -1230,6 +1227,9 @@
 
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Numri maksimal i ndalesave është arritur";
+
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Rruga nuk mund të ruhej si gjurmë";
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Lëvizni dhe zmadhoni hartën për të vendosur kryqin";
