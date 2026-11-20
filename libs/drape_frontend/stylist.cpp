@@ -288,10 +288,20 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
            (bicycleFootway != Classificator::INVALID_TYPE && ftype::Trunc(type, 3) == bicycleFootway) ||
            (bicyclePath != Classificator::INVALID_TYPE && ftype::Trunc(type, 3) == bicyclePath);
   };
-  if (sideData && zoomLevel >= kCyclewaySideMinZoom && std::any_of(types.begin(), types.end(), isDedicated) &&
+  bool const dedicated = std::any_of(types.begin(), types.end(), isDedicated);
+  auto const hasHighwayTag = [&](char const * name)
+  {
+    auto const type = cl.GetTypeByPath({"hwtag", name});
+    return std::find(types.begin(), types.end(), type) != types.end();
+  };
+  if (sideData && zoomLevel >= kCyclewaySideMinZoom && dedicated &&
       std::none_of(types.begin(), types.end(), [&](auto type) { return ftype::Trunc(type, 3) == crossing; }))
     for (auto const & contact : sideData->m_contacts)
     {
+      // Connector data is optional and may come from a map built with other types.txt.
+      if (!normalClassif.IsTypeValid(contact.m_roadType) || ftype::GetLevel(contact.m_roadType) != 2 ||
+          ftype::Trunc(contact.m_roadType, 1) != highwayRoot)
+        continue;
       drule::KeysT roadKeys;
       normalClassif.GetObject(contact.m_roadType)->GetSuitable(zoomLevel, feature::GeomType::Line, roadKeys);
       float roadWidth = 0;
@@ -314,8 +324,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
     }
   if (!m_connectorTargets.empty())
     m_lineGeometryPadding = 64;
-  bool const restoreCore = geomType == feature::GeomType::Line && style != cycleStyle &&
-                           std::any_of(types.begin(), types.end(), isDedicated);
+  bool const restoreCore = geomType == feature::GeomType::Line && style != cycleStyle && dedicated;
   drule::KeysT cycleCoreKeys;
   auto const collectCore = [&](uint32_t type)
   {
@@ -343,12 +352,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   }
   if (useSideLines)
   {
-    auto const hasType = [&](char const * name)
-    {
-      auto const type = cl.GetTypeByPath({"hwtag", name});
-      return std::find(types.begin(), types.end(), type) != types.end();
-    };
-    bool const roadOneWayForBikes = hasType("onedir_bicycle") || (hasType("oneway") && !hasType("bidir_bicycle"));
+    bool const roadOneWayForBikes =
+        hasHighwayTag("onedir_bicycle") || (hasHighwayTag("oneway") && !hasHighwayTag("bidir_bicycle"));
     auto const resolveDirection = [&](cycling::Direction direction)
     {
       return direction == cycling::Direction::Unknown && roadOneWayForBikes ? cycling::Direction::Forward : direction;
@@ -491,11 +496,31 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, m_rulesHolder, keys);
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, cycleRules, cycleCoreKeys);
+  auto const isDirectionArrow = [](drule::LineRule const * rule)
+  {
+    return rule->pathsym &&
+           (rule->pathsym->name.starts_with("arrow-") || rule->pathsym->name.starts_with("cycling-arrow-"));
+  };
+  auto const removeDirectionArrows = [&](drule::KeysT & lineKeys, auto const & rules)
+  {
+    lineKeys.erase(std::remove_if(lineKeys.begin(), lineKeys.end(), [&](auto const & key)
+    { return key.m_type == drule::line && isDirectionArrow(rules.Find(key)->GetLine()); }),
+                   lineKeys.end());
+  };
+  // On a dedicated path a general one-way rule must not imply a bicycle
+  // restriction when bicycles are explicitly allowed in both directions.
+  bool const bidirectionalBikePath =
+      dedicated && hasHighwayTag("bidir_bicycle") && !hasHighwayTag("onedir_bicycle") && !hasHighwayTag("yescar");
+  if (bidirectionalBikePath)
+  {
+    removeDirectionArrows(keys, m_rulesHolder);
+    removeDirectionArrows(cycleCoreKeys, cycleRules);
+  }
 
   // Cycling direction symbols belong to hwtag types, not the facility stroke.
   // Borrow them in generic modes too, retaining the original runtime selectors
   // (notably the bicycle contraflow exception to a car one-way restriction).
-  if (geomType == feature::GeomType::Line && style != cycleStyle && !useSideLines)
+  if (geomType == feature::GeomType::Line && style != cycleStyle && !useSideLines && !bidirectionalBikePath)
   {
     drule::KeysT arrows;
     for (uint32_t type : types)
@@ -514,9 +539,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
     feature::FilterRulesByRuntimeSelector(f, zoomLevel, cycleRules, arrows);
     if (!arrows.empty())
     {
-      keys.erase(std::remove_if(keys.begin(), keys.end(), [&](auto const & key)
-      { return key.m_type == drule::line && m_rulesHolder.Find(key)->GetLine()->pathsym.has_value(); }),
-                 keys.end());
+      removeDirectionArrows(keys, m_rulesHolder);
       cycleCoreKeys.insert(cycleCoreKeys.end(), arrows.begin(), arrows.end());
     }
   }
