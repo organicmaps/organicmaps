@@ -4,8 +4,8 @@
   branch = master
 [submodule "tools/kothic"]
   path = tools/kothic
-  url = https://github.com/organicmaps/kothic.git
-  branch = master
+  url = https://github.com/JaredTweed/kothic.git
+  branch = prepare/cycling-arrow-compiler
 [submodule "3party/Vulkan-Headers"]
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
