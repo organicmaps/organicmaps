@@ -2,6 +2,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_common.hpp"
 #include "kml/serdes_gpx.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -305,7 +306,7 @@ UNIT_TEST(Kml_V10MM_Tracks)
   untimed.m_id = 12;
   untimed.m_name = 0;
   fixture.m_tracks = MakeTracks({timed, untimed});
-  auto const data = ReadKmb(fixture.Serialize());
+  auto data = ReadKmb(fixture.Serialize());
   TEST_EQUAL(data.m_bookmarksData.size(), 2, ());
   TEST_EQUAL(data.m_tracksData.size(), 2, ());
   auto const & first = data.m_tracksData[0];
@@ -340,8 +341,8 @@ UNIT_TEST(Kml_V10MM_Tracks)
   TEST(!second.m_geometry.HasTimestamps(), ());
   TEST_EQUAL(second.m_geometry.m_timestamps.size(), 2, ());
 
-  // The application saves imported KMB as text KML. Both that path and GPX
-  // export must retain segments, missing altitudes and per-point times.
+  kml::NormalizeImportedTracks(data);
+
   for (bool const gpx : {false, true})
   {
     std::string text;
@@ -378,6 +379,54 @@ UNIT_TEST(Kml_V10MM_Tracks)
       }
     }
   }
+}
+
+UNIT_TEST(Kmb_RoundTripsMixedTrackAltitudes)
+{
+  classificator::Load();
+  kml::FileData source;
+  auto & geometry = source.m_tracksData.emplace_back().m_geometry;
+  geometry.AddLine({{{19, 0}, 0}, {{19.001, 0}, geometry::kInvalidAltitude}, {{19.002, 0}, 110}});
+  geometry.AddTimestamps({});
+
+  std::vector<uint8_t> bytes;
+  MemWriter writer(bytes);
+  kml::binary::SerializerKml(source).Serialize(writer);
+  auto reloaded = ReadKmb(bytes);
+  kml::NormalizeImportedTracks(reloaded);
+  TEST_EQUAL(reloaded.m_tracksData.size(), 1, ());
+  TEST_EQUAL(reloaded.m_tracksData.front().m_geometry, geometry, ());
+}
+
+UNIT_TEST(Kmb_ConversionDiscardsSinglePointTracks)
+{
+  classificator::Load();
+  kml::FileData oldData;
+  auto & singlePoint = oldData.m_tracksData.emplace_back();
+  singlePoint.m_localId = 1;
+  singlePoint.m_geometry.AddLine({{{19.0, 0.0}, 100}});
+  singlePoint.m_geometry.AddTimestamps({});
+  auto & usable = oldData.m_tracksData.emplace_back();
+  usable.m_localId = 2;
+  usable.m_geometry.AddLine({{{20.0, 0.0}, 130}, {{20.01, 0.0}, 140}});
+  usable.m_geometry.AddTimestamps({});
+  oldData.m_bookmarksData.emplace_back().m_boundTracks = {1, 2};
+
+  std::vector<uint8_t> bytes;
+  MemWriter binarySink(bytes);
+  kml::binary::SerializerKml(oldData).Serialize(binarySink);
+  auto imported = ReadKmb(bytes);
+  kml::NormalizeImportedTracks(imported);
+
+  std::string text;
+  MemWriter textSink(text);
+  kml::SerializerKml(imported).Serialize(textSink);
+  kml::FileData reloaded;
+  kml::DeserializerKml(reloaded).Deserialize(MemReader(text));
+  TEST_EQUAL(reloaded.m_tracksData.size(), 1, ());
+  TEST_EQUAL(reloaded.m_tracksData.front().m_localId, 2, ());
+  TEST_EQUAL(reloaded.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(reloaded.m_bookmarksData.front().m_boundTracks, (std::vector<kml::LocalId>{2}), ());
 }
 
 UNIT_TEST(Kml_V10MM_TrackMetadataTime)

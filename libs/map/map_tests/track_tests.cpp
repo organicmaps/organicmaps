@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/elevation_info.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
@@ -10,9 +11,13 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_reader.hpp"
+#include "coding/reader.hpp"
 
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace track_tests
@@ -45,6 +50,60 @@ Track MakeTrack(std::initializer_list<std::initializer_list<PointWithAltitude>> 
   return Track(std::move(data));
 }
 
+UNIT_TEST(Track_ImportDropsCollapsedLines)
+{
+  std::pair<FileType, std::string_view> const inputs[] = {
+      {FileType::Kml,
+       R"(<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2"><Document>
+        <Placemark><name>collapsed</name><MultiGeometry>
+          <LineString><coordinates>19,0,100 19.000005,0,200</coordinates></LineString>
+          <LineString><coordinates>20,46,100 20,46,200</coordinates></LineString>
+        </MultiGeometry></Placemark>
+        <Placemark><name>mixed</name><MultiGeometry>
+          <gx:Track><when>1970-01-01T00:00:01Z</when>
+            <gx:coord>19 0</gx:coord><gx:coord>19.000005 0</gx:coord></gx:Track>
+          <gx:Track><when>1970-01-01T00:00:01Z</when><when>1970-01-01T00:00:02Z</when>
+            <gx:coord>19 45 100</gx:coord><gx:coord>19.001 45 200</gx:coord></gx:Track>
+        </MultiGeometry></Placemark>
+      </Document></kml>)"},
+      {FileType::Gpx, R"(<gpx version="1.1" creator="test" xmlns="http://www.topografix.com/GPX/1/1">
+        <trk><name>collapsed</name>
+          <trkseg><trkpt lat="0" lon="19"><ele>100</ele></trkpt>
+                  <trkpt lat="0" lon="19.000005"><ele>200</ele></trkpt></trkseg>
+          <trkseg><trkpt lat="46" lon="20"><ele>100</ele></trkpt>
+                  <trkpt lat="46" lon="20"><ele>200</ele></trkpt></trkseg>
+        </trk>
+        <trk><name>mixed</name>
+          <trkseg><trkpt lat="0" lon="19"><ele>100</ele></trkpt>
+                  <trkpt lat="0" lon="19.000005"><ele>200</ele></trkpt></trkseg>
+          <trkseg><trkpt lat="45" lon="19"><ele>100</ele><time>1970-01-01T00:00:01Z</time></trkpt>
+                  <trkpt lat="45" lon="19.001"><ele>200</ele><time>1970-01-01T00:00:02Z</time></trkpt></trkseg>
+        </trk>
+      </gpx>)"},
+      {FileType::GeoJson, R"({"type":"FeatureCollection","features":[
+        {"type":"Feature","properties":{"name":"collapsed"},"geometry":{
+          "type":"MultiLineString","coordinates":[
+            [[19,0,100],[19.000005,0,200]],[[20,46,100],[20,46,200]]]}},
+        {"type":"Feature","properties":{"name":"mixed","coordTimes":[[1],[1,2]]},"geometry":{
+          "type":"MultiLineString","coordinates":[
+            [[19,0,100],[19.000005,0,200]],[[19,45,100],[19.001,45,200]]]}}
+      ]})"}};
+
+  for (auto const & [type, input] : inputs)
+  {
+    auto data = LoadKmlData(MemReader(input.data(), input.size()), type);
+    TEST(data, (type));
+    TEST_EQUAL(data->m_tracksData.size(), 1, (type));
+    auto const & geometry = data->m_tracksData.front().m_geometry;
+    TEST_EQUAL(geometry.m_lines.size(), 1, (type));
+    TEST_EQUAL(geometry.m_timestamps.size(), 1, (type));
+    TEST_EQUAL(geometry.m_lines.front().size(), 2, (type));
+    TEST_EQUAL(geometry.m_timestamps.front(), (kml::MultiGeometry::TimeT{1, 2}), (type));
+    Track const track(std::move(data->m_tracksData.front()));
+    TEST_GREATER(track.GetLengthMeters(), 0.0, (type));
+  }
+}
+
 UNIT_TEST(Track_HasDirection)
 {
   for (auto const id : {kml::TrackId{1}, kml::kTempRelationTrackId})
@@ -57,6 +116,98 @@ UNIT_TEST(Track_HasDirection)
     Track const track(std::move(data));
     TEST_EQUAL(track.HasDirection(), id != kml::kTempRelationTrackId, (id));
   }
+}
+
+UNIT_TEST(Track_GeometryValidity)
+{
+  TEST(!kml::MultiGeometry{}.IsValid(), ());
+  kml::MultiGeometry geometry;
+  geometry.AddLine({{{0.0, 0.0}, 100}, {{0.001, 0.0}, 200}});
+  TEST(!geometry.IsValid(), ("Each section needs a timestamp vector"));
+
+  geometry.AddTimestamps({1, 2});
+  TEST(geometry.IsValid(), ());
+  auto mixedTimes = geometry;
+  mixedTimes.AddLine({{{1.0, 0.0}, 100}, {{1.001, 0.0}, 200}});
+  mixedTimes.AddTimestamps({});
+  TEST(mixedTimes.IsValid(), ("A complete timed section can coexist with an untimed section"));
+
+  auto singlePoint = geometry;
+  singlePoint.AddLine({{{-0.001, 0.0}, 100}});
+  singlePoint.AddTimestamps({});
+  TEST(!singlePoint.IsValid(), ("Every section needs at least two points"));
+
+  for (auto const & times : {kml::MultiGeometry::TimeT{1}, {2, 1}, {base::INVALID_TIME_STAMP, 2}})
+  {
+    geometry.m_timestamps.front() = times;
+    TEST(!geometry.IsValid(), (times));
+  }
+
+  auto & line = geometry.m_lines.front();
+  line.insert(line.begin() + 1, {{0.0, 0.0}, 200});
+  geometry.m_timestamps.front() = {1, 2, 3};
+  TEST(geometry.IsValid(), ("Coincident altitude/time samples remain valid"));
+}
+
+UNIT_TEST(Track_SubPrecisionMovementIsValidAtRuntime)
+{
+  Track const track = MakeTrack({{{{0.0, 0.0}, 100}, {{1e-7, 0.0}, 200}}});
+  TEST(track.GetData().m_geometry.IsValid(), ());
+  TEST_GREATER(track.GetLengthMeters(), 0.0, ());
+}
+
+UNIT_TEST(Track_ImportDropsMalformedKmlTimestamps)
+{
+  for (auto const times : {"<when>invalid</when>", "<when/>", "<when> </when>", "",
+                           "<when>2026-01-01T00:00:00Z</when><when>2026-01-01T00:00:00Z</when>"})
+  {
+    std::string const input = R"(<kml xmlns="http://www.opengis.net/kml/2.2"
+      xmlns:gx="http://www.google.com/kml/ext/2.2"><Document><Placemark><gx:Track>)" +
+                              std::string(times) + R"(
+      <when>2026-01-01T00:00:01Z</when>
+      <gx:coord>19 45 100</gx:coord><gx:coord>19.001 45 200</gx:coord>
+      </gx:Track></Placemark>
+      <Placemark><Point><coordinates>20,46</coordinates></Point></Placemark>
+      </Document></kml>)";
+    auto data = LoadKmlData(MemReader(input), FileType::Kml);
+    TEST(data, (times));
+    TEST_EQUAL(data->m_bookmarksData.size(), 1, (times));
+    TEST_EQUAL(data->m_tracksData.size(), 1, (times));
+    auto const & geometry = data->m_tracksData.front().m_geometry;
+    TEST(geometry.IsValid(), (times));
+    TEST_EQUAL(geometry.m_lines.front().size(), 2, (times));
+    TEST(!geometry.HasTimestamps(), (times));
+  }
+}
+
+UNIT_TEST(Track_ImportDeduplicatesOsmGpx)
+{
+  auto const path = GetPlatform().TestsDataPathForFile("test_data/gpx/osm_track.gpx");
+  auto const data = LoadKmlData(FileReader(path), FileType::Gpx);
+  TEST(data, ());
+  TEST_EQUAL(data->m_tracksData.size(), 1, ());
+  auto const & geometry = data->m_tracksData.front().m_geometry;
+  TEST_EQUAL(geometry.m_lines.size(), 1, ());
+  TEST_EQUAL(geometry.m_timestamps.size(), 1, ());
+  TEST_EQUAL(geometry.m_lines.front().size(), 182, ());
+  TEST_EQUAL(geometry.m_timestamps.front().size(), geometry.m_lines.front().size(), ());
+}
+
+UNIT_TEST(Track_ImportDropsNonMonotonicGpxTimestampsAndNamesTheTrack)
+{
+  platform::tests_support::ScopedFile const file("UntitledWalk.gpx", R"(<gpx version="1.1"><trk><trkseg>
+    <trkpt lat="45" lon="19"><time>2026-01-02T00:00:00Z</time></trkpt>
+    <trkpt lat="45.001" lon="19"><time>2026-01-01T00:00:00Z</time></trkpt>
+  </trkseg></trk></gpx>)");
+  auto const data = LoadKmlFile(file.GetFullPath(), FileType::Gpx);
+  TEST(data, ());
+  TEST_EQUAL(data->m_tracksData.size(), 1, ());
+  auto const & track = data->m_tracksData.front();
+  TEST_EQUAL(kml::GetDefaultStr(track.m_name), "UntitledWalk", ());
+  auto const & geometry = track.m_geometry;
+  TEST(geometry.IsValid(), ());
+  TEST_EQUAL(geometry.m_lines.front().size(), 2, ());
+  TEST(geometry.m_timestamps.front().empty(), ());
 }
 
 // ===================== ElevationInfo tests =====================
@@ -405,11 +556,11 @@ namespace
 {
 ElevationInfo::AltitudesInfo CalcAltitudesInfo(std::string const & fileName, Altitude threshold)
 {
-  kml::FileData fileData;
-  kml::DeserializerGpx(fileData).Deserialize(FileReader(GetPlatform().TestsDataPathForFile(fileName)));
-  TEST_EQUAL(fileData.m_tracksData.size(), 1, ());
+  auto const data = LoadKmlData(FileReader(GetPlatform().TestsDataPathForFile(fileName)), FileType::Gpx);
+  TEST(data, (fileName));
+  TEST_EQUAL(data->m_tracksData.size(), 1, (fileName));
 
-  ElevationInfo ei(fileData.m_tracksData[0].m_geometry.m_lines);
+  ElevationInfo ei(data->m_tracksData.front().m_geometry.m_lines);
   ei.Simplify();
   return ei.CalculateAltitudesInfo(threshold);
 }

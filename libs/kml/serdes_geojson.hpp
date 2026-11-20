@@ -7,6 +7,8 @@
 
 #include "base/exception.hpp"
 
+#include <optional>
+
 namespace kml
 {
 namespace geojson
@@ -29,18 +31,19 @@ struct GeoJsonGeometryPoint
 
 std::string DebugPrint(GeoJsonGeometryPoint const & c);
 
+using TrackPosition = std::vector<std::optional<double>>;
+using LineCoords = std::vector<TrackPosition>;
+
 struct GeoJsonGeometryLine
 {
   std::string type{"LineString"};  // Embedded tag field
-  std::vector<std::vector<double>> coordinates;
+  LineCoords coordinates;
 };
 
 std::string DebugPrint(GeoJsonGeometryLine const & c);
 
 struct GeoJsonGeometryMultiLine
 {
-  typedef std::vector<std::vector<double>> LineCoords;
-
   std::string type{"MultiLineString"};  // Embedded tag field
   std::vector<LineCoords> coordinates;
 };

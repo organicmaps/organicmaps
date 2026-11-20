@@ -135,15 +135,12 @@ kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
   auto & trackData = data.m_tracksData[0];
   trackData.m_geometry.Clear();
 
-  // track 1 (without timestamps)
-  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
-  trackData.m_geometry.AddTimestamps({});
-
-  // track 2
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
   trackData.m_geometry.AddTimestamps({0, 1, 2});
 
-  // track 3
+  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
+  trackData.m_geometry.AddTimestamps({0, 1, 2});
+
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}});
   trackData.m_geometry.AddTimestamps({0, 1});
   return data;
@@ -417,7 +414,9 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
     kml::SerializerKml ser(dataFromGeneratedFile);
     ser.Serialize(sink);
   }
-  TEST_EQUAL(dataFromFileBuffer, dataFromGeneratedFileBuffer, ());
+  std::string generatedText;
+  FileReader(kmlFile).ReadAsString(generatedText);
+  TEST_EQUAL(generatedText, dataFromGeneratedFileBuffer, ());
   TEST(dataFromFileBuffer.find("mwm:serverId") == std::string::npos, ());
   TEST(dataFromFileBuffer.find("mwm:stop") == std::string::npos, ());
   TEST(dataFromFileBuffer.find("mwm:routerType") == std::string::npos, ());
@@ -457,7 +456,10 @@ UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
         des.Deserialize(reader);
       },
       ());
-  TEST_EQUAL(dataFromFile, data, ());
+  kml::NormalizeImportedTracks(dataFromFile);
+  auto expectedMixed = data;
+  expectedMixed.m_tracksData.front().m_geometry.m_timestamps.front().clear();
+  TEST_EQUAL(dataFromFile, expectedMixed, ());
 }
 
 namespace
@@ -575,6 +577,15 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
         des.Deserialize(reader);
       },
       ());
+  auto const & v6Line = dataFromBinV6.m_tracksData.front().m_geometry.m_lines.front();
+  auto & v7Line = dataFromBinV7.m_tracksData.front().m_geometry.m_lines.front();
+  TEST_EQUAL(v6Line.size(), v7Line.size(), ());
+  for (size_t i = 0; i < v6Line.size(); ++i)
+  {
+    TEST_EQUAL(v6Line[i].GetAltitude(), geometry::kInvalidAltitude, (i));
+    TEST_EQUAL(v7Line[i].GetAltitude(), 0, (i));
+    v7Line[i].SetAltitude(geometry::kInvalidAltitude);
+  }
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }
 
@@ -902,8 +913,6 @@ UNIT_TEST(Kml_Ver_2_3)
   TEST_EQUAL(lines[0].size(), 7, ());
   TEST_EQUAL(lines[1].size(), 6, ());
   TEST(geom.HasTimestamps(), ());
-  TEST(geom.HasTimestampsFor(0), ());
-  TEST(geom.HasTimestampsFor(1), ());
   TEST_EQUAL(timestamps.size(), 2, ());
   TEST_EQUAL(timestamps[0].size(), 7, ());
   TEST_EQUAL(timestamps[1].size(), 6, ());
@@ -1005,14 +1014,17 @@ UNIT_TEST(Kml_Tracks_With_Different_Points_And_Timestamps_Order)
 UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
 {
   kml::FileData dataFromFile;
-  TEST_ANY_THROW(
+  TEST_NO_THROW(
       {
         kml::DeserializerKml des(dataFromFile);
         FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestamps_mismatch.kml"));
         des.Deserialize(reader);
       },
       ());
-  TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
+  TEST_EQUAL(dataFromFile.m_tracksData.size(), 1, ());
+  auto const & geometry = dataFromFile.m_tracksData.front().m_geometry;
+  TEST(!geometry.m_lines.empty(), ());
+  TEST(!geometry.HasTimestamps(), ());
 }
 
 UNIT_TEST(Kml_Track_With_Non_Monotonic_Timestamps)
@@ -1034,6 +1046,7 @@ UNIT_TEST(Kml_Track_With_Non_Monotonic_Timestamps)
 
   kml::FileData fData;
   TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(input)); }, ());
+  kml::NormalizeImportedTracks(fData);
 
   TEST_EQUAL(fData.m_tracksData.size(), 1, ());
   auto const & geom = fData.m_tracksData[0].m_geometry;
@@ -1049,9 +1062,9 @@ UNIT_TEST(Kml_Import_OpenTracks)
 <kml xmlns="http://earth.google.com/kml/2.2">
     <Placemark>
       <Track>
-        <when>2010-05-28T01:02:00Z</when>
+        <when/>
         <when>2010-05-28T01:02:01Z</when>
-        <when>2010-05-28T01:02:02Z</when>
+        <when>2010-05-28T01:02:59Z</when>
         <when>2010-05-28T01:02:03Z</when>
         <when>2010-05-28T01:02:04Z</when>
         <coord/>
