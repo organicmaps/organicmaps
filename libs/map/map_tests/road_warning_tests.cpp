@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/road_warning_spans.hpp"
 #include "map/routing_mark.hpp"
 
 #include "routing/router.hpp"
@@ -107,5 +108,54 @@ UNIT_TEST(RoadWarning_IsAvoidableRoadWarning)
   // No avoid option -> must not surface the "driving options" affordance.
   TEST(!IsAvoidableRoadWarning(Gate), ());
   TEST(!IsAvoidableRoadWarning(LiftGate), ());
+}
+
+UNIT_TEST(RoadWarning_SpanBoundaries)
+{
+  using enum RoadWarningMarkType;
+
+  std::vector<routing::RouteSegment> segments;
+  auto const addSegment = [&](double metres, Road road)
+  {
+    auto const i = static_cast<uint32_t>(segments.size());
+    segments.emplace_back(routing::Segment(0, 0, i, true), routing::turns::TurnItem(),
+                          geometry::PointWithAltitude({0.001 * (i + 1), 0.0}, 0),
+                          routing::RouteSegment::RoadNameInfo());
+    segments.back().SetRoadTypes(MakeOptions({road}));
+    segments.back().SetDistancesAndTime(metres, segments.back().GetJunction().GetPoint().x, 0.0);
+  };
+  addSegment(1000, Road::Toll);
+  addSegment(1005, Road::Toll);
+  addSegment(1012, Road::Toll);
+  addSegment(1066, Road::Ferry);
+  addSegment(1090, Road::Usual);
+  addSegment(1120, Road::Dirty);
+
+  struct ExpectedWarning
+  {
+    RoadWarningMarkType m_type;
+    uint32_t m_segmentIdx;
+    m2::PointD m_startPoint;
+    double m_distanceMeters;
+  };
+  auto const pointAt = [&](size_t i) { return segments[i].GetJunction().GetPoint(); };
+  ExpectedWarning const expected[] = {
+      {Toll, 0, {}, 1000.0}, {Toll, 1, pointAt(0), 12.0}, {Ferry, 3, pointAt(2), 54.0}, {Dirty, 5, pointAt(4), 30.0}};
+
+  size_t nextWarning = 0;
+  auto const check = [&](RoadWarningMarkType type, routing::Segment const & segment, m2::PointD const & startPoint,
+                         double distanceMeters)
+  {
+    TEST_LESS(nextWarning, std::size(expected), ());
+    auto const & warning = expected[nextWarning++];
+    TEST_EQUAL(type, warning.m_type, ());
+    TEST_EQUAL(segment.GetSegmentIdx(), warning.m_segmentIdx, ());
+    TEST_EQUAL(startPoint, warning.m_startPoint, ());
+    TEST_EQUAL(distanceMeters, warning.m_distanceMeters, ());
+  };
+  ForEachRoadWarningSpan(segments, {{}, segments[0].GetJunction(), 0, 1}, RouterType::Vehicle, check);
+  ForEachRoadWarningSpan(segments, {segments[0].GetJunction(), segments.back().GetJunction(), 1, segments.size()},
+                         RouterType::Vehicle, check);
+  TEST_EQUAL(nextWarning, std::size(expected), ());
 }
 }  // namespace road_warning_tests
