@@ -439,6 +439,48 @@ UNIT_CLASS_TEST(StepsRoutingFixture, RequiredStepsFailTheRoute)
   }
 }
 
+UNIT_CLASS_TEST(StepsRoutingFixture, WalkingCheckpointsRejectDistantSnapsFromAvoidedStairs)
+{
+  // The approaches remain viable snap candidates with stairs excluded. Their projections are over 500 m away.
+  auto const onSteps = mercator::FromLatLon(3, 1.055);
+  auto const otherRoad = mercator::FromLatLon(3, 1.01);
+  auto const onRoad = mercator::FromLatLon(3, 1.09);
+  auto router = Router(VehicleType::Pedestrian);
+  std::pair<Checkpoints, RouterResultCode> const cases[] = {
+      {Checkpoints(onSteps, onRoad), RouterResultCode::StartPointNotFound},
+      {Checkpoints(onRoad, onSteps), RouterResultCode::EndPointNotFound},
+      {Checkpoints({otherRoad, onSteps, onRoad}), RouterResultCode::IntermediatePointNotFound}};
+  for (auto const & [checkpoints, expected] : cases)
+  {
+    auto const calculate = [&](RoutesResult & result)
+    { return router->CalculateRoute(checkpoints, {}, false, false, {}, result); };
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, {});
+    RoutesResult withoutAvoidance;
+    TEST_EQUAL(calculate(withoutAvoidance), RouterResultCode::NoError, (checkpoints));
+    TEST(UsesRoadType(withoutAvoidance.GetActive(), RoutingOptions::Steps), (checkpoints));
+
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::Steps));
+    RoutesResult withAvoidance;
+    TEST_EQUAL(calculate(withAvoidance), expected, (checkpoints));
+    TEST(withAvoidance.m_routes.empty(), (checkpoints));
+  }
+}
+
+UNIT_CLASS_TEST(StepsRoutingFixture, WalkingAvoidancePreservesAllowedSnaps)
+{
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::Steps));
+  auto router = Router(VehicleType::Pedestrian);
+  auto const finish = mercator::FromLatLon(3, 1.09);
+  // A nearby allowed projection by the staircase end, and a start that needs the wider road search.
+  for (auto const & start : {mercator::FromLatLon(3.0001, 1.0601), mercator::FromLatLon(3.001, 1.08)})
+  {
+    RoutesResult result;
+    TEST_EQUAL(router->CalculateRoute(Checkpoints(start, finish), {}, false, false, {}, result),
+               RouterResultCode::NoError, (start));
+    TEST(!UsesRoadType(result.GetActive(), RoutingOptions::Steps), (start));
+  }
+}
+
 class TrailDifficultyFixture : public RoutingPreferenceFixture
 {
 public:
@@ -466,5 +508,43 @@ UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingRouteRetainsTrailGrades)
   }
   // Trail classification preserves the separately mapped gravel surface.
   TEST(unpavedDifficultTrail, ());
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingCanAvoidBothTrailGrades)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  auto constexpr avoidTrail = RoutingOptions::DifficultTrail;
+  for (bool const avoid : {false, true, false})
+  {
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(avoid ? avoidTrail : 0));
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, {}, true, true), RouterResultCode::NoError, (avoid));
+    for (auto const grade : {RoutingOptions::DifficultTrail, RoutingOptions::ExpertTrail})
+    {
+      if (avoid)
+        for (auto const & variant : result.m_routes)
+          TEST(!UsesRoadType(variant, grade), (grade));
+      else
+        TEST(UsesRoadType(result.GetActive(), grade), (grade));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, RequiredExpertTrailFailsWithAvoidanceOn)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  auto const calculate = [&](RoutesResult & result)
+  {
+    return router->CalculateRoute(Checkpoints(mercator::FromLatLon(2, 1.01), mercator::FromLatLon(2, 1.09)), {}, false,
+                                  true, {}, result);
+  };
+  RoutesResult before;
+  TEST_EQUAL(calculate(before), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(before.GetActive(), RoutingOptions::ExpertTrail), ());
+
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::DifficultTrail));
+  RoutesResult after;
+  TEST_EQUAL(calculate(after), RouterResultCode::StartPointNotFound, ());
+  TEST(after.m_routes.empty(), ());
 }
 }  // namespace routing_preference_tests

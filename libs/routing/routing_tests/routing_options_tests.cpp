@@ -170,13 +170,13 @@ UNIT_TEST(RoutingOptions_TrailGradesAndTruncatedSubtypes)
 UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
 {
   for (auto const road : {RoutingOptions::Usual, RoutingOptions::Toll, RoutingOptions::Motorway, RoutingOptions::Ferry,
-                          RoutingOptions::Dirty, RoutingOptions::Steps})
+                          RoutingOptions::Dirty, RoutingOptions::Steps, RoutingOptions::DifficultTrail})
   {
     auto const parsed = RoutingOptions::RoadFromId(static_cast<uint32_t>(road));
     TEST(parsed, (road));
     TEST_EQUAL(*parsed, road, ());
   }
-  for (uint32_t const invalid : {0u, 3u, 6u, 33u, 64u, 128u, 256u, 0xffffffffu})
+  for (uint32_t const invalid : {0u, 3u, 6u, 33u, 128u, 256u, 0xffffffffu})
     TEST(!RoutingOptions::RoadFromId(invalid), (invalid));
   TEST(RoutingOptions::GetVehicleType(RouterType::Vehicle) == VehicleType::Car, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Bicycle) == VehicleType::Bicycle, ());
@@ -187,7 +187,7 @@ UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle),
              RoutingOptions::Dirty | RoutingOptions::Ferry | RoutingOptions::Steps, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian),
-             RoutingOptions::Ferry | RoutingOptions::Steps, ());
+             RoutingOptions::Ferry | RoutingOptions::Steps | RoutingOptions::DifficultTrail, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Transit), 0, ());
 }
 

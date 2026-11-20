@@ -9,7 +9,8 @@ typedef NS_OPTIONS(NSUInteger, MWMRoutingAvoidance) {
   MWMRoutingAvoidanceMotorway = 1u << 2,
   MWMRoutingAvoidanceFerry = 1u << 3,
   MWMRoutingAvoidanceDirty = 1u << 4,
-  MWMRoutingAvoidanceSteps = 1u << 5
+  MWMRoutingAvoidanceSteps = 1u << 5,
+  MWMRoutingAvoidanceDifficultTrail = 1u << 6
 } NS_SWIFT_NAME(RoutingAvoidance);
 
 NS_SWIFT_NAME(RoutingOptions)
@@ -27,6 +28,7 @@ NS_SWIFT_NAME(RoutingOptions)
 @property(nonatomic) BOOL avoidFerry;
 @property(nonatomic) BOOL avoidMotorway;
 @property(nonatomic) BOOL avoidSteps;
+@property(nonatomic) BOOL avoidDifficultTrails;
 /// Persisted immediately, unlike the avoidance options, which need -save.
 @property(nonatomic) BOOL routeOptimizationEnabled;
 @property(nonatomic, readonly) BOOL hasOptions;
