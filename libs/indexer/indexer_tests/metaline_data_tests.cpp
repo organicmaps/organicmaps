@@ -210,3 +210,20 @@ UNIT_TEST(MetalineData_OptionalFailurePreservesExistingPhases)
     }
   }
 }
+
+UNIT_TEST(MetalineData_InvalidPhaseDoesNotReplaceAnyChain)
+{
+  auto const bytes = MakeMetalines(3);
+  MemReader reader(bytes.data(), bytes.size());
+  ReaderSource src(reader);
+  auto const original = ReadMetalines(src, MwmSet::MwmId{});
+  for (double const invalid : {-1.0, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()})
+  {
+    auto model = original;
+    auto offsets = original;
+    offsets.back().m_dashPhaseOffsets.back() = invalid;
+    TEST(!ApplyMetalineOffsets(model, std::move(offsets)), ());
+    TEST_EQUAL(model.front().m_dashPhaseOffsets, original.front().m_dashPhaseOffsets, ());
+    TEST_EQUAL(model.back().m_dashPhaseOffsets, original.back().m_dashPhaseOffsets, ());
+  }
+}
