@@ -268,11 +268,13 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .routeTo:
       MWMPlacePageManagerHelper.route(to: placePageData)
     case .avoidToll:
-      MWMPlacePageManagerHelper.avoidToll()
+      MWMPlacePageManagerHelper.avoidRoadType(.toll)
     case .avoidDirty:
-      MWMPlacePageManagerHelper.avoidDirty()
+      MWMPlacePageManagerHelper.avoidRoadType(.dirty)
     case .avoidFerry:
-      MWMPlacePageManagerHelper.avoidFerry()
+      MWMPlacePageManagerHelper.avoidRoadType(.ferry)
+    case .avoidSteps:
+      MWMPlacePageManagerHelper.avoidRoadType(.steps)
     case .more:
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:

@@ -672,6 +672,8 @@
     <string name="avoid_unpaved">Osgoi ffyrdd heb eu palmantu</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Osgoi fferïau</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Osgoi grisiau</string>
     <string name="avoid_motorways">Osgoi traffyrdd</string>
     <string name="unable_to_calc_alert_title">Methu cyfrifo llwybr</string>
     <string name="unable_to_calc_alert_subtitle">Ni ellid dod o hyd i lwybr. Gall hyn fod wedi\'i achosi gan eich opsiynau llwybro neu ddata OpenStreetMap anghyflawn. Newidiwch eich opsiynau llwybro a cheisiwch eto.</string>

@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Shmang tragetet";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Shmang shkallët";
 "avoid_motorways" = "Shmang autostradat";
 "unable_to_calc_alert_title" = "Nuk mund të llogaritet rruga";
 "unable_to_calc_alert_subtitle" = "Rruga nuk mund të gjendej. Kjo mund të shkaktohet nga opsionet tuaja të rrugëtimit ose të dhëna të paplota të OpenStreetMap. Ju lutemi ndryshoni opsionet tuaja të rrugëtimit dhe provoni përsëri.";

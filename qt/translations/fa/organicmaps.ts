@@ -544,7 +544,7 @@
 <message id="road_warning_steps">
 <extracomment>Route warning shown on the map for this obstacle type.</extracomment>
 <source>Stairs</source>
-<translation>مسیر</translation>
+<translation>پله‌ها</translation>
 </message>
 <message id="road_warning_gate">
 <extracomment>Route warning shown on the map for this obstacle type.</extracomment>

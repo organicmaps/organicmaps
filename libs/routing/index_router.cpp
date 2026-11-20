@@ -463,7 +463,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    m_requestRoutingOptions.emplace(RoutingOptions::LoadFromSettings(m_vehicleType).GetOptions() | m_avoidRoads);
+    m_requestRoutingOptions = delegate.GetRoutingOptions();
+    if (!m_requestRoutingOptions)
+      m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
+    m_requestRoutingOptions.emplace(m_requestRoutingOptions->GetOptions() | m_avoidRoads);
     if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
     {
       m_cachedWalkingGraph.reset();

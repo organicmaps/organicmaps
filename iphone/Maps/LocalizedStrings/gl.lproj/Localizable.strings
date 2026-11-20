@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar ferris";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Evitar escaleiras";
 "avoid_motorways" = "Evitar autoestradas";
 "unable_to_calc_alert_title" = "Non se pode calcular a ruta";
 "unable_to_calc_alert_subtitle" = "Non se puido atopar unha ruta. Quizá se deba ás opcións de encamiñamento ou a datos faltantes en OpenStreetMap. Revise as súas opcións de encamiñamento e volva tentalo.";

@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "避開渡輪";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "避開階梯";
 "avoid_motorways" = "避開高速公路";
 "unable_to_calc_alert_title" = "無法規劃路線";
 "unable_to_calc_alert_subtitle" = "很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。";

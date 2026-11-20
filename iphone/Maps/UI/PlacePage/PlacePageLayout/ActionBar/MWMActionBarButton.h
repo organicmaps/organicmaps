@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
   MWMActionBarButtonTypeAvoidToll,
   MWMActionBarButtonTypeAvoidDirty,
   MWMActionBarButtonTypeAvoidFerry,
+  MWMActionBarButtonTypeAvoidSteps,
   MWMActionBarButtonTypeRouteAddDestination
 } NS_SWIFT_NAME(ActionBarButtonType);
 

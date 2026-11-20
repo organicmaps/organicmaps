@@ -18,6 +18,7 @@
 
 #include <functional>
 #include <map>
+#include <utility>
 
 namespace routing_preference_tests
 {
@@ -214,6 +215,21 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, CarFerryAvoidanceDoesNotAffectOtherRoa
   }
 }
 
+UNIT_CLASS_TEST(RoutingPreferenceFixture, ForcedFerryAvoidanceSurvivesRequestSnapshot)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  RouterDelegate const delegate{RoutingOptions{}};
+  RoutesResult before;
+  TEST_EQUAL(Calculate(*router, before, delegate), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(before.GetActive(), RoutingOptions::Ferry), ());
+
+  router->SetAvoidRoads(RoutingOptions::Ferry);
+  RoutesResult after;
+  TEST_EQUAL(Calculate(*router, after, delegate), RouterResultCode::NoError, ());
+  for (auto const & route : after.m_routes)
+    TEST(!UsesRoadType(route, RoutingOptions::Ferry), ());
+}
+
 UNIT_CLASS_TEST(RoutingPreferenceFixture, FerryAvoidanceIsIndependent)
 {
   for (auto const avoided : {VehicleType::Bicycle, VehicleType::Pedestrian})
@@ -266,5 +282,73 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)
   TEST(UsesRoadType(result.GetActive(), RoutingOptions::Ferry), ());
   auto graph = router->MakeSingleMwmWorldGraph();
   TEST(!graph->IsRoutingOptionsGood(Segment(0, m_ferryFeature, 0, true)), ());
+}
+
+class StepsRoutingFixture : public RoutingPreferenceFixture
+{
+public:
+  StepsRoutingFixture() : RoutingPreferenceFixture("routing_steps.osm") {}
+};
+
+UNIT_CLASS_TEST(StepsRoutingFixture, StepsAvoidanceIsIndependent)
+{
+  for (auto const avoided : {VehicleType::Bicycle, VehicleType::Pedestrian})
+  {
+    RoutingOptions::SaveToSettings(VehicleType::Bicycle, {});
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, {});
+    RoutingOptions::SaveToSettings(avoided, RoutingOptions(RoutingOptions::Steps));
+    for (auto const vehicle : {VehicleType::Bicycle, VehicleType::Pedestrian})
+    {
+      auto router = Router(vehicle);
+      RoutesResult result;
+      TEST_EQUAL(Calculate(*router, result, {}, false, true), RouterResultCode::NoError, (vehicle));
+      TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Steps), vehicle != avoided, (vehicle, avoided));
+      if (vehicle == avoided)
+        for (auto const & route : result.m_routes)
+          TEST(!UsesRoadType(route, RoutingOptions::Steps), (vehicle));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(StepsRoutingFixture, SubmittedOptionsOverrideSettingsForTheWholeRequest)
+{
+  auto const vehicle = VehicleType::Pedestrian;
+  auto router = Router(vehicle);
+  for (bool const avoid : {false, true, false})
+  {
+    RoutingOptions::SaveToSettings(vehicle, RoutingOptions(avoid ? 0 : RoutingOptions::Steps));
+    RouterDelegate const delegate{RoutingOptions(avoid ? RoutingOptions::Steps : 0)};
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, delegate, true, true), RouterResultCode::NoError, (avoid));
+    TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Steps), !avoid, (avoid));
+  }
+}
+
+UNIT_CLASS_TEST(StepsRoutingFixture, RequiredStepsFailTheRoute)
+{
+  // Small isolated approaches fail endpoint snapping; larger components reach the path search.
+  std::pair<double, RouterResultCode> const cases[] = {{2, RouterResultCode::StartPointNotFound},
+                                                       {3, RouterResultCode::RouteNotFound}};
+  for (auto const vehicle : {VehicleType::Bicycle, VehicleType::Pedestrian})
+  {
+    for (auto const & [latitude, expected] : cases)
+    {
+      RoutingOptions::SaveToSettings(vehicle, {});
+      auto router = Router(vehicle);
+      auto const calculate = [&](RoutesResult & result)
+      {
+        return router->CalculateRoute(
+            Checkpoints(mercator::FromLatLon(latitude, 1.01), mercator::FromLatLon(latitude, 1.09)), {}, false, true,
+            {}, result);
+      };
+      RoutesResult before;
+      TEST_EQUAL(calculate(before), RouterResultCode::NoError, (vehicle, latitude));
+      TEST(UsesRoadType(before.GetActive(), RoutingOptions::Steps), (vehicle, latitude));
+      RoutingOptions::SaveToSettings(vehicle, RoutingOptions(RoutingOptions::Steps));
+      RoutesResult after;
+      TEST_EQUAL(calculate(after), expected, (vehicle, latitude));
+      TEST(after.m_routes.empty(), (vehicle, latitude));
+    }
+  }
 }
 }  // namespace routing_preference_tests

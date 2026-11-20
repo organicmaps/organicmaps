@@ -142,6 +142,21 @@ final class ActionBarViewControllerTests: XCTestCase {
     try assertColors(makeActionBar(data: PlacePageDataStub(objectType: .trackRecording)), primary: nil)
   }
 
+  func test_StepsWarningOffersAvoidanceOnlyForWalkingAndCycling() {
+    let previousType = MWMRouter.type()
+    defer { MWMRouter.setType(previousType) }
+    for profile in [MWMRouterType.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler] {
+      MWMRouter.setType(profile)
+      let data = PlacePageDataStub(objectType: .POI)
+      data.stubRoadType = .steps
+      let actionBar = makeActionBar(data: data)
+      let expected: [ActionBarButtonType] = profile == .bicycle || profile == .pedestrian ? [.avoidSteps] : []
+      XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type }, expected)
+    }
+    XCTAssertEqual(titleForButton(.avoidSteps, false), L("avoid_steps"))
+    XCTAssertNotNil(UIImage(named: "ic_avoid_steps"))
+  }
+
   private func assertColors(_ actionBar: ActionBarViewController, primary: ActionBarButtonType?,
                             file: StaticString = #filePath, line: UInt = #line) throws {
     let actions = actionBar.stackView.arrangedSubviews.compactMap { $0 as? ActionBarButton }
@@ -210,6 +225,7 @@ final class ActionBarViewControllerTests: XCTestCase {
 private final class PlacePageDataStub: PlacePageData {
   var stubMapNodeAttributes: MapNodeAttributes?
   var stubBookmarkData: PlacePageBookmarkData?
+  var stubRoadType: PlacePageRoadType = .none
   private let stubObjectType: PlacePageObjectType
 
   init(objectType: PlacePageObjectType) {
@@ -220,6 +236,7 @@ private final class PlacePageDataStub: PlacePageData {
   override var mapNodeAttributes: MapNodeAttributes? { stubMapNodeAttributes }
   override var bookmarkData: PlacePageBookmarkData? { stubBookmarkData }
   override var objectType: PlacePageObjectType { stubObjectType }
+  override var roadType: PlacePageRoadType { stubRoadType }
 }
 
 private final class MapNodeAttributesStub: MapNodeAttributes {

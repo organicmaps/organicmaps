@@ -199,7 +199,7 @@ public class PlacePageController
   }
 
   // Returns the "avoid" routing button for an avoidable warning, or null otherwise.
-  // STEPS/GATE/LIFT_GATE warnings have no routing option to avoid them, and UNKNOWN is not a warning.
+  // GATE/LIFT_GATE warnings have no routing option to avoid them, and UNKNOWN is not a warning.
   @Nullable
   private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
   {
@@ -208,6 +208,7 @@ public class PlacePageController
       case DIRTY -> PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
       case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
       case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
+      case STEPS -> PlacePageButtons.ButtonType.ROUTE_AVOID_STEPS;
       default -> null;
     };
   }
@@ -516,9 +517,10 @@ public class PlacePageController
     case ROUTE_ADD, ROUTE_APPEND -> onRouteAddBtnClicked();
     case ROUTE_REPLACE -> onRouteReplaceBtnClicked();
     case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
-    case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
-    case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
-    case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
+    case ROUTE_AVOID_TOLL -> onAvoidBtnClicked(RoadType.Toll);
+    case ROUTE_AVOID_UNPAVED -> onAvoidBtnClicked(RoadType.Dirty);
+    case ROUTE_AVOID_FERRY -> onAvoidBtnClicked(RoadType.Ferry);
+    case ROUTE_AVOID_STEPS -> onAvoidBtnClicked(RoadType.Steps);
     }
   }
 
@@ -635,21 +637,6 @@ public class PlacePageController
   {
     if (mMapObject != null)
       RoutingController.get().removeStop(mMapObject);
-  }
-
-  private void onAvoidUnpavedBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Dirty);
-  }
-
-  private void onAvoidFerryBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Ferry);
-  }
-
-  private void onAvoidTollBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Toll);
   }
 
   private void onAvoidBtnClicked(@NonNull RoadType roadType)

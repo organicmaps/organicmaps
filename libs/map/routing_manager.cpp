@@ -853,8 +853,8 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   }
 
   // HasWarnings signals avoidable car-road warnings. Walking and cycling still render their warning
-  // marks and expose ferry avoidance directly.
-  // Steps/gate/lift_gate have no avoidance control.
+  // marks and expose ferry/steps avoidance directly.
+  // Gate/lift_gate have no avoidance control.
   bool const hasDrivingOptionsWarning =
       m_currentRouterType == RouterType::Vehicle &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });
@@ -1419,6 +1419,21 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
   m_routingSession.GenerateNotifications(turnNotifications, announceStreets);
 }
 
+namespace
+{
+RoutingOptions LoadRoutePlanningOptions(RouterType router)
+{
+  auto const vehicle = RoutingOptions::GetVehicleType(router);
+  return vehicle ? RoutingOptions::LoadFromSettings(*vehicle) : RoutingOptions{};
+}
+}  // namespace
+
+bool RoutingManager::HaveRoutePlanningOptionsChanged() const
+{
+  auto const options = m_routingSession.GetRoutePlanningOptions();
+  return options && options->GetOptions() != LoadRoutePlanningOptions(m_currentRouterType).GetOptions();
+}
+
 void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
@@ -1426,6 +1441,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
 
   // Retire the previous build before notifying observers, including on validation failures.
   CloseRouting(false /* remove route points */);
+  m_routingSession.SetRoutePlanningOptions(LoadRoutePlanningOptions(m_currentRouterType));
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
 
   // Remove already passed intermediate points so they don't affect the new route.

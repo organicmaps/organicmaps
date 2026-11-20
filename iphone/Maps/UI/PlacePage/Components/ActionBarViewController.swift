@@ -29,21 +29,21 @@ final class ActionBarViewController: UIViewController {
       visibleButtons.append(.routeRemoveStop)
     } else if placePageData.roadType != .none {
       let options = RoutingOptions(routerType: MWMRouter.type())
+      let avoidance: (RoutingAvoidance, ActionBarButtonType)
       switch placePageData.roadType {
       case .toll:
-        if options.supportedOptions.contains(.toll) {
-          visibleButtons.append(.avoidToll)
-        }
+        avoidance = (.toll, .avoidToll)
       case .ferry:
-        if options.supportedOptions.contains(.ferry) {
-          visibleButtons.append(.avoidFerry)
-        }
+        avoidance = (.ferry, .avoidFerry)
       case .dirty:
-        if options.supportedOptions.contains(.dirty) {
-          visibleButtons.append(.avoidDirty)
-        }
+        avoidance = (.dirty, .avoidDirty)
+      case .steps:
+        avoidance = (.steps, .avoidSteps)
       default:
         fatalError()
+      }
+      if options.supportedOptions.contains(avoidance.0) {
+        visibleButtons.append(avoidance.1)
       }
     } else {
       configDefaultButtons()

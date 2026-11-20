@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "اجتناب از گذرگاه‌های کشتی";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "اجتناب از پله‌ها";
 "avoid_motorways" = "از بزرگراه دوری کنید";
 "unable_to_calc_alert_title" = "امکان محاسبه مسیر نیست";
 "unable_to_calc_alert_subtitle" = "مسیر یافت نشد. این مشکل ممکن است به دلیل تنظیمات مسیر‌یابی شما یا داده‌های ناقص OpenStreetMap باشد. لطفا تنظیمات مسیر‌یابی خود را تغییر دهید و دوباره امتحان کنید.";
@@ -775,7 +778,7 @@
 "ferry_crossing" = "گذرگاه جاده‌ای";
 
 /* Route warning shown on the map for this obstacle type. */
-"road_warning_steps" = "مسیر";
+"road_warning_steps" = "پله‌ها";
 
 /* Route warning shown on the map for this obstacle type. */
 "road_warning_gate" = "دروازه";
