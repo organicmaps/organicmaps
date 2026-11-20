@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Siirrä välipistettä.</string>
     <string name="dialog_routing_system_error">Järjestelmävirhe</string>
     <string name="dialog_routing_application_error">Reittiä ei voi luoda sovellusvirheen vuoksi.</string>
-    <string name="dialog_routing_try_again">Yritä uudelleen</string>
     <string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?</string>
     <string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
 

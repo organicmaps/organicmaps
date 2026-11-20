@@ -656,8 +656,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Vermy trappe</string>
     <string name="avoid_motorways">Vermy snelweë</string>
-    <string name="unable_to_calc_alert_title">Kan nie ’n roete bereken nie</string>
-    <string name="unable_to_calc_alert_subtitle">’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.</string>
     <string name="toll_road">Tolpaaie</string>
     <string name="unpaved_road">Grondpaaie</string>
     <string name="ferry_crossing">Veerbootkruisings</string>

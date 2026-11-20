@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Jekk jogħġbok irranġa l-punt intermedju tiegħek.</string>
     <string name="dialog_routing_system_error">Żball fis-sistema</string>
     <string name="dialog_routing_application_error">Ir-rotta ma\' tistax tinħoloq minħabba żball fl-applikazzjoni.</string>
-    <string name="dialog_routing_try_again">Jekk jogħġbok erġa ’pprova</string>
     <string name="dialog_routing_download_and_build_cross_route">Tixtieq tniżżel il-mappa u toħloq rotta aktar ottimali li tkopri aktar minn mappa waħda?</string>
     <string name="dialog_routing_download_cross_route">Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.</string>
 

@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Werk asb. u tussenstop by.</string>
     <string name="dialog_routing_system_error">Stelselfout</string>
     <string name="dialog_routing_application_error">Kan weens ’n toepassingfout nie ’n roete berkeen nie.</string>
-    <string name="dialog_routing_try_again">Probeer asb. weer</string>
     <string name="dialog_routing_download_and_build_cross_route">Wil u die kaart aflaai en ’n meer optimale roete bereken wat oor meer as een kaart loop?</string>
     <string name="dialog_routing_download_cross_route">Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.</string>
 

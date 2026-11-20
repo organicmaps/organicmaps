@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">ກະລຸນາປັບປຸງຈຸດແວ່ພັກຂອງທ່ານ.</string>
     <string name="dialog_routing_system_error">ຂໍ້ຜິດພາດຂອງລະບົບ</string>
     <string name="dialog_routing_application_error">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ.</string>
-    <string name="dialog_routing_try_again">ກະລຸນາລອງໃໝ່</string>
     <string name="dialog_routing_download_and_build_cross_route">ທ່ານຕ້ອງການດາວໂຫລດແຜນທີ່ ແລະ ສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງກວມເອົາຫຼາຍກວ່າໜຶ່ງແຜນທີ່ບໍ່?</string>
     <string name="dialog_routing_download_cross_route">ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.</string>
 

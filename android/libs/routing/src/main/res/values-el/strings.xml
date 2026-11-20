@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Ρυθμίστε το ενδιάμεσο σημείο.</string>
     <string name="dialog_routing_system_error">Σφάλμα συστήματος</string>
     <string name="dialog_routing_application_error">Δεν είναι δυνατή η δημιουργία διαδρομής λόγω σφάλματος της εφαρμογής.</string>
-    <string name="dialog_routing_try_again">Προσπαθήστε ξανά</string>
     <string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;</string>
     <string name="dialog_routing_download_cross_route">Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
 

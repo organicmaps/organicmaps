@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Ajusteu el punt intermig.</string>
     <string name="dialog_routing_system_error">Error de sistema</string>
     <string name="dialog_routing_application_error">No s\'ha pogut crear la ruta a causa d\'un error de l\'aplicació.</string>
-    <string name="dialog_routing_try_again">Torneu-ho a intentar</string>
     <string name="dialog_routing_download_and_build_cross_route">Voleu baixar el mapa i crar una ruta més òptima que travessi més d\'un mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixeu mapes addicionals per a crear una ruta millor que creua els límits d\'aquest mapa.</string>
 

@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Molimo prilagodite svoju međustanicu.</string>
     <string name="dialog_routing_system_error">Sistemski greška</string>
     <string name="dialog_routing_application_error">Nije moguće stvoriti rutu zbog pogreške u aplikaciji.</string>
-    <string name="dialog_routing_try_again">Pokušaj ponovo</string>
     <string name="dialog_routing_download_and_build_cross_route">Želite li preuzeti kartu i stvoriti optimalniju rutu koja obuhvaća više karata?</string>
     <string name="dialog_routing_download_cross_route">Preuzmite dodatne karte kako biste stvorili bolju rutu koja prelazi granice ove karte.</string>
 

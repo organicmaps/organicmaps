@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Змяніце прамежкавы пункт.</string>
     <string name="dialog_routing_system_error">Памылка сістэмы</string>
     <string name="dialog_routing_application_error">Не ўдалося пракласці маршрут з-за памылкі праграмы.</string>
-    <string name="dialog_routing_try_again">Паспрабуйце зноў</string>
     <string name="dialog_routing_download_and_build_cross_route">Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?</string>
     <string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.</string>
 

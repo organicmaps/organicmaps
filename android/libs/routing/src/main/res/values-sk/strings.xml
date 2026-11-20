@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Upravte zastávku.</string>
     <string name="dialog_routing_system_error">Systémová chyba</string>
     <string name="dialog_routing_application_error">Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.</string>
-    <string name="dialog_routing_try_again">Skúste znova, prosím</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
     <string name="dialog_routing_download_cross_route">Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.</string>
 

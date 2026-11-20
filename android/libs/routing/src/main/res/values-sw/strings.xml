@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
     <string name="dialog_routing_system_error">Hitilafu ya mfumo</string>
     <string name="dialog_routing_application_error">Haiwezekani kuunda njia kutokana na hitilafu ya programu.</string>
-    <string name="dialog_routing_try_again">Tafadhali jaribu tena</string>
     <string name="dialog_routing_download_and_build_cross_route">Je, ungependa kupakua ramani na kuunda njia bora zaidi inayojumuisha ramani zaidi ya moja?</string>
     <string name="dialog_routing_download_cross_route">Pakua ramani za ziada ili kuunda njia bora inayovuka mipaka ya ramani hii.</string>
 

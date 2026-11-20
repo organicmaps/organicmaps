@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Prilagodite svojo vmesno točko.</string>
     <string name="dialog_routing_system_error">Sistemska napaka</string>
     <string name="dialog_routing_application_error">Poti ni mogoče ustvariti zaradi napake v aplikaciji.</string>
-    <string name="dialog_routing_try_again">Poskusite znova</string>
     <string name="dialog_routing_download_and_build_cross_route">Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?</string>
     <string name="dialog_routing_download_cross_route">Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.</string>
 

@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Pakoreguokite tarpinį tašką.</string>
     <string name="dialog_routing_system_error">Sistemos klaida</string>
     <string name="dialog_routing_application_error">Maršruto nepavyko apskaičiuoti dėl programinės klaidos.</string>
-    <string name="dialog_routing_try_again">Bandykite dar kartą</string>
     <string name="dialog_routing_download_and_build_cross_route">Ar atsiųsti žemėlapį, kad būtų apskaičiuotas geresnis maršrutas, apimantis daugiau nei vieną žemėlapį?</string>
     <string name="dialog_routing_download_cross_route">Atsiųskite papildomus žemėlapius, kad būtų apskaičiuotas geresnis maršrutas, išeinantis už šio žemėlapio ribų.</string>
 

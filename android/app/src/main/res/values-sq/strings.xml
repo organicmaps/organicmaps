@@ -647,8 +647,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Shmang shkallët</string>
     <string name="avoid_motorways">Shmang autostradat</string>
-    <string name="unable_to_calc_alert_title">Nuk mund të llogaritet rruga</string>
-    <string name="unable_to_calc_alert_subtitle">Rruga nuk mund të gjendej. Kjo mund të shkaktohet nga opsionet tuaja të rrugëtimit ose të dhëna të paplota të OpenStreetMap. Ju lutemi ndryshoni opsionet tuaja të rrugëtimit dhe provoni përsëri.</string>
     <string name="toll_road">Rrugë me pagesë</string>
     <string name="unpaved_road">Rrugë e paasfaltuar</string>
     <string name="ferry_crossing">Kalim me traget</string>

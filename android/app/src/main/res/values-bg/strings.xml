@@ -658,8 +658,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Избягване на стълби</string>
     <string name="avoid_motorways">Избягвайте магистралата</string>
-    <string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
-    <string name="unable_to_calc_alert_subtitle">За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.</string>
     <string name="toll_road">Път с винетка</string>
     <string name="unpaved_road">Път без настилка</string>
     <string name="ferry_crossing">Преминаване с ферибот</string>

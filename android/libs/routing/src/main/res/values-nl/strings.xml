@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Gelieve uw tussenstop aan te passen.</string>
     <string name="dialog_routing_system_error">Systeemfout</string>
     <string name="dialog_routing_application_error">Route samenstellen mislukt door een applicatiefout.</string>
-    <string name="dialog_routing_try_again">Probeer het opnieuw</string>
     <string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
     <string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
 

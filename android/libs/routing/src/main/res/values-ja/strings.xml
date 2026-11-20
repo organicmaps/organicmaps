@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">中間地点を調整してください。</string>
     <string name="dialog_routing_system_error">システムエラー</string>
     <string name="dialog_routing_application_error">エラーにより案内ルートを作成できませんでした。</string>
-    <string name="dialog_routing_try_again">もう一度お試しください</string>
     <string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
     <string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
 

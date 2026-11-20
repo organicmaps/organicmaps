@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Моля, коригирайте междинната си точка на маршрута.</string>
     <string name="dialog_routing_system_error">Грешка в системата</string>
     <string name="dialog_routing_application_error">Не е възможно да се създаде маршрут поради грешка в приложението.</string>
-    <string name="dialog_routing_try_again">Моля, опитайте отново</string>
     <string name="dialog_routing_download_and_build_cross_route">Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?</string>
     <string name="dialog_routing_download_cross_route">За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.</string>
 

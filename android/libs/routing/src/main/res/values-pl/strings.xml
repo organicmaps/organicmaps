@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Dokonaj korekty punktu postoju.</string>
     <string name="dialog_routing_system_error">Błąd systemowy</string>
     <string name="dialog_routing_application_error">Nie można wyznaczyć trasy z powodu błędu aplikacji.</string>
-    <string name="dialog_routing_try_again">Spróbuj ponownie</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
     <string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
 

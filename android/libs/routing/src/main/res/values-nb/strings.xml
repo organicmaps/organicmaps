@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Kontroller og juster mellomstopp.</string>
     <string name="dialog_routing_system_error">Systemfeil</string>
     <string name="dialog_routing_application_error">En applikasjonsfeil førte til at ruten ikke kunne opprettes.</string>
-    <string name="dialog_routing_try_again">Vennligst prøv igjen</string>
     <string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
     <string name="dialog_routing_download_cross_route">Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.</string>
 

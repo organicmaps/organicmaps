@@ -661,8 +661,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Treppen vermeiden</string>
     <string name="avoid_motorways">Autobahnen vermeiden</string>
-    <string name="unable_to_calc_alert_title">Route kann nicht berechnet werden</string>
-    <string name="unable_to_calc_alert_subtitle">Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.</string>
     <string name="toll_road">Mautstraße</string>
     <string name="unpaved_road">Unbefestigte Straße</string>
     <string name="ferry_crossing">Fährstelle</string>

@@ -656,8 +656,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Hindari tangga</string>
     <string name="avoid_motorways">Hindari jalan raya</string>
-    <string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
-    <string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
     <string name="toll_road">Jalan tol</string>
     <string name="unpaved_road">Jalan tanah</string>
     <string name="ferry_crossing">Penyeberangan kapal feri</string>

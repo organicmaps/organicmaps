@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Bitte passe deinen Zwischenstopp an.</string>
     <string name="dialog_routing_system_error">Systemfehler</string>
     <string name="dialog_routing_application_error">Route kann wegen eines Anwendungsfehlers nicht erstellt werden.</string>
-    <string name="dialog_routing_try_again">Bitte versuche es erneut</string>
     <string name="dialog_routing_download_and_build_cross_route">Möchtest du die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
     <string name="dialog_routing_download_cross_route">Lade zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.</string>
 

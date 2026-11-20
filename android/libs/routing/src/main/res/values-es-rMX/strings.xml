@@ -28,7 +28,6 @@
     <string name="dialog_routing_change_intermediate">No se ha podido localizar el punto intermedio.</string>
     <string name="dialog_routing_intermediate_not_determined">Por favor, ajuste su punto intermedio.</string>
     <string name="dialog_routing_application_error">No se ha podido crear la ruta debido a un error de la aplicación.</string>
-    <string name="dialog_routing_try_again">Por favor, inténtelo de nuevo</string>
     <string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta más óptima que abarque más de un mapa?</string>
 
     <!-- SECTION: Strings for downloading map from search -->

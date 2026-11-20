@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">กรุณาปรับจุดระหว่างทางของคุณ</string>
     <string name="dialog_routing_system_error">ระบบเกิดข้อผิดพลาด</string>
     <string name="dialog_routing_application_error">ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน</string>
-    <string name="dialog_routing_try_again">กรุณาลองอีกครั้ง</string>
     <string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
     <string name="dialog_routing_download_cross_route">ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
 

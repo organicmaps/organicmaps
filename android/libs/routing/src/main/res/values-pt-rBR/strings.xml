@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Por favor, ajuste seu ponto intermediário.</string>
     <string name="dialog_routing_system_error">Erro do sistema</string>
     <string name="dialog_routing_application_error">Não foi possível traçar uma rota devido a um erro no aplicativo.</string>
-    <string name="dialog_routing_try_again">Por favor, tente novamente</string>
     <string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.</string>
 

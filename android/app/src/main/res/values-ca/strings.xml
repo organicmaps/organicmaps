@@ -666,8 +666,6 @@
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Evita escales</string>
     <string name="avoid_motorways">Evita autopistes</string>
-    <string name="unable_to_calc_alert_title">No s’ha pogut calcular la ruta</string>
-    <string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
     <string name="ferry_crossing">Ferris</string>

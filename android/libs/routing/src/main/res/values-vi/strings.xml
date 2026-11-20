@@ -30,7 +30,6 @@
     <string name="dialog_routing_intermediate_not_determined">Vui lòng điều chỉnh điểm trung gian của bạn.</string>
     <string name="dialog_routing_system_error">Lỗi hệ thống</string>
     <string name="dialog_routing_application_error">Không thể tạo tuyến đường do lỗi ứng dụng.</string>
-    <string name="dialog_routing_try_again">Vui lòng thử lại</string>
     <string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
     <string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
 
