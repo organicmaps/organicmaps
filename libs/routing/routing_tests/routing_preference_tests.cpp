@@ -336,4 +336,33 @@ UNIT_CLASS_TEST(StepsRoutingFixture, RequiredStepsFailTheRoute)
     }
   }
 }
+
+class TrailDifficultyFixture : public RoutingPreferenceFixture
+{
+public:
+  TrailDifficultyFixture() : RoutingPreferenceFixture("routing_trail_difficulty.osm") {}
+};
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingRouteRetainsTrailGrades)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  RoutesResult result;
+  TEST_EQUAL(Calculate(*router, result), RouterResultCode::NoError, ());
+  auto const & route = result.GetActive();
+  // The direct route still uses both graded trails despite the ordinary-trail detour.
+  TEST(UsesRoadType(route, RoutingOptions::DifficultTrail), ());
+  TEST(UsesRoadType(route, RoutingOptions::ExpertTrail), ());
+
+  bool unpavedDifficultTrail = false;
+  for (auto const & segment : route.GetRouteSegments())
+  {
+    auto const types = segment.GetRoadTypes();
+    if (!types.Has(RoutingOptions::DifficultTrail))
+      continue;
+    TEST(!types.Has(RoutingOptions::ExpertTrail), ());
+    unpavedDifficultTrail |= types.Has(RoutingOptions::Dirty);
+  }
+  // Trail classification preserves the separately mapped gravel surface.
+  TEST(unpavedDifficultTrail, ());
+}
 }  // namespace routing_preference_tests

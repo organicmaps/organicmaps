@@ -199,7 +199,6 @@ public class PlacePageController
   }
 
   // Returns the "avoid" routing button for an avoidable warning, or null otherwise.
-  // GATE/LIFT_GATE warnings have no routing option to avoid them, and UNKNOWN is not a warning.
   @Nullable
   private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
   {
