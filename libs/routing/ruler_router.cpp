@@ -53,7 +53,8 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   Segment const segment(kFakeNumMwmId, 0, 0, false);
 
-  auto const ToPointWA = [](m2::PointD const & p) { return geometry::PointWithAltitude(p, 0 /* altitude */); };
+  auto const ToPointWA = [](m2::PointD const & p)
+  { return geometry::PointWithAltitude(p, geometry::kInvalidAltitude); };
 
   for (uint32_t i = 0; i < count; ++i)
   {
@@ -61,7 +62,6 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     geometry::PointWithAltitude const junction = ToPointWA(points[i]);
     RouteSegment::RoadNameInfo const roadNameInfo;
 
-    auto routeSegment = RouteSegment(segment, turn, junction, roadNameInfo);
     routeSegments.emplace_back(segment, turn, junction, roadNameInfo);
     times.push_back(0);
 

@@ -37,9 +37,9 @@ public:
   using Points = std::vector<m2::PointD>;
   RoadGeometry(bool oneWay, Maxspeed const & maxspeed, Points const & points);
 
-  /// @param[in] altitudes May be nullptr.
-  void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature, geometry::Altitudes const * altitudes,
-            RoadAttrsGetter & attrs, RoutingOptionsClassifier const & optionsClassifier);
+  /// @param[in] altitudes Empty when altitude loading is disabled.
+  void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature, geometry::Altitudes const & altitudes,
+            bool hasAltitude, RoadAttrsGetter & attrs, RoutingOptionsClassifier const & optionsClassifier);
 
   SpeedKMpH GetSpeed(bool forward, time_t time = 0) const;
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }

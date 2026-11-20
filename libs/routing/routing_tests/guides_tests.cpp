@@ -57,6 +57,24 @@ UNIT_TEST(Guides_InitWithGuides)
   TEST(!guides.IsAttached(), ());
 }
 
+UNIT_TEST(Guides_ProjectionUsesAvailableTrackHeights)
+{
+  GuidesTracks tracks;
+  tracks[10] = {{{{19, 0}, 0}, {{19.001, 0}, 100}, {{19.002, 0}, geometry::kInvalidAltitude}}};
+  GuidesConnections guides(std::move(tracks));
+  guides.SetGuidesGraphParams(0, 1.0);
+  guides.ConnectToGuidesGraph({{19.0005, 0}, {19.001, 0}, {19.0015, 0}});
+
+  geometry::Altitude const expected[] = {50, 100, geometry::kInvalidAltitude};
+  for (size_t i = 0; i < std::size(expected); ++i)
+  {
+    auto const ending = guides.GetFakeEnding(i);
+    TEST_EQUAL(ending.m_projections.size(), 1, (i));
+    TEST_EQUAL(ending.m_projections.front().m_junction.GetRouteAltitude(), expected[i], (i));
+    TEST_EQUAL(ending.m_originJunction.GetRouteAltitude(), expected[i], (i));
+  }
+}
+
 UNIT_TEST(Guides_TooFarCheckpointsAreNotAttached)
 {
   GuidesConnections guides(GetTestGuides());

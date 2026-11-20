@@ -170,6 +170,7 @@ RouteGeometry AssembleRouteGeometry(TrackFollowingData const & data, Checkpoints
   junctions.reserve(maxJunctions);
   geom.m_distM.reserve(maxJunctions);
 
+  // Use the entry point's height for the straight approach, including a missing height.
   junctions.emplace_back(startPoint, entryPoint.GetAltitude());
   geom.m_distM.push_back(0.0);
   // Even an empty approach makes the entry altitude a segment endpoint.

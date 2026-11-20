@@ -38,8 +38,14 @@ public:
   /// @param[in] f in range [0, 1]
   PointWithAltitude Interpolate(PointWithAltitude const & to, double f) const
   {
-    return PointWithAltitude(m_point + (to.m_point - m_point) * f,
-                             math::iround(m_altitude + (to.m_altitude - m_altitude) * f));
+    if (f == 0)
+      return *this;
+    if (f == 1)
+      return to;
+    Altitude const altitude = m_altitude == kInvalidAltitude || to.m_altitude == kInvalidAltitude
+                                ? kInvalidAltitude
+                                : math::iround(m_altitude + (to.m_altitude - m_altitude) * f);
+    return {m_point + (to.m_point - m_point) * f, altitude};
   }
 
 private:
