@@ -91,6 +91,8 @@ struct LineViewParams : CommonViewParams
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;
+  // Along-spline distances from the clipped start, independent of dash phase.
+  std::vector<double> m_dashContacts;
   double m_dashPhaseOffset = 0.0;
   bool m_dashPhaseReversed = false;
   double m_baseGtoPScale = 1.0;

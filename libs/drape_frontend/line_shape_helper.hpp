@@ -23,6 +23,12 @@ std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const &
                                                  std::vector<ConnectorTarget> const & targets, double scaleGtoP,
                                                  double tolerance);
 
+// Distances along the road axis corresponding to contacts on its offset lane.
+std::vector<double> LaneContactDistances(std::vector<m2::PointD> const & road,
+                                         std::vector<m2::PointD> const & junctions,
+                                         std::vector<std::vector<m2::PointD>> const & approaches, float offsetPixels,
+                                         double scaleGtoP, double tolerance);
+
 enum EPointType
 {
   StartPoint = 0,
