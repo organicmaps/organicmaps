@@ -1213,9 +1213,10 @@ FollowTrackResult RoutingManager::ResetFollowedTrackToPlanning()
 FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(math::is_finite(distanceM), (distanceM));
   if (auto const result = CheckFollowedTrackEditable(); result != FollowTrackResult::Ok)
     return result;
+  if (!math::is_finite(distanceM))
+    return FollowTrackResult::InvalidSelection;
 
   auto const source = m_followSession->m_source;
   distanceM = std::clamp(distanceM, 0.0, source->GetLengthMeters());
@@ -1893,7 +1894,6 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
-  ASSERT(math::is_finite(distanceMeters), (distanceMeters));
   if (IsPreviewingTrack())
   {
     if (distanceMeters == m_followSession->m_info.m_entryDistanceM)

@@ -92,7 +92,6 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
   ASSERT_LESS(bound.m_line, geometry.m_lines.size(), ());
   ASSERT_GREATER(geometry.m_lines[bound.m_line].size(), 1, ());
   ASSERT_LESS(bound.m_segment, geometry.m_lines[bound.m_line].size() - 1, ());
-  ASSERT(math::is_finite(bound.m_fraction) && bound.m_fraction >= 0.0 && bound.m_fraction <= 1.0, (bound.m_fraction));
   // An off-vertex visit continues until the track leaves the stop's projection radius.
   auto const departureCenter = requireReturn && isSourceVertex ? PointAtPosition(geometry, bound).GetPoint() : point;
   double const departureRadiusM = isSourceVertex ? kDistinctStopVisitM : kMaxStopDistanceM;
@@ -135,8 +134,7 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
 TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFromBeginningM)
 {
   auto const & lengths = track.GetCumulativeLengths();
-  ASSERT(math::is_finite(distanceFromBeginningM) && distanceFromBeginningM >= 0.0 &&
-             distanceFromBeginningM <= lengths.back().back(),
+  ASSERT(distanceFromBeginningM >= 0.0 && distanceFromBeginningM <= lengths.back().back(),
          (distanceFromBeginningM, lengths.back().back()));
   auto const line =
       std::ranges::lower_bound(lengths, distanceFromBeginningM, {}, [](auto const & l) { return l.back(); });
@@ -153,8 +151,7 @@ TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFrom
 std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::PointD const & selectedPoint,
                                                      double distanceFromBeginningM)
 {
-  ASSERT(math::is_finite(distanceFromBeginningM), (distanceFromBeginningM));
-  if (distanceFromBeginningM < 0.0)
+  if (!math::is_finite(distanceFromBeginningM) || distanceFromBeginningM < 0.0)
     return std::nullopt;
 
   auto const & lengths = track.GetCumulativeLengths();
@@ -193,7 +190,7 @@ bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourceP
   ASSERT_LESS(entry.m_line, geometry.m_lines.size(), ());
   ASSERT_GREATER(geometry.m_lines[entry.m_line].size(), 1, ());
   ASSERT_LESS(entry.m_segment, geometry.m_lines[entry.m_line].size() - 1, ());
-  ASSERT(math::is_finite(entry.m_fraction) && entry.m_fraction >= 0.0 && entry.m_fraction <= 1.0, (entry.m_fraction));
+  ASSERT(entry.m_fraction >= 0.0 && entry.m_fraction <= 1.0, (entry.m_fraction));
   auto const origin = PointAtPosition(geometry, entry).GetPoint();
   for (size_t line = entry.m_line;; ++line)
   {

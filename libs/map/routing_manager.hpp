@@ -84,7 +84,7 @@ enum class FollowTrackResult
   NoTrack,
   /// Active navigation or a pending Start prevents this operation.
   Busy,
-  /// The selected occurrence is missing or no longer matches its source.
+  /// The selection does not identify a valid occurrence in its source.
   InvalidSelection,
   /// No horizontal geometry remains in the selected connected section.
   NoRemainingGeometry,
@@ -224,11 +224,11 @@ public:
   bool IsFollowingTrack() const { return m_followSession.has_value(); }
   // A requested Start waits for the approach build before native following can begin.
   bool IsStartingFollowedTrack() const { return m_followSession && m_followSession->m_startWhenReady; }
-  /// \returns nullopt when no track is being followed. The info is a snapshot: it stays valid
-  /// after the track itself is deleted (see FollowedTrackInfo).
-  std::optional<FollowedTrackInfo> GetFollowedTrackInfo() const
+  /// Borrowed on the GUI thread until the follow session changes or closes.
+  /// Returns nullptr when there is no follow session.
+  FollowedTrackInfo const * GetFollowedTrackInfo() const
   {
-    return m_followSession ? std::make_optional(m_followSession->m_info) : std::nullopt;
+    return m_followSession ? &m_followSession->m_info : nullptr;
   }
   // Immutable full source for preview charts and point lookup, independent of bookmark lifetime.
   std::shared_ptr<Track const> GetFollowedTrack() const

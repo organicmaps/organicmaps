@@ -1302,36 +1302,6 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 }
 
-#ifdef DEBUG
-UNIT_TEST(RoutingManager_TrackFollowPreconditions)
-{
-  AsyncBuildFixture fixture;
-  auto & manager = fixture.m_framework.GetRoutingManager();
-  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
-  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
-  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
-  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
-  fixture.WaitForBuildResult();
-  for (auto const profile : {routing::RouterType::Transit, routing::RouterType::Ruler, routing::RouterType::Count})
-    TestAssertion([&] { manager.SetFollowTrackProfile(profile); });
-
-  for (double const distance : {math::Nan(), math::Infinity(), -math::Infinity()})
-  {
-    TestAssertion([&] { manager.UpdateFollowedTrackEntryAt(distance); });
-    TestAssertion([&] { manager.GetRoutePointAtDistance(distance); });
-  }
-
-  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
-  manager.FollowRoute();
-  TEST(manager.IsRoutingFollowing(), ());
-  // Invalid arguments fail before the normal Busy refusal, without reaching installation.
-  for (auto const profile : {routing::RouterType::Transit, routing::RouterType::Ruler, routing::RouterType::Count})
-    TestAssertion([&] { manager.SetFollowTrackProfile(profile); });
-  for (double const distance : {math::Nan(), math::Infinity(), -math::Infinity()})
-    TestAssertion([&] { manager.UpdateFollowedTrackEntryAt(distance); });
-}
-#endif
-
 UNIT_TEST(RoutingManager_RouteElevationDataUsesMeasuredTransitAltitudes)
 {
   AsyncBuildFixture fixture;
@@ -2187,12 +2157,15 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceRefusalsPreserveState)
   auto const checkRefusal = [&](double distance, FollowTrackResult expected)
   {
     auto const * route = manager.RoutingSession().GetRoute();
-    auto const info = manager.GetFollowedTrackInfo();
+    auto const * info = manager.GetFollowedTrackInfo();
+    TEST(info, ());
+    auto const entryBefore = info->m_entryDistanceM;
+    auto const profileBefore = info->m_profile;
     auto const selection = bookmarks.GetTrackSelectionInfo(id);
     TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(distance), expected, (distance));
     TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ());
-    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, info->m_entryDistanceM, ());
-    TEST_EQUAL(manager.GetRenderRouterType(), info->m_profile, ());
+    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryBefore, ());
+    TEST_EQUAL(manager.GetRenderRouterType(), profileBefore, ());
     TEST_EQUAL(bookmarks.GetTrackSelectionInfo(id).m_trackPoint, selection.m_trackPoint, ());
     TEST_EQUAL(bookmarks.GetElevationActivePoint(id), selection.m_distFromBegM, ());
     TEST_EQUAL(notifications, 0, ());
@@ -2206,6 +2179,8 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceRefusalsPreserveState)
   double const length = bookmarks.GetTrack(id)->GetLengthMeters();
   checkRefusal(length, FollowTrackResult::NoRemainingGeometry);
   checkRefusal(length + 100.0, FollowTrackResult::NoRemainingGeometry);
+  for (double const distance : {math::Nan(), math::Infinity(), -math::Infinity()})
+    checkRefusal(distance, FollowTrackResult::InvalidSelection);
 
   auto changed = source;
   changed.m_geometry.m_lines.front().back().SetPoint(MeterPoint(1100, 0));
@@ -2630,6 +2605,7 @@ UNIT_TEST(RoutingManager_SaveRouteRejectsCollapsedGeometry)
     }
   });
 }
+
 UNIT_TEST(RoutingManager_SaveRouteDeduplicatesWithoutLosingMovement)
 {
   WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)

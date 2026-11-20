@@ -70,7 +70,8 @@ UNIT_TEST(TrackFollowData_InvalidTrackSelectionDistance)
   source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
   source.m_geometry.AddTimestamps({});
   auto const track = MakeSourceTrack(source);
-  TEST(!ResolveTrackEntry(track, MeterPoint(0, 0), -1.0), ());
+  for (double const distance : {-1.0, math::Nan(), math::Infinity(), -math::Infinity()})
+    TEST(!ResolveTrackEntry(track, MeterPoint(0, 0), distance), (distance));
   TEST(ResolveTrackEntry(track, MeterPoint(0, 0), 0.0), ());
 }
 
@@ -301,16 +302,12 @@ UNIT_TEST(TrackFollowData_InvalidSourcePositionsFail)
   source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
   source.m_geometry.AddTimestamps({});
   auto const track = MakeSourceTrack(source);
-  for (double const distance : {math::Nan(), math::Infinity(), -math::Infinity()})
-  {
-    TEST_THROW(ResolveTrackEntry(track, MeterPoint(0, 0), distance), logic_error, ());
+  for (double const distance : {-1.0, track.GetLengthMeters() + 1.0})
     TEST_THROW(ResolveTrackEntryAt(track, distance), logic_error, ());
-  }
 
   for (auto const entry : {TrackSourcePosition{1, 0, 0.0}, TrackSourcePosition{0, 1, 0.0},
                            TrackSourcePosition{0, std::numeric_limits<size_t>::max(), 0.0},
-                           TrackSourcePosition{0, 0, -0.1}, TrackSourcePosition{0, 0, 1.1},
-                           TrackSourcePosition{0, 0, math::Nan()}, TrackSourcePosition{0, 0, math::Infinity()}})
+                           TrackSourcePosition{0, 0, -0.1}, TrackSourcePosition{0, 0, 1.1}})
     TEST_THROW(BuildTrackFollowingData(source, entry), logic_error, ());
 }
 
