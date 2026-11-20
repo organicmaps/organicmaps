@@ -2,14 +2,12 @@ import UIKit
 
 public class ChartPresentationData {
   private let chartData: ChartData
-  private var presentationLines: [ChartPresentationLine]
-  private let pathBuilder = DefaultChartPathBuilder()
+  private let presentationLines: [ChartPresentationLine]
 
   let formatter: ChartFormatter
   var linesCount: Int { chartData.lines.count }
   var pointsCount: Int { chartData.xAxisValues.count }
   var segmentDistances: [Double] { chartData.segmentDistances }
-  var type: ChartType { chartData.type }
   var lower = CGFloat(Int.max)
   var upper = CGFloat(Int.min)
 
@@ -45,9 +43,6 @@ public class ChartPresentationData {
   }
 
   private func recalculateBounds() {
-    presentationLines.forEach { $0.aggregatedValues = [] }
-    pathBuilder.build(presentationLines, type: type)
-
     var l = CGFloat(Int.max)
     var u = CGFloat(Int.min)
     for presentationLine in presentationLines {

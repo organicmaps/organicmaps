@@ -101,14 +101,15 @@ class ChartPreviewView: ExpandedTouchView {
       for i in (0 ..< chartData.linesCount).reversed() {
         let line = chartData.lineAt(i)
         let v = ChartLineView()
-        v.isPreview = true
         v.chartLine = line
         v.frame = previewContainerView.bounds
         v.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         previewContainerView.addSubview(v)
         previewViews.insert(v, at: 0)
       }
-      previewViews.forEach { $0.setY(min: chartData.lower, max: chartData.upper) }
+      // A flat profile has no Y span to scale: center it instead.
+      let padding: CGFloat = chartData.lower < chartData.upper ? 0 : 1
+      previewViews.forEach { $0.setY(min: chartData.lower - padding, max: chartData.upper + padding) }
       let count = chartData.pointsCount - 1
       minX = 0
       maxX = count

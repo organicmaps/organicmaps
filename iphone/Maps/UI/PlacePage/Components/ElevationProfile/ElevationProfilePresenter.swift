@@ -207,5 +207,4 @@ extension ElevationProfileChartData: ChartData {
   var xAxisValues: [Double] { distances }
   var lines: [ChartLine] { chartLines }
   var segmentDistances: [Double] { segmentBoundaryDistances.filter { $0 > 0 && $0 < maxDistance } }
-  var type: ChartType { .regular }
 }
