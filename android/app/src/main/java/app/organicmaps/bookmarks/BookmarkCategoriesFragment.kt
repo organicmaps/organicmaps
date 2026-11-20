@@ -1,5 +1,7 @@
 package app.organicmaps.bookmarks
 
+import android.os.Handler
+import android.os.Looper
 import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
@@ -40,6 +42,10 @@ class BookmarkCategoriesFragment :
     CategoryListCallback,
     MenuBottomSheetFragment.MenuBottomSheetInterface {
 
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    private var skipExistingOnImport = false
+
     private var selectedCategory: BookmarkCategory? = null
 
     private var importDialog: Dialog? = null
@@ -77,6 +83,7 @@ class BookmarkCategoriesFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState?.let {
+            skipExistingOnImport = it.getBoolean(EXTRA_SKIP_EXISTING_ON_IMPORT)
             selectedCategory = Utils.getParcelable(it, EXTRA_SELECTED_CATEGORY, BookmarkCategory::class.java)
         }
         (childFragmentManager.findFragmentByTag(EditTextDialogFragment.TAG) as EditTextDialogFragment?)
@@ -108,6 +115,7 @@ class BookmarkCategoriesFragment :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putBoolean(EXTRA_SKIP_EXISTING_ON_IMPORT, skipExistingOnImport)
         selectedCategory?.let { outState.putParcelable(EXTRA_SELECTED_CATEGORY, it) }
     }
 
@@ -163,6 +171,22 @@ class BookmarkCategoriesFragment :
     }
 
     override fun onImportButtonClick() {
+        var skipExisting = skipExistingOnImport
+        MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.bookmarks_import)
+            .setMultiChoiceItems(
+                arrayOf(getString(R.string.bookmarks_import_skip_existing)),
+                booleanArrayOf(skipExisting),
+            ) { _, _, checked -> skipExisting = checked }
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                skipExistingOnImport = skipExisting
+                launchImportPicker()
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
+    private fun launchImportPicker() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
             // Enable "Show SD card option", http://stackoverflow.com/a/31334967/1615876
             .putExtra("android.content.extra.SHOW_ADVANCED", true)
@@ -200,6 +224,21 @@ class BookmarkCategoriesFragment :
         BookmarkManager.INSTANCE.deleteCategory(category.id)
     }
 
+    override fun onDeleteAllButtonClick() {
+        val totals = currentTotals()
+        MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.bookmarks_delete_all)
+            .setMessage(
+                getString(R.string.bookmarks_delete_all_confirm, totals.lists, totals.bookmarks, totals.tracks),
+            )
+            .setPositiveButton(R.string.delete) { _, _ ->
+                val resIdCoreMyPlaces = app.organicmaps.sdk.R.string.core_my_places
+                BookmarkManager.INSTANCE.deleteAllCategories(getString(resIdCoreMyPlaces))
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
     private fun showNoFileManagerError() {
         MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
             .setMessage(R.string.error_no_file_manager_app)
@@ -207,24 +246,93 @@ class BookmarkCategoriesFragment :
             .show()
     }
 
+    private data class Totals(val lists: Int, val bookmarks: Int, val tracks: Int)
+
+    private fun currentTotals(): Totals {
+        val categories = BookmarkManager.INSTANCE.categories
+        return Totals(categories.size, categories.sumOf { it.bookmarksCount }, categories.sumOf { it.tracksCount })
+    }
+
     private fun importBookmarks(rootUri: Uri) {
         val appContext: Context = requireContext().applicationContext
         importDialog = showImportDialog()
 
-        Logger.d(TAG, "Importing bookmarks from $rootUri")
+        Logger.d(TAG, "Importing bookmarks from $rootUri, skipExisting=$skipExistingOnImport")
+        val manager = BookmarkManager.INSTANCE
         val tempDir = File(StorageUtils.getTempPath(MwmApplication.from(appContext)))
         val resolver = appContext.contentResolver
+        // Collected on the UI thread: the list is not thread-safe, and the worker only touches this copy.
+        val knownNames: MutableSet<String>? =
+            if (skipExistingOnImport) {
+                manager.categories.mapTo(HashSet()) { BookmarkManager.normalizeListName(it.name) }
+            } else {
+                null
+            }
+
+        // All state below is only touched on the UI thread.
+        var expectedFiles = -1 // number of files handed to the core, known once the worker is done
+        var loadedFiles = 0
+        var skippedFiles = 0
+        var finished = false
+        lateinit var loadingListener: BookmarkManager.BookmarksLoadingListener
+
+        fun finish() {
+            if (finished) return
+            finished = true
+            manager.removeLoadingListener(loadingListener)
+            dismissImportDialog()
+            val found = expectedFiles.coerceAtLeast(0)
+            val totals = currentTotals()
+            val message = buildString {
+                append(appContext.resources.getQuantityString(R.plurals.bookmarks_detect_message, found, found))
+                if (skippedFiles > 0) {
+                    append('\n').append(appContext.getString(R.string.bookmarks_import_skipped, skippedFiles))
+                }
+                append('\n').append(
+                    appContext.getString(R.string.bookmarks_import_totals, totals.lists, totals.bookmarks, totals.tracks),
+                )
+            }
+            Toast.makeText(appContext, message, Toast.LENGTH_LONG).show()
+        }
+
+        fun finishIfLoaded() {
+            // Posted: the core is iterating over the listeners right now, and the lists cache is updated by then.
+            if (expectedFiles >= 0 && loadedFiles >= expectedFiles) mainHandler.post { finish() }
+        }
+
+        loadingListener = object : BookmarkManager.BookmarksLoadingListener {
+            override fun onBookmarksFileImportSuccessful() {
+                loadedFiles++
+                finishIfLoaded()
+            }
+
+            override fun onBookmarksFileImportFailed() {
+                loadedFiles++
+                finishIfLoaded()
+            }
+        }
+        manager.addLoadingListener(loadingListener)
+
         ThreadPool.getStorage().execute {
             var found = 0
+            var skipped = 0
             StorageUtils.listContentProviderFilesRecursively(resolver, rootUri) { uri ->
-                if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir)) {
-                    found++
+                when (manager.importBookmarksFile(resolver, uri, tempDir, knownNames)) {
+                    BookmarkManager.ImportResult.IMPORTED -> found++
+                    BookmarkManager.ImportResult.SKIPPED -> skipped++
+                    BookmarkManager.ImportResult.FAILED -> Unit
                 }
             }
             UiThread.run {
-                dismissImportDialog()
-                val message = appContext.resources.getQuantityString(R.plurals.bookmarks_detect_message, found, found)
-                Toast.makeText(appContext, message, Toast.LENGTH_LONG).show()
+                expectedFiles = found
+                skippedFiles = skipped
+                if (found == 0) {
+                    finish()
+                } else {
+                    finishIfLoaded()
+                    // Safety net: never leave the progress dialog up if a callback gets lost.
+                    mainHandler.postDelayed({ finish() }, IMPORT_TIMEOUT_MS)
+                }
             }
         }
     }
@@ -254,5 +362,7 @@ class BookmarkCategoriesFragment :
         val TAG: String = BookmarkCategoriesFragment::class.java.simpleName
         const val BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET"
         const val EXTRA_SELECTED_CATEGORY = "selected_category"
+        const val EXTRA_SKIP_EXISTING_ON_IMPORT = "skip_existing_on_import"
+        const val IMPORT_TIMEOUT_MS = 30_000L
     }
 }

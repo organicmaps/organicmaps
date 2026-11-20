@@ -24,7 +24,7 @@ class BookmarkCategoriesAdapter(
 
     private enum class RowType { HEADER, CATEGORY, ACTION }
 
-    /** The rows of the card below the lists, in the order they are shown. */
+    /** The rows of the card above the lists. */
     private enum class Action(
         @param:DrawableRes val icon: Int,
         @param:StringRes val title: Int,
@@ -33,6 +33,11 @@ class BookmarkCategoriesAdapter(
         ADD(R.drawable.ic_add_list, R.string.bookmarks_create_new_group, CategoryListCallback::onAddButtonClick),
         IMPORT(R.drawable.ic_import, R.string.bookmarks_import, CategoryListCallback::onImportButtonClick),
         EXPORT(R.drawable.ic_export, R.string.bookmarks_export, CategoryListCallback::onExportButtonClick),
+        DELETE_ALL(
+            R.drawable.ic_delete,
+            R.string.bookmarks_delete_all,
+            CategoryListCallback::onDeleteAllButtonClick,
+        ),
     }
 
     // Every change goes through an edit session in the core, which notifies the listener that calls setItems().
@@ -45,18 +50,20 @@ class BookmarkCategoriesAdapter(
     private val categoryCount: Int
         get() = bookmarkCategories.size
 
+    private val actionCount = Action.entries.size
+
     fun setItems(categories: List<BookmarkCategory>) {
         bookmarkCategories = categories
         notifyDataSetChanged()
     }
 
     private fun rowTypeAt(position: Int): RowType = when {
-        position < HEADER_COUNT -> RowType.HEADER
-        position < HEADER_COUNT + categoryCount -> RowType.CATEGORY
-        else -> RowType.ACTION
+        position < actionCount -> RowType.ACTION
+        position < actionCount + HEADER_COUNT -> RowType.HEADER
+        else -> RowType.CATEGORY
     }
 
-    override fun getItemCount(): Int = if (categoryCount == 0) 0 else HEADER_COUNT + categoryCount + Action.entries.size
+    override fun getItemCount(): Int = if (categoryCount == 0) 0 else actionCount + HEADER_COUNT + categoryCount
 
     override fun getItemViewType(position: Int): Int = rowTypeAt(position).ordinal
 
@@ -84,11 +91,11 @@ class BookmarkCategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val index = position - HEADER_COUNT
         when (rowTypeAt(position)) {
+            RowType.ACTION -> (holder as GeneralViewHolder).bindAction(position)
             RowType.HEADER -> (holder as HeaderViewHolder).bindHeader()
-            RowType.CATEGORY -> (holder as CategoryViewHolder).bindCategory(index)
-            RowType.ACTION -> (holder as GeneralViewHolder).bindAction(index - categoryCount)
+            RowType.CATEGORY ->
+                (holder as CategoryViewHolder).bindCategory(position - actionCount - HEADER_COUNT)
         }
     }
 
