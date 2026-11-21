@@ -2040,7 +2040,8 @@ void Storage::RegisterLocalFile(platform::LocalCountryFile const & localFile)
   LocalFilePtr ptr;
 
   CountryId const & countryId = FindCountryId(localFile);
-  if (IsLeaf(countryId))
+  bool const isCatalogLeaf = IsLeaf(countryId);
+  if (isCatalogLeaf)
   {
     ptr = GetLocalFile(countryId, localFile.GetVersion());
     if (!ptr)
@@ -2059,9 +2060,8 @@ void Storage::RegisterLocalFile(platform::LocalCountryFile const & localFile)
   uint64_t const size = ptr->GetSize(MapFileType::Map);
   LOG(LINFO, ("Found file:", countryId, "in directory:", ptr->GetDirectory(), "with size:", size));
 
-  /// Funny, but ptr->GetCountryFile() has valid name only. Size and hash are not initialized.
-  /// @todo Store only name (CountryId) in LocalCountryFile instead of CountryFile?
-  if (m_currentVersion == ptr->GetVersion() && size != GetCountryFile(countryId).GetRemoteSize())
+  // The discovered CountryFile carries only the name. Only catalog leaves have a published size.
+  if (isCatalogLeaf && m_currentVersion == ptr->GetVersion() && size != GetCountryFile(countryId).GetRemoteSize())
     LOG(LERROR, ("Inconsistent MWM and version for", *ptr));
 }
 
