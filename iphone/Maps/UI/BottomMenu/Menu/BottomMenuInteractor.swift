@@ -65,13 +65,16 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func startDownloadingMapForCountry(_ countryId: String) {
     let mapNodeAttributes = mapsStorage.attributes(forCountry: countryId)
-    switch mapNodeAttributes.nodeStatus {
-    case .downloading, .inQueue, .applying:
+    // Terrain does not affect map editing eligibility.
+    switch mapNodeAttributes.mapStatus {
+    case .downloading, .inQueue, .applying, .onDisk:
       break
-    case .notDownloaded, .partly, .onDiskOutOfDate, .error:
+    case .onDiskOutOfDate:
+      mapsStorage.updateNode(countryId)
+    case .notDownloaded, .partly, .error:
       mapsStorage.downloadNode(countryId)
-    case .undefined, .onDisk:
-      fatalError("Download button shouldn't be displayed when node is in these states")
+    case .undefined:
+      fatalError("Download button shouldn't be displayed for an undefined map status")
     @unknown default:
       fatalError()
     }
