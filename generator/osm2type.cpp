@@ -1139,12 +1139,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool addOneway = false;
       bool noOneway = false;
       CachedTypes::Type cyclewayType = CachedTypes::Count;
-      auto const IsPositiveCyclewayProtection = [](std::string const & kind, std::string const & value)
-      {
-        if (value.empty() || IsNegativeTagValue(value) || value == "no_separation")
-          return false;
-        return kind != "separation" || (value != "studs" && value != "cone");
-      };
       auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
       {
         // Rendering uses one centerline category. When sides or directions differ,
@@ -1163,32 +1157,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         if (cyclewayType == CachedTypes::Count || GetPriority(type) < GetPriority(cyclewayType))
           cyclewayType = type;
       };
-      auto const HasMotorTrafficSeparation = [p, &IsPositiveCyclewayProtection](std::string const & key)
-      {
-        for (char const * kind : {"separation", "barrier"})
-        {
-          string const prefix = key + ":" + kind;
-          if (IsPositiveCyclewayProtection(kind, p->GetTag(prefix)))
-            return true;
-
-          // A detailed :both value protects both edges, including the edge next to
-          // motor traffic. For a single detailed edge, only promote the lane when
-          // the adjacent traffic mode explicitly confirms motor traffic.
-          if (IsPositiveCyclewayProtection(kind, p->GetTag(prefix + ":both")))
-            return true;
-          for (char const * side : {"left", "right"})
-          {
-            if (!IsPositiveCyclewayProtection(kind, p->GetTag(prefix + ":" + side)))
-              continue;
-            auto const trafficMode = p->GetTag(key + ":traffic_mode:" + side);
-            if (trafficMode == "motor_vehicle" || trafficMode == "motorcar" || trafficMode == "vehicle")
-              return true;
-          }
-        }
-        return false;
-      };
-      auto const ProcessCyclewayTypeTag =
-          [&SetCyclewayType, &HasMotorTrafficSeparation](std::string const & key, std::string const & value)
+      auto const ProcessCyclewayTypeTag = [&SetCyclewayType, p](std::string const & key, std::string const & value)
       {
         CachedTypes::Type type = CachedTypes::Count;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
@@ -1201,7 +1170,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
         // A physically separated lane is as safe as a track. Check only protection
         // from motor traffic on the same side that carried the lane.
-        if (type == CachedTypes::CyclewayLane && HasMotorTrafficSeparation(key))
+        if (type == CachedTypes::CyclewayLane && generator::HasMotorTrafficSeparation(*p, key))
           type = CachedTypes::CyclewayTrack;
 
         if (type != CachedTypes::Count)
