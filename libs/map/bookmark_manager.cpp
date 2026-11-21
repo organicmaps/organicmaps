@@ -2921,8 +2921,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   std::string const fileDir = GetBookmarksDirectory();
-
-  if (!Platform::IsFileExistsByFullPath(fileDir) && !Platform::MkDirChecked(fileDir))
+  if (!Platform::MkDirRecursively(fileDir))
     return nullptr;
 
   auto collection = std::make_shared<KMLDataCollection>();

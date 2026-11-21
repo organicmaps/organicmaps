@@ -600,8 +600,19 @@ static bool SaveKmlFile(kml::FileData const & kmlData, std::string const & file,
 bool SaveKmlFileSafe(kml::FileData const & kmlData, std::string const & file, FileType fileType)
 {
   LOG(LINFO, ("Save kml file of type", fileType, "to", file));
-  return base::WriteToTempAndRenameToFile(
-      file, [&kmlData, fileType](std::string const & fileName) { return SaveKmlFile(kmlData, fileName, fileType); });
+  return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
+  {
+    try
+    {
+      return SaveKmlFile(kmlData, fileName, fileType);
+    }
+    catch (Writer::Exception const & e)
+    {
+      // Opening and final flushing can fail outside the serializer. Return false so temporary-file cleanup runs.
+      LOG(LWARNING, ("KML", fileType, "writing failure:", e.what()));
+      return false;
+    }
+  });
 }
 
 bool SaveKmlFileByExt(kml::FileData const & kmlData, std::string const & file)
