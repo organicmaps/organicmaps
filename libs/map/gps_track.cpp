@@ -195,10 +195,20 @@ size_t GpsTrack::Finalize()
   }
 
   SaveBackup();
-  std::vector<location::GpsInfo> points;
-  m_filter->Finalize(points);
-  m_collection.Add(points);
+  if (auto const * point = m_filter->GetDeferredPoint())
+    m_collection.Add({*point});
   return m_collection.GetSize();
+}
+
+bool GpsTrack::CanSave()
+{
+  std::lock_guard lg(m_threadGuard);
+  ASSERT(m_recording, ());
+  ProcessPoints();
+
+  auto const * deferredPoint = m_filter->GetDeferredPoint();
+  bool const addsDeferred = deferredPoint && m_collection.CanAdd(*deferredPoint);
+  return m_collection.GetSize() + (addsDeferred ? 1 : 0) >= kMinValidTrackPoints;
 }
 
 void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds)

@@ -854,6 +854,8 @@
     <string name="share_track">Ndaj Gjurmën</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Fshi %s?</string>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Jeni i sigurt që dëshironi të fshini këtë gjurmë?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Lëviz</string>
     <!-- Text for the editing the Track's color button. -->

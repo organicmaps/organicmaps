@@ -175,6 +175,17 @@ bool WaitFor(Fn && condition, std::chrono::milliseconds timeout = 5s)
   return condition();
 }
 
+bool WaitForBackup(TrackFile const & file, size_t pointCount)
+{
+  auto const expectedSize = sizeof(uint32_t) + pointCount * (8 * sizeof(double) + sizeof(uint8_t));
+  return WaitFor([&]
+  {
+    std::error_code error;
+    auto const size = fs::file_size(file.m_path, error);
+    return !error && size == expectedSize;
+  });
+}
+
 Points GetPoints(GpsTrack & track)
 {
   Points points;
@@ -229,16 +240,7 @@ UNIT_TEST(GpsTrack_BackupTimerWithoutNewPoints)
   track.Start();
   auto const points = MakePoints(3);
   track.AddPoints(points);
-
-  auto const expectedSize = sizeof(uint32_t) + points.size() * (8 * sizeof(double) + sizeof(uint8_t));
-  TEST(WaitFor(
-           [&]
-  {
-    std::error_code error;
-    auto const size = fs::file_size(file.m_path, error);
-    return !error && size == expectedSize;
-  }),
-       ("Pending fixes must be backed up without another location update"));
+  TEST(WaitForBackup(file, points.size()), ("Pending fixes must be backed up without another location update"));
 
   CheckPoints(file.Load(), points);
   TEST_EQUAL(track.Finalize(), points.size(), ());
@@ -256,6 +258,33 @@ UNIT_TEST(GpsTrack_RecordsWithoutCallback)
   TEST_EQUAL(track.Finalize(), points.size(), ());
   CheckPoints(GetPoints(track), points);
   CheckPoints(file.Load(), points);
+}
+
+UNIT_TEST(GpsTrack_CanSaveDoesNotInterruptBackup)
+{
+  TrackFile file("can_save_backup");
+  GpsTrack track(file.m_path, {}, 20ms);
+  track.Start();
+  auto const points = MakePoints(3);
+  track.AddPoints(points);
+  TEST(track.CanSave(), ());
+
+  TEST(WaitForBackup(file, points.size()), ("CanSave must leave the worker's backup timer running"));
+  CheckPoints(file.Load(), points);
+}
+
+UNIT_TEST(GpsTrack_CanSaveProcessesRestoredPoints)
+{
+  TrackFile file("can_save_restored");
+  auto const points = MakePoints(3);
+  TEST(GpsTrackStorage(file.m_path).Append({points[0], points[1]}), ());
+
+  GpsTrack track(file.m_path);
+  track.Start();
+  TEST(track.CanSave(), ());
+  track.AddPoint(points.back());
+  TEST_EQUAL(track.Finalize(), points.size(), ());
+  CheckPoints(GetPoints(track), points);
 }
 
 using df::test_support::VisualParamsFixture;
@@ -279,8 +308,10 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheck
   auto finish = MakePoint(160.0, 0.0);
   finish.m_longitude = -179.999999;
   framework.StartTrackRecording();
+  TEST(!framework.CanSaveTrackRecording(), ("An empty recording is not a valid track"));
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(finish);
+  TEST(!framework.CanSaveTrackRecording(), ("A repeated final fix does not make a valid track"));
   TEST(!framework.SaveTrackRecordingWithName("Stationary"), ());
 
   finish.m_longitude = -179.99998;
@@ -290,6 +321,9 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheck
   framework.StartTrackRecording();
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(missingAltitude);
+  TEST(framework.CanSaveTrackRecording(), ("A distinct deferred final fix makes a valid track"));
+  TEST(framework.IsTrackRecordingEnabled(), ());
+  TEST_EQUAL(tracker.GetTrackStatistics().m_length, 0.0, ());
   TEST(framework.SaveTrackRecordingWithName("Missing altitude"), ());
   auto const * incomplete = bookmarks.GetTrack(framework.GetCurrentPlacePageInfo().GetTrackId());
   TEST(incomplete, ());
@@ -405,13 +439,7 @@ UNIT_TEST(GpsTrack_RestoresRawFilterHistory)
   Points const suffix = {MakePoint(104.0, 45.0), MakePoint(105.0, 60.0), MakePoint(160.0, 65.0, 0.0)};
 
   // The rejected turn affects acceptance of the next fix; the last close fix is appended by Finalize.
-  GpsTrackFilter filter;
-  Points expected;
-  filter.Process(prefix, expected);
-  filter.Process(suffix, expected);
-  filter.Finalize(expected);
-  TEST_EQUAL(expected.size(), 5, ());
-  TEST_EQUAL(expected.front().m_timestamp, 100.0, ());
+  Points const expected = {prefix[0], prefix[1], prefix[2], suffix[1], suffix[2]};
   {
     GpsTrack track(file.m_path, std::make_unique<GpsTrackFilter>());
     track.Start();

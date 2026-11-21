@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "إيقاف تسجيل المسار";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "تسجيل المسار";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "المسار فارغ - لا يوجد شيء للحفظ";
 "downloader_updating_ios" = "جاري التحديث";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "حذف المسار";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "هل أنت متأكد من رغبتك في حذف هذا المسار؟";
 
 /* Placeholder for track name input on track edit screen */

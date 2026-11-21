@@ -881,6 +881,8 @@
         <item quantity="one">%d item verwijderen?</item>
         <item quantity="other">%d items verwijderen?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Weet u zeker dat u deze track wilt verwijderen?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Verplaats</string>
     <!-- Text for the editing the Track's color button. -->

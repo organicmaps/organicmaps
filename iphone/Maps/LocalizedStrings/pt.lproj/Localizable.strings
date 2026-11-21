@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Parar gravação de trajeto";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "Gravação de percurso";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "O trajeto está vazio - não há nada para guardar";
 "downloader_updating_ios" = "A atualizar";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Apagar trajeto";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Tem a certeza de que pretende apagar este trajeto?";
 
 /* Placeholder for track name input on track edit screen */

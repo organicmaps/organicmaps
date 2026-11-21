@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stöðva skráningu ferils";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "Upptaka ferils";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ferill er tómur - ekkert til að vista";
 "downloader_updating_ios" = "Uppfæri";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Eyða ferliDelete Track";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Ertu viss um að þú viljir eyða þessum ferli?";
 
 /* Placeholder for track name input on track edit screen */

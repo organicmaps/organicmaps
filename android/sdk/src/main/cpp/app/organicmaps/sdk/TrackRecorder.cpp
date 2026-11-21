@@ -52,6 +52,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeDiscardTrac
   frm()->DiscardTrackRecording();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeCanSaveTrackRecording(JNIEnv * env,
+                                                                                               jclass clazz)
+{
+  return frm()->CanSaveTrackRecording();
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env,
                                                                                                     jclass clazz,
                                                                                                     jstring name)

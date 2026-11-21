@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Aufnahme des Tracks stoppen";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "Track-Aufzeichnung";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track ist leer – nichts zu speichern";
 "downloader_updating_ios" = "Aktualisierung";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Track löschen";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Willst du diesen Track wirklich löschen?";
 
 /* Placeholder for track name input on track edit screen */

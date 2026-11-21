@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Hentikan perekaman jalur";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "Perekaman Jalur";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 "downloader_updating_ios" = "Memperbarui";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Hapus Trek";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Apakah Anda yakin ingin menghapus trek ini?";
 
 /* Placeholder for track name input on track edit screen */

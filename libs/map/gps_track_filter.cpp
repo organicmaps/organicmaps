@@ -95,19 +95,13 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
   }
 }
 
-void GpsTrackFilter::Finalize(GpsVectorT & outPoints)
+location::GpsInfo const * GpsTrackFilter::GetDeferredPoint() const
 {
-  if (m_countLastInfo > 0)
-  {
-    // Offer the final fix even if sampling skipped it. The collection filters duplicate positions.
-    auto const & info = GetLastInfo();
-    auto const & lastAccepted = GetLastAcceptedInfo();
-    if (info.m_timestamp > lastAccepted.m_timestamp)
-    {
-      outPoints.push_back(info);
-      m_lastAcceptedInfo = info;
-    }
-  }
+  if (m_countLastInfo == 0)
+    return nullptr;
+
+  auto const & info = GetLastInfo();
+  return info.m_timestamp > GetLastAcceptedInfo().m_timestamp ? &info : nullptr;
 }
 
 bool GpsTrackFilter::IsGoodVector(location::GpsInfo const & info) const

@@ -900,6 +900,8 @@
         <item quantity="many">Dileu %d eitem?</item>
         <item quantity="other">Dileu %d eitem?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ydych chi\'n siŵr eich bod chi eisiau dileu\'r trac hwn?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Symud</string>
     <!-- Text for the editing the Track's color button. -->

@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Ndalo Regjistrimin e Gjurmës";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "Regjistrimi i Gjurmës";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Gjurma është boshe - asgjë për t'u ruajtur";
 "downloader_updating_ios" = "Duke përditësuar";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Fshi Gjurmën";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "Jeni i sigurt që dëshironi të fshini këtë gjurmë?";
 
 /* Placeholder for track name input on track edit screen */

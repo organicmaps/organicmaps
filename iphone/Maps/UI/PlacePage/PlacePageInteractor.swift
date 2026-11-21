@@ -293,7 +293,11 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         }
       }
     case .deleteTrackRecording:
-      showTrackRecordingDiscardingConfirmationDialog()
+      if trackRecordingManager.canSave() {
+        showTrackRecordingDiscardingConfirmationDialog()
+      } else {
+        discardTrackRecording()
+      }
     @unknown default:
       fatalError()
     }
@@ -339,14 +343,17 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
                                   message: L("placepage_delete_track_confirmation_alert_message"),
                                   preferredStyle: .actionSheet)
     let discardAction = UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
-      guard let self = self else { return }
-      self.trackRecordingManager.discard()
-      self.presenter?.close()
+      self?.discardTrackRecording()
     }
     let continueAction = UIAlertAction(title: L("continue_button"), style: .default)
     alert.addAction(discardAction)
     alert.addAction(continueAction)
     presenter?.showAlert(alert)
+  }
+
+  private func discardTrackRecording() {
+    trackRecordingManager.discard()
+    presenter?.close()
   }
 
   private func showPhoneNumberPicker(_ phones: [PlacePagePhone], handler: @escaping (PlacePagePhone) -> Void) {

@@ -1148,7 +1148,7 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName, size_t p
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto & tracker = GpsTracker::Instance();
   ASSERT(!tracker.IsEnabled(), ());
-  ASSERT_GREATER_OR_EQUAL(pointCount, 2, ());
+  ASSERT_GREATER_OR_EQUAL(pointCount, GpsTrack::kMinValidTrackPoints, ());
 
   kml::TrackData trackData;
   auto & line = trackData.m_geometry.m_lines.emplace_back();

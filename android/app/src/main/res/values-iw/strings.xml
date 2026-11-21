@@ -867,6 +867,8 @@
         <item quantity="one">למחוק %d פריט?</item>
         <item quantity="other">למחוק %d פריטים?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">האם אתה בטוח שברצונך למחוק את הרצועה הזו?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">הזז</string>
     <!-- Text for the editing the Track's color button. -->

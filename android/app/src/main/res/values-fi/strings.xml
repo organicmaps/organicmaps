@@ -874,6 +874,8 @@
         <item quantity="one">Poistetaanko %d kohde?</item>
         <item quantity="other">Poistetaanko %d kohdetta?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Haluatko varmasti poistaa tämän reitin?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Siirrä</string>
     <!-- Text for the editing the Track's color button. -->

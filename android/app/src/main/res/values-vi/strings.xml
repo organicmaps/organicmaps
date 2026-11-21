@@ -861,6 +861,8 @@
     <plurals name="delete_n_items_dialog_title">
         <item quantity="other">Xóa %d mục?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Bạn có chắc chắn muốn xóa bản nhạc này không?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Di chuyển</string>
     <!-- Text for the editing the Track's color button. -->

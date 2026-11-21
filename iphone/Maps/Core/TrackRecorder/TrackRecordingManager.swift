@@ -150,6 +150,10 @@ final class TrackRecordingManager: NSObject {
     notifyObservers()
   }
 
+  func canSave() -> Bool {
+    trackRecorder.canSaveTrackRecording()
+  }
+
   // MARK: - Private methods
 
   private func subscribeOnTheAppLifecycleEvents() {
@@ -167,7 +171,8 @@ final class TrackRecordingManager: NSObject {
 
   private func subscribeOnTrackRecordingProgressUpdates() {
     trackRecorder.setTrackRecordingUpdateHandler { [weak self] info in
-      guard let self else { return }
+      // SafeCallback may deliver an update queued before unsubscribing.
+      guard let self, self.isActive() else { return }
       self.trackRecordingInfo = info
       self.notifyObservers()
       self.activityManager?.update(info)

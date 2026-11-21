@@ -874,6 +874,8 @@
         <item quantity="one">Slet %d element?</item>
         <item quantity="other">Slet %d elementer?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Er du sikker på, at du vil slette dette spor?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Flyt</string>
     <!-- Text for the editing the Track's color button. -->

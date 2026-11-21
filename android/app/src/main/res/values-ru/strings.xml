@@ -889,6 +889,8 @@
         <item quantity="many">Удалить %d объектов?</item>
         <item quantity="other">Удалить %d объектов?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Вы уверены, что хотите удалить этот трек?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Переместить</string>
     <!-- Text for the editing the Track's color button. -->

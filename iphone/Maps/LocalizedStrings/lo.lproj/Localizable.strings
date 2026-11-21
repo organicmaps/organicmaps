@@ -1051,6 +1051,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "ຢຸດການບັນທຶກເສັ້ນທາງ";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "ການບັນທຶກເສັ້ນທາງ";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ";
 "downloader_updating_ios" = "ກຳລັງອັບເດດ";
@@ -1070,7 +1073,7 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "ລຶບເສັ້ນທາງ";
 
-/* The track deletion confirmaion alert message. */
+/* Confirmation before deleting a saved track or discarding a track recording. */
 "placepage_delete_track_confirmation_alert_message" = "ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລຶບເສັ້ນທາງນີ້?";
 
 /* Placeholder for track name input on track edit screen */

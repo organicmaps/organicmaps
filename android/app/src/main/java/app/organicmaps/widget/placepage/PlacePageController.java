@@ -38,6 +38,8 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.bookmarks.data.TrackRecording;
+import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
@@ -509,7 +511,7 @@ public class PlacePageController
     case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
     case TRACK_DELETE -> onTrackRemoveClicked();
     case TRACK_RECORDING_SAVE -> mPlacePageListener.onTrackRecordingSaved();
-    case TRACK_RECORDING_DELETE -> mPlacePageListener.onTrackRecordingCancelled();
+    case TRACK_RECORDING_DELETE -> onTrackRecordingRemoveClicked();
     case BACK -> onBackBtnClicked();
     case ROUTE_FROM -> onRouteFromBtnClicked();
     case ROUTE_TO -> onRouteToBtnClicked();
@@ -556,6 +558,30 @@ public class PlacePageController
                                               BookmarkManager.INSTANCE.deleteTrack(trackId);
                                           })
                        .show();
+  }
+
+  private void onTrackRecordingRemoveClicked()
+  {
+    if (!(mMapObject instanceof TrackRecording) || !TrackRecorder.nativeIsTrackRecordingEnabled())
+      return;
+    if (!TrackRecorder.nativeCanSaveTrackRecording())
+    {
+      mPlacePageListener.onTrackRecordingCancelled();
+      return;
+    }
+
+    dismissAlertDialog();
+    mAlertDialog =
+        new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
+            .setMessage(R.string.placepage_delete_track_confirmation_alert_message)
+            .setNegativeButton(R.string.continue_button, null)
+            .setPositiveButton(R.string.delete,
+                               (dialog, which) -> {
+                                 // The posted click may outlive the dialog or the recording service.
+                                 if (((Dialog) dialog).isShowing() && TrackRecorder.nativeIsTrackRecordingEnabled())
+                                   mPlacePageListener.onTrackRecordingCancelled();
+                               })
+            .show();
   }
 
   private void dismissAlertDialog()
@@ -757,6 +783,8 @@ public class PlacePageController
     final boolean showBackButton =
         (intent != null
          && (Factory.isStartedForApiResult(intent) || !TextUtils.isEmpty(Framework.nativeGetParsedBackUrl())));
+    if (mMapObject != mapObject)
+      dismissAlertDialog();
     mMapObject = mapObject;
     if (mapObject != null)
     {
@@ -776,11 +804,7 @@ public class PlacePageController
         onTrackRecordingSelected();
     }
     else
-    {
-      // The track deletion confirmation needs the current selection.
-      dismissAlertDialog();
       close();
-    }
   }
 
   @Override
@@ -817,6 +841,9 @@ public class PlacePageController
   public void onStop()
   {
     super.onStop();
+    // LiveData can report only the new active state if recording stops and restarts while the activity is stopped.
+    if (mMapObject instanceof TrackRecording)
+      dismissAlertDialog();
     mPlacePageBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getMapObject().removeObserver(this);
   }

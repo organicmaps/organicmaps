@@ -127,6 +127,17 @@ final class TrackRecordingManagerTests: XCTestCase {
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
 
+  func test_DiscardIgnoresQueuedRecordingUpdate() throws {
+    trackRecordingManager.start()
+    let queuedUpdate = try XCTUnwrap(mockTrackRecorder.updateHandler)
+
+    trackRecordingManager.discard()
+    let discardedInfo = trackRecordingManager.trackRecordingInfo
+    queuedUpdate(.empty())
+
+    XCTAssertTrue(trackRecordingManager.trackRecordingInfo === discardedInfo)
+  }
+
   func test_GivenElevationInfoIsUnavailable_WhenGetTrackRecordingElevationProfileData_ThenReturnsNil() {
     mockTrackRecorder.trackRecordingElevationProfileData = nil
 
@@ -150,6 +161,7 @@ final class MockTrackRecorder: TrackRecorder {
   static var discardTrackRecordingCalled = false
   static var saveTrackRecordingCalled = false
   static var onSave: (() -> Void)?
+  static var updateHandler: ((TrackInfo) -> Void)?
   static var trackRecordingElevationProfileData: ElevationProfileData?
 
   static func reset() {
@@ -159,6 +171,7 @@ final class MockTrackRecorder: TrackRecorder {
     discardTrackRecordingCalled = false
     saveTrackRecordingCalled = false
     onSave = nil
+    updateHandler = nil
     trackRecordingElevationProfileData = nil
   }
 
@@ -176,6 +189,10 @@ final class MockTrackRecorder: TrackRecorder {
     trackRecordingIsEnabled = false
   }
 
+  static func canSaveTrackRecording() -> Bool {
+    false
+  }
+
   static func saveTrackRecording(withName _: String) -> Bool {
     saveTrackRecordingCalled = true
     trackRecordingIsEnabled = false
@@ -183,7 +200,9 @@ final class MockTrackRecorder: TrackRecorder {
     return saveResult
   }
 
-  static func setTrackRecordingUpdateHandler(_: ((TrackInfo) -> Void)?) {}
+  static func setTrackRecordingUpdateHandler(_ handler: ((TrackInfo) -> Void)?) {
+    updateHandler = handler
+  }
 
   static func trackRecordingElevationInfo() -> ElevationProfileData? {
     trackRecordingElevationProfileData

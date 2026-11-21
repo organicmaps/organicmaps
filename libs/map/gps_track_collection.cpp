@@ -6,19 +6,24 @@
 
 #include "base/assert.hpp"
 
+bool GpsTrackCollection::CanAdd(TItem const & item) const
+{
+  if (m_items.empty())
+    return true;
+
+  auto const & last = m_items.back();
+  return item.m_timestamp >= last.m_timestamp &&
+         !kml::IsSameTrackPoint(mercator::FromLatLon(last.GetLatLon()), mercator::FromLatLon(item.GetLatLon()));
+}
+
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
   auto const startId = m_lastId;
 
   for (auto const & item : items)
   {
-    if (!m_items.empty())
-    {
-      auto const & last = m_items.back();
-      if (last.m_timestamp > item.m_timestamp ||
-          kml::IsSameTrackPoint(mercator::FromLatLon(last.GetLatLon()), mercator::FromLatLon(item.GetLatLon())))
-        continue;
-    }
+    if (!CanAdd(item))
+      continue;
     m_items.emplace_back(item);
     m_statistics.AddGpsInfoPoint(item);
     ++m_lastId;

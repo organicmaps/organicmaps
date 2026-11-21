@@ -39971,7 +39971,7 @@ zh-Hant = 停止軌跡記錄
 
 [track_recording_title]
 comment = Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.
-tags = android-app
+tags = android-app,apple-maps
 en = Track Recording
 af = Spooropname
 ar = تسجيل المسار
@@ -41141,8 +41141,8 @@ zh-Hans = 删除轨迹
 zh-Hant = 刪除軌跡
 
 [placepage_delete_track_confirmation_alert_message]
-comment = The track deletion confirmaion alert message.
-tags = apple-maps
+comment = Confirmation before deleting a saved track or discarding a track recording.
+tags = android-app,apple-maps
 en = Are you sure you want to delete this track?
 af = Is jy seker jy wil hierdie snit uitvee?
 ar = هل أنت متأكد من رغبتك في حذف هذا المسار؟

@@ -868,6 +868,8 @@
         <item quantity="one">%d घटक हटवायचा?</item>
         <item quantity="other">%d घटक हटवायचे?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">तुमची खात्री आहे की तुम्ही हा ट्रॅक हटवू इच्छिता?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">हलवा</string>
     <!-- Text for the editing the Track's color button. -->

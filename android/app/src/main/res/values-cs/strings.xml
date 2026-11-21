@@ -888,6 +888,8 @@
         <item quantity="few">Smazat %d položky?</item>
         <item quantity="other">Smazat %d položek?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Opravdu chcete tuto stopu odstranit?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Přesunout</string>
     <!-- Text for the editing the Track's color button. -->

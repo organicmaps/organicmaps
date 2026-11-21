@@ -61,6 +61,11 @@ size_t GpsTracker::Stop()
   return m_track.Finalize();
 }
 
+bool GpsTracker::CanSave()
+{
+  return m_track.CanSave();
+}
+
 void GpsTracker::Clear()
 {
   m_track.Clear();

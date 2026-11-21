@@ -881,6 +881,8 @@
         <item quantity="one">Eyða %d atriði?</item>
         <item quantity="other">Eyða %d atriðum?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ertu viss um að þú viljir eyða þessum ferli?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Færa</string>
     <!-- Text for the editing the Track's color button. -->

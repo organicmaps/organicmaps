@@ -2209,6 +2209,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
   }
 
+  @Override
   public void onTrackRecordingCancelled()
   {
     TrackRecorder.nativeDiscardTrackRecording();

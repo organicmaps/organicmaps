@@ -71,13 +71,13 @@ UNIT_TEST(GpsTrackFilter_ClockRollbackAfterRejectedFix)
   // The fix at 20 m is rejected as too close. Then the clock goes back: the fix at 1050 is older than
   // it and is dropped, but the fixes after it must be recorded.
   filter.Process({fix(1000, 0), fix(1001, 15), fix(1100, 20), fix(1050, 35), fix(1051, 50), fix(1052, 65)}, out);
-  filter.Finalize(out);
+  TEST(!filter.GetDeferredPoint(), ());
   TEST_EQUAL(out.size(), 4, ());
   TEST_EQUAL(out[2].m_timestamp, 1051, ());
   TEST_EQUAL(out[3].m_timestamp, 1052, ());
 }
 
-UNIT_TEST(GpsTrackFilter_FinalizeAppendsLastFix)
+UNIT_TEST(GpsTrackFilter_ReportsLastDeferredFix)
 {
   GpsTrackFilter filter;
   Points out;
@@ -87,18 +87,18 @@ UNIT_TEST(GpsTrackFilter_FinalizeAppendsLastFix)
   TEST_EQUAL(out.size(), 5, ());
   TEST(!out.front().HasAltitude(), ());
 
-  // Finalization keeps the last eligible fix even when sampling deferred it.
+  // Both fixes are too close to sample. The later fix is the endpoint.
   auto const last = Make(160.0, 0.0, (15.0 * 4 + 5.0) * kDegPerMeter, 0.0);
   auto missingAltitude = Make(161.0, 0.0, (15.0 * 4 + 8.0) * kDegPerMeter, 0.0);
   missingAltitude.m_verticalAccuracy = -1.0;
   out.clear();
   filter.Process({last, missingAltitude}, out);
   TEST(out.empty(), ());
-  filter.Finalize(out);
-  TEST_EQUAL(out.size(), 1, ());
-  TEST_EQUAL(out[0].m_timestamp, missingAltitude.m_timestamp, ());
-  TEST_EQUAL(out[0].m_longitude, missingAltitude.m_longitude, ());
-  TEST(!out[0].HasAltitude(), ());
+  auto const * deferred = filter.GetDeferredPoint();
+  TEST(deferred, ());
+  TEST_EQUAL(deferred->m_timestamp, missingAltitude.m_timestamp, ());
+  TEST_EQUAL(deferred->m_longitude, missingAltitude.m_longitude, ());
+  TEST(!deferred->HasAltitude(), ());
 }
 
 UNIT_TEST(GpsTrackFilter_ZeroAccuracyBypassesSampling)
@@ -120,7 +120,7 @@ UNIT_TEST(GpsTrackFilter_ZeroAccuracyBypassesSampling)
   points.front().m_verticalAccuracy = -1;
   Points out{Make(99, 0, 0, 0)};
   filter.Process(points, out);
-  filter.Finalize(out);
+  TEST(!filter.GetDeferredPoint(), ());
   TEST_EQUAL(out.size(), 3, ());
   TEST_EQUAL(out[0].m_timestamp, 99, ());
   TEST_EQUAL(out[1].m_timestamp, points.front().m_timestamp, ());

@@ -900,6 +900,8 @@
         <item quantity="many">حذف %d عنصرًا؟</item>
         <item quantity="other">حذف %d عنصرًا؟</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">هل أنت متأكد من رغبتك في حذف هذا المسار؟</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">نقل</string>
     <!-- Text for the editing the Track's color button. -->

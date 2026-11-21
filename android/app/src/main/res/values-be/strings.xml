@@ -893,6 +893,8 @@
         <item quantity="many">Выдаліць %d аб\'ектаў?</item>
         <item quantity="other">Выдаліць %d аб\'ектаў?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Вы ўпэўнены, што хочаце выдаліць гэты маршрут?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Перамясціць</string>
     <!-- Text for the editing the Track's color button. -->

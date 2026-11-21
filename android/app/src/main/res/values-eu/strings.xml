@@ -876,6 +876,8 @@
         <item quantity="one">Ezabatu %d elementu?</item>
         <item quantity="other">Ezabatu %d elementu?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ziur pista hau ezabatu nahi duzula?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Mugitu</string>
     <!-- Text for the editing the Track's color button. -->

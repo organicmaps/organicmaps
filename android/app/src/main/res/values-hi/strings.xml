@@ -857,6 +857,8 @@
     <plurals name="delete_n_items_dialog_title">
         <item quantity="other">%d आइटम हटाएँ?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">क्या आप वाकई इस ट्रैक को हटाना चाहते हैं?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">स्थानांतरित करें</string>
     <!-- Text for the editing the Track's color button. -->

@@ -465,6 +465,8 @@
     <string name="edit_track">Editar pista</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Compartir pista</string>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">¿Seguro que quieres borrar esta pista?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Label for the hex color input field in the color picker -->

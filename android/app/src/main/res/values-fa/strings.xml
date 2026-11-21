@@ -876,6 +876,8 @@
         <item quantity="one">حذف %d مورد؟</item>
         <item quantity="other">حذف %d مورد؟</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">آیا مطمئن هستید که می خواهید این آهنگ را حذف کنید؟</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">انتقال</string>
     <!-- Text for the editing the Track's color button. -->

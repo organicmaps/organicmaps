@@ -880,6 +880,8 @@
         <item quantity="one">%d Objekt löschen?</item>
         <item quantity="other">%d Objekte löschen?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Willst du diesen Track wirklich löschen?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Verschieben</string>
     <!-- Text for the editing the Track's color button. -->

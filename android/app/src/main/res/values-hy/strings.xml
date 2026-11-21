@@ -876,6 +876,8 @@
         <item quantity="one">Ջնջե՞լ %d տարր</item>
         <item quantity="other">Ջնջե՞լ %d տարր</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Վստա՞հ եք, որ ցանկանում եք ջնջել այս հետագիծը։</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Տեղափոխել</string>
     <!-- Text for the editing the Track's color button. -->

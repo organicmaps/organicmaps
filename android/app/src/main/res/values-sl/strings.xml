@@ -886,6 +886,8 @@
         <item quantity="few">Izbrišem %d elemente?</item>
         <item quantity="other">Izbrišem %d elementov?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ste prepričani, da želite izbrisati to sled?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Premakni</string>
     <!-- Text for the editing the Track's color button. -->

@@ -871,6 +871,8 @@
         <item quantity="few">Odstrániť %d položky?</item>
         <item quantity="other">Odstrániť %d položiek?</item>
     </plurals>
+    <!-- Confirmation before deleting a saved track or discarding a track recording. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ste si istí, že chcete túto skladbu odstrániť?</string>
     <!-- move track or bookmark from the list button text -->
     <string name="move">Presunúť</string>
     <!-- Text for the editing the Track's color button. -->

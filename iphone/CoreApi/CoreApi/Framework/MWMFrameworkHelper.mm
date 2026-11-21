@@ -320,6 +320,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DiscardTrackRecording();
 }
 
++ (BOOL)canSaveTrackRecording
+{
+  return GetFramework().CanSaveTrackRecording();
+}
+
 + (BOOL)saveTrackRecordingWithName:(nonnull NSString *)name
 {
   return GetFramework().SaveTrackRecordingWithName(name.UTF8String);
