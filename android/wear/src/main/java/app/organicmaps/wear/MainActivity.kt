@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -51,6 +53,18 @@ class MainActivity :
     private lateinit var nextStreet: TextView
     private lateinit var remaining: TextView
 
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
+    private var retryPending = false
+    private val retryRunnable = Runnable {
+        retryPending = false
+        if (uiState.resumed) {
+            refreshNavigationState()
+        }
+    }
+
+    internal var retryScheduler: ((delayMs: Long, action: Runnable) -> Unit)? = null
+    internal var retryCanceller: ((action: Runnable) -> Unit)? = null
+
     private lateinit var dataClient: DataClient
     private lateinit var messageClient: MessageClient
     private lateinit var capabilityClient: CapabilityClient
@@ -73,6 +87,8 @@ class MainActivity :
     private val messageListenerRetryRunnable =
         Runnable { registerMessageListener(uiState.generation) }
     private var refreshGeneration = 0
+
+    internal fun isRetryPending(): Boolean = retryPending
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -219,6 +235,7 @@ class MainActivity :
         uiState.pause()
         remaining.removeCallbacks(messageListenerRetryRunnable)
         refreshGeneration += 1
+        cancelRetry()
         cancelStaleDetailsTimer()
         renderNavigationDetails(null)
 
@@ -282,6 +299,7 @@ class MainActivity :
     }
 
     private fun refreshNavigationState() {
+        cancelRetry()
         val generation = ++refreshGeneration
 
         capabilityClient
@@ -304,6 +322,7 @@ class MainActivity :
                 Log.w(TAG, "Failed to find the companion phone", exception)
                 if (isCurrent(generation)) {
                     renderNormal()
+                    scheduleRetry()
                 }
             }
     }
@@ -319,6 +338,7 @@ class MainActivity :
                 Log.w(TAG, "Failed to read navigation state", exception)
                 if (isCurrent(generation)) {
                     renderNormal()
+                    scheduleRetry()
                 }
             }
     }
@@ -344,6 +364,32 @@ class MainActivity :
 
         if (isCurrent(generation)) {
             render(mode ?: WearNavigationMode.NORMAL)
+        }
+    }
+
+    private fun scheduleRetry() {
+        if (!uiState.resumed || retryPending) {
+            return
+        }
+        retryPending = true
+        val scheduler = retryScheduler
+        if (scheduler != null) {
+            scheduler(RETRY_DELAY_MS, retryRunnable)
+        } else {
+            handler.postDelayed(retryRunnable, RETRY_DELAY_MS)
+        }
+    }
+
+    private fun cancelRetry() {
+        if (!retryPending) {
+            return
+        }
+        retryPending = false
+        val canceller = retryCanceller
+        if (canceller != null) {
+            canceller(retryRunnable)
+        } else {
+            handler.removeCallbacks(retryRunnable)
         }
     }
 
@@ -425,6 +471,7 @@ class MainActivity :
         private const val MESSAGE_LISTENER_RETRY_DELAY_MS = 2_000L
         private val TAG = MainActivity::class.java.simpleName
         private val NAVIGATION_STATE_URI = navigationStateUri("*")
+        internal const val RETRY_DELAY_MS = 2000L
 
         private fun navigationStateUri(authority: String): Uri = Uri
             .Builder()
