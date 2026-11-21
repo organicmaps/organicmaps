@@ -588,6 +588,11 @@ public:
 
   void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);
   void ShowRect(m2::AnyRectD const & rect, bool animation = true, bool useVisibleViewport = false);
+  /// Shows the area between the corners north up, as large as it fits in the visible viewport up to the closest zoom
+  /// allowed. The corners must be valid, with southWest <= northEast: equal corners show a point or a line, and an area
+  /// across the antimeridian is not supported. Requires the drape engine. The map never goes beyond the world's
+  /// borders, so a large area, or one close to the poles, can be off center or partly outside the visible viewport.
+  void ShowArea(ms::LatLon const & southWest, ms::LatLon const & northEast, bool animation);
 
   void SetViewportListener(TViewportChangedFn const & fn);
 

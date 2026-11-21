@@ -84,8 +84,9 @@ void MapLinearAnimation::SetRotate(double startAngle, double endAngle)
 void MapLinearAnimation::SetScale(double startScale, double endScale)
 {
   m_scaleInterpolator = ScaleInterpolator(startScale, endScale, false /* isAutoZoom */);
-  if (m_scaleInterpolator.IsActive())
-    m_properties.insert(Animation::ObjectProperty::Scale);
+  // Keep an unchanged scale too: the navigator can change it on the way, e.g. when a rotated frame hits the world's
+  // borders, and the animation must still end at the requested scale.
+  m_properties.insert(Animation::ObjectProperty::Scale);
 }
 
 Animation::TObjectProperties const & MapLinearAnimation::GetProperties(Object object) const
@@ -221,7 +222,7 @@ bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, boo
     }
     return false;
   case Animation::ObjectProperty::Scale:
-    if (m_scaleInterpolator.IsActive())
+    if (HasProperty(object, property))
     {
       value = PropertyValue(targetValue ? m_scaleInterpolator.GetTargetScale() : m_scaleInterpolator.GetScale());
       return true;
