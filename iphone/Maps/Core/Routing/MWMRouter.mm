@@ -377,7 +377,9 @@ using namespace routing;
 {
   if (!startPoint)
     return;
-  [self addPoint:startPoint];
+  if (![[MWMRoutingManager routingManager] selectStartPoint:startPoint])
+    return;
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
   [self rebuildWithBestRouter:bestRouter];
 }
 
@@ -385,10 +387,18 @@ using namespace routing;
 {
   if (!finishPoint)
     return;
-  [self addPoint:finishPoint];
-  if (![self startPoint] && [MWMLocationManager lastLocation] && [MWMRouter router].canAutoAddLastLocation)
-    [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart intermediateIndex:0]];
-  if ([self startPoint] && [self finishPoint])
+  auto & manager = GetFramework().GetRoutingManager();
+  if (!manager.ReplaceRoutePoint(RouteMarkType::Finish, 0, finishPoint.routeMarkData))
+    return;
+  BOOL hasStart = [self startPoint] != nil;
+  if (!hasStart && !finishPoint.isMyPosition && self.router.canAutoAddLastLocation)
+  {
+    MWMRoutePoint * start = [[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                             intermediateIndex:0];
+    hasStart = start && [[MWMRoutingManager routingManager] selectStartPoint:start];
+  }
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+  if (hasStart)
     [self rebuildWithBestRouter:bestRouter];
 }
 
@@ -585,9 +595,17 @@ using namespace routing;
   switch (recommendation)
   {
   case MWMRouterRecommendationRebuildAfterPointsLoading:
-    [MWMRouter addPointAndRebuild:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                                   intermediateIndex:0]];
+  {
+    MWMRoutePoint * start = [[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                             intermediateIndex:0];
+    if (start)
+    {
+      if ([[MWMRoutingManager routingManager] selectStartPoint:start])
+        [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+      [MWMRouter rebuildWithBestRouter:NO];
+    }
     break;
+  }
   }
 }
 

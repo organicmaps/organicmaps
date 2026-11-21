@@ -102,14 +102,7 @@ final class CarPlayRouter: NSObject {
     manager.add(routePoint: startPoint)
     manager.add(routePoint: endPoint)
 
-    do {
-      try manager.buildRoute()
-    } catch let error as NSError {
-      listenerContainer.forEach {
-        let code = RouterResultCode(rawValue: UInt(error.code)) ?? .internalError
-        $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
-      }
-    }
+    rebuildRoute()
   }
 
   func updateStartPointAndRebuild(trip: CPTrip) {
@@ -127,16 +120,9 @@ final class CarPlayRouter: NSObject {
       }
       return
     }
-    manager.add(routePoint: startPoint)
+    _ = manager.selectStartPoint(startPoint)
     manager.apply(routeType: .vehicle)
-    do {
-      try manager.buildRoute()
-    } catch let error as NSError {
-      listenerContainer.forEach {
-        let code = RouterResultCode(rawValue: UInt(error.code)) ?? .internalError
-        $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
-      }
-    }
+    rebuildRoute()
   }
 
   func startRoute() {
