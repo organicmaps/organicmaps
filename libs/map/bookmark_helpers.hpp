@@ -9,6 +9,8 @@
 
 #include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 
 // Lightweight non-owning view of a bookmark, delivered to BookmarkManager callbacks.
 // The pointed-to BookmarkData must outlive the BookmarkInfo: callbacks are invoked
@@ -127,7 +129,10 @@ std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileTyp
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fileType);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
-std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
+/// Parses KML/GPX/GeoJSON/JSON/KMB files in place; KMZ entries are extracted to temporary files, parsed and deleted.
+/// @returns parsed categories, each paired with the path its storage file name derives from.
+std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> LoadBookmarkFileForImport(
+    std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 std::optional<FileType> GetFileType(std::string const & filePath);
 
