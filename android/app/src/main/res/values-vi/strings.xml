@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Lộ trình đến điểm xuất phát</string>
-    <string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Tiếp theo</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

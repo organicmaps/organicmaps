@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">In-navigazzjoni hija disponibbli biss mill-post attwali tiegħek.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Rotta lejn il-punt ta\' bidu</string>
-    <string name="p2p_reroute_from_current">Tixtieq tippjana rotta mill-post attwali tiegħek?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Li jmiss</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

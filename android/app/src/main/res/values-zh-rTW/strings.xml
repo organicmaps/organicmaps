@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">規劃前往起點的路線</string>
-    <string name="p2p_reroute_from_current">您是否想要規劃目前位置的路線？</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">下一頁</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

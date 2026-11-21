@@ -250,7 +250,6 @@
     <string name="p2p_only_from_current">A navegação só está disponível a partir de sua localização atual.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Rota até o ponto de partida</string>
-    <string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Próximo</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

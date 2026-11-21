@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Naviqasiya yalnız cari yerinizdən mümkündür.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Başlanğıc nöqtəsinə marşrut</string>
-    <string name="p2p_reroute_from_current">Hazırkı yerinizdən marşrut planlaşdırmağımızı istərdinizmi?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Sonrakı</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

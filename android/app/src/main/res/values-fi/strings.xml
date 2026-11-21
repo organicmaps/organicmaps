@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Reitti lähtöpisteeseen</string>
-    <string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Seuraava</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

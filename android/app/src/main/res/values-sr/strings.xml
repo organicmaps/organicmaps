@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Навигација је могућа само од ваше тренутне локације.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Рута до полазне тачке</string>
-    <string name="p2p_reroute_from_current">Да ли желите да направите руту од ваше тренутне локације?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Даље</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

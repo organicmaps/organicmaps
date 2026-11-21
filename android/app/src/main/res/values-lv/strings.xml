@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Navigācija ir pieejama tikai no jūsu pašreizējās atrašanās vietas.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Maršruts līdz sākuma punktam</string>
-    <string name="p2p_reroute_from_current">Vai vēlaties plānot maršrutu no savas pašreizējās atrašanās vietas?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Tālāk</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">A navigáció csak a jelenlegi tartózkodási helyétől érhető el.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Útvonal a kiindulási pontig</string>
-    <string name="p2p_reroute_from_current">Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Következő</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

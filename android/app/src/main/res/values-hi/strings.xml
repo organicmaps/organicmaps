@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">नेविगेशन केवल आपके वर्तमान स्थान से उपलब्ध है।</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">प्रारंभिक बिंदु तक मार्ग</string>
-    <string name="p2p_reroute_from_current">क्या आप अपने वर्तमान स्थान से मार्ग की योजना बनाना चाहते हैं?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">अगला</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

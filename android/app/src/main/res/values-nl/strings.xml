@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Route naar het startpunt</string>
-    <string name="p2p_reroute_from_current">Wilt u een route plannen vanaf uw huidige locatie?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Volgende</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

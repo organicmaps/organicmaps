@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Traseu către punctul de plecare</string>
-    <string name="p2p_reroute_from_current">Vrei să planifici un traseu din poziția ta actuală?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Următorul</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

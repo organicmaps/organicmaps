@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">出発点へのルート</string>
-    <string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">次へ</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

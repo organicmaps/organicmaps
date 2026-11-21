@@ -362,7 +362,6 @@
     <string name="p2p_only_from_current">Lundrimi është i disponueshëm vetëm nga vendndodhja juaj aktuale.</string>
     <!-- Action that adds a leg from the current location to the start of the planned route. -->
     <string name="route_to_start">Rruga drejt pikës së nisjes</string>
-    <string name="p2p_reroute_from_current">A dëshironi të planifikoni një rrugë nga vendndodhja juaj aktuale?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Tjetra</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
