@@ -129,7 +129,10 @@ private:
   {
     std::mutex m_mutex;
     std::atomic<size_t> m_pendingCount = 0;
+    // Accessed under m_mutex.
     bool m_cancelled = false;
+    // A failed save can leave the file older than the live category.
+    bool m_saveFailed = false;
   };
   std::shared_ptr<FileSaveState> m_fileSaveState = std::make_shared<FileSaveState>();
   // Stores file name from which bookmarks were loaded.

@@ -2556,6 +2556,41 @@ private:
   std::promise<void> m_release;
 };
 
+class ScopedBookmarkFileObstruction
+{
+public:
+  explicit ScopedBookmarkFileObstruction(std::string const & path)
+    : m_path(path)
+    , m_backup(path + ".backup")
+    , m_marker(base::JoinPath(path, "keep"))
+  {
+    TEST(base::RenameFileX(m_path, m_backup), ());
+    SCOPE_GUARD(undo, [&]() { (void)Restore(); });
+    TEST(Platform::MkDirChecked(m_path), ());
+    FileWriter(m_marker).Write("x", 1);
+    undo.release();
+  }
+
+  ~ScopedBookmarkFileObstruction() { (void)Restore(); }
+
+  bool Restore()
+  {
+    if (m_backup.empty())
+      return true;
+    Platform::RemoveFileIfExists(m_marker);
+    (void)Platform::RmDir(m_path);
+    if (!base::RenameFileX(m_backup, m_path))
+      return false;
+    m_backup.clear();
+    return true;
+  }
+
+private:
+  std::string const m_path;
+  std::string m_backup;
+  std::string const m_marker;
+};
+
 void DeleteCategoryWithPendingSave(bool permanently)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
@@ -2596,6 +2631,74 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TrashedCategoryPreservesPendingChanges)
   DeleteCategoryWithPendingSave(false /* permanently */);
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_TrashPreservesEditsAfterFailedAutosave)
+{
+  base::ScopedLogAbortLevelChanger const expectedError;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("Original");
+  AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+  ScopedBookmarkFileObstruction obstruction(filePath);
+
+  bmManager.EnableTestMode(false);
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited after saving");
+  WaitForFileTasks();
+  bmManager.EnableTestMode(true);
+
+  TEST(!bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+  TEST(bmManager.HasBmCategory(groupId), ());
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "Edited after saving", ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 0, ());
+
+  TEST(obstruction.Restore(), ());
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+  TEST(!bmManager.HasBmCategory(groupId), ());
+
+  auto const deleted = bmManager.GetRecentlyDeletedCategories();
+  TEST_EQUAL(deleted->size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(deleted->front().second->m_categoryData.m_name), "Edited after saving", ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_TrashPreservesEditsAfterSavePreparationFails)
+{
+  base::ScopedLogAbortLevelChanger const expectedError;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("Original");
+  AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+
+  bmManager.EnableTestMode(false);
+  {
+    ScopedFileThreadBlocker blocker;
+    bmManager.GetEditSession().SetCategoryName(groupId, "First edit");
+    auto const settingsDir = base::GetDirectory(GetBookmarksDirectory());
+    auto const backupDir = settingsDir + ".backup";
+    TEST(base::RenameFileX(settingsDir, backupDir), ());
+    SCOPE_GUARD(restoreSettingsDir, [&]()
+    {
+      (void)Platform::RemoveFileIfExists(settingsDir);
+      (void)base::RenameFileX(backupDir, settingsDir);
+    });
+    FileWriter(settingsDir).Write("x", 1);
+    bmManager.GetEditSession().SetCategoryName(groupId, "Latest edit");
+    TEST(Platform::RemoveFileIfExists(settingsDir), ());
+    TEST(base::RenameFileX(backupDir, settingsDir), ());
+    restoreSettingsDir.release();
+  }
+  bmManager.EnableTestMode(true);
+
+  auto const previous = LoadKmlFile(filePath, FileType::Kml);
+  TEST(previous, ());
+  TEST_EQUAL(kml::GetDefaultStr(previous->m_categoryData.m_name), "First edit", ());
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+
+  auto const deleted = bmManager.GetRecentlyDeletedCategories();
+  TEST_EQUAL(deleted->size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(deleted->front().second->m_categoryData.m_name), "Latest edit", ());
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_FailedDeletionRetainsCategoryAndAutosaves)
 {
   base::ScopedLogAbortLevelChanger const expectedError;
@@ -2604,28 +2707,14 @@ UNIT_CLASS_TEST(Runner, Bookmarks_FailedDeletionRetainsCategoryAndAutosaves)
   auto const groupId = bmManager.CreateBookmarkCategory("DeleteFailure");
   auto const bookmarkId = AddBookmark(bmManager, groupId, 10);
   auto const filePath = bmManager.GetCategoryFileName(groupId);
-  auto const backup = filePath + ".backup";
-
-  TEST(base::RenameFileX(filePath, backup), ());
-  TEST(Platform::MkDirChecked(filePath), ());
-  auto const obstruction = base::JoinPath(filePath, "keep");
-  FileWriter(obstruction).Write("x", 1);
-  SCOPE_GUARD(restoreFile, [&]()
-  {
-    (void)base::DeleteFileX(obstruction);
-    (void)Platform::RmDir(filePath);
-    (void)base::RenameFileX(backup, filePath);
-  });
+  ScopedBookmarkFileObstruction obstruction(filePath);
 
   TEST(!bmManager.GetEditSession().DeleteBmCategory(groupId, true /* permanently */), ());
   TEST(bmManager.HasBmCategory(groupId), ());
   TEST(bmManager.HasBookmark(bookmarkId), ());
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), 1, ());
 
-  TEST(base::DeleteFileX(obstruction), ());
-  TEST_EQUAL(Platform::RmDir(filePath), Platform::ERR_OK, ());
-  TEST(base::RenameFileX(backup, filePath), ());
-  restoreFile.release();
+  TEST(obstruction.Restore(), ());
   bmManager.EnableTestMode(false);
   bmManager.GetEditSession().SetCategoryName(groupId, "Edited after failure");
   WaitForFileTasks();
