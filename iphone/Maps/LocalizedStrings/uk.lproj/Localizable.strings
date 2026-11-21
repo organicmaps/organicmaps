@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Ел. пошта або ім'я користувача";
-"level" = "Поверх";
 "downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
 "downloader_update_maps" = "Оновити мапи";
 "downloader_search_field_hint" = "Знайти мапу";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Розвернути маршрут";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Введіть правильний номер поверху";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Поверх (перший поверх — 0)";

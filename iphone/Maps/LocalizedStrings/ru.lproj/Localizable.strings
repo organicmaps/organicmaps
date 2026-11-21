@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Эл. почта или имя пользователя";
-"level" = "Этаж";
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесённые вами правки на этой карте.";
 "downloader_update_maps" = "Обновите карты";
 "downloader_search_field_hint" = "Найти карту";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Развернуть маршрут";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Введите корректный номер этажа";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Этаж (первый этаж — 0)";

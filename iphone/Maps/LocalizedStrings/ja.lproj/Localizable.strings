@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "メールアドレスまたはユーザー名";
-"level" = "階";
 "downloader_delete_map_dialog" = "すべてのマップの変更はマップとともに削除されます。";
 "downloader_update_maps" = "地図を更新";
 "downloader_search_field_hint" = "地図を検索";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "ルートを逆にする";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "有効な階を入力してください";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "階（1階は0）";

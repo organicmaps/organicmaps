@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-mail-cím vagy felhasználónév";
-"level" = "Szint";
 "downloader_delete_map_dialog" = "Az összes térképszerkesztés törlődik a térképpel együtt.";
 "downloader_update_maps" = "Térképek frissítése";
 "downloader_search_field_hint" = "Térkép keresése";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Útvonal megfordítása";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Adjon meg egy érvényes szintet";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Szint (a földszint 0)";

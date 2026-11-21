@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Email alebo používateľské meno";
-"level" = "Podlaha";
 "downloader_delete_map_dialog" = "Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.";
 "downloader_update_maps" = "Aktualizovať mapy";
 "downloader_search_field_hint" = "Nájsť mapu";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Otočiť trasu";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Zadajte platné číslo podlažia";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Podlažie (prízemie je 0)";

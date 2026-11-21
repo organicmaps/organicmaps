@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Имейл или потребителско име";
-"level" = "Етаж";
 "downloader_delete_map_dialog" = "Всички ваши редакции на картата ще бъдат изтрити заедно с нея.";
 "downloader_update_maps" = "Обновяване на карти";
 "downloader_search_field_hint" = "Намиране на карта";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Обърни маршрута";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Въведете валиден номер на етаж";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Етаж (първият етаж е 0)";

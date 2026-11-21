@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "דוא\"ל או שם משתמש";
-"level" = "קומה";
 "downloader_delete_map_dialog" = "כל העריכות שלך במפה יימחקו יחד עם המפה.";
 "downloader_update_maps" = "עדכן מפות";
 "downloader_search_field_hint" = "חפש מפה";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "הפוך את המסלול";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "הזן מספר קומה תקין";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "קומה (קומת הקרקע היא 0)";

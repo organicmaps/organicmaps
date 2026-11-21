@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "이메일 또는 사용자 이름";
-"level" = "층";
 "downloader_delete_map_dialog" = "모든 지도의 변경 사항은 지도와 함께 삭제됩니다.";
 "downloader_update_maps" = "지도 업데이트";
 "downloader_search_field_hint" = "지도 찾기";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "경로를 반대로 설정";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "유효한 층 번호를 입력하십시오";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "층 (1층은 0)";

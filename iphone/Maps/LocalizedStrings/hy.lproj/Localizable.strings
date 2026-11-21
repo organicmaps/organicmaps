@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Էլ․ փոստ կամ օգտանուն";
-"level" = "Հարկ";
 "downloader_delete_map_dialog" = "Քարտեզի հետ կջնջվեն նաև ձեր բոլոր խմբագրումները:";
 "downloader_update_maps" = "Թարմացնել քարտեզները";
 "downloader_search_field_hint" = "Գտնել քարտեզ";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Շրջել երթուղին";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Մուտքագրեք վավեր հարկի համարը";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Հարկ (առաջին հարկը 0 է)";

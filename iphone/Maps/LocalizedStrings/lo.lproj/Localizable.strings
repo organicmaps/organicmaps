@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "ອີເມລ ຫຼື ຊື່ຜູ້ໃຊ້";
-"level" = "ຊັ້ນ";
 "downloader_delete_map_dialog" = "ການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານຈະຖືກລຶບໄປພ້ອມກັບແຜນທີ່.";
 "downloader_update_maps" = "ອັບເດດແຜນທີ່";
 "downloader_search_field_hint" = "ຊອກຫາແຜນທີ່";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "ກັບທິດທາງເສັ້ນທາງ";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "ປ້ອນໝາຍເລກຊັ້ນທີ່ຖືກຕ້ອງ";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "ຊັ້ນ (ຊັ້ນລຸ່ມແມ່ນ 0)";

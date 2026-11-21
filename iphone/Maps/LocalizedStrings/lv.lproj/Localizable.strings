@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-pasts vai lietotājvārds";
-"level" = "Stāvs";
 "downloader_delete_map_dialog" = "Kopā ar karti dzēsīsies visas jūsu veiktās kartes izmaiņas.";
 "downloader_update_maps" = "Atjaunināt kartes";
 "downloader_search_field_hint" = "Atrast karti";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Apgriezt maršrutu";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Ierakstiet derīgu stāva numuru";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Stāvs (pirmais stāvs ir 0)";

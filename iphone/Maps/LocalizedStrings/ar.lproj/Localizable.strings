@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "البريد الإلكتروني أو اسم المستخدم";
-"level" = "طابق";
 "downloader_delete_map_dialog" = "سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.";
 "downloader_update_maps" = "تحديث الخرائط";
 "downloader_search_field_hint" = "ابحث عن خريطة";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "عكس اتجاه المسار";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "أدخل رقم طابق صحيح";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "طابق (الطابق الأرضي هو 0)";

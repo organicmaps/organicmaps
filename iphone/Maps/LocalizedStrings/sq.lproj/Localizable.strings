@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Email ose emri i përdoruesit";
-"level" = "Kati";
 "downloader_delete_map_dialog" = "Të gjitha ndryshimet e hartës suaj do të fshihen së bashku me hartën.";
 "downloader_update_maps" = "Përditëso Hartat";
 "downloader_search_field_hint" = "Gjej hartën";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Përmbys rrugën";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Vendosni një numër të vlefshëm të katit";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Kati (kati përdhes është 0)";

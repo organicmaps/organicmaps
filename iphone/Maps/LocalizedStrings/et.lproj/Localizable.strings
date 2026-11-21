@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-post või kasutajanimi";
-"level" = "Korrus";
 "downloader_delete_map_dialog" = "Kõik sinu kaardimuudatused kustutatakse koos kaardiga.";
 "downloader_update_maps" = "Uuenda kaarte";
 "downloader_search_field_hint" = "Leia kaart";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Pööra marsruut ümber";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Sisesta kehtiv korruse number";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Korrus (esimene korrus on 0)";

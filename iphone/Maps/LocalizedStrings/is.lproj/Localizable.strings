@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Tölvupóstur eða notandanafn";
-"level" = "Hæð";
 "downloader_delete_map_dialog" = "Öllum breytingunum þínum verður eytt með kortinu.";
 "downloader_update_maps" = "Uppfæra kort";
 "downloader_search_field_hint" = "Finna kort";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Snúa leið við";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Settu inn gilt hæðarnúmer";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Hæð (jarðhæð er 0)";

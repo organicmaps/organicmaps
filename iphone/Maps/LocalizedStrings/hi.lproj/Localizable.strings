@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "ईमेल या उपयोगकर्ता नाम";
-"level" = "मंजिल";
 "downloader_delete_map_dialog" = "आपके सभी नक्शा संपादन नक्शे के साथ हटा दिए जाएंगे।";
 "downloader_update_maps" = "नक्शे अपडेट करें";
 "downloader_search_field_hint" = "मानचित्र ढूंढें";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "मार्ग उलटें";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "एक मान्य मंजिल संख्या दर्ज करें";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "मंजिल (भूतल 0 है)";

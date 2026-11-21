@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Adreça electrònica o nom d’usuari";
-"level" = "Planta";
 "downloader_delete_map_dialog" = "Totes les vostres edicions del mapa se suprimiran conjuntament amb aquest.";
 "downloader_update_maps" = "Actualitza els mapes";
 "downloader_search_field_hint" = "Troba el mapa";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Inverteix la ruta";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Introduïu un número de planta vàlid";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Planta (la planta baixa és 0)";
