@@ -1078,15 +1078,10 @@ public class RoutingController
   }
 
   /**
-   * Sets starting point.
-   * <ul>
-   *   <li>If {@code point} matches ending one and the starting point was set &mdash; swap points.
-   *   <li>The same as the currently set starting point is skipped.
-   *   <li>A null point (for example, an unavailable current location) is skipped.
-   * </ul>
-   * Route starts to build if both points were set.
+   * Sets the start and preserves the stops and destination. Selecting My Position fixes any other live route
+   * point at its planned coordinates. Rebuilds when both endpoints are present.
    *
-   * @return {@code true} if the point was set.
+   * @return whether the selection changed the plan
    */
   public boolean setStartPoint(@Nullable MapObject point)
   {
@@ -1115,7 +1110,9 @@ public class RoutingController
     if (changed)
     {
       checkAndBuildRoute();
-      if (mContainer != null)
+      if (isNavigating())
+        transitionToPlanning();
+      else if (mContainer != null)
         mContainer.updateMenu();
     }
     finalizePendingPoiPick();

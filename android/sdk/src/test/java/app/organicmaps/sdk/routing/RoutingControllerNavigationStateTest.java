@@ -3,10 +3,15 @@ package app.organicmaps.sdk.routing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -94,6 +99,23 @@ public class RoutingControllerNavigationStateTest
       assertFalse(controller.isNavigating());
       assertTrue(events.isEmpty());
       verifyNoInteractions(container);
+    }
+  }
+
+  @Test
+  public void changingOriginDuringNavigationReturnsToPlanning() throws ReflectiveOperationException
+  {
+    final RoutingController controller = spy(new RoutingController());
+    controller.markInitializedForTesting();
+    final MapObject origin = MapObject.createMapObject(MapObject.POI, "New start", "", 1, 2);
+    doReturn(true).when(controller).selectRouteEndpoint(RouteMarkType.Start, origin);
+    doNothing().when(controller).checkAndBuildRoute();
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      setState(controller, "NAVIGATION");
+      assertTrue(controller.setStartPoint(origin));
+      assertTrue(controller.isPlanning());
+      verify(controller).checkAndBuildRoute();
     }
   }
 

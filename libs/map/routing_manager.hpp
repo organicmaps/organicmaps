@@ -221,7 +221,8 @@ public:
   /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
   /// still applied while following). Returns false when a new point cannot be added at capacity.
   bool AddRoutePoint(RouteMarkData && markData, bool optimize);
-  /// Selects a start or finish. Picking the opposite endpoint exchanges their roles when both exist.
+  /// Route from replaces only the start. Taking over My Position fixes the previous live mark at its stored
+  /// coordinates. Route to exchanges endpoints when both exist and the selection matches the start.
   /// Returns whether the selection changed the plan.
   bool SelectRouteEndpoint(RouteMarkData && selection);
   /// Replaces the target mark in place, or adds it without optimization if missing. Removing a previous My Position

@@ -119,6 +119,16 @@ void FillTrafficForRendering(std::vector<RouteSegment> const & segments, std::ve
     traffic.push_back(s.GetTraffic());
 }
 
+// Keep the last planned coordinates when a different slot takes over the live GPS fix.
+void FreezeMyPosition(RoutePointsLayout & layout, RouteMarkPoint const & live)
+{
+  auto fixed = live.GetMarkData();
+  fixed.m_isMyPosition = false;
+  fixed.m_replaceWithMyPositionAfterRestart = false;
+  fixed.m_isVisible = !fixed.m_isPassed;
+  layout.GetRoutePointForEdit(fixed.m_pointType, fixed.m_intermediateIndex)->SetMarkData(std::move(fixed));
+}
+
 RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
@@ -1089,14 +1099,31 @@ bool RoutingManager::SelectRouteEndpoint(RouteMarkData && selection)
   if (current && samePosition(*current) && sameLabel(*current))
     return false;
 
-  // A live mark follows GPS independently of the fix and label attached to the selection.
-  if (selection.m_isMyPosition)
+  if (type == RouteMarkType::Start)
   {
-    if (auto const * live = layout.GetMyPositionPoint(); live && live != current)
-      return current && live == opposite && SwapRoutePointEndpoints();
+    if (!current)
+    {
+      auto const count = layout.GetRoutePointsCount();
+      if (count >= RoutePointsLayout::kMaxRoutePointsCount ||
+          (count == 1 && opposite && selection.m_position.EqualDxDy(opposite->GetPivot(), mercator::kPointEqualityEps)))
+        return false;
+    }
+    if (selection.m_isMyPosition && (!current || !current->IsMyPosition()))
+    {
+      if (auto const * live = layout.GetMyPositionPoint())
+        FreezeMyPosition(layout, *live);
+    }
   }
-  if (opposite && samePosition(*opposite) && (!current || sameLabel(*opposite)))
-    return current && SwapRoutePointEndpoints();
+  else
+  {
+    if (selection.m_isMyPosition)
+    {
+      if (auto const * live = layout.GetMyPositionPoint(); live && live != current)
+        return current && live == opposite && SwapRoutePointEndpoints();
+    }
+    if (opposite && samePosition(*opposite) && (!current || sameLabel(*opposite)))
+      return current && SwapRoutePointEndpoints();
+  }
 
   return ReplaceRoutePoint(type, 0, std::move(selection));
 }

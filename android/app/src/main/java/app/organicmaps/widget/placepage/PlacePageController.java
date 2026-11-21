@@ -586,13 +586,13 @@ public class PlacePageController
     if (mMapObject == null)
       return;
     RoutingController controller = RoutingController.get();
-    if (!controller.isPlanning())
+    if (controller.isPlanning() || controller.isNavigating())
+      commitRoutePoint(RouteMarkType.Start, mMapObject);
+    else
     {
       controller.prepare(mMapObject, null);
       close();
     }
-    else
-      commitRoutePoint(RouteMarkType.Start, mMapObject);
   }
 
   private void onRouteToBtnClicked()

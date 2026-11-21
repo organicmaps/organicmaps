@@ -205,7 +205,7 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
-  public void selectingTheOppositeEndpointKeepsBothStops() throws Exception
+  public void routeFromMyPositionKeepsTheDestinationAtItsSavedFix() throws Exception
   {
     onMain(() -> {
       assertTrue(Framework.nativeAddRoutePoint("Origin", "", RouteMarkType.Start, false, 0, 1, false));
@@ -222,7 +222,10 @@ public class RoutingControllerRecoveryTest
       assertEquals("First stop", points[1].mTitle);
       assertEquals("Second stop", points[2].mTitle);
       assertEquals(RouteMarkType.Finish, points[3].mPointType);
-      assertEquals("Origin", points[3].mTitle);
+      assertEquals("My Position", points[3].mTitle);
+      assertFalse(points[3].mIsMyPosition);
+      assertTrue(points[3].mIsVisible);
+      assertEquals(4.0, points[3].mLon, 1e-9);
     });
   }
 
@@ -258,7 +261,7 @@ public class RoutingControllerRecoveryTest
       assertTrue(Framework.nativeAddRoutePoint("Finish", "", RouteMarkType.Finish, false, 0, 2, false));
       assertTrue(Framework.nativeAddRoutePoint("Stop", "", RouteMarkType.Intermediate, false, 0, 1, false));
 
-      assertFalse(mController.setStartPoint(mController.getEndPoint()));
+      assertNull(mController.getStartPoint());
       assertTrue(mController.setEndPoint(point("New finish", 3)));
 
       final RouteMarkData[] points = Framework.nativeGetRoutePoints();
