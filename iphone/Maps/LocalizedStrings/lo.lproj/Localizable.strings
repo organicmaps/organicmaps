@@ -496,7 +496,9 @@
 "p2p_from_here" = "ເສັ້ນທາງຈາກ";
 "p2p_to_here" = "ເສັ້ນທາງໄປຫາ";
 "p2p_only_from_current" = "ການນຳທາງສາມາດໃຊ້ໄດ້ສະເພາະຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານເທົ່ານັ້ນ.";
-"p2p_reroute_from_current" = "ທ່ານຕ້ອງການວາງແຜນເສັ້ນທາງຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານບໍ່?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "ເສັ້ນທາງໄປຫາຈຸດເລີ່ມຕົ້ນ";
 "editor_time_add" = "ເພີ່ມຕາຕະລາງ";
 "editor_time_delete" = "ລຶບຕາຕະລາງ";
 

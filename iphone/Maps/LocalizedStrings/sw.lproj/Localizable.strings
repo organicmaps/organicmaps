@@ -496,7 +496,9 @@
 "p2p_from_here" = "Njia kutoka";
 "p2p_to_here" = "Njia ya";
 "p2p_only_from_current" = "Uelekezi unapatikana tu kutoka eneo lako la sasa.";
-"p2p_reroute_from_current" = "Je, unataka kupanga njia kutoka mahali ulipo sasa?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Njia ya kwenda mahali pa kuanzia";
 "editor_time_add" = "Ongeza ratiba";
 "editor_time_delete" = "Futa ratiba";
 

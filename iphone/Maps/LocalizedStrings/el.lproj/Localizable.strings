@@ -496,7 +496,9 @@
 "p2p_from_here" = "Διαδρομή από";
 "p2p_to_here" = "Διαδρομή προς";
 "p2p_only_from_current" = "Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.";
-"p2p_reroute_from_current" = "Θέλετε να σχεδιαστεί μια διαδρομή από την τρέχουσα τοποθεσία σας;";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Διαδρομή προς το σημείο εκκίνησης";
 "editor_time_add" = "Προσθέσετε χρονοδιάγραμμα";
 "editor_time_delete" = "Διαγραφή χρονοδιαγράμματος";
 

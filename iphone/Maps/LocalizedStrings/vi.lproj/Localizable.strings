@@ -496,7 +496,9 @@
 "p2p_from_here" = "Từ";
 "p2p_to_here" = "Tuyến đến";
 "p2p_only_from_current" = "Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.";
-"p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Lộ trình đến điểm xuất phát";
 "editor_time_add" = "Thêm lịch biểu";
 "editor_time_delete" = "Xóa lịch biểu";
 

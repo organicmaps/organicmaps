@@ -496,7 +496,9 @@
 "p2p_from_here" = "Teekond lähtekohast";
 "p2p_to_here" = "Teekond sihtkohta";
 "p2p_only_from_current" = "Tee juhatamine on saadaval ainult sinu praegusest asukohast.";
-"p2p_reroute_from_current" = "Kas soovid, et planeeriksime teekonna sinu praegusest asukohast?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Marsruut alguspunkti";
 "editor_time_add" = "Lisa ajakava";
 "editor_time_delete" = "Kustuta ajakava";
 

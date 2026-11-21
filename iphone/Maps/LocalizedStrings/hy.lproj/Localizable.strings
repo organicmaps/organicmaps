@@ -496,7 +496,9 @@
 "p2p_from_here" = "Երթուղի այստեղից";
 "p2p_to_here" = "Երթուղի դեպի այստեղ";
 "p2p_only_from_current" = "Նավիգացիան հասանելի է միայն ձեր ընթացիկ վայրից:";
-"p2p_reroute_from_current" = "Ցանկանո՞ւմ եք կառուցել երթուղի ձեր ընթացիկ վայրից:";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Երթուղի դեպի մեկնակետ";
 "editor_time_add" = "Ավելացնել գրաֆիկ";
 "editor_time_delete" = "Ջնջել գրաֆիկը";
 

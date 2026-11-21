@@ -496,7 +496,9 @@
 "p2p_from_here" = "Llwybr o";
 "p2p_to_here" = "Llwybr i";
 "p2p_only_from_current" = "Dim ond o'ch lleoliad presennol y mae llywio ar gael.";
-"p2p_reroute_from_current" = "Ydych chi eisiau cynllunio llwybr o'ch lleoliad presennol?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Llwybr i'r man cychwyn";
 "editor_time_add" = "Ychwanegu amserlen";
 "editor_time_delete" = "Dileu amserlen";
 

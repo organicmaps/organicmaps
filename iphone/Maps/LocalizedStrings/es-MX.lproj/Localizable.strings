@@ -496,7 +496,9 @@
 "p2p_from_here" = "Ruta desde";
 "p2p_to_here" = "Ruta hacia";
 "p2p_only_from_current" = "La navegación sólo está disponible desde tu ubicación actual.";
-"p2p_reroute_from_current" = "¿Quiere que planeemos una ruta desde su ubicación actual?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Ruta al punto de partida";
 "editor_time_add" = "Añadir horario";
 "editor_time_delete" = "Borrar horario";
 

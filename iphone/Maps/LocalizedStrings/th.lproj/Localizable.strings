@@ -496,7 +496,9 @@
 "p2p_from_here" = "จาก";
 "p2p_to_here" = "เส้นทางถึง";
 "p2p_only_from_current" = "สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น";
-"p2p_reroute_from_current" = "คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "เส้นทางไปยังจุดเริ่มต้น";
 "editor_time_add" = "เพิ่มวัน";
 "editor_time_delete" = "ลบวัน";
 

@@ -496,7 +496,9 @@
 "p2p_from_here" = "Rruga nga";
 "p2p_to_here" = "Rruga për";
 "p2p_only_from_current" = "Lundrimi është i disponueshëm vetëm nga vendndodhja juaj aktuale.";
-"p2p_reroute_from_current" = "A dëshironi të planifikoni një rrugë nga vendndodhja juaj aktuale?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Rruga drejt pikës së nisjes";
 "editor_time_add" = "Shto Orar";
 "editor_time_delete" = "Fshi Orarin";
 

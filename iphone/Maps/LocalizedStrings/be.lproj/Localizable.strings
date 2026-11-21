@@ -496,7 +496,9 @@
 "p2p_from_here" = "Адсюль";
 "p2p_to_here" = "Дасюль";
 "p2p_only_from_current" = "Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.";
-"p2p_reroute_from_current" = "Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Маршрут да адпраўной кропкі";
 "editor_time_add" = "Дадаць расклад";
 "editor_time_delete" = "Выдаліць расклад";
 

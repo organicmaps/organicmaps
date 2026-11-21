@@ -496,7 +496,9 @@
 "p2p_from_here" = "Старт";
 "p2p_to_here" = "Одредиште";
 "p2p_only_from_current" = "Навигација је могућа само од ваше тренутне локације.";
-"p2p_reroute_from_current" = "Да ли желите да направите руту од ваше тренутне локације?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Рута до полазне тачке";
 "editor_time_add" = "Додај време";
 "editor_time_delete" = "Обриши време";
 

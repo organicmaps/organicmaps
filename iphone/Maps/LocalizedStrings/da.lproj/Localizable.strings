@@ -496,7 +496,9 @@
 "p2p_from_here" = "Rute fra";
 "p2p_to_here" = "Rute til";
 "p2p_only_from_current" = "Navigation er kun tilgængelig fra din nuværende placering.";
-"p2p_reroute_from_current" = "Ønsker du at planlægge en rute fra din nuværende placering?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Rute til startpunktet";
 "editor_time_add" = "Tilføj tidsplan";
 "editor_time_delete" = "Slet tidsplan";
 

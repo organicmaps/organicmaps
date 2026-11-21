@@ -496,7 +496,9 @@
 "p2p_from_here" = "Route from";
 "p2p_to_here" = "Route to";
 "p2p_only_from_current" = "Navigation is only available from your current location.";
-"p2p_reroute_from_current" = "Do you want to plan a route from your current location?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Route to starting point";
 "editor_time_add" = "Add Schedule";
 "editor_time_delete" = "Delete Schedule";
 

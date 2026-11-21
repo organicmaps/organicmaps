@@ -496,7 +496,9 @@
 "p2p_from_here" = "Parti da";
 "p2p_to_here" = "Vai a";
 "p2p_only_from_current" = "La navigazione è disponibile solo dalla tua posizione attuale.";
-"p2p_reroute_from_current" = "Vuoi pianificare un percorso dalla tua posizione attuale?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Percorso verso il punto di partenza";
 "editor_time_add" = "Aggiungi orario";
 "editor_time_delete" = "Elimina orario";
 

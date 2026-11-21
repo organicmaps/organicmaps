@@ -496,7 +496,9 @@
 "p2p_from_here" = "مسیر از";
 "p2p_to_here" = "مسیر به";
 "p2p_only_from_current" = "مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.";
-"p2p_reroute_from_current" = "آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "مسیر به نقطهٔ شروع";
 "editor_time_add" = "اضافه کردن برنامه ریزی";
 "editor_time_delete" = "حذف کردن برنامه ریزی";
 

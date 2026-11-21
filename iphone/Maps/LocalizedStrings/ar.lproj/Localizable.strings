@@ -496,7 +496,9 @@
 "p2p_from_here" = "الطريق من هنا";
 "p2p_to_here" = "الطريق إلى";
 "p2p_only_from_current" = "تتوفر الملاحة من خلال موقعك الحالي فقط.";
-"p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "الطريق إلى نقطة البداية";
 "editor_time_add" = "إضافة جدول";
 "editor_time_delete" = "حذف جدول";
 

@@ -496,7 +496,9 @@
 "p2p_from_here" = "Leið frá";
 "p2p_to_here" = "Leið til";
 "p2p_only_from_current" = "Leiðsögn er aðeins möguleg frá fyrirliggjandi staðsetningu þinni.";
-"p2p_reroute_from_current" = "Viltu skipuleggja leið frá fyrirliggjandi staðsetningu þinni?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Leið til upphafspunktar";
 "editor_time_add" = "Bæta við áætlun";
 "editor_time_delete" = "Eyða áætlun";
 

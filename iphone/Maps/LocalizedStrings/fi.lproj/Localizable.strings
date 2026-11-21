@@ -496,7 +496,9 @@
 "p2p_from_here" = "Lähtöpaikka";
 "p2p_to_here" = "Reitin loppupiste";
 "p2p_only_from_current" = "Navigointi onnistuu vain nykyisestä sijainnistasi.";
-"p2p_reroute_from_current" = "Haluatko valita vaihtoehtoisen reitin?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Reitti lähtöpisteeseen";
 "editor_time_add" = "Lisää aikataulu";
 "editor_time_delete" = "Poista aikataulu";
 

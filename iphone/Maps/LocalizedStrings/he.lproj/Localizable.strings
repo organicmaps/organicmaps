@@ -496,7 +496,9 @@
 "p2p_from_here" = "מסלול מכאן";
 "p2p_to_here" = "מסלול לכאן";
 "p2p_only_from_current" = "ניווט זמין רק מהמיקום הנוכחי שלך.";
-"p2p_reroute_from_current" = "ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "מסלול לנקודת ההתחלה";
 "editor_time_add" = "הוסף לוח זמנים";
 "editor_time_delete" = "מחק לוח זמנים";
 
