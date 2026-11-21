@@ -40086,6 +40086,11 @@ vi = Tuyến đường trống - không có gì để lưu
 zh-Hans = 轨迹为空 — 无内容可保存
 zh-Hant = 軌跡為空 - 沒有可保存的內容
 
+[track_recording_save_failed]
+comment = Shown when a track recording could not be saved and is kept for another attempt
+tags = android-app,apple-maps
+en = Couldn't save the track. Your recording was kept. Try saving again.
+
 [error_no_file_manager_app]
 comment = Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks
 tags = android-app

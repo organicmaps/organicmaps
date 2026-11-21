@@ -7,11 +7,6 @@ enum StartTrackRecordingResult {
   case failure(Error)
 }
 
-enum StopTrackRecordingResult {
-  case success
-  case trackIsEmpty
-}
-
 @objc
 protocol TrackRecordingObservable: AnyObject {
   var recordingState: TrackRecordingState { get }
@@ -126,20 +121,20 @@ final class TrackRecordingManager: NSObject {
     }
   }
 
-  func stopAndSave(withName name: String = "", completion: ((StopTrackRecordingResult) -> Void)? = nil) {
-    unsubscribeFromTrackRecordingProgressUpdates()
-    trackRecordingInfo = .empty()
-    activityManager?.stop()
-    let saved = trackRecorder.saveTrackRecording(withName: name)
-    notifyObservers()
-
-    guard saved else {
-      Toast.show(withText: L("track_recording_toast_nothing_to_save"))
-      completion?(.trackIsEmpty)
-      return
+  func stopAndSave(withName name: String = "", completion: ((TrackRecordingSaveResult) -> Void)? = nil) {
+    let result = trackRecorder.saveTrackRecording(withName: name)
+    if result == .fileError {
+      Toast.show(withText: L("track_recording_save_failed"))
+    } else {
+      unsubscribeFromTrackRecordingProgressUpdates()
+      trackRecordingInfo = .empty()
+      activityManager?.stop()
+      notifyObservers()
+      if result == .empty {
+        Toast.show(withText: L("track_recording_toast_nothing_to_save"))
+      }
     }
-
-    completion?(.success)
+    completion?(result)
   }
 
   func discard() {
@@ -167,7 +162,8 @@ final class TrackRecordingManager: NSObject {
 
   private func subscribeOnTrackRecordingProgressUpdates() {
     trackRecorder.setTrackRecordingUpdateHandler { [weak self] info in
-      guard let self else { return }
+      // SafeCallback may deliver an update queued before unsubscribing.
+      guard let self, self.isActive() else { return }
       self.trackRecordingInfo = info
       self.notifyObservers()
       self.activityManager?.update(info)

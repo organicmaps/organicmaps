@@ -320,9 +320,16 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DiscardTrackRecording();
 }
 
-+ (BOOL)saveTrackRecordingWithName:(nonnull NSString *)name
++ (MWMTrackRecordingSaveResult)saveTrackRecordingWithName:(nonnull NSString *)name
 {
-  return GetFramework().SaveTrackRecordingWithName(name.UTF8String);
+  using Result = Framework::TrackRecordingSaveResult;
+  switch (GetFramework().SaveTrackRecordingWithName(name.UTF8String))
+  {
+  case Result::Success: return MWMTrackRecordingSaveResultSuccess;
+  case Result::Empty: return MWMTrackRecordingSaveResultEmpty;
+  case Result::FileError: return MWMTrackRecordingSaveResultFileError;
+  }
+  UNREACHABLE();
 }
 
 + (BOOL)isTrackRecordingEnabled

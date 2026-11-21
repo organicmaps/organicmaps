@@ -629,7 +629,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges(bool saveChangesOnDisk);
+  void NotifyChanges(bool saveChangesOnDisk, kml::MarkGroupId savedGroupId = kml::kInvalidMarkGroupId);
 
   void SaveState() const;
   void LoadState();

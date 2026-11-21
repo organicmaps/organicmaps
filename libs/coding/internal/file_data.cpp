@@ -264,21 +264,6 @@ bool GetFileSize(std::string const & fName, uint64_t & sz)
 namespace
 {
 
-bool CheckFileOperationResult(int res, std::string const & fName)
-{
-  if (!res)
-    return true;
-
-  LOG(LWARNING, ("File operation error for file:", fName, "-", strerror(errno)));
-
-  // additional check if file really was removed correctly
-  uint64_t dummy;
-  if (GetFileSize(fName, dummy))
-    LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
-
-  return false;
-}
-
 bool IsEOF(std::ifstream & fs)
 {
   return fs.peek() == std::ifstream::traits_type::eof();
@@ -310,8 +295,11 @@ bool TryRenameFile(std::string const & fOld, std::string const & fNew, bool logF
 
 bool DeleteFileX(std::string const & fName)
 {
-  int res = std::remove(fName.c_str());
-  return CheckFileOperationResult(res, fName);
+  if (std::remove(fName.c_str()) == 0)
+    return true;
+
+  LOG(LWARNING, ("Can't delete file", fName, "-", strerror(errno)));
+  return false;
 }
 
 bool RenameFileX(std::string const & fOld, std::string const & fNew)
@@ -342,19 +330,14 @@ bool WriteToTempAndRenameToFile(std::string const & dest, std::function<bool(std
   std::ostringstream tmpSuffix;
   tmpSuffix << std::this_thread::get_id();
   std::string const tmpFileName = tmp.empty() ? dest + ".tmp" + tmpSuffix.str() : tmp;
-  if (!write(tmpFileName))
-  {
-    LOG(LERROR, ("Can't write to", tmpFileName));
-    DeleteFileX(tmpFileName);
-    return false;
-  }
-  if (!RenameFileX(tmpFileName, dest))
-  {
-    LOG(LERROR, ("Can't rename file", tmpFileName, "to", dest));
-    DeleteFileX(tmpFileName);
-    return false;
-  }
-  return true;
+  bool const written = write(tmpFileName);
+  if (written && RenameFileX(tmpFileName, dest))
+    return true;
+
+  if (!written)
+    LOG(LWARNING, ("Can't write to", tmpFileName));
+  DeleteFileX(tmpFileName);
+  return false;
 }
 
 void AppendFileToFile(std::string const & fromFilename, std::string const & toFilename)

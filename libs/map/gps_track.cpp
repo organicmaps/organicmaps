@@ -24,14 +24,14 @@ GpsTrack::~GpsTrack()
   Finalize();
 }
 
-void GpsTrack::Start()
+void GpsTrack::Start(bool restoreBackup)
 {
   std::lock_guard lg(m_threadGuard);
   if (m_recording)
     return;
 
   m_recording = true;
-  m_needRestore = true;
+  m_needRestore = restoreBackup;
   ScheduleTask();
 }
 
@@ -197,7 +197,12 @@ size_t GpsTrack::Finalize()
   SaveBackup();
   std::vector<location::GpsInfo> points;
   m_filter->Finalize(points);
-  m_collection.Add(points);
+  auto const addedIds = m_collection.Add(points);
+  if (addedIds.first != kInvalidId)
+  {
+    NotifyCallback(addedIds, {kInvalidId, kInvalidId});
+    NotifyStatisticsCallback(true /* changed */);
+  }
   return m_collection.GetSize();
 }
 

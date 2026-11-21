@@ -25,12 +25,18 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> * results, BOOL finished);
 typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 
+typedef NS_CLOSED_ENUM(NSUInteger, MWMTrackRecordingSaveResult) {
+  MWMTrackRecordingSaveResultSuccess,
+  MWMTrackRecordingSaveResultEmpty,
+  MWMTrackRecordingSaveResultFileError
+} NS_SWIFT_NAME(TrackRecordingSaveResult);
+
 @protocol TrackRecorder
 
 + (void)startTrackRecording;
 + (void)setTrackRecordingUpdateHandler:(TrackRecordingUpdatedHandler _Nullable)trackRecordingDidUpdate;
 + (void)discardTrackRecording;
-+ (BOOL)saveTrackRecordingWithName:(nonnull NSString *)name;
++ (MWMTrackRecordingSaveResult)saveTrackRecordingWithName:(nonnull NSString *)name;
 + (BOOL)isTrackRecordingEnabled;
 + (ElevationProfileData * _Nullable)trackRecordingElevationInfo;
 

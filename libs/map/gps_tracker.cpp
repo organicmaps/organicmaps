@@ -54,11 +54,22 @@ void GpsTracker::Start()
   m_enabled = true;
 }
 
+size_t GpsTracker::Pause()
+{
+  return m_track.Finalize();
+}
+
+void GpsTracker::Resume()
+{
+  if (m_enabled)
+    m_track.Start(false /* restoreBackup */);
+}
+
 size_t GpsTracker::Stop()
 {
   if (m_enabled.exchange(false))
     SetSettingsIsEnabled(false);
-  return m_track.Finalize();
+  return Pause();
 }
 
 void GpsTracker::Clear()

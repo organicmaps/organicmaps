@@ -27,8 +27,8 @@ public:
            std::chrono::milliseconds backupInterval = std::chrono::minutes(1));
   ~GpsTrack();
 
-  /// Starts recording, restoring a previous crash backup if present.
-  void Start();
+  /// Starts recording, restoring the crash backup or keeping the points already in memory.
+  void Start(bool restoreBackup = true);
 
   /// Adds point or collection of points to gps tracking
   /// @note Callback is called with 'toAdd' and 'toRemove' points, if some points were added or removed.
@@ -56,12 +56,13 @@ public:
   /// @note Only one callback is supported at time.
   /// @note When sink is attached, it receives all points in 'toAdd' at first time,
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
+  /// @note Finalize may call the callback on its caller's thread.
   void SetCallback(TGpsTrackDiffCallback callback);
 
   /// @note Calling SetStatisticsCallback from the callback causes deadlock.
   using TGpsTrackStatisticsCallback = std::function<void(TrackStatistics const & trackStatistics)>;
 
-  /// Called on the worker thread with the current statistics, then on each change.
+  /// Sends the current statistics and each change. Finalize may also call it on its caller's thread.
   void SetStatisticsCallback(TGpsTrackStatisticsCallback callback);
 
   /// Finishes recording and flushes its backup, keeping it until Clear.

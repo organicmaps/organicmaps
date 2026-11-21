@@ -484,8 +484,14 @@ public:
   /// Finishes recording and returns the point count. The backup is retained until save or discard.
   size_t StopTrackRecording();
   void DiscardTrackRecording();
-  /// Returns true when finalization created a bookmark track. Bookmark persistence is asynchronous.
-  bool SaveTrackRecordingWithName(std::string const & name);
+  enum class TrackRecordingSaveResult
+  {
+    Success = 0,
+    Empty = 1,
+    FileError = 2
+  };
+  /// Ends the recording once the category file is saved. A write failure leaves it available to retry.
+  TrackRecordingSaveResult SaveTrackRecordingWithName(std::string const & name, bool showTrack = true);
   bool IsTrackRecordingEnabled() const;
 
   bool SaveRoute();

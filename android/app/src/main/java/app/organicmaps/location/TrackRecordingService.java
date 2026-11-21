@@ -217,7 +217,13 @@ public class TrackRecordingService
     if (action != null && STOP_TRACK_RECORDING.equals(action))
     {
       Logger.d(TAG, "Stop action received");
-      if (!TrackRecorder.saveAndStop())
+      final @TrackRecorder.SaveResult int result = TrackRecorder.saveAndStop();
+      if (result == TrackRecorder.SAVE_FILE_ERROR)
+      {
+        Toast.makeText(this, R.string.track_recording_save_failed, Toast.LENGTH_SHORT).show();
+        return START_NOT_STICKY;
+      }
+      if (result == TrackRecorder.SAVE_EMPTY)
         Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
       stopSelf();
       return START_NOT_STICKY;

@@ -22,7 +22,7 @@ final class MapViewControllerTests: XCTestCase {
     }
 
     MockTrackRecorder.trackRecordingIsEnabled = true
-    MockTrackRecorder.saveResult = true
+    MockTrackRecorder.saveResult = .success
     map.controlsManager.setTrackRecordingButtonState(.visible)
     map.showTrackRecordingPlacePage()
     XCTAssertTrue(recordingManager.contains(map))

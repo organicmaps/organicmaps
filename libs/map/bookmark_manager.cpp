@@ -33,6 +33,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <future>
 #include <limits>
 #include <unordered_set>
 
@@ -601,7 +602,7 @@ void BookmarkManager::OnEditSessionClosed()
     NotifyChanges(true /* saveChangesOnDisk */);
 }
 
-void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
+void BookmarkManager::NotifyChanges(bool saveChangesOnDisk, kml::MarkGroupId savedGroupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -630,7 +631,7 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
     {
       kml::GroupIdCollection categoriesToSave;
       for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
-        if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
+        if (groupId != savedGroupId && IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
           categoriesToSave.push_back(groupId);
 
       SaveBookmarks(categoriesToSave);
@@ -1147,7 +1148,7 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName, size_t p
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto & tracker = GpsTracker::Instance();
-  ASSERT(!tracker.IsEnabled(), ());
+  ASSERT_EQUAL(m_openedEditSessionsCount, 0, ());
   ASSERT_GREATER_OR_EQUAL(pointCount, 2, ());
 
   kml::TrackData trackData;
@@ -1172,11 +1173,29 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName, size_t p
   trackData.m_layers.emplace_back().m_color.m_rgba = GenerateTrackRecordingColor().GetRGBA();
   trackData.m_timestamp = kml::TimestampClock::now();
 
-  auto editSession = GetEditSession();
-  auto const track = editSession.CreateTrack(std::move(trackData));
   auto const groupId = LastEditedBMCategory();
-  auto const trackId = track->GetId();
+  auto collection = PrepareToSaveBookmarks({groupId});
+  if (!collection)
+    return kml::kInvalidTrackId;
+
+  auto & [file, data] = collection->front();
+  data->m_categoryData.m_lastModified = trackData.m_timestamp;
+  auto & recording = data->m_tracksData.emplace_back(std::move(trackData));
+
+  // The wait includes queued File work. Earlier autosaves must finish before this save.
+  auto save = std::make_shared<std::packaged_task<bool()>>([&] { return SaveKmlFileByExt(*data, file); });
+  auto result = save->get_future();
+  auto const task = GetPlatform().RunTask(Platform::Thread::File, [save = std::move(save)] { (*save)(); });
+  CHECK(task.m_isSuccess, ("Recording save requires a running file thread"));
+  if (!result.get())
+    return kml::kInvalidTrackId;
+
+  auto const trackId = CreateTrack(std::move(recording))->GetId();
   AttachTrack(trackId, groupId);
+  // Keep the category's sort order consistent with the file we just wrote.
+  GetBmCategory(groupId)->m_data.m_lastModified = data->m_categoryData.m_lastModified;
+  // The destination category is already saved, so skip its usual autosave.
+  NotifyChanges(true /* saveChangesOnDisk */, groupId);
   return trackId;
 }
 
@@ -2921,8 +2940,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   std::string const fileDir = GetBookmarksDirectory();
-
-  if (!Platform::IsFileExistsByFullPath(fileDir) && !Platform::MkDirChecked(fileDir))
+  if (!Platform::MkDirRecursively(fileDir))
     return nullptr;
 
   auto collection = std::make_shared<KMLDataCollection>();

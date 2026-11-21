@@ -52,11 +52,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeDiscardTrac
   frm()->DiscardTrackRecording();
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env,
-                                                                                                    jclass clazz,
-                                                                                                    jstring name)
+JNIEXPORT jint Java_app_organicmaps_sdk_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env,
+                                                                                                jclass clazz,
+                                                                                                jstring name,
+                                                                                                jboolean showTrack)
 {
-  return frm()->SaveTrackRecordingWithName(jni::ToNativeString(env, name));
+  return static_cast<jint>(frm()->SaveTrackRecordingWithName(jni::ToNativeString(env, name), showTrack));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeIsTrackRecordingEnabled(JNIEnv * env,

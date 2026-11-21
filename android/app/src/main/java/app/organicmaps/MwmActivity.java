@@ -51,6 +51,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -188,6 +189,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
   private boolean mLocationPermissionRequestedForRecording = false;
+  private boolean mSaveRestoredRecordingAfterLoad;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
@@ -241,12 +243,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mSearchPageViewModel.setSearchEnabled(true, restored);
     }
 
-    if (TrackRecorder.nativeIsTrackRecordingEnabled() && !startTrackRecording())
-    {
-      // The user has revoked location permissions in the system settings, causing the app to
-      // restart while recording was active. Save the recorded data and stop the recording.
-      saveAndStopTrackRecording();
-    }
+    restoreTrackRecording();
 
     processStartupIntent();
     migrateOAuthCredentials();
@@ -1051,6 +1048,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResumeFragments();
     RoutingController.get().restore();
+    scheduleRestoredRecordingSave();
   }
 
   @Override
@@ -1967,6 +1965,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onBookmarksLoadingFinished()
+  {
+    scheduleRestoredRecordingSave();
+  }
+
+  @Override
   public void onBookmarksFileUnsupported(@NonNull Uri uri)
   {
     dismissAlertDialog();
@@ -2069,6 +2073,47 @@ public class MwmActivity extends BaseMwmFragmentActivity
     SettingsActivity.startForVoiceInstructions(this);
   }
 
+  @VisibleForTesting
+  void restoreTrackRecording()
+  {
+    if (TrackRecorder.nativeIsTrackRecordingEnabled() && !startTrackRecording())
+    {
+      // Location access was revoked while the recording was active. Save into the loaded bookmark list.
+      mSaveRestoredRecordingAfterLoad = true;
+      saveRestoredRecordingWhenReady();
+    }
+  }
+
+  @VisibleForTesting
+  void scheduleRestoredRecordingSave()
+  {
+    // Let the load callback or the Activity's resume event finish before saving.
+    if (mSaveRestoredRecordingAfterLoad)
+      app.organicmaps.sdk.util.concurrency.UiThread.runLater(this::saveRestoredRecordingWhenReady);
+  }
+
+  private void saveRestoredRecordingWhenReady()
+  {
+    if (!mSaveRestoredRecordingAfterLoad || isFinishing()
+        || !getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED))
+      return;
+
+    if (!TrackRecorder.nativeIsTrackRecordingEnabled() || LocationUtils.checkFineLocationPermission(this))
+    {
+      mSaveRestoredRecordingAfterLoad = false;
+      return;
+    }
+
+    final BookmarkManager bookmarks = BookmarkManager.INSTANCE;
+    // Native code posts the busy flag to the GUI thread. Before the first completion it can still read false.
+    if (bookmarks.getLoadingGeneration() == 0 || bookmarks.isAsyncBookmarksLoadingInProgress())
+      return;
+
+    mSaveRestoredRecordingAfterLoad = false;
+    // Keep the recording on a write error and preserve the selection made while bookmarks loaded.
+    saveAndStopTrackRecording(false /* showTrack */);
+  }
+
   private boolean startTrackRecording()
   {
     if (!LocationUtils.checkFineLocationPermission(this))
@@ -2082,6 +2127,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return false;
     }
 
+    mSaveRestoredRecordingAfterLoad = false;
     requestPostNotificationsPermission();
 
     showTrackRecordingUi();
@@ -2117,11 +2163,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       closePlacePage();
   }
 
-  private boolean saveAndStopTrackRecording()
+  private void saveAndStopTrackRecording(boolean showTrack)
   {
-    final boolean saved = TrackRecorder.saveAndStop();
-    stopTrackRecording();
-    return saved;
+    final @TrackRecorder.SaveResult int result = TrackRecorder.saveAndStop(showTrack);
+    if (result != TrackRecorder.SAVE_FILE_ERROR)
+      stopTrackRecording();
+    if (result == TrackRecorder.SAVE_EMPTY)
+      Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
+    else if (result == TrackRecorder.SAVE_FILE_ERROR)
+      Toast.makeText(this, R.string.track_recording_save_failed, Toast.LENGTH_SHORT).show();
   }
 
   private void onTrackRecordingOptionSelected()
@@ -2205,8 +2255,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onTrackRecordingSaved()
   {
-    if (!saveAndStopTrackRecording())
-      Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
+    saveAndStopTrackRecording(true /* showTrack */);
   }
 
   public void onTrackRecordingCancelled()

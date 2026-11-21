@@ -13,6 +13,9 @@ public:
 
   bool IsEnabled() const;
   void Start();
+  // Finalize the points while retaining the recording preference and backup.
+  size_t Pause();
+  void Resume();
   // Flush pending fixes and return the number of accepted points.
   size_t Stop();
   void Clear();
