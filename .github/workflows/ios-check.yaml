@@ -46,7 +46,6 @@ jobs:
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
-      TEST_RESULTS_BUNDLE_NAME: OMaps-Test-Results
     strategy:
       fail-fast: false
       matrix:
@@ -95,20 +94,52 @@ jobs:
           # the master DerivedData it just restored from (via restore-keys).
           delete-used-deriveddata-cache: ${{ github.ref == 'refs/heads/master' }}
 
-      - name: Build and Run Tests (Debug)
+      - name: Build for Testing (Debug)
         if: matrix.buildType == 'Debug'
         shell: bash
         run: |
-          # Change back "build" to "test" after fixing https://github.com/organicmaps/organicmaps/issues/9867 and revert 6dede38cccfbdbed6c35abf3fea1b76553018f05
-          xcodebuild build \
+          xcodebuild build-for-testing \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
             -configuration Debug \
-            -sdk iphonesimulator \
-            -destination 'generic/platform=iOS' \
+            -destination 'generic/platform=iOS Simulator' \
             -quiet \
+            ARCHS=arm64 \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
+
+      - name: Run XCTest (Debug)
+        if: matrix.buildType == 'Debug'
+        timeout-minutes: 15
+        shell: bash
+        env:
+          TEST_RESULTS_DIR: ${{ runner.temp }}/ios-tests
+        run: |
+          mkdir -p "$TEST_RESULTS_DIR"
+          sdk_version=$(xcrun --sdk iphonesimulator --show-sdk-version)
+          runtime="com.apple.CoreSimulator.SimRuntime.iOS-${sdk_version//./-}"
+          simulator=$(xcrun simctl create 'Organic Maps CI' com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro \
+            "$runtime")
+          trap 'xcrun simctl shutdown "$simulator" || true; xcrun simctl delete "$simulator" || true' EXIT
+          xcrun simctl bootstatus "$simulator" -b 2>&1 | tee "$TEST_RESULTS_DIR/simulator-boot.log"
+          xcodebuild test-without-building \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,id=$simulator,arch=arm64" \
+            -parallel-testing-enabled NO \
+            -test-timeouts-enabled YES \
+            -default-test-execution-time-allowance 300 \
+            -resultBundlePath "$TEST_RESULTS_DIR/OMaps.xcresult" \
+            2>&1 | tee "$TEST_RESULTS_DIR/xctest.log"
+
+      - name: Upload XCTest Diagnostics (Debug)
+        if: ${{ matrix.buildType == 'Debug' && failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: ios-test-results
+          path: ${{ runner.temp }}/ios-tests
+          if-no-files-found: ignore
 
       - name: Build (Release)
         if: matrix.buildType == 'Release'

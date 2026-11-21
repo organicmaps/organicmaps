@@ -155,10 +155,13 @@ using namespace osm_auth_ios;
     [self firstLaunchSetup];
   else
     [self incrementSessionCount];
-  [self enableTTSForTheFirstTime];
 
   if (![MapsAppDelegate isTestsEnvironment])
+  {
+    // Enabling TTS loads the system voice catalog, which can stall XCTest startup.
+    [self enableTTSForTheFirstTime];
     [[iCloudSynchronizaionManager shared] start];
+  }
 
   // Launch URLs, user activities and quick actions arrive with the scene connection options in
   // MainSceneDelegate; launchOptions carries none of them for a scene-based app.
@@ -241,11 +244,13 @@ using namespace osm_auth_ios;
   [self.mapViewController onGetFocus:YES];
   f.SetRenderingEnabled();
   [MWMLocationManager applicationDidBecomeActive];
-  // Unit tests exercise indexing with a mock and must not modify the system index.
-  if (![MapsAppDelegate isTestsEnvironment])
-    [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
-  [MWMTextToSpeech applicationDidBecomeActive];
+  // Keep system indexing and speech voice updates out of the XCTest host.
+  if (![MapsAppDelegate isTestsEnvironment])
+  {
+    [MWMSearch addCategoriesToSpotlight];
+    [MWMTextToSpeech applicationDidBecomeActive];
+  }
 
   uint64_t const kRateUsRequestDisplayingDelay = 4;
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kRateUsRequestDisplayingDelay * NSEC_PER_SEC),
@@ -254,8 +259,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
 
-// TODO: Drape enabling and iCloud sync are skipped during the test run due to the app crashing in teardown. This is a
-// temporary solution. Drape should be properly disabled instead of merely skipping the enabling process.
+// The OMaps scheme sets this flag to skip renderer and system-service setup in the XCTest host.
 + (BOOL)isTestsEnvironment
 {
   NSProcessInfo * processInfo = [NSProcessInfo processInfo];
