@@ -38,6 +38,7 @@ final class PlacePageScrollView: UIScrollView {
   private let headerStackView = UIStackView()
   private let backgroundView = UIView()
   private var beginDragging = false
+  private var needsPreviewOffsetUpdate = false
   private var previousTraitCollection: UITraitCollection?
   private var scrollSteps: [PlacePageState] = []
   private var currentScrollContentOffset: CGPoint?
@@ -200,9 +201,9 @@ final class PlacePageScrollView: UIScrollView {
     }
 
     scrollView.isScrollEnabled = true
-    // Keep only an active drag: its release re-targets with the new steps.
-    // isDragging alone stays true while decelerating.
-    beginDragging = scrollView.isTracking && scrollView.isDragging
+    // A drag re-targets with the new steps on release; a deceleration is repositioned when it ends.
+    beginDragging = scrollView.isDragging || scrollView.isDecelerating
+    needsPreviewOffsetUpdate = scrollView.isDecelerating && !scrollView.isTracking
     if let actionBar = layout.actionBar {
       hideActionBar(false)
       addActionBar(actionBar)
@@ -370,8 +371,11 @@ extension PlacePageViewController: PlacePageViewProtocol {
       switch userDefinedStep {
       case .preview:
         offset.y = scrollSteps[1].offset
-      case .previewPlus(let yOffset):
-        offset.y = yOffset
+      case .previewPlus:
+        for case .previewPlus(let yOffset) in scrollSteps {
+          offset.y = yOffset
+          break
+        }
       case .full:
         offset.y = currentScrollContentOffset?.y ?? scrollSteps.last?.offset ?? 0
       case .closed:
@@ -402,6 +406,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func close(completion: @escaping (() -> Void)) {
     // The completion removes the current Place Page, so it must run only once.
     guard closingAnimator?.state != .active else { return }
+    needsPreviewOffsetUpdate = false
     view.isUserInteractionEnabled = false
     updateTopBound(.zero)
     closingAnimator = ModalPresentationAnimator.animate(
@@ -452,6 +457,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
 
   func scrollViewWillBeginDragging(_: UIScrollView) {
     beginDragging = true
+    needsPreviewOffsetUpdate = false
   }
 
   func scrollViewWillEndDragging(_ scrollView: UIScrollView,
@@ -482,6 +488,13 @@ extension PlacePageViewController: UIScrollViewDelegate {
     }
     targetContentOffset.pointee = CGPoint(x: 0, y: nextStep.offset)
     userDefinedStep = nextStep
+  }
+
+  func scrollViewDidEndDecelerating(_: UIScrollView) {
+    guard needsPreviewOffsetUpdate else { return }
+    needsPreviewOffsetUpdate = false
+    beginDragging = false
+    updatePreviewOffset()
   }
 
   private func onOffsetChanged(_ offset: CGFloat) {
