@@ -314,6 +314,8 @@
     <string name="p2p_from_here">ເສັ້ນທາງຈາກ</string>
     <string name="p2p_to_here">ເສັ້ນທາງໄປຫາ</string>
     <string name="p2p_only_from_current">ການນຳທາງສາມາດໃຊ້ໄດ້ສະເພາະຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານເທົ່ານັ້ນ.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">ເສັ້ນທາງໄປຫາຈຸດເລີ່ມຕົ້ນ</string>
     <string name="p2p_reroute_from_current">ທ່ານຕ້ອງການວາງແຜນເສັ້ນທາງຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານບໍ່?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">ຕໍ່ໄປ</string>

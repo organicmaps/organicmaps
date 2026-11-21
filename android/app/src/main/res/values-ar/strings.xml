@@ -360,6 +360,8 @@
     <string name="p2p_from_here">الطريق من هنا</string>
     <string name="p2p_to_here">الطريق إلى</string>
     <string name="p2p_only_from_current">تتوفر الملاحة من خلال موقعك الحالي فقط.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">الطريق إلى نقطة البداية</string>
     <string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">التالي</string>

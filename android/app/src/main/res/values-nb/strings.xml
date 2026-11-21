@@ -360,6 +360,8 @@
     <string name="p2p_from_here">Fra</string>
     <string name="p2p_to_here">Rute til</string>
     <string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Rute til startpunkt</string>
     <string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Neste</string>

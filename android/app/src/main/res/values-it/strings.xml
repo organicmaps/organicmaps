@@ -360,6 +360,8 @@
     <string name="p2p_from_here">Parti da</string>
     <string name="p2p_to_here">Vai a</string>
     <string name="p2p_only_from_current">La navigazione è disponibile solo dalla tua posizione attuale.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Percorso verso il punto di partenza</string>
     <string name="p2p_reroute_from_current">Vuoi pianificare un percorso dalla tua posizione attuale?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Avanti</string>

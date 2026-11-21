@@ -63,6 +63,8 @@
     <string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="p2p_start">Bắt đầu</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Lộ trình đến điểm xuất phát</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Cả ngày (24 giờ)</string>
     <string name="editor_time_open">Mở cửa</string>
@@ -77,7 +79,6 @@
     <string name="minute">phút</string>
     <string name="big_font">Tăng kích cỡ phông chữ trên bản đồ</string>
     <string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
-    <string name="button_plan">Kế hoạch</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Trình tải xuống bản đồ</string>
     <string name="driving_options_title">Thiết lập đi vòng</string>
@@ -112,6 +113,6 @@
     <string name="aa_grant_permissions">Cấp quyền</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
-    <string name="reverse_route">Đảo ngược tuyến đường</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Đã đạt đến số điểm dừng tối đa</string>
 </resources>

@@ -63,6 +63,8 @@
     <string name="search_not_found">Non ho trovato nulla.</string>
     <string name="search_history_text">Visualizza le ricerche recenti.</string>
     <string name="p2p_start">Inizia</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Percorso verso il punto di partenza</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Tutto il giorno (24 ore)</string>
     <string name="editor_time_open">Aperto</string>
@@ -77,7 +79,6 @@
     <string name="minute">min</string>
     <string name="big_font">Aumenta dimensione etichette sulla mappa</string>
     <string name="transliteration_title">Traslittera in caratteri latini</string>
-    <string name="button_plan">Pianifica</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Scaricamento mappe</string>
     <string name="driving_options_title">Impostazioni del percorso</string>
@@ -112,6 +113,6 @@
     <string name="aa_grant_permissions">Concedi il permesso</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
-    <string name="reverse_route">Inverti il percorso</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Numero massimo di soste raggiunto</string>
 </resources>

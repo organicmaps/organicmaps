@@ -63,6 +63,8 @@
     <string name="search_not_found">Ups, nema rezultata.</string>
     <string name="search_history_text">Pogledaj svoje nedavne pretrage.</string>
     <string name="p2p_start">Početak</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Ruta do polazne točke</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Cijeli dan (24 sata)</string>
     <string name="editor_time_open">Otvoreno</string>
@@ -77,7 +79,6 @@
     <string name="minute">min</string>
     <string name="big_font">Povećajte veličinu oznaka na karti</string>
     <string name="transliteration_title">Transliterirati u latinično pismo</string>
-    <string name="button_plan">Plan</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Preuzimač karti</string>
     <string name="driving_options_title">Opcije za određivanje rute</string>
@@ -112,6 +113,6 @@
     <string name="aa_grant_permissions">Odobri dozvole</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
-    <string name="reverse_route">Obrni rutu</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Postignut je maksimalni broj stajališta</string>
 </resources>

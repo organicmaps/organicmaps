@@ -47,6 +47,8 @@
     <string name="search_not_found">ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
     <string name="p2p_start">ເລີ່ມ</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">ເສັ້ນທາງໄປຫາຈຸດເລີ່ມຕົ້ນ</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">ທັງໝົດມື້ (24 ຊົ່ວໂມງ)</string>
     <string name="editor_time_open">ເປີດ</string>
@@ -61,7 +63,6 @@
     <string name="minute">ນາທີ</string>
     <string name="big_font">ເພີ່ມຂະໜາດສຳລັບປ້າຍຊື່ໃນແຜນທີ່</string>
     <string name="transliteration_title">ຖອດອັກສອນເປັນພາສາລາແຕັງ</string>
-    <string name="button_plan">ວາງແຜນ</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">ຕົວດາວໂຫລດແຜນທີ່</string>
     <string name="driving_options_title">ຕົວເລືອກການສ້າງເສັ້ນທາງ</string>
@@ -96,6 +97,6 @@
     <string name="aa_grant_permissions">ໃຫ້ການອະນຸຍາດ</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
-    <string name="reverse_route">ກັບທິດທາງເສັ້ນທາງ</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">ຮອດຈຳນວນຈຸດຈອດສູງສຸດແລ້ວ</string>
 </resources>

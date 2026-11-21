@@ -30,6 +30,8 @@
     <string name="search_not_found">Lo siento, no se han encontrado resultados.</string>
     <string name="search_history_text">Ver tus búsquedas recientes.</string>
     <string name="p2p_start">Inicio</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Ruta al punto de partida</string>
     <string name="editor_time_open">Abrir</string>
     <string name="big_font">Aumentar el tamaño de las etiquetas de los mapas</string>
     <string name="transliteration_title">Transliterar al alfabeto latino</string>

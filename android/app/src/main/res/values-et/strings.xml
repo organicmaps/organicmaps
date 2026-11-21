@@ -360,6 +360,8 @@
     <string name="p2p_from_here">Teekond lähtekohast</string>
     <string name="p2p_to_here">Teekond sihtkohta</string>
     <string name="p2p_only_from_current">Tee juhatamine on saadaval ainult sinu praegusest asukohast.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Marsruut alguspunkti</string>
     <string name="p2p_reroute_from_current">Kas soovid, et planeeriksime teekonna sinu praegusest asukohast?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Järgmine</string>

@@ -360,6 +360,8 @@
     <string name="p2p_from_here">Отсюда</string>
     <string name="p2p_to_here">Сюда</string>
     <string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">К началу маршрута</string>
     <string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Далее</string>

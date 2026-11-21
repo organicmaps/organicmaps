@@ -182,6 +182,8 @@
     <string name="p2p_your_location">Tu ubicación</string>
     <string name="p2p_start">Inicio</string>
     <string name="p2p_only_from_current">La navegación sólo está disponible desde tu ubicación actual.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Ruta al punto de partida</string>
     <string name="p2p_reroute_from_current">¿Quiere que planeemos una ruta desde su ubicación actual?</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
     <string name="editor_time_from">En</string>

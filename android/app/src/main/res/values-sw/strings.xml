@@ -360,6 +360,8 @@
     <string name="p2p_from_here">Njia kutoka</string>
     <string name="p2p_to_here">Njia ya</string>
     <string name="p2p_only_from_current">Uelekezi unapatikana tu kutoka eneo lako la sasa.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Njia ya kwenda mahali pa kuanzia</string>
     <string name="p2p_reroute_from_current">Je, unataka kupanga njia kutoka mahali ulipo sasa?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Ifuatayo</string>

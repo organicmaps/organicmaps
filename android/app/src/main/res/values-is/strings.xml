@@ -360,6 +360,8 @@
     <string name="p2p_from_here">Leið frá</string>
     <string name="p2p_to_here">Leið til</string>
     <string name="p2p_only_from_current">Leiðsögn er aðeins möguleg frá fyrirliggjandi staðsetningu þinni.</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Leið til upphafspunktar</string>
     <string name="p2p_reroute_from_current">Viltu skipuleggja leið frá fyrirliggjandi staðsetningu þinni?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Næsta</string>

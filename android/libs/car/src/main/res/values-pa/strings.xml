@@ -19,6 +19,6 @@
     <string name="settings">ਸੈਟਿੰਗਾਂ</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
-    <string name="reverse_route">ਰੂਟ ਦੀ ਦਿਸ਼ਾ ਉਲਟਾਓ</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">ਸਟਾਪਾਂ ਦੀ ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਪੂਰੀ ਹੋ ਗਈ</string>
 </resources>

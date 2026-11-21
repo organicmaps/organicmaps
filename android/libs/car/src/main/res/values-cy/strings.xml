@@ -63,6 +63,8 @@
     <string name="search_not_found">Wps, ni chanfuwyd unrhyw ganlyniadau.</string>
     <string name="search_history_text">Gwelwch eich chwiliadau diweddar.</string>
     <string name="p2p_start">Dechrau</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Llwybr i\'r man cychwyn</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Drwy\'r dydd (24 awr)</string>
     <string name="editor_time_open">Ar agor</string>
@@ -111,6 +113,6 @@
     <string name="aa_grant_permissions">Rhoi caniatadau</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
-    <string name="reverse_route">Gwrthdroi\'r llwybr</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Cyrhaeddwyd y nifer uchaf o bwyntiau aros</string>
 </resources>
