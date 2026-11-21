@@ -292,10 +292,10 @@ UNIT_TEST(ClipSplinesBuilder_ClippedSplineOffset)
   builder.Build(f, kNoSimplifyZoom);
 
   auto const splines = builder.Release(false /* isIsoline */, true /* needSplineOffsets */);
-  auto const & offsets = builder.GetSplineOffsets();
+  auto const & offsets = builder.GetSourceRanges();
   TEST_EQUAL(splines.size(), 1, ());
   TEST_EQUAL(offsets.size(), splines.size(), ());
-  TEST_ALMOST_EQUAL_ABS(offsets.front(), 5.0, 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(offsets.front().m_startDistance, 5.0, 1e-12, ());
 }
 
 UNIT_TEST(DashedLinePhase_ReversedMetalineMember)

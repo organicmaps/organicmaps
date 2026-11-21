@@ -24,7 +24,7 @@ double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline, double padding)
 {
   m_path.clear();
-  m_splineOffsets.clear();
+  m_sourceRanges.clear();
   m_knownInside = false;
 
   // Use the feature's pre-parsed limit rect to short-circuit the read of
@@ -134,7 +134,7 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline, d
 std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool needSplineOffsets)
 {
   std::vector<m2::SharedSpline> out;
-  m_splineOffsets.clear();
+  m_sourceRanges.clear();
   if (m_path.size() < 2)
     return out;
 
@@ -145,22 +145,16 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool n
   // the next Build() — no cleanup needed here.
   if (!isIsoline && m_knownInside)
   {
-    if (needSplineOffsets)
-      m_splineOffsets.push_back(0.0);
     out.emplace_back(std::move(m_path));
+    if (needSplineOffsets)
+      m_sourceRanges.push_back({0.0, out.front()->GetLength(), 0, out.front()->GetSize() - 2});
     return out;
   }
-
-  out.reserve(2);
 
   if (!isIsoline && needSplineOffsets)
-  {
-    std::vector<m2::SplineClipInfo> ranges;
-    out = m2::ClipSplineByRect(m_params.m_tileRect, m2::SharedSpline(m_path), &ranges);
-    for (auto const & range : ranges)
-      m_splineOffsets.push_back(range.m_startDistance);
-    return out;
-  }
+    return m2::ClipSplineByRect(m_params.m_tileRect, m2::SharedSpline(m_path), &m_sourceRanges);
+
+  out.reserve(2);
 
   if (isIsoline)
   {
@@ -182,15 +176,6 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool n
   }
   else
     m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
-
-  // Every clipped spline starts on the source path. Preserve its distance from
-  // the feature start so independently generated tiles use the same dash phase.
-  // Isolines do not use dashed line rules and smoothing changes their geometry,
-  // so their offsets intentionally remain zero.
-  if (!needSplineOffsets)
-    return out;
-
-  m_splineOffsets.resize(out.size(), 0.0);  // Smoothed isolines have no source-distance correspondence.
 
   return out;
 }

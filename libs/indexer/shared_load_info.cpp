@@ -19,6 +19,8 @@ SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & 
 {
   if (m_relTable)
     m_relsReader = m_cont.GetReader(RELATIONS_FILE_TAG);
+  if (m_cont.IsExist(cycling::kSectionTag))
+    m_cyclingReader = m_cont.GetReader(cycling::kSectionTag);
 }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
@@ -28,10 +30,7 @@ SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
 
 std::string SharedLoadInfo::GetCyclingInfrastructure(uint32_t featureId) const
 {
-  if (!m_cont.IsExist(cycling::kSectionTag))
-    return {};
-  auto const reader = m_cont.GetReader(cycling::kSectionTag);
-  return cycling::ReadSection(reader, featureId);
+  return m_cyclingReader ? cycling::ReadSection(*m_cyclingReader, featureId) : std::string{};
 }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(size_t ind) const

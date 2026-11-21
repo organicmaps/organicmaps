@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "base/math.hpp"
+
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/stylist.hpp"
 
@@ -238,14 +240,14 @@ UNIT_TEST(CyclingOffset_ConnectorRejectsNonFiniteParameters)
 {
   std::vector<m2::PointD> const path{{0, 0}, {10, 10}};
   std::vector<df::ConnectorTarget> targets{{{0, 0}, {{-100, 0}, {0, 0}}, -8}};
-  for (auto const invalid : {std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()})
+  for (auto const invalid : {math::Infinity(), math::Nan()})
   {
     TEST(df::ConnectorEndpointOffsets(path, targets, invalid, 0.001).empty(), ());
     TEST(df::ConnectorEndpointOffsets(path, targets, 1, invalid).empty(), ());
   }
-  targets[0].m_offsetPixels = std::numeric_limits<float>::infinity();
+  targets[0].m_offsetPixels = math::Infinity();
   TEST(df::ConnectorEndpointOffsets(path, targets, 1, 0.001).empty(), ());
-  targets[0].m_offsetPixels = std::numeric_limits<float>::quiet_NaN();
+  targets[0].m_offsetPixels = math::Nan();
   TEST(df::ConnectorEndpointOffsets(path, targets, 1, 0.001).empty(), ());
 }
 

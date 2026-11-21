@@ -17,7 +17,6 @@
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
-#include "geometry/parametrized_segment.hpp"
 #include "geometry/robust_orientation.hpp"
 
 #include "drape/color.hpp"
@@ -29,7 +28,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <limits>
 
 namespace df
 {
@@ -764,30 +762,21 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
       connectorPath.empty() ? 0.0 : mercator::RectByCenterXYAndSizeInMeters(connectorPath.front(), 1.0).SizeX() / 2;
   auto const connectorOffsets =
       ConnectorEndpointOffsets(connectorPath, targets, m_params.m_currentScaleGtoP, tolerance);
-  m_clippedSplines = m_builder.Release(isIsoline, needSplineOffsets);
-  if (!connectorOffsets.empty())
-    for (auto const & piece : m_clippedSplines)
+  m_clippedSplines = m_builder.Release(isIsoline, needSplineOffsets || !connectorOffsets.empty());
+  if (!connectorOffsets.empty() && !isIsoline)
+  {
+    auto const & ranges = m_builder.GetSourceRanges();
+    for (size_t i = 0; i < ranges.size(); ++i)
     {
-      auto & offsets = m_connectorPointOffsets.emplace_back();
-      for (auto const & point : piece->GetPath())
-      {
-        size_t bestSegment = 0;
-        double best = std::numeric_limits<double>::max();
-        for (size_t i = 1; i < connectorPath.size(); ++i)
-        {
-          auto const p =
-              m2::ParametrizedSegment<m2::PointD>(connectorPath[i - 1], connectorPath[i]).ClosestPointTo(point);
-          double const error = (p - point).SquaredLength();
-          if (error < best)
-          {
-            best = error;
-            bestSegment = i - 1;
-          }
-        }
-        auto const offset = InterpolateLinePixelOffset(connectorPath, connectorOffsets, bestSegment, point);
-        offsets.emplace_back(offset.x, offset.y);
-      }
+      auto const & path = m_clippedSplines[i]->GetPath();
+      // Interior vertices keep their mapped positions; only terminal segments have displacement.
+      auto & offsets = m_connectorPointOffsets.emplace_back(path.size(), m2::PointF::Zero());
+      auto const start = InterpolateLinePixelOffset(connectorPath, connectorOffsets, ranges[i].m_startSegment, path.front());
+      auto const end = InterpolateLinePixelOffset(connectorPath, connectorOffsets, ranges[i].m_endSegment, path.back());
+      offsets.front() = {start.x, start.y};
+      offsets.back() = {end.x, end.y};
     }
+  }
 
   for (drule::LineRule const * r : lineRules)
     ProcessRule(*r);
@@ -913,12 +902,12 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_step = static_cast<float>(symRule.step * visScale);
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
-    auto const & offsets = m_builder.GetSplineOffsets();
+    auto const & offsets = m_builder.GetSourceRanges();
     for (size_t i = 0; i < m_clippedSplines.size(); ++i)
     {
       if (symRule.name.starts_with("cycling-arrow-") && i < offsets.size())
         params.m_offset =
-            PathSymbolOffsetForClip(symRule.offset * visScale, params.m_step, offsets[i] * m_params.m_currentScaleGtoP);
+            PathSymbolOffsetForClip(symRule.offset * visScale, params.m_step, offsets[i].m_startDistance * m_params.m_currentScaleGtoP);
       if (i < m_connectorPointOffsets.size())
         params.m_pointOffsetsPixels = m_connectorPointOffsets[i];
       m_params.m_insertShape(make_unique_dp<PathSymbolShape>(m_clippedSplines[i], params));
@@ -934,11 +923,11 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
-    auto const & splineOffsets = m_builder.GetSplineOffsets();
+    auto const & splineOffsets = m_builder.GetSourceRanges();
     ASSERT(splineOffsets.empty() || splineOffsets.size() == m_clippedSplines.size(), ());
     for (size_t i = 0; i < m_clippedSplines.size(); ++i)
     {
-      double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
+      double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i].m_startDistance;
       params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
       params.m_dashPhaseReversed = m_dashPhaseReversed;
       params.m_stableDashPhase = m_stableDashPhase;
@@ -971,7 +960,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
 
       for (size_t i = 0; i < m_clippedSplines.size(); ++i)
       {
-        double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
+        double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i].m_startDistance;
         rParams.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
         rParams.m_dashPhaseReversed = m_dashPhaseReversed;
         m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], rParams));

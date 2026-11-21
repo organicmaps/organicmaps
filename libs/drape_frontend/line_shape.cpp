@@ -14,6 +14,7 @@
 #include "indexer/scales.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <vector>
 
@@ -222,16 +223,25 @@ private:
     {
       // Use the line shader's pixel extrusion for offset caps too. The usual
       // cap shader's radius coordinates cannot also carry a displaced center.
-      int constexpr count = 24;
-      float constexpr circle = 6.28318530718f;
-      for (int i = 0; i < count; ++i)
+      static auto const unitCircle = []
       {
-        float const a = circle * i / count, b = circle * (i + 1) / count;
-        auto const emit = [&](glsl::vec2 const & normal)
-        { m_geometry.emplace_back(glsl::vec3(pos, m_params.m_depth), TNormal(normal, 0), m_colorCoord); };
-        auto const next = offset + GetHalfWidth() * glsl::vec2(std::cos(b), std::sin(b));
+        std::array<glsl::vec2, 24> points;
+        for (size_t i = 0; i < points.size(); ++i)
+        {
+          float const angle = 6.28318530718f * i / points.size();
+          points[i] = {std::cos(angle), std::sin(angle)};
+        }
+        return points;
+      }();
+      auto const emit = [&](glsl::vec2 const & normal)
+      { m_geometry.emplace_back(glsl::vec3(pos, m_params.m_depth), TNormal(normal, 0), m_colorCoord); };
+      auto previous = offset + GetHalfWidth() * unitCircle.back();
+      for (auto const & normal : unitCircle)
+      {
+        auto const next = offset + GetHalfWidth() * normal;
         emit(offset);
-        emit(offset + GetHalfWidth() * glsl::vec2(std::cos(a), std::sin(a)));
+        emit(previous);
+        previous = next;
         emit(next);
         emit(next);  // Degenerate second triangle in the four-vertex strip.
       }
