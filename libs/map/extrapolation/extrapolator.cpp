@@ -137,6 +137,12 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
   RunTaskOnBackgroundThread(false /* delayed */);
 }
 
+location::GpsInfo Extrapolator::GetLastGpsInfo() const
+{
+  std::lock_guard<std::mutex> guard(m_mutex);
+  return m_lastGpsInfo;
+}
+
 void Extrapolator::Enable(bool enabled)
 {
   std::lock_guard<std::mutex> guard(m_mutex);

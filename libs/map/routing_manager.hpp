@@ -388,7 +388,8 @@ private:
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
                                        double entryDistanceM, routing::RouterType profile, bool keepViewport = false);
   void InstallFollowedTrack(FollowSession session, bool keepViewport = false);
-  void BuildFollowedTrackPreview();
+  void BuildFollowedTrackPreview(std::optional<m2::PointD> const & position);
+  std::optional<m2::PointD> GetLatestGpsPosition() const;
 
   struct RoadInfo
   {

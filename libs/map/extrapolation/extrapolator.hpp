@@ -48,6 +48,8 @@ public:
   /// |update| will be called on gui thread.
   explicit Extrapolator(ExtrapolatedLocationUpdateFn const & update);
   void OnLocationUpdate(location::GpsInfo const & gpsInfo);
+  // Last input before extrapolation. Invalid when no fix is available.
+  location::GpsInfo GetLastGpsInfo() const;
   // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
   // extrapolated position.
 
@@ -62,7 +64,7 @@ private:
 
   bool m_isEnabled;
 
-  std::mutex m_mutex;
+  mutable std::mutex m_mutex;
   ExtrapolatedLocationUpdateFn m_extrapolatedLocationUpdate;
   location::GpsInfo m_lastGpsInfo;
   location::GpsInfo m_beforeLastGpsInfo;

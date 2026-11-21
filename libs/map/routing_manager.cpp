@@ -523,6 +523,14 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
   m_extrapolator.OnLocationUpdate(info);
 }
 
+std::optional<m2::PointD> RoutingManager::GetLatestGpsPosition() const
+{
+  auto const fix = m_extrapolator.GetLastGpsInfo();
+  if (!fix.IsValid())
+    return std::nullopt;
+  return mercator::FromLatLon(fix.GetLatLon());
+}
+
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
 {
   // todo Implement something more sophisticated here (or delete the method).
@@ -967,8 +975,8 @@ void RoutingManager::FollowRoute()
 {
   if (IsFollowingTrack())
   {
-    auto const & position = m_bmManager->MyPositionMark();
-    if (!position.HasPosition())
+    auto const position = GetLatestGpsPosition();
+    if (!position)
       return;
     if (IsRouteBuilding())
     {
@@ -981,11 +989,11 @@ void RoutingManager::FollowRoute()
     {
       auto const & start = m_routingSession.GetRoute()->GetPoly().Front();
       auto const vehicleType = RoutingOptions::GetVehicleType(m_followSession->m_info.m_profile).value();
-      if (mercator::DistanceOnEarth(start, position.GetPivot()) > GetRoutingSettings(vehicleType).m_matchingThresholdM)
+      if (mercator::DistanceOnEarth(start, *position) > GetRoutingSettings(vehicleType).m_matchingThresholdM)
       {
         m_followSession->m_keepViewport = true;
         m_followSession->m_startWhenReady = true;
-        BuildFollowedTrackPreview();
+        BuildFollowedTrackPreview(position);
         return;
       }
     }
@@ -1172,22 +1180,20 @@ void RoutingManager::InstallFollowedTrack(FollowSession session, bool keepViewpo
   session.m_keepViewport = keepViewport;
   session.m_startWhenReady = false;
   m_followSession = std::move(session);
-  BuildFollowedTrackPreview();
+  BuildFollowedTrackPreview(GetLatestGpsPosition());
 }
 
-void RoutingManager::BuildFollowedTrackPreview()
+void RoutingManager::BuildFollowedTrackPreview(std::optional<m2::PointD> const & position)
 {
   ASSERT(m_followSession, ());
   std::vector<m2::PointD> checkpoints;
-  auto const & myPosition = m_bmManager->MyPositionMark();
-  bool const hasPosition = myPosition.HasPosition();
-  checkpoints.push_back(hasPosition ? myPosition.GetPivot() : m_followSession->m_data->m_points.front().GetPoint());
+  checkpoints.push_back(position.value_or(m_followSession->m_data->m_points.front().GetPoint()));
   for (auto const index : m_followSession->m_data->m_stopPointIndexes)
     checkpoints.push_back(m_followSession->m_data->m_points[index].GetPoint());
   checkpoints.push_back(m_followSession->m_data->m_points.back().GetPoint());
   m_routingSession.ClearPositionAccumulator();
-  if (hasPosition)
-    m_routingSession.SetUserCurrentPosition(myPosition.GetPivot());
+  if (position)
+    m_routingSession.SetUserCurrentPosition(*position);
   m_routingSession.BuildRoute(Checkpoints(std::move(checkpoints)), RouterDelegate::kNoTimeout);
 }
 
