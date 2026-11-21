@@ -180,35 +180,27 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect, DistanceFn c
   return GetClosestProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_nextCheckpointIndex);
 }
 
-Iter FollowedPolyline::GetBestMatchingProjection(m2::RectD const & posRect) const
+Iter FollowedPolyline::GetMatchingProjection(m2::RectD const & posRect) const
 {
+  ASSERT(m_current.IsValid(), ());
+  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
   CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
-  // At first trying to find a projection to two closest route segments of route which is close
-  // enough to |posRect| center. If |m_current| is right before intermediate point we can get |iter|
-  // right after intermediate point (in next subroute).
+  // Try the next three segments before searching the rest of the current subroute.
   size_t const hoppingBorderIdx = std::min(m_nextCheckpointIndex, std::min(m_segProj.size(), m_current.m_ind + 3));
   auto const iter = GetClosestMatchingProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
   if (iter.IsValid())
     return iter;
-  // If a projection to the 3 closest route segments is not found tries to find projection to other route
-  // segments of current subroute.
   return GetClosestMatchingProjectionInInterval(posRect, hoppingBorderIdx, m_nextCheckpointIndex);
 }
 
 bool FollowedPolyline::UpdateMatchingProjection(m2::RectD const & posRect)
 {
-  ASSERT(m_current.IsValid(), ());
-  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
+  auto const iter = GetMatchingProjection(posRect);
+  if (!iter.IsValid())
+    return false;
 
-  auto const iter = GetBestMatchingProjection(posRect);
-
-  if (iter.IsValid())
-  {
-    m_current = iter;
-    return true;
-  }
-
-  return false;
+  m_current = iter;
+  return true;
 }
 
 double FollowedPolyline::GetLastNonZeroSegmentStartMeters() const
@@ -373,14 +365,6 @@ void FollowedPolyline::SetFakeSegmentIndexes(std::vector<size_t> && fakeSegmentI
 {
   ASSERT(std::is_sorted(fakeSegmentIndexes.cbegin(), fakeSegmentIndexes.cend()), ());
   m_fakeSegmentIndexes = std::move(fakeSegmentIndexes);
-}
-
-double FollowedPolyline::GetDistFromCurPointToRoutePointMerc() const
-{
-  if (!m_current.IsValid())
-    return 0.0;
-
-  return m_poly.GetPoint(m_current.m_ind).Length(m_current.m_pt);
 }
 
 double FollowedPolyline::GetDistFromCurPointToRoutePointMeters() const

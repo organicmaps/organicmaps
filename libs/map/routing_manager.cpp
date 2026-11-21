@@ -314,7 +314,8 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(std::move(callbacks))
   , m_delegate(delegate)
-  , m_extrapolator([this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
+  , m_extrapolator([this](location::GpsInfo const & gpsInfo, extrapolation::UpdateType type)
+{ OnLocationTick(gpsInfo, type); })
 {
   m_routingSession.Init(
 #ifdef SHOW_ROUTE_DEBUG_MARKS
@@ -1524,24 +1525,16 @@ void RoutingManager::CallRouteBuilded(RouterResultCode code, storage::CountriesS
   m_routingBuildingCallback(code, absentCountries);
 }
 
-void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)
+void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
+                                          bool isPrediction)
 {
   if (!IsRoutingActive())
     return;
 
-  bool const matchedToRoute = m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
+  bool const matchedToRoute = m_routingSession.MatchLocationToRoute(location, routeMatchingInfo, isPrediction);
 
   if (!matchedToRoute && m_currentRouterType == RouterType::Vehicle)
     m_routingSession.MatchLocationToRoadGraph(location);
-}
-
-location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
-{
-  CheckLocationForRouting(info);
-
-  location::RouteMatchingInfo routeMatchingInfo;
-  MatchLocationToRoute(info, routeMatchingInfo);
-  return routeMatchingInfo;
 }
 
 void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
@@ -1550,10 +1543,11 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   if (engine == nullptr)
     return;
 
-  // Apply gps info which was set before drape engine creation.
+  // Reuse the last measurement for display after the renderer attaches.
   if (m_gpsInfoCache != nullptr)
   {
-    auto routeMatchingInfo = GetRouteMatchingInfo(*m_gpsInfoCache);
+    location::RouteMatchingInfo routeMatchingInfo;
+    MatchLocationToRoute(*m_gpsInfoCache, routeMatchingInfo, false /* isPrediction */);
     m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, *m_gpsInfoCache, m_routingSession.IsNavigable(),
                            routeMatchingInfo);
     m_gpsInfoCache.reset();
@@ -1812,13 +1806,22 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePointsToSave() const
   return result;
 }
 
-void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info)
+void RoutingManager::OnLocationTick(location::GpsInfo const & info, extrapolation::UpdateType type)
 {
-  location::GpsInfo gpsInfo(info);
-  if (!m_drapeEngine)
-    m_gpsInfoCache = std::make_unique<location::GpsInfo>(gpsInfo);
+  bool const isPrediction = type == extrapolation::UpdateType::Prediction;
+  if (!isPrediction)
+    CheckLocationForRouting(info);
 
-  auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
+  if (!m_drapeEngine)
+  {
+    if (!isPrediction)
+      m_gpsInfoCache = std::make_unique<location::GpsInfo>(info);
+    return;
+  }
+
+  location::GpsInfo gpsInfo(info);
+  location::RouteMatchingInfo routeMatchingInfo;
+  MatchLocationToRoute(gpsInfo, routeMatchingInfo, isPrediction);
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
 }
 

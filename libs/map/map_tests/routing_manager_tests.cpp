@@ -8,6 +8,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "routing/router.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -70,7 +71,15 @@ public:
 private:
   // Select the router before Framework reads it, and restore it after Framework is destroyed.
   ScopedVehicleRouter const m_routerSetting;
-  Framework m_framework{FrameworkParams(false /* m_enableDiffs */)};
+  class HeadlessFramework final : public Framework
+  {
+  public:
+    using Framework::Framework;
+
+  private:
+    void OnRouteFollow(routing::RouterType) override {}
+  };
+  HeadlessFramework m_framework{FrameworkParams(false /* m_enableDiffs */)};
 };
 
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
@@ -292,7 +301,182 @@ kml::TrackId SaveRouteGeometry(RoutingManager & manager, BookmarkManager & bookm
   TEST(manager.IsRouteValid(), ());
   return manager.SaveRoute();
 }
+
+class ProgressRouter final : public routing::IRouter
+{
+  std::string GetName() const override { return "progress test"; }
+  void ClearState() override {}
+  void SetGuides(routing::GuidesTracks &&) override {}
+  bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+  {
+    return false;
+  }
+  routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
+                                           routing::RouterDelegate const &, routing::RoutesResult & result) override
+  {
+    geometry::PointWithAltitude const start(checkpoints.GetStart(), 0);
+    geometry::PointWithAltitude const middle({1.001, 0}, 0);
+    geometry::PointWithAltitude const finish(checkpoints.GetFinish(), 0);
+    auto const noTurn = routing::turns::CarDirection::None;
+    auto const destination = routing::turns::CarDirection::ReachedYourDestination;
+    routing::RouteSegment::RoadNameInfo const road;
+    std::vector<routing::RouteSegment> segments = {{{0, 0, 0, true}, {1, noTurn}, start, road},
+                                                   {{0, 0, 1, true}, {2, noTurn}, middle, road},
+                                                   {{0, 0, 2, true}, {3, destination}, finish, road}};
+    segments[1].SetSpeedLimit({measurement_utils::Units::Metric, 54, routing::kInvalidSpeed});
+    segments[2].SetSpeedLimit({measurement_utils::Units::Metric, 36, routing::kInvalidSpeed});
+    routing::FillSegmentInfo({0, 10, 20}, segments);
+    routing::Route route;
+    route.SetRouteSegments(std::move(segments));
+    if (checkpoints.GetNumSubroutes() == 2)
+      route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>{{start, middle, 0, 2}, {middle, finish, 2, 3}});
+    else
+      route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>{{start, finish, 0, 3}});
+    result.MakeFrom(GetName(), std::move(route));
+    return routing::RouterResultCode::NoError;
+  }
+};
+
+void FollowProgressTestRoute(RoutingManager & manager, TestGuiThread & gui, bool withStop = false)
+{
+  manager.RoutingSession().SetRouter(std::make_unique<ProgressRouter>(), nullptr);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 1.0), false);
+  if (withStop)
+    manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Intermediate, 0, 1.001), false);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 1.002), false);
+  auto const built = std::make_shared<bool>(false);
+  manager.SetRouteBuildingListener([built](routing::RouterResultCode code, storage::CountriesSet const &)
+  {
+    TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+    *built = true;
+  });
+  manager.BuildRoute();
+  gui.RunUntil([&] { return *built; });
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+}
+
+location::GpsInfo ProgressTestFix(double longitude, double timestamp, double speedMps)
+{
+  location::GpsInfo info;
+  info.m_source = location::EAndroidNative;
+  info.m_longitude = longitude;
+  info.m_timestamp = timestamp;
+  info.m_speed = speedMps;
+  info.m_horizontalAccuracy = 1;
+  return info;
+}
+
+void WaitForPredictionUpdates(TestGuiThread & gui)
+{
+  auto const elapsed = std::make_shared<bool>(false);
+  auto const delay = std::chrono::milliseconds(4 * extrapolation::Extrapolator::kExtrapolationPeriodMs);
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, delay, [elapsed]
+  { GetPlatform().RunTask(Platform::Thread::Gui, [elapsed] { *elapsed = true; }); });
+  gui.RunUntil([&] { return *elapsed; });
+}
 }  // namespace
+
+UNIT_TEST(Extrapolator_QueuedPredictionDoesNotMaskMeasurement)
+{
+  std::vector<double> measuredTimes;
+  bool sawQueuedPrediction = false;
+  extrapolation::Extrapolator extrapolator([&](location::GpsInfo const & info, extrapolation::UpdateType type)
+  {
+    if (type == extrapolation::UpdateType::Measurement)
+      measuredTimes.push_back(info.m_timestamp);
+    else if (info.m_timestamp > 2.0 && info.m_timestamp < 3.0 && info.m_longitude > 1.00095)
+      sawQueuedPrediction = true;
+  });
+
+  auto & platform = GetPlatform();
+  auto guiThread = std::make_unique<TestGuiThread>();
+  auto & gui = *guiThread;
+  platform.SetGuiThread(std::move(guiThread));
+  SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  // Stop the platform threads before discarding their queued callbacks or destroying the extrapolator.
+  Platform::ThreadRunner const threads;
+
+  extrapolator.Enable(true);
+  extrapolator.OnLocationUpdate(ProgressTestFix(1.0006, 1, 20));
+  gui.RunUntil([&] { return !measuredTimes.empty(); });
+  extrapolator.OnLocationUpdate(ProgressTestFix(1.00095, 2, 20));
+  gui.RunUntil([&] { return measuredTimes.size() >= 2; });
+
+  // Let the background thread enqueue a genuine prediction while the GUI is idle.
+  auto const queued = std::make_shared<base::Waiter>();
+  auto const delay = std::chrono::milliseconds(2 * extrapolation::Extrapolator::kExtrapolationPeriodMs);
+  platform.RunDelayedTask(Platform::Thread::Background, delay, [queued] { queued->Notify(); });
+  TEST(queued->Wait(std::chrono::seconds(30)) != base::Waiter::Result::Timeout, ());
+  extrapolator.OnLocationUpdate(ProgressTestFix(1.00095, 3, 0));
+  gui.RunUntil([&] { return measuredTimes.size() >= 3; });
+  TEST_EQUAL(measuredTimes, (std::vector<double>{1, 2, 3}), ());
+  TEST(sawQueuedPrediction, ());
+}
+
+UNIT_TEST(RoutingManager_PredictionDoesNotPassSpeedLimitBoundary)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread & gui)
+  {
+    FollowProgressTestRoute(manager, gui);
+    manager.OnLocationUpdate(ProgressTestFix(1.0006, 1, 20));
+    gui.RunUntil([&] { return manager.RoutingSession().GetCompletionPercent() > 25.0; });
+    manager.OnLocationUpdate(ProgressTestFix(1.00095, 2, 20));
+    WaitForPredictionUpdates(gui);
+
+    // The app still needs the slower limit only after a measurement across the boundary.
+    auto speedLimit = [&]
+    {
+      routing::FollowingInfo info;
+      manager.GetRouteFollowingInfo(info);
+      return info.m_speedLimitMps;
+    };
+    TEST_ALMOST_EQUAL_ABS(speedLimit(), 15.0, 1e-8, ());
+    manager.OnLocationUpdate(ProgressTestFix(1.00095, 3, 0));
+    WaitForPredictionUpdates(gui);
+    TEST_ALMOST_EQUAL_ABS(speedLimit(), 15.0, 1e-8, ());
+    manager.OnLocationUpdate(ProgressTestFix(1.0011, 4, 20));
+    gui.RunUntil([&] { return speedLimit() == 10.0; });
+  });
+}
+
+UNIT_TEST(RoutingManager_PredictionDoesNotPassIntermediateStop)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread & gui)
+  {
+    FollowProgressTestRoute(manager, gui, true /* withStop */);
+    manager.OnLocationUpdate(ProgressTestFix(1.0005, 1, 20));
+    gui.RunUntil([&] { return manager.RoutingSession().GetCompletionPercent() > 20.0; });
+    manager.OnLocationUpdate(ProgressTestFix(1.00085, 2, 20));
+    WaitForPredictionUpdates(gui);
+
+    // The last measurement is still outside the intermediate-stop tolerance.
+    auto stopPassed = [&] { return manager.GetRoutePoints().at(1).m_isPassed; };
+    TEST(!stopPassed(), ());
+    manager.OnLocationUpdate(ProgressTestFix(1.001, 3, 20));
+    gui.RunUntil(stopPassed);
+    TEST(!manager.IsRouteFinished(), ());
+  });
+}
+
+UNIT_TEST(RoutingManager_PredictionDoesNotArrive)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread & gui)
+  {
+    FollowProgressTestRoute(manager, gui);
+    manager.OnLocationUpdate(ProgressTestFix(1.0013, 1, 20));
+    gui.RunUntil([&] { return manager.RoutingSession().GetCompletionPercent() > 60.0; });
+    manager.OnLocationUpdate(ProgressTestFix(1.00165, 2, 20));
+    WaitForPredictionUpdates(gui);
+
+    // At the latest measured point the destination is still about 39 m away.
+    TEST(!manager.IsRouteFinished(), ());
+    TEST(!manager.GetRoutePoints().back().m_isPassed, ());
+    manager.OnLocationUpdate(ProgressTestFix(1.002, 3, 20));
+    gui.RunUntil([&] { return manager.IsRouteFinished(); });
+    TEST(manager.GetRoutePoints().back().m_isPassed, ());
+  });
+}
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
 {

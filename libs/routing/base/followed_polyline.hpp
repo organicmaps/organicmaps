@@ -45,7 +45,6 @@ public:
   double GetDistanceFromStartMeters() const;
   double GetDistanceToEndMeters() const;
   double GetLastNonZeroSegmentStartMeters() const;
-  double GetDistFromCurPointToRoutePointMerc() const;
   double GetDistFromCurPointToRoutePointMeters() const;
 
   /*! \brief Return next navigation point for direction widgets.
@@ -83,6 +82,8 @@ public:
 
   /// \brief Updates projection to the closest matched segment if it's possible.
   bool UpdateMatchingProjection(m2::RectD const & posRect);
+  // Find the same projection without moving the current position on the route.
+  Iter GetMatchingProjection(m2::RectD const & posRect) const;
   struct TrackMatchQuery
   {
     m2::RectD m_positionRect;
@@ -157,8 +158,6 @@ private:
   /// Otherwise returns a projection to closest point of route.
   template <typename DistanceFn>
   Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
-
-  Iter GetBestMatchingProjection(m2::RectD const & posRect) const;
 
   size_t FindNextNonZeroSegment(size_t segment) const;
   size_t GetForwardChainEnd(m2::PointD const & direction, double maxDistanceM, double toleranceM) const;

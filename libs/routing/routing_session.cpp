@@ -724,7 +724,8 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
   m_proj = proj;
 }
 
-bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)
+bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
+                                          bool isPrediction)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!IsOnRoute())
@@ -732,7 +733,7 @@ bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location
 
   ASSERT(m_route, ());
 
-  bool const matchedToRoute = m_route->MatchLocationToRoute(location, routeMatchingInfo);
+  bool const matchedToRoute = m_route->MatchLocationToRoute(location, routeMatchingInfo, isPrediction);
   if (matchedToRoute)
     m_projectedToRoadGraph = false;
 
