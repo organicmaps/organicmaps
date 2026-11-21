@@ -250,8 +250,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
 
   auto const & hatchingChecker = IsHatchingTerritoryChecker::Instance();
   auto const geomType = types.GetGeomType();
-  auto const sideData = geomType == feature::GeomType::Line ? cycling::Decode(f.GetCyclingInfrastructure())
-                                                            : std::optional<cycling::Sides>{};
+  auto sideData = geomType == feature::GeomType::Line ? cycling::Decode(f.GetCyclingInfrastructure())
+                                                      : std::optional<cycling::Sides>{};
   bool const useSideLines =
       sideData && zoomLevel >= kCyclewaySideMinZoom &&
       (sideData->m_left.m_kind != cycling::Kind::None || sideData->m_right.m_kind != cycling::Kind::None);
@@ -361,7 +361,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
     drule::KeysT arrowKeys;
     cycleClassif.GetObject(cycleClassif.GetTypeByPath({"hwtag", "onedir_bicycle"}))
         ->GetSuitable(zoomLevel, geomType, arrowKeys);
-    auto const collect = [&](cycling::Side const & side, int sign)
+    auto const collect = [&](cycling::Side & side, int sign)
     {
       if (side.m_kind == cycling::Kind::None)
         return;
@@ -371,8 +371,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
       SideRules rules{sign, {}};
       if (sign != 0)
       {
-        rules.m_junctions = side.m_junctions;
-        rules.m_approaches = side.m_approaches;
+        rules.m_junctions = std::move(side.m_junctions);
+        rules.m_approaches = std::move(side.m_approaches);
       }
       drule::LineRule const * stroke = nullptr;
       for (auto const & key : sideKeys)
@@ -414,11 +414,11 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
       collect(sideData->m_right, 1);
 
     std::optional<cycling::Side> shared;
-    for (auto const & side : {sideData->m_left, sideData->m_right})
+    for (auto const * side : {&sideData->m_left, &sideData->m_right})
     {
-      if (side.m_kind != cycling::Kind::Shared)
+      if (side->m_kind != cycling::Kind::Shared)
         continue;
-      auto const direction = resolveDirection(side.m_direction);
+      auto const direction = resolveDirection(side->m_direction);
       if (!shared)
         shared = cycling::Side{cycling::Kind::Shared, direction};
       else if (shared->m_direction != direction)
@@ -448,17 +448,18 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
         if (key.m_type == drule::line && !normalRules.Find(key)->GetLine()->pathsym)
           normalRoadLines.push_back(normalRules.Find(key)->GetLine());
 
-      auto widthKeys = normalKeys;
+      drule::KeysT ordinaryRoadKeys;
+      auto const * widthKeys = &normalKeys;
       auto const structure = ftype::GetLevel(t) >= 3 ? normalClassif.GetObject(ftype::Trunc(t, 3))->GetName() : "";
       if (structure == "bridge" || structure == "tunnel")
       {
         // Only dimension the cycling displacement from the ordinary road.
         // The complete structural rules above remain part of the rendered road.
-        widthKeys.clear();
-        normalClassif.GetObject(ftype::Trunc(t, 2))->GetSuitable(zoomLevel, geomType, widthKeys);
-        feature::FilterRulesByRuntimeSelector(f, zoomLevel, normalRules, widthKeys);
+        normalClassif.GetObject(ftype::Trunc(t, 2))->GetSuitable(zoomLevel, geomType, ordinaryRoadKeys);
+        feature::FilterRulesByRuntimeSelector(f, zoomLevel, normalRules, ordinaryRoadKeys);
+        widthKeys = &ordinaryRoadKeys;
       }
-      for (auto const & key : widthKeys)
+      for (auto const & key : *widthKeys)
       {
         if (key.m_type != drule::line)
           continue;
@@ -599,12 +600,15 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
     }
   }
 
-  drule::LineRule const * connectorStroke = nullptr;
-  for (auto const rule : m_lineRules)
-    if (!rule->pathsym && rule->width > 0 && (!connectorStroke || rule->priority > connectorStroke->priority))
-      connectorStroke = rule;
-  if (!connectorStroke || connectorStroke->dashdot)
-    m_connectorTargets.clear();
+  if (!m_connectorTargets.empty())
+  {
+    drule::LineRule const * connectorStroke = nullptr;
+    for (auto const rule : m_lineRules)
+      if (!rule->pathsym && rule->width > 0 && (!connectorStroke || rule->priority > connectorStroke->priority))
+        connectorStroke = rule;
+    if (!connectorStroke || connectorStroke->dashdot)
+      m_connectorTargets.clear();
+  }
 
   if (m_captionRule || m_pathtextRule)
   {

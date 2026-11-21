@@ -59,6 +59,7 @@ private:
   DataHeader const & m_header;
   feature::FeaturesOffsetsTable const * const m_relTable;
   std::optional<ModelReaderPtr> m_relsReader;
+  std::optional<Reader> m_cyclingReader;
 
 public:
   indexer::MetadataDeserializer * m_metaDeserializer;

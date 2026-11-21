@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
+#include "geometry/clipping.hpp"
 #include "geometry/spline.hpp"
 
 #include <vector>
@@ -39,13 +39,13 @@ public:
   /// In the Inside case m_path is moved out into the resulting spline; otherwise
   /// no cleanup is performed — the next Build() resets all state.
   std::vector<m2::SharedSpline> Release(bool isIsoline, bool needSplineOffsets = false);
-  std::vector<double> const & GetSplineOffsets() const { return m_splineOffsets; }
+  std::vector<m2::SplineClipInfo> const & GetSourceRanges() const { return m_sourceRanges; }
 
 private:
   ApplyFeatureParams const & m_params;
 
   std::vector<m2::PointD> m_path;
-  std::vector<double> m_splineOffsets;
+  std::vector<m2::SplineClipInfo> m_sourceRanges;
   bool m_knownInside = false;
 };
 }  // namespace df

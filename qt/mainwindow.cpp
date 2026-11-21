@@ -299,7 +299,8 @@ void MainWindow::CreateNavigationBar()
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
                         std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
-    m_layers->setChecked(OUTDOORS, Framework::LoadMapStyleMode() == MapStyleMode::Outdoors);
+    auto const mode = Framework::LoadMapStyleMode();
+    m_layers->setChecked(OUTDOORS, mode == MapStyleMode::Outdoors);
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
@@ -307,7 +308,7 @@ void MainWindow::CreateNavigationBar()
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Cycling"),
                         std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
-    m_layers->setChecked(CYCLING, Framework::LoadMapStyleMode() == MapStyleMode::Cycling);
+    m_layers->setChecked(CYCLING, mode == MapStyleMode::Cycling);
 
     pToolBar->addWidget(m_layers->create());
     m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
