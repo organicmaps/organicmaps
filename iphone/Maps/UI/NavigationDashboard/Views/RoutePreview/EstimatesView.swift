@@ -38,8 +38,11 @@ final class EstimatesView: UIView {
     ])
   }
 
-  func setState(_ state: State) {
+  func setState(_ state: State, multiline: Bool = false) {
+    estimatesLabel.numberOfLines = multiline ? 0 : 1
+    estimatesLabel.adjustsFontSizeToFitWidth = !multiline
     guard self.state != state else { return }
+    self.state = state
     UIView.transition(with: self,
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,

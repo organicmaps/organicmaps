@@ -10,7 +10,15 @@ AbsentRegionsFinder::AbsentRegionsFinder(CountryFileGetterFn countryFileGetter, 
   : m_countryFileGetterFn(std::move(countryFileGetter))
   , m_localFileCheckerFn(std::move(localFileChecker))
   , m_numMwmIds(std::move(numMwmIds))
-  , m_dataSource(dataSource)
+  , m_dataSource(&dataSource)
+{
+  CHECK(m_countryFileGetterFn, ());
+  CHECK(m_localFileCheckerFn, ());
+}
+
+AbsentRegionsFinder::AbsentRegionsFinder(CountryFileGetterFn countryFileGetter, LocalFileCheckerFn localFileChecker)
+  : m_countryFileGetterFn(std::move(countryFileGetter))
+  , m_localFileCheckerFn(std::move(localFileChecker))
 {
   CHECK(m_countryFileGetterFn, ());
   CHECK(m_localFileCheckerFn, ());
@@ -43,6 +51,9 @@ RouterResultCode AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & 
     currCountry = m_countryFileGetterFn(checkpoint);
     if (currCountry.empty())
     {
+      // Open water may have no country; the water router verifies its coverage.
+      if (!m_dataSource)
+        continue;
       /// @todo We can move checkpoint to the nearest Region's polygon here.
       LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
                      "CountryInfoGetter returns empty. It happens when checkpoint is put at gaps between MWMs."));
@@ -58,10 +69,10 @@ RouterResultCode AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & 
     prevCountry.swap(currCountry);
   }
 
-  if (differentRegions)
+  if (differentRegions && m_dataSource)
   {
     auto router =
-        std::make_unique<RegionsRouter>(m_countryFileGetterFn, m_numMwmIds, m_dataSource, delegate, checkpoints);
+        std::make_unique<RegionsRouter>(m_countryFileGetterFn, m_numMwmIds, *m_dataSource, delegate, checkpoints);
 
     // iOS can't reuse threads. So we need to recreate the thread.
     m_routerThread = std::make_unique<threads::Thread>();

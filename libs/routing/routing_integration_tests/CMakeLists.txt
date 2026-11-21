@@ -29,6 +29,8 @@ set(SRC
   street_names_test.cpp
   transit_route_test.cpp
   turn_test.cpp
+  water_geometry_mwm_test.cpp
+  water_reported_routes_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_SERVER)

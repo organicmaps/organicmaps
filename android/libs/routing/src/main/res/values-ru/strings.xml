@@ -44,4 +44,8 @@
     <string name="transit_not_found">Навигация на метро ещё недоступна в данном регионе</string>
     <string name="dialog_pedestrian_route_is_long_header">Маршрут метро не найден</string>
     <string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Hint when a Water checkpoint has no usable water connection or pedestrian access. -->
+    <string name="water_select_point">Выберите точку на воде или рядом с берегом, к которому можно пройти пешком.</string>
 </resources>

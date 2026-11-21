@@ -14,5 +14,6 @@ public class RoutingSettingsAvailabilityTest
     for (Router router : new Router[] {Router.Vehicle, Router.Bicycle, Router.Pedestrian, Router.Transit})
       assertTrue(router.name(), RoutingOptions.hasSettings(router));
     assertFalse(RoutingOptions.hasSettings(Router.Ruler));
+    assertFalse(RoutingOptions.hasSettings(Router.Water));
   }
 }

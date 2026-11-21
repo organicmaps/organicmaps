@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <!-- Keep the geometry in sync with Android ic_water_route.xml. -->
+  <path d="M10.7 4.8 A1.8 1.8 0 1 1 7.1 4.8 A1.8 1.8 0 1 1 10.7 4.8 Z"/>
+  <path d="M8.8 8.3 L7.2 13.8 H11.5 L13.7 16.7" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8.6 9.1 L12 11.1 L16.6 8.6" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 15 Q12 18 22 15 C21 18.6 17.3 20 12 20 C6.7 20 3 18.6 2 15 Z" fill="none" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18.2 5.6 L13.5 19.4" fill="none" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M17.5 5.6 L18.2 2.8 Q18.4 2.2 19 2.2 H20 Q20.5 2.2 20.3 2.8 L19.5 4.8 Q19.2 5.5 18.5 6 Z"/>
+  <path d="M13.2 18.8 L14.2 19.2 L13.5 21.5 Q13.3 22.1 12.7 22.1 H11.8 Q11.3 22.1 11.5 21.5 L12.1 19.9 Q12.3 19.3 13.2 18.8 Z"/>
+</svg>

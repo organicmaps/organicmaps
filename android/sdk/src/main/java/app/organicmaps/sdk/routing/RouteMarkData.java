@@ -22,12 +22,16 @@ public final class RouteMarkData
   public final boolean mIsPassed;
   public final double mLat;
   public final double mLon;
+  @Nullable
+  public double[] mWaterwayPosition;
 
   private RouteMarkData(@Nullable String title, @Nullable String subtitle, int pointType, int intermediateIndex,
-                        boolean isVisible, boolean isMyPosition, boolean isPassed, double lat, double lon)
+                        boolean isVisible, boolean isMyPosition, boolean isPassed, double lat, double lon,
+                        @Nullable double[] waterwayPosition)
   {
     this(title, subtitle, RouteMarkType.values()[pointType], intermediateIndex, isVisible, isMyPosition, isPassed, lat,
          lon);
+    mWaterwayPosition = waterwayPosition;
   }
 
   public RouteMarkData(@Nullable String title, @Nullable String subtitle, RouteMarkType pointType,

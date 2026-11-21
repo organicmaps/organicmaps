@@ -15,5 +15,8 @@ struct TransitRouteInfo;
                 routePoints:(NSArray<MWMRoutePoint *> *)points
                        type:(MWMRouterType)type;
 - (void)updateTransitInfo:(TransitRouteInfo const &)info;
+- (void)updateWaterDistance:(double)waterDistance
+               landDistance:(double)landDistance
+          shortestConfirmed:(BOOL)shortestConfirmed;
 
 @end

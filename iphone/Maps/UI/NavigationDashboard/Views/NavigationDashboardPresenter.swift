@@ -30,9 +30,11 @@ extension NavigationDashboard {
         if state == .planning {
           viewModel.progress = 0
         }
-        if state == .prepare || state == .error {
+        if state == .prepare || state == .planning || state == .error {
           viewModel.routeElevationPreviewData = nil
           viewModel.routeElevationActivePointDistance = nil
+          viewModel.entity = MWMNavigationDashboardEntity()
+          viewModel.estimates = NSAttributedString()
         }
 
       case .close:

@@ -4,4 +4,5 @@ typedef NS_ENUM(NSUInteger, MWMRouterType) {
   MWMRouterTypePublicTransport,
   MWMRouterTypeBicycle,
   MWMRouterTypeRuler,
+  MWMRouterTypeWater,
 };

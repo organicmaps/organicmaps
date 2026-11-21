@@ -4,6 +4,8 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRoutePointType) {
   MWMRoutePointTypeFinish
 };
 
+@class CLLocation;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMRoutePoint : NSObject
@@ -21,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic, readonly) NSString * subtitle;
 @property(copy, nonatomic, readonly) NSString * latLonString;
 @property(nonatomic, readonly) BOOL isMyPosition;
+@property(nonatomic, nullable) CLLocation * waterwayLocation;
 @property(nonatomic) MWMRoutePointType type;
 @property(nonatomic) size_t intermediateIndex;
 

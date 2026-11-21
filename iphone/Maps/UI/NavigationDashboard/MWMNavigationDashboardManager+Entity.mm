@@ -6,6 +6,7 @@
 #import "SwiftBridge.h"
 
 #import <AudioToolbox/AudioServices.h>
+#import <CoreApi/DistanceFormatter.h>
 #import <CoreApi/DurationFormatter.h>
 #import <CoreApi/Framework.h>
 
@@ -109,12 +110,34 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 
 @property(nonatomic, readwrite) BOOL showEta;
 @property(nonatomic, readwrite) BOOL isWalk;
+@property(copy, nonatomic) NSString * waterEstimate;
 
 @end
 
 @implementation MWMNavigationDashboardEntity
 
 // MARK: - Initializers
+
+- (instancetype)initWithWaterDistance:(double)waterDistance
+                         landDistance:(double)landDistance
+                    shortestConfirmed:(BOOL)shortestConfirmed
+{
+  self = [super init];
+  if (self)
+  {
+    _transitSteps = @[];
+    NSMutableArray<NSString *> * lines = [NSMutableArray arrayWithArray:@[
+      [NSString stringWithFormat:L(@"water_distance"), [DistanceFormatter distanceStringFromMeters:waterDistance]],
+      [NSString stringWithFormat:L(@"water_land_gaps"), [DistanceFormatter distanceStringFromMeters:landDistance]],
+      [NSString stringWithFormat:L(@"water_total_distance"),
+                                 [DistanceFormatter distanceStringFromMeters:waterDistance + landDistance]]
+    ]];
+    if (!shortestConfirmed)
+      [lines addObject:L(@"water_shortest_unconfirmed")];
+    _waterEstimate = [lines componentsJoinedByString:@"\n"];
+  }
+  return self;
+}
 
 - (instancetype)initWithFollowingInfo:(routing::FollowingInfo const &)info
                           routePoints:(NSArray<MWMRoutePoint *> *)points
@@ -202,6 +225,9 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
   NSDictionary * secondaryAttributes =
       @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: UIFont.medium17.dynamic};
 
+  if (self.waterEstimate)
+    return [[NSAttributedString alloc] initWithString:self.waterEstimate attributes:secondaryAttributes];
+
   auto result = [[NSMutableAttributedString alloc] initWithString:@""];
   if (self.showEta)
   {
@@ -248,6 +274,15 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 @end
 
 @implementation MWMNavigationDashboardManager (Entity)
+
+- (void)updateWaterDistance:(double)waterDistance
+               landDistance:(double)landDistance
+          shortestConfirmed:(BOOL)shortestConfirmed
+{
+  [self onNavigationInfoUpdated:[[MWMNavigationDashboardEntity alloc] initWithWaterDistance:waterDistance
+                                                                               landDistance:landDistance
+                                                                          shortestConfirmed:shortestConfirmed]];
+}
 
 - (void)updateFollowingInfo:(routing::FollowingInfo const &)info
                 routePoints:(NSArray<MWMRoutePoint *> *)points

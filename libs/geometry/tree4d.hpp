@@ -259,6 +259,10 @@ public:
     m_tree.for_each(GetFunctor(rect, [&toDo](Value const & v) { toDo(v.GetRect(), v.m_val); }));
   }
 
+  // Rebalance after bulk insertion. Requires copyable values and invalidates references.
+  // Iteration order may change.
+  void Optimize() { m_tree.optimize(); }
+
   bool IsEmpty() const { return m_tree.empty(); }
 
   size_t GetSize() const { return m_tree.size(); }

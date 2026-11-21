@@ -41,6 +41,7 @@ extension MWMRouterType: CaseIterable {
     .publicTransport,
     .bicycle,
     .ruler,
+    .water,
   ]
 
   func image(for isSelected: Bool) -> UIImage {
@@ -56,9 +57,15 @@ extension MWMRouterType: CaseIterable {
       image = UIImage(resource: .navigationDashboardBike)
     case .ruler:
       image = UIImage(resource: .navigationDashboardRuler)
+    case .water:
+      image = UIImage(resource: .navigationDashboardWater)
     @unknown default:
       fatalError("Unknown router type")
     }
-    return image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
+    image = image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
+    if self == .water {
+      image.accessibilityLabel = L("water_routing")
+    }
+    return image
   }
 }
