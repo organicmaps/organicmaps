@@ -1452,6 +1452,16 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv
   frm()->GetRoutingManager().RemoveRoutePoints();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSelectRouteEndpoint(JNIEnv * env, jclass, jstring title,
+                                                                                jstring subtitle, jobject markType,
+                                                                                jboolean isMyPosition, jdouble lat,
+                                                                                jdouble lon)
+{
+  auto const type = routing_jni::GetRouteMarkType(env, markType);
+  return frm()->GetRoutingManager().SelectRouteEndpoint(
+      MakeRouteMarkData(env, title, subtitle, type, isMyPosition, lat, lon));
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
                                                                               jstring subtitle, jobject markType,
                                                                               jint intermediateIndex,

@@ -295,6 +295,9 @@ public class Framework
                                                    boolean isMyPosition, double lat, double lon,
                                                    boolean allowOptimization);
 
+  public static native boolean nativeSelectRouteEndpoint(String title, String subtitle, @NonNull RouteMarkType type,
+                                                         boolean isMyPosition, double lat, double lon);
+
   /** Returns {@code false} when the point cannot be added at capacity. */
   public static native boolean nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
                                                        int intermediateIndex, boolean isMyPosition, double lat,

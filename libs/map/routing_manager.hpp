@@ -221,8 +221,11 @@ public:
   /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
   /// still applied while following). Returns false when a new point cannot be added at capacity.
   bool AddRoutePoint(RouteMarkData && markData, bool optimize);
-  /// Replaces the target slot in place without optimization, or adds it if missing. Returns false when the missing
-  /// slot cannot be added at capacity.
+  /// Selects a start or finish. Picking the opposite endpoint exchanges their roles when both exist.
+  /// Returns whether the selection changed the plan.
+  bool SelectRouteEndpoint(RouteMarkData && selection);
+  /// Replaces the target mark in place, or adds it without optimization if missing. Removing a previous My Position
+  /// mark can promote or renumber the target before replacement. Returns false if insertion fails at capacity.
   bool ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
   /// Reorders stops after the last passed mark in place, keeping endpoints, passed marks, and earlier stops fixed.
   /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without

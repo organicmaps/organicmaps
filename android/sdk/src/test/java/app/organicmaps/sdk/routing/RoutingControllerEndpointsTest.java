@@ -14,8 +14,6 @@ public class RoutingControllerEndpointsTest
 {
   private static final class Controller extends RoutingController
   {
-    MapObject start;
-    MapObject finish;
     boolean replaceResult = true;
     RouteMarkType replacedType;
     MapObject replacement;
@@ -40,25 +38,7 @@ public class RoutingControllerEndpointsTest
     }
 
     @Override
-    public MapObject getStartPoint()
-    {
-      return start;
-    }
-
-    @Override
-    public MapObject getEndPoint()
-    {
-      return finish;
-    }
-
-    @Override
-    public void swapPoints()
-    {
-      events.add("swap");
-    }
-
-    @Override
-    boolean replaceRoutePoint(RouteMarkType type, MapObject point, int index)
+    boolean selectRouteEndpoint(RouteMarkType type, MapObject point)
     {
       replacedType = type;
       replacement = point;
@@ -85,77 +65,18 @@ public class RoutingControllerEndpointsTest
   }
 
   @Test
-  public void selectingTheCurrentEndpointDoesNotEditNativeMarks()
-  {
-    final MapObject start = point("Start", 1);
-    final MapObject finish = point("Finish", 2);
-    final Controller controller = new Controller();
-    controller.start = start;
-    controller.finish = finish;
-
-    assertFalse(controller.setStartPoint(start));
-    assertFalse(controller.setEndPoint(finish));
-    assertTrue(controller.events.isEmpty());
-  }
-
-  @Test
-  public void selectingTheOnlyPointForTheMissingEndpointDoesNotEditNativeMarks()
-  {
-    final MapObject point = point("Only point", 1);
-    final Controller controller = new Controller();
-
-    controller.start = point;
-    controller.finish = null;
-    assertFalse(controller.setEndPoint(point));
-
-    controller.start = null;
-    controller.finish = point;
-    assertFalse(controller.setStartPoint(point));
-    assertTrue(controller.events.isEmpty());
-  }
-
-  @Test
-  public void choosingTheOppositeEndpointSwapsExistingMarks()
+  public void changedEndpointUpdatesThePlanBeforeCompletingThePick()
   {
     for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
     {
       final Controller controller = new Controller();
-      controller.start = point("Start", 1);
-      controller.finish = point("Finish", 2);
       controller.waitForPoiPick(type);
-      assertTrue(select(controller, type, type == RouteMarkType.Start ? controller.finish : controller.start));
-      assertEquals(List.of("swap", "complete"), controller.events);
+      final MapObject replacement = point("Replacement", 3);
+      assertTrue(select(controller, type, replacement));
+      assertEquals(type, controller.replacedType);
+      assertSame(replacement, controller.replacement);
+      assertEquals(List.of("replace", "build", "menu", "complete"), controller.events);
       assertFalse(controller.isWaitingPoiPick());
-    }
-  }
-
-  @Test
-  public void choosingADifferentPointReplacesOnlyTheSelectedEndpoint()
-  {
-    for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
-    {
-      for (boolean missingCurrent : new boolean[] {false, true})
-      {
-        final Controller controller = new Controller();
-        controller.start = point("Start", 1);
-        controller.finish = point("Finish", 2);
-        if (missingCurrent)
-        {
-          if (type == RouteMarkType.Start)
-            controller.start = null;
-          else
-            controller.finish = null;
-        }
-        controller.waitForPoiPick(type);
-        final MapObject replacement = point("Replacement", 3);
-
-        assertTrue(select(controller, type, replacement));
-
-        assertEquals(type, controller.replacedType);
-        assertSame(replacement, controller.replacement);
-        assertEquals(List.of("replace", "build", "menu", "complete"), controller.events);
-        assertFalse(controller.isWaitingPoiPick());
-      }
     }
   }
 
@@ -165,8 +86,6 @@ public class RoutingControllerEndpointsTest
     for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
     {
       final Controller controller = new Controller();
-      controller.start = type == RouteMarkType.Start ? null : point("Start", 1);
-      controller.finish = type == RouteMarkType.Finish ? null : point("Finish", 2);
       controller.replaceResult = false;
       controller.waitForPoiPick(type);
       final MapObject replacement = point("Replacement", 3);
@@ -184,8 +103,6 @@ public class RoutingControllerEndpointsTest
   public void unavailableLocationDoesNotEditEndpointsAndCompletesThePick()
   {
     final Controller controller = new Controller();
-    controller.start = point("Start", 1);
-    controller.finish = point("Finish", 2);
     for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
     {
       controller.waitForPoiPick(type);

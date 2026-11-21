@@ -583,6 +583,8 @@ public class RoutingController
     final PendingPoiPick pick = requirePendingPoiPick();
     if (!pick.isReplacement())
       throw new IllegalStateException("A route point replacement was not requested");
+    if (rejectDuplicateMyPosition(mapObject, pick))
+      return;
     finalizeStopChange(replaceRoutePoint(pick.pointType(), mapObject, pick.replaceStopIndex()));
   }
 
@@ -592,12 +594,14 @@ public class RoutingController
   public void addStop(@NonNull MapObject mapObject)
   {
     checkMapsReady();
-    finalizeStopChange(addRoutePoint(RouteMarkType.Intermediate, mapObject));
+    if (!rejectDuplicateMyPosition(mapObject, null))
+      finalizeStopChange(addRoutePoint(RouteMarkType.Intermediate, mapObject));
   }
 
   private void appendStop(@NonNull MapObject mapObject)
   {
-    finalizeStopChange(appendRoutePoint(mapObject));
+    if (!rejectDuplicateMyPosition(mapObject, null))
+      finalizeStopChange(appendRoutePoint(mapObject));
   }
 
   /**
@@ -613,6 +617,14 @@ public class RoutingController
     case APPEND -> appendStop(mapObject);
     case SET -> addStop(mapObject);
     }
+  }
+
+  private boolean rejectDuplicateMyPosition(@NonNull MapObject point, @Nullable PendingPoiPick replacement)
+  {
+    if (!point.isMyPosition() || computeCanPickMyPosition(replacement))
+      return false;
+    finalizePendingPoiPick();
+    return true;
   }
 
   private void finalizeStopChange(boolean changed)
@@ -720,9 +732,9 @@ public class RoutingController
   /**
    * Returns whether a further intermediate stop is allowed in the current profile and controller state.
    */
-  public boolean isStopPointAllowed()
+  public boolean isStopPointAllowed(@NonNull MapObject point)
   {
-    return Framework.nativeCouldAddIntermediatePoint();
+    return Framework.nativeCouldAddIntermediatePoint() && (!point.isMyPosition() || computeCanPickMyPosition(null));
   }
 
   public boolean isPoiPickReplaceStop()
@@ -990,14 +1002,11 @@ public class RoutingController
     return pick.isReplacement() && point.mIntermediateIndex == pick.replaceStopIndex();
   }
 
-  // The core keeps a single my-position mark, so adding it to a second slot pulls it out of the one it
-  // already holds (in AddRoutePoint and ContinueRouteToPoint), silently emptying that one. Offer the shortcut only
-  // where the route has no such point, or where the pick replaces the one it has. Cache this per pick
-  // because the search UI asks on every location update; arming or clearing the pick invalidates the cache.
-  private static boolean computeCanPickMyPosition(@NonNull PendingPoiPick pick)
+  // Only replacement of the live mark can reuse My Position. A plain insertion preserves every existing slot.
+  private static boolean computeCanPickMyPosition(@Nullable PendingPoiPick pick)
   {
     for (RouteMarkData point : Framework.nativeGetRoutePoints())
-      if (point.mIsMyPosition && !isReplacedByPick(point, pick))
+      if (point.mIsMyPosition && (pick == null || !isReplacedByPick(point, pick)))
         return false;
     return true;
   }
@@ -1060,9 +1069,7 @@ public class RoutingController
   public void checkAndBuildRoute()
   {
     checkMapsReady();
-    // showRoutePlan() runs while POI-pick is still pending on purpose: the plan sheet lands underneath the
-    // search/PP overlay that finalizePendingPoiPick() dismisses right after (via set{Start,End}Point's outer
-    // wrapper). Flipping this order would visibly pop the sheet up post-close instead of revealing it seamlessly.
+    // Show the plan underneath the picker before onPoiPickCompleted dismisses the overlay.
     if (isWaitingPoiPick())
       showRoutePlan();
 
@@ -1083,10 +1090,7 @@ public class RoutingController
    */
   public boolean setStartPoint(@Nullable MapObject point)
   {
-    checkMapsReady();
-    final boolean result = replaceEndpoint(RouteMarkType.Start, point);
-    finalizePendingPoiPick();
-    return result;
+    return setEndpoint(RouteMarkType.Start, point);
   }
 
   /**
@@ -1101,36 +1105,32 @@ public class RoutingController
    */
   public boolean setEndPoint(@Nullable MapObject point)
   {
-    checkMapsReady();
-    final boolean result = replaceEndpoint(RouteMarkType.Finish, point);
-    finalizePendingPoiPick();
-    return result;
+    return setEndpoint(RouteMarkType.Finish, point);
   }
 
-  private boolean replaceEndpoint(@NonNull RouteMarkType type, @Nullable MapObject point)
+  private boolean setEndpoint(@NonNull RouteMarkType type, @Nullable MapObject point)
   {
-    if (point == null)
-      return false;
-    final MapObject current = type == RouteMarkType.Start ? getStartPoint() : getEndPoint();
-    if (point.sameAs(current))
-      return false;
-    final MapObject opposite = type == RouteMarkType.Start ? getEndPoint() : getStartPoint();
-    if (point.sameAs(opposite))
+    checkMapsReady();
+    final boolean changed = point != null && selectRouteEndpoint(type, point);
+    if (changed)
     {
-      if (current == null)
-        return false;
-      swapPoints();
-      return true;
+      checkAndBuildRoute();
+      if (mContainer != null)
+        mContainer.updateMenu();
     }
-    if (!replaceRoutePoint(type, point, 0))
-      return false;
-    checkAndBuildRoute();
-    if (mContainer != null)
-      mContainer.updateMenu();
-    return true;
+    finalizePendingPoiPick();
+    return changed;
   }
 
-  boolean replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int index)
+  @VisibleForTesting
+  boolean selectRouteEndpoint(@NonNull RouteMarkType type, @NonNull MapObject point)
+  {
+    final Pair<String, String> description = getDescriptionForPoint(point);
+    return Framework.nativeSelectRouteEndpoint(description.first, description.second, type, point.isMyPosition(),
+                                               point.getLat(), point.getLon());
+  }
+
+  private static boolean replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int index)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
     return Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,

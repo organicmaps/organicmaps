@@ -1068,6 +1068,39 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
   return true;
 }
 
+bool RoutingManager::SelectRouteEndpoint(RouteMarkData && selection)
+{
+  auto const type = selection.m_pointType;
+  ASSERT(type == RouteMarkType::Start || type == RouteMarkType::Finish, ());
+  RoutePointsLayout layout(*m_bmManager);
+  auto const * current = layout.GetRoutePoint(type);
+  auto const * opposite =
+      layout.GetRoutePoint(type == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start);
+  auto const samePosition = [&](RouteMarkPoint const & mark)
+  {
+    return selection.m_isMyPosition == mark.IsMyPosition() &&
+           selection.m_position.EqualDxDy(mark.GetPivot(), mercator::kPointEqualityEps);
+  };
+  auto const sameLabel = [&](RouteMarkPoint const & mark)
+  {
+    auto const & data = mark.GetMarkData();
+    return selection.m_title == data.m_title && selection.m_subTitle == data.m_subTitle;
+  };
+  if (current && samePosition(*current) && sameLabel(*current))
+    return false;
+
+  // A live mark follows GPS independently of the fix and label attached to the selection.
+  if (selection.m_isMyPosition)
+  {
+    if (auto const * live = layout.GetMyPositionPoint(); live && live != current)
+      return current && live == opposite && SwapRoutePointEndpoints();
+  }
+  if (opposite && samePosition(*opposite) && (!current || sameLabel(*opposite)))
+    return current && SwapRoutePointEndpoints();
+
+  return ReplaceRoutePoint(type, 0, std::move(selection));
+}
+
 bool RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());
@@ -1386,7 +1419,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   RemovePassedRoutePoints();
 
   auto routePoints = GetRoutePoints();
-  if (routePoints.size() < 2)
+  if (routePoints.size() < 2 || routePoints.front().m_pointType != RouteMarkType::Start ||
+      routePoints.back().m_pointType != RouteMarkType::Finish)
   {
     CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
     return;
@@ -1412,16 +1446,13 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     mark->SetPosition(p.m_position);
   }
 
-  // Check for equal points.
-  for (size_t i = 0; i < routePoints.size(); i++)
+  // Consecutive checkpoints must form a leg. Returning to a previous checkpoint forms a loop.
+  for (size_t i = 1; i < routePoints.size(); ++i)
   {
-    for (size_t j = i + 1; j < routePoints.size(); j++)
+    if (routePoints[i - 1].m_position.EqualDxDy(routePoints[i].m_position, mercator::kPointEqualityEps))
     {
-      if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, mercator::kPointEqualityEps))
-      {
-        CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
-        return;
-      }
+      CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
+      return;
     }
   }
 
@@ -1801,7 +1832,8 @@ void RoutingManager::SaveRoutePoints()
 std::vector<RouteMarkData> RoutingManager::GetRoutePointsToSave() const
 {
   auto points = GetRoutePoints();
-  if (points.size() < 2 || points.back().m_isPassed)
+  if (points.size() < 2 || points.front().m_pointType != RouteMarkType::Start ||
+      points.back().m_pointType != RouteMarkType::Finish || points.back().m_isPassed)
     return {};
 
   std::vector<RouteMarkData> result;

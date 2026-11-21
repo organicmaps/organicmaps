@@ -213,7 +213,7 @@ public class RoutingControllerRecoveryTest
       assertTrue(Framework.nativeAddRoutePoint("Second stop", "", RouteMarkType.Intermediate, false, 0, 3, false));
       assertTrue(Framework.nativeAddRoutePoint("My Position", "", RouteMarkType.Finish, true, 0, 4, false));
 
-      assertTrue(mController.setEndPoint(mController.getStartPoint()));
+      assertTrue(mController.setStartPoint(MapObject.createMapObject(MapObject.MY_POSITION, "Updated fix", "", 0, 5)));
 
       final RouteMarkData[] points = Framework.nativeGetRoutePoints();
       assertEquals(4, points.length);
@@ -223,6 +223,31 @@ public class RoutingControllerRecoveryTest
       assertEquals("Second stop", points[2].mTitle);
       assertEquals(RouteMarkType.Finish, points[3].mPointType);
       assertEquals("Origin", points[3].mTitle);
+    });
+  }
+
+  @Test
+  public void searchCannotDuplicateTheOnlyEndpoint() throws Exception
+  {
+    onMain(() -> {
+      mController.prepare(null, point("Finish", 3), Router.Ruler);
+      mController.waitForPoiPick(RouteMarkType.Start);
+      mController.onPoiSelected(MapObject.createMapObject(MapObject.SEARCH, "Search label", "", 3.000000001, 3));
+      assertNull(mController.getStartPoint());
+      assertFalse(mController.isWaitingPoiPick());
+      assertEquals(1, Framework.nativeGetRoutePoints().length);
+    });
+  }
+
+  @Test
+  public void addingMyPositionAsAStopKeepsTheExistingOrigin() throws Exception
+  {
+    onMain(() -> {
+      assertTrue(Framework.nativeAddRoutePoint("My Position", "", RouteMarkType.Start, true, 1, 1, false));
+      assertTrue(Framework.nativeAddRoutePoint("Finish", "", RouteMarkType.Finish, false, 3, 3, false));
+      mController.addStop(MapObject.createMapObject(MapObject.MY_POSITION, "", "", 2, 2));
+      assertTrue(mController.getStartPoint().isMyPosition());
+      assertEquals(2, Framework.nativeGetRoutePoints().length);
     });
   }
 
