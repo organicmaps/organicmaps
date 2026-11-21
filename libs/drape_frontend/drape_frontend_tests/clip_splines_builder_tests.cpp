@@ -123,9 +123,8 @@ UNIT_TEST(ClipSplinesBuilder_CyclingGeometryPaddingPolicy)
       {
         MockTestFeature sided({P(0, 0), P(10, 0)}, road);
         sided.SetCyclingSides(kind, cycling::Kind::None);
-        auto const previousPredicate =
-            cycling::Decode(sided.GetCyclingInfrastructure()).has_value() && zoom >= df::Stylist::kCyclewaySideMinZoom;
-        TEST_EQUAL(df::Stylist(sided, zoom, 0, style).m_lineGeometryPadding, previousPredicate ? 64.0 : 0.0,
+        bool const needsPadding = kind != cycling::Kind::None && zoom >= df::Stylist::kCyclewaySideMinZoom;
+        TEST_EQUAL(df::Stylist(sided, zoom, 0, style).m_lineGeometryPadding, needsPadding ? 64.0 : 0.0,
                    (style, zoom, static_cast<char>(kind)));
       }
     }
@@ -543,7 +542,12 @@ UNIT_TEST(ClipSplinesBuilder_RepeatedSourceOffsets)
   auto const pieces = builder.Release(false, true);
   TEST_EQUAL(pieces.size(), 3, ());
   for (size_t i = 0; i < pieces.size(); ++i)
-    TEST_ALMOST_EQUAL_ABS(builder.GetSplineOffsets()[i], 1.0 + 4.0 * i, 1e-9, ());
+  {
+    auto const & range = builder.GetSourceRanges()[i];
+    TEST_EQUAL(range.m_startSegment, i, ());
+    TEST_EQUAL(range.m_endSegment, i, ());
+    TEST_ALMOST_EQUAL_ABS(range.m_startDistance, 1.0 + 4.0 * i, 1e-9, ());
+  }
 }
 
 UNIT_TEST(ClipSplinesBuilder_ArrowPhaseAcrossCuts)
@@ -885,10 +889,10 @@ UNIT_TEST(ClipSplinesBuilder_ClippedSplineOffset)
   builder.Build(f, kNoSimplifyZoom);
 
   auto const splines = builder.Release(false /* isIsoline */, true /* needSplineOffsets */);
-  auto const & offsets = builder.GetSplineOffsets();
+  auto const & offsets = builder.GetSourceRanges();
   TEST_EQUAL(splines.size(), 1, ());
   TEST_EQUAL(offsets.size(), splines.size(), ());
-  TEST_ALMOST_EQUAL_ABS(offsets.front(), 5.0, 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(offsets.front().m_startDistance, 5.0, 1e-12, ());
 }
 
 UNIT_TEST(DashedLinePhase_ReversedMetalineMember)

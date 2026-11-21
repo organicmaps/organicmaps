@@ -3,11 +3,11 @@
 #include "drape/glsl_func.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/segment2d.hpp"
 
 #include <algorithm>
-#include <bit>
 #include <cmath>
 #include <optional>
 
@@ -15,10 +15,6 @@ namespace df
 {
 namespace
 {
-bool IsFinite(double value)
-{
-  return (std::bit_cast<uint64_t>(value) & 0x7ff0000000000000ULL) != 0x7ff0000000000000ULL;
-}
 
 m2::PointD OffsetPoint(std::vector<m2::PointD> const & road, size_t index, float offset, double scale)
 {
@@ -69,19 +65,12 @@ std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const &
                                                  std::vector<ConnectorTarget> const & targets, double scaleGtoP,
                                                  double tolerance)
 {
-  if (path.size() < 2 || targets.empty() || !IsFinite(scaleGtoP) || scaleGtoP <= 0 || !IsFinite(tolerance) ||
+  if (path.size() < 2 || targets.empty() || !math::is_finite(scaleGtoP) || scaleGtoP <= 0 || !math::is_finite(tolerance) ||
       tolerance < 0)
     return {};
-  // A closed loop has no unambiguous terminal. Self-crossing geometry would also
-  // make the clipped-vertex mapping below attach an offset to the wrong pass.
   if (path.size() > 2 && path.front() == path.back())
     return {};
-  for (size_t i = 1; i < path.size(); ++i)
-    for (size_t j = i + 2; j < path.size(); ++j)
-      if (m2::SegmentsIntersect(path[i - 1], path[i], path[j - 1], path[j]))
-        return {};
-  std::vector<m2::PointF> result(path.size(), m2::PointF::Zero());
-  bool changed = false;
+  std::vector<m2::PointF> result;
   for (size_t end : {size_t{0}, path.size() - 1})
   {
     auto const & endpoint = path[end];
@@ -98,8 +87,8 @@ std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const &
       auto const & road = target.m_roadPath;
       double const offset = target.m_offsetPixels;
       // Contacts at the other end of a long connector must not suppress this end.
-      if ((endpoint - target.m_junction).Length() > tolerance || road.size() < 2 || !IsFinite(offset) || offset == 0 ||
-          !IsFinite(4 * offset / scaleGtoP))
+      if ((endpoint - target.m_junction).Length() > tolerance || road.size() < 2 || !math::is_finite(offset) || offset == 0 ||
+          !math::is_finite(4 * offset / scaleGtoP))
         continue;
       incidentRoads.push_back(&target);
       // A through connection is not a terminal merge even when its endpoint is at another arm.
@@ -168,18 +157,26 @@ std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const &
       }))
         continue;
       auto const pixels = (*candidate - endpoint) * scaleGtoP;
+      if (result.empty())
+        result.resize(path.size(), m2::PointF::Zero());
       result[end] = m2::PointF(pixels.x, pixels.y);
-      changed = true;
     }
   }
-  if (changed && path.size() == 2)
+  if (result.empty())
+    return {};
+  // Only check for an ambiguous self-intersection when an endpoint would actually move.
+  for (size_t i = 1; i < path.size(); ++i)
+    for (size_t j = i + 2; j < path.size(); ++j)
+      if (m2::SegmentsIntersect(path[i - 1], path[i], path[j - 1], path[j]))
+        return {};
+  if (path.size() == 2)
   {
     auto const axis = path.back() - path.front();
     auto const delta = result.back() - result.front();
     if (DotProduct(axis, axis + m2::PointD(delta.x, delta.y) / scaleGtoP) <= 0)
       return {};
   }
-  return changed ? result : std::vector<m2::PointF>{};
+  return result;
 }
 
 std::vector<double> LaneContactDistances(std::vector<m2::PointD> const & road,
@@ -187,9 +184,9 @@ std::vector<double> LaneContactDistances(std::vector<m2::PointD> const & road,
                                          std::vector<std::vector<m2::PointD>> const & approaches, float offsetPixels,
                                          double scaleGtoP, double tolerance)
 {
-  if (road.size() < 2 || junctions.empty() || approaches.empty() || offsetPixels == 0 || !IsFinite(offsetPixels) ||
-      !IsFinite(scaleGtoP) || scaleGtoP <= 0 || !IsFinite(tolerance) || tolerance < 0 ||
-      !IsFinite(4.0 * offsetPixels / scaleGtoP))
+  if (road.size() < 2 || junctions.empty() || approaches.empty() || offsetPixels == 0 || !math::is_finite(offsetPixels) ||
+      !math::is_finite(scaleGtoP) || scaleGtoP <= 0 || !math::is_finite(tolerance) || tolerance < 0 ||
+      !math::is_finite(4.0 * offsetPixels / scaleGtoP))
     return {};
   std::vector<double> result;
   double along = 0;
@@ -248,7 +245,11 @@ JunctionTaper MakeJunctionTaper(m2::SharedSpline const & source, std::vector<m2:
   auto const & path = source->GetPath();
   if (junctions.empty() || path.size() < 2 || span <= 0 || tolerance <= 0)
     return result;
+  if (approaches.size() == junctions.size() &&
+      std::all_of(approaches.begin(), approaches.end(), [](auto const & points) { return !points.empty(); }))
+    return result;
   std::vector<double> distances{0};
+  distances.reserve(path.size());
   for (size_t i = 1; i < path.size(); ++i)
     distances.push_back(distances.back() + (path[i] - path[i - 1]).Length());
   for (size_t junctionIndex = 0; junctionIndex < junctions.size(); ++junctionIndex)

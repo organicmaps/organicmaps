@@ -257,10 +257,11 @@ std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorC
     for (size_t end : {size_t{0}, connector.m_nodes.size() - 1})
     {
       auto const & node = connector.m_nodes[end];
-      if (blocked(node.m_id) || !nodes.contains(node.m_id))
+      auto const found = nodes.find(node.m_id);
+      if (found == nodes.end() || blocked(node.m_id))
         continue;
       auto const & approach = connector.m_nodes[end == 0 ? 1 : end - 1].m_point;
-      for (auto const & [road, i] : nodes.at(node.m_id))
+      for (auto const & [road, i] : found->second)
       {
         int const sign = ApproachSide(*road, i, connector, approach);
         if (sign == 0 || HasOppositeApproach(*road, i, incidents.at(node.m_id), sign))

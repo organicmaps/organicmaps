@@ -6,6 +6,30 @@
 
 namespace generator
 {
+bool HasMotorTrafficSeparation(OsmElement const & element, std::string const & key)
+{
+  for (std::string const kind : {"separation", "barrier"})
+  {
+    auto const positive = [&](std::string const & value)
+    {
+      return !value.empty() && value != "no" && value != "none" && value != "false" && value != "no_separation" &&
+             (kind != "separation" || (value != "studs" && value != "cone"));
+    };
+    std::string const prefix = key + ":" + kind;
+    if (positive(element.GetTag(prefix)) || positive(element.GetTag(prefix + ":both")))
+      return true;
+    for (std::string const edge : {"left", "right"})
+    {
+      if (!positive(element.GetTag(prefix + ":" + edge)))
+        continue;
+      auto const mode = element.GetTag(key + ":traffic_mode:" + edge);
+      if (mode == "motor_vehicle" || mode == "motorcar" || mode == "vehicle")
+        return true;
+    }
+  }
+  return false;
+}
+
 std::optional<cycling::Sides> ReadCyclingSides(OsmElement const & element, bool reversed)
 {
   using cycling::Direction;
@@ -14,27 +38,6 @@ std::optional<cycling::Sides> ReadCyclingSides(OsmElement const & element, bool 
   using cycling::Sides;
   auto const tag = [&element](std::string const & key) { return element.GetTag(key); };
   auto const negative = [](std::string_view value) { return value == "no" || value == "none" || value == "false"; };
-  auto const protectedFromTraffic = [&](std::string const & key)
-  {
-    for (std::string const kind : {"separation", "barrier"})
-    {
-      auto const positive = [&](std::string const & value)
-      {
-        return !value.empty() && !negative(value) && value != "no_separation" &&
-               (kind != "separation" || (value != "studs" && value != "cone"));
-      };
-      std::string const prefix = key + ":" + kind;
-      if (positive(tag(prefix)) || positive(tag(prefix + ":both")))
-        return true;
-      for (std::string const edge : {"left", "right"})
-      {
-        auto const mode = tag(key + ":traffic_mode:" + edge);
-        if (positive(tag(prefix + ":" + edge)) && (mode == "motor_vehicle" || mode == "motorcar" || mode == "vehicle"))
-          return true;
-      }
-    }
-    return false;
-  };
   auto const read = [&](std::string const & key, std::optional<Side> fallback) -> std::optional<Side>
   {
     auto const value = tag(key);
@@ -53,7 +56,7 @@ std::optional<cycling::Sides> ReadCyclingSides(OsmElement const & element, bool 
       side.m_kind = Kind::Shared;
     if (side.m_kind == Kind::None)
       return {};
-    if (side.m_kind == Kind::Lane && protectedFromTraffic(key))
+    if (side.m_kind == Kind::Lane && HasMotorTrafficSeparation(element, key))
       side.m_kind = Kind::Track;
     auto const oneway = tag(key + ":oneway");
     if (oneway == "yes" || oneway == "1" || oneway == "true")
