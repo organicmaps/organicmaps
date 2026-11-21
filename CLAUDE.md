@@ -128,7 +128,7 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R te
 xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug -destination generic/platform='iOS Simulator' \
     -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1 EXCLUDED_ARCHS=x86_64
 ```
-CI builds iOS but does not run its tests yet, see [#9867](https://github.com/organicmaps/organicmaps/issues/9867).
+The iOS Debug CI job builds and runs `OMapsTests` on an arm64 iPhone simulator.
 
 ## Build for Android
 - Build: `cd android && ./gradlew assembleGoogleDebug -Parm64`

@@ -1,6 +1,7 @@
 #import "MWMTextToSpeech.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MWMRouter.h"
+#import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
 #include "LocaleTranslator.h"
@@ -146,6 +147,13 @@ MWMTTSVoice * VoiceFromSpeechVoice(AVSpeechSynthesisVoice * voice)
 
 using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
+
+Observers * GetObservers()
+{
+  // Registering a navigation view must not load the system voice catalog.
+  static Observers * observers = [Observers weakObjectsHashTable];
+  return observers;
+}
 }  // namespace
 
 @interface MWMTTSLanguage ()
@@ -315,8 +323,6 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic, copy) void (^previewCompletion)(void);
 @property(nonatomic) AVAudioPlayer * audioPlayer;
 
-@property(nonatomic) Observers * observers;
-
 - (void)invalidateVoiceCatalog;
 
 @end
@@ -399,7 +405,6 @@ using Observers = NSHashTable<Observer>;
   self = [super init];
   if (self)
   {
-    _observers = [Observers weakObjectsHashTable];
     if (@available(iOS 17.0, *))
     {
       [NSNotificationCenter.defaultCenter addObserver:self
@@ -408,7 +413,10 @@ using Observers = NSHashTable<Observer>;
                                                object:nil];
     }
 
-    [self setNotificationsLocale:[self preferredLocale]];
+    // Routing tests can initialize TTS before delivering their route result. Load voices on demand
+    // in the XCTest host so the platform service cannot hold up that callback.
+    if (![MapsAppDelegate isTestsEnvironment])
+      [self setNotificationsLocale:[self preferredLocale]];
 
     NSError * err = nil;
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
@@ -811,7 +819,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)onTTSStatusUpdated
 {
-  for (Observer observer in self.observers)
+  for (Observer observer in GetObservers())
     [observer onTTSStatusUpdated];
 }
 
@@ -819,12 +827,12 @@ using Observers = NSHashTable<Observer>;
 
 + (void)addObserver:(id<MWMTextToSpeechObserver>)observer
 {
-  [[self tts].observers addObject:observer];
+  [GetObservers() addObject:observer];
 }
 
 + (void)removeObserver:(id<MWMTextToSpeechObserver>)observer
 {
-  [[self tts].observers removeObject:observer];
+  [GetObservers() removeObject:observer];
 }
 
 @end

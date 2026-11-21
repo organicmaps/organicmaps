@@ -37,11 +37,12 @@ class BottomMenuPresenter: NSObject {
     menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
     let mapsStorage = Storage.shared()
     self.mapsStorage = mapsStorage
-    countryId = mapsStorage.countryForViewportCenter()
+    // Only Add Place needs the viewport, which the renderer-free XCTest host does not have.
+    countryId = sections.contains(.items) ? mapsStorage.countryForViewportCenter() : nil
     shouldUpdateMapToContribute =
-      !(MWMNavigationDashboardManager.shared().state == .closed &&
-        FrameworkHelper.canEditMapAtViewportCenter() &&
-        countryId != nil)
+      countryId == nil ||
+      MWMNavigationDashboardManager.shared().state != .closed ||
+      !FrameworkHelper.canEditMapAtViewportCenter()
     super.init()
   }
 
