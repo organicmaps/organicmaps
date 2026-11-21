@@ -439,39 +439,60 @@ using namespace routing;
   rm.BuildRoute();
 }
 
++ (MWMRoutePoint *)plannedStart
+{
+  auto & rm = GetFramework().GetRoutingManager();
+  // A fixed-origin preview can be valid after following has been disabled.
+  if (!rm.IsRouteValid() || rm.IsRouteBuilding() || rm.IsRoutingFollowing() || rm.IsRouteFinished())
+    return nil;
+  auto const points = rm.GetRoutePoints();
+  if (points.size() < 2 || points.front().m_pointType != RouteMarkType::Start ||
+      points.back().m_pointType != RouteMarkType::Finish)
+    return nil;
+  return [[MWMRoutePoint alloc] initWithRouteMarkData:points.front()];
+}
+
++ (void)routeToStart:(MWMRoutePoint *)origin fromLocation:(CLLocation *)location
+{
+  // The alert can outlive the preview or the location fix.
+  if (!location || ![origin isEqual:[self plannedStart]])
+    return;
+  if (!GetFramework().GetRoutingManager().PrependMyPosition(location_helpers::ToMercator(location.coordinate)))
+  {
+    [Toast showWithText:L(@"routing_max_stops_reached")];
+    return;
+  }
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+  [self rebuildWithBestRouter:NO];
+}
+
 + (void)start
 {
   auto const doStart = ^{
-    auto & rm = GetFramework().GetRoutingManager();
-    auto const routePoints = rm.GetRoutePoints();
-    if (routePoints.size() >= 2)
+    MWMRoutePoint * start = [self plannedStart];
+    if (!start)
+      return;
+    CLLocation * location = [MWMLocationManager lastLocation];
+    if (start.isMyPosition && location)
     {
-      auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
-      auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
-
-      CLLocation * lastLocation = [MWMLocationManager lastLocation];
-      if (p1.isMyPosition && lastLocation)
-      {
-        [[MWMRoutingManager routingManager] startRoute];
-        [[MWMMapViewControlsManager manager] onRouteStart];
-      }
-      else
-      {
-        // The route is not followed here, and only following saves the points, so save them for
-        // restoreRouteIfNeeded.
-        [self saveRoute];
-
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
-
-        [[MWMAlertViewController activeAlertController]
-            presentPoint2PointAlertWithOkBlock:^{
-              [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                                    intermediateIndex:0]
-                        bestRouter:NO];
-            }
-                                 needToRebuild:needToRebuild];
-      }
+      [[MWMRoutingManager routingManager] startRoute];
+      [[MWMMapViewControlsManager manager] onRouteStart];
+      return;
     }
+
+    [self saveRoute];
+    MWMAlertViewController * alerts = MWMAlertViewController.activeAlertController;
+    if (!location)
+    {
+      [alerts presentInfoAlert:L(@"p2p_only_from_current") text:L(@"unknown_current_position")];
+      return;
+    }
+    [alerts
+        presentDefaultAlertWithTitle:L(@"p2p_only_from_current")
+                             message:start.title
+                    rightButtonTitle:L(@"route_to_start")
+                     leftButtonTitle:L(@"cancel")
+                   rightButtonAction:^{ [self routeToStart:start fromLocation:[MWMLocationManager lastLocation]]; }];
   };
 
   if ([MWMSettings routingDisclaimerApproved])

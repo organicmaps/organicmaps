@@ -17,11 +17,6 @@
   return [MWMLocationAlert alertWithCancelBlock:cancelBlock];
 }
 
-+ (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
-{
-  return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
-}
-
 + (MWMAlert *)disabledLocationAlert
 {
   return [MWMDefaultAlert disabledLocationAlert];
