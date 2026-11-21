@@ -1537,18 +1537,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                    .setOnDismissListener(dialog -> mAlertDialog = null);
     if (locationHelper.getMyPosition() == null)
       builder.setMessage(R.string.unknown_current_position).setPositiveButton(R.string.ok, null);
-    else if (endPoint.isMyPosition())
-      builder.setNegativeButton(R.string.cancel, null)
-          .setPositiveButton(R.string.reverse_route, (dialog, which) -> controller.reverseRoute());
     else
-      builder.setMessage(R.string.p2p_reroute_from_current)
+      builder.setMessage(startPoint.getTitle())
           .setNegativeButton(R.string.cancel, null)
-          .setPositiveButton(R.string.ok, (dialog, which) -> {
-            // Use the location fix at confirmation time.
-            final MapObject myPosition = locationHelper.getMyPosition();
-            if (myPosition != null)
-              controller.setStartPoint(myPosition);
-          });
+          .setPositiveButton(
+              R.string.route_to_start,
+              (dialog, which) -> controller.planToRouteStart(startPoint, locationHelper.getMyPosition()));
     dismissAlertDialog();
     mAlertDialog = builder.show();
     return false;

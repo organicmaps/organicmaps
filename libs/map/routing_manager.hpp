@@ -245,6 +245,8 @@ public:
   /// Exchanges endpoint slots in place, keeping intermediate points and all mark metadata unchanged. A lone
   /// endpoint moves to the other slot. Returns false if neither endpoint exists.
   bool SwapRoutePointEndpoints();
+  /// Adds an approach leg to a built plan with a fixed origin. Returns false if adding the leg would exceed capacity.
+  bool PrependMyPosition(m2::PointD const & lastFix);
   /// Reverses the complete route, including intermediate points. Returns false without changing points if either
   /// endpoint is missing.
   bool ReverseRoutePoints();

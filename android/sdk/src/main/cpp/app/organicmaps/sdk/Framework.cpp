@@ -1511,9 +1511,10 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * 
   frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSwapRoutePointEndpoints(JNIEnv * env, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativePrependMyPosition(JNIEnv *, jclass, jdouble lat,
+                                                                              jdouble lon)
 {
-  return frm()->GetRoutingManager().SwapRoutePointEndpoints();
+  return frm()->GetRoutingManager().PrependMyPosition(mercator::FromLatLon(lat, lon));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReverseRoutePoints(JNIEnv * env, jclass)

@@ -330,12 +330,7 @@ public class Framework
 
   public static native void nativeMoveRoutePoint(int currentIndex, int targetIndex);
 
-  /**
-   * Exchanges endpoint slots, preserving stops and mark metadata. A lone endpoint moves to the other slot.
-   *
-   * @return {@code false} if neither endpoint exists.
-   */
-  public static native boolean nativeSwapRoutePointEndpoints();
+  public static native boolean nativePrependMyPosition(double lat, double lon);
 
   /**
    * Reverses the complete route, including intermediate points.

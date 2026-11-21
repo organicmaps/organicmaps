@@ -231,17 +231,17 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     if (!mRoutingController.isPlanning() || !mRoutingController.isBuilt())
       return;
 
-    final boolean canStart = mRoutingController.canStartNavigation();
-    final boolean reverse = destination.isMyPosition();
+    final MapObject start = mRoutingController.getStartPoint();
+    if (start == null)
+      return;
+    final boolean canStart = start.isMyPosition();
     if (!canStart && getLocationHelper().getMyPosition() == null)
       return;
 
     final Action.Builder routeAction = new Action.Builder();
     routeAction.setBackgroundColor(Colors.START_NAVIGATION);
     routeAction.setFlags(Action.FLAG_DEFAULT);
-    routeAction.setTitle(getCarContext().getString(canStart  ? R.string.p2p_start
-                                                   : reverse ? R.string.reverse_route
-                                                             : R.string.button_plan));
+    routeAction.setTitle(getCarContext().getString(canStart ? R.string.p2p_start : R.string.route_to_start));
     if (canStart)
       routeAction.setIcon(
           new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
@@ -257,19 +257,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
         Config.acceptRoutingDisclaimer();
         mRoutingController.start();
       }
-      else if (reverse)
-      {
-        final MapObject endPoint = mRoutingController.getEndPoint();
-        if (endPoint != null && endPoint.isMyPosition())
-          mRoutingController.reverseRoute();
-      }
-      else if (mRoutingController.isPlanning() && mRoutingController.isBuilt())
-      {
-        final MapObject endPoint = mRoutingController.getEndPoint();
-        final MapObject myPosition = getLocationHelper().getMyPosition();
-        if (endPoint != null && !endPoint.isMyPosition() && myPosition != null)
-          mRoutingController.setStartPoint(myPosition);
-      }
+      else
+        mRoutingController.planToRouteStart(start, getLocationHelper().getMyPosition());
     });
 
     builder.addAction(routeAction.build());
@@ -335,6 +324,12 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void updateMenu()
   {
     invalidate();
+  }
+
+  @Override
+  public void onStopPointLimitReached()
+  {
+    CarToast.makeText(getCarContext(), R.string.routing_max_stops_reached, CarToast.LENGTH_LONG).show();
   }
 
   @Override

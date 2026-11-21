@@ -25,7 +25,7 @@ import org.mockito.MockedStatic;
 public class MwmActivityRoutingTest
 {
   @Test
-  public void myPositionDestinationOffersCompleteReversal()
+  public void myPositionDestinationOffersRouteToStart()
   {
     checkStartNotice(true, true);
   }
@@ -52,7 +52,8 @@ public class MwmActivityRoutingTest
     when(locationHelper.getMyPosition()).thenReturn(hasLocation ? position : null);
 
     final RoutingController controller = mock(RoutingController.class);
-    when(controller.getStartPoint()).thenReturn(mock(MapObject.class));
+    final MapObject start = MapObject.createMapObject(MapObject.POI, "Origin", "", 1, 2);
+    when(controller.getStartPoint()).thenReturn(start);
     final MapObject destination = mock(MapObject.class);
     when(destination.isMyPosition()).thenReturn(destinationIsMyPosition);
     when(controller.getEndPoint()).thenReturn(destination);
@@ -80,13 +81,8 @@ public class MwmActivityRoutingTest
         final MapObject currentPosition = mock(MapObject.class);
         when(locationHelper.getMyPosition()).thenReturn(currentPosition);
         action.getValue().onClick(null, DialogInterface.BUTTON_POSITIVE);
-        if (destinationIsMyPosition)
-        {
-          verify(controller).reverseRoute();
-          verify(dialog).setPositiveButton(R.string.reverse_route, action.getValue());
-        }
-        else
-          verify(controller).setStartPoint(currentPosition);
+        verify(controller).planToRouteStart(start, currentPosition);
+        verify(dialog).setPositiveButton(R.string.route_to_start, action.getValue());
       }
       verify(controller, never()).start();
     }

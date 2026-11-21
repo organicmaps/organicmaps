@@ -143,34 +143,34 @@ public class CarRoutePreviewTest
   @Test
   public void fixedOriginOffersToPlanFromTheLatestPosition()
   {
-    final RoutingController controller =
-        preview(MapObject.createMapObject(MapObject.POI, "Start", "", 3, 4), mDestination);
+    final MapObject start = MapObject.createMapObject(MapObject.POI, "Start", "", 3, 4);
+    final RoutingController controller = preview(start, mDestination);
     final PlaceScreen screen = showPreview(controller, mDestination);
     completeBuild(controller);
-    doReturn(true).when(controller).setStartPoint(any());
+    doNothing().when(controller).planToRouteStart(any(), any());
     final Action plan = pane(screen).getActions().get(0);
-    assertEquals("Plan", plan.getTitle().toString());
+    assertEquals("Route to starting point", plan.getTitle().toString());
 
     final MapObject latestPosition = MapObject.createMapObject(MapObject.MY_POSITION, "My Position", "", 4, 5);
     when(mLocation.getMyPosition()).thenReturn(latestPosition);
     click(plan);
 
-    verify(controller).setStartPoint(latestPosition);
+    verify(controller).planToRouteStart(start, latestPosition);
   }
 
   @Test
-  public void myPositionDestinationOffersToReverseTheRoute()
+  public void myPositionDestinationOffersAnApproachToTheOrigin()
   {
     final RoutingController controller = preview(mDestination, mPosition);
     final PlaceScreen screen = showPreview(controller, mPosition);
     completeBuild(controller);
-    doNothing().when(controller).reverseRoute();
-    final Action reverse = pane(screen).getActions().get(0);
-    assertEquals("Reverse route", reverse.getTitle().toString());
+    doNothing().when(controller).planToRouteStart(any(), any());
+    final Action plan = pane(screen).getActions().get(0);
+    assertEquals("Route to starting point", plan.getTitle().toString());
 
-    click(reverse);
+    click(plan);
 
-    verify(controller).reverseRoute();
+    verify(controller).planToRouteStart(mDestination, mPosition);
   }
 
   @Test

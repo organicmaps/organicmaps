@@ -1188,19 +1188,17 @@ public class RoutingController
     return new Pair<>(title, subtitle);
   }
 
-  /**
-   * Exchanges the endpoint roles, keeping intermediate stops in order, and rebuilds when both endpoints exist.
-   */
-  public void swapPoints()
+  /** Offers can outlive their preview. Apply the approach only while its fixed origin is still current. */
+  public void planToRouteStart(@NonNull MapObject expectedStart, @Nullable MapObject myPosition)
   {
     checkMapsReady();
-    Logger.d(TAG, "swapPoints");
-
-    if (!Framework.nativeSwapRoutePointEndpoints())
+    if (myPosition == null || !isPlanning() || !isBuilt() || expectedStart.isMyPosition()
+        || !expectedStart.sameAs(getStartPoint()))
       return;
-    checkAndBuildRoute();
-    if (mContainer != null)
-      mContainer.updateMenu();
+    if (Framework.nativePrependMyPosition(myPosition.getLat(), myPosition.getLon()))
+      build();
+    else if (mContainer != null)
+      mContainer.onStopPointLimitReached();
   }
 
   /**
