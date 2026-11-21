@@ -264,6 +264,41 @@ final class ElevationXAxisTests: XCTestCase {
     XCTAssertEqual(try XCTUnwrap(selectedDistance), 21000, accuracy: 0.001)
   }
 
+  func testSelectionAndPanIgnoreZeroWidth() {
+    final class Pan: UIPanGestureRecognizer {
+      var phase = UIGestureRecognizer.State.began
+      override var state: UIGestureRecognizer.State {
+        get { phase }
+        set {}
+      }
+    }
+
+    let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
+    chart.chartData = makeData(distances: [0, 50, 100, 150, 200])
+    chart.chartPreviewView.setX(min: 1, max: 3)
+    chart.layoutIfNeeded()
+    chart.onSelectedPointChanged = { _ in XCTFail("A zero-width chart cannot select a distance") }
+
+    chart.bounds.size.width = 0
+    chart.layoutIfNeeded()
+    chart.chartInfoView(chart.chartInfoView, didMoveToPoint: 0)
+    let pan = Pan()
+    chart.onPan(pan)
+    pan.phase = .changed
+    pan.setTranslation(CGPoint(x: 10, y: 0), in: chart)
+    chart.onPan(pan)
+    XCTAssertEqual(chart.chartPreviewView.minX, 1)
+    XCTAssertEqual(chart.chartPreviewView.maxX, 3)
+
+    chart.onSelectedPointChanged = nil
+    chart.bounds.size.width = 320
+    chart.layoutIfNeeded()
+    pan.setTranslation(.zero, in: chart)
+    chart.onPan(pan)
+    XCTAssertEqual(chart.chartPreviewView.minX, 1)
+    XCTAssertEqual(chart.chartPreviewView.maxX, 3)
+  }
+
   func testUnitsAreReadOnEachUpdate() {
     var units = Units.metric
     let f = ElevationProfileFormatter(unitsProvider: { units }, locale: locale)

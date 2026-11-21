@@ -283,15 +283,12 @@ public class ChartView: UIView {
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
     guard chartData != nil else { return }
-    let t = sender.translation(in: chartsContainerView)
     if sender.state == .began {
       panStartPoint = xAxisView.lowerBound
     }
 
-    if sender.state != .changed {
-      return
-    }
-
+    guard sender.state == .changed, chartsContainerView.bounds.width > 0 else { return }
+    let t = sender.translation(in: chartsContainerView)
     let dx = Int(round(t.x / chartsContainerView.bounds.width * CGFloat(xAxisView.upperBound - xAxisView.lowerBound)))
     let lower = panStartPoint - dx
     let upper = lower + xAxisView.upperBound - xAxisView.lowerBound
@@ -383,6 +380,7 @@ extension ChartView: ChartPreviewViewDelegate {
 
 extension ChartView: ChartInfoViewDelegate {
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
+    guard bounds.width > 0 else { return }
     let p = convert(CGPoint(x: pointX, y: 0), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     notifySelectedPointChanged(at: chartX)
