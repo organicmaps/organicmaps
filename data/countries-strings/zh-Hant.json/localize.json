@@ -982,7 +982,6 @@
  "Switzerland_Ticino": "提契諾州",
  "Switzerland_Zurich": "蘇黎世都會區",
  "Syria": "敘利亞",
- "Taiwan": "臺灣",
  "Tajikistan": "塔吉克斯坦",
  "Tanzania": "坦桑尼亞",
  "Tanzania_Central": "坦桑尼亞 - 中部地區",
@@ -1298,8 +1297,8 @@
  "Sweden_Stockholm": "斯德哥爾摩",
  "Switzerland_Espace Mittelland_Bern": "中央地帶 - 伯恩",
  "Switzerland_Espace Mittelland_East": "中央地帶 - 東",
- "Taiwan_North": "臺灣 - 北",
- "Taiwan_South": "臺灣 - 南",
+ "Taiwan_North": "中國臺灣 — 北部",
+ "Taiwan_South": "中國臺灣 — 南部",
  "Thailand_Central": "泰國 - 中心",
  "Turkey_Central Anatolia Region_Ankara": "中部安那托利亞地區 — 安卡拉",
  "Turkey_Central Anatolia Region_Kayseri": "中部安那托利亞地區 — 開塞利",
@@ -2579,5 +2578,5 @@
  "Spain_Galicia_North Short": "加利西亞",
  "Spain_Galicia_South Short": "加利西亞",
  "Switzerland_Espace Mittelland_East Short": "中央地帶",
- "China_Taiwan": "臺灣"
+ "China_Taiwan": "中國臺灣"
 }
