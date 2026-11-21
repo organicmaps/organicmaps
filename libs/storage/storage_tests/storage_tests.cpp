@@ -994,6 +994,35 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
 }
 
 #if defined(OMIM_OS_DESKTOP)
+UNIT_TEST(StorageTest_RegisterCurrentVersionCustomMaps)
+{
+  classificator::Load();
+  WritableDirChanger const writableDirChanger(kMapTestDir);
+  Storage storage(kCountriesTxt, make_unique<TestMapFilesDownloader>());
+  CountryFile const uncatalogued("Uncatalogued map");
+  CountryFile const catalogGroup("Algeria");
+  TEST(!storage.IsNode(uncatalogued.GetName()), ());
+  TEST(storage.IsInnerNode(catalogGroup.GetName()), ());
+
+  auto const version = storage.GetCurrentDataVersion();
+  auto const createMap = [&](CountryFile const & country)
+  {
+    auto const localFile = PreparePlaceForCountryFiles(version, country);
+    TEST(localFile, (country));
+    generator::tests_support::TestMwmBuilder builder(*localFile, feature::DataHeader::MapType::Country,
+                                                     static_cast<uint32_t>(version));
+    return localFile;
+  };
+  auto const expected = {createMap(uncatalogued), createMap(catalogGroup)};
+
+  storage.RegisterAllLocalMaps();
+
+  vector<LocalFilePtr> maps;
+  storage.GetLocalMaps(maps);
+  for (auto const & localFile : expected)
+    TEST(std::ranges::any_of(maps, [&](auto const & map) { return *map == *localFile; }), (*localFile));
+}
+
 UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
 {
   classificator::Load();
