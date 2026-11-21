@@ -232,10 +232,21 @@ std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorC
 {
   using namespace cycling_junctions_detail;
   std::map<uint64_t, std::vector<std::pair<CyclingWay const *, size_t>>> nodes;
-  for (auto const & road : roads)
-    if (road.m_nodes.size() >= 2 && roadTypes.contains(road.m_id))
-      for (size_t i = 0; i < road.m_nodes.size(); ++i)
-        nodes[road.m_nodes[i].m_id].emplace_back(&road, i);
+  {
+    std::unordered_set<uint64_t> endpoints;
+    for (auto const & connector : connectors)
+      if (!connector.m_isCrossing && connector.m_nodes.size() >= 2)
+      {
+        endpoints.insert(connector.m_nodes.front().m_id);
+        endpoints.insert(connector.m_nodes.back().m_id);
+      }
+    for (auto const & road : roads)
+      if (road.m_nodes.size() >= 2 && roadTypes.contains(road.m_id))
+        for (size_t i = 0; i < road.m_nodes.size(); ++i)
+          if (endpoints.contains(road.m_nodes[i].m_id))
+            nodes[road.m_nodes[i].m_id].emplace_back(&road, i);
+  }
+  // Interior and crossing incidents at these endpoints still veto an unsafe join.
   auto const incidents = IndexApproaches(connectors, nodes);
   std::map<uint64_t, std::vector<cycling::ConnectorContact>> result;
   std::set<uint64_t> overflow;
