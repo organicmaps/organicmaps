@@ -21,7 +21,12 @@ class DownloadMapsViewController: MWMViewController {
 
   // MARK: - Properties
 
-  private var searchController = UISearchController(searchResultsController: nil)
+  private lazy var navigationSearch = NavigationSearch(
+    viewController: self,
+    delegate: self,
+    placeholder: L("downloader_search_field_hint"),
+    hidesNavigationBarDuringPresentation: alternativeSizeClass(iPhone: true, iPad: false)
+  )
   var dataSource: IDownloaderDataSource!
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
@@ -83,13 +88,7 @@ class DownloadMapsViewController: MWMViewController {
     }
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     extendedLayoutIncludesOpaqueBars = true
-    searchController.searchBar.placeholder = L("downloader_search_field_hint")
-    searchController.searchBar.delegate = self
-    searchController.obscuresBackgroundDuringPresentation = false
-    searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
-    searchController.searchBar.applyTheme()
-    navigationItem.searchController = searchController
-    navigationItem.hidesSearchBarWhenScrolling = false
+    _ = navigationSearch
     configButtons()
   }
 
@@ -313,7 +312,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
       cell = placeCell
     }
     cell.mode = dataSource.isSearching ? .available : mode
-    cell.config(nodeAttrs, searchQuery: searchController.searchBar.text)
+    cell.config(nodeAttrs, searchQuery: navigationSearch.searchBar.text)
     cell.delegate = self
     return cell
   }
@@ -373,7 +372,7 @@ extension DownloadMapsViewController: UITableViewDelegate {
 
 extension DownloadMapsViewController: UIScrollViewDelegate {
   func scrollViewWillBeginDragging(_: UIScrollView) {
-    searchController.searchBar.resignFirstResponder()
+    navigationSearch.searchBar.resignFirstResponder()
   }
 }
 
@@ -427,7 +426,7 @@ extension DownloadMapsViewController: StorageObserver {
         guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
               downloaderCell.nodeAttrs.countryId == countryId,
               let indexPath = tableView.indexPath(for: downloaderCell) else { continue }
-        downloaderCell.config(dataSource.item(at: indexPath), searchQuery: searchController.searchBar.text)
+        downloaderCell.config(dataSource.item(at: indexPath), searchQuery: navigationSearch.searchBar.text)
       }
       configButtons()
     }

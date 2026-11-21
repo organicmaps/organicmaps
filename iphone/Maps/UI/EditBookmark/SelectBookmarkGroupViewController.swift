@@ -22,7 +22,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     isSearching ? filteredGroups : bookmarkGroups
   }
 
-  private let searchController = UISearchController(searchResultsController: nil)
+  private lazy var navigationSearch = NavigationSearch(viewController: self, delegate: self, placeholder: L("search"))
 
   private struct NormalizedBookmarkGroup {
     let categoryId: MWMMarkGroupID
@@ -56,17 +56,11 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     title = L("bookmark_sets")
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap))
 
-    searchController.searchBar.placeholder = L("search")
-    searchController.obscuresBackgroundDuringPresentation = false
-    searchController.hidesNavigationBarDuringPresentation = false
-    searchController.searchBar.delegate = self
-    searchController.searchBar.applyTheme()
-    navigationItem.searchController = searchController
-    navigationItem.hidesSearchBarWhenScrolling = false
+    _ = navigationSearch
   }
 
   @objc private func cancelButtonDidTap() {
-    searchController.isActive = false
+    navigationSearch.deactivate()
     dismiss(animated: true, completion: nil)
   }
 
@@ -108,7 +102,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     case .addGroup:
       createNewGroup()
     case .groups:
-      searchController.isActive = false
+      navigationSearch.deactivate()
       let selectedGroup = currentGroups[indexPath.row]
       delegate?.bookmarkGroupViewController(self, didSelect: selectedGroup.title, groupId: selectedGroup.categoryId)
     default:
@@ -120,7 +114,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: 60, minCharacterNum: 0) {
       [unowned self] name -> Bool in
       guard BookmarksManager.shared().checkCategoryName(name) else { return false }
-      searchController.isActive = false
+      navigationSearch.deactivate()
       let newGroupId = BookmarksManager.shared().createCategory(withName: name)
       delegate?.bookmarkGroupViewController(self, didSelect: name, groupId: newGroupId)
       return true
@@ -142,12 +136,12 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
 // MARK: - UISearchBarDelegate
 
 extension SelectBookmarkGroupViewController: UISearchBarDelegate {
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    searchBar.setShowsCancelButton(true, animated: true)
+  func searchBarTextDidBeginEditing(_: UISearchBar) {
+    navigationSearch.setShowsCancelButton(true)
   }
 
-  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-    searchBar.setShowsCancelButton(false, animated: true)
+  func searchBarTextDidEndEditing(_: UISearchBar) {
+    navigationSearch.setShowsCancelButton(false)
   }
 
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
