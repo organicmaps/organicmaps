@@ -3,7 +3,7 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 
-#include "routing/edge_estimator.hpp"
+#include "routing/fake_ending.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
@@ -106,12 +106,17 @@ private:
   struct FakeJointSegment
   {
     FakeJointSegment() = default;
-    FakeJointSegment(Segment const & start, Segment const & end) : m_start(start), m_end(end) {}
+    FakeJointSegment(Segment const & start, Segment const & end, double finishFraction = 1.0)
+      : m_start(start)
+      , m_end(end)
+      , m_finishFraction(finishFraction)
+    {}
 
     Segment const & GetSegment(bool start) const { return start ? m_start : m_end; }
 
     Segment m_start;
     Segment m_end;
+    double m_finishFraction = 1.0;
   };
 
   void InitEnding(Segment const & ending, bool start);
@@ -120,7 +125,8 @@ private:
 
   void GetEdgeList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing, EdgeListT & edges);
 
-  JointSegment CreateFakeJoint(Segment const & from, Segment const & to, uint32_t featureId = kInvalidFeatureId);
+  JointSegment CreateFakeJoint(Segment const & from, Segment const & to, uint32_t featureId = kInvalidFeatureId,
+                               double finishFraction = 1.0);
 
   bool IsJoint(Segment const & segment, bool fromStart) const { return m_graph.IsJoint(segment, fromStart); }
 
@@ -409,14 +415,14 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(astar::VertexDat
   if (vertex == GetStartJoint())
   {
     edges.append(m_startOutEdges.begin(), m_startOutEdges.end());
-    parentWeights.append(edges.size(), Weight(0.0));
+    parentWeights.append(edges.size(), SegmentEdgeWeight{});
     firstFakeId = edges.size();
   }
   else if (vertex == GetFinishJoint())
   {
     edges.append(m_endOutEdges.begin(), m_endOutEdges.end());
     // If vertex is FinishJoint, parentWeight is equal to zero, because the first vertex is zero-weight loop.
-    parentWeights.append(edges.size(), Weight(0.0));
+    parentWeights.append(edges.size(), SegmentEdgeWeight{});
   }
   else
   {
@@ -475,6 +481,7 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(astar::VertexData<Vertex, Weigh
     CHECK(it != m_savedWeight.cend(), ("Can not find weight for:", vertex));
 
     Weight const weight = it->second;
+    double const finishFraction = vertex.IsFake() ? GetFakeSegmentSure(vertex).m_finishFraction : 1.0;
     for (size_t i = 0; i < edges.size(); ++i)
     {
       // Saving weight of current edges for returning in the next iterations.
@@ -490,7 +497,7 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(astar::VertexData<Vertex, Weigh
       // it will differ (child_1 => parent != child_2 => parent), but (!) we save this weight in
       // |parentWeights[]|. So the weight of an ith edge is a cached "weight of parent JointSegment" +
       // "parentWeight[i]".
-      w = weight + parentWeights[i];
+      w = weight + parentWeights[i].ForSegmentFraction(finishFraction).GetTotal();
     }
 
     // Delete useless weight of parent JointSegment.
@@ -500,7 +507,11 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(astar::VertexData<Vertex, Weigh
   {
     // This needs for correct weights calculation of FakeJointSegments during forward A* search.
     for (size_t i = firstFakeId; i < edges.size(); ++i)
-      edges[i].GetWeight() += parentWeights[i];
+    {
+      auto & edge = edges[i];
+      double const finishFraction = GetFakeSegmentSure(edge.GetTarget()).m_finishFraction;
+      edge.GetWeight() += parentWeights[i].ForSegmentFraction(finishFraction).GetTotal();
+    }
   }
 
   auto const vertexMwmId = vertex.GetMwmId();
@@ -522,10 +533,10 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(astar::VertexData<Vertex, Weigh
 
 template <typename Graph>
 JointSegment IndexGraphStarterJoints<Graph>::CreateFakeJoint(Segment const & from, Segment const & to,
-                                                             uint32_t featureId /* = kInvalidFeatureId*/)
+                                                             uint32_t featureId, double finishFraction)
 {
   JointSegment const result = JointSegment::MakeFake(m_fakeId++, featureId);
-  m_fakeJointSegments.emplace(result, FakeJointSegment(from, to));
+  m_fakeJointSegments.emplace(result, FakeJointSegment(from, to, finishFraction));
   return result;
 }
 
@@ -561,19 +572,11 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
   uint32_t firstFeatureId = kInvalidFeatureId;
   auto const addFake = [&](Segment const & segment, Segment const & beforeConvert)
   {
-    JointSegment fakeJoint;
-    fakeJoint =
-        fromStart ? CreateFakeJoint(startSegment, segment, firstFeatureId) : CreateFakeJoint(segment, startSegment);
-
-    auto fakeWeight = weight[beforeConvert];
-    // The edges into the finish joint add the weight of the whole real |segment| as the parent weight,
-    // but the route takes its part |beforeConvert| only.
-    if (!fromStart && beforeConvert != segment)
-    {
-      fakeWeight += m_graph.CalcSegmentWeight(beforeConvert, EdgeEstimator::Purpose::Weight) -
-                    m_graph.CalcSegmentWeight(segment, EdgeEstimator::Purpose::Weight);
-    }
-    result.emplace_back(fakeJoint, fakeWeight);
+    double const finishFraction =
+        !fromStart && beforeConvert != segment ? GetSegmentLengthFraction(m_graph, beforeConvert, segment) : 1.0;
+    auto const fakeJoint = fromStart ? CreateFakeJoint(startSegment, segment, firstFeatureId)
+                                     : CreateFakeJoint(segment, startSegment, kInvalidFeatureId, finishFraction);
+    result.emplace_back(fakeJoint, weight[beforeConvert]);
 
     std::vector<Segment> path = reconstructPath(beforeConvert, fromStart);
     m_reconstructedFakeJoints.emplace(fakeJoint, ReconstructedPath(std::move(path), fromStart));

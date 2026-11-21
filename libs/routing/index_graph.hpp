@@ -43,7 +43,7 @@ public:
 
   using SegmentEdgeListT = SmallList<SegmentEdge>;
   using JointEdgeListT = SmallList<JointEdge>;
-  using WeightListT = SmallList<RouteWeight>;
+  using WeightListT = SmallList<SegmentEdgeWeight>;
   using SegmentListT = SmallList<Segment>;
   using PointIdListT = SmallList<uint32_t>;
 
@@ -137,6 +137,10 @@ public:
   }
 
 private:
+  SegmentEdgeWeight CalculateEdgeWeightComponents(EdgeEstimator::Purpose purpose, bool isOutgoing, Segment const & from,
+                                                  Segment const & to,
+                                                  std::optional<RouteWeight> const & prevWeight) const;
+
   void GetEdgeListImpl(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                        bool useRoutingOptions, bool useAccessConditional, SegmentEdgeListT & edges,
                        Parents<Segment> const & parents) const;

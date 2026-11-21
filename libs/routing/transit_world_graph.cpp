@@ -1,9 +1,8 @@
 #include "routing/transit_world_graph.hpp"
 
+#include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/transit_graph.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
 
 #include <memory>
 #include <utility>
@@ -52,22 +51,15 @@ void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> cons
       }
       else if (!isOutgoing && haveSameBack)
       {
-        // Ingoing real edges are priced by the segment they enter, the whole |real|, while this
-        // vertex is only a part of it: rebase them to the part, keeping the crossing penalties.
-        // The outgoing counterpart of this edge is priced the same way in the loop below.
-        SegmentEdgeListT realEdges;
-        GetIndexGraph(real.GetMwmId()).GetEdgeList(data, isOutgoing, useRoutingOptions, realEdges);
-        RouteWeight const partDiff = CalcSegmentWeight(segment, EdgeEstimator::Purpose::Weight) -
-                                     CalcSegmentWeight(real, EdgeEstimator::Purpose::Weight);
-        for (auto const & edge : realEdges)
+        // Each new edge prices the whole road or its border twin.
+        size_t const first = edges.size();
+        AddRealEdges(data, isOutgoing, useRoutingOptions, edges);
+        double const fraction = GetSegmentLengthFraction(*this, segment, real);
+        for (size_t i = first; i < edges.size(); ++i)
         {
-          RouteWeight const weight = edge.GetWeight() + partDiff;
-          ASSERT_GREATER_OR_EQUAL(weight.GetWeight(), 0.0, (segment, real));
-          edges.emplace_back(edge.GetTarget(), weight);
+          auto & edge = edges[i];
+          edge = SegmentEdge(edge.GetTarget(), edge.GetWeightComponents().ForSegmentFraction(fraction));
         }
-        // Twin edges are priced by the twin in its own mwm, so the rebase could go negative there;
-        // keep the whole-segment price instead (a rare over-pricing on a transition segment).
-        GetTwins(real, isOutgoing, useRoutingOptions, edges);
       }
     }
 
@@ -91,12 +83,12 @@ void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> cons
       // is entered and is already priced in |edge|.
       if (isOutgoing && haveSameBack)
       {
-        fakeFromReal.emplace_back(s, edge.GetWeight() - CalcSegmentWeight(edgeSegment, EdgeEstimator::Purpose::Weight) +
-                                         CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight));
+        double const fraction = GetSegmentLengthFraction(*this, s, edgeSegment);
+        fakeFromReal.emplace_back(s, edge.GetWeightComponents().ForSegmentFraction(fraction));
       }
       else if (!isOutgoing && haveSameFront)
       {
-        fakeFromReal.emplace_back(s, edge.GetWeight());
+        fakeFromReal.emplace_back(s, edge.GetWeightComponents());
       }
     }
   }
@@ -153,11 +145,7 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment, EdgeEs
       // Part of a real road between a gate projection and the segment end. Price it as a fraction
       // of the real segment weight, like IndexGraphStarter does for start/finish endings; the
       // offroad speed would make a few metres of sidewalk cost minutes.
-      double const partLen = ms::DistanceOnEarth(transitGraph.GetJunction(segment, false /* front */).GetLatLon(),
-                                                 transitGraph.GetJunction(segment, true /* front */).GetLatLon());
-      double const fullLen = ms::DistanceOnEarth(GetPoint(real, false /* front */), GetPoint(real, true /* front */));
-      RouteWeight const weight = CalcSegmentWeight(real, purpose);
-      return (fullLen == 0.0 ? 0.0 : partLen / fullLen) * weight;
+      return GetSegmentLengthFraction(*this, segment, real) * CalcSegmentWeight(real, purpose);
     }
 
     return transitGraph.CalcSegmentWeight(segment, purpose);

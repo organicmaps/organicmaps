@@ -358,11 +358,11 @@ void IndexGraph::ReconstructJointSegment(astar::VertexData<JointSegment, RouteWe
 
     do
     {
-      RouteWeight const weight =
-          CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, prev, current, weightTimeToParent);
+      auto const weight =
+          CalculateEdgeWeightComponents(EdgeEstimator::Purpose::Weight, isOutgoing, prev, current, weightTimeToParent);
 
       if (isOutgoing || prev != parent)
-        summaryWeight += weight;
+        summaryWeight += weight.GetTotal();
 
       if (prev == parent)
         parentWeights.emplace_back(weight);
@@ -398,9 +398,8 @@ void IndexGraph::GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> cons
   if (IsAccessNoForSure(rp, weightToFrom, useAccessConditional))
     return;
 
-  auto const weight = CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, from, to, weightToFrom);
-
-  edges.emplace_back(to, weight);
+  edges.emplace_back(to,
+                     CalculateEdgeWeightComponents(EdgeEstimator::Purpose::Weight, isOutgoing, from, to, weightToFrom));
 }
 
 IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment) const
@@ -548,6 +547,13 @@ bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & ch
 RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing, Segment const & from,
                                             Segment const & to, std::optional<RouteWeight> const & prevWeight) const
 {
+  return CalculateEdgeWeightComponents(purpose, isOutgoing, from, to, prevWeight).GetTotal();
+}
+
+SegmentEdgeWeight IndexGraph::CalculateEdgeWeightComponents(EdgeEstimator::Purpose purpose, bool isOutgoing,
+                                                            Segment const & from, Segment const & to,
+                                                            std::optional<RouteWeight> const & prevWeight) const
+{
   auto const & segment = isOutgoing ? to : from;
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
 
@@ -555,9 +561,8 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
   if (m_currentTimeGetter && prevWeight)
     arrivalTime = m_currentTimeGetter() + prevWeight->GetWeight();
 
-  auto const weight = RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose, arrivalTime));
+  auto const segmentWeight = m_estimator->CalcSegmentWeight(segment, road, purpose, arrivalTime);
   auto const penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);
-
-  return weight + penalties;
+  return {segmentWeight, penalties};
 }
 }  // namespace routing
