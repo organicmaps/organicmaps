@@ -1504,7 +1504,8 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   bool const fullFrame = m_postprocessRenderer->BeginFrame(m_context, modelView, activeFrame);
   if (fullFrame)
   {
-    RefreshBgColor();
+    auto const bgColor = drule::GetCurrentRules().GetBgColor(GetCurrentZoom());
+    m_context->SetClearColor(dp::Color(bgColor, 255));
 
     uint32_t clearBits = dp::ClearBits::ColorBit | dp::ClearBits::DepthBit;
     if (m_apiVersion == dp::ApiVersion::OpenGLES3)
@@ -2165,15 +2166,6 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   }
 }
 
-void FrontendRenderer::RefreshBgColor()
-{
-  auto const scale = std::min(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()), scales::GetUpperStyleScale());
-  auto const c = dp::Color(drule::GetCurrentRules().GetBgColor(scale), 255);
-
-  CHECK(m_context != nullptr, ());
-  m_context->SetClearColor(c);
-}
-
 void FrontendRenderer::DisablePerspective()
 {
   AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(false /* isAutoPerspective */));
@@ -2193,7 +2185,7 @@ void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
 bool FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   int const prevZoomLevel = m_currentZoomLevel;
-  m_currentZoomLevel = GetDrawTileScale(screen);
+  m_currentZoomLevel = GetStyleZoom(screen);
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetScale(m_currentZoomLevel);
 
   CheckIsometryMinScale(screen);
