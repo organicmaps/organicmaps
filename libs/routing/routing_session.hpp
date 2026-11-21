@@ -76,8 +76,6 @@ public:
 
   void SetState(SessionState state);
 
-  /// \returns true if altitude information along |m_route| is available and false otherwise.
-  bool HasRouteAltitude() const;
   bool IsRouteId(uint64_t routeId) const;
   bool IsRouteValid() const;
 

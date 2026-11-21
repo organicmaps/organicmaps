@@ -17,7 +17,7 @@ std::string ToString(RouterType type)
   return "Error";
 }
 
-RouterType FromString(std::string const & str)
+RouterType FromString(std::string const & str, RouterType fallback)
 {
   if (str == "vehicle")
     return RouterType::Vehicle;
@@ -30,7 +30,7 @@ RouterType FromString(std::string const & str)
   if (str == "ruler")
     return RouterType::Ruler;
 
-  return RouterType::Vehicle;
+  return fallback;
 }
 
 std::string DebugPrint(RouterType type)

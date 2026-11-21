@@ -7,6 +7,7 @@
 #include "geometry/parametrized_segment.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
@@ -100,17 +101,14 @@ m2::RectD Track::GetLimitRect() const
 
 double Track::GetLengthMeters() const
 {
-  if (!m_interactionData)
-    CacheDataForInteraction();
-  return m_interactionData->m_lengths.back().back();
+  return GetCumulativeLengths().back().back();
 }
 
-double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
+std::vector<Track::Lengths> const & Track::GetCumulativeLengths() const
 {
   if (!m_interactionData)
     CacheDataForInteraction();
-  auto const & lineLengths = m_interactionData->m_lengths[lineIndex];
-  return lineLengths[ptIndex];
+  return m_interactionData->m_lengths;
 }
 
 void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
@@ -125,8 +123,10 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
     for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
-      m2::ParametrizedSegment<m2::PointD> seg(line[ptIndex].GetPoint(), line[ptIndex + 1].GetPoint());
-      auto const closestPoint = seg.ClosestPointTo(tapPoint);
+      auto const & from = line[ptIndex].GetPoint();
+      auto const & to = line[ptIndex + 1].GetPoint();
+      double const fraction = m2::SegmentProjectionFraction(from, to, tapPoint);
+      auto const closestPoint = m2::SegmentPointAt(from, to, fraction);
       auto const squaredDist = closestPoint.SquaredLength(tapPoint);
       if (squaredDist >= info.m_squareDist)
         continue;
@@ -137,8 +137,9 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;
 
-      auto const segDistInMeters = mercator::DistanceOnEarth(line[ptIndex].GetPoint(), closestPoint);
-      info.m_distFromBegM = segDistInMeters + GetLengthMetersImpl(lineIndex, ptIndex);
+      // Interpolate cumulative chart distance with the same segment fraction as GetPoint().
+      auto const & lengths = GetCumulativeLengths()[lineIndex];
+      info.m_distFromBegM = std::lerp(lengths[ptIndex], lengths[ptIndex + 1], fraction);
     }
   }
 }
@@ -215,10 +216,7 @@ void Track::Detach()
 
 m2::PointD Track::GetPoint(double distanceInMeters) const
 {
-  if (!m_interactionData)
-    CacheDataForInteraction();
-
-  auto const & lengths = m_interactionData->m_lengths;
+  auto const & lengths = GetCumulativeLengths();
   ASSERT(!lengths.empty(), ());
 
   for (size_t lineIndex = 0; lineIndex < lengths.size(); ++lineIndex)

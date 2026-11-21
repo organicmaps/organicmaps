@@ -1,8 +1,11 @@
 #pragma once
 
 #include "map/bookmark_manager.hpp"
+#include "map/elevation_info.hpp"
 #include "map/extrapolation/extrapolator.hpp"
 #include "map/routing_mark.hpp"
+#include "map/track_follow_data.hpp"
+#include "map/track_statistics.hpp"
 #include "map/transit/transit_display.hpp"
 #include "map/transit/transit_reader.hpp"
 
@@ -12,6 +15,7 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_session.hpp"
 #include "routing/speed_camera_manager.hpp"
+#include "routing/track_router.hpp"
 
 #include "storage/storage_defines.hpp"
 
@@ -23,12 +27,14 @@
 
 #include <chrono>
 #include <cstdint>
+#include <expected>
 #include <functional>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace storage
@@ -42,6 +48,7 @@ class NumMwmIds;
 }
 
 class DataSource;
+class Track;
 
 namespace power_management
 {
@@ -56,6 +63,40 @@ struct RoutePointInfo
   bool m_isPassed = false;
   bool m_isMyPosition = false;
   m2::PointD m_position;
+};
+
+/// Captured track details remain valid after the source is edited or deleted.
+struct FollowedTrackInfo
+{
+  kml::TrackId m_id = kml::kInvalidTrackId;
+  std::string m_name;
+  /// Captured distance along the full source, independent of the map selection.
+  double m_entryDistanceM = 0.0;
+  /// The router type the track is followed and rendered as (never Transit or Ruler).
+  routing::RouterType m_profile = routing::RouterType::Vehicle;
+};
+
+/// Everything but Ok leaves the routing session exactly as it was.
+enum class FollowTrackResult
+{
+  Ok,
+  /// The requested live source track does not exist.
+  NoTrack,
+  /// Active navigation or a pending Start prevents this operation.
+  Busy,
+  /// The selection does not identify a valid occurrence in its source.
+  InvalidSelection,
+  /// No horizontal geometry remains in the selected connected section.
+  NoRemainingGeometry,
+};
+
+std::string DebugPrint(FollowTrackResult result);
+
+struct RouteElevationData
+{
+  ElevationInfo m_elevationInfo;
+  TrackStatistics m_statistics;
+  kml::TrackId m_trackId = kml::kInvalidTrackId;
 };
 
 class RoutingManager final
@@ -129,10 +170,11 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
   bool IsRouteValid() const { return m_routingSession.IsRouteValid(); }
+  // Requires routing initialization and a regular routing mode; builds from editable route points.
   void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout);
   bool HaveRoutePlanningOptionsChanged() const;
   void SetUserCurrentPosition(m2::PointD const & position);
-  void ResetRoutingSession() { m_routingSession.Reset(); }
+  void ResetRoutingSession();
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
   // This method was added because we do not want to break the behaviour that is familiar to our
   // users.
@@ -154,7 +196,6 @@ public:
     m_routeSpeedCamsClearCallback = speedCamsClearCallback;
   }
 
-  /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
   {
     m_routingSession.SetProgressCallback(progressCallback);
@@ -163,8 +204,44 @@ public:
   {
     m_routeRecommendCallback = recommendCallback;
   }
+  // Track navigation requires a current position and completes any approach build before following.
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
+
+  // Requires routing initialization. Capture the selected source occurrence and preview its connected remainder.
+  // A refusal leaves the current session untouched; accepted builds use normal callbacks.
+  // Replaces the current preview, including a pending build; active navigation or pending Start returns Busy.
+  FollowTrackResult NavigateTrack(kml::TrackId trackId);
+  // The following three commands require a captured session.
+  // Explicitly return from navigation to its captured preview.
+  FollowTrackResult ResetFollowedTrackToPlanning();
+  // Update from a finite distance along the full source track, clamped to its endpoints.
+  // Retain the profile and viewport; the entry belongs to the captured source, not the map selection.
+  // At a gap, keep the accepted entry if the chart reports that distance. Otherwise use the preceding endpoint.
+  FollowTrackResult UpdateFollowedTrackEntryAt(double distanceM);
+  // Change this preview's profile (Vehicle, Bicycle or Pedestrian) without writing global defaults.
+  FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
+  bool IsFollowingTrack() const { return m_followSession.has_value(); }
+  // A requested Start waits for the approach build before native following can begin.
+  bool IsStartingFollowedTrack() const { return m_followSession && m_followSession->m_startWhenReady; }
+  /// Borrowed on the GUI thread until the follow session changes or closes.
+  /// Returns nullptr when there is no follow session.
+  FollowedTrackInfo const * GetFollowedTrackInfo() const
+  {
+    return m_followSession ? &m_followSession->m_info : nullptr;
+  }
+  // Immutable full source for preview charts and point lookup, independent of bookmark lifetime.
+  std::shared_ptr<Track const> GetFollowedTrack() const
+  {
+    return m_followSession ? m_followSession->m_source : nullptr;
+  }
+  // Whether the live selection has a usable connected remainder, independent of GPS or
+  // conflicting navigation. NavigateTrack still validates before replacing the session.
+  bool HasNavigableTrackSelection(kml::TrackId trackId) const;
+  /// \brief The router type platforms must present/gate on: while following a track it is the
+  /// follow profile (never Transit/Ruler), otherwise the current router type. Bridge this getter
+  /// instead of re-encoding the mapping.
+  routing::RouterType GetRenderRouterType() const;
 
   /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
   /// Returns false if the index is out of range, already active, or its adjustment caches are
@@ -264,15 +341,13 @@ public:
     m_routingSession.SetTurnNotificationsUnits(units);
   }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
-  /// \returns true if altitude information along |m_route| is available and
-  /// false otherwise.
-  bool HasRouteAltitude() const;
 
-  /// Returns true for a valid route with complete heights and a nonzero height after simplification.
-  bool GetRouteElevationInfo(ElevationInfo & ei) const;
+  // Preview charts use the captured full track; navigation charts use the active route.
+  // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
+  std::optional<RouteElevationData> GetRouteElevationData() const;
 
-  /// \brief Interpolates a point along the current route polyline at the given distance from start.
-  /// \return Nullopt if the route is invalid.
+  // Resolve a finite chart distance on the same geometry as GetRouteElevationData().
+  // The accepted preview entry identifies its section at a shared boundary distance.
   std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
   uint32_t OpenRoutePointsTransaction();
@@ -293,10 +368,28 @@ public:
   void UpdatePreviewMode();
   void CancelPreviewMode();
 
-  routing::RouterType GetCurrentRouterType() const { return m_currentRouterType; }
-
 private:
+  struct FollowSession;
+
   void SetRouterImpl(routing::RouterType type);
+
+  struct SelectedTrack
+  {
+    Track const * m_track;
+    TrackSourcePosition m_entry;
+    double m_distanceM;
+  };
+
+  // Resolve a live source selection without changing the session.
+  std::expected<SelectedTrack, FollowTrackResult> CheckTrackFollowable(kml::TrackId trackId) const;
+  FollowTrackResult CheckFollowedTrackEditable(bool allowFollowing = false) const;
+  bool IsPreviewingTrack() const { return m_followSession && !IsRoutingFollowing(); }
+
+  FollowTrackResult BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
+                                       double entryDistanceM, routing::RouterType profile, bool keepViewport = false);
+  void InstallFollowedTrack(FollowSession session, bool keepViewport = false);
+  void BuildFollowedTrackPreview(std::optional<m2::PointD> const & position);
+  std::optional<m2::PointD> GetLatestGpsPosition() const;
 
   struct RoadInfo
   {
@@ -342,8 +435,7 @@ private:
   // balloons when rebuilding or entering navigation. The active route is left untouched.
   void ClearAlternativeRoutes();
 
-  /// \returns false if the location could not be matched to the route and should be matched to the
-  /// road graph. Otherwise returns true.
+  // Match GPS to the active route, allowing ordinary car routes to fall back to the road graph.
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
   uint32_t GenerateRoutePointsTransactionId() const;
@@ -373,12 +465,26 @@ private:
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
-  bool m_loadAltitudes = false;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
 
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
+
+  struct FollowSession
+  {
+    bool MatchesEntryDistance(double distanceM) const;
+
+    FollowedTrackInfo m_info;
+    std::shared_ptr<Track const> m_source;
+    TrackSourcePosition m_entry;
+    std::shared_ptr<routing::TrackFollowingData const> m_data;
+    bool m_keepViewport = false;
+    bool m_startWhenReady = false;
+  };
+  std::optional<FollowSession> m_followSession;
+  // Explicit track-profile choices survive session teardown without changing road-router defaults.
+  std::optional<routing::RouterType> m_lastTrackProfile;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;

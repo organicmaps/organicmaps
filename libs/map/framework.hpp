@@ -358,6 +358,8 @@ public:
   /// @return true if a transit route selection was recovered (PP re-activated).
   bool DeactivateMapSelection();
   void DeactivateMapSelectionCircle(bool restoreViewport);
+  void SetRouteElevationActivePoint(double distanceMeters);
+  void ResetRouteElevationActivePoint();
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection(std::optional<place_page::BuildInfo> const & overrideInfo = {});
