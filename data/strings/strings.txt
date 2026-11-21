@@ -15142,7 +15142,7 @@ zh-Hans = 规划前往起点的路线
 zh-Hant = 規劃前往起點的路線
 
 [p2p_reroute_from_current]
-tags = android-app,apple-maps
+tags = apple-maps
 en = Do you want to plan a route from your current location?
 af = Wil u ’n roete vanaf u huidige ligging beplan?
 ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
