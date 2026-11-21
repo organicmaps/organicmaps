@@ -2628,9 +2628,13 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
 
   auto const fileSaveState = it->second->m_fileSaveState;
   std::lock_guard const saveLock(fileSaveState->m_mutex);
-  // Preserve edits that have not yet been written by queued autosaves.
-  if (!permanently && fileSaveState->m_pendingCount != 0 && !SaveBookmarkCategory(groupId))
-    return false;
+  // Write the live category before trashing an outdated file.
+  if (!permanently && (fileSaveState->m_pendingCount != 0 || fileSaveState->m_saveFailed))
+  {
+    fileSaveState->m_saveFailed = !SaveBookmarkCategory(groupId);
+    if (fileSaveState->m_saveFailed)
+      return false;
+  }
 
   // The file goes first: a category that is gone from the memory while its file is still in the bookmarks
   // directory comes back on the next launch, and iCloud synchronization uploads it again as a new one.
@@ -2952,8 +2956,6 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
     return;
 
   auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
-  if (!kmlDataCollection)
-    return;
 
   // Saving bookmarks invoked. Log in main (UI) thread to check reasonable necessity.
   LOG(LINFO, ("See async files below (SaveKmlFileSafe)"));
@@ -2966,19 +2968,26 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
     ++state->m_pendingCount;
     fileSaveStates.push_back(state);
   }
-  CHECK_EQUAL(fileSaveStates.size(), kmlDataCollection->size(), ());
+  if (kmlDataCollection)
+    CHECK_EQUAL(fileSaveStates.size(), kmlDataCollection->size(), ());
 
+  // Settle the result in file-thread order even when preparing the destination failed.
   auto save = [kmlDataCollection = std::move(kmlDataCollection), fileSaveStates = std::move(fileSaveStates)]()
   {
-    for (size_t i = 0; i < kmlDataCollection->size(); ++i)
+    for (size_t i = 0; i < fileSaveStates.size(); ++i)
     {
       auto const & state = fileSaveStates[i];
       std::lock_guard const saveLock(state->m_mutex);
       SCOPE_GUARD(pendingCountGuard, [&]() { --state->m_pendingCount; });
       if (state->m_cancelled)
         continue;
+      if (!kmlDataCollection)
+      {
+        state->m_saveFailed = true;
+        continue;
+      }
       auto const & kmlItem = (*kmlDataCollection)[i];
-      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+      state->m_saveFailed = !SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
     }
   };
   if (m_testModeEnabled)
