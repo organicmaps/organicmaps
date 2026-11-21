@@ -54,53 +54,59 @@ std::optional<m2::PointD> GetTrackDirection(location::GpsInfo const & info, m2::
 }
 }  // namespace
 
-bool TrackMatcher::Update(FollowedPolyline & poly, location::GpsInfo const & info, RoutingSettings const & settings,
-                          double entryDistanceM)
+FollowedPolyline::Iter TrackMatcher::GetLocalProjection(FollowedPolyline const & poly, location::GpsInfo const & info,
+                                                        RoutingSettings const & settings, double entryDistanceM) const
 {
   ASSERT(poly.IsValid(), ());
   ASSERT(AlmostEqualAbs(poly.GetSegDistanceMeters().front(), entryDistanceM, 1e-3), (entryDistanceM));
-
   ASSERT_LESS_OR_EQUAL(info.m_horizontalAccuracy, settings.m_matchingThresholdM, ());
+
   m2::RectD const rect = mercator::MetersToXY(info.m_longitude, info.m_latitude, settings.m_matchingThresholdM);
   double const tolerance = std::max(kTrackProgressToleranceM, info.m_horizontalAccuracy);
-  auto const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
-  double const currentDistance = poly.GetDistanceFromStartMeters();
-  bool matched = false;
   // Outside the entry corridor, prefer the approach over nearby later laps.
   if (!m_joined && entryDistanceM > settings.m_matchingThresholdM)
   {
-    matched = poly.UpdateTrackMatchingProjection(
+    auto const approach = poly.GetTrackMatchingProjection(
         {.m_positionRect = rect, .m_maxProgressM = entryDistanceM, .m_toleranceM = tolerance});
+    if (approach.IsValid())
+      return approach;
   }
-  if (!matched)
-  {
-    // Seed the first source window from the entry at the end of the approach.
-    auto const referencePoint = m_lastFix ? m_lastFix->m_point : poly.GetPolyline().GetPoint(1);
-    double const displacement = mercator::DistanceOnEarth(referencePoint, position);
-    // Displacement supplies the window when no previous timestamp is available.
-    double const allowance =
-        GetProgressAllowance(info, displacement, m_lastFix ? info.m_timestamp - m_lastFix->m_timestamp : 0.0);
-    matched = poly.UpdateTrackMatchingProjection(
-        {.m_positionRect = rect,
-         .m_minProgressM = std::max(entryDistanceM, currentDistance - allowance),
-         .m_maxProgressM = std::max(entryDistanceM, currentDistance) + allowance,
-         .m_direction = m_lastFix ? GetTrackDirection(info, position - referencePoint, displacement) : std::nullopt,
-         .m_toleranceM = tolerance,
-         .m_forwardDirection = displacement > 0.0 ? std::optional(position - referencePoint) : std::nullopt,
-         .m_isFirstFix = !m_lastFix});
-  }
-  if (!matched)
-    matched = TryRejoin(poly, info, rect, entryDistanceM);
-  if (matched)
-  {
-    m_joined = m_joined || poly.GetDistanceFromStartMeters() >= entryDistanceM - tolerance;
-    m_lastFix = Fix{position, info.m_timestamp};
-    m_rejoin.reset();
-  }
-  return matched;
+
+  // Seed the first source window from the entry at the end of the approach.
+  auto const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  auto const currentDistance = poly.GetDistanceFromStartMeters();
+  auto const referencePoint = m_lastFix ? m_lastFix->m_point : poly.GetPolyline().GetPoint(1);
+  double const displacement = mercator::DistanceOnEarth(referencePoint, position);
+  // Displacement supplies the window when no previous timestamp is available.
+  double const allowance =
+      GetProgressAllowance(info, displacement, m_lastFix ? info.m_timestamp - m_lastFix->m_timestamp : 0.0);
+  return poly.GetTrackMatchingProjection(
+      {.m_positionRect = rect,
+       .m_minProgressM = std::max(entryDistanceM, currentDistance - allowance),
+       .m_maxProgressM = std::max(entryDistanceM, currentDistance) + allowance,
+       .m_direction = m_lastFix ? GetTrackDirection(info, position - referencePoint, displacement) : std::nullopt,
+       .m_toleranceM = tolerance,
+       .m_forwardDirection = displacement > 0.0 ? std::optional(position - referencePoint) : std::nullopt,
+       .m_isFirstFix = !m_lastFix});
 }
 
-bool TrackMatcher::TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, m2::RectD const & rect,
+bool TrackMatcher::Update(FollowedPolyline & poly, location::GpsInfo const & info, RoutingSettings const & settings,
+                          double entryDistanceM)
+{
+  auto const iter = GetLocalProjection(poly, info, settings, entryDistanceM);
+  if (iter.IsValid())
+    poly.SetCurrentIter(iter);
+  else if (!TryRejoin(poly, info, settings.m_matchingThresholdM, entryDistanceM))
+    return false;
+
+  double const tolerance = std::max(kTrackProgressToleranceM, info.m_horizontalAccuracy);
+  m_joined = m_joined || poly.GetDistanceFromStartMeters() >= entryDistanceM - tolerance;
+  m_lastFix = Fix{mercator::FromLatLon(info.m_latitude, info.m_longitude), info.m_timestamp};
+  m_rejoin.reset();
+  return true;
+}
+
+bool TrackMatcher::TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, double matchingThresholdM,
                              double entryDistanceM)
 {
   auto const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
@@ -122,6 +128,7 @@ bool TrackMatcher::TryRejoin(FollowedPolyline & poly, location::GpsInfo const & 
   // A skipped spur or switchback cannot fit a physical travel bound. Search forward,
   // retaining the earliest compatible occurrence among spatially equivalent projections.
   double const tolerance = std::max(kTrackProgressToleranceM, info.m_horizontalAccuracy);
+  auto const rect = mercator::MetersToXY(info.m_longitude, info.m_latitude, matchingThresholdM);
   auto const iter =
       poly.GetTrackMatchingProjection({.m_positionRect = rect,
                                        .m_minProgressM = std::max(entryDistanceM, poly.GetDistanceFromStartMeters()),

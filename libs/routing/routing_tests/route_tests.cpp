@@ -455,6 +455,54 @@ Route MakeRoute(vector<m2::PointD> const & path, vector<Segment> const & segment
   return r;
 }
 
+UNIT_TEST(PredictedPositionProjectsWithoutAdvancingTheRoute)
+{
+  auto const source =
+      MakeRoute({{0, 0}, {0, 0}, {0.001, 0}, {0.002, 0}}, {{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}});
+  Route route(static_cast<RouteBase const &>(source));
+  TEST(route.MoveIterator(GetGps(0.00095, 0)), ());
+
+  auto predicted = GetGps(0.00105, 0.00005);
+  location::RouteMatchingInfo matchingInfo;
+  TEST(route.MatchLocationToRoute(predicted, matchingInfo, true /* isPrediction */), ());
+  TEST_EQUAL(matchingInfo.GetIndexInRoute(), 2, ());
+  TEST_ALMOST_EQUAL_ABS(matchingInfo.GetDistanceFromBegin(), 0.00105, 1e-9, ());
+  TEST_ALMOST_EQUAL_ABS(predicted.m_latitude, 0.0, 1e-9, ());
+
+  // Route guidance and further measurements still start at the original measured position.
+  TEST_EQUAL(route.GetCurrentIter().m_ind, 1, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetCurrentIter().m_pt.x, 0.00095, 1e-9, ());
+}
+
+UNIT_TEST(PredictedTrackPositionFollowsTheCurrentOccurrence)
+{
+  // The first leg has several short segments. A later leg passes nearby after a large loop.
+  vector<m2::PointD> const path = {{0, 0},          {0, 0},          {0.00045, 0},      {0.00050, 0},
+                                   {0.00055, 0},    {0.00060, 0},    {0.00065, 0},      {0.0012, 0},
+                                   {0.0012, 0.001}, {-0.001, 0.001}, {-0.001, 0.00003}, {0.001, 0.00003}};
+  vector<Segment> segments;
+  for (uint32_t i = 0; i < path.size() - 1; ++i)
+    segments.emplace_back(kFakeNumMwmId, 0, i, false);
+  auto source = MakeRoute(path, segments);
+  source.SetTrackStartDistanceMeters(0.0);
+  Route route(static_cast<RouteBase const &>(source));
+  auto measured = GetGps(0.0004, 0);
+  measured.m_timestamp = 1;
+  TEST(route.MoveIterator(measured), ());
+
+  auto predicted = GetGps(0.00072, 0.000028);
+  predicted.m_timestamp = 2;
+  auto const rawPosition = predicted.GetLatLon();
+  location::RouteMatchingInfo matchingInfo;
+  // TrackRouter uses fake segments, leaving the marker raw while the route line advances.
+  TEST(!route.MatchLocationToRoute(predicted, matchingInfo, true /* isPrediction */), ());
+  TEST_EQUAL(predicted.GetLatLon(), rawPosition, ());
+  TEST_EQUAL(matchingInfo.GetIndexInRoute(), 6, ());
+  TEST_ALMOST_EQUAL_ABS(matchingInfo.GetDistanceFromBegin(), 0.00072, 1e-9, ());
+  TEST_EQUAL(route.GetCurrentIter().m_ind, 1, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetCurrentIter().m_pt.x, 0.0004, 1e-9, ());
+}
+
 UNIT_TEST(RouteBase_PromoteWithLeadingEmptySubroute)
 {
   m2::PointD const oldStart = {0, 0};

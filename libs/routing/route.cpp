@@ -347,17 +347,6 @@ double Route::GetCurrentDistanceToEndMeters() const
   return m_poly.GetDistanceToEndMeters();
 }
 
-double Route::GetMercatorDistanceFromBegin() const
-{
-  ASSERT(IsValid(), ());
-
-  auto const & curIter = m_poly.GetCurrentIter();
-  ASSERT_LESS(curIter.m_ind, m_routeSegments.size(), ());
-
-  double const distMerc = curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
-  return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
-}
-
 double Route::GetCurrentTimeToEndSec() const
 {
   ASSERT(!m_routeSegments.empty(), ());
@@ -607,14 +596,18 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
   m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
 }
 
+m2::RectD Route::GetLocationMatchingRect(location::GpsInfo const & info) const
+{
+  return mercator::MetersToXY(info.m_longitude, info.m_latitude,
+                              std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+}
+
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
   if (auto const entryDistance = GetTrackStartDistanceMeters())
     return m_trackMatcher.Update(m_poly, info, m_routingSettings, *entryDistance);
 
-  m2::RectD const rect = mercator::MetersToXY(
-      info.m_longitude, info.m_latitude, std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  return m_poly.UpdateMatchingProjection(rect);
+  return m_poly.UpdateMatchingProjection(GetLocationMatchingRect(info));
 }
 
 void Route::CopyTrackMatchingState(Route const & previous)
@@ -651,27 +644,43 @@ double Route::GetPolySegAngle(size_t ind) const
   return (i == polySz) ? 0 : math::RadToDeg(ang::AngleTo(p1, p2));
 }
 
-bool Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
+bool Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
+                                 bool isPrediction) const
 {
   if (!IsValid())
     return false;
 
-  auto const & iter = m_poly.GetCurrentIter();
-  routeMatchingInfo.Set(iter.m_pt, iter.m_ind, GetMercatorDistanceFromBegin());
+  auto iter = m_poly.GetCurrentIter();
+  if (isPrediction)
+  {
+    FollowedPolyline::Iter projected;
+    if (auto const entryDistance = GetTrackStartDistanceMeters())
+    {
+      if (location.m_horizontalAccuracy <= m_routingSettings.m_matchingThresholdM)
+        projected = m_trackMatcher.GetLocalProjection(m_poly, location, m_routingSettings, *entryDistance);
+    }
+    else
+      projected = m_poly.GetMatchingProjection(GetLocationMatchingRect(location));
+
+    if (projected.IsValid())
+      iter = projected;
+  }
+
+  ASSERT_LESS(iter.m_ind, m_routeSegments.size(), ());
+  double const distanceToSegment = iter.m_ind == 0 ? 0.0 : m_routeSegments[iter.m_ind - 1].GetDistFromBeginningMerc();
+  double const distanceAlongSegment = m_poly.GetPolyline().GetPoint(iter.m_ind).Length(iter.m_pt);
+  routeMatchingInfo.Set(iter.m_pt, iter.m_ind, distanceToSegment + distanceAlongSegment);
 
   auto const locationMerc = mercator::FromLatLon(location.m_latitude, location.m_longitude);
   auto const distFromRouteM = mercator::DistanceOnEarth(iter.m_pt, locationMerc);
 
-  if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
+  if (distFromRouteM < m_routingSettings.m_matchingThresholdM && !m_poly.IsFakeSegment(iter.m_ind))
   {
-    if (!m_poly.IsFakeSegment(iter.m_ind))
-    {
-      location.m_latitude = mercator::YToLat(iter.m_pt.y);
-      location.m_longitude = mercator::XToLon(iter.m_pt.x);
-      if (m_routingSettings.m_matchRoute)
-        location.m_bearing = location::AngleToBearing(GetPolySegAngle(iter.m_ind));
-      return true;
-    }
+    location.m_latitude = mercator::YToLat(iter.m_pt.y);
+    location.m_longitude = mercator::XToLon(iter.m_pt.x);
+    if (m_routingSettings.m_matchRoute)
+      location.m_bearing = location::AngleToBearing(GetPolySegAngle(iter.m_ind));
+    return true;
   }
   return false;
 }
