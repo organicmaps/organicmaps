@@ -1322,15 +1322,8 @@ bool RoutingManager::PrependMyPosition(m2::PointD const & lastFix)
   if (!atStart && layout.GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount)
     return false;
 
-  // Keep the stop or destination at the fix used to build the preview as the origin starts following GPS.
   if (auto const * previous = layout.GetMyPositionPoint())
-  {
-    auto fixed = previous->GetMarkData();
-    fixed.m_isMyPosition = false;
-    fixed.m_isVisible = !fixed.m_isPassed;
-    fixed.m_replaceWithMyPositionAfterRestart = false;
-    layout.GetRoutePointForEdit(fixed.m_pointType, fixed.m_intermediateIndex)->SetMarkData(std::move(fixed));
-  }
+    FreezeMyPosition(layout, *previous);
 
   RouteMarkData origin;
   origin.m_isMyPosition = true;
