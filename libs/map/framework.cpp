@@ -2199,19 +2199,27 @@ void Framework::DiscardTrackRecording()
   GpsTracker::Instance().Clear();
 }
 
-bool Framework::SaveTrackRecordingWithName(std::string const & name)
+Framework::TrackRecordingSaveResult Framework::SaveTrackRecordingWithName(std::string const & name, bool showTrack)
 {
-  auto const pointCount = StopTrackRecording();
   auto & tracker = GpsTracker::Instance();
+  auto const pointCount = tracker.Pause();
   if (pointCount < 2)
   {
-    tracker.Clear();
-    return false;
+    DiscardTrackRecording();
+    return TrackRecordingSaveResult::Empty;
   }
+
   auto const trackId = GetBookmarkManager().SaveTrackRecording(name, pointCount);
-  tracker.Clear();
-  ShowTrack(trackId);
-  return true;
+  if (trackId == kml::kInvalidTrackId)
+  {
+    tracker.Resume();
+    return TrackRecordingSaveResult::FileError;
+  }
+
+  DiscardTrackRecording();
+  if (showTrack)
+    ShowTrack(trackId);
+  return TrackRecordingSaveResult::Success;
 }
 
 bool Framework::IsTrackRecordingEnabled() const

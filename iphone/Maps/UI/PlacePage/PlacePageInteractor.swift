@@ -285,10 +285,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
       trackRecordingManager.stopAndSave { [weak self] result in
-        switch result {
-        case .success:
-          break
-        case .trackIsEmpty:
+        if result == .empty {
           self?.presenter?.close()
         }
       }

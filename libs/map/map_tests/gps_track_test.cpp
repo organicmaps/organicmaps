@@ -11,8 +11,11 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+
+#include "defines.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -259,6 +262,7 @@ UNIT_TEST(GpsTrack_RecordsWithoutCallback)
 }
 
 using df::test_support::VisualParamsFixture;
+using SaveResult = Framework::TrackRecordingSaveResult;
 
 UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheckingGeometry)
 {
@@ -281,7 +285,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheck
   framework.StartTrackRecording();
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(finish);
-  TEST(!framework.SaveTrackRecordingWithName("Stationary"), ());
+  TEST(framework.SaveTrackRecordingWithName("Stationary") == SaveResult::Empty, ());
 
   finish.m_longitude = -179.99998;
   finish.m_altitude = 102.0;
@@ -290,7 +294,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheck
   framework.StartTrackRecording();
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(missingAltitude);
-  TEST(framework.SaveTrackRecordingWithName("Missing altitude"), ());
+  TEST(framework.SaveTrackRecordingWithName("Missing altitude") == SaveResult::Success, ());
   auto const * incomplete = bookmarks.GetTrack(framework.GetCurrentPlacePageInfo().GetTrackId());
   TEST(incomplete, ());
   TEST(!incomplete->GetElevationInfo(), ());
@@ -304,7 +308,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheck
   framework.StartTrackRecording();
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(finish);
-  TEST(framework.SaveTrackRecordingWithName("Recorded track"), ());
+  TEST(framework.SaveTrackRecordingWithName("Recorded track") == SaveResult::Success, ());
   TEST(!framework.IsTrackRecordingEnabled(), ());
 
   auto const id = framework.GetCurrentPlacePageInfo().GetTrackId();
@@ -320,12 +324,107 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheck
   framework.StartTrackRecording();
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(finish);
-  TEST(framework.SaveTrackRecordingWithName("Sea level"), ());
+  TEST(framework.SaveTrackRecordingWithName("Sea level") == SaveResult::Success, ());
   auto const * seaLevel = bookmarks.GetTrack(framework.GetCurrentPlacePageInfo().GetTrackId());
   TEST(seaLevel, ());
   for (auto const & point : seaLevel->GetData().m_geometry.m_lines.front())
     TEST_EQUAL(point.GetAltitude(), 0, ());
   TEST(!seaLevel->GetElevationInfo(), ());
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Framework_RetainsRecordingWhenSaveFails)
+{
+  auto & platform = GetPlatform();
+  auto const originalSettings = platform.SettingsDir();
+  auto const settings = platform.TmpPathForFile("recording_save_", "");
+  TEST(fs::create_directory(settings), (settings));
+  SCOPE_GUARD(restoreSettings, [&]
+  {
+    platform.SetSettingsDir(originalSettings);
+    std::error_code error;
+    fs::remove_all(settings, error);
+    if (error)
+      LOG(LERROR, ("Cannot remove recording test settings:", error.message()));
+  });
+  platform.SetSettingsDir(settings);
+
+  Framework framework({}, false /* loadMaps */);
+  auto & bookmarks = framework.GetBookmarkManager();
+  bookmarks.EnableTestMode(true);
+  auto & tracker = GpsTracker::Instance();
+  tracker.Clear();
+  SCOPE_GUARD(clearRecording, [&]
+  {
+    framework.DiscardTrackRecording();
+    tracker.Stop();
+  });
+
+  auto destination = std::make_unique<kml::FileData>();
+  kml::SetDefaultStr(destination->m_categoryData.m_name, "Test recording");
+  destination->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(1);
+  destination->m_bookmarksData.emplace_back();
+  BookmarkManager::KMLDataCollection loadedLists;
+  loadedLists.emplace_back("", std::move(destination));
+  bookmarks.CreateCategories(std::move(loadedLists), true /* autoSave */);
+  auto const groupId = bookmarks.GetUnsortedBmGroupsIdList().front();
+  auto const originalMarks = bookmarks.GetUserMarkIds(groupId);
+  TEST_EQUAL(originalMarks.size(), 1, ());
+  TEST(bookmarks.SaveBookmarkCategory(groupId), ());
+  bookmarks.SetLastEditedBmCategory(groupId);
+
+  kml::CategoryData otherList;
+  kml::SetDefaultStr(otherList.m_name, "Initially more recent");
+  otherList.m_lastModified = kml::TimestampClock::from_time_t(2);
+  auto const initiallyRecent = bookmarks.CreateBookmarkCategory(std::move(otherList));
+  TEST_EQUAL(bookmarks.GetSortedBmGroupIdList().front(), initiallyRecent, ());
+
+  auto const categoryPath = bookmarks.GetCategoryFileName(groupId);
+  TEST(fs::remove(categoryPath), (categoryPath));
+  TEST(fs::create_directory(categoryPath), (categoryPath));
+
+  framework.StartTrackRecording();
+  tracker.OnLocationUpdated(MakePoint(100.0, 0.0));
+  tracker.OnLocationUpdated(MakePoint(160.0, 15.0));
+
+  auto const blockedParent = fs::path(settings) / "obstruction";
+  TEST(std::ofstream(blockedParent).good(), (blockedParent.string()));
+  {
+    SCOPE_GUARD(restoreDestination, [&] { platform.SetSettingsDir(settings); });
+    platform.SetSettingsDir((blockedParent / "settings").string());
+    TEST(framework.SaveTrackRecordingWithName("Recorded track") == SaveResult::FileError, ());
+  }
+  TEST(framework.IsTrackRecordingEnabled(), ());
+
+  TEST(framework.SaveTrackRecordingWithName("Recorded track") == SaveResult::FileError, ());
+  auto const backupPath = base::JoinPath(platform.WritableDir(), GPS_TRACK_FILENAME);
+  TEST(framework.IsTrackRecordingEnabled(), ());
+  TEST_EQUAL(GpsTrackStorage(backupPath).Load().size(), 2, ());
+  TEST(bookmarks.GetTrackIds(groupId).empty(), ());
+  TEST_EQUAL(bookmarks.GetUserMarkIds(groupId), originalMarks, ());
+  TEST_EQUAL(bookmarks.GetSortedBmGroupIdList().front(), initiallyRecent, ());
+
+  TEST(fs::remove(categoryPath), (categoryPath));
+  auto const selection = *originalMarks.begin();
+  framework.ShowBookmark(selection);
+  TEST(framework.SaveTrackRecordingWithName("Recorded track", false /* showTrack */) == SaveResult::Success, ());
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetBookmarkId(), selection, ());
+  TEST(!framework.IsTrackRecordingEnabled(), ());
+  TEST_EQUAL(bookmarks.GetTrackIds(groupId).size(), 1, ());
+  auto persisted = LoadKmlFile(categoryPath, FileType::Kml);
+  TEST(persisted, (categoryPath));
+  TEST_EQUAL(persisted->m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(persisted->m_tracksData.size(), 1, ());
+  TEST_EQUAL(persisted->m_tracksData.front().m_geometry.m_timestamps.front(), (kml::MultiGeometry::TimeT{100, 160}),
+             ());
+  TEST_EQUAL(bookmarks.GetSortedBmGroupIdList().front(), groupId, ());
+  BookmarkManager::KMLDataCollection reloadedLists;
+  reloadedLists.emplace_back(categoryPath, std::move(persisted));
+  bookmarks.CreateCategories(std::move(reloadedLists), true /* autoSave */);
+  TEST_EQUAL(bookmarks.GetSortedBmGroupIdList().front(), groupId, ("Reloaded category stays the most recent"));
+
+  // Join the track thread so the asynchronous backup cleanup has finished.
+  tracker.Stop();
+  TEST(!fs::exists(backupPath), (backupPath));
 }
 
 UNIT_TEST(GpsTrack_StartRestoresBackupOnce)
@@ -361,12 +460,18 @@ UNIT_TEST(GpsTrack_FinalizePreservesBackupAndRejectsLatePoints)
   // This fix is too close for the filter, but must become the saved endpoint on Finalize.
   points.push_back(MakePoint(160.0, 35.0, 0.0));
   {
+    TrackCallback live;
     GpsTrack track(file.m_path, std::make_unique<GpsTrackFilter>(), 1h);
+    track.SetCallback(live.GetCallback());
     track.Start();
     track.AddPoint(points.back());
     TEST_EQUAL(track.Finalize(), points.size(), ());
     CheckPoints(GetPoints(track), points);
     CheckPoints(file.Load(), points);
+    // A failed save can resume this recording with the same render sink.
+    auto const added = live.GetAdded();
+    TEST_EQUAL(added.size(), points.size(), ());
+    TEST_EQUAL(added.back().second.m_timestamp, points.back().m_timestamp, ());
 
     track.AddPoint(MakePoint(200.0, 200.0));
     track.AddPoints(MakePoints(2));
