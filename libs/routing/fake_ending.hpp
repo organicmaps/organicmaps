@@ -4,6 +4,7 @@
 #include "routing/road_graph.hpp"
 #include "routing/segment.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
@@ -39,6 +40,16 @@ struct FakeEnding final
   LatLonWithAltitude m_originJunction;
   std::vector<Projection> m_projections;
 };
+
+template <typename Graph>
+double GetSegmentLengthFraction(Graph & graph, Segment const & part, Segment const & whole)
+{
+  double const fullLength = ms::DistanceOnEarth(graph.GetPoint(whole, false), graph.GetPoint(whole, true));
+  if (fullLength == 0.0)
+    return 0.0;
+
+  return ms::DistanceOnEarth(graph.GetPoint(part, false), graph.GetPoint(part, true)) / fullLength;
+}
 
 FakeEnding MakeFakeEnding(std::vector<Segment> const & segments, m2::PointD const & point, WorldGraph & graph);
 FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, IndexGraph & graph);

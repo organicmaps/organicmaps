@@ -65,22 +65,50 @@ private:
   bool m_forward = false;
 };
 
+// Keep the charged segment cost so a partial edge can retain the same speed and crossing penalties.
+class SegmentEdgeWeight
+{
+public:
+  SegmentEdgeWeight() = default;
+  // This overload treats the total as segment cost. Keep separate penalties for partial edges.
+  explicit SegmentEdgeWeight(RouteWeight const & weight) : m_total(weight), m_segmentWeight(weight.GetWeight()) {}
+  SegmentEdgeWeight(double segmentWeight, RouteWeight const & penalties)
+    : m_total(RouteWeight(segmentWeight) + penalties)
+    , m_segmentWeight(segmentWeight)
+  {}
+
+  RouteWeight const & GetTotal() const { return m_total; }
+
+  SegmentEdgeWeight ForSegmentFraction(double fraction) const
+  {
+    auto partial = *this;
+    partial.m_segmentWeight *= fraction;
+    partial.m_total += RouteWeight(partial.m_segmentWeight - m_segmentWeight);
+    return partial;
+  }
+
+private:
+  RouteWeight m_total;
+  double m_segmentWeight = 0.0;
+};
+
 class SegmentEdge final
 {
 public:
   SegmentEdge() = default;
-  SegmentEdge(Segment const & target, RouteWeight const & weight) : m_target(target), m_weight(weight) {}
+  SegmentEdge(Segment const & target, RouteWeight const & weight) : SegmentEdge(target, SegmentEdgeWeight(weight)) {}
+  SegmentEdge(Segment const & target, SegmentEdgeWeight const & weight) : m_target(target), m_weight(weight) {}
 
   Segment const & GetTarget() const { return m_target; }
-  RouteWeight const & GetWeight() const { return m_weight; }
-  RouteWeight & GetWeight() { return m_weight; }
+  RouteWeight const & GetWeight() const { return m_weight.GetTotal(); }
+  SegmentEdgeWeight const & GetWeightComponents() const { return m_weight; }
   /// @note Used in tests only!
   bool operator==(SegmentEdge const & edge) const;
 
 private:
   // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
   Segment m_target;
-  RouteWeight m_weight;
+  SegmentEdgeWeight m_weight;
 };
 
 std::string DebugPrint(Segment const & segment);

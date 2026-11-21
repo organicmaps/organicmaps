@@ -53,7 +53,7 @@ bool Segment::IsRealSegment() const
 // SegmentEdge -------------------------------------------------------------------------------------
 bool SegmentEdge::operator==(SegmentEdge const & edge) const
 {
-  return m_target == edge.m_target && m_weight == edge.m_weight;
+  return m_target == edge.m_target && GetWeight() == edge.GetWeight();
 }
 
 std::string DebugPrint(Segment const & segment)

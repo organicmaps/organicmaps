@@ -317,6 +317,176 @@ double CalculateJointsRoute(IndexGraphStarter & starter, vector<Segment> & route
   return result.m_distance.GetWeight();
 }
 
+UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_ConditionalPartOfSegment)
+{
+  class ConditionalRoads : public TestGeometryLoader
+  {
+  public:
+    explicit ConditionalRoads(uint16_t speed) : m_speed(speed)
+    {
+      AddRoad(0, true /* oneWay */, 50.0, {{-0.001, 0}, {0, 0}});
+      AddRoad(1, true /* oneWay */, 50.0, {{0, 0}, {0.001, 0}});
+    }
+
+    void Load(uint32_t id, RoadGeometry & road) override
+    {
+      TestGeometryLoader::Load(id, road);
+      if (id == 1)
+      {
+        Maxspeed maxspeed(measurement_utils::Units::Metric, 50, kInvalidSpeed);
+        maxspeed.SetConditional(m_speed, osmoh::OpeningHours("24/7"));
+        road = RoadGeometry(true /* oneWay */, maxspeed, {{0, 0}, {0.001, 0}});
+      }
+      road.SetHighwayTypeForTests(HighwayType::HighwayResidential);
+    }
+
+  private:
+    uint16_t const m_speed;
+  };
+
+  traffic::TrafficCache const trafficCache;
+  for (uint16_t const speed : {10, 100})
+  {
+    auto const estimator = CreateEstimatorForCar(trafficCache);
+    Init(BuildWorldGraph(make_unique<ConditionalRoads>(speed), estimator,
+                         {MakeJoint({{0, 0}}), MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}})}));
+    auto & graph = m_graph->GetIndexGraphForTests(kTestNumMwmId);
+    graph.SetCurrentTimeGetter([] { return time_t(1794312000); });
+
+    SetStarter(MakeFakeEnding(0, 0, {-0.001, 0}, *m_graph), MakeFakeEnding(1, 0, {0.0001, 0}, *m_graph));
+
+    Segment const from(kTestNumMwmId, 0, 0, true /* forward */);
+    Segment const to(kTestNumMwmId, 1, 0, true /* forward */);
+    double const whole =
+        graph.CalculateEdgeWeight(Purpose::Weight, true /* isOutgoing */, from, to, RouteWeight(0)).GetWeight();
+    double const part = whole * 0.1;
+    IndexGraphStarter::EdgeListT edges;
+    m_starter->GetEdgesList(from, true /* isOutgoing */, edges);
+    auto const next = std::ranges::find_if(edges, [&](SegmentEdge const & edge)
+    {
+      auto target = edge.GetTarget();
+      return IndexGraphStarter::IsFakeSegment(target) && m_starter->ConvertToReal(target) && target == to;
+    });
+    TEST(next != edges.end(), (speed));
+    TEST_ALMOST_EQUAL_ABS(next->GetWeight().GetWeight(), part, kWeightEps, (speed));
+
+    auto const partialSegment = next->GetTarget();
+    m_starter->GetEdgesList(partialSegment, false /* isOutgoing */, edges);
+    auto const previous =
+        std::ranges::find_if(edges, [&](SegmentEdge const & edge) { return edge.GetTarget() == from; });
+    TEST(previous != edges.end(), (speed));
+    TEST_ALMOST_EQUAL_ABS(previous->GetWeight().GetWeight(), part, kWeightEps, (speed));
+
+    double const expectedRoute = m_starter->CalcSegmentWeight(from, Purpose::Weight).GetWeight() + part;
+    vector<Segment> route;
+    double weight = 0.0;
+    TEST_EQUAL(CalculateRoute(*m_starter, route, weight), Algorithm::Result::OK, (speed));
+    TEST_ALMOST_EQUAL_ABS(weight, expectedRoute, kWeightEps, (speed));
+    TEST_ALMOST_EQUAL_ABS(CalculateJointsRoute(*m_starter, route), expectedRoute, kWeightEps, (speed));
+  }
+}
+
+UNIT_TEST(TurnPenalty_UnequalBorderTwinPartOfSegment)
+{
+  // Supply the border relation while the two IndexGraphs compute the edge prices.
+  class BorderGraph final : public WorldGraph
+  {
+  public:
+    BorderGraph(unique_ptr<TestIndexGraphLoader> loader, shared_ptr<EdgeEstimator> estimator)
+      : m_inner(nullptr, std::move(loader), std::move(estimator), MwmHierarchyHandler())
+    {}
+
+    void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertex, bool outgoing, bool options,
+                     bool conditional, SegmentEdgeListT & edges) override
+    {
+      m_inner.GetEdgeList(vertex, outgoing, options, conditional, edges);
+      if (GetMode() != WorldGraphMode::SingleMwm)
+        GetTwins(vertex.m_vertex, outgoing, options, edges);
+    }
+
+    void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const &, Segment const &, bool, bool,
+                     JointEdgeListT &, WeightListT &) override
+    {
+      UNREACHABLE();
+    }
+
+    bool CheckLength(RouteWeight const &, double) const override { return true; }
+    LatLonWithAltitude const & GetJunction(Segment const & s, bool front) override
+    {
+      return m_inner.GetJunction(s, front);
+    }
+    ms::LatLon const & GetPoint(Segment const & s, bool front) override { return m_inner.GetPoint(s, front); }
+    bool IsOneWay(NumMwmId id, uint32_t f) override { return m_inner.IsOneWay(id, f); }
+    void ClearCachedGraphs() override { m_inner.ClearCachedGraphs(); }
+    void SetMode(WorldGraphMode mode) override { m_inner.SetMode(mode); }
+    WorldGraphMode GetMode() const override { return m_inner.GetMode(); }
+    RouteWeight HeuristicCostEstimate(ms::LatLon const & a, ms::LatLon const & b) override
+    {
+      return m_inner.HeuristicCostEstimate(a, b);
+    }
+    RouteWeight CalcSegmentWeight(Segment const & s, Purpose p) override { return m_inner.CalcSegmentWeight(s, p); }
+    RouteWeight CalcLeapWeight(ms::LatLon const &, ms::LatLon const &, NumMwmId) const override { UNREACHABLE(); }
+    RouteWeight CalcOffroadWeight(ms::LatLon const & a, ms::LatLon const & b, Purpose p) const override
+    {
+      return m_inner.CalcOffroadWeight(a, b, p);
+    }
+    double CalculateETA(Segment const &, Segment const &, time_t) override { UNREACHABLE(); }
+    double CalculateETAWithoutPenalty(Segment const &) override { UNREACHABLE(); }
+    IndexGraph & GetIndexGraph(NumMwmId id) override { return m_inner.GetIndexGraph(id); }
+    void GetTwinsInner(Segment const & s, bool outgoing, TwinSegmentsListT & twins) override
+    {
+      if (!outgoing && s == Segment(kTestNumMwmId, 0, 0, true /* forward */))
+        twins.emplace_back(kTestNumMwmId + 1, 0, 0, true /* forward */);
+    }
+
+  private:
+    SingleVehicleWorldGraph m_inner;
+  };
+
+  classificator::Load();
+  traffic::TrafficCache const trafficCache;
+  auto const estimator = CreateEstimatorForCar(trafficCache);
+  NumMwmId constexpr kTwinMwmId = kTestNumMwmId + 1;
+  auto loader = make_unique<TestIndexGraphLoader>();
+  for (NumMwmId const id : {kTestNumMwmId, kTwinMwmId})
+  {
+    auto roads = make_unique<TestGeometryLoader>();
+    roads->AddRoad(0, true /* oneWay */, id == kTestNumMwmId ? 50 : 100, {{0, 0}, {0.001, 0}});
+    roads->AddRoad(1, true /* oneWay */, 50, {{-0.001, 0}, {0, 0}});
+    roads->SetHighwayType(0, HighwayType::HighwayResidential);
+    roads->SetHighwayType(1, HighwayType::HighwayResidential);
+    loader->AddGraph(id, routing::BuildIndexGraph(std::move(roads), estimator, {MakeJoint({{1, 1}, {0, 0}})}));
+  }
+  BorderGraph graph(std::move(loader), estimator);
+  auto const starter =
+      MakeStarter(MakeFakeEnding(1, 0, {-0.0005, 0}, graph), MakeFakeEnding(0, 0, {0.0001, 0}, graph), graph);
+
+  Segment const local(kTestNumMwmId, 0, 0, true /* forward */);
+  Segment const localPredecessor(kTestNumMwmId, 1, 0, true /* forward */);
+  Segment const twin(kTwinMwmId, 0, 0, true /* forward */);
+  Segment const twinPredecessor(kTwinMwmId, 1, 0, true /* forward */);
+  double const twinPrice = GetEdgeWeight(graph.GetIndexGraph(kTwinMwmId), twinPredecessor, twin, true /* isOutgoing */);
+  TEST_LESS(twinPrice,
+            GetEdgeWeight(graph.GetIndexGraph(kTestNumMwmId), localPredecessor, local, true /* isOutgoing */), ());
+
+  IndexGraphStarter::EdgeListT edges;
+  starter->GetEdgesList(localPredecessor, true /* isOutgoing */, edges);
+  auto const part = std::ranges::find_if(edges, [&](SegmentEdge const & edge)
+  {
+    auto target = edge.GetTarget();
+    return IndexGraphStarter::IsFakeSegment(target) && starter->ConvertToReal(target) && target == local;
+  });
+  TEST(part != edges.end(), ());
+  auto const finishPart = part->GetTarget();
+  starter->GetEdgesList(finishPart, false /* isOutgoing */, edges);
+  auto const incoming =
+      std::ranges::find_if(edges, [&](SegmentEdge const & edge) { return edge.GetTarget() == twinPredecessor; });
+  TEST(incoming != edges.end(), ());
+  double const charged = incoming->GetWeight().GetWeight();
+  TEST_GREATER_OR_EQUAL(charged, 0.0, ());
+  TEST_ALMOST_EQUAL_ABS(charged, 0.1 * twinPrice, kWeightEps, ());
+}
+
 void TestGeometry(IndexGraphStarter const & starter, vector<Segment> const & route,
                   vector<m2::PointD> const & expectedGeom)
 {
