@@ -20,7 +20,7 @@ size_t constexpr kNever = std::numeric_limits<size_t>::max();
 // Reads the metalines of the test map, which is deregistered (like on its update or deletion)
 // before the features reading number |deregisterOnRead|.
 // Returns the numbers of the features readings and of the features with a metaline.
-std::pair<size_t, size_t> ReadMetalines(size_t deregisterOnRead)
+std::pair<size_t, size_t> ReadMetalines(size_t deregisterOnRead, bool omitLastFeature = false)
 {
   auto const file = platform::LocalCountryFile::MakeForTesting("minsk-pass");
   FrozenDataSource dataSource;
@@ -33,7 +33,10 @@ std::pair<size_t, size_t> ReadMetalines(size_t deregisterOnRead)
   {
     if (readsCount++ == deregisterOnRead)
       TEST(dataSource.DeregisterMap(file.GetCountryFile()), ());
-    dataSource.ReadFeatures(fn, ids);
+    if (omitLastFeature && ids.size() > 1)
+      dataSource.ReadFeatures(fn, std::vector<FeatureID>(ids.begin(), ids.end() - 1));
+    else
+      dataSource.ReadFeatures(fn, ids);
   }, [](std::string_view) { return true; }, [](auto const &, int) {}, [](auto const &, auto) { return false; },
                             [](auto const &, auto) {}, [](auto const &) { return false; }, [](auto const &...) {});
 
@@ -62,5 +65,12 @@ UNIT_TEST(ReadMetalineTask_MwmDeregistered)
   auto const [reads1, features1] = ReadMetalines(1 /* deregisterOnRead */);
   TEST_EQUAL(reads1, 2, ());
   TEST_EQUAL(features1, 0, ());
+}
+UNIT_TEST(ReadMetalineTask_IncompleteChainsAreNotJoined)
+{
+  classificator::Load();
+  auto const [reads, features] = ReadMetalines(kNever, true);
+  TEST_GREATER(reads, 1, ());
+  TEST_EQUAL(features, 0, ());
 }
 }  // namespace read_metaline_task_tests
