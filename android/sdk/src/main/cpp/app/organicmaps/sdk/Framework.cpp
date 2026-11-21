@@ -1247,6 +1247,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutingActive(JNIE
   return frm()->GetRoutingManager().IsRoutingActive();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutingFollowing(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsRoutingFollowing();
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteBuilding();

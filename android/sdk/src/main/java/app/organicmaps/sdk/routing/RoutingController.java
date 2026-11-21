@@ -163,15 +163,16 @@ public class RoutingController
       mContainsCachedResult = true;
 
       if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
-        onBuiltRoute();
+        onBuiltRoute(Framework.nativeGetRouteFollowingInfo());
 
       processRoutingEvent();
     }
   };
 
-  private void onBuiltRoute()
+  @VisibleForTesting
+  void onBuiltRoute(@Nullable RoutingInfo routingInfo)
   {
-    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+    mCachedRoutingInfo = routingInfo;
     if (isTransitType())
       mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
     setBuildState(BuildState.BUILT);
@@ -194,7 +195,7 @@ public class RoutingController
     if (!isPlanning())
       return;
     final FollowedTrackInfo track = getFollowedTrackInfo();
-    if (track != null && !hasTrack(track.getTrackId()))
+    if (track != null && !isRoutingFollowing() && !hasTrack(track.getTrackId()))
       cancel();
   }
 
@@ -225,6 +226,8 @@ public class RoutingController
     {
       if (mLastResultCode == ResultCodes.HAS_WARNINGS)
         mContainer.onDrivingOptionsWarning();
+      if (isPlanning() && isFollowingTrack() && isRoutingFollowing())
+        enterNavigation();
       updatePlan();
       return;
     }
@@ -565,6 +568,7 @@ public class RoutingController
 
   /**
    * Starts following a successfully built planned route; otherwise does nothing.
+   * A track approach refresh keeps the plan open until the core enters following.
    * The host supplies location updates and any foreground-service lifecycle required for navigation.
    */
   public void start()
@@ -574,9 +578,37 @@ public class RoutingController
       return;
     Logger.d(TAG, "start");
     final boolean followsTrack = isFollowingTrack();
-    if (followsTrack && !Framework.nativeStartFollowedTrack())
-      return;
+    if (followsTrack)
+    {
+      if (!startFollowedTrack())
+        return;
+      if (!isRoutingFollowing())
+      {
+        onCoreStartedTrackBuild();
+        return;
+      }
+    }
 
+    enterNavigation();
+    if (!followsTrack)
+      Framework.nativeFollowRoute();
+  }
+
+  @VisibleForTesting
+  boolean startFollowedTrack()
+  {
+    return Framework.nativeStartFollowedTrack();
+  }
+
+  @VisibleForTesting
+  boolean isRoutingFollowing()
+  {
+    return Framework.nativeIsRoutingFollowing();
+  }
+
+  @VisibleForTesting
+  void enterNavigation()
+  {
     // This saving is needed just for situation when the user starts navigation
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
@@ -587,9 +619,6 @@ public class RoutingController
 
     cancelPlanning(false);
     startNavigation();
-
-    if (!followsTrack)
-      Framework.nativeFollowRoute();
   }
 
   /**
@@ -820,7 +849,7 @@ public class RoutingController
 
   /**
    * Returns navigation to planning and rebuilds.
-   * @return whether navigation was active; a track Start that is still refreshing its approach stays in navigation
+   * @return whether navigation was active
    */
   public boolean resetToPlanningStateIfNavigating()
   {
@@ -829,10 +858,6 @@ public class RoutingController
       if (isFollowingTrack())
       {
         final FollowTrackResult result = resetFollowedTrackToPlanning();
-        // A requested Start completes its approach refresh first. The session keeps a frozen copy of its source, so
-        // nothing else refuses the reset.
-        if (result == FollowTrackResult.Busy)
-          return true;
         Assert.debug(result == FollowTrackResult.Ok, "Unexpected track reset result: " + result);
         onCoreStartedTrackBuild();
       }

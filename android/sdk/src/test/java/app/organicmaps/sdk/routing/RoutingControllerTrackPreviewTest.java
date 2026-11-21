@@ -42,7 +42,6 @@ public class RoutingControllerTrackPreviewTest
   private static class FollowController extends RoutingController
   {
     boolean following = true;
-    FollowTrackResult resetResult = FollowTrackResult.Ok;
     int cancels;
 
     @Override
@@ -54,7 +53,7 @@ public class RoutingControllerTrackPreviewTest
     @Override
     FollowTrackResult resetFollowedTrackToPlanning()
     {
-      return resetResult;
+      return FollowTrackResult.Ok;
     }
 
     @Override
@@ -79,14 +78,57 @@ public class RoutingControllerTrackPreviewTest
   }
 
   @Test
-  public void backDuringAPendingTrackStartKeepsNavigating() throws ReflectiveOperationException
+  public void pendingTrackStartWaitsForCoreFollowing() throws ReflectiveOperationException
   {
-    final FollowController controller = new FollowController();
-    controller.resetResult = FollowTrackResult.Busy;
-    setState(controller, "NAVIGATION");
-    assertTrue(controller.resetToPlanningStateIfNavigating());
-    assertTrue(controller.isNavigating());
-    assertEquals(0, controller.cancels);
+    class PendingController extends FollowController
+    {
+      boolean nativeFollowing;
+      int navigationStarts;
+
+      @Override
+      boolean startFollowedTrack()
+      {
+        return true;
+      }
+
+      @Override
+      boolean isRoutingFollowing()
+      {
+        return nativeFollowing;
+      }
+
+      @Override
+      void enterNavigation()
+      {
+        ++navigationStarts;
+      }
+    }
+    try (MockedStatic<Router> router = mockStatic(Router.class))
+    {
+      router.when(Router::getRender).thenReturn(Router.Pedestrian);
+      for (boolean nativeFollowing : new boolean[] {false, true})
+      {
+        final PendingController controller = new PendingController();
+        setState(controller, "PREPARE");
+        set(controller, "mBuildState", RoutingController.BuildState.BUILT);
+        controller.start();
+        assertTrue(controller.isPlanning());
+        assertTrue(controller.isBuilding());
+        assertEquals(0, controller.navigationStarts);
+
+        controller.nativeFollowing = nativeFollowing;
+        set(controller, "mLastResultCode", ResultCodes.NO_ERROR);
+        set(controller, "mContainsCachedResult", true);
+        controller.onBuiltRoute(null);
+        assertTrue(controller.isBuilt());
+        controller.restore();
+        assertEquals(0, controller.navigationStarts);
+
+        controller.attach(mock(RoutingController.Container.class));
+        controller.restore();
+        assertEquals(nativeFollowing ? 1 : 0, controller.navigationStarts);
+      }
+    }
   }
 
   @Test
@@ -214,7 +256,13 @@ public class RoutingControllerTrackPreviewTest
     {
       FollowedTrackInfo track;
       boolean exists;
+      boolean nativeFollowing;
       boolean cancelled;
+      @Override
+      boolean isRoutingFollowing()
+      {
+        return nativeFollowing;
+      }
       @Override
       public FollowedTrackInfo getFollowedTrackInfo()
       {
@@ -232,7 +280,11 @@ public class RoutingControllerTrackPreviewTest
         return true;
       }
     }
-    for (String state : List.of("PREPARE", "NAVIGATION", "NONE"))
+    record State(String ui, boolean follows)
+    {
+    }
+    for (State state : List.of(new State("PREPARE", false), new State("PREPARE", true), new State("NAVIGATION", true),
+                               new State("NONE", false)))
     {
       for (boolean exists : new boolean[] {true, false})
       {
@@ -242,14 +294,15 @@ public class RoutingControllerTrackPreviewTest
         constructor.setAccessible(true);
         controller.track = constructor.newInstance(1L, "Track", 0.0);
         controller.exists = exists;
+        controller.nativeFollowing = state.follows();
         setState(controller, "PREPARE");
         // The deferred callback must inspect the state when it runs, including a journey
         // that started after bookmark publication. Exercise it without the Android looper.
-        setState(controller, state);
+        setState(controller, state.ui());
         final Method changed = RoutingController.class.getDeclaredMethod("cancelDeletedTrackPreview");
         changed.setAccessible(true);
         changed.invoke(controller);
-        assertEquals(state.equals("PREPARE") && !exists, controller.cancelled);
+        assertEquals(state.ui().equals("PREPARE") && !state.follows() && !exists, controller.cancelled);
       }
     }
   }

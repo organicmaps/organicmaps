@@ -237,6 +237,8 @@ public class Framework
   // Routing.
   public static native boolean nativeIsRoutingActive();
 
+  public static native boolean nativeIsRoutingFollowing();
+
   public static native boolean nativeIsRouteBuilt();
 
   public static native boolean nativeIsRouteBuilding();
