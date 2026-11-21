@@ -7,10 +7,10 @@
 - (void)didCreateDrapeEngine;
 @end
 
-@interface MWMMapReadinessTests : XCTestCase
+@interface EAGLViewTests : XCTestCase
 @end
 
-@implementation MWMMapReadinessTests
+@implementation EAGLViewTests
 
 - (void)testPendingActionsRunInOrderAndLateActionsRunImmediately
 {

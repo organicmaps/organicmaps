@@ -390,7 +390,7 @@ final class CarPlayService: NSObject {
 
   private func restoreCarPlayRoutingStateIfNeeded() {
     guard needsCarPlayRoutingRestore,
-          MapsAppDelegate.theApp().isDrapeEngineCreated,
+          MapViewController.shared()?.mapView.drapeEngineCreated == true,
           routingOwner == .carPlay,
           let router,
           let mapTemplate = rootMapTemplate
@@ -419,7 +419,9 @@ final class CarPlayService: NSObject {
     hideSpeedState()
     updateVisibleViewPortState(.default)
     FrameworkHelper.rotateMap(0.0, animated: false)
-    router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: visibleCarPlayTemplate == nil)
+    // The root template operation has finished. If no template is appearing yet, its
+    // templateDidAppear callback will present the restored preview.
+    router.restoreTripPreview(deferUntilMainTemplateAppears: visibleCarPlayTemplate == nil)
   }
 
   private func configureRootTemplate(using router: CarPlayRouter) {
@@ -449,6 +451,7 @@ final class CarPlayService: NSObject {
     isCarPlayRouterSubscribed = true
     self.router = router
     let controller = MapsAppDelegate.theApp().mapViewController
+    // viewDidLoad queues the saved points first. Then recheck whether this session can show its preview.
     controller.loadViewIfNeeded()
     if !controller.mapView.drapeEngineCreated {
       controller.mapView.whenDrapeEngineCreated { [weak self] in self?.updatePhoneModeAlert() }

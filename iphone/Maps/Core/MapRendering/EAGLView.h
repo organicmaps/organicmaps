@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A one-shot callback reserved for a deferred CarPlay visual-scale update.
 @property(nonatomic, copy, nullable) void (^graphicContextDidInitializeHandler)(void);
 
-/// Runs on the main thread once the shared map's renderer exists, immediately if already created.
+/// Call on the main thread. Runs the action once the renderer exists, immediately if already created.
 - (void)whenDrapeEngineCreated:(dispatch_block_t)action;
 - (void)createDrapeEngine;
 - (void)deallocateNative;

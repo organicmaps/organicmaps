@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 // MapViewController exists even before the phone window scene connects.
 @property(nonatomic, readonly) UINavigationController * mainNavigationController;
 @property(nonatomic, readonly) MapViewController * mapViewController;
-@property(nonatomic, readonly) BOOL isDrapeEngineCreated;
 
 + (MapsAppDelegate *)theApp;
 

@@ -166,6 +166,7 @@ class GraphicsContextFactory;
 
 - (void)whenDrapeEngineCreated:(dispatch_block_t)action
 {
+  ASSERT(NSThread.isMainThread, ());
   if (self.drapeEngineCreated)
   {
     action();
@@ -179,6 +180,7 @@ class GraphicsContextFactory;
 
 - (void)didCreateDrapeEngine
 {
+  ASSERT(NSThread.isMainThread, ());
   _drapeEngineCreated = YES;
   for (dispatch_block_t action in m_drapeCreationActions)
     action();
