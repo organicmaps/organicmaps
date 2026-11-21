@@ -3,7 +3,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_processor.hpp"
+#include "indexer/features_vector.hpp"
 #include "indexer/metaline_data.hpp"
 
 #include "coding/files_container.hpp"
@@ -23,32 +23,24 @@ namespace feature
 {
 namespace
 {
-std::vector<double> ReadFeatureLengths(std::string const & mwmPath)
+double GetFeatureLength(FeatureType & feature)
 {
-  std::vector<double> lengths;
-  ForEachFeature(mwmPath, [&lengths](FeatureType & feature, uint32_t featureId)
+  feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  auto const count = feature.GetPointsCount();
+  if (count < 2)
+    return 0.0;
+  double length = 0.0;
+  auto previous = feature.GetPoint(0);
+  for (size_t i = 1; i < count; ++i)
   {
-    if (lengths.size() <= featureId)
-      lengths.resize(featureId + 1);
-
-    feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    double length = 0.0;
-    if (feature.GetPointsCount() > 1)
+    auto const & point = feature.GetPoint(i);
+    if (!previous.EqualDxDy(point, kMwmPointAccuracy))
     {
-      auto previous = feature.GetPoint(0);
-      for (size_t i = 1; i < feature.GetPointsCount(); ++i)
-      {
-        auto const & point = feature.GetPoint(i);
-        if (!previous.EqualDxDy(point, kMwmPointAccuracy))
-        {
-          length += previous.Length(point);
-          previous = point;
-        }
-      }
+      length += previous.Length(point);
+      previous = point;
     }
-    lengths[featureId] = length;
-  });
-  return lengths;
+  }
+  return length;
 }
 }  // namespace
 
@@ -314,7 +306,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
 {
   routing::OsmIdToFeatureIds osmIdToFeatureIds;
   routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds);
-  auto const featureLengths = ReadFeatureLengths(mwmPath);
+  FeaturesVectorTest features(mwmPath);
 
   FileReader reader(metalinesPath);
   ReaderSource<FileReader> src(reader);
@@ -354,8 +346,8 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
         WriteVarInt(memWriter, fid);
         WriteVarInt(legacyWriter, fid);
         auto const featureId = static_cast<uint32_t>(std::abs(fid));
-        CHECK_LESS(featureId, featureLengths.size(), ());
-        double const length = featureLengths[featureId];
+        CHECK_LESS(featureId, features.GetVector().GetNumFeatures(), ());
+        double const length = GetFeatureLength(*features.GetVector().GetByIndex(featureId));
         double const phaseOffset = chainOffset + (fid < 0 ? length : 0.0);
         memWriter.Write(&phaseOffset, sizeof(phaseOffset));
         chainOffset += length;

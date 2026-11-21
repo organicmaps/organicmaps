@@ -56,6 +56,8 @@ std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & mo
   {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const count = ft.GetPointsCount();
+    if (count == 0)
+      return;
 
     std::vector<m2::PointD> featurePoints;
     featurePoints.reserve(count);
@@ -94,15 +96,10 @@ std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>>
     auto const it = points.find(f);
     ASSERT(it != points.cend(), ());
 
-    if (!result.empty())
-    {
-      auto iBeg = it->second.begin();
-      if (result.back().EqualDxDy(*iBeg, kMwmPointAccuracy))
-        ++iBeg;
-      result.insert(result.end(), iBeg, it->second.end());
-    }
-    else
-      result = std::move(it->second);
+    auto first = it->second.begin();
+    if (!result.empty() && result.back().EqualDxDy(*first, kMwmPointAccuracy))
+      ++first;
+    result.insert(result.end(), first, it->second.end());
   }
 
   return result;
@@ -155,21 +152,19 @@ void ReadMetalineTask::Run()
       return;
     }
 
-    std::map<FeatureID, std::pair<double, bool>> phases;
-    double chainOffset = 0.0;
-    for (size_t i = 0; i < metaline.m_features.size(); ++i)
+    // Never bridge across a missing feature or merge a repeated feature twice.
+    if (points.size() != metaline.m_features.size())
+      continue;
+    if (metaline.m_dashPhaseOffsets.empty())
     {
-      auto const & fid = metaline.m_features[i];
-      auto const it = points.find(fid);
-      if (it == points.end())
-        continue;
-
-      bool const reversed = metaline.m_reversed.find(fid) != metaline.m_reversed.end();
-      double const length = GetPathLength(it->second);
-      double const phaseOffset = metaline.m_dashPhaseOffsets.empty() ? chainOffset + (reversed ? length : 0.0)
-                                                                     : metaline.m_dashPhaseOffsets[i];
-      phases.emplace(fid, std::pair(phaseOffset, reversed));
-      chainOffset += length;
+      metaline.m_dashPhaseOffsets.reserve(metaline.m_features.size());
+      double chainOffset = 0.0;
+      for (auto const & fid : metaline.m_features)
+      {
+        double const length = GetPathLength(points.at(fid));
+        metaline.m_dashPhaseOffsets.push_back(chainOffset + (metaline.m_reversed.contains(fid) ? length : 0.0));
+        chainOffset += length;
+      }
     }
 
     auto mergedPoints = MergePoints(std::move(points), metaline.m_features);
@@ -177,12 +172,10 @@ void ReadMetalineTask::Run()
       continue;
 
     m2::SharedSpline const spline(std::move(mergedPoints));
-    for (auto & fid : metaline.m_features)
+    for (size_t i = 0; i < metaline.m_features.size(); ++i)
     {
-      auto const phase = phases.find(fid);
-      if (phase == phases.end())
-        continue;
-      m_metalines.emplace(std::move(fid), MetalineInfo{spline, phase->second.first, phase->second.second});
+      auto const & fid = metaline.m_features[i];
+      m_metalines.emplace(fid, MetalineInfo{spline, metaline.m_dashPhaseOffsets[i], metaline.m_reversed.contains(fid)});
     }
   }
 }
