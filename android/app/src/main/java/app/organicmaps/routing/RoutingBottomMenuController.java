@@ -451,9 +451,15 @@ final class RoutingBottomMenuController
     if (!UiUtils.isVisible(mAltitudeChart))
       return;
     final FollowedTrackInfo track = RoutingController.get().getFollowedTrackInfo();
+    final double distance;
     if (track != null && !mRouteElevationChartController.isUserSelecting())
-      mRouteElevationChartController.select(track.getEntryDistanceMeters());
-    final double distance = mRouteElevationChartController.getSelectedDistance();
+    {
+      // Keep the exact entry for the map because the chart highlight uses a float.
+      distance = track.getEntryDistanceMeters();
+      mRouteElevationChartController.select(distance);
+    }
+    else
+      distance = mRouteElevationChartController.getSelectedDistance();
     if (!Double.isNaN(distance))
       Framework.nativeRouteSetElevationActivePoint(distance);
   }
