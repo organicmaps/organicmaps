@@ -160,12 +160,6 @@ final class CarPlayRouter: NSObject {
   }
 
   func restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: Bool) {
-    guard MWMRouter.isRestoreProcessCompleted() else {
-      DispatchQueue.main.async { [weak self] in
-        self?.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: false)
-      }
-      return
-    }
     let manager = RoutingManager.routingManager
     MWMRouter.hideNavigationMapControls()
     guard manager.isRoutingActive,

@@ -358,7 +358,7 @@ final class CarPlayService: NSObject {
       router.setupCarPlaySpeedCameraMode()
       MWMRouter.unsubscribeFromEvents()
       MWMRouter.hideNavigationMapControls()
-      needsCarPlayRoutingRestore = routingOwner == .device
+      needsCarPlayRoutingRestore = true
     }
 
     routingOwner = destination
@@ -390,7 +390,8 @@ final class CarPlayService: NSObject {
 
   private func restoreCarPlayRoutingStateIfNeeded() {
     guard needsCarPlayRoutingRestore,
-          mapState.attachedDisplay != .device,
+          MapsAppDelegate.theApp().isDrapeEngineCreated,
+          routingOwner == .carPlay,
           let router,
           let mapTemplate = rootMapTemplate
     else {
@@ -418,11 +419,10 @@ final class CarPlayService: NSObject {
     hideSpeedState()
     updateVisibleViewPortState(.default)
     FrameworkHelper.rotateMap(0.0, animated: false)
-    router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: false)
+    router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: visibleCarPlayTemplate == nil)
   }
 
   private func configureRootTemplate(using router: CarPlayRouter) {
-    // This path restores the routing UI itself; do not repeat it from the root-template completion.
     needsCarPlayRoutingRestore = false
     guard mapState.attachedDisplay != .device else {
       applyBaseRootTemplate()
@@ -432,8 +432,8 @@ final class CarPlayService: NSObject {
     if let sessionData = router.restoredNavigationSession() {
       applyNavigationRootTemplate(trip: sessionData.0, routeInfo: sessionData.1)
     } else {
+      needsCarPlayRoutingRestore = true
       applyBaseRootTemplate()
-      router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: true)
     }
   }
 
@@ -448,6 +448,11 @@ final class CarPlayService: NSObject {
     router.subscribeToEvents()
     isCarPlayRouterSubscribed = true
     self.router = router
+    let controller = MapsAppDelegate.theApp().mapViewController
+    controller.loadViewIfNeeded()
+    if !controller.mapView.drapeEngineCreated {
+      controller.mapView.whenDrapeEngineCreated { [weak self] in self?.updatePhoneModeAlert() }
+    }
     return router
   }
 

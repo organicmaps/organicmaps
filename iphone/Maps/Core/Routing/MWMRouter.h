@@ -75,7 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)saveRouteIfNeeded;
 + (void)restoreRouteIfNeeded;
 + (BOOL)hasSavedRoute;
-+ (BOOL)isRestoreProcessCompleted;
 
 + (void)updateRoute;
 + (BOOL)hasActiveDrivingOptions;

@@ -493,6 +493,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  // Register first so saved route points are loaded before pending CarPlay and Spotlight requests.
+  [self.mapView whenDrapeEngineCreated:^{ [MWMRouter restoreRouteIfNeeded]; }];
+
   [self setupPlacePageContainer];
   [self setupSearchContainer];
 
@@ -504,8 +507,6 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   // the onGetFocus call and a deadlock on start. Defer the call until mapView exists.
   if (self.needDeferFocusNotification)
     [self onGetFocus:self.deferredFocusValue];
-
-  [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
   [MWMKeyboard addObserver:self];

@@ -92,12 +92,9 @@ using namespace osm_auth_ios;
 
 - (void)searchQuery:(SearchQuery *)query
 {
-  if (!self.isDrapeEngineCreated)
-  {
-    dispatch_async(dispatch_get_main_queue(), ^{ [self searchQuery:query]; });
-    return;
-  }
-  [[MWMMapViewControlsManager manager] search:query];
+  MapViewController * controller = self.mapViewController;
+  [controller loadViewIfNeeded];
+  [controller.mapView whenDrapeEngineCreated:^{ [[MWMMapViewControlsManager manager] search:query]; }];
 }
 
 - (void)commonInit
