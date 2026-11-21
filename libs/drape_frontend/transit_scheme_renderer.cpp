@@ -128,8 +128,7 @@ void TransitSchemeRenderer::RenderTransit(ref_ptr<dp::GraphicsContext> context, 
                                           ScreenBase const & screen, ref_ptr<PostprocessRenderer> postprocessRenderer,
                                           FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
-  auto const zoomLevel = GetDrawTileScale(screen);
-  if (!IsSchemeVisible(zoomLevel) || !HasRenderData())
+  if (!HasRenderData())
     return;
 
   float const pixelHalfWidth = CalculateHalfWidth(screen);
