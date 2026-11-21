@@ -421,7 +421,6 @@
     <string name="select_cuisine">Dewis math o fwyd</string>
     <!-- login text field -->
     <string name="email_or_username">E-bost neu enw defnyddiwr</string>
-    <string name="editor_add_phone">Ychwanegu rhif ffôn</string>
     <string name="level">Llawr</string>
     <!-- Building level -->
     <string name="level_value_generic">Lefel: %s</string>
@@ -576,6 +575,7 @@
     <string name="bookmarks_error_title_list_name_already_taken">Mae\'r enw hwn eisoes wedi\'i gymryd</string>
     <string name="bookmarks_error_message_list_name_already_taken">Dewiswch enw arall</string>
     <string name="please_wait">Arhoswch…</string>
+    <!-- Placeholder for phone input in editor UI -->
     <string name="phone_number">Rhif ffôn</string>
     <string name="profile">Proffil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">

@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
-import app.organicmaps.editor.data.PhoneFragment;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.OsmOAuth;
@@ -49,7 +48,6 @@ public class EditorHostFragment
     STREET,
     CUISINE,
     LANGUAGE,
-    PHONE,
     SELF_SERVICE
   }
 
@@ -172,7 +170,7 @@ public class EditorHostFragment
   {
     switch (mMode)
     {
-    case OPENING_HOURS, STREET, CUISINE, LANGUAGE, PHONE, SELF_SERVICE -> editMapObject();
+    case OPENING_HOURS, STREET, CUISINE, LANGUAGE, SELF_SERVICE -> editMapObject();
     default -> Utils.navigateToParent(requireActivity());
     }
     return true;
@@ -206,13 +204,6 @@ public class EditorHostFragment
     final Bundle args = new Bundle();
     args.putString(TimetableContainerFragment.EXTRA_TIME, Editor.nativeGetOpeningHours());
     editWithFragment(Mode.OPENING_HOURS, R.string.editor_time_title, args, TimetableContainerFragment.class, false);
-  }
-
-  protected void editPhone()
-  {
-    final Bundle args = new Bundle();
-    args.putString(PhoneFragment.EXTRA_PHONE_LIST, Editor.nativeGetPhone());
-    editWithFragment(Mode.PHONE, R.string.phone_number, args, PhoneFragment.class, false);
   }
 
   protected void editStreet()
@@ -321,16 +312,6 @@ public class EditorHostFragment
         {
           saveNote();
           saveMapObjectEdits();
-        }
-      }
-      case PHONE ->
-      {
-        final String phone =
-            ((PhoneFragment) getChildFragmentManager().findFragmentByTag(PhoneFragment.class.getName())).getPhone();
-        if (Editor.nativeIsPhoneValid(phone))
-        {
-          Editor.nativeSetPhone(phone);
-          editMapObject();
         }
       }
       }

@@ -421,7 +421,6 @@
     <string name="select_cuisine">انتخاب غذاخوری</string>
     <!-- login text field -->
     <string name="email_or_username">ایمیل یا نام کاربری</string>
-    <string name="editor_add_phone">افزودن تلفن</string>
     <string name="level">طبقه</string>
     <!-- Building level -->
     <string name="level_value_generic">سطح: %s</string>
@@ -572,6 +571,7 @@
     <string name="bookmarks_error_title_list_name_already_taken">این اسم قبلا انتخاب شده است</string>
     <string name="bookmarks_error_message_list_name_already_taken">لطفا نام دیگری را انتخاب کنید</string>
     <string name="please_wait">لطفا صبر کنید…</string>
+    <!-- Placeholder for phone input in editor UI -->
     <string name="phone_number">شماره تلفن</string>
     <string name="profile">نمایه OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
