@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Email ή όνομα χρήστη";
-"level" = "Όροφος";
 "downloader_delete_map_dialog" = "Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.";
 "downloader_update_maps" = "Ενημέρωση χαρτών";
 "downloader_search_field_hint" = "Εύρεση χάρτη";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Αντιστροφή διαδρομής";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Εισάγετε έναν έγκυρο αριθμό ορόφου";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Όροφος (το ισόγειο είναι 0)";

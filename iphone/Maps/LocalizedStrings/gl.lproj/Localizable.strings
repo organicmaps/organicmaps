@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Correo electrónico ou usuario";
-"level" = "Piso";
 "downloader_delete_map_dialog" = "Todas as edicións feitas ao mapa eliminaranse xunto con leste.";
 "downloader_update_maps" = "Actualizar mapas";
 "downloader_search_field_hint" = "Buscar o mapa";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Inverter a ruta";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Introduza un número de piso válido";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Piso (a planta baixa é 0)";

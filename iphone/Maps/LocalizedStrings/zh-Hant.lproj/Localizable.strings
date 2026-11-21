@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "電子郵件或使用者名稱";
-"level" = "樓層";
 "downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";
 "downloader_update_maps" = "更新地圖";
 "downloader_search_field_hint" = "搜尋地圖";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "反轉路線";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "請輸入有效的樓層號碼";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "樓層（一樓為0）";

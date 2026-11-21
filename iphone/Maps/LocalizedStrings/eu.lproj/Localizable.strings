@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Posta elektronikoa edo erabiltzailea";
-"level" = "Solairua";
 "downloader_delete_map_dialog" = "Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.";
 "downloader_update_maps" = "Eguneratu mapak";
 "downloader_search_field_hint" = "Bilatu mapa";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Ibilbidea alderantzikatu";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Sartu solairu zenbaki baliozkoa";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Solairua (beheko solairua 0 da)";

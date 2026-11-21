@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "ایمیل یا نام کاربری";
-"level" = "طبقه";
 "downloader_delete_map_dialog" = "تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.";
 "downloader_update_maps" = "به‌روزرسانی نقشه‌ها";
 "downloader_search_field_hint" = "یافتن نقشه";
@@ -1239,3 +1238,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "معکوس کردن مسیر";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "یک شماره طبقه معتبر وارد کنید";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "طبقه (همکف 0 است)";
