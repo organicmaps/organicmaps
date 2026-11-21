@@ -169,7 +169,8 @@ editor::XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD co
   return {bestNode};
 }
 
-editor::XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geometry)
+editor::XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geometry,
+                                                                   editor::XMLFeature const & feature)
 {
   auto const kSamplePointsCount = 3;
   bool hasRelation = false;
@@ -188,7 +189,7 @@ editor::XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(std::vector<m
       hasRelation = true;
     }
 
-    pugi::xml_node const bestWayOrRelation = matcher::GetBestOsmWayOrRelation(doc, geometry);
+    pugi::xml_node const bestWayOrRelation = matcher::GetBestOsmWayOrRelation(doc, geometry, &feature);
     if (!bestWayOrRelation)
     {
       if (hasRelation)
