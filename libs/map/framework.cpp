@@ -1444,10 +1444,7 @@ void Framework::MakeFrameActive()
 
 int Framework::GetDrawScale() const
 {
-  if (m_drapeEngine != nullptr)
-    return df::GetDrawTileScale(m_currentModelView);
-
-  return 0;
+  return m_drapeEngine ? df::GetStyleZoom(m_currentModelView) : 0;
 }
 
 void Framework::RunFirstLaunchAnimation()

@@ -267,6 +267,11 @@ int GetDrawTileScale(m2::RectD const & r)
   return GetDrawTileScale(r, p.GetTileSize(), p.GetVisualScale());
 }
 
+int GetStyleZoom(ScreenBase const & screen)
+{
+  return std::clamp(GetDrawTileScale(screen), 1, scales::GetUpperStyleScale());
+}
+
 int GetTileBackgroundZoom(int drawZoom, bool isPerspective)
 {
   // Perspective expands the far view; use the data grid to keep its raster coverage bounded.

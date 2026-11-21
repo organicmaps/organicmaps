@@ -77,6 +77,9 @@ int GetDrawTileScale(m2::RectD const & r, uint32_t tileSize, double visualScale)
 int GetDrawTileScale(ScreenBase const & s);
 int GetDrawTileScale(m2::RectD const & r);
 
+/// Returns GetDrawTileScale(screen) clamped to [1, scales::GetUpperStyleScale()] for tile keys and style lookups.
+/// A display density change can move the raw scale outside this range while the viewport stays fixed.
+int GetStyleZoom(ScreenBase const & screen);
 int GetTileBackgroundZoom(int drawZoom, bool isPerspective);
 
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale);
