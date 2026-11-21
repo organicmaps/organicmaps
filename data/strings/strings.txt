@@ -18087,7 +18087,7 @@ zh-Hans = 新增电话号码
 zh-Hant = 新增電話號碼
 
 [level]
-tags = apple-maps,qt
+tags = qt
 en = Floor
 af = Verdieping
 ar = طابق
@@ -46638,7 +46638,7 @@ zh-Hant = 路面電車
 
 [error_enter_correct_level]
 comment = Error message in Editor when a user enters an invalid floor (level) of a place
-tags = android-app
+tags = android-app,apple-maps
 en = Enter a valid floor number
 af = Voer ’n geldige verdiepingnommer in
 ar = أدخل رقم طابق صحيح
@@ -46702,7 +46702,7 @@ zh-Hant = 請輸入有效的樓層號碼
 
 [editor_level]
 comment = Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative
-tags = android-app
+tags = android-app,apple-maps
 en = Floor (ground level is 0)
 af = Verdieping (grondvloer is 0)
 ar = طابق (الطابق الأرضي هو 0)
