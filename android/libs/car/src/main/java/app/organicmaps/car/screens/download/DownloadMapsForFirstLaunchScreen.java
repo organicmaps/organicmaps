@@ -6,10 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
+import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 
-class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen
+class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen implements UserActionRequired
 {
   DownloadMapsForFirstLaunchScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {

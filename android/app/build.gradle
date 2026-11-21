@@ -274,6 +274,7 @@ dependencies {
   testImplementation libs.mockito.core
   testImplementation libs.mockito.inline
   testImplementation libs.robolectric
+  testImplementation libs.androidx.car.app.testing
   androidTestImplementation libs.androidx.junit
   androidTestImplementation libs.androidx.test.runner
 }
