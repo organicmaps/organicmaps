@@ -855,6 +855,8 @@
     <string name="track_recording_title">Track Recording</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Track is empty - nothing to save</string>
+    <!-- Shown when a track recording could not be saved and is kept for another attempt -->
+    <string name="track_recording_save_failed">Couldn\'t save the track. Your recording was kept. Try saving again.</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
     <string name="choose_color">Choose Color</string>

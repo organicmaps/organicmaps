@@ -1053,6 +1053,9 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек порожній - нічого зберігати";
+
+/* Shown when a track recording could not be saved and is kept for another attempt */
+"track_recording_save_failed" = "Couldn't save the track. Your recording was kept. Try saving again.";
 "downloader_updating_ios" = "Оновлення";
 
 /* Autoupdate dialog on start */
