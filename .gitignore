@@ -109,3 +109,9 @@ CMakeUserPresets.json
 AGENTS.override.md
 CLAUDE.local.md
 plans
+
+# Sailfish OS RPM build (sfdk) outputs
+/.sfdk/
+/RPMS/
+# Written by the find-docs.sh of the Sailfish OS rpm macros into the in-place build directory.
+/documentation.list
