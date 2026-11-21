@@ -217,7 +217,7 @@ public:
   FollowTrackResult ResetFollowedTrackToPlanning();
   // Update from a finite distance along the full source track, clamped to its endpoints.
   // Retain the profile and viewport; the entry belongs to the captured source, not the map selection.
-  // At a gap, keep the accepted entry at its distance. Other gap distances select the preceding endpoint.
+  // At a gap, keep the accepted entry if the chart reports that distance. Otherwise use the preceding endpoint.
   FollowTrackResult UpdateFollowedTrackEntryAt(double distanceM);
   // Change this preview's profile (Vehicle, Bicycle or Pedestrian) without writing global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
@@ -473,6 +473,8 @@ private:
 
   struct FollowSession
   {
+    bool MatchesEntryDistance(double distanceM) const;
+
     FollowedTrackInfo m_info;
     std::shared_ptr<Track const> m_source;
     TrackSourcePosition m_entry;

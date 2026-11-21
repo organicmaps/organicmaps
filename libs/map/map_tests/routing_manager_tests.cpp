@@ -2102,7 +2102,6 @@ UNIT_TEST(RoutingManager_NavigateTrackDistinguishesGapSides)
   source.m_geometry.AddTimestamps({});
   auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
   bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
-  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
   TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   double const boundary = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
@@ -2116,10 +2115,21 @@ UNIT_TEST(RoutingManager_NavigateTrackDistinguishesGapSides)
   TEST_EQUAL(route->GetPoly().Back(), MeterPoint(600, 0), ());
   TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 100.0, 1.0, ());
   TEST_EQUAL(manager.GetRoutePointAtDistance(boundary), std::optional(MeterPoint(500, 0)), ());
-  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(boundary), FollowTrackResult::Ok, ());
+  double const chartDistance = static_cast<float>(boundary);
+  TEST_LESS(chartDistance, boundary, ());
+  TEST_EQUAL(manager.GetRoutePointAtDistance(chartDistance), std::optional(MeterPoint(500, 0)), ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(chartDistance), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, boundary, ());
   route = manager.RoutingSession().GetRoute();
   TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
+
+  double const precedingDistance = (chartDistance + boundary) * 0.5;
+  TEST_EQUAL(static_cast<float>(precedingDistance), chartDistance, ());
+  auto const precedingPoint = manager.GetRoutePointAtDistance(precedingDistance);
+  TEST(precedingPoint && precedingPoint->EqualDxDy(MeterPoint(100, 0), mercator::kPointEqualityEps), ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(precedingDistance), FollowTrackResult::NoRemainingGeometry, ());
+
   auto const stationary =
       CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(0, 0), 200}});
   bookmarks.SetTrackSelectionInfo({stationary, MeterPoint(0, 0), 0.0}, false);
@@ -2258,7 +2268,6 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceUsesChartGapBoundary)
   source.m_geometry.AddTimestamps({});
   auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
   bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
-  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
   TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
 

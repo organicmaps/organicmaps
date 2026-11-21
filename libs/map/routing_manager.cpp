@@ -1221,12 +1221,12 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
   if (auto const result = CheckFollowedTrackEditable(); result != FollowTrackResult::Ok)
     return result;
 
-  auto const source = m_followSession->m_source;
-  distanceM = std::clamp(distanceM, 0.0, source->GetLengthMeters());
-  // Both ends of a gap share a chart distance.
-  auto const entry = distanceM == m_followSession->m_info.m_entryDistanceM ? m_followSession->m_entry
-                                                                           : ResolveTrackEntryAt(*source, distanceM);
-  return BuildFollowedTrack(source, entry, distanceM, m_followSession->m_info.m_profile, true /* keepViewport */);
+  auto const & session = *m_followSession;
+  distanceM = std::clamp(distanceM, 0.0, session.m_source->GetLengthMeters());
+  bool const keepEntry = session.MatchesEntryDistance(distanceM);
+  auto const entry = keepEntry ? session.m_entry : ResolveTrackEntryAt(*session.m_source, distanceM);
+  return BuildFollowedTrack(session.m_source, entry, keepEntry ? session.m_info.m_entryDistanceM : distanceM,
+                            session.m_info.m_profile, true /* keepViewport */);
 }
 
 FollowTrackResult RoutingManager::SetFollowTrackProfile(RouterType type)
@@ -1895,11 +1895,17 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
   return data;
 }
 
+bool RoutingManager::FollowSession::MatchesEntryDistance(double distanceM) const
+{
+  // A gap has one chart distance. Recognize its float representation and preserve other double distances.
+  return distanceM == m_info.m_entryDistanceM || distanceM == static_cast<float>(m_info.m_entryDistanceM);
+}
+
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
   if (IsPreviewingTrack())
   {
-    if (distanceMeters == m_followSession->m_info.m_entryDistanceM)
+    if (m_followSession->MatchesEntryDistance(distanceMeters))
       return m_followSession->m_data->m_points.front().GetPoint();
     return m_followSession->m_source->GetPoint(distanceMeters);
   }
