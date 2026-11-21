@@ -1,3 +1,4 @@
+#import "MWMAuthorizationCommon.h"
 #import "MWMNavigationController.h"
 
 @class MapViewController;
@@ -20,7 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)enableStandby;
 - (void)disableStandby;
-- (void)completeOAuth2Authorization;
+- (void)completeOAuth2AuthorizationWithCompletion:(void (^)(MWMOAuth2Result result))completion
+    NS_SWIFT_NAME(completeOAuth2Authorization(completion:));
 
 + (void)customizeAppearance;
 + (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar;

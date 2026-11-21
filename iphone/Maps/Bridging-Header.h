@@ -16,6 +16,7 @@
 #import "MWMActionBarButton.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
+#import "MWMAuthorizationLoginViewController.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBottomMenuState.h"
 #import "MWMButtonCell.h"

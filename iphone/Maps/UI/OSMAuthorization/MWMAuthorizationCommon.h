@@ -1,3 +1,14 @@
+#pragma once
+
+#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(NSInteger, MWMOAuth2Result) {
+  MWMOAuth2ResultSuccess,
+  MWMOAuth2ResultFailure,
+  MWMOAuth2ResultSuperseded
+};
+
+#ifdef __cplusplus
 #include "editor/osm_auth.hpp"
 
 namespace osm_auth_ios
@@ -10,9 +21,10 @@ enum class AuthorizationButtonType
   AuthorizationButtonTypeOSM
 };
 
-// Deletes any stored credentials if called with empty key or secret.
+// Call on the main thread.
 void AuthorizationStoreCredentials(std::string const & oauthToken);
-void AuthorizationStoreCredentialsWithOauth2Code(std::string const & oauth2Code);
+// Starts the exchange on a background queue and completes on the main thread.
+void AuthorizationStoreCredentialsWithOauth2Code(std::string const & oauth2Code, void (^completion)(MWMOAuth2Result));
 BOOL AuthorizationHaveOAuth1Credentials();
 void AuthorizationClearOAuth1Credentials();
 BOOL AuthorizationHaveCredentials();
@@ -28,3 +40,4 @@ NSString * OSMUserName();
 NSInteger OSMUserChangesetsCount();
 
 }  // namespace osm_auth_ios
+#endif
