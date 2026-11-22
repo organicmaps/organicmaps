@@ -16,7 +16,7 @@ namespace df
 {
 namespace
 {
-double constexpr kSelectionAnimationTimeSec = 0.25;
+double constexpr kSelectionAnimationTimeSec = 0.18;
 
 // clang-format off
 std::array<float, 20> const kHalfLineWidthInPixel = {

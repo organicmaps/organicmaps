@@ -7,7 +7,8 @@
 
 namespace df
 {
-double constexpr kFlingDuration = 1.5;
+double constexpr kMinFlingDuration = 0.20;
+double constexpr kMaxFlingDuration = 0.35;
 
 // Time window to store move points for better (smooth) _instant_ velocity calculation.
 double constexpr kTimeWindowSec = 0.05;
@@ -93,15 +94,16 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
 
   double const maxSpeed = CalculateKineticMaxSpeed(modelView) * VisualParams::Instance().GetVisualScale();
   double const speed = std::min(releaseSpeed, maxSpeed);
+  double const duration = InterpolateDouble(kMinFlingDuration, kMaxFlingDuration, speed / maxSpeed);
   // Speed falls from the release speed to zero as 1 - t², so its average is two thirds of the release speed.
   auto const & center = modelView.GetOrg();
-  auto const target = center + direction * (speed * modelView.GetScale() * kFlingDuration * (2.0 / 3.0));
+  auto const target = center + direction * (speed * modelView.GetScale() * duration * (2.0 / 3.0));
   auto const & world = GetWorldRect();
   if (target.y < world.minY() || target.y > world.maxY())
     return {};
 
   ScreenBase end = modelView;
   end.SetOrg(target);
-  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, kFlingDuration);
+  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, duration);
 }
 }  // namespace df

@@ -90,7 +90,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, RepeatedZoomAccumulatesBeforeFirstFrame)
   TEST_GREATER(intermediate.GetScale(), start.GetScale() / 4.0, ());
   TEST(intermediate.GtoP(point).EqualDxDy(pixel, 1e-6), (intermediate.GtoP(point), pixel));
 
-  auto const & settled = Process(requestedAt + 200ms);
+  auto const & settled = Process(requestedAt + 160ms);
   TEST_ALMOST_EQUAL_ABS(settled.GetScale(), start.GetScale() / 4.0, 1e-10, ());
   TEST(settled.GtoP(point).EqualDxDy(pixel, 1e-6), (settled.GtoP(point), pixel));
 }
@@ -106,7 +106,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, PanStepsReplaceThePreviousDestinationAnd
   auto const panTime = AddEvent<df::MoveEvent>(kStep, 0.0, true);
   expected.Move(2.0 * kStep * expected.PixelRectIn3d().SizeX(), 0.0);
 
-  auto const & screen = Process(panTime + 200ms);
+  auto const & screen = Process(panTime + 160ms);
   TEST(screen.GetOrg().EqualDxDy(expected.GetOrg(), 1e-9), (screen.GetOrg(), expected.GetOrg()));
 }
 
@@ -139,7 +139,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, TapLetsAutoZoomFinish)
   Finger(df::TouchEvent::TOUCH_UP);
   Process(time + 85ms);
   TEST(m_animations.IsCameraMoving(), ());
-  TEST_ALMOST_EQUAL_ABS(Process(time + 1200ms).GetScale(), target, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(Process(time + 250ms).GetScale(), target, 1e-10, ());
 }
 
 UNIT_CLASS_TEST(CameraAnimationFixture, DoubleTapAndHoldTakesOverFromFollow)
@@ -302,7 +302,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, AutoZoomKeepsTheCameraAndArrowTogether)
        (intermediate.GtoP(arrowPose->m_position), anchor));
   TEST_GREATER(intermediate.GetScale(), endScale, ());
 
-  auto const & settled = Process(requestedAt + 1200ms);
+  auto const & settled = Process(requestedAt + 250ms);
   TEST(!m_animations.IsCameraMoving(), ());
   TEST_ALMOST_EQUAL_ABS(settled.GetScale(), endScale, 1e-10, ());
   TEST_ALMOST_EQUAL_ABS(settled.GetAngle(), -0.4, 1e-10, ());
@@ -339,7 +339,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, QueuedArrowTargetStartsAtThePreviousEndp
   TEST_EQUAL(settled->m_azimuth, nextTarget.m_azimuth, ());
 }
 
-UNIT_CLASS_TEST(CameraAnimationFixture, FlingKeepsReleaseSpeedAndReachesTarget)
+UNIT_CLASS_TEST(CameraAnimationFixture, FlingKeepsReleaseSpeedAndSettlesWithin350Ms)
 {
   df::KineticScroller scroller;
   ScreenBase screen = m_stream.GetCurrentScreen();
@@ -347,17 +347,18 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlingKeepsReleaseSpeedAndReachesTarget)
   scroller.Init(screen, start);
   double const scale = screen.GetScale();
   screen.SetOrg(screen.GetOrg() + m2::PointD(10.0 * scale, 0));
-  scroller.Update(screen, start + 20ms);
-  auto fling = scroller.CreateKineticAnimation(screen, start + 20ms);
+  auto const release = start + 20ms;
+  scroller.Update(screen, release);
+  auto fling = scroller.CreateKineticAnimation(screen, release);
   TEST(fling.has_value(), ());
 
   ScreenBase sample = screen;
-  fling->Advance(start + 21ms);
+  fling->Advance(release + 1ms);
   fling->Apply(sample);
   double const initialSpeed = sample.GetOrg().Length(screen.GetOrg()) / scale / 0.001;
   TEST_ALMOST_EQUAL_ABS(initialSpeed, 500.0, 5.0, ());
 
-  fling->Advance(start + 1520ms);
+  fling->Advance(release + 350ms);
   TEST(fling->IsFinished(), ());
   fling->Apply(sample);
   double const distance = sample.GetOrg().Length(screen.GetOrg()) / scale;
