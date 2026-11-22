@@ -92,6 +92,12 @@ enum class FollowTrackResult
 
 std::string DebugPrint(FollowTrackResult result);
 
+struct RouteElevationData
+{
+  ElevationInfo m_elevationInfo;
+  TrackStatistics m_statistics;
+};
+
 class RoutingManager final
 {
 public:
@@ -327,15 +333,12 @@ public:
   }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
 
-  /// \returns true if altitude information along |m_route| is available and
-  /// false otherwise.
-  bool HasRouteAltitude() const;
+  // Preview charts use the captured full track; navigation charts use the active route.
+  // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
+  std::optional<RouteElevationData> GetRouteElevationData() const;
 
-  /// Returns true for a valid route with complete heights and a nonzero height after simplification.
-  bool GetRouteElevationInfo(ElevationInfo & ei) const;
-
-  /// \brief Interpolates a point along the current route polyline at the given distance from start.
-  /// \return Nullopt if the route is invalid.
+  // Resolve a finite chart distance on the same geometry as GetRouteElevationData().
+  // The accepted preview entry identifies its section at a shared boundary distance.
   std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
   uint32_t OpenRoutePointsTransaction();
@@ -458,8 +461,6 @@ private:
 
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
-
-  bool m_loadAltitudes = false;
 
   struct FollowSession
   {
