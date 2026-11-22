@@ -204,6 +204,7 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryF
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
+  m_routingManager.OnLocationLost();
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
   if (m_drapeEngine != nullptr)
     m_drapeEngine->LoseLocation();
@@ -2544,7 +2545,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
-  if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
+  if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
       !placePageInfo.IsRoutePoint())
   {
     DeactivateMapSelection();
@@ -3230,7 +3231,7 @@ bool Framework::LoadAutoZoom()
 
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
-  routing::RouterType const type = m_routingManager.GetRouter();
+  routing::RouterType const type = m_routingManager.GetRenderRouterType();
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
 
   if (m_drapeEngine != nullptr)
