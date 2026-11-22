@@ -672,6 +672,8 @@
     <string name="avoid_unpaved">Osgoi ffyrdd heb eu palmantu</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Osgoi fferïau</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Osgoi llwybrau anodd</string>
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Osgoi grisiau</string>
     <string name="avoid_motorways">Osgoi traffyrdd</string>
