@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.intent.Factory;
-import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.util.Config;
@@ -38,6 +37,9 @@ public class SplashActivity extends AppCompatActivity
   private static final String TAG = SplashActivity.class.getSimpleName();
 
   private static final long DELAY = 100;
+  private static final String CHOOSING_DISPLAY = "choosing_display";
+  private boolean mChoosingDisplay;
+  private ActivityResultLauncher<Intent> mDisplayChoice;
 
   private boolean mCanceled = false;
 
@@ -74,21 +76,27 @@ public class SplashActivity extends AppCompatActivity
     });
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
-    final DisplayManager displayManager = MwmApplication.from(this).getDisplayManager();
-
-    if (displayManager.isCarDisplayUsed())
-    {
-      startActivity(new Intent(this, MapPlaceholderActivity.class));
-      finish();
-    }
+    mChoosingDisplay = savedInstanceState != null && savedInstanceState.getBoolean(CHOOSING_DISPLAY);
+    mDisplayChoice = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+      mChoosingDisplay = false;
+      if (result.getResultCode() != RESULT_OK)
+        finish();
+    });
   }
 
   @Override
   protected void onResume()
   {
     super.onResume();
-    if (mCanceled)
+    if (mCanceled || mChoosingDisplay || isFinishing())
       return;
+    if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed())
+    {
+      // Keep the original request, its URI grants and its result recipient in this activity.
+      mChoosingDisplay = true;
+      mDisplayChoice.launch(new Intent(this, MapPlaceholderActivity.class));
+      return;
+    }
     if (!Config.isLocationRequested() && !LocationUtils.checkLocationPermission(this))
     {
       Logger.d(TAG, "Requesting location permissions");
@@ -97,6 +105,13 @@ public class SplashActivity extends AppCompatActivity
     }
 
     UiThread.runLater(mInitCoreDelayedTask, DELAY);
+  }
+
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle state)
+  {
+    super.onSaveInstanceState(state);
+    state.putBoolean(CHOOSING_DISPLAY, mChoosingDisplay);
   }
 
   @Override

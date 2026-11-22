@@ -459,11 +459,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(new Intent(this, DownloaderActivity.class).putExtras(args));
   }
 
+  private void returnToStartupForDisplayChoice()
+  {
+    final Intent request = makeDisplayHandoffIntent(this, getIntent(), mIntentConsumed);
+    if (getCallingActivity() != null)
+      request.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+    startActivity(request);
+  }
+
+  @VisibleForTesting
+  static Intent makeDisplayHandoffIntent(@NonNull Context context, @NonNull Intent incoming, boolean consumed)
+  {
+    final Intent request = consumed ? new Intent() : new Intent(incoming);
+    request.setClass(context, SplashActivity.class);
+    request.setFlags(request.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    request.putExtra(EXTRA_CONSUMED, consumed);
+    return request.putExtra(EXTRA_UPDATE_THEME, true);
+  }
+
   @Override
   public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
   {
     mRemoveDisplayListener = false;
-    startActivity(new Intent(this, MapPlaceholderActivity.class));
+    returnToStartupForDisplayChoice();
     mMapController.setOnDestroyListener(onTaskFinishedCallback);
     finish();
   }
@@ -577,7 +595,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mDisplayManager.isCarDisplayUsed())
     {
       mRemoveDisplayListener = false;
-      startActivity(new Intent(this, MapPlaceholderActivity.class));
+      returnToStartupForDisplayChoice();
       finish();
       return;
     }
@@ -1005,7 +1023,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onNewIntent(Intent intent)
   {
     setIntent(intent);
-    mIntentConsumed = false;
+    mIntentConsumed = isIntentConsumed(null, intent);
     super.onNewIntent(intent);
     if (mMapController.isRenderingActive())
       processIntent();

@@ -1,19 +1,22 @@
 package app.organicmaps;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
-import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.sdk.MapsReadiness;
 import app.organicmaps.sdk.display.DisplayChangedListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.display.DisplayType;
 
-public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements DisplayChangedListener
+public class MapPlaceholderActivity extends AppCompatActivity implements DisplayChangedListener
 {
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -26,20 +29,24 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
   private final Runnable mOpenMapWhenReady = this::openMap;
 
   @Override
-  protected boolean requiresMapsReady()
+  protected void onCreate(@Nullable Bundle savedInstanceState)
   {
-    return false;
-  }
-
-  @Override
-  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onSafeCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
+    EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
     setContentView(R.layout.activity_map_placeholder);
 
     final MwmApplication app = MwmApplication.from(this);
     mMapsReadiness = app.getMapsReadiness();
     mDisplayManager = app.getDisplayManager();
+    if (!mDisplayManager.isCarConnected())
+    {
+      // After process death or disconnect the calling splash can resume its original request.
+      mRemoveDisplayListener = false;
+      setResult(RESULT_OK);
+      finish();
+      return;
+    }
     mDisplayManager.addListener(DisplayType.Device, this);
 
     findViewById(R.id.btn_continue).setOnClickListener(view -> {
@@ -52,6 +59,8 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
   protected void onResume()
   {
     super.onResume();
+    if (isFinishing())
+      return;
     updateHandoffUi();
     waitForMapsIfPhoneSelected();
   }
@@ -111,14 +120,14 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
       return;
 
     mRemoveDisplayListener = false;
-    startActivity(new Intent(this, MwmActivity.class).putExtra(MwmActivity.EXTRA_UPDATE_THEME, true));
+    setResult(RESULT_OK);
     finish();
   }
 
   @Override
-  protected void onSafeDestroy()
+  protected void onDestroy()
   {
-    super.onSafeDestroy();
+    super.onDestroy();
     // Removing the listener would return the display to the car; the recreated screen replaces it instead.
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);

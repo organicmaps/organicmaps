@@ -10,13 +10,13 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Looper;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import app.organicmaps.MapPlaceholderActivity;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.display.DisplayChangedListener;
@@ -97,7 +97,7 @@ public class MapPlaceholderActivityReadinessTest
 
       mReadiness.complete();
 
-      assertMapOpened(placeholder.get());
+      assertPhoneChosen(placeholder.get());
     }
   }
 
@@ -131,7 +131,7 @@ public class MapPlaceholderActivityReadinessTest
 
       mReadiness.complete();
 
-      assertMapOpened(placeholder.get());
+      assertPhoneChosen(placeholder.get());
     }
   }
 
@@ -148,7 +148,7 @@ public class MapPlaceholderActivityReadinessTest
       assertNull(shadowOf(placeholder.get()).getNextStartedActivity());
 
       placeholder.resume();
-      assertMapOpened(placeholder.get());
+      assertPhoneChosen(placeholder.get());
     }
   }
 
@@ -167,7 +167,7 @@ public class MapPlaceholderActivityReadinessTest
       assertNull(shadowOf(placeholder.get()).getNextStartedActivity());
 
       placeholder.resume();
-      assertMapOpened(placeholder.get());
+      assertPhoneChosen(placeholder.get());
     }
   }
 
@@ -180,10 +180,10 @@ public class MapPlaceholderActivityReadinessTest
     return placeholder;
   }
 
-  private static void assertMapOpened(MapPlaceholderActivity placeholder)
+  private static void assertPhoneChosen(MapPlaceholderActivity placeholder)
   {
-    final Intent map = shadowOf(placeholder).getNextStartedActivity();
-    assertEquals(MwmActivity.class.getName(), map.getComponent().getClassName());
+    assertEquals(Activity.RESULT_OK, shadowOf(placeholder).getResultCode());
+    assertNull(shadowOf(placeholder).getNextStartedActivity());
     assertTrue(placeholder.isFinishing());
   }
 
