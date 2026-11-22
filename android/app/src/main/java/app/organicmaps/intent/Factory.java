@@ -12,6 +12,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
@@ -83,7 +84,7 @@ public class Factory
       if (uri == null)
         return false;
 
-      switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
+      switch (Framework.parseAndSetApiUrl(uri))
       {
       case RequestType.INCORRECT: return false;
 
@@ -160,7 +161,20 @@ public class Factory
     @Override
     public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
-      return handleIntent(intent, (query, searchOnMap) -> activity.showSearch(query, null, searchOnMap));
+      return handleIntent(intent, new SearchHandler() {
+        @Override
+        public void handleSearch(@NonNull String query, boolean searchOnMap)
+        {
+          activity.showSearch(query, null, searchOnMap);
+        }
+
+        @Override
+        public void handleDestination(@NonNull MapObject destination, @NonNull Router router, boolean parsedMap)
+        {
+          RoutingController.get().prepare(MwmApplication.from(activity).getLocationHelper().getMyPosition(),
+                                          destination, router);
+        }
+      });
     }
   }
 }

@@ -1,5 +1,6 @@
 package app.organicmaps.sdk;
 
+import android.net.Uri;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -187,8 +188,15 @@ public class Framework
 
   public static native void nativeClearApiPoints();
 
-  @NonNull
-  public static native @RequestType int nativeParseAndSetApiUrl(String url);
+  /** Parses Android map URIs, including the offline variant advertised by the Android hosts. */
+  public static @RequestType int parseAndSetApiUrl(@NonNull Uri uri)
+  {
+    if ("geo.offline".equals(uri.getScheme()))
+      uri = uri.buildUpon().scheme("geo").build();
+    return nativeParseAndSetApiUrl(uri.toString());
+  }
+
+  public static native @RequestType int nativeParseAndSetApiUrl(@NonNull String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
 
   // Custom raster background tiles (Settings -> Background Map tiles).

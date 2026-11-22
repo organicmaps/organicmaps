@@ -279,9 +279,21 @@ public class AndroidAutoSessionIntentTest
   }
 
   @Test
+  public void offlineLegacyCoordinateLaunchShowsTheCarRoutePreview()
+  {
+    mReadiness.complete();
+    createSession(new Intent("android.intent.action.NAVIGATE", Uri.parse("geo.offline:1,2?mode=w")), false);
+    moveTo(Lifecycle.State.STARTED);
+    assertTrue(mScreens.getTop() instanceof PlaceScreen);
+    verify(mController).prepare(any(), org.mockito.ArgumentMatchers.eq(NativeFramework.destination));
+    assertEquals(List.of("geo:1,2?mode=w"), mDelivered);
+  }
+
+  @Test
   public void assistantViewSearchWaitsForThePhoneToCarHandoff()
   {
     mReadiness.complete();
+    NativeFramework.requestType = RequestType.SEARCH;
     final Uri uri = Uri.parse("geo://0,0?entry=assistant&q=coffee");
     createSession(new Intent(Intent.ACTION_VIEW, uri), true);
     moveTo(Lifecycle.State.STARTED);
@@ -714,7 +726,7 @@ public class AndroidAutoSessionIntentTest
     @Implementation
     protected static double[] nativeGetParsedCenterLatLon()
     {
-      return null;
+      return requestType == RequestType.MAP ? new double[] {1, 2} : null;
     }
   }
 
