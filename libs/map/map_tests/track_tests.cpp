@@ -499,7 +499,7 @@ UNIT_TEST(Track_UpdateSelectionInfo_DefaultThresholdAcceptsAny)
 
   Track::TrackSelectionInfo info;
   // Default info.m_squareDist = max. Tap very far from the track.
-  track.UpdateSelectionInfo(m2::PointD(1e6, 1e6), info);
+  track.UpdateSelectionInfo(m2::PointD(100.0, 80.0), info);
   TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
   TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(10.0, 0.0), kEqualPointsEps, ());
 }

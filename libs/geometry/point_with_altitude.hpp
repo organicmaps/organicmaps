@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/math.hpp"
@@ -45,7 +46,7 @@ public:
     Altitude const altitude = m_altitude == kInvalidAltitude || to.m_altitude == kInvalidAltitude
                                 ? kInvalidAltitude
                                 : math::iround(m_altitude + (to.m_altitude - m_altitude) * f);
-    return {m_point + (to.m_point - m_point) * f, altitude};
+    return {mercator::Interpolate(m_point, to.m_point, f), altitude};
   }
 
 private:

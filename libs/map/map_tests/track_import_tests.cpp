@@ -2,6 +2,7 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/track.hpp"
+#include "map/track_follow_data.hpp"
 
 #include "kml/serdes_geojson.hpp"
 #include "kml/serdes_gpx.hpp"
@@ -35,6 +36,30 @@ std::string Export(kml::FileData const & data, FileType type)
   return text;
 }
 }  // namespace
+
+UNIT_TEST(TrackImport_GpxRoutePointsKeepTheirOrderAfterKmlReload)
+{
+  auto const imported = LoadKmlData(MemReader(R"(<gpx><rte>
+    <rtept lat="1" lon="1"/>
+    <rtept lat="1" lon="1.005"><name>Station</name></rtept>
+    <rtept lat="1" lon="1.005"><name>Meeting point</name></rtept>
+    <rtept lat="1" lon="1.01"><name>Turnaround</name></rtept>
+    <rtept lat="1" lon="1.005"><name>Café on return</name></rtept>
+    <rtept lat="1" lon="1.002"/></rte></gpx>)"),
+                                    FileType::Gpx);
+  TEST(imported, ());
+  auto const reloaded = LoadKmlData(MemReader(Export(*imported, FileType::Kml)), FileType::Kml);
+  TEST(reloaded, ());
+  auto const & track = reloaded->m_tracksData.at(0);
+  TEST_EQUAL(track.m_stops.size(), 4, ());
+  TEST_EQUAL(track.m_stops[3].m_name, "Café on return", ());
+  auto const full = BuildTrackFollowingData(track, {0, 0, 0.0});
+  TEST(full, ());
+  TEST_EQUAL(full->m_stopPointIndexes, (std::vector<size_t>{1, 1, 2, 3}), ());
+  auto const remainder = BuildTrackFollowingData(track, {0, 2, 0.0});
+  TEST(remainder, ());
+  TEST_EQUAL(remainder->m_stopPointIndexes, (std::vector<size_t>{0, 1}), ());
+}
 
 UNIT_TEST(TrackImport_CompactsWrappedPositionsAndKeepsMeasurementsAligned)
 {

@@ -4,9 +4,9 @@
 #include "map/user_mark_id_storage.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/parametrized_segment.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
@@ -45,9 +45,14 @@ std::vector<Track::Lengths> Track::GetLengthsImpl() const
 m2::RectD Track::GetLimitRectImpl() const
 {
   m2::RectD limitRect;
+  double x = 0.0;
   for (auto const & line : m_data.m_geometry.m_lines)
     for (auto const & pt : line)
-      limitRect.Add(pt.GetPoint());
+    {
+      auto const point = mercator::NearestWorldCopy(pt.GetPoint(), x);
+      limitRect.Add(point);
+      x = point.x;
+    }
   return limitRect;
 }
 
@@ -100,34 +105,37 @@ m2::RectD Track::GetLimitRect() const
 
 double Track::GetLengthMeters() const
 {
-  if (!m_interactionData)
-    CacheDataForInteraction();
-  return m_interactionData->m_lengths.back().back();
+  return GetCumulativeLengths().back().back();
 }
 
-double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
+std::vector<Track::Lengths> const & Track::GetCumulativeLengths() const
 {
   if (!m_interactionData)
     CacheDataForInteraction();
-  auto const & lineLengths = m_interactionData->m_lengths[lineIndex];
-  return lineLengths[ptIndex];
+  return m_interactionData->m_lengths;
 }
 
 void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
 {
   // Caller sets info.m_squareDist to the max allowed squared distance (mercator). Any segment
   // whose closest point is strictly closer replaces the current best.
-  if (m_interactionData && m_interactionData->m_limitRect.SquaredDistance(tapPoint) >= info.m_squareDist)
-    return;
+  if (m_interactionData)
+  {
+    auto const & rect = m_interactionData->m_limitRect;
+    if (rect.SquaredDistance(mercator::NearestWorldCopy(tapPoint, rect.Center().x)) >= info.m_squareDist)
+      return;
+  }
 
   for (size_t lineIndex = 0; lineIndex < m_data.m_geometry.m_lines.size(); ++lineIndex)
   {
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
     for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
-      m2::ParametrizedSegment<m2::PointD> seg(line[ptIndex].GetPoint(), line[ptIndex + 1].GetPoint());
-      auto const closestPoint = seg.ClosestPointTo(tapPoint);
-      auto const squaredDist = closestPoint.SquaredLength(tapPoint);
+      auto const & from = line[ptIndex].GetPoint();
+      auto const & to = line[ptIndex + 1].GetPoint();
+      double const fraction = mercator::SegmentProjectionFraction(from, to, tapPoint);
+      auto const closestPoint = mercator::Interpolate(from, to, fraction);
+      auto const squaredDist = mercator::NearestWorldCopy(closestPoint, tapPoint.x).SquaredLength(tapPoint);
       if (squaredDist >= info.m_squareDist)
         continue;
 
@@ -137,8 +145,9 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;
 
-      auto const segDistInMeters = mercator::DistanceOnEarth(line[ptIndex].GetPoint(), closestPoint);
-      info.m_distFromBegM = segDistInMeters + GetLengthMetersImpl(lineIndex, ptIndex);
+      // Interpolate cumulative chart distance with the same segment fraction as GetPoint().
+      auto const & lengths = GetCumulativeLengths()[lineIndex];
+      info.m_distFromBegM = std::lerp(lengths[ptIndex], lengths[ptIndex + 1], fraction);
     }
   }
 }
@@ -215,10 +224,7 @@ void Track::Detach()
 
 m2::PointD Track::GetPoint(double distanceInMeters) const
 {
-  if (!m_interactionData)
-    CacheDataForInteraction();
-
-  auto const & lengths = m_interactionData->m_lengths;
+  auto const & lengths = GetCumulativeLengths();
   ASSERT(!lengths.empty(), ());
 
   for (size_t lineIndex = 0; lineIndex < lengths.size(); ++lineIndex)
@@ -247,7 +253,7 @@ m2::PointD Track::GetPoint(double distanceInMeters) const
     double const f = (distanceInMeters - lineLengths[ptIdx]) / segLen;
     auto const & p1 = line[ptIdx].GetPoint();
     auto const & p2 = line[ptIdx + 1].GetPoint();
-    return p1 + (p2 - p1) * f;
+    return mercator::Interpolate(p1, p2, f);
   }
 
   // Distance beyond last line — return last point.
