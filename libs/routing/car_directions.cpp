@@ -390,11 +390,11 @@ void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidat
     return;
 
   // Candidates are sorted by angle, so the immediate neighbors determine whether the route is an outermost turn.
-  double constexpr kRightAngle = 90.0;
+  double constexpr kMinSharpAlternativeAngle = 90.0;
   bool const hasLeft = route != turnCandidates.begin();
   bool const hasRight = route + 1 != turnCandidates.end();
-  bool const isLeftmost = hasRight && (!hasLeft || route[-1].m_angle <= -kRightAngle);
-  bool const isRightmost = hasLeft && (!hasRight || route[1].m_angle >= kRightAngle);
+  bool const isLeftmost = hasRight && (!hasLeft || route[-1].m_angle <= -kMinSharpAlternativeAngle);
+  bool const isRightmost = hasLeft && (!hasRight || route[1].m_angle >= kMinSharpAlternativeAngle);
   // If sharp alternatives on both sides make the route qualify as both extremes, keep its geometric direction.
   if (isLeftmost == isRightmost)
     return;

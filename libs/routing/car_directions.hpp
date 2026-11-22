@@ -25,6 +25,9 @@ protected:
 
 void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
+void CorrectRightmostAndLeftmost(std::vector<turns::TurnCandidate> const & turnCandidates,
+                                 Segment const & firstOutgoingSeg, double turnAngle, turns::TurnItem & turn);
+
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
  * \returns an index in |segments| that has the opposite direction with master segment
