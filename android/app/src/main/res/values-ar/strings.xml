@@ -672,6 +672,8 @@
     <string name="avoid_unpaved">تجنب الطرق الغير معبدة</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">تجنب استخدام العبّارات</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">تجنب مسارات المشي الصعبة</string>
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">تجنب الدرج</string>
     <string name="avoid_motorways">تجنب الطريق السريع</string>

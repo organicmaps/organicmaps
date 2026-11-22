@@ -661,6 +661,8 @@
     <string name="avoid_unpaved">Vengti negrįstų kelių</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vengti keltų</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Vengti sudėtingų takų</string>
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Vengti laiptų</string>
     <string name="avoid_motorways">Vengti greitkelių</string>

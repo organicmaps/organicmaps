@@ -668,6 +668,8 @@
     <string name="avoid_unpaved">Evita toroq mhux pavimentati</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evita l-laneċ</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Evita l-mogħdijiet diffiċli</string>
     <!-- Routing option to avoid stairs on walking and cycling routes -->
     <string name="avoid_steps">Evita t-taraġ</string>
     <string name="avoid_motorways">Evita l-passaġġi ħielsa</string>
