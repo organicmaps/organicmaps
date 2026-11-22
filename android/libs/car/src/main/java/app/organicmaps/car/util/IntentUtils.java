@@ -1,7 +1,6 @@
 package app.organicmaps.car.util;
 
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
@@ -37,24 +36,29 @@ public final class IntentUtils
     if (ASSISTANT_PROCESSOR.processIntent(carContext, organicMapsContext, surfaceRenderer, intent))
       return;
 
-    if (MapRequest.isNavigationAction(intent.getAction()) || isGeoView(intent))
-      processNavigationIntent(carContext, organicMapsContext, surfaceRenderer, intent);
+    if (isMapRequest(intent))
+      processMapRequest(carContext, organicMapsContext, surfaceRenderer, intent);
     else if (isShowNavigationRequest(intent))
       showNavigationScreen(carContext);
   }
 
   public static boolean requiresCarDisplay(@NonNull Intent intent)
   {
-    if (intent.getData() == null)
-      return false;
-    return MapRequest.isNavigationAction(intent.getAction()) || isGeoView(intent) || isShowNavigationRequest(intent);
+    return isMapRequest(intent) || isShowNavigationRequest(intent);
   }
 
-  private static boolean isGeoView(@NonNull Intent intent)
+  private static boolean isMapRequest(@NonNull Intent intent)
   {
     final Uri uri = intent.getData();
-    return Intent.ACTION_VIEW.equals(intent.getAction()) && uri != null
- && ("geo".equals(uri.getScheme()) || "geo.offline".equals(uri.getScheme()));
+    if (uri == null)
+      return false;
+    if (MapRequest.isNavigationAction(intent.getAction()))
+      return true;
+    if (!Intent.ACTION_VIEW.equals(intent.getAction()))
+      return false;
+    final String scheme = uri.getScheme();
+    return "geo".equals(scheme) || "geo.offline".equals(scheme)
+ || (Const.API_SCHEME.equals(scheme) && "search".equals(uri.getAuthority()));
   }
 
   private static final class CarGoogleAssistantIntentProcessor extends GoogleAssistantIntentHandler
@@ -91,20 +95,17 @@ public final class IntentUtils
   @NonNull
   public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
   {
-    final String uri = "geo:0,0?q=" + query.replace(" ", "+");
-    final ComponentName component = new ComponentName(context, CarAppServiceBase.getCarServiceClass());
-    final Intent intent = new Intent().setComponent(component).setData(Uri.parse(uri));
+    final Uri uri =
+        new Uri.Builder().scheme(Const.API_SCHEME).authority("search").appendQueryParameter("query", query).build();
+    final Intent intent = new Intent(Intent.ACTION_VIEW, uri, context, CarAppServiceBase.getCarServiceClass());
     return CarPendingIntent.getCarApp(context, 0, intent, 0);
   }
 
   // https://developer.android.com/reference/androidx/car/app/CarContext#startCarApp(android.content.Intent)
-  private static void processNavigationIntent(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
-                                              @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
+  private static void processMapRequest(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
+                                        @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
   {
     final Uri uri = intent.getData();
-    if (uri == null)
-      return;
-
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
     switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
     {

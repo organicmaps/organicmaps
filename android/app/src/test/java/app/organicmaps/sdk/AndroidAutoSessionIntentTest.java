@@ -34,6 +34,7 @@ import androidx.car.app.testing.TestScreenManager;
 import androidx.car.app.versioning.CarAppApiLevels;
 import androidx.lifecycle.Lifecycle;
 import app.organicmaps.api.Const;
+import app.organicmaps.car.AndroidAutoService;
 import app.organicmaps.car.AndroidAutoSession;
 import app.organicmaps.car.CarAppServiceBase;
 import app.organicmaps.car.screens.ErrorScreen;
@@ -43,6 +44,7 @@ import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
 import app.organicmaps.car.screens.search.SearchScreen;
+import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
@@ -258,20 +260,24 @@ public class AndroidAutoSessionIntentTest
   }
 
   @Test
-  public void searchWaitsForThePhoneToCarHandoff()
+  public void recentSearchWaitsForThePhoneToCarHandoff()
   {
     mReadiness.complete();
     NativeFramework.requestType = RequestType.SEARCH;
     mPlanning = true;
     mEndPoint = NativeFramework.destination;
-    createSession(new Intent(CarContext.ACTION_NAVIGATE, Uri.parse("geo:0,0?q=coffee")), true);
+    final String query = "A&B + Museum (West)";
+    final Intent intent = recentSearch(query);
+    assertEquals(Intent.ACTION_VIEW, intent.getAction());
+    createSession(intent, true);
     moveTo(Lifecycle.State.STARTED);
     assertTrue(mDelivered.isEmpty());
     shadowOf(Looper.getMainLooper()).idle();
     assertTrue(mDisplay.isCarDisplayUsed());
     assertTrue(mRenderingActive);
     assertTrue(mScreens.getTop() instanceof SearchScreen);
-    assertEquals(List.of("geo:0,0?q=coffee"), mDelivered);
+    assertEquals(List.of(intent.getDataString()), mDelivered);
+    assertEquals(query, intent.getData().getQueryParameter("query"));
     moveTo(Lifecycle.State.CREATED);
     moveTo(Lifecycle.State.STARTED);
     shadowOf(Looper.getMainLooper()).idle();
@@ -536,7 +542,7 @@ public class AndroidAutoSessionIntentTest
     when(mController.isNavigating()).thenReturn(true);
     doCallRealMethod().when(mController).onExplicitMapRequest(false);
     NativeFramework.requestType = RequestType.SEARCH;
-    mSession.onNewIntent(new Intent(CarContext.ACTION_NAVIGATE, Uri.parse("geo:0,0?q=coffee")));
+    mSession.onNewIntent(recentSearch("coffee"));
     assertTrue(mScreens.getTop() instanceof SearchScreen);
     mScreens.getTop().finish();
     shadowOf(Looper.getMainLooper()).idle();
@@ -590,6 +596,13 @@ public class AndroidAutoSessionIntentTest
   private static Intent coordinates()
   {
     return new Intent(CarContext.ACTION_NAVIGATE, Uri.parse("geo:1,2"));
+  }
+
+  private Intent recentSearch(String query)
+  {
+    // The service registers its component before creating a session.
+    new AndroidAutoService();
+    return shadowOf(IntentUtils.createSearchIntent(mContext, query)).getSavedIntent();
   }
 
   private static class CompletingPhone implements DisplayChangedListener
