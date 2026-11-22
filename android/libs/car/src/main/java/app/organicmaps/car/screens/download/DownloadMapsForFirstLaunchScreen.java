@@ -9,22 +9,26 @@ import app.organicmaps.car.R;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
+import java.util.List;
 
 class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen implements UserActionRequired
 {
+  private final List<CountryItem> mWorldMaps =
+      List.of(CountryItem.fill(DownloaderHelpers.WORLD_MAPS[0]), CountryItem.fill(DownloaderHelpers.WORLD_MAPS[1]));
+
   DownloadMapsForFirstLaunchScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {
     super(builder);
     disableCancelAction();
-    getMissingMaps().add(CountryItem.fill(DownloaderHelpers.WORLD_MAPS[0]));
-    getMissingMaps().add(CountryItem.fill(DownloaderHelpers.WORLD_MAPS[1]));
+    getMissingMaps().addAll(mWorldMaps);
   }
 
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
-    // Include the current region in the initial World download when a location is available.
+    getMissingMaps().clear();
+    getMissingMaps().addAll(mWorldMaps);
     final Location location = getLocationHelper().getSavedLocation();
     if (location == null)
       return;

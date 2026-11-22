@@ -13,11 +13,10 @@ public final class DownloaderHelpers
 {
   static final String[] WORLD_MAPS = new String[] {"World", "WorldCoasts"};
 
-  // World maps may be missing only in the F-Droid build.
-  @SuppressWarnings("ConstantConditions")
+  // Google and Huawei package :sdk:maps:world with the app.
   public static boolean isWorldMapsDownloadNeeded(@NonNull final String flavor)
   {
-    if ("fdroid".equals(flavor))
+    if ("fdroid".equals(flavor) || "web".equals(flavor))
       return !CountryItem.fill(WORLD_MAPS[0]).present || !CountryItem.fill(WORLD_MAPS[1]).present;
     return false;
   }
