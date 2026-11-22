@@ -8,8 +8,10 @@
 #include "base/stl_iterator.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <functional>
 #include <string>
+#include <string_view>
 #include <utility>
 
 using editor::XMLFeature;
@@ -239,9 +241,28 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
   return bestMatchNode;
 }
 
-pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse, std::vector<m2::PointD> const & geometry)
+pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse, std::vector<m2::PointD> const & geometry,
+                                       editor::XMLFeature const * feature /* = nullptr */)
 {
+  // Scores of the same polygon may differ in the last digits, e.g. when its ways start at another node.
+  double constexpr kSameScoreEps = 1e-6;
+
+  auto const countSharedTags = [feature](pugi::xml_node const & wayOrRelation)
+  {
+    size_t count = 0;
+    if (!feature)
+      return count;
+    for (auto const & tag : wayOrRelation.select_nodes("tag"))
+    {
+      std::string_view const value = tag.node().attribute("v").value();
+      if (!value.empty() && feature->GetTagValue(tag.node().attribute("k").value()) == value)
+        ++count;
+    }
+    return count;
+  };
+
   double bestScore = geometry::kPenaltyScore;
+  size_t bestSharedTags = 0;
   pugi::xml_node bestMatchWay;
 
   auto const xpath = "osm/way|osm/relation[tag[@k='type' and @v='multipolygon']]";
@@ -252,9 +273,12 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse, s
     if (nodeScore < 0)
       continue;
 
-    if (bestScore < nodeScore)
+    auto const sharedTags = countSharedTags(xWayOrRelation.node());
+    bool const isSameScore = std::abs(nodeScore - bestScore) <= kSameScoreEps;
+    if (isSameScore ? bestSharedTags < sharedTags : bestScore < nodeScore)
     {
       bestScore = nodeScore;
+      bestSharedTags = sharedTags;
       bestMatchWay = xWayOrRelation.node();
     }
   }
