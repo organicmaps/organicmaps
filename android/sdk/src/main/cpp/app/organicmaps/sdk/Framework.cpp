@@ -1740,6 +1740,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetVisibleRect(JNIEnv * 
   frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowRect(JNIEnv *, jclass, jdouble minLat, jdouble minLon,
+                                                                 jdouble maxLat, jdouble maxLon, jboolean animate)
+{
+  frm()->ShowArea(ms::LatLon(minLat, minLon), ms::LatLon(maxLat, maxLon), animate);
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteFinished();

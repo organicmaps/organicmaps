@@ -501,7 +501,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         auto bbox = m_selectionShape->GetSelectionGeometryBoundingBox();
         CHECK(bbox.IsValid(), ());
         bbox.Scale(kBoundingBoxScale);
-        AddUserEvent(make_unique_dp<SetRectEvent>(bbox, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
+        AddUserEvent(make_unique_dp<SetRectEvent>(bbox, true /* rotate */, true /* isAnim */,
                                                   true /* useVisibleViewport */, nullptr /* parallelAnimCreator */));
       }
     }
@@ -2771,8 +2771,8 @@ void FrontendRenderer::ChangeModelView(double azimuth, TAnimationCreator const &
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
-                                            false /* useVisibleViewport */, parallelAnimCreator));
+  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true /* rotate */, true /* isAnim */, false /* useVisibleViewport */,
+                                            parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,

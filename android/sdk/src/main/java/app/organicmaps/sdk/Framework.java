@@ -412,7 +412,25 @@ public class Framework
   @Nullable
   public static native String nativeGetActiveTransitRouteRef();
 
+  /**
+   * Sets the uncovered part of the map surface in pixels from the surface's top-left corner.
+   * Apply it after {@link MapRenderingListener#onRenderingCreated()} or
+   * {@link MapRenderingListener#onRenderingRestored()} and before fitting an area. Reapply it after a resize.
+   * Updates less than 100 px wide or high are ignored.
+   */
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
+
+  /**
+   * Shows the area between two WGS84 corners north up. Fits inside the current visible rect up to the closest zoom
+   * allowed. The default is the full surface. Use {@link #nativeSetVisibleRect} to set the visible rect.
+   * Latitudes must be finite and in {@code [-90, 90]}, and longitudes must be finite and in {@code [-180, 180]}.
+   * Pass ordered bounds with {@code minLat <= maxLat} and {@code minLon <= maxLon}. Equal endpoints show a point or
+   * a line. The longitude interval runs eastward within one world copy.
+   * Requires a created map renderer. Use {@link #nativeStopLocationFollow} first to keep position updates from
+   * moving the camera back. Mercator clamps latitudes beyond about 85.05 degrees north or south. World limits can
+   * leave a large or polar area off center or outside the visible rect.
+   */
+  public static native void nativeShowRect(double minLat, double minLon, double maxLat, double maxLon, boolean animate);
 
   // Navigation.
   public static native boolean nativeIsRouteFinished();

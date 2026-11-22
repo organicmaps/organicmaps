@@ -1335,13 +1335,34 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
 void Framework::ShowRect(m2::RectD const & rect, bool animation, bool useVisibleViewport)
 {
   if (m_drapeEngine)
-    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */, animation, useVisibleViewport);
+    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, animation, useVisibleViewport);
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect, bool animation, bool useVisibleViewport)
 {
   if (m_drapeEngine)
     m_drapeEngine->SetModelViewAnyRect(rect, animation, useVisibleViewport);
+}
+
+void Framework::ShowArea(ms::LatLon const & southWest, ms::LatLon const & northEast, bool animation)
+{
+  // Without the drape engine the request would be dropped silently.
+  ASSERT(m_drapeEngine, ());
+  // math::is_finite() also catches NaN under the fast-math flags, which the range checks alone would not.
+  ASSERT(math::is_finite(southWest.m_lat) && math::is_finite(southWest.m_lon) && math::is_finite(northEast.m_lat) &&
+             math::is_finite(northEast.m_lon),
+         (southWest, northEast));
+  ASSERT(mercator::ValidLat(southWest.m_lat) && mercator::ValidLat(northEast.m_lat) &&
+             mercator::ValidLon(southWest.m_lon) && mercator::ValidLon(northEast.m_lon) &&
+             southWest.m_lat <= northEast.m_lat && southWest.m_lon <= northEast.m_lon,
+         (southWest, northEast));
+  if (m_drapeEngine == nullptr)
+    return;
+
+  // North up, so that the whole area fits. Through the plain rect, not an m2::AnyRectD: the drape engine then animates
+  // across the antimeridian the short way.
+  m2::RectD const rect(mercator::FromLatLon(southWest), mercator::FromLatLon(northEast));
+  m_drapeEngine->SetModelViewRect(rect, false /* applyRotation */, animation, true /* useVisibleViewport */);
 }
 
 void Framework::SetViewportListener(TViewportChangedFn const & fn)
