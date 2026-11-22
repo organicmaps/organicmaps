@@ -102,8 +102,6 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_contactLine)
              ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq",
              ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq",
-             ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/fom5198h"), "fom5198h", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/qn58n8g?web=mobile"), "qn58n8g", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/?accountId=673watcr"), "673watcr", ());
@@ -251,7 +249,6 @@ UNIT_TEST(EditableMapObject_ValidateLinePage)
   TEST(osm::ValidateLinePage("http://line.me/R/home/public/main?id=hmczqsbav5"), ());
   TEST(osm::ValidateLinePage("https://line.me/R/home/public/main?id=wa1gvx91jb"), ());
   TEST(osm::ValidateLinePage("http://line.me/R/home/public/profile?id=5qll5dyqqu"), ());
-  TEST(osm::ValidateLinePage("https://line.me/R/home/public/profile?id=r90ck7n1rq"), ());
   TEST(osm::ValidateLinePage("https://line.me/R/home/public/profile?id=r90ck7n1rq"), ());
   TEST(osm::ValidateLinePage("https://page.line.me/fom5198h"), ());
   TEST(osm::ValidateLinePage("https://page.line.me/qn58n8g?web=mobile"), ());
