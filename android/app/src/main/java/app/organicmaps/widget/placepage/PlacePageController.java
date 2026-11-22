@@ -16,6 +16,7 @@ import android.view.ViewOutlineProvider;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -198,8 +199,9 @@ public class PlacePageController
   }
 
   // Returns the "avoid" routing button for an avoidable warning, or null otherwise.
+  @VisibleForTesting
   @Nullable
-  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
+  static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
   {
     return switch (type)
     {
@@ -207,7 +209,8 @@ public class PlacePageController
       case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
       case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
       case STEPS -> PlacePageButtons.ButtonType.ROUTE_AVOID_STEPS;
-      default -> null;
+      case DIFFICULT_TRAIL, EXPERT_TRAIL -> PlacePageButtons.ButtonType.ROUTE_AVOID_DIFFICULT_TRAILS;
+      case GATE, LIFT_GATE, UNKNOWN -> null;
     };
   }
 
@@ -519,6 +522,7 @@ public class PlacePageController
     case ROUTE_AVOID_UNPAVED -> onAvoidBtnClicked(RoadType.Dirty);
     case ROUTE_AVOID_FERRY -> onAvoidBtnClicked(RoadType.Ferry);
     case ROUTE_AVOID_STEPS -> onAvoidBtnClicked(RoadType.Steps);
+    case ROUTE_AVOID_DIFFICULT_TRAILS -> onAvoidBtnClicked(RoadType.DifficultTrail);
     }
   }
 

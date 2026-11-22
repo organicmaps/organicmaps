@@ -39,6 +39,8 @@ final class ActionBarViewController: UIViewController {
         avoidance = (.dirty, .avoidDirty)
       case .steps:
         avoidance = (.steps, .avoidSteps)
+      case .difficultTrail:
+        avoidance = (.difficultTrail, .avoidDifficultTrails)
       default:
         fatalError()
       }

@@ -94,6 +94,11 @@ public class PlacePageButtonFactory
         titleId = R.string.avoid_steps;
         yield R.drawable.ic_avoid_steps;
       }
+      case ROUTE_AVOID_DIFFICULT_TRAILS ->
+      {
+        titleId = R.string.avoid_difficult_trails;
+        yield R.drawable.ic_avoid_difficult_trails;
+      }
       case MORE ->
       {
         titleId = R.string.placepage_more_button;

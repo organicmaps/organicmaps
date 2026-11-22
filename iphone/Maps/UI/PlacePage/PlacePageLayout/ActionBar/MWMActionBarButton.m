@@ -24,6 +24,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeAvoidDirty: return L(@"avoid_unpaved");
   case MWMActionBarButtonTypeAvoidFerry: return L(@"avoid_ferry");
   case MWMActionBarButtonTypeAvoidSteps: return L(@"avoid_steps");
+  case MWMActionBarButtonTypeAvoidDifficultTrails: return L(@"avoid_difficult_trails");
   }
 }
 
@@ -125,6 +126,9 @@ typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
     break;
   case MWMActionBarButtonTypeAvoidSteps:
     [self.button setImage:[UIImage imageNamed:@"ic_avoid_steps"] forState:UIControlStateNormal];
+    break;
+  case MWMActionBarButtonTypeAvoidDifficultTrails:
+    [self.button setImage:[UIImage imageNamed:@"ic_avoid_difficult_trails"] forState:UIControlStateNormal];
     break;
   }
 

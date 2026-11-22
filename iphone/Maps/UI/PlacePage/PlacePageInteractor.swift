@@ -275,6 +275,8 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       MWMPlacePageManagerHelper.avoidRoadType(.ferry)
     case .avoidSteps:
       MWMPlacePageManagerHelper.avoidRoadType(.steps)
+    case .avoidDifficultTrails:
+      MWMPlacePageManagerHelper.avoidRoadType(.difficultTrail)
     case .more:
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:

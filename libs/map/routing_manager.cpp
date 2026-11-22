@@ -839,9 +839,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
     { transitRouteDisplay->CreateTransitMarks(); });
   }
 
-  // HasWarnings signals avoidable car-road warnings. Walking and cycling still render their warning
-  // marks and expose ferry/steps avoidance directly.
-  // Gate/lift_gate have no avoidance control.
+  // HasWarnings signals avoidable warnings for driving. All profiles still render their warning marks.
   bool const hasDrivingOptionsWarning =
       m_currentRouterType == RouterType::Vehicle &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });
