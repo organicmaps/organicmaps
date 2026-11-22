@@ -8,6 +8,8 @@
     <string name="search">搜尋</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">您目前已禁用此裝置或應用程式的所有位置權限，請在設定中啟用。</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">為了確保准確的導航啟用設置中的精確位置。</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">下載失敗</string>
     <string name="close">關閉</string>

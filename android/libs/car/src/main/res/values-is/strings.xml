@@ -8,6 +8,8 @@
     <string name="search">Leita</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Allar staðsetningarþjónustur eru óvirkar fyrir þetta forrit eða tæki. Virkjaðu þær í stillingunum.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Til að tryggja nákvæma leiðsögn ættirðu að virkja nákvæma staðsetningu í stillingunum.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Mistókst að sækja</string>
     <string name="close">Loka</string>

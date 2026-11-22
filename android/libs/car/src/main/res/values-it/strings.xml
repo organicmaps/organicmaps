@@ -8,6 +8,8 @@
     <string name="search">Cerca</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Servizi di localizzazione del dispositivo o di questa app disattivati. Abilitali dalle impostazioni.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Per garantire una navigazione accurata, attiva la funzione Posizione precisa nelle impostazioni.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Download fallito</string>
     <string name="close">Chiudi</string>

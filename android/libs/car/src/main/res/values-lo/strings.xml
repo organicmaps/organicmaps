@@ -8,6 +8,8 @@
     <string name="search">ຄົ້ນຫາ</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">ໃນປັດຈຸບັນທ່ານໄດ້ປິດການບໍລິການຕຳແໜ່ງທີ່ຕັ້ງທັງໝົດສຳລັບອຸປະກອນ ຫຼື ແອັບພລິເຄຊັນນີ້. ກະລຸນາເປີດການໃຊ້ງານໃນການຕັ້ງຄ່າ.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">ເພື່ອໃຫ້ການນຳທາງຊັດເຈນ, ກະລຸນາເປີດຕຳແໜ່ງທີ່ຕັ້ງຊັດເຈນໃນການຕັ້ງຄ່າ.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">ການດາວໂຫລດລົ້ມເຫຼວ</string>
     <string name="close">ປິດ</string>

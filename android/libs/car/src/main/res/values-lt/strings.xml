@@ -8,6 +8,8 @@
     <string name="search">Ieškoti</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Šiuo metu jūsų įrenginyje arba šiai programėlei visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Jeigu norite užtikrinti tikslią navigaciją, nustatymuose įjunkite galimybę nustatyti tikslią vietą.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Atsiuntimas nepavyko</string>
     <string name="close">Užverti</string>

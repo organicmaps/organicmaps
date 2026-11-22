@@ -8,6 +8,8 @@
     <string name="search">Zoek</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Voor nauwkeurige navigatie schakelt u Precise Location in bij instellingen.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Downloaden is mislukt</string>
     <string name="close">Sluit</string>

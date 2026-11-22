@@ -8,6 +8,8 @@
     <string name="search">Otsi</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Nutiseadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need seadistustest.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Täpse tee juhatamise tagamiseks lülita seadistuses sisse Täpne asukoht.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Allalaadimine ei õnnestunud</string>
     <string name="close">Sulge</string>
