@@ -65,6 +65,7 @@
 #include <atomic>
 #include <functional>
 #include <memory>
+#include <mutex>
 #include <optional>
 #include <string>
 #include <vector>
@@ -390,7 +391,6 @@ public:
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
-  storage::CountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged listener);
 
@@ -512,6 +512,8 @@ private:
 
   void OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel);
 
+  // BackendRenderer compares and updates the country. The GUI resets it on subscription or map deletion.
+  std::mutex m_reportedCountryMutex;
   storage::CountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
