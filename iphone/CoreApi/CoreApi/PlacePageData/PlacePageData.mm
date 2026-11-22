@@ -25,11 +25,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   case RoadWarningMarkType::Ferry: return PlacePageRoadTypeFerry;
   case RoadWarningMarkType::Dirty: return PlacePageRoadTypeDirty;
   case RoadWarningMarkType::Steps: return PlacePageRoadTypeSteps;
-  // Gate and trail warnings are informational here. Trail avoidance is available in Walking settings.
+  case RoadWarningMarkType::DifficultTrail:
+  case RoadWarningMarkType::ExpertTrail: return PlacePageRoadTypeDifficultTrail;
   case RoadWarningMarkType::Gate:
   case RoadWarningMarkType::LiftGate:
-  case RoadWarningMarkType::DifficultTrail:
-  case RoadWarningMarkType::ExpertTrail:
   case RoadWarningMarkType::Count: return PlacePageRoadTypeNone;
   }
 }

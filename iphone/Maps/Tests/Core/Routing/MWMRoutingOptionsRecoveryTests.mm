@@ -13,6 +13,8 @@
 #include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 
+#include "base/assert.hpp"
+
 #include <chrono>
 #include <memory>
 #include <semaphore>
@@ -34,11 +36,9 @@ using namespace std::chrono_literals;
 class AvoidanceTestRouter final : public routing::RulerRouter
 {
 public:
-  AvoidanceTestRouter(routing::VehicleType vehicle, routing::RouterResultCode failure,
-                      routing::RoutingOptions::Road road = routing::RoutingOptions::Ferry,
+  AvoidanceTestRouter(routing::RouterResultCode failure, routing::RoutingOptions::Road road,
                       std::shared_ptr<RequestGate> const & gate = {})
-    : m_vehicle(vehicle)
-    , m_failure(failure)
+    : m_failure(failure)
     , m_road(road)
     , m_gate(gate)
   {}
@@ -55,9 +55,9 @@ private:
       if (!gate->m_mayRead.try_acquire_for(5s))
         return routing::RouterResultCode::InternalError;
     }
-    auto const submittedOptions = delegate.GetRoutingOptions();
-    auto const options = submittedOptions ? *submittedOptions : routing::RoutingOptions::LoadFromSettings(m_vehicle);
-    bool const avoid = options.Has(m_road);
+    auto const options = delegate.GetRoutingOptions();
+    CHECK(options, ("Missing routing options in the submitted request"));
+    bool const avoid = options->Has(m_road);
     if (gate)
     {
       gate->m_didRead.release();
@@ -70,7 +70,6 @@ private:
                                                                    delegate, result);
   }
 
-  routing::VehicleType const m_vehicle;
   routing::RouterResultCode const m_failure;
   routing::RoutingOptions::Road const m_road;
   std::shared_ptr<RequestGate> m_gate;
@@ -147,14 +146,16 @@ private:
   }
 }
 
-- (void)prepareRoute:(MWMRouterType)type failure:(routing::RouterResultCode)failure
+- (void)prepareRoute:(MWMRouterType)type
+             failure:(routing::RouterResultCode)failure
+                road:(routing::RoutingOptions::Road)road
 {
   [MWMRouter stopRouting];
   [MWMRouter setType:type];
   auto & manager = GetFramework().GetRoutingManager();
   auto const vehicle = *routing::RoutingOptions::GetVehicleType(manager.GetRouter());
   routing::RoutingOptions::SaveToSettings(vehicle, {});
-  manager.RoutingSession().SetRouter(std::make_unique<AvoidanceTestRouter>(vehicle, failure), nullptr);
+  manager.RoutingSession().SetRouter(std::make_unique<AvoidanceTestRouter>(failure, road), nullptr);
   RouteMarkData start;
   start.m_pointType = RouteMarkType::Start;
   start.m_position = {1, 1};
@@ -168,20 +169,34 @@ private:
 
 - (void)testChangedAvoidanceRetriesFailedRoutes
 {
-  for (auto const type : {MWMRouterTypeVehicle, MWMRouterTypeBicycle, MWMRouterTypePedestrian})
+  using routing::RouterResultCode;
+  using routing::RoutingOptions;
+  struct Warning
   {
-    for (auto const failure :
-         {routing::RouterResultCode::StartPointNotFound, routing::RouterResultCode::EndPointNotFound,
-          routing::RouterResultCode::IntermediatePointNotFound, routing::RouterResultCode::RouteNotFound})
+    MWMRouterType profile;
+    MWMRoadType action;
+    RoutingOptions::Road road;
+  };
+  Warning const warnings[] = {{MWMRouterTypeVehicle, MWMRoadTypeFerry, RoutingOptions::Ferry},
+                              {MWMRouterTypeBicycle, MWMRoadTypeFerry, RoutingOptions::Ferry},
+                              {MWMRouterTypePedestrian, MWMRoadTypeFerry, RoutingOptions::Ferry},
+                              {MWMRouterTypePedestrian, MWMRoadTypeDifficultTrail, RoutingOptions::DifficultTrail}};
+  for (auto const & warning : warnings)
+  {
+    for (auto const failure : {RouterResultCode::StartPointNotFound, RouterResultCode::EndPointNotFound,
+                               RouterResultCode::IntermediatePointNotFound, RouterResultCode::RouteNotFound})
     {
-      [self prepareRoute:type failure:failure];
-      [self expectResult:failure action:^{ [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry]; }];
+      [self prepareRoute:warning.profile failure:failure road:warning.road];
+      [self expectResult:failure action:^{ [MWMRouter avoidRoadTypeAndRebuild:warning.action]; }];
       XCTAssertFalse(MWMRouter.isRouteValid);
       XCTAssertEqual(MWMRouter.pointsCount, 2);
-      MWMRoutingOptions * options = [[MWMRoutingOptions alloc] initWithRouterType:type];
-      options.avoidFerry = NO;
+      MWMRoutingOptions * options = [[MWMRoutingOptions alloc] initWithRouterType:warning.profile];
+      if (warning.road == RoutingOptions::DifficultTrail)
+        options.avoidDifficultTrails = NO;
+      else
+        options.avoidFerry = NO;
       [options save];
-      [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter updateRoute]; }];
+      [self expectResult:RouterResultCode::NoError action:^{ [MWMRouter updateRoute]; }];
       XCTAssertTrue(MWMRouter.isRouteValid);
     }
   }
@@ -189,7 +204,9 @@ private:
 
 - (void)testChangedAvoidanceRetriesAfterMissingPosition
 {
-  [self prepareRoute:MWMRouterTypePedestrian failure:routing::RouterResultCode::StartPointNotFound];
+  [self prepareRoute:MWMRouterTypePedestrian
+             failure:routing::RouterResultCode::StartPointNotFound
+                road:routing::RoutingOptions::Ferry];
   auto & framework = GetFramework();
   auto & manager = framework.GetRoutingManager();
   framework.GetBookmarkManager().MyPositionMark().SetUserPosition({1, 1}, false);
@@ -217,12 +234,13 @@ private:
   auto const vehicle = routing::VehicleType::Pedestrian;
   for (bool const startsAvoiding : {false, true})
   {
-    [self prepareRoute:MWMRouterTypePedestrian failure:RouterResultCode::StartPointNotFound];
+    [self prepareRoute:MWMRouterTypePedestrian
+               failure:RouterResultCode::StartPointNotFound
+                  road:routing::RoutingOptions::Ferry];
     RoutingOptions::SaveToSettings(vehicle, RoutingOptions(startsAvoiding ? RoutingOptions::Steps : 0));
     auto const gate = std::make_shared<RequestGate>();
     GetFramework().GetRoutingManager().RoutingSession().SetRouter(
-        std::make_unique<AvoidanceTestRouter>(vehicle, RouterResultCode::StartPointNotFound, RoutingOptions::Steps,
-                                              gate),
+        std::make_unique<AvoidanceTestRouter>(RouterResultCode::StartPointNotFound, RoutingOptions::Steps, gate),
         nullptr);
     auto const first = startsAvoiding ? RouterResultCode::StartPointNotFound : RouterResultCode::NoError;
     auto const second = startsAvoiding ? RouterResultCode::NoError : RouterResultCode::StartPointNotFound;
@@ -246,11 +264,12 @@ private:
 {
   using routing::RouterResultCode;
   using routing::RoutingOptions;
-  auto const vehicle = routing::VehicleType::Pedestrian;
-  [self prepareRoute:MWMRouterTypePedestrian failure:RouterResultCode::StartPointNotFound];
+  [self prepareRoute:MWMRouterTypePedestrian
+             failure:RouterResultCode::StartPointNotFound
+                road:routing::RoutingOptions::Ferry];
   auto const gate = std::make_shared<RequestGate>();
   GetFramework().GetRoutingManager().RoutingSession().SetRouter(
-      std::make_unique<AvoidanceTestRouter>(vehicle, RouterResultCode::StartPointNotFound, RoutingOptions::Steps, gate),
+      std::make_unique<AvoidanceTestRouter>(RouterResultCode::StartPointNotFound, RoutingOptions::Steps, gate),
       nullptr);
   [self expectResult:RouterResultCode::NoError
               action:^{
@@ -274,11 +293,13 @@ private:
   using routing::RouterResultCode;
   using routing::RoutingOptions;
   auto const vehicle = routing::VehicleType::Car;
-  [self prepareRoute:MWMRouterTypeVehicle failure:RouterResultCode::StartPointNotFound];
+  [self prepareRoute:MWMRouterTypeVehicle
+             failure:RouterResultCode::StartPointNotFound
+                road:routing::RoutingOptions::Ferry];
   RoutingOptions::SaveToSettings(vehicle, RoutingOptions(RoutingOptions::Ferry));
   auto const gate = std::make_shared<RequestGate>();
   GetFramework().GetRoutingManager().RoutingSession().SetRouter(
-      std::make_unique<AvoidanceTestRouter>(vehicle, RouterResultCode::StartPointNotFound, RoutingOptions::Ferry, gate),
+      std::make_unique<AvoidanceTestRouter>(RouterResultCode::StartPointNotFound, RoutingOptions::Ferry, gate),
       nullptr);
   [self expectResult:RouterResultCode::StartPointNotFound
               action:^{
@@ -299,7 +320,9 @@ private:
 
 - (void)testChangedAvoidanceDoesNotRestartNavigationOrAnEmptyPlan
 {
-  [self prepareRoute:MWMRouterTypePedestrian failure:routing::RouterResultCode::StartPointNotFound];
+  [self prepareRoute:MWMRouterTypePedestrian
+             failure:routing::RouterResultCode::StartPointNotFound
+                road:routing::RoutingOptions::Ferry];
   auto & manager = GetFramework().GetRoutingManager();
   GetFramework().GetBookmarkManager().MyPositionMark().SetUserPosition({1, 1}, true);
   RouteMarkData start = manager.GetRoutePoints().front();

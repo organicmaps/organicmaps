@@ -112,17 +112,17 @@ UNIT_TEST(RoadWarning_IsAvoidableRoadWarning)
 {
   using enum RoadWarningMarkType;
 
-  // Warning types eligible for the driving-options affordance.
   TEST(IsAvoidableRoadWarning(Toll), ());
   TEST(IsAvoidableRoadWarning(Ferry), ());
   TEST(IsAvoidableRoadWarning(Dirty), ());
   TEST(IsAvoidableRoadWarning(Steps), ());
+  TEST(IsAvoidableRoadWarning(DifficultTrail), ());
+  TEST(IsAvoidableRoadWarning(ExpertTrail), ());
 
-  // Gate and trail warnings stay informational here. Walking has its own trail avoidance setting.
+  // Gates have no avoidance setting.
   TEST(!IsAvoidableRoadWarning(Gate), ());
   TEST(!IsAvoidableRoadWarning(LiftGate), ());
-  TEST(!IsAvoidableRoadWarning(DifficultTrail), ());
-  TEST(!IsAvoidableRoadWarning(ExpertTrail), ());
+  TEST(!IsAvoidableRoadWarning(Count), ());
 }
 
 UNIT_TEST(RoadWarning_SpanBoundaries)

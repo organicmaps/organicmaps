@@ -656,6 +656,7 @@ using namespace routing;
   case MWMRoadTypeToll: options.avoidToll = YES; break;
   case MWMRoadTypeDirty: options.avoidDirty = YES; break;
   case MWMRoadTypeSteps: options.avoidSteps = YES; break;
+  case MWMRoadTypeDifficultTrail: options.avoidDifficultTrails = YES; break;
   case MWMRoadTypeFerry: options.avoidFerry = YES; break;
   case MWMRoadTypeMotorway: options.avoidMotorway = YES; break;
   }
