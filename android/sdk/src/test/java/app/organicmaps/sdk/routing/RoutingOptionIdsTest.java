@@ -17,6 +17,8 @@ public class RoutingOptionIdsTest
     assertEquals(RoadType.Ferry, RoadType.fromNativeValue(8));
     assertEquals(RoadType.Dirty, RoadType.fromNativeValue(16));
     assertEquals(RoadType.Steps, RoadType.fromNativeValue(32));
+    assertEquals(RoadType.DifficultTrail, RoadType.fromNativeValue(64));
+    assertThrows(IllegalArgumentException.class, () -> RoadType.fromNativeValue(128));
     assertThrows(IllegalArgumentException.class, () -> RoadType.fromNativeValue(3));
     assertThrows(IllegalArgumentException.class, () -> RoadType.fromNativeValue(-1));
   }
