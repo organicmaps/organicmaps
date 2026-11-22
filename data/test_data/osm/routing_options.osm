@@ -270,6 +270,17 @@
   <node id="357" lat="0.9742" lon="1.1002" />
   <node id="358" lat="0.9741" lon="1.1000" />
   <node id="359" lat="0.9740" lon="1.1002" />
+  <!-- The gate access path connects to the pedestrian network only by stairs. -->
+  <node id="400" lat="1.005" lon="1.098" />
+  <node id="401" lat="1.010" lon="1.098" />
+  <way id="15">
+    <nd ref="2" /><nd ref="400" />
+    <tag k="highway" v="steps" />
+  </way>
+  <way id="16">
+    <nd ref="400" /><nd ref="401" />
+    <tag k="highway" v="footway" />
+  </way>
   <way id="10">
     <nd ref="1" /><nd ref="7" /><nd ref="8" /><nd ref="9" /><nd ref="2" />
     <tag k="highway" v="residential" />

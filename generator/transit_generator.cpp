@@ -91,7 +91,7 @@ void CalculateBestPedestrianSegments(std::string const & mwmPath, CountryId cons
   IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */, CountryParentNameGetterFn(),
                           countryFileGetter, getMwmRectByName, numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
                           traffic::TrafficCache(), dataSource.GetDataSource());
-  auto worldGraph = indexRouter.MakeSingleMwmWorldGraph();
+  auto worldGraph = indexRouter.MakeSingleMwmWorldGraph({} /* routingOptions */);
 
   // Looking for the best segment for every gate.
   auto const & gates = graphData.GetGates();

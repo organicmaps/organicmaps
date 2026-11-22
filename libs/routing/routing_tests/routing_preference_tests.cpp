@@ -8,7 +8,6 @@
 #include "routing/routing_options.hpp"
 #include "routing/world_graph.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
 #include "platform/platform.hpp"
@@ -34,7 +33,6 @@ public:
   std::shared_ptr<NumMwmIds> m_ids = std::make_shared<NumMwmIds>();
   std::shared_ptr<m4::Tree<NumMwmId>> m_tree = std::make_shared<m4::Tree<NumMwmId>>();
   m2::RectD m_bounds;
-  uint32_t m_ferryFeature = 0;
   std::function<void()> m_onCountryLookup;
 
   explicit RoutingPreferenceFixture(std::string const & fixture = "routing_options.osm",
@@ -46,11 +44,6 @@ public:
     BuildCrossMwm("Germany", "Germany");
     if (altitudes)
       BuildRoadAltitudes(GetMwmPath("Germany"), *altitudes);
-    ForEachFeature("Germany", [this](auto const & ft)
-    {
-      if (feature::TypesHolder(*ft).Has(classif().GetTypeByPath({"route", "ferry"})))
-        m_ferryFeature = ft->GetID().m_index;
-    });
     auto const file = platform::LocalCountryFile::MakeTemporary(GetMwmPath("Germany"));
     auto const [id, status] = m_data.RegisterMap(file);
     CHECK_EQUAL(status, MwmSet::RegResult::Success, ());
@@ -220,9 +213,8 @@ UNIT_TEST(Routing_UsesAltitudeFromTheSelectedSnap)
 
 UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleDirtyMatchesMappedUnpavedSurfaces)
 {
-  RoutingOptions::SaveToSettings(VehicleType::Bicycle, RoutingOptions(RoutingOptions::Dirty));
   auto router = Router(VehicleType::Bicycle);
-  auto graph = router->MakeSingleMwmWorldGraph();
+  auto graph = router->MakeSingleMwmWorldGraph(RoutingOptions(RoutingOptions::Dirty));
   std::pair<char const *, bool> const cases[] = {{"Paved track", false},          {"Unknown track", false},
                                                  {"Generic road", false},         {"Paved road", false},
                                                  {"Unpaved cycleway", true},      {"Bad unpaved cycleway", true},
@@ -239,9 +231,8 @@ UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleDirtyMatchesMappedUnpavedSurfaces)
 
 UNIT_CLASS_TEST(SurfaceRoutingFixture, CarDirtyMatchesRoadClassesAndSurfaces)
 {
-  RoutingOptions::SaveToSettings(VehicleType::Car, RoutingOptions(RoutingOptions::Dirty));
   auto router = Router(VehicleType::Car);
-  auto graph = router->MakeSingleMwmWorldGraph();
+  auto graph = router->MakeSingleMwmWorldGraph(RoutingOptions(RoutingOptions::Dirty));
   std::pair<char const *, bool> const cases[] = {
       {"Paved track", true},  {"Unknown track", true},    {"Generic road", true},         {"Paved road", false},
       {"Unpaved road", true}, {"Smoothness track", true}, {"Tracktype-only track", true}, {"Rough paved track", true}};
@@ -356,19 +347,38 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)
   bool changed = false;
   m_onCountryLookup = [&]
   {
-    if (changed)
-      return;
+    if (!changed)
+      RoutingOptions::SaveToSettings(VehicleType::Car, RoutingOptions(RoutingOptions::Ferry));
     changed = true;
-    RoutingOptions::SaveToSettings(VehicleType::Car, RoutingOptions(RoutingOptions::Ferry));
-    auto graph = router->MakeSingleMwmWorldGraph();
-    TEST(graph->IsRoutingOptionsGood(Segment(0, m_ferryFeature, 0, true)), ());
   };
-  RoutesResult result;
-  TEST_EQUAL(Calculate(*router, result, {}, false, true), RouterResultCode::NoError, ());
+  RoutesResult before;
+  TEST_EQUAL(Calculate(*router, before, {}, false, true), RouterResultCode::NoError, ());
   TEST(changed, ());
-  TEST(UsesRoadType(result.GetActive(), RoutingOptions::Ferry), ());
-  auto graph = router->MakeSingleMwmWorldGraph();
-  TEST(!graph->IsRoutingOptionsGood(Segment(0, m_ferryFeature, 0, true)), ());
+  for (auto const & route : before.m_routes)
+    TEST(UsesRoadType(route, RoutingOptions::Ferry), ());
+
+  RoutesResult after;
+  TEST_EQUAL(Calculate(*router, after, {}, true, true), RouterResultCode::NoError, ());
+  for (auto const & route : after.m_routes)
+    TEST(!UsesRoadType(route, RoutingOptions::Ferry), ());
+}
+
+UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitGateAccessIsIndependentOfWalkingAvoidance)
+{
+  auto const vehicle = VehicleType::Pedestrian;
+  auto router = Router(vehicle);
+  auto const gate = mercator::FromLatLon(1.009, 1.098);
+  auto const snapGate = [&]
+  {
+    auto graph = router->MakeSingleMwmWorldGraph({} /* routingOptions */);
+    std::vector<Edge> edges;
+    TEST(router->GetBestOutgoingEdges(gate, *graph, edges), ());
+    return edges;
+  };
+  auto const expected = snapGate();
+  TEST(!expected.empty(), ());
+  RoutingOptions::SaveToSettings(vehicle, RoutingOptions(RoutingOptions::Steps));
+  TEST_EQUAL(snapGate(), expected, ());
 }
 
 class StepsRoutingFixture : public RoutingPreferenceFixture

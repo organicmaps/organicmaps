@@ -27,7 +27,6 @@
 #include "geometry/tree4d.hpp"
 
 #include <memory>
-#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -75,7 +74,7 @@ public:
               std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, DataSource & dataSource);
 
-  std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
+  std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph(RoutingOptions routingOptions);
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
@@ -131,7 +130,7 @@ private:
   /// Tells the estimator which endings of the search are on service roads. |finish| may be unknown.
   void SetServiceEndings(FakeEnding const & start, FakeEnding const * finish, WorldGraph & graph);
 
-  std::unique_ptr<WorldGraph> MakeWorldGraph();
+  std::unique_ptr<WorldGraph> MakeWorldGraph(RoutingOptions routingOptions);
 
   using EdgeProjectionT = IRoadGraph::EdgeProjectionT;
   class PointsOnEdgesSnapping
@@ -314,7 +313,6 @@ private:
 
   TimeGetterT m_currentTimeGetter;
 
-  std::optional<RoutingOptions> m_requestRoutingOptions;
-  RoutingOptions::RoadType m_previousRoutingOptions = 0;
+  RoutingOptions m_routingOptions;  // Snapshot shared by the request and its cached routes.
 };
 }  // namespace routing
