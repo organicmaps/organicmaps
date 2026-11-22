@@ -6,10 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
+import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 
-class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen
+class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen implements UserActionRequired
 {
   DownloadMapsForFirstLaunchScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {
@@ -23,8 +24,7 @@ class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
-    // Attempting to streamline initial download by including the current country in the list of missing maps for
-    // simultaneous retrieval.
+    // Include the current region in the initial World download when a location is available.
     final Location location = getLocationHelper().getSavedLocation();
     if (location == null)
       return;

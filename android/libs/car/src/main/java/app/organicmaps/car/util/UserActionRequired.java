@@ -1,7 +1,6 @@
 package app.organicmaps.car.util;
 
-/// Marker interface for screens that require user action to proceed.
-/// These screens can't be dropped from AA's screen stack.
+/** Automatic navigation waits until this screen leaves the car stack. */
 public interface UserActionRequired
 {
 }
