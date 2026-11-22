@@ -1689,6 +1689,7 @@ UNIT_TEST(RoutingManager_TrackStartUsesLiveDistanceForTheApproachPrompt)
     TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
     fixture.WaitForBuildResult();
     manager.RoutingSession().SetLocaleWithJsonForTesting(R"({"proceed_to_the_track":"Proceed to the track."})", "en");
+    manager.SetTurnNotificationsUnits(measurement_utils::Units::Metric);
     manager.EnableTurnNotifications(true);
     fixture.SetGpsPosition(MeterPoint(expectApproach ? -25.0 : -10.0, 0));
     manager.FollowRoute();
