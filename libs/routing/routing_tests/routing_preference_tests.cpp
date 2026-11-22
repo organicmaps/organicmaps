@@ -452,7 +452,7 @@ UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingRouteRetainsTrailGrades)
   RoutesResult result;
   TEST_EQUAL(Calculate(*router, result), RouterResultCode::NoError, ());
   auto const & route = result.GetActive();
-  // The direct route still uses both graded trails despite the ordinary-trail detour.
+  // The direct route uses both graded trails even though each has an ordinary detour.
   TEST(UsesRoadType(route, RoutingOptions::DifficultTrail), ());
   TEST(UsesRoadType(route, RoutingOptions::ExpertTrail), ());
 
@@ -472,7 +472,8 @@ UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingRouteRetainsTrailGrades)
 UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingCanAvoidBothTrailGrades)
 {
   auto router = Router(VehicleType::Pedestrian);
-  // Start beside the expert trail's eastern junction and walk west. Each grade has its own ordinary detour.
+  // The expert trail ends 16 m from the start, inside the initial snapping radius. With avoidance on,
+  // the route should start on an ordinary path and take the detour around each grade.
   Checkpoints const checkpoints(mercator::FromLatLon(0.9999, 1.1401), mercator::FromLatLon(1, 1.01));
   for (bool const avoid : {false, true, false})
   {
