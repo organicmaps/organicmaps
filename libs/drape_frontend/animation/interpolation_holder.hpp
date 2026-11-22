@@ -8,7 +8,7 @@
 
 namespace df
 {
-class BaseInterpolator;
+class OpacityAnimation;
 
 class InterpolationHolder
 {
@@ -23,11 +23,11 @@ private:
   DISALLOW_COPY_AND_MOVE(InterpolationHolder);
 
 private:
-  friend class BaseInterpolator;
-  void RegisterInterpolator(BaseInterpolator * interpolator);
-  void DeregisterInterpolator(BaseInterpolator * interpolator);
+  friend class OpacityAnimation;
+  void Register(OpacityAnimation * interpolator);
+  void Deregister(OpacityAnimation * interpolator);
 
-  using TInterpolatorSet = std::set<BaseInterpolator *>;
+  using TInterpolatorSet = std::set<OpacityAnimation *>;
   TInterpolatorSet m_interpolations;
 };
 }  // namespace df

@@ -1,23 +1,22 @@
 #pragma once
 
-#include "drape_frontend/animation/base_interpolator.hpp"
+#include "drape_frontend/animation/animation.hpp"
+
+#include "base/macros.hpp"
 
 namespace df
 {
-class OpacityAnimation : public BaseInterpolator
+class OpacityAnimation : public Animation
 {
-  using TBase = BaseInterpolator;
-
 public:
   OpacityAnimation(double duration, double startOpacity, double endOpacity);
-  OpacityAnimation(double duration, double delay, double startOpacity, double endOpacity);
+  ~OpacityAnimation();
+  DISALLOW_COPY_AND_MOVE(OpacityAnimation);
 
-  void Advance(AnimationClock::time_point now) override;
-  double GetOpacity() const { return m_opacity; }
+  double GetOpacity() const;
 
 private:
-  double m_startOpacity;
-  double m_endOpacity;
-  double m_opacity;
+  double const m_startOpacity;
+  double const m_endOpacity;
 };
 }  // namespace df

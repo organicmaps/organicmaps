@@ -4,8 +4,6 @@ set(SRC
   animation/animation.hpp
   animation/arrow_animation.cpp
   animation/arrow_animation.hpp
-  animation/base_interpolator.cpp
-  animation/base_interpolator.hpp
   animation/interpolation_holder.cpp
   animation/interpolation_holder.hpp
   animation/interpolations.cpp
@@ -14,7 +12,6 @@ set(SRC
   animation/opacity_animation.hpp
   animation/show_hide_animation.cpp
   animation/show_hide_animation.hpp
-  animation/value_mapping.hpp
   animation_constants.hpp
   animation_system.cpp
   animation_system.hpp

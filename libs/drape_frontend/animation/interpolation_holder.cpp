@@ -1,5 +1,5 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
-#include "drape_frontend/animation/base_interpolator.hpp"
+#include "drape_frontend/animation/opacity_animation.hpp"
 
 #include "base/assert.hpp"
 
@@ -34,12 +34,12 @@ InterpolationHolder::~InterpolationHolder()
   ASSERT(m_interpolations.empty(), ());
 }
 
-void InterpolationHolder::RegisterInterpolator(BaseInterpolator * interpolator)
+void InterpolationHolder::Register(OpacityAnimation * interpolator)
 {
   VERIFY(m_interpolations.insert(interpolator).second, ());
 }
 
-void InterpolationHolder::DeregisterInterpolator(BaseInterpolator * interpolator)
+void InterpolationHolder::Deregister(OpacityAnimation * interpolator)
 {
   m_interpolations.erase(interpolator);
 }

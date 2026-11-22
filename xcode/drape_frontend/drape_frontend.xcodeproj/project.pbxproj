@@ -135,8 +135,6 @@
 		670947FF1BDF9BF5005014C0 /* batchers_pool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947F11BDF9BF5005014C0 /* batchers_pool.hpp */; };
 		670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947F41BDF9BF5005014C0 /* drape_engine.cpp */; };
 		670948031BDF9BF5005014C0 /* drape_engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947F51BDF9BF5005014C0 /* drape_engine.hpp */; };
-		670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948071BDF9C39005014C0 /* base_interpolator.cpp */; };
-		670948151BDF9C39005014C0 /* base_interpolator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948081BDF9C39005014C0 /* base_interpolator.hpp */; };
 		670948161BDF9C39005014C0 /* interpolation_holder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948091BDF9C39005014C0 /* interpolation_holder.cpp */; };
 		670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */; };
 		670948181BDF9C39005014C0 /* interpolations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709480B1BDF9C39005014C0 /* interpolations.cpp */; };
@@ -145,7 +143,6 @@
 		6709481D1BDF9C39005014C0 /* opacity_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948101BDF9C39005014C0 /* opacity_animation.hpp */; };
 		6709481E1BDF9C39005014C0 /* show_hide_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948111BDF9C39005014C0 /* show_hide_animation.cpp */; };
 		6709481F1BDF9C39005014C0 /* show_hide_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948121BDF9C39005014C0 /* show_hide_animation.hpp */; };
-		670948201BDF9C39005014C0 /* value_mapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948131BDF9C39005014C0 /* value_mapping.hpp */; };
 		6709483B1BDF9C48005014C0 /* compass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948231BDF9C48005014C0 /* compass.cpp */; };
 		6709483C1BDF9C48005014C0 /* compass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948241BDF9C48005014C0 /* compass.hpp */; };
 		6709483D1BDF9C48005014C0 /* copyright_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948251BDF9C48005014C0 /* copyright_label.cpp */; };
@@ -348,8 +345,6 @@
 		670947F11BDF9BF5005014C0 /* batchers_pool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = batchers_pool.hpp; sourceTree = "<group>"; };
 		670947F41BDF9BF5005014C0 /* drape_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_engine.cpp; sourceTree = "<group>"; };
 		670947F51BDF9BF5005014C0 /* drape_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_engine.hpp; sourceTree = "<group>"; };
-		670948071BDF9C39005014C0 /* base_interpolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base_interpolator.cpp; sourceTree = "<group>"; };
-		670948081BDF9C39005014C0 /* base_interpolator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base_interpolator.hpp; sourceTree = "<group>"; };
 		670948091BDF9C39005014C0 /* interpolation_holder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolation_holder.cpp; sourceTree = "<group>"; };
 		6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = interpolation_holder.hpp; sourceTree = "<group>"; };
 		6709480B1BDF9C39005014C0 /* interpolations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolations.cpp; sourceTree = "<group>"; };
@@ -358,7 +353,6 @@
 		670948101BDF9C39005014C0 /* opacity_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opacity_animation.hpp; sourceTree = "<group>"; };
 		670948111BDF9C39005014C0 /* show_hide_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = show_hide_animation.cpp; sourceTree = "<group>"; };
 		670948121BDF9C39005014C0 /* show_hide_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = show_hide_animation.hpp; sourceTree = "<group>"; };
-		670948131BDF9C39005014C0 /* value_mapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = value_mapping.hpp; sourceTree = "<group>"; };
 		670948231BDF9C48005014C0 /* compass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compass.cpp; sourceTree = "<group>"; };
 		670948241BDF9C48005014C0 /* compass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = compass.hpp; sourceTree = "<group>"; };
 		670948251BDF9C48005014C0 /* copyright_label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = copyright_label.cpp; sourceTree = "<group>"; };
@@ -625,8 +619,6 @@
 				452C9EC31CEDCF3200A55E57 /* animation.hpp */,
 				452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */,
 				452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */,
-				670948071BDF9C39005014C0 /* base_interpolator.cpp */,
-				670948081BDF9C39005014C0 /* base_interpolator.hpp */,
 				670948091BDF9C39005014C0 /* interpolation_holder.cpp */,
 				6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */,
 				6709480B1BDF9C39005014C0 /* interpolations.cpp */,
@@ -635,7 +627,6 @@
 				670948101BDF9C39005014C0 /* opacity_animation.hpp */,
 				670948111BDF9C39005014C0 /* show_hide_animation.cpp */,
 				670948121BDF9C39005014C0 /* show_hide_animation.hpp */,
-				670948131BDF9C39005014C0 /* value_mapping.hpp */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -763,7 +754,6 @@
 				670947CF1BDF9BE1005014C0 /* tile_key.hpp in Headers */,
 				670947BA1BDF9BE1005014C0 /* route_renderer.hpp in Headers */,
 				453EEA6E1E3A28F400505E09 /* colored_symbol_shape.hpp in Headers */,
-				670948201BDF9C39005014C0 /* value_mapping.hpp in Headers */,
 				670948441BDF9C48005014C0 /* drape_gui.hpp in Headers */,
 				670947B41BDF9BE1005014C0 /* render_group.hpp in Headers */,
 				BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */,
@@ -778,7 +768,6 @@
 				670947B81BDF9BE1005014C0 /* route_builder.hpp in Headers */,
 				45BE604E20E504FC00A456AE /* frame_values.hpp in Headers */,
 				45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */,
-				670948151BDF9C39005014C0 /* base_interpolator.hpp in Headers */,
 				BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */,
 				670947A61BDF9BE1005014C0 /* my_position.hpp in Headers */,
 				670947A81BDF9BE1005014C0 /* navigator.hpp in Headers */,
@@ -894,7 +883,6 @@
 				670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */,
 				670948451BDF9C48005014C0 /* gui_text.cpp in Sources */,
 				EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */,
-				670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */,
 				670948491BDF9C48005014C0 /* ruler_helper.cpp in Sources */,
 				670947E41BDF9BEC005014C0 /* engine_context.cpp in Sources */,
 				EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */,

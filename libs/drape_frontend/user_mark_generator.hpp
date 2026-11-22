@@ -23,7 +23,6 @@ public:
   void SetUserLines(drape_ptr<UserLinesRenderCollection> && lines);
   void SetUserAreas(drape_ptr<UserAreasRenderCollection> && areas);
   void SetRemovedUserMarks(drape_ptr<IDCollections> && ids);
-  void SetJustCreatedUserMarks(drape_ptr<IDCollections> && ids);
 
   void SetGroup(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids);
   void RemoveGroup(kml::MarkGroupId groupId);
