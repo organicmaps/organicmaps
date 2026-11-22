@@ -181,7 +181,7 @@ private:
   bool RenderScene(ScreenBase const & modelView, bool activeFrame, AnimationClock::time_point now);
   void PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket);
   void RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
-                         ref_ptr<BaseRenderGroup> group);
+                         ref_ptr<RenderGroup> group);
   void RefreshProjection(ScreenBase const & screen);
   void RefreshZScale(ScreenBase const & screen);
   void RefreshPivotTransform(ScreenBase const & screen);
@@ -275,7 +275,6 @@ private:
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
   void EndUpdateOverlayTree();
 
-  template <typename TRenderGroup>
   void AddToRenderGroup(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
                         TileKey const & newTile);
 

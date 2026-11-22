@@ -157,7 +157,6 @@ public:
   // What UpdateUserMarks sends to the backend.
   struct UserMarksUpdate
   {
-    drape_ptr<IDCollections> m_justCreatedIds = make_unique_dp<IDCollections>();
     drape_ptr<IDCollections> m_removedIds = make_unique_dp<IDCollections>();
     drape_ptr<UserMarksRenderCollection> m_marks = make_unique_dp<UserMarksRenderCollection>();
     drape_ptr<UserLinesRenderCollection> m_lines = make_unique_dp<UserLinesRenderCollection>();
@@ -192,7 +191,7 @@ public:
   void SetUserPositionListener(UserPositionChangedHandler && fn);
 
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, FeatureID const & featureID,
-                    bool isAnim, bool isGeometrySelectionAllowed, bool isSelectionShapeVisible);
+                    bool isGeometrySelectionAllowed, bool animateSelection);
   void DeselectObject(bool restoreViewport);
 
   /// Highlights @p lines as overlay geometry on top of the current selection, using @p color.

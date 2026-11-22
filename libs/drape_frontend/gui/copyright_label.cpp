@@ -3,18 +3,17 @@
 #include "gui_text.hpp"
 
 #include "drape_frontend/animation/opacity_animation.hpp"
+#include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/batcher_bucket.hpp"
 
 #include <functional>
+#include <optional>
 #include <utility>
 
 namespace gui
 {
 namespace
 {
-constexpr double kCopyrightVisibleTime = 10.0f;
-constexpr double kCopyrightHideTime = 0.25f;
-
 class CopyrightHandle : public StaticLabelHandle
 {
   using TBase = StaticLabelHandle;
@@ -35,28 +34,31 @@ public:
     if (!TBase::Update(screen))
       return false;
 
-    if (!DrapeGui::Instance().IsCopyrightActive())
+    auto & gui = DrapeGui::Instance();
+    if (!gui.IsCopyrightActive())
     {
       SetIsVisible(false);
       return false;
     }
 
-    if (m_animation == nullptr)
+    if (gui.GetCopyrightState() == DrapeGui::CopyrightState::Fading)
     {
-      m_animation = make_unique_dp<df::OpacityAnimation>(kCopyrightHideTime, kCopyrightVisibleTime, 1.0f, 0.0f);
-    }
-    else if (m_animation->IsFinished())
-    {
-      DrapeGui::Instance().DeactivateCopyright();
-      SetIsVisible(false);
-    }
+      if (!m_animation)
+        m_animation.emplace(df::kOverlayFadeTimeSec, 1.0, 0.0);
 
-    m_params.m_opacity = static_cast<float>(m_animation->GetOpacity());
+      if (m_animation->IsFinished())
+      {
+        gui.SetCopyrightState(DrapeGui::CopyrightState::Hidden);
+        SetIsVisible(false);
+        return false;
+      }
+      m_params.m_opacity = static_cast<float>(m_animation->GetOpacity());
+    }
     return true;
   }
 
 private:
-  drape_ptr<df::OpacityAnimation> m_animation;
+  std::optional<df::OpacityAnimation> m_animation;
 };
 }  // namespace
 

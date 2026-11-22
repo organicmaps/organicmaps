@@ -1619,7 +1619,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   using namespace search;
   place_page::BuildInfo info;
   info.m_source = place_page::BuildInfo::Source::Search;
-  info.m_needAnimationOnSelection = false;
+  info.m_animateSelection = animation;
   int scale = -1;
   switch (result.GetResultType())
   {
@@ -2437,8 +2437,8 @@ void Framework::ActivateMapSelection()
   if (m_drapeEngine)
   {
     auto const & bi = m_currentPlacePageInfo->GetBuildInfo();
-    m_drapeEngine->SelectObject(selObj, m_currentPlacePageInfo->GetMercator(), featureId, bi.m_needAnimationOnSelection,
-                                bi.m_isGeometrySelectionAllowed, true);
+    m_drapeEngine->SelectObject(selObj, m_currentPlacePageInfo->GetMercator(), featureId,
+                                bi.m_isGeometrySelectionAllowed, bi.m_animateSelection);
   }
 
   /// @todo Current android logic is strange (see SetPlacePageListeners comments), so skip assert.
@@ -2507,8 +2507,7 @@ void Framework::SetRouteElevationActivePoint(double distanceMeters)
     return;
   if (auto const point = m_routingManager.GetRoutePointAtDistance(distanceMeters))
     m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
-                                false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                                true /* isSelectionShapeVisible */);
+                                false /* isGeometrySelectionAllowed */, false /* animateSelection */);
 }
 
 void Framework::ResetRouteElevationActivePoint()
@@ -2610,8 +2609,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       if (m_drapeEngine)
       {
         m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
-                                    m_currentPlacePageInfo->GetMercator(), FeatureID(), false /* isAnim */,
-                                    false /* isGeometrySelectionAllowed */, true /* isSelectionShapeVisible */);
+                                    m_currentPlacePageInfo->GetMercator(), FeatureID(),
+                                    false /* isGeometrySelectionAllowed */, false /* animateSelection */);
       }
       return;
     }

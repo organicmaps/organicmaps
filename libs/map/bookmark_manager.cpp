@@ -920,8 +920,7 @@ void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, doub
   SetTrackSelectionInfo({trackId, pt, targetDistance}, true /* notifyListeners */);
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::SelectObject, df::SelectionShape::ESelectedObject::OBJECT_TRACK, pt,
-                         FeatureID(), false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                         true /* isSelectionShapeVisible */);
+                         FeatureID(), false /* isGeometrySelectionAllowed */, false /* animateSelection */);
 }
 
 double BookmarkManager::GetElevationActivePoint(kml::TrackId const & trackId) const

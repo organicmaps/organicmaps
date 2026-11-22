@@ -13,16 +13,15 @@
 
 namespace df
 {
-void BaseRenderGroup::UpdateAnimation()
-{
-  m_params.m_opacity = 1.0f;
-}
-
 RenderGroup::RenderGroup(dp::RenderState const & state, df::TileKey const & tileKey)
-  : TBase(state, tileKey)
+  : m_state(state)
+  , m_tileKey(tileKey)
   , m_pendingOnDelete(false)
   , m_canBeDeleted(false)
-{}
+{
+  if (state.GetRenderStateExtension<RenderStateExtension>()->ShouldAnimateBookmark())
+    m_bookmarkAnimation = std::make_unique<OpacityAnimation>(0.25 /* seconds */, 0.90, 1.0);
+}
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
@@ -78,6 +77,13 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
 
   // Set frame values to group's params.
   frameValues.SetTo(m_params);
+
+  if (m_bookmarkAnimation)
+  {
+    m_params.m_bookmarkScale = static_cast<float>(m_bookmarkAnimation->GetOpacity());
+    if (m_bookmarkAnimation->IsFinished())
+      m_bookmarkAnimation.reset();
+  }
 
   // Set tile-based model-view matrix.
   m_params.m_modelView = glsl::make_mat4(GetTileKey().GetTileBasedModelView(screen).m_data);
@@ -163,36 +169,6 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
     return lState < rState;
   }
   return rCanBeDeleted;
-}
-
-UserMarkRenderGroup::UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey) : TBase(state, tileKey)
-{
-  auto const program = state.GetProgram<gpu::Program>();
-  auto const program3d = state.GetProgram3d<gpu::Program>();
-
-  if (program == gpu::Program::BookmarkAnim || program3d == gpu::Program::BookmarkAnimBillboard)
-  {
-    m_animation = std::make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* minValue */, 1.0 /* maxValue */);
-    m_mapping.AddRangePoint(0.6f, 1.3f);
-    m_mapping.AddRangePoint(0.85f, 0.8f);
-    m_mapping.AddRangePoint(1.0f, 1.0f);
-  }
-}
-
-void UserMarkRenderGroup::UpdateAnimation()
-{
-  BaseRenderGroup::UpdateAnimation();
-  m_params.m_interpolation = 1.0f;
-  if (m_animation)
-  {
-    auto const t = static_cast<float>(m_animation->GetOpacity());
-    m_params.m_interpolation = m_mapping.GetValue(t);
-  }
-}
-
-bool UserMarkRenderGroup::IsUserPoint() const
-{
-  return m_state.GetProgram<gpu::Program>() != gpu::Program::Line;
 }
 
 std::string DebugPrint(RenderGroup const & group)

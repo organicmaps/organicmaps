@@ -11,10 +11,10 @@ layout (binding = 0) uniform UBO
   vec2 u_contrastGamma;
   float u_opacity;
   float u_zScale;
-  float u_interpolation;
   float u_isOutlinePass;
   float u_dummy1;
   float u_dummy2;
+  float u_dummy3;
   vec4 u_terrainLightDir;
 };
 

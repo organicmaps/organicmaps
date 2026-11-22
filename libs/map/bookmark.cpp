@@ -204,11 +204,6 @@ df::ColorConstant Bookmark::GetColorConstant() const
   UNREACHABLE();
 }
 
-bool Bookmark::HasCreationAnimation() const
-{
-  return true;
-}
-
 kml::PredefinedColor Bookmark::GetColor() const
 {
   return m_data.m_color.m_predefinedColor;
