@@ -336,6 +336,11 @@ public:
 
   double GetTotalTimeSec() const;
 
+  double GetSegmentStartDistanceMerc(size_t index) const
+  {
+    return index == 0 ? 0.0 : m_routeSegments[index - 1].GetDistFromBeginningMerc();
+  }
+
   m2::RectD GetLimitRect() const;
 
   // Subroute interface.
