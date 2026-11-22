@@ -13,6 +13,7 @@
       android:src="@drawable/ic_location_permission_request" />
 
   <TextView
+      android:id="@+id/permission_hint"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="32dp"

@@ -20,31 +20,20 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.car.AndroidAutoService;
-import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.car.screens.BaseScreen;
-import app.organicmaps.sdk.location.LocationUtils;
-import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import java.util.concurrent.ExecutorService;
 
-public class RequestPermissionsScreenWithNotification extends BaseScreen implements UserActionRequired
+public class RequestPermissionsScreenWithNotification extends RequestPermissionsScreen
 {
   public static final int NOTIFICATION_ID = RequestPermissionsScreenWithNotification.class.getSimpleName().hashCode();
 
-  @NonNull
-  private final ExecutorService mBackgroundExecutor;
-  private boolean mIsPermissionCheckEnabled = true;
-  @NonNull
-  private final Runnable mPermissionsGrantedCallback;
+  private final Runnable mCheckPermissions = this::checkPermissions;
 
   public RequestPermissionsScreenWithNotification(@NonNull CarContext carContext,
                                                   @NonNull OrganicMaps organicMapsContext,
                                                   @NonNull Runnable permissionsGrantedCallback)
   {
-    super(carContext, organicMapsContext);
-    mBackgroundExecutor = ThreadPool.getWorker();
-    mPermissionsGrantedCallback = permissionsGrantedCallback;
+    super(carContext, organicMapsContext, permissionsGrantedCallback);
   }
 
   @NonNull
@@ -61,6 +50,7 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
 
     builder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_location_off)).build());
+    builder.addAction(closeAction());
     return builder.build();
   }
 
@@ -69,16 +59,15 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
   public void onStart(@NonNull LifecycleOwner owner)
   {
     super.onStart(owner);
-    mIsPermissionCheckEnabled = true;
-    mBackgroundExecutor.execute(this::checkPermissions);
     sendPermissionsRequestNotification();
+    UiThread.runLater(mCheckPermissions);
   }
 
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
     super.onStop(owner);
-    mIsPermissionCheckEnabled = false;
+    UiThread.cancelDelayedTasks(mCheckPermissions);
   }
 
   @Override
@@ -90,18 +79,8 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
 
   private void checkPermissions()
   {
-    if (!mIsPermissionCheckEnabled)
-      return;
-
-    if (LocationUtils.checkLocationPermission(getCarContext()))
-    {
-      UiThread.runLater(() -> {
-        mPermissionsGrantedCallback.run();
-        finish();
-      });
-    }
-    else
-      mBackgroundExecutor.execute(this::checkPermissions);
+    if (!finishIfGranted())
+      UiThread.runLater(mCheckPermissions, 1000);
   }
 
   @RequiresPermission(value = Manifest.permission.POST_NOTIFICATIONS)
