@@ -629,7 +629,12 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [super viewWillDisappear:animated];
 
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
-    self.controlsManager.menuRestoreState = self.controlsManager.menuState;
+  {
+    MWMMapViewControlsManager * controlsManager = self.controlsManager;
+    MWMBottomMenuState const state = controlsManager.menuState;
+    // Restore the map controls when returning to the map, without reopening a dismissed sheet.
+    controlsManager.menuRestoreState = state == MWMBottomMenuStateHidden ? state : MWMBottomMenuStateInactive;
+  }
   // The shared EAGLView may already be hosted by CarPlay while the phone controller disappears.
   if (![MWMCarPlayService shared].isCarplayActivated)
     GetFramework().SetRenderingDisabled(false);
@@ -1034,9 +1039,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)enableCarPlayRepresentation
 {
   [_searchManager close];
-  UIViewController * presentedController = self.presentedViewController;
-  if (presentedController != nil)
-    [presentedController dismissViewControllerAnimated:NO completion:nil];
+  if (![_controlsManager dismissBottomMenuIfPresentedAnimated:NO])
+    [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
   [[MapsAppDelegate theApp] showMap];
   [self loadViewIfNeeded];
   [self.mapView removeFromSuperview];
@@ -1126,6 +1130,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)closeCurrentView
 {
+  if ([_controlsManager dismissBottomMenuIfPresentedAnimated:YES])
+    return;
+
   if (self.presentedViewController)
   {
     [self dismissViewControllerAnimated:YES completion:nil];
