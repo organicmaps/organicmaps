@@ -342,10 +342,9 @@ private:
   // balloons when rebuilding or entering navigation. The active route is left untouched.
   void ClearAlternativeRoutes();
 
-  /// \returns false if the location could not be matched to the route and should be matched to the
-  /// road graph. Otherwise returns true.
-  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
-  location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
+  // Snap a display position to the route or, for driving, the road graph.
+  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo,
+                            bool isPrediction);
   uint32_t GenerateRoutePointsTransactionId() const;
 
   void SetPointsFollowingMode(bool enabled);
@@ -364,7 +363,7 @@ private:
   std::vector<RouteMarkData> ReadAndDeleteSavedRoutePoints() const;
   std::vector<RouteMarkData> GetRoutePointsToSave() const;
 
-  void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
+  void OnLocationTick(location::GpsInfo const & info, extrapolation::UpdateType type);
 
   RouteBuildingCallback m_routingBuildingCallback;
   RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;

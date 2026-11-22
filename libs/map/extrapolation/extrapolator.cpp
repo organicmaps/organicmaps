@@ -4,11 +4,11 @@
 
 #include "platform/platform.hpp"
 
-#include "base/logging.hpp"
+#include "base/assert.hpp"
 #include "base/math.hpp"
 
 #include <chrono>
-#include <memory>
+#include <utility>
 
 namespace
 {
@@ -115,92 +115,61 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::Gp
          timeS <= kMaxExtrapolationTimeSeconds;
 }
 
-// Extrapolator ------------------------------------------------------------------------------------
-Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
-  : m_isEnabled(false)
-  , m_extrapolatedLocationUpdate(update)
-{
-  RunTaskOnBackgroundThread(false /* delayed */);
-}
+Extrapolator::Extrapolator(LocationUpdateFn update) : m_update(std::move(update)) {}
 
 void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
 {
+  uint64_t generation;
   {
-    std::lock_guard<std::mutex> guard(m_mutex);
+    std::lock_guard guard(m_mutex);
     m_beforeLastGpsInfo = m_lastGpsInfo;
     m_lastGpsInfo = gpsInfo;
     m_consecutiveRuns = 0;
-    // Canceling all background tasks which are put to the queue before the task run in this method.
-    ++m_locationUpdateCounter;
-    m_locationUpdateMinValid = m_locationUpdateCounter;
+    generation = ++m_generation;
   }
-  RunTaskOnBackgroundThread(false /* delayed */);
+  RunTaskOnBackgroundThread(false /* delayed */, generation);
 }
 
 void Extrapolator::Enable(bool enabled)
 {
-  std::lock_guard<std::mutex> guard(m_mutex);
+  std::lock_guard guard(m_mutex);
   m_isEnabled = enabled;
 }
 
-void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
+void Extrapolator::ProcessLocationTick(uint64_t generation)
 {
   location::GpsInfo gpsInfo;
+  UpdateType type;
+  bool hasNext;
   {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    // Canceling all calls of the method which were activated before |m_locationUpdateMinValid|.
-    if (locationUpdateCounter < m_locationUpdateMinValid)
+    std::lock_guard guard(m_mutex);
+    if (generation != m_generation || !m_lastGpsInfo.IsValid())
       return;
 
-    uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_consecutiveRuns;
-    if (extrapolationTimeMs < kMaxExtrapolationTimeMs && m_lastGpsInfo.IsValid())
-    {
-      if (DoesExtrapolationWork())
-        gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
-      else
-        gpsInfo = m_lastGpsInfo;
-    }
+    type = m_consecutiveRuns == 0 ? UpdateType::Measurement : UpdateType::Prediction;
+    uint64_t const predictionTimeMs = kExtrapolationPeriodMs * m_consecutiveRuns;
+    if (type == UpdateType::Prediction && m_isEnabled &&
+        AreCoordsGoodForExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo))
+      gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, predictionTimeMs);
+    else
+      gpsInfo = m_lastGpsInfo;
+
+    hasNext = kExtrapolationPeriodMs * ++m_consecutiveRuns < kMaxExtrapolationTimeMs;
   }
 
-  if (gpsInfo.IsValid())
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo]() { m_extrapolatedLocationUpdate(gpsInfo); });
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo, type] { m_update(gpsInfo, type); });
 
-  {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    if (m_consecutiveRuns != kExtrapolationCounterUndefined)
-      ++m_consecutiveRuns;
-  }
-
-  // Calling ExtrapolatedLocationUpdate() in |kExtrapolationPeriodMs| milliseconds.
-  RunTaskOnBackgroundThread(true /* delayed */);
+  if (hasNext)
+    RunTaskOnBackgroundThread(true /* delayed */, generation);
 }
 
-void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
+void Extrapolator::RunTaskOnBackgroundThread(bool delayed, uint64_t generation)
 {
-  uint64_t locationUpdateCounter = 0;
-  {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    locationUpdateCounter = m_locationUpdateCounter;
-  }
-
+  auto task = [this, generation] { ProcessLocationTick(generation); };
   if (delayed)
-  {
-    auto constexpr period = std::chrono::milliseconds(kExtrapolationPeriodMs);
-    GetPlatform().RunDelayedTask(Platform::Thread::Background, period,
-                                 [this, locationUpdateCounter] { ExtrapolatedLocationUpdate(locationUpdateCounter); });
-  }
+    GetPlatform().RunDelayedTask(Platform::Thread::Background, std::chrono::milliseconds(kExtrapolationPeriodMs),
+                                 std::move(task));
   else
-  {
-    GetPlatform().RunTask(Platform::Thread::Background,
-                          [this, locationUpdateCounter] { ExtrapolatedLocationUpdate(locationUpdateCounter); });
-  }
-}
-
-bool Extrapolator::DoesExtrapolationWork() const
-{
-  if (!m_isEnabled || m_consecutiveRuns == kExtrapolationCounterUndefined)
-    return false;
-
-  return AreCoordsGoodForExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo);
+    GetPlatform().RunTask(Platform::Thread::Background, std::move(task));
 }
 }  // namespace extrapolation

@@ -493,7 +493,6 @@ public:
 
   double GetCurrentDistanceFromBeginMeters() const;
   double GetCurrentDistanceToEndMeters() const;
-  double GetMercatorDistanceFromBegin() const;
 
   /// \brief Extracts information about the nearest turn from the remaining part of the route.
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
@@ -528,9 +527,9 @@ public:
   bool MoveIterator(location::GpsInfo const & info);
   void CopyTrackMatchingState(Route const & previous);
 
-  /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|.
-  /// fields accordingly.
-  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
+  // Snap a display position to the route. Guidance continues to use the measured position.
+  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
+                            bool isPrediction = false) const;
 
   bool IsSubroutePassed(size_t subrouteIdx) const;
 
@@ -539,6 +538,7 @@ public:
 private:
   friend std::string DebugPrint(Route const & r);
 
+  m2::RectD GetLocationMatchingRect(location::GpsInfo const & info) const;
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
 

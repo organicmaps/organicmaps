@@ -91,7 +91,8 @@ public:
   /// @pre Function is called exactly while moving the route. Depends on current time, no pre-caching.
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
-  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo);
+  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
+                            bool isPrediction = false);
   void MatchLocationToRoadGraph(location::GpsInfo & location);
   // Get traffic speed for the current route position.
   // Returns SpeedGroup::Unknown if any trouble happens: position doesn't match with route or something else.

@@ -1,7 +1,8 @@
 #pragma once
 
+#include "routing/base/followed_polyline.hpp"
+
 #include "geometry/point2d.hpp"
-#include "geometry/rect2d.hpp"
 
 #include <optional>
 
@@ -12,7 +13,6 @@ class GpsInfo;
 
 namespace routing
 {
-class FollowedPolyline;
 struct RoutingSettings;
 
 // Matches ordered source progress and confirms downstream rejoins from raw fixes.
@@ -22,6 +22,10 @@ class TrackMatcher
 public:
   bool Update(FollowedPolyline & poly, location::GpsInfo const & info, RoutingSettings const & settings,
               double entryDistanceM);
+
+  // Render a predicted position within the measured matching window. Rejoins belong to Update().
+  FollowedPolyline::Iter GetLocalProjection(FollowedPolyline const & poly, location::GpsInfo const & info,
+                                            RoutingSettings const & settings, double entryDistanceM) const;
 
 private:
   struct Fix
@@ -37,7 +41,7 @@ private:
     unsigned m_matches = 0;
   };
 
-  bool TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, m2::RectD const & rect,
+  bool TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, double matchingThresholdM,
                  double entryDistanceM);
 
   bool m_joined = false;
