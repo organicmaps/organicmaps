@@ -26,6 +26,12 @@ NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
 NSString * const kIsStreetNamesTTSEnabled = @"UserDefaultsNeedToEnableStreetNamesTTS";
 NSString * const kDefaultLanguage = @"en-US";
 MWMTextToSpeech * g_textToSpeech = nil;
+Class g_voiceSourceForTesting = Nil;
+
+Class VoiceSource()
+{
+  return g_voiceSourceForTesting ?: AVSpeechSynthesisVoice.class;
+}
 
 // Internal code the notification texts are keyed by, e.g. "en" for en-GB and "zh-Hant" for zh-TW.
 // This is the unit the pickers group by: every voice in one group makes the routing engine speak the
@@ -272,8 +278,8 @@ Observers * GetObservers()
   {
     // Neither +speechVoices nor +currentLanguageCode is an accessor: both rebuild their answer on
     // every call, tens of milliseconds worth. Ask each of them exactly once.
-    _voicesByLanguage = VoicesByLanguage([AVSpeechSynthesisVoice speechVoices]);
-    _deviceLanguageCode = [AVSpeechSynthesisVoice currentLanguageCode];
+    _voicesByLanguage = VoicesByLanguage([VoiceSource() speechVoices]);
+    _deviceLanguageCode = [VoiceSource() currentLanguageCode];
     _listedVoices = [NSMutableDictionary dictionary];
     for (auto const & [code, title] : routing::turns::sound::kLanguageList)
       if (_voicesByLanguage[@(std::string(code).c_str())] != nil)
@@ -335,6 +341,14 @@ Observers * GetObservers()
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{ g_textToSpeech = [[self alloc] initTTS]; });
   return g_textToSpeech;
+}
+
++ (void)setVoiceSourceForTesting:(Class)source
+{
+  ASSERT(NSThread.isMainThread, ());
+  g_voiceSourceForTesting = source;
+  g_textToSpeech.catalog = nil;
+  g_textToSpeech.speechVoice = nil;
 }
 
 + (void)applicationDidBecomeActive
@@ -577,7 +591,7 @@ Observers * GetObservers()
 + (void)setVoice:(MWMTTSVoice *)voice
 {
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-  AVSpeechSynthesisVoice * speechVoice = [AVSpeechSynthesisVoice voiceWithIdentifier:voice.identifier];
+  AVSpeechSynthesisVoice * speechVoice = [VoiceSource() voiceWithIdentifier:voice.identifier];
   ASSERT(speechVoice, ("A voice is only offered while it is installed", voice.identifier.UTF8String));
   if (!speechVoice)
     return;
@@ -622,7 +636,7 @@ Observers * GetObservers()
 
   if (savedVoiceIdentifier.length > 0)
   {
-    voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    voice = [VoiceSource() voiceWithIdentifier:savedVoiceIdentifier];
     if (voice && locale.length > 0 && TwineLanguage(voice.language) != TwineLanguage(locale))
       voice = nil;
   }
