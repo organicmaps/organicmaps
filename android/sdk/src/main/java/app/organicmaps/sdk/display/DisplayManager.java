@@ -85,7 +85,7 @@ public class DisplayManager
     {
       mDevice.destroy();
       mDevice = null;
-      if (isCarConnected() && !isCarDisplayUsed())
+      if (isCarConnected())
         changeDisplay(DisplayType.Car);
     }
     else if (displayType == DisplayType.Car && mCar != null)
