@@ -138,7 +138,10 @@ RoutingOptionsClassifier::RoutingOptionsClassifier(bool includeDirtyRoadClasses)
       {{"psurface", "unpaved_bad"}, RoutingOptions::Road::Dirty},
       {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty},
 
-      {{"highway", "steps"}, RoutingOptions::Road::Steps}};
+      {{"highway", "steps"}, RoutingOptions::Road::Steps},
+
+      {{"highway", "path", "difficult"}, RoutingOptions::Road::DifficultTrail},
+      {{"highway", "path", "expert"}, RoutingOptions::Road::ExpertTrail}};
 
   char const * const dirtyRoadClasses[] = {"track", "road"};
   m_data.Reserve(std::size(types) + (includeDirtyRoadClasses ? std::size(dirtyRoadClasses) : 0));
@@ -152,11 +155,13 @@ RoutingOptionsClassifier::RoutingOptionsClassifier(bool includeDirtyRoadClasses)
 
 std::optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
-  ftype::TruncValue(type, 2);  // in case of highway-motorway-bridge
+  if (auto const * road = m_data.Find(type))
+    return *road;
 
-  auto const * res = m_data.Find(type);
-  if (res)
-    return *res;
+  // In case of highway-motorway-bridge.
+  if (auto const baseType = ftype::Trunc(type, 2); baseType != type)
+    if (auto const * road = m_data.Find(baseType))
+      return *road;
   return {};
 }
 
@@ -197,6 +202,8 @@ std::string DebugPrint(RoutingOptions const & routingOptions)
   append(RoutingOptions::Road::Ferry);
   append(RoutingOptions::Road::Dirty);
   append(RoutingOptions::Road::Steps);
+  append(RoutingOptions::Road::DifficultTrail);
+  append(RoutingOptions::Road::ExpertTrail);
 
   if (wasAppended)
     ss << " | ";
@@ -215,6 +222,8 @@ std::string DebugPrint(RoutingOptions::Road type)
   case RoutingOptions::Road::Ferry: return "ferry";
   case RoutingOptions::Road::Dirty: return "dirty";
   case RoutingOptions::Road::Steps: return "steps";
+  case RoutingOptions::Road::DifficultTrail: return "difficult trail";
+  case RoutingOptions::Road::ExpertTrail: return "expert trail";
   case RoutingOptions::Road::Usual: return "usual";
   case RoutingOptions::Road::Max: return "max";
   }

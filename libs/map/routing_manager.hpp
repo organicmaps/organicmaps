@@ -387,23 +387,19 @@ private:
 
   struct RoadInfo
   {
-    RoadInfo() = default;
-
-    explicit RoadInfo(m2::PointD const & pt, FeatureID const & featureId) : m_startPoint(pt), m_featureId(featureId) {}
-
     m2::PointD m_startPoint;
     FeatureID m_featureId;
+    // Span length in metres, or zero for point warnings.
     double m_distance = 0.0;
   };
   using RoadWarningsCollection = std::map<RoadWarningMarkType, std::vector<RoadInfo>>;
 
   MwmSet::MwmId GetMwmId(routing::NumMwmId numMwmId) const;
 
-  /// \brief Renders every route in |result| via drape subroutes. The active alternative
-  /// (result.m_activeIdx) is drawn with normal styling; the rest are dimmed. Also creates
-  /// road-warning marks for the active route.
-  /// \returns true if the active route has an avoidable warning (toll/ferry/dirty) on a car route,
-  /// i.e. one that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
+  /// \brief Draws the active route and, during preview, its dimmed alternatives.
+  /// Creates road-warning marks for all displayed routes.
+  /// \returns true if any displayed car route has an avoidable warning (toll/ferry/dirty),
+  /// which triggers RouterResultCode::HasWarnings.
   bool InsertRoute(routing::RoutesResult const & result);
 
   // Helper: build drape subroutes for a single route. |isActive| controls styling
@@ -413,9 +409,6 @@ private:
                          std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
 
-  // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
-  void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                           double baseDistance, RoadWarningsCollection & roadWarnings);
   // Point warnings (gate/lift_gate): barrier nodes precomputed on the routing thread and stored in
   // the route (see routing::RouteBase::GetWarnings); here we just map them to mark types.
   void CollectRoadPointWarnings(routing::RouteBase const & route, RoadWarningsCollection & roadWarnings);

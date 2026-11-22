@@ -1,5 +1,8 @@
 #include "testing/testing.hpp"
 
+#include "generator/feature_builder.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+
 #include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "routing/fake_feature_ids.hpp"
@@ -7,9 +10,16 @@
 #include "routing/transit_graph.hpp"
 #include "routing/transit_world_graph.hpp"
 
+#include "routing_common/pedestrian_model.hpp"
+
+#include "indexer/classificator.hpp"
+
 #include "platform/location.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
 
 #include "geometry/mercator.hpp"
+
+#include "base/file_name_utils.hpp"
 
 #include <algorithm>
 
@@ -161,6 +171,106 @@ UNIT_TEST(TransitWorldGraph_CrossMwmETAKeepsThePreviousLine)
   auto world = fixture.MakeWorldGraph();
   TEST_EQUAL(world->CalculateETA(fixture.Edge(1, 2, 1), fixture.Edge(2, 3), 0), 80.0, ());
   TEST_EQUAL(world->CalculateETA(fixture.Edge(2, 3, 1), fixture.Edge(3, 5), 0), 155.5, ());
+}
+
+UNIT_TEST(TransitStarter_PartialFerryKeepsBoardingPenalty)
+{
+  using namespace routing;
+
+  classificator::Load();
+  auto const path = base::JoinPath(GetPlatform().WritableDir(), "transit-partial-ferry");
+  platform::tests_support::ScopedDirCleanup const directory(path);
+  platform::LocalCountryFile mapFile(path, platform::CountryFile("TransitPartialFerry"), 0);
+  {
+    generator::tests_support::TestMwmBuilder builder(mapFile, feature::DataHeader::MapType::Country);
+    auto const addRoad = [&](uint32_t type, std::vector<m2::PointD> const & points)
+    {
+      feature::FeatureBuilder feature;
+      feature.AssignPoints(points);
+      feature.SetLinear();
+      feature.AddType(type);
+      TEST(builder.Add(feature), (type));
+    };
+    addRoad(classif().GetTypeByPath({"highway", "residential"}), {{-0.001, 0}, {0, 0}});
+    addRoad(classif().GetTypeByPath({"route", "ferry"}), {{0, 0}, {0.001, 0}});
+  }
+
+  auto estimator = EdgeEstimator::Create(VehicleType::Pedestrian, 60, SpeedKMpH(3), nullptr, nullptr, nullptr);
+  auto geometry = std::make_shared<Geometry>(
+      GeometryLoader::CreateFromFile(mapFile.GetPath(MapFileType::Map), std::make_shared<PedestrianModel>()));
+  auto index = std::make_unique<IndexGraph>(std::move(geometry), estimator);
+  uint32_t const ferryId = index->GetRoadGeometry(0).GetRoutingOptions().Has(RoutingOptions::Ferry) ? 0 : 1;
+  uint32_t const roadId = 1 - ferryId;
+  TEST(index->GetRoadGeometry(ferryId).GetRoutingOptions().Has(RoutingOptions::Ferry), ());
+
+  NumMwmId constexpr kMwm = 0;
+  Segment const road(kMwm, roadId, 0, true);
+  Segment const ferry(kMwm, ferryId, 0, true);
+  index->Import({routing_test::MakeJoint({{roadId, 1}, {ferryId, 0}})});
+  auto const ferryEnding = MakeFakeEnding(ferry, {0.0005, 0}, *index);
+  auto const gateEnding = MakeFakeEnding(road, {-0.0005, 0}, *index);
+
+  transit::GraphData transitData;
+  transitData.DeserializeFromJson(R"({
+    "stops": [
+      {"id": 1, "osm_id": "1", "line_ids": [], "point": {"x": -0.0005, "y": 0}},
+      {"id": 2, "osm_id": "2", "line_ids": [], "point": {"x": 0.0005, "y": 0}}
+    ],
+    "edges": [],
+    "gates": [
+      {"osm_id": "10", "entrance": false, "exit": true, "weight": 10,
+       "stop_ids": [1], "point": {"x": -0.0005, "y": 0}},
+      {"osm_id": "20", "entrance": true, "exit": false, "weight": 10,
+       "stop_ids": [2], "point": {"x": 0.0005, "y": 0}}
+    ],
+    "lines": [],
+    "networks": []
+  })",
+                                  {});
+  auto transitGraph = std::make_unique<TransitGraph>(kMwm, estimator);
+  transitGraph->Fill(transitData, {{transitData.GetGates()[0].GetOsmId(), gateEnding},
+                                   {transitData.GetGates()[1].GetOsmId(), ferryEnding}});
+  auto const & gateParts = transitGraph->GetFake(road);
+  TEST_EQUAL(gateParts.size(), 1, ());
+  Segment const gatePart = *gateParts.begin();
+  auto const & ferryGateParts = transitGraph->GetFake(ferry);
+  TEST_EQUAL(ferryGateParts.size(), 1, ());
+  Segment const ferryGatePart = *ferryGateParts.begin();
+
+  auto indexLoader = std::make_unique<routing_test::TestIndexGraphLoader>();
+  indexLoader->AddGraph(kMwm, std::move(index));
+  auto transitLoader = std::make_unique<routing_test::TestTransitGraphLoader>();
+  transitLoader->AddGraph(kMwm, std::move(transitGraph));
+  TransitWorldGraph world(nullptr, std::move(indexLoader), std::move(transitLoader), estimator);
+  FakeEnding start;
+  start.m_originJunction = world.GetJunction(gatePart, false);
+  IndexGraphStarter starter(start, ferryEnding, 0, false, world);
+  IndexGraphStarter::EdgeListT edges;
+  starter.GetEdgesList(gatePart, true, edges);
+  auto const forward = std::ranges::find_if(edges, [&](SegmentEdge const & edge)
+  {
+    auto target = edge.GetTarget();
+    return IndexGraphStarter::IsFakeSegment(target) && starter.ConvertToReal(target) && target == ferry;
+  });
+  TEST(forward != edges.end(), ());
+  auto const partial = forward->GetTarget();
+  auto const partialSeconds = starter.CalcSegmentWeight(partial, EdgeEstimator::Purpose::Weight).GetWeight();
+  auto const penalty = estimator->GetFerryLandingPenalty(EdgeEstimator::Purpose::Weight);
+  TEST_GREATER(penalty, 0.0, ());
+  auto const expected = partialSeconds + penalty;
+  TEST_ALMOST_EQUAL_ABS(forward->GetWeight().GetWeight(), expected, 1e-6, ());
+  auto const toFerryGate =
+      std::ranges::find_if(edges, [&](auto const & edge) { return edge.GetTarget() == ferryGatePart; });
+  TEST(toFerryGate != edges.end(), ());
+  TEST_ALMOST_EQUAL_ABS(toFerryGate->GetWeight().GetWeight(), expected, 1e-6, ());
+
+  for (auto const & target : {partial, ferryGatePart})
+  {
+    starter.GetEdgesList(target, false, edges);
+    auto const backward = std::ranges::find_if(edges, [&](auto const & edge) { return edge.GetTarget() == gatePart; });
+    TEST(backward != edges.end(), ());
+    TEST_ALMOST_EQUAL_ABS(backward->GetWeight().GetWeight(), expected, 1e-6, ());
+  }
 }
 
 UNIT_TEST(TransitStarter_ETAIncludesWaitAfterFakeConnection)

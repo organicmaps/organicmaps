@@ -1373,6 +1373,25 @@ kml::TrackId AddTrack(BookmarkManager & bmManager, kml::MarkGroupId groupId)
   return trackId;
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_CreationAnimationOnIncrementalUpdates)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const group = manager.CreateBookmarkCategory("Animated bookmarks", false /* autoSave */);
+  manager.GetEditSession().NotifyChanges();
+  manager.ResetDrapeChangesForTests();  // The renderer has already received the visible category.
+  auto const markId = AddBookmark(manager, group, 1.0);
+  auto const & changes = manager.GetDrapeChangesForTests();
+
+  using Mode = df::DrapeEngine::UserMarksUpdateMode;
+  for (auto const mode : {Mode::Changes, Mode::All, Mode::Titles})
+  {
+    auto const update = df::DrapeEngine::CollectUserMarksUpdate(&changes, mode, settings::Placement::None);
+    TEST(update.m_marks->contains(markId), ());
+    TEST_EQUAL(update.m_marks->at(markId)->m_animateCreation, mode == Mode::Changes, ());
+  }
+}
+
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchDelete)
 {
   ScopedBookmarksDir scopedDir;

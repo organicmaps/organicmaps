@@ -127,7 +127,7 @@ struct BuildInfo
   kml::MarkId m_userMarkId = kml::kInvalidMarkId;
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   bool m_isGeometrySelectionAllowed = false;
-  bool m_needAnimationOnSelection = true;
+  bool m_animateSelection = true;
 };
 
 class Info : public osm::MapObject

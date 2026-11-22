@@ -215,7 +215,7 @@ private:
 
 enum class RoadWarningMarkType : uint8_t
 {
-  // Do not change the order, it uses in platforms.
+  // Keep these values in sync with the Android RoadWarningMarkType ordinals.
   Toll = 0,
   Ferry = 1,
   Dirty = 2,
@@ -223,7 +223,9 @@ enum class RoadWarningMarkType : uint8_t
   // Point-like warnings (placed on a single route vertex, not a road span).
   Gate = 4,
   LiftGate = 5,
-  Count = 6
+  DifficultTrail = 6,
+  ExpertTrail = 7,
+  Count = 8
 };
 
 class RoadWarningMark : public UserMark
@@ -262,14 +264,13 @@ private:
 
 std::string DebugPrint(RoadWarningMarkType type);
 
-// Whether a warning of |type| is shown on a route of |router|. Steps occur only on
-// pedestrian/bicycle routes, lift gates are reported for cars only, gates and ferries for all.
+// Whether a warning of |type| is shown on a route of |router|. Trail warnings describe mapped
+// hiking difficulty and visibility for walking routes.
 bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router);
 
 // Picks the linear warning to show for a route segment given its road types and the router type.
-// Returns RoadWarningMarkType::Count if there is nothing to warn about. Router-type filtering is
-// applied first, so Steps (pedestrian/bicycle) wins over Dirty (car) on unpaved steps instead of
-// being silently dropped.
+// Returns RoadWarningMarkType::Count if there is nothing to warn about. Filters by router type
+// before choosing a warning, so unpaved steps still show the Steps warning for walking and cycling.
 RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::RouterType router);
 
 // Warnings backed by road-avoidance controls: Toll/Dirty for driving, Ferry for all road modes,

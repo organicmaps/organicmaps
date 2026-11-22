@@ -1,10 +1,7 @@
 #pragma once
 
-#include "animation_system.hpp"
+#include "drape_frontend/screen_animations.hpp"
 
-#include "drape/pointers.hpp"
-
-#include <chrono>
 #include <deque>
 
 namespace df
@@ -12,22 +9,22 @@ namespace df
 class KineticScroller
 {
 public:
-  void Init(ScreenBase const & modelView);
-  void Update(ScreenBase const & modelView);
+  void Init(ScreenBase const & modelView, AnimationClock::time_point now);
+  void Update(ScreenBase const & modelView, AnimationClock::time_point now);
   bool IsActive() const;
   void Cancel();
-  drape_ptr<Animation> CreateKineticAnimation(ScreenBase const & modelView);
+  std::optional<MapAnimation> CreateKineticAnimation(ScreenBase const & modelView, AnimationClock::time_point now);
 
 private:
-  std::pair<m2::PointD, double> GetDirectionAndVelocity(ScreenBase const & modelView) const;
+  std::pair<m2::PointD, double> GetDirectionAndVelocity(ScreenBase const & modelView,
+                                                        AnimationClock::time_point now) const;
 
-  using ClockT = std::chrono::steady_clock;
-  static double GetDurationSeconds(ClockT::time_point const & t2, ClockT::time_point const & t1)
+  static double GetDurationSeconds(AnimationClock::time_point const & t2, AnimationClock::time_point const & t1)
   {
     return std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1).count();
   }
 
-  std::deque<std::pair<m2::PointD, ClockT::time_point>> m_points;
+  std::deque<std::pair<m2::PointD, AnimationClock::time_point>> m_points;
   bool m_isActive = false;
 };
 }  // namespace df

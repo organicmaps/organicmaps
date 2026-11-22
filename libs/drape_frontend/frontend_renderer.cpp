@@ -1,6 +1,5 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/animation/interpolation_holder.hpp"
-#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/drape_notifier.hpp"
@@ -174,6 +173,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
   , m_mapLangIndex(StringUtf8Multilang::kDefaultCode)
   , m_viewport(params.m_viewport)
+  , m_userEventStream(m_animationSystem)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
   , m_userPositionChangedHandler(std::move(params.m_positionChangedHandler))
@@ -217,8 +217,8 @@ FrontendRenderer::FrontendRenderer(Params && params)
         MessagePriority::Normal);
   });
 
-  m_myPositionController =
-      make_unique_dp<MyPositionController>(std::move(params.m_myPositionParams), make_ref(m_notifier));
+  m_myPositionController = make_unique_dp<MyPositionController>(std::move(params.m_myPositionParams),
+                                                                make_ref(m_notifier), m_animationSystem);
 
   StartThread();
 }
@@ -280,7 +280,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     if (key.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(key))
     {
       PrepareBucket(state, bucket);
-      AddToRenderGroup<RenderGroup>(state, std::move(bucket), key);
+      AddToRenderGroup(state, std::move(bucket), key);
     }
     break;
   }
@@ -295,18 +295,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           CheckTileGenerations(overlayRenderData.m_tileKey))
       {
         PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
-        AddToRenderGroup<RenderGroup>(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket),
-                                      overlayRenderData.m_tileKey);
+        AddToRenderGroup(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket), overlayRenderData.m_tileKey);
       }
     }
     UpdateCanBeDeletedStatus();
 
-    m_firstTilesReady = true;
-    if (m_firstLaunchAnimationTriggered)
-    {
-      CheckAndRunFirstLaunchAnimation();
-      m_firstLaunchAnimationTriggered = false;
-    }
     break;
   }
 
@@ -360,7 +353,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (renderData.m_tileKey.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(renderData.m_tileKey))
       {
         PrepareBucket(renderData.m_state, renderData.m_bucket);
-        AddToRenderGroup<UserMarkRenderGroup>(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
+        AddToRenderGroup(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
       }
     }
     break;
@@ -478,9 +471,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     m_overlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
     if (m_selectionShape == nullptr)
     {
-      m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(
-          msg->GetSelectedObject(), msg->GetPosition(), msg->GetFeatureID(), msg->IsAnim(),
-          msg->IsGeometrySelectionAllowed(), true /* isSelectionShapeVisible */);
+      m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(*msg);
     }
     else
     {
@@ -502,7 +493,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         CHECK(bbox.IsValid(), ());
         bbox.Scale(kBoundingBoxScale);
         AddUserEvent(make_unique_dp<SetRectEvent>(bbox, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
-                                                  true /* useVisibleViewport */, nullptr /* parallelAnimCreator */));
+                                                  true /* useVisibleViewport */));
       }
     }
     break;
@@ -834,9 +825,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         int zoom = kDoNotChangeZoom;
         if (GetCurrentZoom() < scales::GetAddNewPlaceScale())
           zoom = scales::GetAddNewPlaceScale();
-        AddUserEvent(make_unique_dp<SetCenterEvent>(
-            pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(), zoom, true /* isAnim */,
-            true /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+        AddUserEvent(
+            make_unique_dp<SetCenterEvent>(pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(), zoom,
+                                           true /* isAnim */, true /* trackVisibleViewport */));
       }
       else
       {
@@ -993,9 +984,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RunFirstLaunchAnimation:
   {
-    ref_ptr<RunFirstLaunchAnimationMessage> msg = message;
-    m_firstLaunchAnimationTriggered = true;
-    CheckAndRunFirstLaunchAnimation();
+    if (m_firstLaunchViewport == FirstLaunchViewport::Idle)
+    {
+      m_firstLaunchViewport = FirstLaunchViewport::WaitingForPosition;
+      CenterFirstLaunchViewportIfReady();
+    }
     break;
   }
 
@@ -1276,7 +1269,6 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   RefreshPivotTransform(screen);
 }
 
-template <typename TRenderGroup>
 void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
                                         TileKey const & newTile)
 {
@@ -1291,7 +1283,7 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state, drape_ptr
     }
   }
 
-  drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
+  auto group = make_unique_dp<RenderGroup>(state, newTile);
   group->AddBucket(std::move(renderBucket));
 
   layer.m_renderGroups.push_back(std::move(group));
@@ -1405,8 +1397,7 @@ void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
     int zoom = kDoNotChangeZoom;
     if (applyZoom && GetCurrentZoom() < scales::GetAddNewPlaceScale())
       zoom = scales::GetAddNewPlaceScale();
-    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true /* isAnim */, false /* trackVisibleViewport */,
-                                                nullptr /* parallelAnimCreator */));
+    AddUserEvent(make_unique_dp<SetCenterEvent>(dest, zoom, true /* isAnim */, false /* trackVisibleViewport */));
   }
 }
 
@@ -1425,8 +1416,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   else
   {
     double offsetZ = 0.0;
-    ScreenBase modelView;
-    m_userEventStream.GetTargetScreen(modelView);
+    auto const modelView = m_userEventStream.GetTargetScreen();
 
     if (modelView.isPerspective() && msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
     {
@@ -1439,14 +1429,11 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
 
-    if (msg->IsSelectionShapeVisible())
-      m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
-    else
-      m_selectionShape->Hide();
+    m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->ShouldAnimateSelection());
 
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView, GetCurrentZoom()))
+      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView))
         m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), *startPosition);
     }
 
@@ -1493,7 +1480,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
   }
 }
 
-bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
+bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame, AnimationClock::time_point now)
 {
   TRACE_SECTION("[drape] RenderScene");
   CHECK(m_context != nullptr, ());
@@ -1608,12 +1595,22 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       clearBits |= dp::ClearBits::StencilBit;
     m_context->Clear(clearBits, dp::kClearBitsStoreAll);
 
-    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
-                                   m_frameValues);
+    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues,
+                                   now);
   }
 
   if (m_guiRenderer && !m_screenshotMode)
+  {
+    auto & gui = gui::DrapeGui::Instance();
+    using CopyrightState = gui::DrapeGui::CopyrightState;
+    if (gui.GetCopyrightState() == CopyrightState::Pending && m_guiRenderer->HasWidget(gui::WIDGET_COPYRIGHT))
+    {
+      gui.SetCopyrightState(CopyrightState::Visible);
+      m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(10), false /* repeating */,
+                         [](uint64_t) { gui::DrapeGui::Instance().SetCopyrightState(CopyrightState::Fading); });
+    }
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(), modelView);
+  }
 
 #if defined(OMIM_OS_DESKTOP)
   if (m_graphicsStage == GraphicsStage::WaitRendering)
@@ -1854,8 +1851,9 @@ void FrontendRenderer::RenderFrame()
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
+  auto const now = AnimationClock::now();
   bool modelViewChanged, viewportChanged, needActiveFrame;
-  ScreenBase const & modelView = ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame);
+  ScreenBase const & modelView = ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame, now);
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
@@ -1897,15 +1895,16 @@ void FrontendRenderer::RenderFrame()
   bool const needUpdateDynamicTextures = m_texMng->UpdateDynamicTextures(m_context);
   isActiveFrame |= needUpdateDynamicTextures;
   isActiveFrame |= m_userEventStream.IsWaitingForActionCompletion();
-  isActiveFrame |= InterpolationHolder::Instance().IsActive();
+  auto & interpolations = InterpolationHolder::Instance();
+  isActiveFrame |= interpolations.IsActive();
+  interpolations.Advance(now);
 
-  bool isActiveFrameForScene = isActiveFrame || m_frameData.m_forceFullRedrawNextFrame;
-  if (AnimationSystem::Instance().HasAnimations())
-  {
-    isActiveFrameForScene |= AnimationSystem::Instance().HasMapAnimations();
-    isActiveFrame = true;
-  }
+  bool const cameraMoving = m_animationSystem.IsCameraMoving();
+  bool isActiveFrameForScene = isActiveFrame || m_frameData.m_forceFullRedrawNextFrame || cameraMoving;
+  isActiveFrame |= m_animationSystem.HasAnimations();
 
+  TRACE_COUNTER("Map camera moving", cameraMoving);
+  TRACE_COUNTER("Pending map tiles", static_cast<int64_t>(m_notFinishedTiles.size()));
   m_routeRenderer->UpdatePreview(modelView);
 
 #ifdef SHOW_FRAMES_STATS
@@ -1924,9 +1923,9 @@ void FrontendRenderer::RenderFrame()
     m_overlayTree->InvalidateOnNextFrame();
     m_searchMarkTextOverlayTree->InvalidateOnNextFrame();
   }
-  bool const sceneRendered = RenderScene(modelView, isActiveFrameForScene || readyRequest != nullptr);
+  bool const sceneRendered = RenderScene(modelView, isActiveFrameForScene || readyRequest != nullptr, now);
 #else
-  RenderScene(modelView, isActiveFrameForScene);
+  RenderScene(modelView, isActiveFrameForScene, now);
 #endif
 
   if (m_renderInjectionHandler)
@@ -1955,7 +1954,7 @@ void FrontendRenderer::RenderFrame()
     auto expectedCenter = request->m_center;
     expectedCenter.x = mercator::NearestWrapX(expectedCenter.x, center.x);
     if (!center.EqualDxDy(expectedCenter, 1e-7) || GetCurrentZoom() != request->m_zoom ||
-        AnimationSystem::Instance().HasMapAnimations())
+        m_animationSystem.IsCameraMoving())
     {
       CompleteScenarioViewport(false);
     }
@@ -1975,9 +1974,6 @@ void FrontendRenderer::RenderFrame()
                               MessagePriority::Normal);
   }
 #endif
-
-  InterpolationHolder::Instance().Advance(m_frameData.m_frameTime);
-  AnimationSystem::Instance().Advance(m_frameData.m_frameTime);
 
   // On the first inactive frame we invalidate overlay tree.
   if (!isActiveFrame)
@@ -2123,9 +2119,8 @@ void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp
 }
 
 void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
-                                         ref_ptr<BaseRenderGroup> group)
+                                         ref_ptr<RenderGroup> group)
 {
-  group->UpdateAnimation();
   group->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues, make_ref(m_debugRectRenderer));
 }
 
@@ -2286,18 +2281,19 @@ bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::
 
 void FrontendRenderer::OnDragStarted()
 {
-  m_myPositionController->DragStarted();
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
+  m_myPositionController->DragStarted(m_userEventStream.GetCurrentScreen());
 }
 
 void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
 {
   m_myPositionController->DragEnded(distance);
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
-  m_firstLaunchAnimationInterrupted = true;
 }
 
 void FrontendRenderer::OnScaleStarted()
 {
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
   m_myPositionController->ScaleStarted();
 }
 
@@ -2330,15 +2326,13 @@ void FrontendRenderer::OnScaleEnded()
 {
   m_myPositionController->ScaleEnded();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
-  m_firstLaunchAnimationInterrupted = true;
   m_selectionTrackInfo.reset();
 }
 
-void FrontendRenderer::OnAnimatedScaleEnded()
+void FrontendRenderer::OnScaleRequested()
 {
   m_myPositionController->ResetBlockAutoZoomTimer();
-  // PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
-  m_firstLaunchAnimationInterrupted = true;
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
   m_selectionTrackInfo.reset();
 }
 
@@ -2361,25 +2355,19 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     return false;
   }
 
-  gOffset = m2::PointD(0, 0);
-  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr || oldViewport == newViewport ||
+  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr ||
       !m_selectionTrackInfo.has_value())
   {
     return false;
   }
 
-  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-
-  ScreenBase targetScreen;
-  AnimationSystem::Instance().GetTargetScreen(screen, targetScreen);
-
-  auto const pos = m_selectionShape->GetPixelPosition(screen, GetCurrentZoom());
-  auto const targetPos = m_selectionShape->GetPixelPosition(targetScreen, GetCurrentZoom());
-  if (!pos || !targetPos)
+  // The event stream applies the correction to the target, so project the selection there.
+  auto const screen = m_userEventStream.GetTargetScreen();
+  auto const pos = m_selectionShape->GetPixelPosition(screen);
+  if (!pos)
     return false;
 
   m2::RectD rect(*pos, *pos);
-  m2::RectD targetRect(*targetPos, *targetPos);
   if (m_selectionShape->HasSelectionGeometry())
   {
     auto r = m_selectionShape->GetSelectionGeometryBoundingBox();
@@ -2387,33 +2375,29 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
     m2::RectD const pixelRect(screen.PtoP3d(screen.GtoP(r.LeftTop())), screen.PtoP3d(screen.GtoP(r.RightBottom())));
     rect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
-    targetRect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
   }
   else
   {
     if (m_overlayTree->IsNeedUpdate())
-      BuildOverlayTree(screen);
+      BuildOverlayTree(m_userEventStream.GetCurrentScreen());
 
     if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
-          m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
-          m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
+          m_overlayTree->GetSelectedFeatureRect(screen, rect)))
     {
       double const r = m_selectionShape->GetRadius();
       rect.Inflate(r, r);
-      targetRect.Inflate(r, r);
     }
 
     double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
     rect.Inflate(kOffset, kOffset);
-    targetRect.Inflate(kOffset, kOffset);
   }
 
   if (newViewport.SizeX() < rect.SizeX() || newViewport.SizeY() < rect.SizeY())
     return false;
 
   m2::PointD pOffset(0.0, 0.0);
-  if ((oldViewport.IsIntersect(targetRect) && !newViewport.IsRectInside(rect)) ||
-      (newViewport.IsRectInside(rect) && m_selectionTrackInfo->m_snapSides != m2::PointI::Zero()))
+  bool const fits = newViewport.IsRectInside(rect);
+  if ((!fits && oldViewport.IsIntersect(rect)) || (fits && m_selectionTrackInfo->m_snapSides != m2::PointI::Zero()))
   {
     // In case the rect of the selection is [partly] hidden, scroll the map to keep it visible.
     // In case the rect of the selection is visible after the map scrolling,
@@ -2440,6 +2424,9 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
       m_selectionTrackInfo->m_snapSides.y = 1;
     }
   }
+
+  if (pOffset == m2::PointD::Zero())
+    return false;
 
   double const ptZ = m_selectionShape->GetPositionZ();
   gOffset = screen.PtoG(screen.P3dtoP(*pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(*pos, ptZ));
@@ -2552,8 +2539,6 @@ void FrontendRenderer::OnContextDestroy()
   m_context = nullptr;
 
   m_needRestoreSize = true;
-  m_firstTilesReady = false;
-  m_firstLaunchAnimationInterrupted = false;
 
   m_finishTexturesInitialization = false;
 }
@@ -2685,6 +2670,12 @@ void FrontendRenderer::Routine::Do()
 
 void FrontendRenderer::ReleaseResources()
 {
+  auto & gui = gui::DrapeGui::Instance();
+  using CopyrightState = gui::DrapeGui::CopyrightState;
+  // Engine teardown has already stopped delayed work, so the next engine can start a fresh timer.
+  if (gui.GetCopyrightState() == CopyrightState::Visible)
+    gui.SetCopyrightState(CopyrightState::Pending);
+
   for (RenderLayer & layer : m_layers)
     layer.m_renderGroups.clear();
 
@@ -2743,7 +2734,7 @@ void FrontendRenderer::CompleteScenarioViewport(bool ready)
            m_scenarioViewportRequest->m_center, "viewport_changed",
            m_scenarioViewportStage != ScenarioViewportStage::WaitViewport && screen != m_scenarioViewportScreen,
            "force_scene", m_forceUpdateScene, "force_user_marks", m_forceUpdateUserMarks, "animations",
-           AnimationSystem::Instance().HasMapAnimations(), "unfinished_tiles", m_notFinishedTiles.size(), "enabled",
+           m_animationSystem.IsCameraMoving(), "unfinished_tiles", m_notFinishedTiles.size(), "enabled",
            IsRenderingEnabled()));
     }
     m_scenarioViewportRequest->Complete(ready);
@@ -2755,38 +2746,38 @@ void FrontendRenderer::CompleteScenarioViewport(bool ready)
 void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
   m_userPositionChangedHandler(position, hasPosition);
+  if (hasPosition)
+    CenterFirstLaunchViewportIfReady();
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
-                                       TAnimationCreator const & parallelAnimCreator)
+                                       std::optional<ArrowPose> const & arrowTarget)
 {
   AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true /* isAnim */, false /* trackVisibleViewport */,
-                                              parallelAnimCreator));
+                                              arrowTarget));
 }
 
-void FrontendRenderer::ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator)
+void FrontendRenderer::ChangeModelView(double azimuth, std::optional<ArrowPose> const & arrowTarget)
 {
-  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, true /* isAnim */, parallelAnimCreator));
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, true /* isAnim */, arrowTarget));
 }
 
-void FrontendRenderer::ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator)
+void FrontendRenderer::ChangeModelView(m2::RectD const & rect, std::optional<ArrowPose> const & arrowTarget)
 {
   AddUserEvent(make_unique_dp<SetRectEvent>(rect, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
-                                            false /* useVisibleViewport */, parallelAnimCreator));
+                                            false /* useVisibleViewport */, arrowTarget));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                       int preferredZoomLevel, Animation::TAction const & onFinishAction,
-                                       TAnimationCreator const & parallelAnimCreator)
+                                       int preferredZoomLevel, std::optional<ArrowPose> const & arrowTarget)
 {
-  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, true, onFinishAction,
-                                                    parallelAnimCreator));
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, arrowTarget));
 }
 
 void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
-                                       m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator)
+                                       m2::PointD const & pxZero, std::optional<ArrowPose> const & arrowTarget)
 {
-  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale, parallelAnimCreator));
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale, arrowTarget));
 }
 
 void FrontendRenderer::OnEnterBackground()
@@ -2795,10 +2786,11 @@ void FrontendRenderer::OnEnterBackground()
 }
 
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged,
-                                                   bool & needActiveFrame)
+                                                   bool & needActiveFrame, AnimationClock::time_point now)
 {
   TRACE_SECTION("[drape] ProcessEvents");
-  ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame);
+  ScreenBase const & modelView =
+      m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame, now);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
 
   // modelViewChanged == false and m_currentZoomLevel == -1 is possible on the first render ..
@@ -2895,15 +2887,16 @@ void FrontendRenderer::CollectShowOverlaysEvents()
   m_overlaysShowStatsCallback(m_overlaysTracker->Collect());
 }
 
-void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
+void FrontendRenderer::CenterFirstLaunchViewportIfReady()
 {
-  if (!m_firstTilesReady || m_firstLaunchAnimationInterrupted || !m_myPositionController->IsModeHasPosition())
+  if (m_firstLaunchViewport != FirstLaunchViewport::WaitingForPosition || !m_myPositionController->IsModeHasPosition())
     return;
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
 
   int constexpr kDesiredZoomLevel = 13;
   m2::PointD const pos = m_myPositionController->GetDrawablePosition();
-  AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */,
-                                              false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+  AddUserEvent(
+      make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */, false /* trackVisibleViewport */));
 }
 
 void FrontendRenderer::ScheduleOverlayCollecting()

@@ -44,10 +44,9 @@ struct UserMarkRenderParams
   bool m_customDepth = false;
   DepthLayer m_depthLayer = DepthLayer::UserMarkLayer;
   DepthLayer m_titleDepthLayer = DepthLayer::UserMarkLayer;
-  bool m_hasCreationAnimation = false;
-  mutable bool m_justCreated = false;  ///< will be reset after first caching
   bool m_isVisible = true;
   FeatureID m_featureId;
+  mutable bool m_animateCreation = false;
   bool m_isMarkAboveText = false;
   float m_symbolOpacity = 1.0f;
   bool m_isSymbolSelectable = true;

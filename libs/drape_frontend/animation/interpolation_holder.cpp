@@ -1,5 +1,5 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
-#include "drape_frontend/animation/base_interpolator.hpp"
+#include "drape_frontend/animation/opacity_animation.hpp"
 
 #include "base/assert.hpp"
 
@@ -16,12 +16,12 @@ bool InterpolationHolder::IsActive() const
   return !m_interpolations.empty();
 }
 
-void InterpolationHolder::Advance(double elapsedSeconds)
+void InterpolationHolder::Advance(AnimationClock::time_point now)
 {
   auto iter = m_interpolations.begin();
   while (iter != m_interpolations.end())
   {
-    (*iter)->Advance(elapsedSeconds);
+    (*iter)->Advance(now);
     if ((*iter)->IsFinished())
       iter = m_interpolations.erase(iter);
     else
@@ -34,12 +34,12 @@ InterpolationHolder::~InterpolationHolder()
   ASSERT(m_interpolations.empty(), ());
 }
 
-void InterpolationHolder::RegisterInterpolator(BaseInterpolator * interpolator)
+void InterpolationHolder::Register(OpacityAnimation * interpolator)
 {
   VERIFY(m_interpolations.insert(interpolator).second, ());
 }
 
-void InterpolationHolder::DeregisterInterpolator(BaseInterpolator * interpolator)
+void InterpolationHolder::Deregister(OpacityAnimation * interpolator)
 {
   m_interpolations.erase(interpolator);
 }

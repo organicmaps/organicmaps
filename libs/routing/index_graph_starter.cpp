@@ -186,12 +186,12 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
           astar::VertexData const replacedFakeSegment(real, vertexData.m_realDistance);
           m_graph.GetEdgeList(replacedFakeSegment, isOutgoing, true /* useRoutingOptions */, useAccessConditional,
                               edges);
-          // The ingoing edges have the weight of the whole |real| segment, but the route takes its part only.
           if (!isOutgoing)
           {
-            auto const realWeight = CalcSegmentWeight(real, EdgeEstimator::Purpose::Weight);
+            // Each edge has priced the whole segment or its border twin.
+            double const fraction = GetSegmentLengthFraction(*this, segment, real);
             for (auto & edge : edges)
-              edge.GetWeight() += ingoingSegmentWeight - realWeight;
+              edge = SegmentEdge(edge.GetTarget(), edge.GetWeightComponents().ForSegmentFraction(fraction));
           }
         }
       }
@@ -240,27 +240,12 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment, EdgeEs
   Segment real;
   if (m_fake.FindReal(segment, real))
   {
-    double const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
-
     if (IsRegionsGraphMode())
-      return RouteWeight(partLen);
+      return RouteWeight(ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo()));
 
-    double const fullLen = ms::DistanceOnEarth(GetPoint(real, false), GetPoint(real, true));
-    // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
-    // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real, ...);|:
-    // it's necessary to return a instance of the structure |RouteWeight| with zero wight.
-    // Theoretically it may be differ from |RouteWeight(0)| because some road access block
-    // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
-
-    Weight weight;
-    if (IsGuidesSegment(real))
-      weight = CalcGuidesSegmentWeight(real, purpose);
-    else
-      weight = m_graph.CalcSegmentWeight(real, purpose);
-    if (fullLen == 0.0)
-      return 0.0 * weight;
-
-    return (partLen / fullLen) * weight;
+    auto const weight =
+        IsGuidesSegment(real) ? CalcGuidesSegmentWeight(real, purpose) : m_graph.CalcSegmentWeight(real, purpose);
+    return GetSegmentLengthFraction(*this, segment, real) * weight;
   }
 
   return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo(), purpose);
@@ -574,28 +559,22 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
   {
     for (auto const & s : m_fake.GetFake(edge.GetTarget()))
     {
-      //     |segment|       |s|
-      //  *------------>*----------->
-      bool const sIsOutgoing = GetJunction(segment, true /* front */) == GetJunction(s, false /* front */);
-
-      //        |s|       |segment|
-      //  *------------>*----------->
-      bool const sIsIngoing = GetJunction(s, true /* front */) == GetJunction(segment, false /* front */);
-
-      if (isOutgoing && sIsOutgoing)
+      if (isOutgoing)
       {
-        auto weight = CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight);
-        // |s| is a part of the |edge| target: it replaces the target weight and keeps the transition penalties.
-        // The regions graph has no penalties, and its edge weights differ from the segment ones.
-        if (!IsRegionsGraphMode())
-          weight += edge.GetWeight() - CalcSegmentWeight(edge.GetTarget(), EdgeEstimator::Purpose::Weight);
-        fakeEdges.emplace_back(s, weight);
+        if (GetJunction(segment, true /* front */) != GetJunction(s, false /* front */))
+          continue;
+
+        // The regions graph uses distance weights independent of the edges it connects.
+        if (IsRegionsGraphMode())
+          fakeEdges.emplace_back(s, CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight));
+        else
+          fakeEdges.emplace_back(
+              s, edge.GetWeightComponents().ForSegmentFraction(GetSegmentLengthFraction(*this, s, edge.GetTarget())));
       }
-      else if (!isOutgoing && sIsIngoing)
+      else if (GetJunction(s, true /* front */) == GetJunction(segment, false /* front */))
       {
-        // For ingoing edges we use source weight which is the same for |s| and for |edge| and is
-        // already calculated.
-        fakeEdges.emplace_back(s, edge.GetWeight());
+        // The edge already prices the segment entered in the forward direction.
+        fakeEdges.emplace_back(s, edge.GetWeightComponents());
       }
     }
   }

@@ -11,8 +11,8 @@ typedef struct
   packed_float2 u_contrastGamma;
   float u_opacity;
   float u_zScale;
-  float u_interpolation;
   float u_isOutlinePass;
+  float u_bookmarkScale;
   float u_dummy1;
   float u_dummy2;
   float4 u_terrainLightDir;
@@ -916,7 +916,7 @@ fragment float4 fsMaskedTexturing(const MaskedTexturingFragment_T in [[stage_in]
 typedef struct
 {
   float3 a_position [[attribute(0)]];
-  float3 a_normalAndAnimateOrZ [[attribute(1)]];
+  float3 a_normalAndDefaultDepth [[attribute(1)]];
   float4 a_texCoords [[attribute(2)]];
   float4 a_color [[attribute(3)]];
 } UserMarkVertex_T;
@@ -939,16 +939,14 @@ vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
 {
   UserMarkFragment_T out;
   
-  float2 normal = in.a_normalAndAnimateOrZ.xy;
-  if (in.a_normalAndAnimateOrZ.z > 0.0)
-    normal = uniforms.u_interpolation * normal;
+  float2 normal = uniforms.u_bookmarkScale * in.a_normalAndDefaultDepth.xy;
   
   float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
   float4 pos = float4(normal, 0.0, 0.0) + p;
   float4 projectedPivot = p * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
   float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
-  out.position.z = abs(in.a_normalAndAnimateOrZ.z) * newZ  + (1.0 - abs(in.a_normalAndAnimateOrZ.z)) * out.position.z;
+  out.position.z = mix(out.position.z, newZ, in.a_normalAndDefaultDepth.z);
 
   out.texCoords = in.a_texCoords;
   out.maskColor = in.a_color;
@@ -961,16 +959,14 @@ vertex UserMarkFragment_T vsUserMarkBillboard(const UserMarkVertex_T in [[stage_
 {
   UserMarkFragment_T out;
   
-  float2 normal = in.a_normalAndAnimateOrZ.xy;
-  if (in.a_normalAndAnimateOrZ.z > 0.0)
-    normal = uniforms.u_interpolation * normal;
+  float2 normal = uniforms.u_bookmarkScale * in.a_normalAndDefaultDepth.xy;
   
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(normal, 0.0, 0.0) * uniforms.u_projection;
   float4 projectedPivot = pivot * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(projectedPivot, uniforms.u_pivotTransform, 0.0, offset.xy);
   float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
-  out.position.z = abs(in.a_normalAndAnimateOrZ.z) * newZ  + (1.0 - abs(in.a_normalAndAnimateOrZ.z)) * out.position.z;
+  out.position.z = mix(out.position.z, newZ, in.a_normalAndDefaultDepth.z);
 
   out.texCoords = in.a_texCoords;
   out.maskColor = in.a_color;
