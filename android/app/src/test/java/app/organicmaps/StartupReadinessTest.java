@@ -70,13 +70,26 @@ public class StartupReadinessTest
   }
 
   @Test
+  public void mapHandoffCarriesOnlyUnconsumedCommands()
+  {
+    final android.content.Context context = org.robolectric.RuntimeEnvironment.getApplication();
+    final Intent command = new Intent().putExtra(MwmActivity.EXTRA_TRACK_ID, 15L);
+    final Intent pending = MwmActivity.makeDisplayHandoffIntent(context, command, false);
+    assertEquals(15L, pending.getLongExtra(MwmActivity.EXTRA_TRACK_ID, -1));
+    final Intent spent = MwmActivity.makeDisplayHandoffIntent(context, command, true);
+    assertFalse(spent.hasExtra(MwmActivity.EXTRA_TRACK_ID));
+    assertTrue(MwmActivity.isIntentConsumed(null, spent));
+  }
+
+  @Test
   public void carSplashAndPlaceholderDoNotRestartEachOtherWhileMapsLoad()
   {
     when(mDisplay.isCarDisplayUsed()).thenReturn(true);
+    when(mDisplay.isCarConnected()).thenReturn(true);
     try (ActivityController<SplashActivity> splash = Robolectric.buildActivity(SplashActivity.class))
     {
       splash.get().setTheme(R.style.MwmTheme);
-      splash.create();
+      splash.create().start().resume();
       final Intent placeholder = shadowOf(splash.get()).getNextStartedActivity();
       assertEquals(MapPlaceholderActivity.class.getName(), placeholder.getComponent().getClassName());
       try (ActivityController<MapPlaceholderActivity> host =
