@@ -951,4 +951,14 @@
     <string name="transit_type_train">Train</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Motorcycle routing profile button: fastest route preferring motorways and expressways. -->
+    <string name="motorcycle_profile_quick">Quick</string>
+    <!-- Motorcycle routing profile button: comfortable paved main roads avoiding motorways. -->
+    <string name="motorcycle_profile_touring">Touring</string>
+    <!-- Motorcycle routing profile button: scenic and twisty secondary and backroads. -->
+    <string name="motorcycle_profile_fun">Fun</string>
+    <!-- Motorcycle routing profile button: adventure route preferring gravel and dirt tracks. -->
+    <string name="motorcycle_profile_offroad">Offroad</string>
+    <!-- Motorcycle routing profile button: aggressive off-road route maximizing forest and dirt trails. -->
+    <string name="motorcycle_profile_hard_enduro">Hard Enduro</string>
 </resources>
