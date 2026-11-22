@@ -32,7 +32,7 @@
     <tag k="highway" v="path" />
   </way>
   <way id="105">
-    <nd ref="2" /><nd ref="6" /><nd ref="7" /><nd ref="4" />
+    <nd ref="2" /><nd ref="6" /><nd ref="3" /><nd ref="7" /><nd ref="4" />
     <tag k="highway" v="path" />
   </way>
   <way id="120">

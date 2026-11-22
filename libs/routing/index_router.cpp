@@ -1357,21 +1357,19 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  RoutingOptions const routingOptions =
+  auto graphAvoids =
       m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
   /// @DebugNote
-  // Add avoid roads here for debug purpose.
-  // routingOptions.Add(RoutingOptions::Road::Motorway);
-  LOG(LINFO, ("Avoid next roads:", routingOptions));
+  // graphAvoids.Add(RoutingOptions::Motorway);
+
+  // The walking setting covers both grades, which stay distinct on road segments for warnings.
+  if (graphAvoids.Has(RoutingOptions::DifficultTrail))
+    graphAvoids.Add(RoutingOptions::ExpertTrail);
+  LOG(LINFO, ("Avoid next roads:", graphAvoids));
 
   auto crossMwmGraph = std::make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
       m_countryRectFn, m_dataSource);
-
-  // The walking setting covers both grades, which stay distinct on road segments for warnings.
-  auto graphAvoids = routingOptions;
-  if (graphAvoids.Has(RoutingOptions::DifficultTrail))
-    graphAvoids.Add(RoutingOptions::ExpertTrail);
 
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType, m_loadAltitudes,
