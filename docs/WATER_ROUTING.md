@@ -16,6 +16,8 @@ chart. The kayak icon follows Ruler on both platforms and uses the same selected
 and unselected theme colors as the other routing profiles. Ruler continues to
 measure straight segments.
 
+A track saved from Water can be viewed on the map. Track following is unavailable for that saved profile.
+
 ## Checkpoints and walking
 
 Select a start with **Route from**, choose **Water**, and select a destination

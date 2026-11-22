@@ -390,8 +390,7 @@ double Route::GetMercatorDistanceFromBegin() const
   auto const & curIter = m_poly.GetCurrentIter();
   ASSERT_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
-  double const distMerc = curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
-  return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
+  return GetSegmentStartDistanceMerc(curIter.m_ind) + m_poly.GetDistFromCurPointToRoutePointMerc();
 }
 
 double Route::GetCurrentTimeToEndSec() const

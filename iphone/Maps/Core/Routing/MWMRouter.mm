@@ -48,62 +48,32 @@ using namespace routing;
   return router;
 }
 
-+ (BOOL)hasRouteAltitude
-{
-  switch ([self type])
-  {
-  case MWMRouterTypeVehicle:
-  case MWMRouterTypePublicTransport:
-  case MWMRouterTypeRuler:
-  case MWMRouterTypeWater: return NO;
-  case MWMRouterTypePedestrian:
-  case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
-  }
-}
-
 + (RouteElevationPreviewData *)routeElevationProfileData
 {
-  if (![self hasRouteAltitude])
+  auto const & manager = GetFramework().GetRoutingManager();
+  auto const profile = manager.GetRenderRouterType();
+  if (!manager.IsFollowingTrack() && profile != RouterType::Pedestrian && profile != RouterType::Bicycle)
     return nil;
 
-  ElevationInfo elevationInfo;
-  if (!GetFramework().GetRoutingManager().GetRouteElevationInfo(elevationInfo))
+  auto const data = manager.GetRouteElevationData();
+  if (!data)
     return nil;
 
-  auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-
-  TrackStatistics trackStatistics;
-  trackStatistics.m_ascent = altitudesInfo.GetTotalAscent();
-  trackStatistics.m_descent = altitudesInfo.GetTotalDescent();
-  trackStatistics.m_maxElevation = altitudesInfo.m_maxAltitude;
-  trackStatistics.m_minElevation = altitudesInfo.m_minAltitude;
-
-  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:trackStatistics hasElevationInfo:YES];
+  auto const & statistics = data->m_statistics;
+  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:statistics hasElevationInfo:YES];
   ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
-                                                                       elevationInfo:elevationInfo];
+                                                                       elevationInfo:data->m_elevationInfo];
   return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
 }
 
 + (void)setRouteElevationActivePointDistance:(double)distance
 {
-  auto & framework = GetFramework();
-  if (framework.GetDrapeEngine() == nullptr)
-    return;
-
-  auto const point = framework.GetRoutingManager().GetRoutePointAtDistance(distance);
-  if (!point)
-    return;
-
-  framework.GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
-                                           false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                                           true /* isSelectionShapeVisible */);
+  GetFramework().SetRouteElevationActivePoint(distance);
 }
 
 + (void)resetRouteElevationActivePoint
 {
-  auto & framework = GetFramework();
-  if (!framework.HasPlacePageInfo())
-    framework.DeactivateMapSelectionCircle(false /* restoreViewport */);
+  GetFramework().ResetRouteElevationActivePoint();
 }
 
 + (BOOL)saveRouteAsTrack
@@ -432,7 +402,7 @@ using namespace routing;
 
 + (void)start
 {
-  if ([self type] == MWMRouterTypeWater)
+  if (GetFramework().GetRoutingManager().GetRenderRouterType() == RouterType::Water)
     return;
 
   auto const doStart = ^{
@@ -504,7 +474,7 @@ using namespace routing;
     return;
   auto const & rm = GetFramework().GetRoutingManager();
   auto navManager = [MWMNavigationDashboardManager sharedManager];
-  if ([MWMRouter type] == MWMRouterTypeWater)
+  if (GetFramework().GetRoutingManager().GetRenderRouterType() == RouterType::Water)
   {
     if (rm.IsRouteBuilding())
       return;
@@ -577,7 +547,7 @@ using namespace routing;
   case routing::RouterResultCode::StartPointNotFound:
   case routing::RouterResultCode::EndPointNotFound:
   case routing::RouterResultCode::IntermediatePointNotFound:
-    if ([MWMRouter type] == MWMRouterTypeWater)
+    if (GetFramework().GetRoutingManager().GetRenderRouterType() == RouterType::Water)
     {
       [[MWMAlertViewController activeAlertController] presentDefaultAlertWithTitle:L(@"routing_planning_error")
                                                                            message:L(@"water_select_point")

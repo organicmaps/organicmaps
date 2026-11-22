@@ -151,7 +151,7 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     MWMRouter.setType(.water)
     XCTAssertEqual(MWMRouter.type(), .water)
     XCTAssertEqual(MWMRouter.string(from: .water), "water")
-    XCTAssertFalse(MWMRouter.hasRouteAltitude())
+    XCTAssertNil(MWMRouter.routeElevationProfileData())
     MWMRouter.startRouting()
     XCTAssertFalse(MWMRouter.isOnRoute())
   }

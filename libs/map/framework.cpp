@@ -205,6 +205,7 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryF
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
+  m_routingManager.OnLocationLost();
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
   if (m_drapeEngine != nullptr)
     m_drapeEngine->LoseLocation();
@@ -1446,10 +1447,7 @@ void Framework::MakeFrameActive()
 
 int Framework::GetDrawScale() const
 {
-  if (m_drapeEngine != nullptr)
-    return df::GetDrawTileScale(m_currentModelView);
-
-  return 0;
+  return m_drapeEngine ? df::GetStyleZoom(m_currentModelView) : 0;
 }
 
 void Framework::RunFirstLaunchAnimation()
@@ -2504,6 +2502,23 @@ void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
     m_drapeEngine->DeselectObject(restoreViewport);
 }
 
+void Framework::SetRouteElevationActivePoint(double distanceMeters)
+{
+  // Route chart callbacks can arrive while the place page is using the same map selection circle.
+  if (!m_drapeEngine || HasPlacePageInfo())
+    return;
+  if (auto const point = m_routingManager.GetRoutePointAtDistance(distanceMeters))
+    m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
+                                false /* isAnim */, false /* isGeometrySelectionAllowed */,
+                                true /* isSelectionShapeVisible */);
+}
+
+void Framework::ResetRouteElevationActivePoint()
+{
+  if (!HasPlacePageInfo())
+    DeactivateMapSelectionCircle(false /* restoreViewport */);
+}
+
 void Framework::SwitchFullScreen()
 {
   if (m_onSwitchFullScreen)
@@ -2549,7 +2564,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
-  if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
+  if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
       !placePageInfo.IsRoutePoint())
   {
     DeactivateMapSelection();
@@ -3264,7 +3279,7 @@ bool Framework::LoadAutoZoom()
 
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
-  routing::RouterType const type = m_routingManager.GetRouter();
+  routing::RouterType const type = m_routingManager.GetRenderRouterType();
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
 
   if (m_drapeEngine != nullptr)

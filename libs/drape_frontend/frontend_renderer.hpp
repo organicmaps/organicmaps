@@ -186,7 +186,6 @@ private:
   void RefreshProjection(ScreenBase const & screen);
   void RefreshZScale(ScreenBase const & screen);
   void RefreshPivotTransform(ScreenBase const & screen);
-  void RefreshBgColor();
 
   struct RenderLayer
   {
