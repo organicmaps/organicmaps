@@ -2,8 +2,10 @@ package app.organicmaps.sdk;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.mockStatic;
@@ -71,10 +73,10 @@ import org.robolectric.annotation.Implements;
                    CarAppSessionReadinessTest.MapStorage.class})
 public class CarAppSessionReadinessTest
 {
-  private final MapsReadiness mReadiness = new MapsReadiness();
+  private MapsReadiness mReadiness;
   private final List<String> mDelivered = new ArrayList<>();
   private final RoutingController mRouting = mock(RoutingController.class);
-  private final DisplayManager mDisplay = new DisplayManager();
+  private DisplayManager mDisplay;
   private final OrganicMaps mSdk = mock(OrganicMaps.class);
   private final Renderer mRenderer = mock(Renderer.class);
   private MockedStatic<RoutingController> mController;
@@ -107,11 +109,9 @@ public class CarAppSessionReadinessTest
     final Application application = RuntimeEnvironment.getApplication();
     shadowOf(application)
         .grantPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
-    mContext = TestCarContext.createCarContext(application);
-    mContext.updateHandshakeInfo(new HandshakeInfo("test", CarAppApiLevels.getLatest()));
-    mContext.overrideCarService(AppManager.class, mock(AppManager.class));
+    startProcess();
     when(mSdk.getLocationHelper()).thenReturn(mock(LocationHelper.class));
-    when(mSdk.getMapsReadiness()).thenReturn(mReadiness);
+
     when(mSdk.arePlatformAndCoreInitialized()).thenReturn(true);
     when(mSdk.getFlavor()).thenReturn("google");
     mRenderers = mockStatic(RendererFactory.class);
@@ -411,6 +411,84 @@ public class CarAppSessionReadinessTest
     mDisplay.changeDisplay(DisplayType.Device);
     mReadiness.complete();
     assertSame(mRoot, mScreens.getTop());
+  }
+
+  @Test
+  public void onlyTheAlreadyDispatchedLaunchIsSkippedAfterProcessDeath()
+  {
+    mReadiness.complete();
+    createSession(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    startProcess();
+    mReadiness.complete();
+    createSession(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=first"), mDelivered);
+    moveTo(Lifecycle.State.DESTROYED);
+    startProcess();
+    mReadiness.complete();
+    createSession(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=first"), mDelivered);
+  }
+
+  @Test
+  public void identicalNewRequestStillPendingAtProcessDeathIsDelivered()
+  {
+    mReadiness.complete();
+    createSession(intent("Home"));
+    moveTo(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.CREATED);
+    mSession.onNewIntent(intent("Home"));
+    startProcess();
+    mReadiness.complete();
+    createSession(intent("Home"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=Home", "geo:1,2?q=Home"), mDelivered);
+  }
+
+  @Test
+  public void crashInAnEarlierQueuedRequestDoesNotConsumeTheLatestReceipt()
+  {
+    final Intent first = intent("Home");
+    createSession(first);
+    mSession.onNewIntent(intent("Home"));
+    moveTo(Lifecycle.State.STARTED);
+    mIntents.when(() -> IntentUtils.processIntent(any(), any(), any(), same(first)))
+        .thenThrow(new IllegalStateException("Process stopped during the first dispatch"));
+    assertThrows(IllegalStateException.class, mReadiness::complete);
+
+    startProcess();
+    mReadiness.complete();
+    createSession(intent("Home"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=Home"), mDelivered);
+  }
+
+  @Test
+  public void differentDestinationWithTheSameFilterHashStartsAfterProcessDeath()
+  {
+    final Intent first = intent("FB");
+    final Intent second = intent("Ea");
+    mReadiness.complete();
+    createSession(first);
+    moveTo(Lifecycle.State.STARTED);
+    startProcess();
+    mReadiness.complete();
+    createSession(second);
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of(first.getDataString(), second.getDataString()), mDelivered);
+  }
+
+  private void startProcess()
+  {
+    final Application application = RuntimeEnvironment.getApplication();
+    mReadiness = new MapsReadiness();
+    when(mSdk.getMapsReadiness()).thenReturn(mReadiness);
+    mDisplay = new DisplayManager();
+    mContext = TestCarContext.createCarContext(application);
+    mContext.updateHandshakeInfo(new HandshakeInfo("test", CarAppApiLevels.getLatest()));
+    mContext.overrideCarService(AppManager.class, mock(AppManager.class));
   }
 
   private void createSession()

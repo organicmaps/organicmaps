@@ -1,8 +1,12 @@
 package app.organicmaps.car;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
+import android.util.Base64;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +49,9 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayDeque;
 import java.util.Objects;
 import java.util.Queue;
@@ -54,6 +61,8 @@ public abstract class CarAppSessionBase
 {
   @NonNull
   private static final String TAG = CarAppSessionBase.class.getSimpleName();
+  private static final String LAST_REQUEST = "LastAttemptDigest";
+
   @NonNull
   protected final OrganicMaps mOrganicMapsContext;
   @NonNull
@@ -147,7 +156,8 @@ public abstract class CarAppSessionBase
 
     // Build the stack for the current display owner before a request can switch it to the car.
     final Screen screen = prepareScreens();
-    enqueueIntent(intent);
+    if (!isRepeatedRequest(intent))
+      enqueueIntent(intent);
     return screen;
   }
 
@@ -155,6 +165,9 @@ public abstract class CarAppSessionBase
   public final void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
+    // A genuine new receipt may repeat a destination while waiting for setup.
+    if (isRepeatedRequest(intent))
+      writeLastRequest(null);
     enqueueIntent(intent);
   }
 
@@ -180,6 +193,8 @@ public abstract class CarAppSessionBase
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
     setViewportObservationEnabled(false);
+    // The same destination can start a different trip after a clean session end.
+    requestHistory().edit().remove(LAST_REQUEST).apply();
   }
 
   protected final void setViewportObservationEnabled(boolean enabled)
@@ -467,7 +482,54 @@ public abstract class CarAppSessionBase
       if (IntentUtils.requiresCarDisplay(intent) && !isCarDisplayReady())
         return;
       mPendingIntents.remove();
+      // Only the latest receipt can be replayed by the host after a process restart.
+      if (mPendingIntents.isEmpty())
+        writeLastRequest(requestDigest(intent));
       IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, intent);
+    }
+  }
+
+  private SharedPreferences requestHistory()
+  {
+    return getCarContext().getSharedPreferences("CarRequests", Context.MODE_PRIVATE);
+  }
+
+  private boolean isRepeatedRequest(@NonNull Intent intent)
+  {
+    final String recorded = requestHistory().getString(LAST_REQUEST, null);
+    // The host can repeat a request long after dispatch. An unclean disconnect can also leave the same
+    // destination in the next trip indistinguishable from a replay.
+    return recorded != null && recorded.equals(requestDigest(intent));
+  }
+
+  @SuppressLint("ApplySharedPref")
+  private void writeLastRequest(@Nullable String digest)
+  {
+    final SharedPreferences prefs = requestHistory();
+    if (Objects.equals(digest, prefs.getString(LAST_REQUEST, null)))
+      return;
+    // Finish the write before dispatch so a crashing request cannot keep restarting the process.
+    if (!prefs.edit().putString(LAST_REQUEST, digest).commit())
+      Logger.w(TAG, "Could not persist the car request state");
+  }
+
+  @Nullable
+  private static String requestDigest(@NonNull Intent intent)
+  {
+    if (intent.getData() == null || intent.getAction() == null)
+      return null;
+    try
+    {
+      // Only the action and URI drive dispatch. Keep destination text out of preferences.
+      final MessageDigest hash = MessageDigest.getInstance("SHA-256");
+      hash.update(intent.getAction().getBytes(StandardCharsets.UTF_8));
+      hash.update((byte) 0);
+      return Base64.encodeToString(hash.digest(intent.getDataString().getBytes(StandardCharsets.UTF_8)),
+                                   Base64.NO_WRAP);
+    }
+    catch (NoSuchAlgorithmException e)
+    {
+      throw new AssertionError(e);
     }
   }
 
