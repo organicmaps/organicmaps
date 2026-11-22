@@ -14,6 +14,7 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.car.util.UiHelpers;
@@ -39,6 +40,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
 
   @Nullable
   private ItemList mResults = null;
+  private long mSearchTimestamp;
 
   private SearchOnMapScreen(@NonNull Builder builder)
   {
@@ -77,22 +79,22 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
   @Override
   public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
   {
-    if (mResults != null)
+    if (timestamp != mSearchTimestamp)
       return;
-
     final ItemList.Builder builder = new ItemList.Builder();
     builder.setNoItemsMessage(getCarContext().getString(R.string.search_not_found));
     final int resultsSize = Math.min(results.length, MAX_RESULTS_SIZE);
     for (int i = 0; i < resultsSize; i++)
-      builder.addItem(createResultItem(results[i], i));
+      builder.addItem(createResultItem(results, i));
     mResults = builder.build();
 
     invalidate();
   }
 
   @NonNull
-  private Row createResultItem(@NonNull SearchResult result, int resultIndex)
+  private Row createResultItem(@NonNull SearchResult[] results, int resultIndex)
   {
+    final SearchResult result = results[resultIndex];
     final Row.Builder builder = new Row.Builder();
     if (result.type == SearchResult.TYPE_RESULT)
     {
@@ -112,6 +114,15 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
       }
 
       builder.setOnClickListener(() -> {
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED))
+          return;
+        if (SearchEngine.INSTANCE.getCachedResults() != results)
+        {
+          mResults = null;
+          startSearch();
+          invalidate();
+          return;
+        }
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();
         SearchEngine.INSTANCE.showResult(resultIndex);
@@ -143,6 +154,11 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
+    startSearch();
+  }
+
+  private void startSearch()
+  {
     SearchEngine.INSTANCE.cancel();
 
     final MapObject location = getLocationHelper().getMyPosition();
@@ -150,7 +166,8 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
     final double lat = hasLocation ? location.getLat() : 0;
     final double lon = hasLocation ? location.getLon() : 0;
 
-    SearchEngine.INSTANCE.searchInteractive(mQuery, mIsCategory, mLocale, System.nanoTime(), true /* isMapAndTable */,
+    mSearchTimestamp = System.nanoTime();
+    SearchEngine.INSTANCE.searchInteractive(mQuery, mIsCategory, mLocale, mSearchTimestamp, true /* isMapAndTable */,
                                             hasLocation, lat, lon);
   }
 
@@ -158,6 +175,8 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
   public void onStop(@NonNull LifecycleOwner owner)
   {
     super.onStop(owner);
+    mSearchTimestamp = 0;
+    mResults = null;
     SearchEngine.INSTANCE.removeListener(this);
     SearchEngine.INSTANCE.cancel();
   }
