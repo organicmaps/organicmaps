@@ -15,6 +15,7 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.intent.GoogleAssistantIntentHandler;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -127,8 +128,7 @@ public class RoutingControllerRecoveryTest
     });
   }
 
-  @Test
-  public void activeGuidanceKeepsRecoveryUntilAReplacementIsPlanned() throws Exception
+  private void startGuidance() throws Exception
   {
     final CountDownLatch built = new CountDownLatch(1);
     onMain(() -> {
@@ -147,6 +147,32 @@ public class RoutingControllerRecoveryTest
       mController.start();
       assertTrue(mController.isNavigating());
       assertTrue(Framework.nativeHasSavedRoutePoints());
+    });
+  }
+
+  @Test
+  public void acceptedAssistantStopDiscardsTheSupersededGuidanceRecovery() throws Exception
+  {
+    usePhoneController();
+    startGuidance();
+    onMain(() -> {
+      final Intent command =
+          new Intent("android.intent.action.NAVIGATE", Uri.parse("geo.offline:1.5,1.5?intent=add_a_stop"));
+      mController.onExplicitMapRequest(app.organicmaps.api.MapRequest.addressesCurrentRoute(command));
+      assertTrue(Framework.nativeHasSavedRoutePoints());
+      assertTrue(
+          new GoogleAssistantIntentHandler() {}.handleIntent(command, (q, m) -> { throw new AssertionError(q); }));
+      assertTrue(mController.isPlanning());
+      assertEquals(3, Framework.nativeGetRoutePoints().length);
+      assertFalse(Framework.nativeHasSavedRoutePoints());
+    });
+  }
+
+  @Test
+  public void activeGuidanceKeepsRecoveryUntilAReplacementIsPlanned() throws Exception
+  {
+    startGuidance();
+    onMain(() -> {
       mController.onExplicitMapRequest(false);
       assertTrue(mController.isNavigating());
       assertTrue(Framework.nativeHasSavedRoutePoints());
@@ -154,6 +180,22 @@ public class RoutingControllerRecoveryTest
       assertTrue(mController.isPlanning());
       assertFalse(mController.isNavigating());
       assertFalse(Framework.nativeHasSavedRoutePoints());
+    });
+  }
+
+  @Test
+  public void offlineAssistantDirectionsUseTheValidatedCoordinateAndRequestedProfile() throws Exception
+  {
+    usePhoneController();
+    onMain(() -> {
+      final GoogleAssistantIntentHandler handler = new GoogleAssistantIntentHandler() {};
+      final Intent request = new Intent("android.intent.action.NAVIGATE",
+                                        Uri.parse("geo.offline:48.1,11.5?q=Coffee&mode=w&intent=directions"));
+      assertTrue(handler.handleIntent(request, (query, onMap) -> { throw new AssertionError(query); }));
+      assertTrue(mController.isPlanning());
+      assertEquals(Router.Pedestrian, mController.getLastRouterType());
+      assertEquals(48.1, mController.getEndPoint().getLat(), 1e-6);
+      assertEquals(11.5, mController.getEndPoint().getLon(), 1e-6);
     });
   }
 

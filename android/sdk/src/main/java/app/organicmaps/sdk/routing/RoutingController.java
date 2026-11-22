@@ -646,6 +646,9 @@ public class RoutingController
 
   private void finalizeStopChange()
   {
+    // The saved guidance itinerary no longer matches the committed stop edit.
+    if (isNavigating())
+      deleteSavedRoute();
     build();
     if (mContainer != null)
       mContainer.onAddedStop();

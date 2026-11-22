@@ -12,13 +12,16 @@ import app.organicmaps.api.Const;
 import app.organicmaps.api.MapRequest;
 import app.organicmaps.car.CarAppServiceBase;
 import app.organicmaps.car.screens.NavigationScreen;
+import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.intent.GoogleAssistantIntentHandler;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.log.Logger;
@@ -78,6 +81,33 @@ public final class IntentUtils
     }
 
     @Override
+    public Router navigationRouter(@NonNull Router requested)
+    {
+      return PlaceScreen.ROUTER;
+    }
+
+    @Override
+    public void handleDestination(@NonNull MapObject destination, @NonNull Router router, boolean parsedMap)
+    {
+      if (!parsedMap)
+      {
+        // A NAVIGATE URI can name a destination at its supplied coordinates. Materialize it as a place.
+        final Uri map = new Uri.Builder()
+                            .scheme(Const.API_SCHEME)
+                            .authority("map")
+                            .appendQueryParameter("ll", destination.getLat() + "," + destination.getLon())
+                            .appendQueryParameter("n", destination.getTitle())
+                            .build();
+        if (Framework.parseAndSetApiUrl(map) != RequestType.MAP)
+          throw new IllegalStateException("Invalid coordinate map request");
+      }
+      if (RoutingController.get().isNavigating())
+        RoutingController.get().cancel();
+      mCarContext.getCarService(ScreenManager.class).popToRoot();
+      Map.executeMapApiRequest();
+    }
+
+    @Override
     public void handleSearch(@NonNull String query, boolean searchOnMap)
     {
       final ScreenManager screenManager = mCarContext.getCarService(ScreenManager.class);
@@ -106,7 +136,7 @@ public final class IntentUtils
       return;
 
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
-    switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
+    switch (Framework.parseAndSetApiUrl(uri))
     {
     case RequestType.INCORRECT: return;
     case RequestType.MAP:

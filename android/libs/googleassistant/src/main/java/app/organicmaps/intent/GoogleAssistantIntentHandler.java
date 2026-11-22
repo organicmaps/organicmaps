@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import app.organicmaps.api.MapRequest;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -19,307 +21,160 @@ public abstract class GoogleAssistantIntentHandler
   private static final String TAG = "GAIntentHandler";
   private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-  private static boolean handleNavigationIntent(@NonNull Uri uri, @NonNull SearchHandler handler)
+  private static boolean handleNavigationIntent(@NonNull Uri uri, @NonNull Uri parameters,
+                                                @NonNull SearchHandler handler)
   {
-    try
+    final int type = Framework.parseAndSetApiUrl(uri);
+    if (type != RequestType.MAP && type != RequestType.SEARCH)
+      return false;
+    final RoutingController routing = RoutingController.get();
+    final double[] point = Framework.nativeGetParsedCenterLatLon();
+    final Router router = handler.navigationRouter(parseRoutingMode(parameters.getQueryParameter("mode")));
+    if (point == null)
     {
-      final DestinationData dst = parseDestination(uri);
-      if (!dst.hasLatLon() && (dst.query == null || dst.query.trim().isEmpty()))
-        return false;
-
-      String intentParam = uri.getQueryParameter("intent");
-      if (intentParam == null)
+      // Searching during guidance must keep its profile, itinerary and recovery file.
+      if (!routing.isNavigating())
       {
-        intentParam = "navigation";
+        applyAvoidOptions(parameters, router);
+        routing.setRouterType(router);
       }
-
-      Router routingMode = parseRoutingMode(uri);
-
-      if (dst.hasLatLon() || !RoutingController.get().isNavigating())
-      {
-        applyAvoidOptions(uri, routingMode);
-        RoutingController.get().setRouterType(routingMode);
-      }
-
-      if (!dst.hasLatLon())
-      {
-        if (dst.query != null && !dst.query.isEmpty())
-        {
-          SearchEngine.INSTANCE.cancelInteractiveSearch();
-          handler.handleSearch(dst.query, true);
-          return true;
-        }
-        return false;
-      }
-
-      final String name = dst.query != null ? dst.query : "";
-      final MapObject dest = MapObject.createMapObject(MapObject.API_POINT, name, "", dst.lat, dst.lon);
-
-      switch (intentParam)
-      {
-      case "add_a_stop":
-        if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
-        {
-          RoutingController.get().addStop(dest);
-        }
-        else
-        {
-          startNavigationToDestination(dest);
-        }
-        break;
-
-      case "directions": RoutingController.get().prepare(null, dest); break;
-
-      case "navigation":
-      default: startNavigationToDestination(dest); break;
-      }
-
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
+      handler.handleSearch(Framework.nativeGetParsedSearchRequest().mQuery, true);
       return true;
     }
-    catch (Exception e)
-    {
-      return false;
-    }
-  }
 
-  /**
-   * Start navigation to destination
-   */
-  private static void startNavigationToDestination(@NonNull MapObject dest)
-  {
-    try
+    final String name = parameters.getQueryParameter("q");
+    final MapObject destination =
+        MapObject.createMapObject(MapObject.API_POINT, name == null ? "" : name, "", point[0], point[1]);
+    if ("add_a_stop".equals(parameters.getQueryParameter("intent")) && (routing.isPlanning() || routing.isNavigating()))
     {
+      applyAvoidOptions(parameters, routing.getLastRouterType());
+      routing.addStop(destination);
+    }
+    else
+    {
+      applyAvoidOptions(parameters, router);
       SearchEngine.INSTANCE.cancelInteractiveSearch();
-      RoutingController.get().prepare(null, dest);
+      handler.handleDestination(destination, router, type == RequestType.MAP);
     }
-    catch (Exception e)
-    {
-      Logger.e(TAG, "Failed to start navigation", e);
-    }
+    return true;
   }
 
-  private static DestinationData parseDestination(@NonNull Uri uri)
+  @NonNull
+  private static Router parseRoutingMode(@Nullable String mode)
   {
-    DestinationData dst = new DestinationData();
-
-    try
-    {
-      final String ssp = uri.getSchemeSpecificPart();
-      if (ssp != null)
-      {
-        int qIndex = ssp.indexOf('?');
-        String beforeQuery = (qIndex >= 0 ? ssp.substring(0, qIndex) : ssp);
-        String[] parts = beforeQuery.split(",");
-        if (parts.length >= 2)
-        {
-          try
-          {
-            dst.lat = Double.parseDouble(parts[0]);
-            dst.lon = Double.parseDouble(parts[1]);
-          }
-          catch (NumberFormatException ignore)
-          {
-            dst.lat = 0.0;
-            dst.lon = 0.0;
-          }
-        }
-      }
-
-      dst.query = uri.getQueryParameter("q");
-    }
-    catch (Exception e)
-    {
-      Logger.w(TAG, "Failed to parse destination", e);
-    }
-
-    return dst;
-  }
-
-  private static Router parseRoutingMode(@NonNull Uri uri)
-  {
-    try
-    {
-      final String mode = uri.getQueryParameter("mode");
-      if (mode == null)
-        return Router.Vehicle;
-
-      return switch (mode)
-      {
-        case "w" -> Router.Pedestrian;
-        case "b" -> Router.Bicycle;
-        case "r" -> Router.Transit;
-        default -> Router.Vehicle;
-      };
-    }
-    catch (Exception e)
-    {
+    if (mode == null)
       return Router.Vehicle;
-    }
+    return switch (mode)
+    {
+      case "w" -> Router.Pedestrian;
+      case "b" -> Router.Bicycle;
+      case "r" -> Router.Transit;
+      default -> Router.Vehicle;
+    };
   }
 
-  /**
-   * Apply avoid options: t=tolls, f=ferries, h=highways
-   */
-  private static void applyAvoidOptions(@NonNull Uri uri, @NonNull Router router)
+  private static void applyAvoidOptions(@NonNull Uri parameters, @NonNull Router router)
   {
-    try
-    {
-      final String avoid = uri.getQueryParameter("avoid");
-      if (avoid == null || avoid.isEmpty())
-        return;
-
-      if (avoid.indexOf('t') >= 0)
-        RoutingOptions.addOption(router, RoadType.Toll);
-      if (avoid.indexOf('f') >= 0)
-        RoutingOptions.addOption(router, RoadType.Ferry);
-      if (avoid.indexOf('h') >= 0)
-        RoutingOptions.addOption(router, RoadType.Motorway);
-    }
-    catch (Exception e)
-    {
-      Logger.w(TAG, "Failed to apply avoid options", e);
-    }
+    final String avoid = parameters.getQueryParameter("avoid");
+    if (avoid == null)
+      return;
+    if (avoid.indexOf('t') >= 0)
+      RoutingOptions.addOption(router, RoadType.Toll);
+    if (avoid.indexOf('f') >= 0)
+      RoutingOptions.addOption(router, RoadType.Ferry);
+    if (avoid.indexOf('h') >= 0)
+      RoutingOptions.addOption(router, RoadType.Motorway);
   }
 
-  private static boolean handleAssistantSearchIntent(@NonNull Uri uri, @NonNull SearchHandler handler)
+  private static boolean handleAssistantSearch(@NonNull Uri uri, @NonNull Uri parameters,
+                                               @NonNull SearchHandler handler)
   {
-    try
+    final String query = parameters.getQueryParameter("q");
+    if (!"assistant".equals(parameters.getQueryParameter("entry")) || query == null || query.trim().isEmpty())
+      return false;
+    final int type = Framework.parseAndSetApiUrl(uri);
+    final double[] point =
+        type == RequestType.SEARCH || type == RequestType.MAP ? Framework.nativeGetParsedCenterLatLon() : null;
+    SearchEngine.INSTANCE.cancelInteractiveSearch();
+    if (point != null)
     {
-      final String query = uri.getQueryParameter("q");
-      if (query == null || query.trim().isEmpty())
-        return false;
+      Framework.nativeStopLocationFollow();
+      Framework.nativeSetViewportCenter(point[0], point[1], SEARCH_IN_VIEWPORT_ZOOM);
+      Framework.nativeSetSearchViewport(point[0], point[1], SEARCH_IN_VIEWPORT_ZOOM);
+    }
+    handler.handleSearch(query, true);
+    return true;
+  }
 
-      DestinationData dst = parseDestination(uri);
-      SearchEngine.INSTANCE.cancelInteractiveSearch();
+  private static boolean handleCustomAction(@Nullable String act)
+  {
+    if (act == null)
+      return false;
+    switch (act)
+    {
+    case "exit_navigation": RoutingController.get().cancel(); return true;
 
-      if (dst.hasLatLon() && !(dst.lat == 0.0 && dst.lon == 0.0))
-      {
-        Framework.nativeStopLocationFollow();
-        Framework.nativeSetViewportCenter(dst.lat, dst.lon, SEARCH_IN_VIEWPORT_ZOOM);
-        Framework.nativeSetSearchViewport(dst.lat, dst.lon, SEARCH_IN_VIEWPORT_ZOOM);
-      }
+    case "resume_navigation": RoutingController.get().start(); return true;
 
-      handler.handleSearch(query, true);
+    case "route_overview":
+      if (RoutingController.get().isNavigating())
+        RoutingController.get().resetToPlanningStateIfNavigating();
       return true;
-    }
-    catch (Exception e)
-    {
-      return false;
-    }
-  }
 
-  /**
-   * Parse action parameter from geo.action: URIs (handles both hierarchical and non-hierarchical URIs)
-   */
-  private static String parseActionParameter(@NonNull Uri uri)
-  {
-    try
-    {
-      if (uri.isHierarchical())
+    case "show_directions_list":
+      if (RoutingController.get().isBuilt())
       {
-        return uri.getQueryParameter("act");
+        RoutingController.get().resetToPlanningStateIfNavigating();
       }
-      final String ssp = uri.getSchemeSpecificPart();
-      if (ssp != null && ssp.startsWith("?"))
-      {
-        final String query = ssp.substring(1); // Remove leading '?'
-        final String[] params = query.split("&");
-        for (String param : params)
-        {
-          final String[] keyValue = param.split("=", 2);
-          if (keyValue.length == 2 && "act".equals(keyValue[0]))
-          {
-            return Uri.decode(keyValue[1]);
-          }
-        }
-      }
-      return null;
-    }
-    catch (Exception e)
-    {
-      Logger.w(TAG, "Failed to parse action parameter", e);
-      return null;
-    }
-  }
+      return true;
 
-  private static boolean handleCustomAction(@NonNull Uri uri)
-  {
-    try
-    {
-      final String act = parseActionParameter(uri);
-      if (act == null)
-        return false;
+    case "mute": TtsPlayer.setEnabled(false); return true;
 
-      switch (act)
-      {
-      case "exit_navigation": RoutingController.get().cancel(); return true;
+    case "unmute": TtsPlayer.setEnabled(true); return true;
 
-      case "resume_navigation": RoutingController.get().start(); return true;
+    case "avoid_tolls":
+      RoutingOptions.addOption(Router.Vehicle, RoadType.Toll);
+      onCarOptionsChanged();
+      return true;
 
-      case "route_overview":
-        if (RoutingController.get().isNavigating())
-          RoutingController.get().resetToPlanningStateIfNavigating();
-        return true;
+    case "avoid_ferries":
+      RoutingOptions.addOption(Router.Vehicle, RoadType.Ferry);
+      onCarOptionsChanged();
+      return true;
 
-      case "show_directions_list":
-        if (RoutingController.get().isBuilt())
-        {
-          RoutingController.get().resetToPlanningStateIfNavigating();
-        }
-        return true;
+    case "avoid_highways":
+      RoutingOptions.addOption(Router.Vehicle, RoadType.Motorway);
+      onCarOptionsChanged();
+      return true;
 
-      case "mute": TtsPlayer.setEnabled(false); return true;
+    case "allow_tolls":
+      RoutingOptions.removeOption(Router.Vehicle, RoadType.Toll);
+      onCarOptionsChanged();
+      return true;
 
-      case "unmute": TtsPlayer.setEnabled(true); return true;
+    case "allow_ferries":
+      RoutingOptions.removeOption(Router.Vehicle, RoadType.Ferry);
+      onCarOptionsChanged();
+      return true;
 
-      case "avoid_tolls":
-        RoutingOptions.addOption(Router.Vehicle, RoadType.Toll);
-        onCarOptionsChanged();
-        return true;
+    case "allow_highways":
+      RoutingOptions.removeOption(Router.Vehicle, RoadType.Motorway);
+      onCarOptionsChanged();
+      return true;
 
-      case "avoid_ferries":
-        RoutingOptions.addOption(Router.Vehicle, RoadType.Ferry);
-        onCarOptionsChanged();
-        return true;
+    case "show_traffic":
+    case "hide_traffic": Logger.d(TAG, "Traffic actions not supported"); return false;
 
-      case "avoid_highways":
-        RoutingOptions.addOption(Router.Vehicle, RoadType.Motorway);
-        onCarOptionsChanged();
-        return true;
+    case "follow_mode": Framework.nativeFollowRoute(); return true;
 
-      case "allow_tolls":
-        RoutingOptions.removeOption(Router.Vehicle, RoadType.Toll);
-        onCarOptionsChanged();
-        return true;
+    case "report_crash":
+    case "report_hazard":
+    case "report_police":
+    case "report_road_closure":
+    case "report_traffic": Logger.d(TAG, "Report actions not supported"); return false;
 
-      case "allow_ferries":
-        RoutingOptions.removeOption(Router.Vehicle, RoadType.Ferry);
-        onCarOptionsChanged();
-        return true;
-
-      case "allow_highways":
-        RoutingOptions.removeOption(Router.Vehicle, RoadType.Motorway);
-        onCarOptionsChanged();
-        return true;
-
-      case "show_traffic":
-      case "hide_traffic": Logger.d(TAG, "Traffic actions not supported"); return false;
-
-      case "follow_mode": Framework.nativeFollowRoute(); return true;
-
-      case "report_crash":
-      case "report_hazard":
-      case "report_police":
-      case "report_road_closure":
-      case "report_traffic": Logger.d(TAG, "Report actions not supported"); return false;
-
-      default: Logger.d(TAG, "Unknown action: " + act); return false;
-      }
-    }
-    catch (Exception e)
-    {
-      Logger.w(TAG, "Failed to handle custom action", e);
-      return false;
+    default: Logger.d(TAG, "Unknown action: " + act); return false;
     }
   }
 
@@ -333,66 +188,35 @@ public abstract class GoogleAssistantIntentHandler
       controller.onRoutingOptionsChanged();
   }
 
-  public boolean handleIntent(@NonNull Intent intent, @NonNull SearchHandler searchHandler)
+  public boolean handleIntent(@NonNull Intent intent, @NonNull SearchHandler handler)
   {
-    try
-    {
-      final Uri uri = intent.getData();
-      if (uri == null)
-        return false;
-
-      final String scheme = uri.getScheme();
-      final String action = intent.getAction();
-      if (scheme == null || action == null)
-        return false;
-
-      if ("geo.action".equals(scheme) || "geo.action.offline".equals(scheme))
-        return handleCustomAction(uri);
-
-      if ("geo".equals(scheme) || "geo.offline".equals(scheme))
-      {
-        if ("android.intent.action.NAVIGATE".equals(action) || "androidx.car.app.action.NAVIGATE".equals(action))
-        {
-          return handleNavigationIntent(uri, searchHandler);
-        }
-
-        if (Intent.ACTION_VIEW.equals(action))
-        {
-          final String entry = uri.getQueryParameter("entry");
-
-          if ("assistant".equals(entry))
-            return handleAssistantSearchIntent(uri, searchHandler);
-          return false;
-        }
-      }
-
+    final Uri uri = intent.getData();
+    final String action = intent.getAction();
+    if (uri == null || action == null)
       return false;
-    }
-    catch (Exception e)
-    {
-      Logger.w(TAG, "Failed to process assistant intent", e);
+    final String scheme = uri.getScheme();
+    if ("geo.action".equals(scheme) || "geo.action.offline".equals(scheme))
+      return handleCustomAction(MapRequest.parameters(uri).getQueryParameter("act"));
+    if (!"geo".equals(scheme) && !"geo.offline".equals(scheme))
       return false;
-    }
+    final Uri parameters = MapRequest.parameters(uri);
+    if (MapRequest.isNavigationAction(action))
+      return handleNavigationIntent(uri, parameters, handler);
+    return Intent.ACTION_VIEW.equals(action) && handleAssistantSearch(uri, parameters, handler);
   }
 
   public interface SearchHandler
   {
     void handleSearch(@NonNull String query, boolean searchOnMap);
-  }
 
-  /**
-   * Destination data holder
-   */
-  private static class DestinationData
-  {
-    public double lat = 0.0;
-    public double lon = 0.0;
-    @Nullable
-    public String query = null;
-
-    public boolean hasLatLon()
+    default Router navigationRouter(@NonNull Router requested)
     {
-      return lat != 0.0 || lon != 0.0;
+      return requested;
+    }
+
+    default void handleDestination(@NonNull MapObject destination, @NonNull Router router, boolean parsedMap)
+    {
+      RoutingController.get().prepare(null, destination, router);
     }
   }
 }
