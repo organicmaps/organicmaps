@@ -341,6 +341,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)setMenuState:(MWMBottomMenuState)menuState animated:(BOOL)animated
 {
+  MapViewController * ownerController = _ownerController;
   if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
   {
     if (_isDismissingMenu)
@@ -350,10 +351,17 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
       [self replaceLayersWithMenuForURL:nil];
       return;
     }
+    // An unrelated modal (such as Share) owns the presenter. UIKit would reject another presentation.
+    if (_menuController == nil && (ownerController.presentedViewController != nil ||
+                                   ownerController.viewIfLoaded.window == nil || ownerController.controlsView.isHidden))
+    {
+      if (_menuState == MWMBottomMenuStateActive)
+        [self setMenuState:MWMBottomMenuStateInactive animated:NO];
+      return;
+    }
   }
 
   _menuState = menuState;
-  MapViewController * ownerController = _ownerController;
   switch (_menuState)
   {
   case MWMBottomMenuStateActive:
@@ -404,6 +412,8 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
                            return;
                          }
                          self.menuState = MWMBottomMenuStateActive;
+                         if (pendingURL != nil && self->_menuState != MWMBottomMenuStateActive)
+                           (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
                        }];
 }
 
@@ -449,12 +459,18 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   switch (_menuState)
   {
   case MWMBottomMenuStateLayers: [self replaceLayersWithMenuForURL:DeepLinkHandler.shared.url]; break;
-  case MWMBottomMenuStateInactive: self.menuState = MWMBottomMenuStateActive; break;
+  case MWMBottomMenuStateInactive:
+    self.menuState = MWMBottomMenuStateActive;
+    if (_menuState != MWMBottomMenuStateActive)
+      (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
+    break;
   case MWMBottomMenuStateActive:
     if (_isDismissingMenu)
       _pendingMenuURL = DeepLinkHandler.shared.url;
-    else
+    else if (_menuController != nil && _menuController == _ownerController.presentedViewController)
       [(BottomMenuViewController *)_menuController highlightRequestedItem];
+    else
+      (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
     break;
   case MWMBottomMenuStateHidden:
     // The controls are hidden in the full screen mode or while adding a place. Keep them hidden and drop the
