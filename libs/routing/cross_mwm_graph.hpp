@@ -13,7 +13,9 @@
 #include "base/geo_object_id.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -101,6 +103,10 @@ public:
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.
   ///        If yes twin-segments are saved to |twins|.
   void GetTwinFeature(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins);
+
+  /// \brief Returns the edge |from| -> |to| between two mwms with one end on the twin of its transition
+  ///        feature, so that both ends are in one mwm, as the search prices such an edge.
+  std::optional<std::pair<Segment, Segment>> GetEdgeInOneMwm(Segment const & from, Segment const & to);
 
 private:
   MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;

@@ -194,6 +194,30 @@ void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, Twi
   });
 }
 
+std::optional<std::pair<Segment, Segment>> CrossMwmGraph::GetEdgeInOneMwm(Segment const & from, Segment const & to)
+{
+  ASSERT_NOT_EQUAL(from.GetMwmId(), to.GetMwmId(), ());
+
+  auto const getTwin = [this](Segment const & segment, NumMwmId mwmId, bool isOutgoing) -> std::optional<Segment>
+  {
+    TwinSegmentsListT twins;
+    GetTwinFeature(segment, isOutgoing, twins);
+    for (Segment const & twin : twins)
+    {
+      // A transition feature and its twin have the same segments.
+      if (twin.GetMwmId() == mwmId)
+        return Segment(mwmId, twin.GetFeatureId(), segment.GetSegmentIdx(), segment.IsForward());
+    }
+    return {};
+  };
+
+  if (auto const twin = getTwin(from, to.GetMwmId(), true /* isOutgoing */))
+    return std::pair(*twin, to);
+  if (auto const twin = getTwin(to, from.GetMwmId(), false /* isOutgoing */))
+    return std::pair(from, *twin);
+  return {};
+}
+
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const
 {
   switch (m_dataSource.GetSectionStatus(numMwmId, sectionName))

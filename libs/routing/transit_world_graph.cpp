@@ -184,8 +184,13 @@ double TransitWorldGraph::CalculateETA(Segment const & from, Segment const & to,
 
   if (from.GetMwmId() != to.GetMwmId())
   {
-    return m_estimator->CalcSegmentWeight(to, GetRealRoadGeometry(to.GetMwmId(), to.GetFeatureId()),
-                                          EdgeEstimator::Purpose::ETA);
+    // Price the edge in one mwm, like the search does, to keep the transition penalties, e.g. the ferry landing.
+    if (m_crossMwmGraph)
+    {
+      if (auto const edge = m_crossMwmGraph->GetEdgeInOneMwm(from, to))
+        return CalculateETA(edge->first, edge->second, arrivalTime);
+    }
+    return CalculateETAWithoutPenalty(to);
   }
 
   auto & indexGraph = m_indexLoader->GetIndexGraph(from.GetMwmId());

@@ -34,6 +34,22 @@ UNIT_TEST(Transit_Moscow_CenterToKotelniki_CrossMwm)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/6035
+UNIT_TEST(Transit_Netherlands_CrossMwm_Ferry)
+{
+  // A walk only route boards the ferry at the border of two mwms.
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
+                                                               mercator::FromLatLon(52.3855418, 6.12969591), {0.0, 0.0},
+                                                               mercator::FromLatLon(52.3924362, 6.12166998));
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+
+  TEST(routeResult.first, ());
+  auto const & route = *routeResult.first;
+  integration::TestRouteLength(route, 1367.17);
+  // With the 8 minutes ferry landing, as in the pedestrian route.
+  integration::TestRouteTime(route, 1679.73);
+}
+
 UNIT_TEST(Transit_Moscow_DubrovkaToTrtykovskya)
 {
   TRouteResult routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
