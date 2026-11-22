@@ -951,4 +951,6 @@
     <string name="transit_type_train">Train</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Driving map style and speed limit display mode name in the Styles and Layers dialog -->
+    <string name="button_layer_driving">Driving</string>
 </resources>
