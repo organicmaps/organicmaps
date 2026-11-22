@@ -67,8 +67,7 @@ void GpxParser::ResetPoint()
   m_altitude = geometry::kInvalidAltitude;
   m_timestamp.reset();
   m_rteptName.clear();
-  m_stopCandidates.clear();
-  m_rteptOrdinal = 0;
+  m_stops.clear();
 }
 
 // A <wpt>/<trkpt>/<rtept> with a missing or unparseable lat/lon attribute must be skipped instead
@@ -215,12 +214,8 @@ void GpxParser::Pop(std::string_view tag)
         m_timestamps.push_back(m_timestamp.value_or(base::INVALID_TIME_STAMP));
       }
 
-      if (tag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte)
-      {
-        if (!m_rteptName.empty())
-          m_stopCandidates.push_back({m_rteptOrdinal, {p, std::move(m_rteptName)}});
-        ++m_rteptOrdinal;
-      }
+      if (tag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte && m_line.size() > 1)
+        m_stops.push_back({p, std::move(m_rteptName)});
     }
 
     m_altitude = geometry::kInvalidAltitude;
@@ -229,6 +224,9 @@ void GpxParser::Pop(std::string_view tag)
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
+    // The final valid route point is the finish, even if another stop shares its coordinates.
+    if (tag == gpx::kRte && !m_stops.empty())
+      m_stops.pop_back();
     if (m_line.size() > 1)
     {
       m_geometry.m_lines.push_back(std::move(m_line));
@@ -294,12 +292,7 @@ void GpxParser::Pop(std::string_view tag)
         data.m_layers.push_back(layer);
         data.m_geometry = std::move(m_geometry);
 
-        // Only intermediate route points become stops: the first and the last valid rtept are the
-        // route's start/finish -- already the geometry's endpoints. Filter by position, not by
-        // coordinates, so a loop route's middle stop coinciding with the start survives.
-        for (auto & [ordinal, stop] : m_stopCandidates)
-          if (ordinal != 0 && ordinal + 1 != m_rteptOrdinal)
-            data.m_stops.push_back(std::move(stop));
+        data.m_stops = std::move(m_stops);
 
         m_data.m_tracksData.push_back(std::move(data));
       }
@@ -365,7 +358,6 @@ void GpxParser::ParseName(std::string const & value, std::string const & prevTag
   }
   else if (prevTag == kRtePt)
   {
-    // A named route point becomes a stop of the track (see Pop).
     m_rteptName = value;
   }
   else if (prevTag == kTrk || prevTag == kRte)

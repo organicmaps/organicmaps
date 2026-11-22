@@ -8,7 +8,6 @@
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include "coding/file_reader.hpp"
 
@@ -359,6 +358,7 @@ UNIT_TEST(Gpx_Route_Stops_Import)
   auto const & track = dataFromText.m_tracksData[0];
   TEST_EQUAL(track.m_geometry.m_lines[0].size(), 7, ());
   std::vector<kml::TrackStopData> const expectedStops = {{mercator::FromLatLon(1, 1), "Stop at the start"},
+                                                         {mercator::FromLatLon(2, 2), ""},
                                                          {mercator::FromLatLon(3, 3), "Coffee break"},
                                                          {mercator::FromLatLon(1, 1), "Back at the start"},
                                                          {mercator::FromLatLon(4, 4), "Stop at the finish"}};
@@ -382,7 +382,7 @@ UNIT_TEST(Gpx_Route_Stops_Invalid)
   <rtept lat="3" lon="nan"><name>NaN longitude</name></rtept>
   <rtept lon="3"><name>Missing latitude</name></rtept>
   <rtept lat="3"><name>Missing longitude</name></rtept>
-  <rtept lat="3" lon="3"><name>Good stop</name></rtept>
+  <rtept lat="3" lon="3"/>
   <rtept lat="4" lon="4"><name>Finish</name></rtept>
   <rtept lat="91" lon="4"><name>Rejected finish</name></rtept>
 </rte>
@@ -390,6 +390,7 @@ UNIT_TEST(Gpx_Route_Stops_Invalid)
 <trk>
   <trkseg>
     <trkpt lat="6" lon="6"></trkpt>
+    <trkpt lat="6.5" lon="6.5"><name>Track sample</name></trkpt>
     <trkpt lat="7" lon="7"></trkpt>
   </trkseg>
 </trk>
@@ -405,66 +406,36 @@ UNIT_TEST(Gpx_Route_Stops_Invalid)
                                            {mercator::FromLatLon(3, 3), geometry::kInvalidAltitude},
                                            {mercator::FromLatLon(4, 4), geometry::kInvalidAltitude}};
   TEST_EQUAL(route.m_geometry.m_lines, std::vector<kml::TrackGeometry>{expectedLine}, ());
-  TEST_EQUAL(route.m_stops, (std::vector<kml::TrackStopData>{{mercator::FromLatLon(3, 3), "Good stop"}}), ());
+  TEST_EQUAL(route.m_stops, (std::vector<kml::TrackStopData>{{mercator::FromLatLon(3, 3), ""}}), ());
   TEST(dataFromText.m_tracksData[1].m_stops.empty(), ());
 }
 
 // Track stops are exported as plain waypoints before the <trk> element (GPX schema order).
 UNIT_TEST(Gpx_Track_Stops_Export)
 {
-  kml::FileData data;
-  kml::TrackData trackData;
-  trackData.m_name[kml::kDefaultLang] = "Track";
-  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 8), 1}, {mercator::FromLatLon(48, 9), 2}});
-  trackData.m_geometry.AddTimestamps({});
-  trackData.m_stops = {{mercator::FromLatLon(47.1, 8.1), "Stop A"}, {mercator::FromLatLon(47.2, 8.2), "Stop B"}};
-  data.m_tracksData.push_back(std::move(trackData));
+  auto const data = LoadGpxFromString(R"(<gpx><rte>
+    <rtept lat="47" lon="8"/>
+    <rtept lat="47.1" lon="8.1"><name>Stop A</name></rtept>
+    <rtept lat="47.125" lon="8.125"/>
+    <rtept lat="48" lon="9"/>
+  </rte></gpx>)");
 
   auto const exported = Serialize(data);
-  auto const wptPos = exported.find("<wpt");
-  auto const trkPos = exported.find("<trk>");
-  TEST(wptPos != std::string::npos, (exported));
-  TEST(trkPos != std::string::npos, (exported));
-  TEST_LESS(wptPos, trkPos, (exported));
+  auto const trackPos = exported.find("<trk>");
+  TEST_NOT_EQUAL(trackPos, std::string::npos, ());
+  TEST_LESS(exported.rfind("<wpt"), trackPos, (exported));
 
-  TEST(exported.find("<name>Stop A</name>", wptPos) < trkPos, (exported));
-  TEST(exported.find("<name>Stop B</name>", wptPos) < trkPos, (exported));
-
-  struct Waypoints
-  {
-    bool Push(std::string_view tag)
-    {
-      m_isWaypoint = tag == "wpt";
-      if (m_isWaypoint)
-        m_points.emplace_back();
-      return true;
-    }
-    void AddAttr(std::string_view attr, std::string_view value)
-    {
-      if (!m_isWaypoint)
-        return;
-      if (attr == "lat")
-        TEST(strings::to_double(value, m_points.back().m_lat), (value));
-      else if (attr == "lon")
-        TEST(strings::to_double(value, m_points.back().m_lon), (value));
-    }
-    void Pop(std::string_view) {}
-    void CharData(std::string &) {}
-
-    std::vector<ms::LatLon> m_points;
-    bool m_isWaypoint = false;
-  } waypoints;
-
-  MemReader reader(exported);
-  NonOwningReaderSource source(reader);
-  TEST(ParseXML(source, waypoints), (exported));
-  std::vector<ms::LatLon> const expectedPoints = {{47.1, 8.1}, {47.2, 8.2}};
-  TEST_EQUAL(waypoints.m_points.size(), expectedPoints.size(), ());
-  for (size_t i = 0; i < expectedPoints.size(); ++i)
-  {
-    TEST_ALMOST_EQUAL_ABS(waypoints.m_points[i].m_lat, expectedPoints[i].m_lat, 1e-6, (i));
-    TEST_ALMOST_EQUAL_ABS(waypoints.m_points[i].m_lon, expectedPoints[i].m_lon, 1e-6, (i));
-  }
+  auto const reloaded = LoadGpxFromString(exported);
+  TEST_EQUAL(reloaded.m_tracksData.size(), 1, ());
+  TEST(reloaded.m_tracksData.front().m_stops.empty(), ());
+  auto const & bookmarks = reloaded.m_bookmarksData;
+  TEST_EQUAL(bookmarks.size(), 2, ());
+  TEST_EQUAL(bookmarks[0].m_point, mercator::FromLatLon(47.1, 8.1), ());
+  TEST_EQUAL(bookmarks[0].m_name.at(kml::kDefaultLang), "Stop A", ());
+  auto const unnamed = mercator::FromLatLon(47.125, 8.125);
+  TEST_EQUAL(bookmarks[1].m_point, unnamed, ());
+  TEST_EQUAL(bookmarks[1].m_name.at(kml::kDefaultLang), kml::PointToLineString({unnamed, geometry::kInvalidAltitude}),
+             ());
 }
 
 UNIT_TEST(Color)

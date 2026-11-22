@@ -458,8 +458,8 @@ struct MultiGeometry
   bool HasTimestamps() const;
 };
 
-// Intermediate route stop. KML preserves it; GPX imports named rtepts and exports waypoints,
-// and GeoJSON exports Point features.
+// Ordered intermediate route stop. GPX imports intermediate rtepts and exports waypoints.
+// KML preserves the stops and GeoJSON exports them as Point features.
 struct TrackStopData
 {
   // This visitor is used for debug output only, it is not tied to any binary (KMB) layout.
