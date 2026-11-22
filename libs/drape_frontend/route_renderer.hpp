@@ -14,7 +14,6 @@
 #include <functional>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 namespace df
@@ -93,8 +92,6 @@ public:
   void RemovePreviewSegment(dp::DrapeID id);
   void RemoveAllPreviewSegments();
 
-  void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
-
   bool HasTransitData() const;
   bool IsRulerRoute() const;
   bool HasData() const;
@@ -134,7 +131,6 @@ private:
   double m_distanceFromBegin;
   bool m_followingEnabled;
   Subroutes m_subroutes;
-  std::unordered_set<dp::DrapeID> m_hiddenSubroutes;
 
   PreviewPointsRequestCallback m_previewPointsRequest;
   std::vector<drape_ptr<CirclesPackRenderData>> m_previewRenderData;

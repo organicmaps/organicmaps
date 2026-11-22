@@ -51,7 +51,6 @@ public:
     FlushSubrouteMarkers,
     FollowRoute,
     DeactivateRouteFollowing,
-    SetSubrouteVisibility,
     AddRoutePreviewSegment,
     RemoveRoutePreviewSegment,
     UpdateMapStyle,

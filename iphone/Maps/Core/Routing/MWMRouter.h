@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)continueRouteToPointAndRebuild:(MWMRoutePoint *)point;
 + (void)removePointAndRebuild:(MWMRoutePoint *)point;
 + (void)replacePointAndRebuild:(MWMRoutePoint *)point withPoint:(MWMRoutePoint *)newPoint;
++ (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex;
 + (void)reverseRoute;
 + (void)removePoints;
 
@@ -88,16 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +router instead")));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +router instead")));
 + (instancetype)new __attribute__((unavailable("call +router instead")));
-
-@end
-
-@interface MWMRouter (RouteManager)
-
-+ (void)openRouteManagerTransaction;
-+ (void)applyRouteManagerTransaction;
-+ (void)cancelRouteManagerTransaction;
-+ (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex;
-+ (void)updatePreviewMode;
 
 @end
 

@@ -473,10 +473,6 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   if (subrouteInfo.m_subrouteData[subrouteDataIndex]->m_renderProperty.m_buckets.empty())
     return;
 
-  // Skip rendering of hidden subroutes.
-  if (m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
-    return;
-
   auto const & subrouteData = subrouteInfo.m_subrouteData[subrouteDataIndex];
   float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
@@ -541,11 +537,8 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
                                          SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                                          FrameValues const & frameValues)
 {
-  if (subrouteInfo.m_arrowsData == nullptr || subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.empty() ||
-      m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
-  {
+  if (subrouteInfo.m_arrowsData == nullptr || subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.empty())
     return;
-  }
 
   dp::RenderState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
   float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
@@ -581,11 +574,8 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
                                           SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                                           FrameValues const & frameValues)
 {
-  if (subrouteInfo.m_markersData == nullptr || subrouteInfo.m_markersData->m_renderProperty.m_buckets.empty() ||
-      m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
-  {
+  if (subrouteInfo.m_markersData == nullptr || subrouteInfo.m_markersData->m_renderProperty.m_buckets.empty())
     return;
-  }
 
   auto dist = static_cast<float>(kInvalidDistance);
   if (m_followingEnabled)
@@ -836,14 +826,6 @@ void RouteRenderer::RemoveAllPreviewSegments()
   // Removed segments should disappear even before the next preview rebuild.
   ClearPreviewHandles();
   InvalidatePreview();
-}
-
-void RouteRenderer::SetSubrouteVisibility(dp::DrapeID id, bool isVisible)
-{
-  if (isVisible)
-    m_hiddenSubroutes.erase(id);
-  else
-    m_hiddenSubroutes.insert(id);
 }
 
 bool RouteRenderer::HasTransitData() const
