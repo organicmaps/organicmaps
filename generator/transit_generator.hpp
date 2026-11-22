@@ -6,6 +6,11 @@
 
 #include <string>
 
+namespace storage
+{
+class CountryInfoGetter;
+}
+
 namespace routing
 {
 namespace transit
@@ -18,7 +23,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
 /// \brief Calculates and adds some information to transit graph (|data|) after deserializing
 /// from json.
 void ProcessGraph(std::string const & mwmPath, storage::CountryId const & countryId,
-                  OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data);
+                  storage::CountryInfoGetter const & infoGetter, GraphData & data);
 
 /// \brief Builds the transit section in the mwm based on transit graph in json which represents
 /// transit graph clipped by the mwm borders.

@@ -55,6 +55,7 @@
 #include <deque>
 #include <iterator>
 #include <map>
+#include <optional>
 
 namespace routing
 {
@@ -367,9 +368,9 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   CHECK(m_directionsEngine, ());
 }
 
-std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
+std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph(RoutingOptions routingOptions)
 {
-  auto worldGraph = MakeWorldGraph();
+  auto worldGraph = MakeWorldGraph(routingOptions);
   worldGraph->SetMode(WorldGraphMode::SingleMwm);
   return worldGraph;
 }
@@ -463,22 +464,17 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    m_requestRoutingOptions = delegate.GetRoutingOptions();
-    if (!m_requestRoutingOptions)
-      m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
-    if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
+    auto const submitted = delegate.GetRoutingOptions();
+    auto const options = submitted ? *submitted : RoutingOptions::LoadFromSettings(m_vehicleType);
+    if (m_routingOptions.GetOptions() != options.GetOptions())
     {
       m_lastRoute.reset();
       m_lastFakeEdges.reset();
       m_lastAltRoute.reset();
       m_lastAltFakeEdges.reset();
+      m_routingOptions = options;
     }
-    m_previousRoutingOptions = m_requestRoutingOptions->GetOptions();
-    SCOPE_GUARD(featureRoadGraphClear, [this]
-    {
-      ClearRouteCalculationState();
-      m_requestRoutingOptions.reset();
-    });
+    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearRouteCalculationState(); });
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.
     // Guides edges are priced at max speed (see SetGuidesGraphParams), above the DistanceBiased cap,
@@ -736,7 +732,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
   m_lastRoute.reset();
 
   TrafficStash::Guard guard(m_trafficStash);
-  std::unique_ptr<WorldGraph> graph = MakeWorldGraph();
+  std::unique_ptr<WorldGraph> graph = MakeWorldGraph(m_routingOptions);
 
   std::vector<Segment> segments;
 
@@ -1257,7 +1253,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 {
   base::Timer timer;
   TrafficStash::Guard guard(m_trafficStash);
-  auto graph = MakeWorldGraph();
+  auto graph = MakeWorldGraph(m_routingOptions);
   graph->SetMode(WorldGraphMode::NoLeaps);
 
   std::vector<Segment> startSegments;
@@ -1355,10 +1351,8 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   return RouterResultCode::NoError;
 }
 
-std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
+std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph(RoutingOptions routingOptions)
 {
-  RoutingOptions const routingOptions =
-      m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);
