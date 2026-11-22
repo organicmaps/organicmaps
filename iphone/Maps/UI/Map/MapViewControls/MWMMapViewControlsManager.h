@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, TrackRecordingButtonState) {
 @property(nonatomic) BOOL sideButtonsHidden;
 @property(nonatomic) BOOL trafficButtonHidden;
 @property(nonatomic) MWMBottomMenuState menuState;
-@property(nonatomic) MWMBottomMenuState menuRestoreState;
+@property(nonatomic, readonly) MWMBottomMenuState closedMenuState;
 @property(nonatomic) BOOL isDirectionViewHidden;
 @property(nonatomic) BottomTabBarViewController * tabBarController;
 @property(nonatomic) TrackRecordingButtonViewController * trackRecordingButton;

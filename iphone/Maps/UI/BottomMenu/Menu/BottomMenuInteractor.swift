@@ -40,7 +40,7 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     guard let controlsManager = controlsManager else {
       fatalError()
     }
-    controlsManager.menuState = controlsManager.menuRestoreState
+    controlsManager.menuState = controlsManager.closedMenuState
   }
 
   func addPlace() {
