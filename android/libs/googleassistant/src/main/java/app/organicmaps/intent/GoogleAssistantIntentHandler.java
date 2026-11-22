@@ -35,9 +35,11 @@ public abstract class GoogleAssistantIntentHandler
 
       Router routingMode = parseRoutingMode(uri);
 
-      applyAvoidOptions(uri, routingMode);
-
-      RoutingController.get().setRouterType(routingMode);
+      if (dst.hasLatLon() || !RoutingController.get().isNavigating())
+      {
+        applyAvoidOptions(uri, routingMode);
+        RoutingController.get().setRouterType(routingMode);
+      }
 
       if (!dst.hasLatLon())
       {

@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.notification.CarPendingIntent;
 import app.organicmaps.api.Const;
+import app.organicmaps.api.MapRequest;
 import app.organicmaps.car.CarAppServiceBase;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
@@ -20,8 +20,6 @@ import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.car.renderer.Renderer;
-import app.organicmaps.sdk.display.DisplayManager;
-import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.log.Logger;
 
@@ -34,17 +32,29 @@ public final class IntentUtils
   private static final CarGoogleAssistantIntentProcessor ASSISTANT_PROCESSOR = new CarGoogleAssistantIntentProcessor();
 
   public static void processIntent(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
-                                   @NonNull Renderer surfaceRenderer, @NonNull DisplayManager displayManager,
-                                   @NonNull Intent intent)
+                                   @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
   {
     if (ASSISTANT_PROCESSOR.processIntent(carContext, organicMapsContext, surfaceRenderer, intent))
       return;
 
-    final String action = intent.getAction();
-    if (CarContext.ACTION_NAVIGATE.equals(action))
-      IntentUtils.processNavigationIntent(carContext, organicMapsContext, surfaceRenderer, intent);
-    else if (Intent.ACTION_VIEW.equals(action))
-      processViewIntent(carContext, displayManager, intent);
+    if (MapRequest.isNavigationAction(intent.getAction()) || isGeoView(intent))
+      processNavigationIntent(carContext, organicMapsContext, surfaceRenderer, intent);
+    else if (isShowNavigationRequest(intent))
+      showNavigationScreen(carContext);
+  }
+
+  public static boolean requiresCarDisplay(@NonNull Intent intent)
+  {
+    if (intent.getData() == null)
+      return false;
+    return MapRequest.isNavigationAction(intent.getAction()) || isGeoView(intent) || isShowNavigationRequest(intent);
+  }
+
+  private static boolean isGeoView(@NonNull Intent intent)
+  {
+    final Uri uri = intent.getData();
+    return Intent.ACTION_VIEW.equals(intent.getAction()) && uri != null
+ && ("geo".equals(uri.getScheme()) || "geo.offline".equals(uri.getScheme()));
   }
 
   private static final class CarGoogleAssistantIntentProcessor extends GoogleAssistantIntentHandler
@@ -74,8 +84,7 @@ public final class IntentUtils
       final SearchScreen.Builder builder = new SearchScreen.Builder(mCarContext, mOrganicMapsContext, mSurfaceRenderer);
       builder.setQuery(query);
 
-      screenManager.popToRoot();
-      screenManager.push(builder.build());
+      showSearch(screenManager, builder);
     }
   }
 
@@ -92,11 +101,6 @@ public final class IntentUtils
   private static void processNavigationIntent(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
                                               @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
   {
-    // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during
-    // navigation or route planning. Skip navigation intents during navigation
-    if (RoutingController.get().isNavigating())
-      return;
-
     final Uri uri = intent.getData();
     if (uri == null)
       return;
@@ -106,11 +110,16 @@ public final class IntentUtils
     {
     case RequestType.INCORRECT: return;
     case RequestType.MAP:
+      if (RoutingController.get().isNavigating())
+      {
+        if (!MapRequest.isNavigationAction(intent.getAction()))
+          return;
+        RoutingController.get().cancel();
+      }
       screenManager.popToRoot();
       Map.executeMapApiRequest();
       return;
     case RequestType.SEARCH:
-      screenManager.popToRoot();
       final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
       final double[] latlon = Framework.nativeGetParsedCenterLatLon();
       if (latlon != null)
@@ -127,8 +136,7 @@ public final class IntentUtils
       if (request.mLocale != null)
         builder.setLocale(request.mLocale);
 
-      screenManager.popToRoot();
-      screenManager.push(builder.build());
+      showSearch(screenManager, builder);
       return;
     case RequestType.ROUTE: Logger.w(TAG, "Route API is not supported by Android Auto: " + uri); return;
     case RequestType.CROSSHAIR: Logger.w(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
@@ -138,21 +146,28 @@ public final class IntentUtils
     }
   }
 
-  private static void processViewIntent(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
-                                        @NonNull Intent intent)
+  private static void showSearch(@NonNull ScreenManager screens, @NonNull SearchScreen.Builder builder)
+  {
+    if (RoutingController.get().isNavigating())
+      screens.popTo(NavigationScreen.MARKER);
+    else
+      screens.popToRoot();
+    screens.push(builder.build());
+  }
+
+  private static boolean isShowNavigationRequest(@NonNull Intent intent)
   {
     final Uri uri = intent.getData();
-    if (uri != null && Const.API_SCHEME.equals(uri.getScheme())
-        && CarAppServiceBase.API_CAR_HOST.equals(uri.getSchemeSpecificPart())
-        && CarAppServiceBase.ACTION_SHOW_NAVIGATION_SCREEN.equals(uri.getFragment()))
-    {
-      final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
-      final Screen top = screenManager.getTop();
-      if (!displayManager.isCarDisplayUsed())
-        displayManager.changeDisplay(DisplayType.Car);
-      if (!(top instanceof NavigationScreen))
-        screenManager.popTo(NavigationScreen.MARKER);
-    }
+    return Intent.ACTION_VIEW.equals(intent.getAction()) && uri != null && Const.API_SCHEME.equals(uri.getScheme())
+ && CarAppServiceBase.API_CAR_HOST.equals(uri.getSchemeSpecificPart())
+ && CarAppServiceBase.ACTION_SHOW_NAVIGATION_SCREEN.equals(uri.getFragment());
+  }
+
+  private static void showNavigationScreen(@NonNull CarContext carContext)
+  {
+    final ScreenManager screens = carContext.getCarService(ScreenManager.class);
+    if (!(screens.getTop() instanceof NavigationScreen))
+      screens.popTo(NavigationScreen.MARKER);
   }
 
   private IntentUtils() {}

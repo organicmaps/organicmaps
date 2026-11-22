@@ -97,8 +97,9 @@ public class CarAppSessionReadinessTest
     mLogger = mockStatic(Logger.class);
     mTheme = mockStatic(ThemeUtils.class);
     mIntents = mockStatic(IntentUtils.class);
-    mIntents.when(() -> IntentUtils.processIntent(any(), any(), any(), any(), any())).thenAnswer(call -> {
-      final String data = ((Intent) call.getArgument(4)).getDataString();
+    mIntents.when(() -> IntentUtils.requiresCarDisplay(any())).thenCallRealMethod();
+    mIntents.when(() -> IntentUtils.processIntent(any(), any(), any(), any())).thenAnswer(call -> {
+      final String data = ((Intent) call.getArgument(3)).getDataString();
       if (data != null)
         mDelivered.add(data);
       return null;
@@ -115,6 +116,7 @@ public class CarAppSessionReadinessTest
     when(mSdk.getFlavor()).thenReturn("google");
     mRenderers = mockStatic(RendererFactory.class);
     mRenderers.when(() -> RendererFactory.create(any(), any(), any(), any())).thenReturn(mRenderer);
+    when(mRenderer.isRenderingActive()).thenReturn(true);
     mSensors = mockConstruction(CarSensorsManager.class);
   }
 
@@ -157,7 +159,7 @@ public class CarAppSessionReadinessTest
   }
 
   @Test
-  public void displayHandoffWhileMapsLoadStillDeliversQueuedIntents()
+  public void queuedDestinationsWaitForTheCarDisplayToReturn()
   {
     startSession();
     mSession.onNewIntent(intent("first"));
@@ -165,6 +167,9 @@ public class CarAppSessionReadinessTest
     mDisplay.changeDisplay(DisplayType.Device);
     idle();
     mReadiness.complete();
+    assertTrue(mDelivered.isEmpty());
+    mDisplay.changeDisplay(DisplayType.Car);
+    idle();
     assertEquals(List.of("geo:1,2?q=first"), mDelivered);
   }
 
@@ -333,6 +338,9 @@ public class CarAppSessionReadinessTest
     MapStorage.reportCountry("Second region");
     idle();
     assertSame(route, mScreens.getTop());
+    route.finish();
+    idle();
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
   }
 
   @Test
@@ -407,8 +415,13 @@ public class CarAppSessionReadinessTest
 
   private void createSession()
   {
+    createSession(new Intent(Intent.ACTION_MAIN));
+  }
+
+  private void createSession(Intent launch)
+  {
     mSession = new AndroidAutoSession(mSdk, mDisplay, mock(SessionInfo.class), true);
-    final SessionController host = new SessionController(mSession, mContext, new Intent(Intent.ACTION_MAIN));
+    final SessionController host = new SessionController(mSession, mContext, launch);
     moveTo(Lifecycle.State.CREATED);
     host.moveToState(Lifecycle.State.CREATED);
     mScreens = mContext.getCarService(TestScreenManager.class);

@@ -48,4 +48,20 @@ UNIT_TEST(ApiPoint_PointIdIsIndependentOfBackUrl)
     TEST_NOT_EQUAL(mark->GetApiID(), fm.GenerateApiBackUrl(*mark), ("point id and back URL are distinct"));
   }
 }
+
+UNIT_TEST(GeoPoint_ActivatesPlacePageBeforeRendererCreation)
+{
+  bool activated = false;
+  Framework fm(FrameworkParams(false /* m_enableDiffs */));
+  fm.SetPlacePageListeners([&]
+  {
+    TEST(fm.HasPlacePageInfo(), ());
+    activated = true;
+  }, {}, {}, {});
+  TEST_EQUAL(fm.ParseAndSetApiURL("geo:48.1,11.5"), url_scheme::ParsedMapApi::UrlType::Map, ());
+
+  fm.ExecuteMapApiRequest();
+
+  TEST(activated, ("A coordinate request must notify the place-page host without a renderer"));
+}
 }  // namespace api_mark_tests
