@@ -92,9 +92,8 @@ public class StartupReadinessTest
   }
 
   @Test
-  public void failedCarSetupShowsInitializationErrorInsteadOfRestartingThePlaceholder() throws IOException
+  public void failedStorageSetupShowsThePhoneInitializationError() throws IOException
   {
-    when(mDisplay.isCarDisplayUsed()).thenReturn(true);
     when(mSdk.arePlatformAndCoreInitialized()).thenReturn(false);
     doThrow(new IOException("Storage unavailable")).when(mHost).initOrganicMaps();
     try (MockedStatic<app.organicmaps.sdk.util.Config> config = mockStatic(app.organicmaps.sdk.util.Config.class);

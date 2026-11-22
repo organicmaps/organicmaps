@@ -1,6 +1,8 @@
 package app.organicmaps.car;
 
+import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.car.app.Screen;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.core.app.NotificationChannelCompat;
@@ -8,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.CarType;
 import app.organicmaps.sdk.car.CarTypeHelper;
@@ -30,7 +33,6 @@ public final class AndroidAutoService extends CarAppServiceBase
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
-  private boolean mInitFailed = false;
 
   public AndroidAutoService()
   {
@@ -41,8 +43,35 @@ public final class AndroidAutoService extends CarAppServiceBase
   @Override
   public Session onCreateSession(@NonNull SessionInfo sessionInfo)
   {
-    return new AndroidAutoSession(mOrganicMapsContext, mDisplayManager, sessionInfo, /* isDebug */ BuildConfig.DEBUG,
-                                  mInitFailed);
+    if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
+    {
+      try
+      {
+        MwmApplication.from(getApplicationContext()).initOrganicMaps();
+      }
+      catch (IOException e)
+      {
+        Logger.e(TAG, "Failed to initialize the app", e);
+        return storageErrorSession();
+      }
+    }
+    return new AndroidAutoSession(mOrganicMapsContext, mDisplayManager, sessionInfo, /* isDebug */ BuildConfig.DEBUG);
+  }
+
+  @NonNull
+  private Session storageErrorSession()
+  {
+    return new Session() {
+      @NonNull
+      @Override
+      public Screen onCreateScreen(@NonNull Intent intent)
+      {
+        return new ErrorScreen.Builder(getCarContext(), mOrganicMapsContext)
+            .setTitle(R.string.dialog_error_storage_title)
+            .setErrorMessage(R.string.dialog_error_storage_message)
+            .build();
+      }
+    };
   }
 
   @Override
@@ -56,20 +85,6 @@ public final class AndroidAutoService extends CarAppServiceBase
     mOrganicMapsContext = app.getOrganicMaps();
     mDisplayManager = app.getDisplayManager();
 
-    if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
-    {
-      try
-      {
-        app.initOrganicMaps();
-      }
-      catch (IOException e)
-      {
-        Logger.e(TAG, "Failed to initialize the app: " + e.getMessage());
-        mInitFailed = true;
-      }
-    }
-
-    // TODO: Show dialog to the user
     Config.setFirstStartDialogSeen(getApplicationContext());
   }
 
