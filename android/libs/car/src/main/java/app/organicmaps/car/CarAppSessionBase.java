@@ -248,12 +248,12 @@ public abstract class CarAppSessionBase
 
   private void onCurrentCountryChanged(@NonNull String countryId)
   {
-    if (!mDisplayManager.isCarDisplayUsed())
+    if (!mDisplayManager.isCarDisplayUsed() || countryId.equals(mLastOfferedCountryId))
       return;
+    mLastOfferedCountryId = null;
     if (countryId.isEmpty())
     {
       mPendingCountryId = null;
-      mLastOfferedCountryId = null;
       return;
     }
     final boolean alreadyPending = mPendingCountryId != null;
@@ -280,13 +280,21 @@ public abstract class CarAppSessionBase
     }
     final String countryId = mPendingCountryId;
     mPendingCountryId = null;
-    if (countryId.equals(mLastOfferedCountryId) || CountryItem.fill(countryId).present)
+    if (CountryItem.fill(countryId).present)
       return;
     mLastOfferedCountryId = countryId;
-    mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
-                            .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.View)
-                            .setMissingMaps(new String[] {countryId})
-                            .build());
+    final Screen offer = new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                             .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.View)
+                             .setMissingMaps(new String[] {countryId})
+                             .build();
+    mScreenManager.pushForResult(offer, ignored -> {
+      // Closing this offer also handles a return to the same region while it was open.
+      if (countryId.equals(mPendingCountryId))
+      {
+        mLastOfferedCountryId = countryId;
+        mPendingCountryId = null;
+      }
+    });
   }
 
   private boolean deferUntilSetupCloses()

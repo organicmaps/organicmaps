@@ -91,6 +91,7 @@ public class CarAppSessionReadinessTest
   @Before
   public void setUp()
   {
+    MapStorage.sWorldInstalled = false;
     mController = mockStatic(RoutingController.class);
     mController.when(RoutingController::get).thenReturn(mRouting);
     mLogger = mockStatic(Logger.class);
@@ -278,6 +279,46 @@ public class CarAppSessionReadinessTest
     UiThread.runLater(() -> MapStorage.reportCountry("Installed"));
     idle();
     assertSame(mRoot, mScreens.getTop());
+  }
+
+  @Test
+  public void returningToADismissedRegionWhileSettingsIsOpenOffersItAgain()
+  {
+    offerMissingRegion().finish();
+    final Screen settings = new SettingsScreen(mContext, mSdk, mRenderer);
+    mScreens.push(settings);
+    MapStorage.reportCountry("Installed");
+    idle();
+    MapStorage.reportCountry("Missing");
+    idle();
+    assertSame(settings, mScreens.getTop());
+    settings.finish();
+    idle();
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+  }
+
+  @Test
+  public void dismissingAVisibleOfferAfterReturningToItsRegionClosesIt()
+  {
+    final Screen offer = offerMissingRegion();
+    MapStorage.reportCountry("Installed");
+    MapStorage.reportCountry("Missing");
+    idle();
+    assertSame(offer, mScreens.getTop());
+    offer.finish();
+    idle();
+    assertSame(mRoot, mScreens.getTop());
+  }
+
+  private Screen offerMissingRegion()
+  {
+    startSession();
+    mReadiness.complete();
+    MapStorage.reportCountry("Missing");
+    idle();
+    final Screen offer = mScreens.getTop();
+    assertTrue(offer instanceof DownloadMapsScreen);
+    return offer;
   }
 
   @Test
