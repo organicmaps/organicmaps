@@ -37,8 +37,8 @@ private:
     unsigned m_matches = 0;
   };
 
-  bool TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, m2::RectD const & rect,
-                 double entryDistanceM);
+  bool TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, m2::PointD const & position,
+                 m2::RectD const & rect, double entryDistanceM);
 
   bool m_joined = false;
   std::optional<Fix> m_lastFix;
