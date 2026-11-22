@@ -2,6 +2,8 @@
 #import <XCTest/XCTest.h>
 #import "MWMTextToSpeech.h"
 
+#include <CoreApi/Framework.h>
+
 #include "LocaleTranslator.h"
 
 // Voice metadata is sufficient to exercise the catalog without downloading regional voice packs.
@@ -14,6 +16,29 @@
 @end
 
 @implementation TTSVoiceMetadata
+@end
+
+@interface MWMTextToSpeechInitializationTests : XCTestCase
+@end
+
+@implementation MWMTextToSpeechInitializationTests
+
+- (void)testXCTestHostInitializesRoutingNotificationLocale
+{
+  (void)[MWMTextToSpeech tts];
+  XCTAssertFalse(GetFramework().GetRoutingManager().GetTurnNotificationsLocale().empty());
+}
+
+- (void)testActivationNotifiesVoiceSettingsAfterSpeechInitializes
+{
+  (void)[MWMTextToSpeech tts];
+  XCTestExpectation * refreshed = [self expectationForNotification:MWMTextToSpeechVoicesDidChangeNotification
+                                                            object:nil
+                                                           handler:nil];
+  [MWMTextToSpeech applicationDidBecomeActive];
+  [self waitForExpectations:@[refreshed] timeout:1];
+}
+
 @end
 
 @interface MWMTextToSpeechTest : XCTestCase

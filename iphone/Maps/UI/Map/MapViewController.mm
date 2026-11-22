@@ -505,7 +505,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (self.needDeferFocusNotification)
     [self onGetFocus:self.deferredFocusValue];
 
-  [MWMRouter restoreRouteIfNeeded];
+  // Route restoration waits for Drape, which is disabled in the XCTest host.
+  if (!MapsAppDelegate.isTestsEnvironment)
+    [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
   [MWMKeyboard addObserver:self];
