@@ -545,6 +545,32 @@ public class AndroidAutoSessionIntentTest
     verify(mController, never()).cancel();
   }
 
+  @Test
+  public void webSetupSurvivesAPhoneHandoffBeforeTheWorldDownload()
+  {
+    when(mSdk.getFlavor()).thenReturn("web");
+    mLocation.when(() -> LocationUtils.checkFineLocationPermission(any())).thenReturn(false);
+    mReadiness.complete();
+    createSession(coordinates(), false);
+    moveTo(Lifecycle.State.STARTED);
+    final Screen permission = mScreens.getTop();
+    assertTrue(permission instanceof PermissionScreen);
+    mDisplay.changeDisplay(DisplayType.Device);
+    shadowOf(Looper.getMainLooper()).idle();
+    mDisplay.changeDisplay(DisplayType.Car);
+    shadowOf(Looper.getMainLooper()).idle();
+    assertSame(permission, mScreens.getTop());
+    mLocation.when(() -> LocationUtils.checkFineLocationPermission(any())).thenReturn(true);
+    permission.finish();
+    shadowOf(Looper.getMainLooper()).idle();
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+    assertTrue(mDelivered.isEmpty());
+    installWorldMaps();
+    mScreens.getTop().finish();
+    shadowOf(Looper.getMainLooper()).idle();
+    assertTrue(mScreens.getTop() instanceof PlaceScreen);
+  }
+
   private void installWorldMaps()
   {
     final CountryItem installed = mock(CountryItem.class);
