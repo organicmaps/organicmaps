@@ -11,12 +11,15 @@
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/macros.hpp"
 
+#include <algorithm>
 #include <cmath>
 
 #ifdef DEBUG
@@ -37,6 +40,11 @@ uint64_t constexpr kKineticDelayMs = 500;
 
 float constexpr kForceTapThreshold = 0.75;
 
+double constexpr kPixelEps = 0.5;
+double constexpr kScaleEps = 1e-4;
+// 1/128 of a zoom level.
+double constexpr kFitScanStep = 1.0054299011128027;
+
 size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
 {
   size_t result = 0;
@@ -46,6 +54,110 @@ size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
     ++result;
 
   return result;
+}
+
+void SetCentered(ScreenBase & screen, m2::AnyRectD const & rect, m2::PointD const & pixelCenter, double scale)
+{
+  screen.SetFromParams(rect.GlobalCenter(), rect.Angle().val(), scale);
+  screen.MatchGandP3d(rect.GlobalCenter(), pixelCenter);
+}
+
+// Fits the rect in the viewport, centered and as large as it fits up to the closest zoom allowed.
+void FitInViewport(ScreenBase & screen, m2::AnyRectD const & rect, m2::RectD const & viewportRect)
+{
+  m2::PointD const center = viewportRect.Center();
+  auto const setScale = [&](double scale) { SetCentered(screen, rect, center, scale); };
+
+  // A point or a tiny rect gets the closest zoom allowed. It is applied here, as Navigator::SetFromScreen() limits the
+  // scale around the screen center, which would move the rect away from the center of the viewport.
+  double const minScale = GetScreenScale(scales::GetUpperStyleScale());
+  m2::RectD const & localRect = rect.GetLocalRect();
+  double const planeScale =
+      std::max({localRect.SizeX() / viewportRect.SizeX(), localRect.SizeY() / viewportRect.SizeY(), minScale});
+  // The perspective is only turned on as the automatic one.
+  ASSERT(screen.isAutoPerspective() || !screen.isPerspective(), ());
+  if (!screen.isAutoPerspective())
+  {
+    setScale(planeScale);
+    return;
+  }
+
+  // In perspective the near part of the map is drawn larger and the far part smaller than in the map plane, so the
+  // corners of the rect, as they are drawn, must be checked.
+  m2::AnyRectD::Corners corners;
+  rect.GetGlobalPoints(corners);
+  auto const fits = [&](double scale)
+  {
+    setScale(scale);
+    m2::RectD pixelRect = screen.PixelRect();
+    pixelRect.Inflate(kPixelEps, kPixelEps);
+    for (auto const & corner : corners)
+    {
+      // A point beyond the horizon is projected back into the view: check that it is drawn at all first.
+      m2::PointD const pt = screen.GtoP(corner);
+      if (!pixelRect.IsPointInside(pt) || !viewportRect.IsPointInside(screen.PtoP3d(pt)))
+        return false;
+    }
+    return true;
+  };
+
+  // The automatic perspective changes with the scale, so the scales that fit can form separate narrow intervals. They
+  // are scanned from the closest zoom, and the first that fits is refined against the previous one. An interval
+  // narrower than the scan step can be missed. From the scale where the perspective starts, the map is flat and the
+  // plane fit is exact.
+  double const flatScale = ScreenBase::GetStartPerspectiveScale();
+  double low = 0.0;
+  double high = minScale;
+  while (high < flatScale && !fits(high))
+  {
+    low = high;
+    high = std::min(high * kFitScanStep, flatScale);
+  }
+  if (high >= flatScale && planeScale >= flatScale)
+  {
+    setScale(planeScale);
+    return;
+  }
+  while (low > 0.0 && high > low * (1.0 + kScaleEps))
+  {
+    double const middle = std::sqrt(low * high);
+    if (fits(middle))
+      high = middle;
+    else
+      low = middle;
+  }
+  setScale(high);
+}
+
+// Near the poles the world's borders can move the view away from the rect, under what covers the rest of the view. Then
+// the map zooms in until the rect's center can stay at the center of the viewport.
+void KeepCenterInViewport(ScreenBase & screen, m2::AnyRectD const & rect, m2::RectD const & viewportRect)
+{
+  m2::RectD const & worldRect = GetWorldRect();
+  ScreenBase shrunk = screen;
+  ShrinkAndScaleInto(shrunk, worldRect);
+  if (viewportRect.IsPointInside(shrunk.PtoP3d(shrunk.GtoP(rect.GlobalCenter()))))
+    return;
+
+  m2::PointD const center = viewportRect.Center();
+  double low = GetScreenScale(scales::GetUpperStyleScale());
+  double high = screen.GetScale();
+  ScreenBase tmp = screen;
+  SetCentered(tmp, rect, center, low);
+  // The rect's center is beyond the world's borders.
+  if (low >= high || !CheckBorders(tmp))
+    return;
+
+  while (high > low * (1.0 + kScaleEps))
+  {
+    double const middle = std::sqrt(low * high);
+    SetCentered(tmp, rect, center, middle);
+    if (CheckBorders(tmp))
+      low = middle;
+    else
+      high = middle;
+  }
+  SetCentered(screen, rect, center, low);
 }
 }  // namespace
 
@@ -416,7 +528,7 @@ bool UserEventStream::OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent)
 
 bool UserEventStream::OnSetRect(ref_ptr<SetRectEvent> rectEvent)
 {
-  return SetRect(rectEvent->GetRect(), rectEvent->GetZoom(), rectEvent->GetApplyRotation(), rectEvent->IsAnim(),
+  return SetRect(rectEvent->GetRect(), rectEvent->GetApplyRotation(), rectEvent->IsAnim(),
                  rectEvent->UseVisibleViewport(), rectEvent->GetParallelAnimCreator());
 }
 
@@ -518,7 +630,7 @@ bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator co
   return SetScreen(screen, isAnim, parallelAnimCreator);
 }
 
-bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
+bool UserEventStream::SetRect(m2::RectD rect, bool applyRotation, bool isAnim, bool useVisibleViewport,
                               TAnimationCreator const & parallelAnimCreator)
 {
   // For animated transitions, choose the shortest horizontal path across the antimeridian.
@@ -529,8 +641,6 @@ bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool
       rect.Offset(offset, 0.0);
   }
 
-  CheckMinGlobalRect(rect, kDefault3dScale);
-  CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
   return SetRect(targetRect, isAnim, true /* fitInViewport */, useVisibleViewport, parallelAnimCreator);
 }
@@ -541,16 +651,23 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitIn
   ScreenBase tmp = GetCurrentScreen();
   if (fitInViewport)
   {
-    auto viewportRect = tmp.PixelRectIn3d();
-    if (useVisibleViewport && m_visibleViewport.IsValid())
-      viewportRect = m_visibleViewport;
-    tmp.SetFromRects(rect, viewportRect);
-    tmp.MatchGandP3d(rect.GlobalCenter(), viewportRect.Center());
+    m2::RectD viewportRect = tmp.PixelRectIn3d();
+    // The visible viewport can go beyond the view: fit in the part of it that is drawn.
+    m2::RectD visibleRect = m_visibleViewport;
+    if (useVisibleViewport && visibleRect.IsValid() && visibleRect.Intersect(viewportRect) &&
+        !visibleRect.IsEmptyInterior())
+    {
+      viewportRect = visibleRect;
+    }
+    FitInViewport(tmp, rect, viewportRect);
+    KeepCenterInViewport(tmp, rect, viewportRect);
   }
   else
   {
     tmp.SetFromRects(rect, tmp.PixelRect());
   }
+  // Near the poles, centering the rect can move the view beyond the world, which the navigator doesn't accept.
+  ShrinkAndScaleInto(tmp, GetWorldRect());
   return SetScreen(tmp, isAnim, parallelAnimCreator);
 }
 

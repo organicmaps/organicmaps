@@ -200,11 +200,10 @@ private:
 class SetRectEvent : public UserEvent
 {
 public:
-  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim, bool useVisibleViewport,
+  SetRectEvent(m2::RectD const & rect, bool rotate, bool isAnim, bool useVisibleViewport,
                TAnimationCreator const & parallelAnimCreator)
     : m_rect(rect)
     , m_applyRotation(rotate)
-    , m_zoom(zoom)
     , m_isAnim(isAnim)
     , m_useVisibleViewport(useVisibleViewport)
     , m_parallelAnimCreator(parallelAnimCreator)
@@ -214,7 +213,6 @@ public:
 
   m2::RectD const & GetRect() const { return m_rect; }
   bool GetApplyRotation() const { return m_applyRotation; }
-  int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
   bool UseVisibleViewport() const { return m_useVisibleViewport; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
@@ -222,7 +220,6 @@ public:
 private:
   m2::RectD m_rect;      // destination mercator rect
   bool m_applyRotation;  // if true, current rotation will be apply to m_rect
-  int m_zoom;            // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
   bool m_useVisibleViewport;
   TAnimationCreator m_parallelAnimCreator;
@@ -474,7 +471,7 @@ private:
   bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
+  bool SetRect(m2::RectD rect, bool applyRotation, bool isAnim, bool useVisibleViewport,
                TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
                TAnimationCreator const & parallelAnimCreator = nullptr);

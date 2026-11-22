@@ -1335,7 +1335,7 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
 void Framework::ShowRect(m2::RectD const & rect, bool animation, bool useVisibleViewport)
 {
   if (m_drapeEngine)
-    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */, animation, useVisibleViewport);
+    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, animation, useVisibleViewport);
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect, bool animation, bool useVisibleViewport)
