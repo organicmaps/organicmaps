@@ -5,7 +5,7 @@ on:
     branches:
       - master
     # Keep common paths in sync with android-check.yaml, ios-check.yaml and ios-beta.yaml.
-    # Keep Android paths in sync with android-check.yaml, except workflow/setup-gradle.
+    # Keep Android paths in sync with android-check.yaml, except CI workflow and action files.
     paths:
       # Common inputs
       - .gitattributes

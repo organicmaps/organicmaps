@@ -5,7 +5,7 @@ on:
     branches:
       - master
     # Keep common paths in sync with android-beta.yaml, ios-check.yaml and ios-beta.yaml.
-    # Keep Android paths in sync with android-beta.yaml, except workflow/setup-gradle.
+    # Keep Android paths in sync with android-beta.yaml, except CI workflow and action files.
     paths: &android-paths
       # Common inputs
       - .gitattributes
@@ -16,6 +16,7 @@ on:
       - data/**
       - libs/**
       # Android inputs
+      - .github/actions/robolectric-cache/**
       - .github/actions/setup-gradle/**
       - .github/workflows/android-check.yaml
       - android/**
@@ -160,6 +161,13 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
+      - name: Restore Robolectric SDK JARs
+        if: matrix.run-tests == true
+        id: robolectric-cache
+        uses: ./.github/actions/robolectric-cache
+        with:
+          mode: restore
+
       - name: Run tests
         if: matrix.run-tests == true
         uses: reactivecircus/android-emulator-runner@v2
@@ -174,6 +182,13 @@ jobs:
             :sdk:wear:core:testDebugUnitTest :sdk:wear:gms:testDebugUnitTest :libs:car:testDebugUnitTest
             :sdk:location:gms:google:testDebugUnitTest :sdk:location:gms:foss:testDebugUnitTest
             sdk:connectedDebugAndroidTest
+
+      - name: Save Robolectric SDK JARs
+        if: matrix.run-tests == true && github.ref == 'refs/heads/master'
+        uses: ./.github/actions/robolectric-cache
+        with:
+          mode: save
+          restored-key: ${{ steps.robolectric-cache.outputs.restored-key }}
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v7
