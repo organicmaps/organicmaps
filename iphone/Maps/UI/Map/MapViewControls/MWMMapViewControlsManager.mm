@@ -66,7 +66,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuState = MWMBottomMenuStateInactive;
-  self.menuRestoreState = MWMBottomMenuStateInactive;
   self.isAddingPlace = NO;
   self.searchManager = controller.searchManager;
   return self;
@@ -134,7 +133,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   self.isAddingPlace = NO;
   self.trafficButtonHidden = NO;
-  self.menuState = MWMBottomMenuStateInactive;
+  self.menuState = self.closedMenuState;
 }
 
 - (void)addPlace
@@ -298,7 +297,12 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     _hidden = hidden;
   self.sideButtonsHidden = _sideButtonsHidden;
   self.trafficButtonHidden = _trafficButtonHidden;
-  self.menuState = hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
+  self.menuState = self.closedMenuState;
+}
+
+- (MWMBottomMenuState)closedMenuState
+{
+  return self.hidden || self.isAddingPlace ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden
@@ -356,7 +360,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
                                    ownerController.viewIfLoaded.window == nil || ownerController.controlsView.isHidden))
     {
       if (_menuState == MWMBottomMenuStateActive)
-        [self setMenuState:MWMBottomMenuStateInactive animated:NO];
+        [self setMenuState:self.closedMenuState animated:NO];
       return;
     }
   }
@@ -408,7 +412,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
                            return;
                          if (pendingURL != nil && ![DeepLinkHandler.shared.url isEqual:pendingURL])
                          {
-                           [self setMenuState:MWMBottomMenuStateInactive animated:NO];
+                           [self setMenuState:self.closedMenuState animated:NO];
                            return;
                          }
                          self.menuState = MWMBottomMenuStateActive;
@@ -449,8 +453,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (!_isDismissingMenu && (_menuController == nil || _menuController != _ownerController.presentedViewController))
     return NO;
 
-  self.menuRestoreState = self.hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
-  [self setMenuState:self.menuRestoreState animated:animated];
+  [self setMenuState:self.closedMenuState animated:animated];
   return YES;
 }
 
