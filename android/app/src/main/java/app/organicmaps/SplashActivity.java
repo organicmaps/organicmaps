@@ -21,7 +21,6 @@ import androidx.core.view.ViewCompat;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.display.DisplayManager;
-import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.util.Config;
@@ -76,7 +75,6 @@ public class SplashActivity extends AppCompatActivity
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
     final DisplayManager displayManager = MwmApplication.from(this).getDisplayManager();
-    displayManager.init(DisplayType.Device);
 
     if (displayManager.isCarDisplayUsed() && MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
