@@ -19,6 +19,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <iterator>
 #include <map>
 #include <utility>
 
@@ -466,5 +467,93 @@ UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingRouteRetainsTrailGrades)
   }
   // Trail classification preserves the separately mapped gravel surface.
   TEST(unpavedDifficultTrail, ());
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingCanAvoidBothTrailGrades)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  auto constexpr avoidTrail = RoutingOptions::DifficultTrail;
+  for (bool const avoid : {false, true, false})
+  {
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(avoid ? avoidTrail : 0));
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, {}, true, true), RouterResultCode::NoError, (avoid));
+    for (auto const grade : {RoutingOptions::DifficultTrail, RoutingOptions::ExpertTrail})
+    {
+      if (avoid)
+        for (auto const & variant : result.m_routes)
+          TEST(!UsesRoadType(variant, grade), (grade));
+      else
+        TEST(UsesRoadType(result.GetActive(), grade), (grade));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingStartOnAvoidedTrailKeepsPartialSegment)
+{
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::DifficultTrail));
+  auto router = Router(VehicleType::Pedestrian);
+  struct Trail
+  {
+    RoutingOptions::Road grade;
+    double midpointLon;
+    double exitLon;
+  };
+  // Walk from the middle of each graded way to its junction with an ordinary path.
+  Trail const trails[] = {{RoutingOptions::DifficultTrail, 1.11, 1.10}, {RoutingOptions::ExpertTrail, 1.13, 1.14}};
+  for (auto const & [grade, midpointLon, exitLon] : trails)
+  {
+    auto const onTrail = mercator::FromLatLon(1, midpointLon);
+    auto const onPath = mercator::FromLatLon(1, exitLon);
+    // Try the trail itself and points 39 m and 41 m away, on either side of the initial search radius.
+    for (double const latitude : {1.0, 0.99965, 0.99963})
+    {
+      auto const start = mercator::FromLatLon(latitude, midpointLon);
+      RoutesResult result;
+      TEST_EQUAL(router->CalculateRoute(Checkpoints(start, onPath), {}, false, false, {}, result),
+                 RouterResultCode::NoError, (grade, latitude));
+      auto const & segments = result.GetActive().GetRouteSegments();
+      auto const trail =
+          std::ranges::find_if(segments, [grade](auto const & s) { return s.GetRoadTypes().Has(grade); });
+      TEST(trail != segments.end(), (grade, latitude));
+      double const approachM = trail == segments.begin() ? 0.0 : std::prev(trail)->GetDistFromBeginningMeters();
+      TEST_ALMOST_EQUAL_ABS(approachM, mercator::DistanceOnEarth(start, onTrail), 0.5, (grade, latitude));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingAvoidanceUsesNearbyOrdinaryPath)
+{
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::DifficultTrail));
+  auto router = Router(VehicleType::Pedestrian);
+  auto const finish = mercator::FromLatLon(1, 1.49);
+  // Beside the expert trail's junction with the ordinary path, and farther along that path.
+  for (auto const & start : {mercator::FromLatLon(0.9999, 1.1401), mercator::FromLatLon(0.999, 1.16)})
+  {
+    RoutesResult result;
+    TEST_EQUAL(router->CalculateRoute(Checkpoints(start, finish), {}, false, false, {}, result),
+               RouterResultCode::NoError, (start));
+    TEST(!UsesRoadType(result.GetActive(), RoutingOptions::DifficultTrail), (start));
+    TEST(!UsesRoadType(result.GetActive(), RoutingOptions::ExpertTrail), (start));
+  }
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, RequiredExpertTrailFailsWithAvoidanceOn)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  auto const calculate = [&](RoutesResult & result)
+  {
+    return router->CalculateRoute(Checkpoints(mercator::FromLatLon(2, 1.01), mercator::FromLatLon(2, 1.09)), {}, false,
+                                  true, {}, result);
+  };
+  RoutesResult before;
+  TEST_EQUAL(calculate(before), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(before.GetActive(), RoutingOptions::ExpertTrail), ());
+
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::DifficultTrail));
+  RoutesResult after;
+  // A required expert trail currently produces a generic endpoint error.
+  TEST_EQUAL(calculate(after), RouterResultCode::StartPointNotFound, ());
+  TEST(after.m_routes.empty(), ());
 }
 }  // namespace routing_preference_tests

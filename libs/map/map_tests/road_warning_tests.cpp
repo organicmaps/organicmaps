@@ -112,17 +112,17 @@ UNIT_TEST(RoadWarning_IsAvoidableRoadWarning)
 {
   using enum RoadWarningMarkType;
 
-  // Backed by a road-avoidance toggle in a supported profile.
   TEST(IsAvoidableRoadWarning(Toll), ());
   TEST(IsAvoidableRoadWarning(Ferry), ());
   TEST(IsAvoidableRoadWarning(Dirty), ());
   TEST(IsAvoidableRoadWarning(Steps), ());
+  TEST(IsAvoidableRoadWarning(DifficultTrail), ());
+  TEST(IsAvoidableRoadWarning(ExpertTrail), ());
 
-  // No avoid option -> must not surface the "driving options" affordance.
+  // Gates have no avoidance setting.
   TEST(!IsAvoidableRoadWarning(Gate), ());
   TEST(!IsAvoidableRoadWarning(LiftGate), ());
-  TEST(!IsAvoidableRoadWarning(DifficultTrail), ());
-  TEST(!IsAvoidableRoadWarning(ExpertTrail), ());
+  TEST(!IsAvoidableRoadWarning(Count), ());
 }
 
 UNIT_TEST(RoadWarning_SpanBoundaries)

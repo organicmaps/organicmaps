@@ -218,6 +218,28 @@
             android:layout_height="match_parent"
             android:padding="@dimen/margin_half_double_plus"/>
         </LinearLayout>
+        <LinearLayout
+          android:orientation="horizontal"
+          android:minHeight="@dimen/height_block_base"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingEnd="@dimen/margin_base"
+          android:paddingStart="@dimen/margin_base">
+          <TextView
+            android:labelFor="@id/avoid_difficult_trails_btn"
+            android:text="@string/avoid_difficult_trails"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="?android:attr/textColorPrimary"/>
+          <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/avoid_difficult_trails_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_half_double_plus"/>
+        </LinearLayout>
       </LinearLayout>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>

@@ -1368,16 +1368,21 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
       m_numMwmIds, m_numMwmTree, m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
       m_countryRectFn, m_dataSource);
 
+  // The walking setting covers both grades, which stay distinct on road segments for warnings.
+  auto graphAvoids = routingOptions;
+  if (graphAvoids.Has(RoutingOptions::DifficultTrail))
+    graphAvoids.Add(RoutingOptions::ExpertTrail);
+
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType, m_loadAltitudes,
-      m_vehicleModelFactory, m_estimator, m_dataSource, routingOptions, m_currentTimeGetter);
+      m_vehicleModelFactory, m_estimator, m_dataSource, graphAvoids, m_currentTimeGetter);
 
   if (m_vehicleType != VehicleType::Transit)
   {
     auto graph =
         std::make_unique<SingleVehicleWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader), m_estimator,
                                                   MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
-    graph->SetRoutingOptions(routingOptions);
+    graph->SetRoutingOptions(graphAvoids);
     return graph;
   }
 
@@ -1616,8 +1621,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // should contain all roads independently of routing options to prevent crossing roads
   // which are switched off in RoutingOptions.
   // Then in |IsDeadEndCached(..., true /* useRoutingOptions */, ...)| below we ignore
-  // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
-  // if they don't match RoutingOptions.
+  // candidates that become dead ends with the routing options applied.
   auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);

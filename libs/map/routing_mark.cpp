@@ -958,5 +958,6 @@ RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::
 bool IsAvoidableRoadWarning(RoadWarningMarkType type)
 {
   using enum RoadWarningMarkType;
-  return type == Toll || type == Ferry || type == Dirty || type == Steps;
+  return type == Toll || type == Ferry || type == Dirty || type == Steps || type == DifficultTrail ||
+         type == ExpertTrail;
 }

@@ -23,8 +23,8 @@ public:
     Ferry = 1u << 3,
     Dirty = 1u << 4,
     Steps = 1u << 5,
-    DifficultTrail = 1u << 6,
-    ExpertTrail = 1u << 7,  // Last free bit in RoadType.
+    DifficultTrail = 1u << 6,  // The walking avoidance mask uses this bit for both trail grades.
+    ExpertTrail = 1u << 7,     // Last free bit in RoadType.
 
     Max = ExpertTrail + 1
   };
