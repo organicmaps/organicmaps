@@ -46577,3 +46577,8 @@ uk = Трамвай
 vi = Xe điện
 zh-Hans = 有轨电车
 zh-Hant = 路面電車
+
+[button_layer_driving]
+comment = Driving map style and speed limit display mode name in the Styles and Layers dialog
+tags = android-app
+en = Driving

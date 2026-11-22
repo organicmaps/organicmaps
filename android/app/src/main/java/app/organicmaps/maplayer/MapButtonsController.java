@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -22,17 +23,20 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingPlanViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -65,6 +69,8 @@ public class MapButtonsController extends Fragment
   private BadgeDrawable mBadgeDrawable;
   @Nullable
   private ObjectAnimator mBlinkingAnimator;
+  @Nullable
+  private FreeRideSpeedController mFreeRideSpeedController;
   private float mContentHeight;
   private float mContentWidth;
 
@@ -176,6 +182,9 @@ public class MapButtonsController extends Fragment
     if (mTrackRecordingStatusButton != null)
       mButtonsMap.put(MapButtons.trackRecordingStatus, mTrackRecordingStatusButton);
     showButton(false, MapButtons.trackRecordingStatus);
+
+    final CombinedSpeedView freeRideSpeedView = mFrame.findViewById(R.id.free_ride_speed_limit);
+    mFreeRideSpeedController = freeRideSpeedView != null ? FreeRideSpeedController.create(freeRideSpeedView) : null;
     return mFrame;
   }
   // For disabling bottom buttons which are visible in tablets
@@ -319,11 +328,14 @@ public class MapButtonsController extends Fragment
 
   public void updateLayerButton()
   {
+    if (mFreeRideSpeedController != null)
+      mFreeRideSpeedController.refresh();
     if (mToggleMapLayerButton == null)
       return;
     final boolean buttonSelected = TrafficManager.INSTANCE.isEnabled() || IsolinesManager.isEnabled()
                                 || SubwayManager.isEnabled() || Framework.nativeIsOutdoorsLayerEnabled()
-                                || Framework.nativeIsHikingLayerEnabled() || Framework.nativeIsCyclingLayerEnabled()
+                                || Config.isFreeRideSpeedLimitEnabled() || Framework.nativeIsHikingLayerEnabled()
+                                || Framework.nativeIsCyclingLayerEnabled()
                                 || Framework.nativeIsBackgroundTilesEnabled();
     mToggleMapLayerButton.setHasActiveLayers(buttonSelected);
   }
@@ -459,6 +471,22 @@ public class MapButtonsController extends Fragment
     ViewCompat.setOnApplyWindowInsetsListener(
         view, WindowInsetUtils.PaddingInsetsListener.allSides(WindowInsetsCompat.Type.systemBars()
                                                               | WindowInsetsCompat.Type.displayCutout()));
+
+    if (mFreeRideSpeedController != null)
+    {
+      final var viewLifecycleOwner = getViewLifecycleOwner();
+      mMapButtonsViewModel.getLayoutMode().observe(viewLifecycleOwner, mFreeRideSpeedController::setLayoutMode);
+      mMapButtonsViewModel.getButtonsHidden().observe(
+          viewLifecycleOwner, hidden -> mFreeRideSpeedController.setButtonsHidden(Boolean.TRUE.equals(hidden)));
+      mSearchPageViewModel.getSearchEnabled().observe(
+          viewLifecycleOwner, active -> mFreeRideSpeedController.setSearchActive(Boolean.TRUE.equals(active)));
+      mRoutingPlanViewModel.getIsPlacePageActive().observe(
+          viewLifecycleOwner, active -> mFreeRideSpeedController.setPlacePageActive(Boolean.TRUE.equals(active)));
+      mPlacePageViewModel.getMapObject().observe(
+          viewLifecycleOwner, mapObject -> mFreeRideSpeedController.setPlacePageMapObjectPresent(mapObject != null));
+      mRoutingPlanViewModel.getIsPointChooserActive().observe(
+          viewLifecycleOwner, active -> mFreeRideSpeedController.setPointChooserActive(Boolean.TRUE.equals(active)));
+    }
   }
 
   @Override
@@ -476,6 +504,16 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getSearchOption().observe(viewLifecycleOwner, mSearchOptionObserver);
     mMapButtonsViewModel.getTrackRecorderState().observe(viewLifecycleOwner, mTrackRecorderObserver);
     mMapButtonsViewModel.getTopButtonsMarginTop().observe(viewLifecycleOwner, mTopButtonMarginObserver);
+
+    if (mFreeRideSpeedController != null)
+    {
+      mFreeRideSpeedController.onStart();
+      final LocationHelper locationHelper = MwmApplication.from(requireContext()).getLocationHelper();
+      locationHelper.addListener(mFreeRideSpeedController);
+      final Location savedLocation = locationHelper.getSavedLocation();
+      if (savedLocation != null)
+        mFreeRideSpeedController.onLocationUpdated(savedLocation);
+    }
   }
 
   @Override
@@ -487,17 +525,35 @@ public class MapButtonsController extends Fragment
     updateMenuBadge();
     updateLayerButton();
     updateHelpButtonIcon();
+    if (mFreeRideSpeedController != null)
+      mFreeRideSpeedController.refresh();
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
+    if (mFreeRideSpeedController != null)
+    {
+      MwmApplication.from(requireContext()).getLocationHelper().removeListener(mFreeRideSpeedController);
+      mFreeRideSpeedController.onStop();
+    }
     if (mBlinkingAnimator != null)
     {
       mBlinkingAnimator.cancel();
       mBlinkingAnimator = null;
     }
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    if (mFreeRideSpeedController != null)
+    {
+      mFreeRideSpeedController.destroy();
+      mFreeRideSpeedController = null;
+    }
+    super.onDestroyView();
   }
 
   public void onSearchOptionChange(@Nullable SearchWheel.SearchOption searchOption)

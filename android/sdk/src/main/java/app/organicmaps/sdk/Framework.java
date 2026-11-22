@@ -255,6 +255,10 @@ public class Framework
   /// Returns Vienna when the region's map or its sign-type metadata is unavailable.
   public static native @SpeedLimitSignType int nativeGetSpeedLimitSignType(double lat, double lon);
 
+  /// Returns speed limit in m/s for the nearest drivable road within 35 m,
+  /// 0 for unlimited ("none"), or < 0 when unavailable or off-road.
+  public static native double nativeGetSpeedLimitMps(double lat, double lon, double bearing, boolean hasBearing);
+
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.
   public static native JunctionInfo[] nativeGetRouteJunctionPoints(double maxDistM);

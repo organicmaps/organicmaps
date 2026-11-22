@@ -45,6 +45,7 @@ public final class Config
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
   private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
+  private static final String KEY_PREF_FREE_RIDE_SPEED_LIMIT = "FreeRideSpeedLimitEnabled";
 
   public static final String KEY_PREF_LAST_SEARCHED_TAB = "LastSearchTab";
 
@@ -474,6 +475,16 @@ public final class Config
   public static void setSearchHistoryEnabled(boolean enabled)
   {
     setBool(KEY_PREF_SEARCH_HISTORY, enabled);
+  }
+
+  public static boolean isFreeRideSpeedLimitEnabled()
+  {
+    return getBool(KEY_PREF_FREE_RIDE_SPEED_LIMIT, false);
+  }
+
+  public static void setFreeRideSpeedLimitEnabled(boolean enabled)
+  {
+    setBool(KEY_PREF_FREE_RIDE_SPEED_LIMIT, enabled);
   }
 
   public static class TTS

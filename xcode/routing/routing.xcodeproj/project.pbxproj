@@ -118,6 +118,8 @@
 		562BDE2020D14860008EFF6F /* routing_callbacks.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562BDE1F20D14860008EFF6F /* routing_callbacks.hpp */; };
 		5631B66B219B125D009F47D4 /* maxspeeds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5631B667219B125C009F47D4 /* maxspeeds.cpp */; };
 		5631B66C219B125D009F47D4 /* maxspeeds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5631B668219B125C009F47D4 /* maxspeeds.hpp */; };
+		FA420003219B125D009F47D4 /* speed_limit_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA420001219B125C009F47D4 /* speed_limit_finder.cpp */; };
+		FA420004219B125D009F47D4 /* speed_limit_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA420002219B125C009F47D4 /* speed_limit_finder.hpp */; };
 		56473D74214825B6007E6FBA /* city_roads_serialization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56473D72214825B4007E6FBA /* city_roads_serialization.hpp */; };
 		56555E591D897D28009D786D /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
 		5670595D1F3AF97F0062672D /* checkpoint_predictor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5670595B1F3AF97F0062672D /* checkpoint_predictor.cpp */; };
@@ -398,6 +400,8 @@
 		562BDE1F20D14860008EFF6F /* routing_callbacks.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_callbacks.hpp; sourceTree = "<group>"; };
 		5631B667219B125C009F47D4 /* maxspeeds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maxspeeds.cpp; sourceTree = "<group>"; };
 		5631B668219B125C009F47D4 /* maxspeeds.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = maxspeeds.hpp; sourceTree = "<group>"; };
+		FA420001219B125C009F47D4 /* speed_limit_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_limit_finder.cpp; sourceTree = "<group>"; };
+		FA420002219B125C009F47D4 /* speed_limit_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_limit_finder.hpp; sourceTree = "<group>"; };
 		56473D72214825B4007E6FBA /* city_roads_serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_roads_serialization.hpp; sourceTree = "<group>"; };
 		5661A5CD20DE51C500C6B1D1 /* tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tools.hpp; sourceTree = "<group>"; };
 		567059591F3AF96D0062672D /* checkpoint_predictor_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = checkpoint_predictor_test.cpp; sourceTree = "<group>"; };
@@ -829,6 +833,8 @@
 				5610731A221ABF96008447B2 /* speed_camera_prohibition.cpp */,
 				44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */,
 				44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */,
+				FA420002219B125C009F47D4 /* speed_limit_finder.hpp */,
+				FA420001219B125C009F47D4 /* speed_limit_finder.cpp */,
 				3A7192309D2A4278B30A9B09 /* track_matcher.hpp */,
 				55ACB3E2B7934AB28687347C /* track_matcher.cpp */,
 				44642D312E20A10000F8813A /* track_router.hpp */,
@@ -921,6 +927,7 @@
 				44A95C71225F6A4F00C22F4F /* astar_graph.hpp in Headers */,
 				6741AA9D1BF35331002C974C /* turns_notification_manager.hpp in Headers */,
 				5631B66C219B125D009F47D4 /* maxspeeds.hpp in Headers */,
+				FA420004219B125D009F47D4 /* speed_limit_finder.hpp in Headers */,
 				674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */,
 				40655E741F8BA46B0065305E /* fake_feature_ids.hpp in Headers */,
 				6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */,
@@ -1253,6 +1260,7 @@
 				0C08AA341DF83223004195DD /* index_graph_serialization.cpp in Sources */,
 				674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */,
 				5631B66B219B125D009F47D4 /* maxspeeds.cpp in Sources */,
+				FA420003219B125D009F47D4 /* speed_limit_finder.cpp in Sources */,
 				0C81E1571F0258AA00DC66DF /* segmented_route.cpp in Sources */,
 				D526BA79241FC5580076E0B0 /* guides_graph.cpp in Sources */,
 				D549BEC225765CFB009131F2 /* regions_sparse_graph.cpp in Sources */,

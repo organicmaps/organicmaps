@@ -25,6 +25,21 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
   </androidx.constraintlayout.widget.ConstraintLayout>
+  <FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/map_buttons_top"
+    android:layout_alignParentStart="true"
+    android:layout_marginStart="@dimen/nav_frame_padding"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+    <app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView
+      android:id="@+id/free_ride_speed_limit"
+      android:layout_width="wrap_content"
+      android:layout_height="60dp"
+      android:visibility="gone"
+      app:om_widget_current_speed_position="start" />
+  </FrameLayout>
   <include
     layout="@layout/map_status_track_recording"
     android:layout_width="wrap_content"

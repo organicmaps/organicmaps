@@ -1049,6 +1049,13 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetSpeedLimitSignType(JN
   return static_cast<jint>(type);
 }
 
+JNIEXPORT jdouble Java_app_organicmaps_sdk_Framework_nativeGetSpeedLimitMps(JNIEnv *, jclass, jdouble lat, jdouble lon,
+                                                                            jdouble bearing, jboolean hasBearing)
+{
+  auto const bearingOpt = hasBearing ? std::optional<double>(bearing) : std::nullopt;
+  return static_cast<jdouble>(frm()->GetSpeedLimitMps(ms::LatLon(lat, lon), bearingOpt));
+}
+
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon,
                                                                         jint formatId)
 {

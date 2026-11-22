@@ -38,6 +38,8 @@
 #include "indexer/map_object.hpp"
 #include "indexer/map_style.hpp"
 
+#include "routing/speed_limit_finder.hpp"
+
 #include "search/displayed_categories.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
@@ -210,6 +212,8 @@ protected:
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
+
+  routing::SpeedLimitFinder m_speedLimitFinder;
 
   TrafficManager m_trafficManager;
 
@@ -705,6 +709,10 @@ public:
 
   /// Delegates to SelectionProcessor::GetFeatureAtPoint.
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;
+
+  /// Returns speed limit in m/s for the nearest drivable road within 35 m,
+  /// 0.0 for unlimited ("none"), or -1.0 when unknown or off-road.
+  double GetSpeedLimitMps(ms::LatLon const & pos, std::optional<double> bearingDeg = std::nullopt) const;
 
   /// @param[in] scale Pass GetUpperScale (for countries) or GetUpperWorldScale (for World map).
   template <typename TFn>

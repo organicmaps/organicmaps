@@ -334,6 +334,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
 { return m_storage.GetParentIdFor(id); }, [this]() -> StringsBundle const &
 { return m_stringsBundle; }, [this]() -> power_management::PowerManager const & { return m_powerManager; }),
                      static_cast<RoutingManager::Delegate &>(*this))
+  , m_speedLimitFinder(m_featuresFetcher.GetDataSource())
   , m_trafficManager(std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */), kMaxTrafficCacheSizeBytes,
                      m_routingManager.RoutingSession())
   , m_lastReportedCountry(kInvalidCountryId)
@@ -542,6 +543,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   auto action = [this, localFile]
   {
     m_transitManager.OnMwmDeregistered(localFile);
+    m_speedLimitFinder.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
@@ -737,6 +739,7 @@ void Framework::DeregisterAllMaps()
 {
   m_terrainRegistered = false;
   m_transitManager.Clear();
+  m_speedLimitFinder.ClearCache();
   m_trafficManager.Clear();
   m_descriptionsLoader->Clear();
 
@@ -1471,6 +1474,12 @@ void Framework::ClearAllCaches()
   m_infoGetter->ClearCaches();
   GetSearchAPI().ClearCaches();
   m_terrainProvider.ClearCache();
+  m_speedLimitFinder.ClearCache();
+}
+
+double Framework::GetSpeedLimitMps(ms::LatLon const & pos, std::optional<double> bearingDeg) const
+{
+  return m_speedLimitFinder.GetSpeedLimitMps(pos, bearingDeg);
 }
 
 void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)

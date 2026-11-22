@@ -8,6 +8,7 @@ import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.util.Config;
 
 public enum Mode
 {
@@ -63,9 +64,27 @@ public enum Mode
     @Override
     public void setEnabled(@NonNull Context context, boolean isEnabled)
     {
+      if (isEnabled && Config.isFreeRideSpeedLimitEnabled())
+        Config.setFreeRideSpeedLimitEnabled(false);
       Framework.nativeSetOutdoorsLayerEnabled(isEnabled);
       // TODO: ThemeSwitcher is outside sdk package. Properly fix dependencies
       // ThemeSwitcher.INSTANCE.restart(true);
+    }
+  },
+
+  DRIVING {
+    @Override
+    public boolean isEnabled(@NonNull Context context)
+    {
+      return Config.isFreeRideSpeedLimitEnabled();
+    }
+
+    @Override
+    public void setEnabled(@NonNull Context context, boolean isEnabled)
+    {
+      if (isEnabled && Framework.nativeIsOutdoorsLayerEnabled())
+        Framework.nativeSetOutdoorsLayerEnabled(false);
+      Config.setFreeRideSpeedLimitEnabled(isEnabled);
     }
   },
 

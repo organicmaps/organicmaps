@@ -44,6 +44,10 @@ public class LayerBottomSheetItem
       drawableResId = R.drawable.ic_layers_outdoors;
       buttonTextResource = R.string.button_layer_outdoor;
       break;
+    case DRIVING:
+      drawableResId = R.drawable.ic_layers_driving;
+      buttonTextResource = R.string.button_layer_driving;
+      break;
     case SUBWAY:
       drawableResId = R.drawable.ic_layers_subway;
       buttonTextResource = R.string.button_layer_subway;

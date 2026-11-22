@@ -129,7 +129,7 @@ public enum ThemeSwitcher
 
   private MapStyle calculateMapStyle(boolean dark)
   {
-    if (RoutingController.get().isVehicleNavigation())
+    if (RoutingController.get().isVehicleNavigation() || Config.isFreeRideSpeedLimitEnabled())
       return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
     else if (Framework.nativeIsOutdoorsLayerEnabled())
       return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;

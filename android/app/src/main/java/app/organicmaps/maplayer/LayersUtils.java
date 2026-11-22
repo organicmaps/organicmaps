@@ -11,6 +11,7 @@ public class LayersUtils
   {
     List<Mode> availableLayers = new ArrayList<>();
     availableLayers.add(Mode.OUTDOORS);
+    availableLayers.add(Mode.DRIVING);
     availableLayers.add(Mode.ISOLINES);
     availableLayers.add(Mode.HIKING);
     availableLayers.add(Mode.CYCLING);
