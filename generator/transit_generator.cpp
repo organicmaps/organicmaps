@@ -67,30 +67,29 @@ std::string GetMwmPath(std::string const & mwmDir, CountryId const & countryId)
 /// The result of the calculation is set to |Gate::m_bestPedestrianSegment| of every gate
 /// from |graphData.m_gates|.
 /// \note All gates in |graphData.m_gates| must have a valid |m_point| field before the call.
-void CalculateBestPedestrianSegments(std::string const & mwmPath, CountryId const & countryId, GraphData & graphData)
+void CalculateBestPedestrianSegments(std::string const & mwmPath, CountryId const & countryId,
+                                     storage::CountryInfoGetter const & infoGetter, GraphData & graphData)
 {
   // Creating IndexRouter.
   SingleMwmDataSource dataSource(mwmPath);
 
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-  CHECK(infoGetter, ());
-
-  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) { return infoGetter->GetRegionCountryId(pt); };
+  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) { return infoGetter.GetRegionCountryId(pt); };
 
   auto const getMwmRectByName = [&](std::string const & c) -> m2::RectD
   {
     CHECK_EQUAL(countryId, c, ());
-    return infoGetter->GetLimitRectForLeaf(c);
+    return infoGetter.GetLimitRectForLeaf(c);
   };
 
   CHECK_EQUAL(dataSource.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
   auto numMwmIds = std::make_shared<NumMwmIds>();
   numMwmIds->RegisterFile(CountryFile(countryId));
 
-  // Note. |indexRouter| is valid while |dataSource| is valid.
+  traffic::TrafficCache trafficCache;
   IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */, CountryParentNameGetterFn(),
-                          countryFileGetter, getMwmRectByName, numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
-                          traffic::TrafficCache(), dataSource.GetDataSource());
+                          countryFileGetter, getMwmRectByName, numMwmIds, MakeNumMwmTree(*numMwmIds, infoGetter),
+                          trafficCache, dataSource.GetDataSource());
+  // Transit maps are shared by all users. Snap gates without the build host's walking avoids.
   auto worldGraph = indexRouter.MakeSingleMwmWorldGraph({} /* routingOptions */);
 
   // Looking for the best segment for every gate.
@@ -174,9 +173,9 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
 }
 
 void ProcessGraph(std::string const & mwmPath, CountryId const & countryId,
-                  OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, GraphData & data)
+                  storage::CountryInfoGetter const & infoGetter, GraphData & data)
 {
-  CalculateBestPedestrianSegments(mwmPath, countryId, data);
+  CalculateBestPedestrianSegments(mwmPath, countryId, infoGetter, data);
   data.Sort();
   data.CheckValidSortedUnique();
 }
@@ -209,7 +208,9 @@ void BuildTransit(std::string const & mwmDir, CountryId const & countryId, std::
   if (jointData.IsEmpty())
     return;  // Empty transit section.
 
-  ProcessGraph(mwmPath, countryId, mapping, jointData);
+  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+  CHECK(infoGetter, ());
+  ProcessGraph(mwmPath, countryId, *infoGetter, jointData);
   jointData.CheckValidSortedUnique();
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);

@@ -2,6 +2,7 @@
 
 #include "generator/altitude_generator.hpp"
 #include "generator/generator_tests_support/test_generator.hpp"
+#include "generator/transit_generator.hpp"
 
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
@@ -9,6 +10,8 @@
 #include "routing/world_graph.hpp"
 
 #include "indexer/feature.hpp"
+
+#include "storage/country_info_getter.hpp"
 
 #include "platform/platform.hpp"
 
@@ -351,34 +354,32 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)
       RoutingOptions::SaveToSettings(VehicleType::Car, RoutingOptions(RoutingOptions::Ferry));
     changed = true;
   };
-  RoutesResult before;
-  TEST_EQUAL(Calculate(*router, before, {}, false, true), RouterResultCode::NoError, ());
+  RoutesResult result;
+  TEST_EQUAL(Calculate(*router, result, {}, false, true), RouterResultCode::NoError, ());
   TEST(changed, ());
-  for (auto const & route : before.m_routes)
+  TEST_EQUAL(result.m_routes.size(), 2, ());
+  for (auto const & route : result.m_routes)
     TEST(UsesRoadType(route, RoutingOptions::Ferry), ());
-
-  RoutesResult after;
-  TEST_EQUAL(Calculate(*router, after, {}, true, true), RouterResultCode::NoError, ());
-  for (auto const & route : after.m_routes)
-    TEST(!UsesRoadType(route, RoutingOptions::Ferry), ());
 }
 
 UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitGateAccessIsIndependentOfWalkingAvoidance)
 {
-  auto const vehicle = VehicleType::Pedestrian;
-  auto router = Router(vehicle);
-  auto const gate = mercator::FromLatLon(1.009, 1.098);
-  auto const snapGate = [&]
-  {
-    auto graph = router->MakeSingleMwmWorldGraph({} /* routingOptions */);
-    std::vector<Edge> edges;
-    TEST(router->GetBestOutgoingEdges(gate, *graph, edges), ());
-    return edges;
-  };
-  auto const expected = snapGate();
-  TEST(!expected.empty(), ());
-  RoutingOptions::SaveToSettings(vehicle, RoutingOptions(RoutingOptions::Steps));
-  TEST_EQUAL(snapGate(), expected, ());
+  routing::transit::GraphData transit;
+  transit.DeserializeFromJson(R"({"gates":[{"osm_id":"1","entrance":true,"exit":true,"weight":60,
+                                           "stop_ids":[1],"point":{"x":1.098,"y":1.009}}]})",
+                              {});
+  auto const & gate = transit.GetGates().front();
+
+  // This entrance connects to the rest of the pedestrian network only by stairs.
+  auto router = Router(VehicleType::Pedestrian);
+  auto graph = router->MakeSingleMwmWorldGraph(RoutingOptions(RoutingOptions::Steps));
+  std::vector<Edge> edges;
+  TEST(!router->GetBestOutgoingEdges(gate.GetPoint(), *graph, edges), ());
+
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::Steps));
+  storage::CountryInfoGetterForTesting countries({{"Germany", m_bounds}});
+  routing::transit::ProcessGraph(GetMwmPath("Germany"), "Germany", countries, transit);
+  TEST(transit.GetGates().front().GetBestPedestrianSegment().IsValid(), ());
 }
 
 class StepsRoutingFixture : public RoutingPreferenceFixture

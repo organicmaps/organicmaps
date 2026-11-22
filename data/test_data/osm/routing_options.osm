@@ -273,6 +273,9 @@
   <!-- The gate access path connects to the pedestrian network only by stairs. -->
   <node id="400" lat="1.005" lon="1.098" />
   <node id="401" lat="1.010" lon="1.098" />
+  <!-- A fast detour and a shorter road after the ferry give the car router distinct alternatives. -->
+  <node id="402" lat="1.025" lon="1.435" />
+  <node id="403" lat="1" lon="1.47" />
   <way id="15">
     <nd ref="2" /><nd ref="400" />
     <tag k="highway" v="steps" />
@@ -294,8 +297,14 @@
     <tag k="foot" v="yes" />
   </way>
   <way id="12">
-    <nd ref="3" /><nd ref="4" />
-    <tag k="highway" v="residential" />
+    <nd ref="3" /><nd ref="403" /><nd ref="4" />
+    <tag k="highway" v="secondary" />
+    <tag k="maxspeed" v="50" />
+  </way>
+  <way id="17">
+    <nd ref="3" /><nd ref="402" /><nd ref="403" />
+    <tag k="highway" v="primary" />
+    <tag k="maxspeed" v="90" />
   </way>
   <way id="13">
     <nd ref="2" /><nd ref="5" /><nd ref="6" /><nd ref="3" />
