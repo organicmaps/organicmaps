@@ -25,6 +25,7 @@
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
+#include "routing_common/motorcycle_model.hpp"
 #include "routing_common/num_mwm_tree.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
@@ -130,8 +131,12 @@ SpeedKMpH const & CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleM
 }
 
 std::shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
-    VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn)
+    VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn,
+    std::optional<MotorcycleProfile> motorcycleProfile)
 {
+  if (motorcycleProfile)
+    return std::make_shared<MotorcycleModelFactory>(countryParentNameGetterFn, *motorcycleProfile);
+
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
@@ -338,12 +343,14 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
                          std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                         traffic::TrafficCache const & trafficCache, DataSource & dataSource)
+                         traffic::TrafficCache const & trafficCache, DataSource & dataSource,
+                         std::optional<MotorcycleProfile> motorcycleProfile)
   : m_vehicleType(vehicleType)
+  , m_motorcycleProfile(motorcycleProfile)
   , m_loadAltitudes(loadAltitudes)
-  , m_name("astar-bidirectional-" + ToString(m_vehicleType))
+  , m_name("astar-bidirectional-" + (m_motorcycleProfile ? std::string("motorcycle") : ToString(m_vehicleType)))
   , m_dataSource(dataSource, numMwmIds)
-  , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
+  , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn, m_motorcycleProfile))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
   , m_numMwmIds(std::move(numMwmIds))
@@ -1357,8 +1364,15 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  RoutingOptions const routingOptions =
+  RoutingOptions routingOptions =
       m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
+  // Offroad and HardEnduro motorcycle profiles intentionally route on tracks/unpaved roads, so
+  // ignore any saved "avoid unpaved" flag while preserving Toll/Ferry/Motorway avoidance.
+  if (m_motorcycleProfile &&
+      (*m_motorcycleProfile == MotorcycleProfile::Offroad || *m_motorcycleProfile == MotorcycleProfile::HardEnduro))
+  {
+    routingOptions.Remove(RoutingOptions::Road::Dirty);
+  }
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);

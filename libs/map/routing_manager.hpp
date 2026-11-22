@@ -17,6 +17,8 @@
 #include "routing/speed_camera_manager.hpp"
 #include "routing/track_router.hpp"
 
+#include "routing_common/motorcycle_model.hpp"
+
 #include "storage/storage_defines.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
@@ -161,6 +163,8 @@ public:
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
   void SetRouter(routing::RouterType type);
   routing::RouterType GetRouter() const { return m_currentRouterType; }
+  void SetMotorcycleProfile(routing::MotorcycleProfile profile);
+  routing::MotorcycleProfile GetMotorcycleProfile() const;
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }

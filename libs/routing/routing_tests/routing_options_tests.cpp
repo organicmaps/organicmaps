@@ -179,6 +179,7 @@ UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
   for (uint32_t const invalid : {0u, 3u, 6u, 33u, 64u, 128u, 256u, 0xffffffffu})
     TEST(!RoutingOptions::RoadFromId(invalid), (invalid));
   TEST(RoutingOptions::GetVehicleType(RouterType::Vehicle) == VehicleType::Car, ());
+  TEST(RoutingOptions::GetVehicleType(RouterType::Motorcycle) == VehicleType::Car, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Bicycle) == VehicleType::Bicycle, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Pedestrian) == VehicleType::Pedestrian, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Transit) == VehicleType::Transit, ());
@@ -211,5 +212,17 @@ UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)
     RoutingOptions::SaveRouteOptimizationToSettings(enabled);
     TEST_EQUAL(RoutingOptions::LoadRouteOptimizationFromSettings(), enabled, ());
   }
+}
+
+UNIT_TEST(MotorcycleProfileSettingsTest)
+{
+  auto const saved = RoutingOptions::LoadMotorcycleProfileFromSettings();
+  for (auto const profile : {MotorcycleProfile::Default, MotorcycleProfile::Touring, MotorcycleProfile::Fun,
+                             MotorcycleProfile::Offroad, MotorcycleProfile::HardEnduro})
+  {
+    RoutingOptions::SaveMotorcycleProfileToSettings(profile);
+    TEST_EQUAL(RoutingOptions::LoadMotorcycleProfileFromSettings(), profile, ());
+  }
+  RoutingOptions::SaveMotorcycleProfileToSettings(saved);
 }
 }  // namespace

@@ -37,6 +37,7 @@ enum class RouterType
   Bicycle,      /// For A star bicycle routing.
   Transit,      /// For A star pedestrian + transit routing.
   Ruler,        /// For simple straight line router.
+  Motorcycle,   /// For A star motorcycle routing.
   Count         /// Number of router types.
 };
 

@@ -8,6 +8,8 @@ set(SRC
   car_model_coefs.hpp
   maxspeed_conversion.cpp
   maxspeed_conversion.hpp
+  motorcycle_model.cpp
+  motorcycle_model.hpp
   num_mwm_id.hpp
   num_mwm_tree.hpp
   pedestrian_model.cpp

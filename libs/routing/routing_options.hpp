@@ -2,6 +2,8 @@
 
 #include "routing/vehicle_mask.hpp"
 
+#include "routing_common/motorcycle_model.hpp"
+
 #include "base/small_map.hpp"
 
 #include <optional>
@@ -42,6 +44,9 @@ public:
 
   static bool LoadRouteOptimizationFromSettings();
   static void SaveRouteOptimizationToSettings(bool enabled);
+
+  static MotorcycleProfile LoadMotorcycleProfileFromSettings();
+  static void SaveMotorcycleProfileToSettings(MotorcycleProfile profile);
 
   void Add(Road type);
   void Remove(Road type);

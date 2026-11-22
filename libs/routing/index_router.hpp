@@ -18,6 +18,7 @@
 #include "routing/segment.hpp"
 #include "routing/segmented_route.hpp"
 
+#include "routing_common/motorcycle_model.hpp"
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
@@ -73,7 +74,8 @@ public:
   IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
               std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-              traffic::TrafficCache const & trafficCache, DataSource & dataSource);
+              traffic::TrafficCache const & trafficCache, DataSource & dataSource,
+              std::optional<MotorcycleProfile> motorcycleProfile = std::nullopt);
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
 
@@ -280,6 +282,7 @@ private:
   std::vector<Segment> GetBestOutgoingSegments(m2::PointD const & checkpoint, WorldGraph & graph);
 
   VehicleType m_vehicleType;
+  std::optional<MotorcycleProfile> m_motorcycleProfile;
   bool m_loadAltitudes;
   std::string const m_name;
   MwmDataSource m_dataSource;

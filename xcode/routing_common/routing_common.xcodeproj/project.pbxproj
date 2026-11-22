@@ -14,6 +14,8 @@
 		671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671E78811E6A3C5D00B2859B /* bicycle_model.hpp */; };
 		671E788A1E6A3C5D00B2859B /* car_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78821E6A3C5D00B2859B /* car_model.cpp */; };
 		671E788B1E6A3C5D00B2859B /* car_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671E78831E6A3C5D00B2859B /* car_model.hpp */; };
+		FA4100032E6A3C5D00B2859B /* motorcycle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4100012E6A3C5D00B2859B /* motorcycle_model.cpp */; };
+		FA4100042E6A3C5D00B2859B /* motorcycle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA4100022E6A3C5D00B2859B /* motorcycle_model.hpp */; };
 		671E788C1E6A3C5D00B2859B /* pedestrian_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78841E6A3C5D00B2859B /* pedestrian_model.cpp */; };
 		671E788D1E6A3C5D00B2859B /* pedestrian_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671E78851E6A3C5D00B2859B /* pedestrian_model.hpp */; };
 		671E788E1E6A3C5D00B2859B /* vehicle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78861E6A3C5D00B2859B /* vehicle_model.cpp */; };
@@ -35,6 +37,8 @@
 		671E78811E6A3C5D00B2859B /* bicycle_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bicycle_model.hpp; sourceTree = "<group>"; };
 		671E78821E6A3C5D00B2859B /* car_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = car_model.cpp; sourceTree = "<group>"; };
 		671E78831E6A3C5D00B2859B /* car_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = car_model.hpp; sourceTree = "<group>"; };
+		FA4100012E6A3C5D00B2859B /* motorcycle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = motorcycle_model.cpp; sourceTree = "<group>"; };
+		FA4100022E6A3C5D00B2859B /* motorcycle_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = motorcycle_model.hpp; sourceTree = "<group>"; };
 		671E78841E6A3C5D00B2859B /* pedestrian_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pedestrian_model.cpp; sourceTree = "<group>"; };
 		671E78851E6A3C5D00B2859B /* pedestrian_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pedestrian_model.hpp; sourceTree = "<group>"; };
 		671E78861E6A3C5D00B2859B /* vehicle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_model.cpp; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 				F6E4ECDF223AB60600C8A79A /* car_model_coefs.hpp */,
 				671E78821E6A3C5D00B2859B /* car_model.cpp */,
 				671E78831E6A3C5D00B2859B /* car_model.hpp */,
+				FA4100012E6A3C5D00B2859B /* motorcycle_model.cpp */,
+				FA4100022E6A3C5D00B2859B /* motorcycle_model.hpp */,
 				5631B663219B11D5009F47D4 /* maxspeed_conversion.cpp */,
 				5631B664219B11D5009F47D4 /* maxspeed_conversion.hpp */,
 				56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */,
@@ -136,6 +142,7 @@
 				671E788D1E6A3C5D00B2859B /* pedestrian_model.hpp in Headers */,
 				671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */,
 				671E788B1E6A3C5D00B2859B /* car_model.hpp in Headers */,
+				FA4100042E6A3C5D00B2859B /* motorcycle_model.hpp in Headers */,
 				671E788F1E6A3C5D00B2859B /* vehicle_model.hpp in Headers */,
 				F6E4ECE0223AB60600C8A79A /* car_model_coefs.hpp in Headers */,
 				5631B666219B11D5009F47D4 /* maxspeed_conversion.hpp in Headers */,
@@ -234,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				671E788A1E6A3C5D00B2859B /* car_model.cpp in Sources */,
+				FA4100032E6A3C5D00B2859B /* motorcycle_model.cpp in Sources */,
 				671E78881E6A3C5D00B2859B /* bicycle_model.cpp in Sources */,
 				5631B665219B11D5009F47D4 /* maxspeed_conversion.cpp in Sources */,
 				671E788E1E6A3C5D00B2859B /* vehicle_model.cpp in Sources */,

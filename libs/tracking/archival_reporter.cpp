@@ -68,6 +68,7 @@ void ArchivalReporter::Insert(routing::RouterType const & trackType, location::G
   switch (trackType)
   {
   case routing::RouterType::Vehicle:
+  case routing::RouterType::Motorcycle:
   {
     if (!m_archiveCar.Add(info, speedGroup))
       return;

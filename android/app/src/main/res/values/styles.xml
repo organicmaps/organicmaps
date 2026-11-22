@@ -96,6 +96,22 @@
     <item name="android:layout_weight">1</item>
   </style>
 
+  <style name="MwmWidget.MotorcycleProfileCell">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">34dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:minWidth">0dp</item>
+    <item name="android:paddingStart">10dp</item>
+    <item name="android:paddingEnd">10dp</item>
+    <item name="android:button">@null</item>
+    <item name="android:background">@drawable/routing_toolbar_button</item>
+    <item name="android:gravity">center</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/routing_toolbar_icon_tint</item>
+  </style>
+
   <style name="MwmWidget.Button.Primary">
     <item name="android:background">?primaryButtonBackground</item>
     <item name="android:minWidth">@dimen/primary_button_min_width</item>

@@ -47,6 +47,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mRoutingRoot;
   private View mRoutingBottomContainer;
   private RadioGroup mRouterTypes;
+  private View mMotorcycleProfilesContainer;
+  private RadioGroup mMotorcycleProfiles;
   private RoutingBottomMenuController mRoutingBottomMenuController;
   private TextView mDrivingOptionsBadge;
   private View mSearchBtn;
@@ -101,10 +103,13 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mFrame = view.findViewById(R.id.routing_sheet_frame);
     mRoutingTypesContainer = mFrame.findViewById(R.id.routing_types_frame);
     mRouterTypes = mFrame.findViewById(R.id.route_type);
+    mMotorcycleProfilesContainer = mRoutingTypesContainer.findViewById(R.id.motorcycle_profiles_container);
+    mMotorcycleProfiles = mRoutingTypesContainer.findViewById(R.id.motorcycle_profile);
     mPeekHeightMargins = getResources().getDimensionPixelSize(R.dimen.routing_margin_peek_height);
     mBottomButtonsMaxHeight = getResources().getDimensionPixelSize(R.dimen.routing_bottom_buttons_max_height);
 
     setupRouterButtons();
+    setupMotorcycleProfileButtons();
 
     mChartHeaderAdapter = new ChartHeaderAdapter(mChartPanel);
     mRoutingContainer = requireActivity().findViewById(R.id.routing_container);
@@ -220,6 +225,12 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (controller.isPlanning())
     {
       setRoutingContentActive(false);
+      final Router currentRouter = controller.getLastRouterType();
+      if (currentRouter != null)
+      {
+        mRouterTypes.check(routerToButtonId(currentRouter));
+        updateMotorcycleProfilesVisibility(currentRouter);
+      }
       mRoutingBottomMenuController.refreshManageRoute();
       mViewModel.setShowRoutingBottomSheet(true);
     }
@@ -308,6 +319,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private void setupRouterButtons()
   {
     setRouterClick(R.id.vehicle, Router.Vehicle);
+    setRouterClick(R.id.motorcycle, Router.Motorcycle);
     setRouterClick(R.id.pedestrian, Router.Pedestrian);
     setRouterClick(R.id.transit, Router.Transit);
     setRouterClick(R.id.bicycle, Router.Bicycle);
@@ -320,7 +332,36 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       RoutingController.get().setRouterType(router);
       // A partial plan has no calculation callback to refresh its settings controls.
       updateRoutingOptions(router);
+      updateMotorcycleProfilesVisibility(router);
     });
+  }
+
+  private void setupMotorcycleProfileButtons()
+  {
+    setMotorcycleProfileClick(R.id.motorcycle_profile_quick, Router.MotorcycleProfile.Default);
+    setMotorcycleProfileClick(R.id.motorcycle_profile_touring, Router.MotorcycleProfile.Touring);
+    setMotorcycleProfileClick(R.id.motorcycle_profile_fun, Router.MotorcycleProfile.Fun);
+    setMotorcycleProfileClick(R.id.motorcycle_profile_offroad, Router.MotorcycleProfile.Offroad);
+    setMotorcycleProfileClick(R.id.motorcycle_profile_hard_enduro, Router.MotorcycleProfile.HardEnduro);
+  }
+
+  private void setMotorcycleProfileClick(@IdRes int buttonId, @NonNull Router.MotorcycleProfile profile)
+  {
+    mMotorcycleProfiles.findViewById(buttonId).setOnClickListener(
+        v -> RoutingController.get().setMotorcycleProfile(profile));
+  }
+
+  private void updateMotorcycleProfilesVisibility(@NonNull Router router)
+  {
+    if (mMotorcycleProfilesContainer == null)
+      return;
+    final boolean isMotorcycle = router == Router.Motorcycle;
+    final boolean wasVisible = mMotorcycleProfilesContainer.getVisibility() == View.VISIBLE;
+    UiUtils.showIf(isMotorcycle, mMotorcycleProfilesContainer);
+    if (isMotorcycle)
+      mMotorcycleProfiles.check(motorcycleProfileToButtonId(Router.getMotorcycleProfile()));
+    if (wasVisible != isMotorcycle)
+      mRoutingTypesContainer.post(this::updateSheetLayout);
   }
 
   @IdRes
@@ -329,10 +370,24 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     return switch (router)
     {
       case Vehicle -> R.id.vehicle;
+      case Motorcycle -> R.id.motorcycle;
       case Pedestrian -> R.id.pedestrian;
       case Transit -> R.id.transit;
       case Bicycle -> R.id.bicycle;
       case Ruler -> R.id.ruler;
+    };
+  }
+
+  @IdRes
+  private static int motorcycleProfileToButtonId(@NonNull Router.MotorcycleProfile profile)
+  {
+    return switch (profile)
+    {
+      case Default -> R.id.motorcycle_profile_quick;
+      case Touring -> R.id.motorcycle_profile_touring;
+      case Fun -> R.id.motorcycle_profile_fun;
+      case Offroad -> R.id.motorcycle_profile_offroad;
+      case HardEnduro -> R.id.motorcycle_profile_hard_enduro;
     };
   }
 
@@ -394,6 +449,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     mRouterTypes.check(routerToButtonId(router));
     updateRoutingOptions(router);
+    updateMotorcycleProfilesVisibility(router);
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())

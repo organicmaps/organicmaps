@@ -15,6 +15,7 @@ namespace routing
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
+std::string_view constexpr kMotorcycleProfileSetting = "routing_motorcycle_profile";
 
 namespace
 {
@@ -51,7 +52,8 @@ std::optional<VehicleType> RoutingOptions::GetVehicleType(RouterType routerType)
 {
   switch (routerType)
   {
-  case RouterType::Vehicle: return VehicleType::Car;
+  case RouterType::Vehicle:
+  case RouterType::Motorcycle: return VehicleType::Car;
   case RouterType::Bicycle: return VehicleType::Bicycle;
   case RouterType::Pedestrian: return VehicleType::Pedestrian;
   case RouterType::Transit: return VehicleType::Transit;
@@ -104,6 +106,39 @@ bool RoutingOptions::LoadRouteOptimizationFromSettings()
 void RoutingOptions::SaveRouteOptimizationToSettings(bool enabled)
 {
   settings::Set(kRouteOptimizationEnabledKey, enabled);
+}
+
+// static
+MotorcycleProfile RoutingOptions::LoadMotorcycleProfileFromSettings()
+{
+  std::string profileStr;
+  if (!settings::Get(kMotorcycleProfileSetting, profileStr))
+    return MotorcycleProfile::Default;
+
+  if (profileStr == "fun")
+    return MotorcycleProfile::Fun;
+  if (profileStr == "offroad")
+    return MotorcycleProfile::Offroad;
+  if (profileStr == "hard_enduro")
+    return MotorcycleProfile::HardEnduro;
+  if (profileStr == "touring")
+    return MotorcycleProfile::Touring;
+  return MotorcycleProfile::Default;
+}
+
+// static
+void RoutingOptions::SaveMotorcycleProfileToSettings(MotorcycleProfile profile)
+{
+  std::string profileStr = "default";
+  switch (profile)
+  {
+  case MotorcycleProfile::Default: profileStr = "default"; break;
+  case MotorcycleProfile::Fun: profileStr = "fun"; break;
+  case MotorcycleProfile::Offroad: profileStr = "offroad"; break;
+  case MotorcycleProfile::HardEnduro: profileStr = "hard_enduro"; break;
+  case MotorcycleProfile::Touring: profileStr = "touring"; break;
+  }
+  settings::Set(kMotorcycleProfileSetting, profileStr);
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)

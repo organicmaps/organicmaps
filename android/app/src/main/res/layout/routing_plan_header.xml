@@ -1,68 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/routing_types_header"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_marginTop="@dimen/margin_half"
-  android:orientation="horizontal"
+  android:orientation="vertical"
   android:paddingStart="@dimen/routing_plan_horizontal_padding"
   android:paddingEnd="@dimen/routing_plan_horizontal_padding">
 
-  <FrameLayout
-    android:layout_width="0dp"
+  <LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:layout_weight="1"
+    android:orientation="horizontal">
+
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_weight="1"
+      android:background="@drawable/routing_toolbar_pill_bg"
+      android:padding="@dimen/routing_toolbar_pill_padding">
+
+      <RadioGroup
+        android:id="@+id/route_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/vehicle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_car"
+          android:checked="true" />
+
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/motorcycle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_motorcycle" />
+
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/pedestrian"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_pedestrian" />
+
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/transit"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_transit" />
+
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/bicycle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_bike" />
+
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/ruler"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_ruler_route" />
+      </RadioGroup>
+
+    </FrameLayout>
+
+    <ImageButton
+      android:id="@+id/back"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half_plus"
+      android:layout_marginEnd="@dimen/margin_quarter"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/close"
+      android:scaleType="centerInside"
+      app:srcCompat="@drawable/ic_close_rounded"
+      app:tint="?iconTint" />
+
+  </LinearLayout>
+
+  <HorizontalScrollView
+    android:id="@+id/motorcycle_profiles_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
     android:background="@drawable/routing_toolbar_pill_bg"
-    android:padding="@dimen/routing_toolbar_pill_padding">
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:padding="@dimen/routing_toolbar_pill_padding"
+    android:scrollbars="none"
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <RadioGroup
-      android:id="@+id/route_type"
-      android:layout_width="match_parent"
+      android:id="@+id/motorcycle_profile"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:gravity="center"
       android:orientation="horizontal">
 
-      <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/vehicle"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_car"
-        android:checked="true" />
+      <RadioButton
+        android:id="@+id/motorcycle_profile_quick"
+        style="@style/MwmWidget.MotorcycleProfileCell"
+        android:checked="true"
+        android:text="@string/motorcycle_profile_quick" />
 
-      <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/pedestrian"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_pedestrian" />
+      <RadioButton
+        android:id="@+id/motorcycle_profile_touring"
+        style="@style/MwmWidget.MotorcycleProfileCell"
+        android:text="@string/motorcycle_profile_touring" />
 
-      <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/transit"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_transit" />
+      <RadioButton
+        android:id="@+id/motorcycle_profile_fun"
+        style="@style/MwmWidget.MotorcycleProfileCell"
+        android:text="@string/motorcycle_profile_fun" />
 
-      <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/bicycle"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_bike" />
+      <RadioButton
+        android:id="@+id/motorcycle_profile_offroad"
+        style="@style/MwmWidget.MotorcycleProfileCell"
+        android:text="@string/motorcycle_profile_offroad" />
 
-      <app.organicmaps.widget.RoutingToolbarButton
-        android:id="@+id/ruler"
-        style="@style/MwmWidget.RoutingToolbarCell"
-        android:button="@drawable/ic_ruler_route" />
+      <RadioButton
+        android:id="@+id/motorcycle_profile_hard_enduro"
+        style="@style/MwmWidget.MotorcycleProfileCell"
+        android:text="@string/motorcycle_profile_hard_enduro" />
     </RadioGroup>
 
-  </FrameLayout>
-
-  <ImageButton
-    android:id="@+id/back"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:layout_gravity="center_vertical"
-    android:layout_marginStart="@dimen/margin_half_plus"
-    android:layout_marginEnd="@dimen/margin_quarter"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@string/close"
-    android:scaleType="centerInside"
-    app:srcCompat="@drawable/ic_close_rounded"
-    app:tint="?iconTint" />
+  </HorizontalScrollView>
 
 </LinearLayout>

@@ -12,7 +12,31 @@ public enum Router
   Pedestrian(1),
   Bicycle(2),
   Transit(3),
-  Ruler(4);
+  Ruler(4),
+  Motorcycle(5);
+
+  public enum MotorcycleProfile
+  {
+    Default(0),
+    Fun(1),
+    Offroad(2),
+    HardEnduro(3),
+    Touring(4);
+
+    MotorcycleProfile(int type)
+    {
+      this.type = type;
+    }
+
+    @NonNull
+    public static MotorcycleProfile valueOf(int type)
+    {
+      final MotorcycleProfile[] values = MotorcycleProfile.values();
+      return (type >= 0 && type < values.length) ? values[type] : Default;
+    }
+
+    private final int type;
+  }
 
   Router(int type)
   {
@@ -68,6 +92,17 @@ public enum Router
     return type;
   }
 
+  public static void setMotorcycleProfile(@NonNull MotorcycleProfile profile)
+  {
+    nativeSetMotorcycleProfile(profile.type);
+  }
+
+  @NonNull
+  public static MotorcycleProfile getMotorcycleProfile()
+  {
+    return MotorcycleProfile.valueOf(nativeGetMotorcycleProfile());
+  }
+
   private final int type;
 
   private static native void nativeSet(int routerType);
@@ -77,4 +112,8 @@ public enum Router
   private static native int nativeGetLastUsed();
 
   private static native int nativeGetBest(double srcLat, double srcLon, double dstLat, double dstLon);
+
+  private static native void nativeSetMotorcycleProfile(int profile);
+
+  private static native int nativeGetMotorcycleProfile();
 }

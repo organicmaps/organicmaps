@@ -195,6 +195,7 @@ RouterType GetFollowTrackRouterType(RouterType routerType)
   switch (routerType)
   {
   case RouterType::Vehicle:
+  case RouterType::Motorcycle:
   case RouterType::Bicycle:
   case RouterType::Pedestrian: return routerType;
   case RouterType::Transit:
@@ -593,9 +594,11 @@ void RoutingManager::SetRouterImpl(RouterType type)
     auto const getMwmRectByName = [this](std::string const & countryId)
     { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
 
+    auto const motorcycleProfile =
+        type == RouterType::Motorcycle ? std::optional<MotorcycleProfile>(GetMotorcycleProfile()) : std::nullopt;
     router = std::make_unique<IndexRouter>(vehicleType, loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                            countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree,
-                                           m_routingSession, dataSource);
+                                           m_routingSession, dataSource, motorcycleProfile);
     absentFinder = std::make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
   }
 
@@ -843,7 +846,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // marks and expose ferry/steps avoidance directly.
   // Gate/lift_gate have no avoidance control.
   bool const hasDrivingOptionsWarning =
-      m_currentRouterType == RouterType::Vehicle &&
+      (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Motorcycle) &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });
 
   if (!roadWarnings.empty())
@@ -882,6 +885,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     switch (renderRouterType)
     {
     case RouterType::Vehicle:
+    case RouterType::Motorcycle:
     {
       subroute->m_routeType = df::RouteType::Car;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
@@ -981,8 +985,9 @@ void RoutingManager::FollowRoute()
   m_transitReadManager->BlockTransitSchemeMode(true /* isBlocked */);
 
   auto const renderRouterType = GetRenderRouterType();
-  // Switching on the extrapolator only for following mode in car and bicycle navigation.
-  m_extrapolator.Enable(renderRouterType == RouterType::Vehicle || renderRouterType == RouterType::Bicycle);
+  // Switching on the extrapolator only for following mode in car, motorcycle, and bicycle navigation.
+  m_extrapolator.Enable(renderRouterType == RouterType::Vehicle || renderRouterType == RouterType::Motorcycle ||
+                        renderRouterType == RouterType::Bicycle);
   m_delegate.OnRouteFollow(renderRouterType);
 
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROAD_WARNING);
@@ -1766,8 +1771,8 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location
 
   bool const matchedToRoute = m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 
-  // TrackRouter rejects road-graph projections; ordinary car routes may use this fallback.
-  if (!matchedToRoute && m_currentRouterType == RouterType::Vehicle)
+  // TrackRouter rejects road-graph projections; ordinary car and motorcycle routes may use this fallback.
+  if (!matchedToRoute && (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Motorcycle))
     m_routingSession.MatchLocationToRoadGraph(location);
 }
 
@@ -1901,6 +1906,27 @@ void RoutingManager::SetRouter(RouterType type)
 
   SetLastUsedRouter(type);
   SetRouterImpl(type);
+}
+
+void RoutingManager::SetMotorcycleProfile(MotorcycleProfile profile)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ("SetMotorcycleProfile"));
+
+  if (GetMotorcycleProfile() == profile)
+    return;
+
+  RoutingOptions::SaveMotorcycleProfileToSettings(profile);
+
+  if (m_currentRouterType != RouterType::Motorcycle || !m_numMwmIDs)
+    return;
+
+  HidePreviewSegments();
+  SetRouterImpl(RouterType::Motorcycle);
+}
+
+MotorcycleProfile RoutingManager::GetMotorcycleProfile() const
+{
+  return RoutingOptions::LoadMotorcycleProfileFromSettings();
 }
 
 // static

@@ -871,7 +871,12 @@ public class RoutingController
    */
   public boolean isVehicleRouterType()
   {
-    return mLastRouterType == Router.Vehicle;
+    return mLastRouterType == Router.Vehicle || mLastRouterType == Router.Motorcycle;
+  }
+
+  public boolean isMotorcycleRouterType()
+  {
+    return mLastRouterType == Router.Motorcycle;
   }
 
   public boolean isRulerRouterType()
@@ -1295,6 +1300,19 @@ public class RoutingController
     Router.set(router);
 
     if (getStartPoint() != null && getEndPoint() != null)
+      build();
+  }
+
+  public void setMotorcycleProfile(@NonNull Router.MotorcycleProfile profile)
+  {
+    Logger.d(TAG, "setMotorcycleProfile: " + profile);
+
+    if (profile == Router.getMotorcycleProfile())
+      return;
+
+    Router.setMotorcycleProfile(profile);
+
+    if (mLastRouterType == Router.Motorcycle && getStartPoint() != null && getEndPoint() != null)
       build();
   }
 

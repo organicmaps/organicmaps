@@ -918,19 +918,19 @@ std::string DebugPrint(RoadWarningMarkType type)
 bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router)
 {
   using routing::RouterType;
-  bool const isCar = (router == RouterType::Vehicle);
+  bool const isMotorVehicle = (router == RouterType::Vehicle || router == RouterType::Motorcycle);
   bool const isPedestrianOrBicycle = (router == RouterType::Pedestrian || router == RouterType::Bicycle);
   switch (type)
   {
     using enum RoadWarningMarkType;
   case Toll:
   case Dirty:
-  case LiftGate: return isCar;
+  case LiftGate: return isMotorVehicle;
   case Steps: return isPedestrianOrBicycle;
   case DifficultTrail:
   case ExpertTrail: return router == RouterType::Pedestrian;
   case Ferry:
-  case Gate: return isCar || isPedestrianOrBicycle;
+  case Gate: return isMotorVehicle || isPedestrianOrBicycle;
   case Count: break;
   }
   return false;

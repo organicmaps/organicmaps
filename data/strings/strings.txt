@@ -46577,3 +46577,28 @@ uk = Трамвай
 vi = Xe điện
 zh-Hans = 有轨电车
 zh-Hant = 路面電車
+
+[motorcycle_profile_quick]
+comment = Motorcycle routing profile button: fastest route preferring motorways and expressways.
+tags = android-app
+en = Quick
+
+[motorcycle_profile_touring]
+comment = Motorcycle routing profile button: comfortable paved main roads avoiding motorways.
+tags = android-app
+en = Touring
+
+[motorcycle_profile_fun]
+comment = Motorcycle routing profile button: scenic and twisty secondary and backroads.
+tags = android-app
+en = Fun
+
+[motorcycle_profile_offroad]
+comment = Motorcycle routing profile button: adventure route preferring gravel and dirt tracks.
+tags = android-app
+en = Offroad
+
+[motorcycle_profile_hard_enduro]
+comment = Motorcycle routing profile button: aggressive off-road route maximizing forest and dirt trails.
+tags = android-app
+en = Hard Enduro
