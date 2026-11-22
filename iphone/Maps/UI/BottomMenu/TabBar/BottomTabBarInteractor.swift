@@ -50,12 +50,11 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
       fatalError("ERROR: Failed to retrieve the current MapViewControlsManager's state.")
     }
     switch state {
-    case .inactive: controlsManager?.menuState = .active
+    case .inactive, .layers: controlsManager?.menuState = .active
     case .active: controlsManager?.menuState = .inactive
     case .hidden:
       // When the current controls manager's state is hidden, accidental taps on the menu button during the hiding animation should be skipped.
       break
-    case .layers: fallthrough
     @unknown default: fatalError("ERROR: Unexpected MapViewControlsManager's state: \(state)")
     }
   }
