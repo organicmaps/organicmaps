@@ -1,5 +1,7 @@
 package app.organicmaps.editor
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.os.SystemClock
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.organicmaps.MwmApplication
 import app.organicmaps.R
+import app.organicmaps.sdk.bookmarks.data.Metadata
 import app.organicmaps.sdk.editor.Editor
 import app.organicmaps.sdk.editor.data.Language
 import java.util.concurrent.Callable
@@ -18,6 +21,7 @@ import java.util.concurrent.FutureTask
 import java.util.concurrent.TimeUnit
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -54,6 +58,46 @@ class EditorFragmentTest {
     fun tearDown() {
         if (noobAlertShown) {
             MwmApplication.prefs(app).edit().putBoolean(EditorHostFragment.NOOB_ALERT_SHOWN, true).commit()
+        }
+    }
+
+    @Test
+    fun pastedFloor_isValidatedAsPasted() {
+        onMain { Editor.nativeSetMetadata(LEVEL, "1") }
+        launchEditor().use { scenario ->
+            waitUntil(scenario, "The editor has no window focus") { it.hasWindowFocus() }
+            scenario.onActivity { activity ->
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.block_level).visibility)
+
+                paste(floorInput(activity), "1;2")
+                assertEquals("1;2", floorInput(activity).text.toString())
+                activity.findViewById<View>(R.id.save).performClick()
+                assertEquals(
+                    activity.getString(R.string.error_enter_correct_level),
+                    floorInput(activity).error?.toString(),
+                )
+                assertEquals("1", Editor.nativeGetMetadata(LEVEL))
+
+                paste(floorInput(activity), "-1.5")
+                assertEquals("-1.5", floorInput(activity).text.toString())
+                activity.findViewById<View>(R.id.save).performClick()
+                assertEquals("-1.5", Editor.nativeGetMetadata(LEVEL))
+            }
+        }
+    }
+
+    @Test
+    fun untouchedInvalidFloor_doesNotBlockSave() {
+        onMain { Editor.nativeSetMetadata(LEVEL, "0;1") }
+        launchEditor().use { scenario ->
+            scenario.onActivity { activity ->
+                assertNull(floorInput(activity).error)
+
+                activity.findViewById<View>(R.id.block_email).findViewById<EditText>(R.id.input).setText(EMAIL)
+                activity.findViewById<View>(R.id.save).performClick()
+                assertEquals(EMAIL, Editor.nativeGetMetadata(Metadata.MetadataType.FMD_EMAIL.toInt()))
+                assertEquals("0;1", Editor.nativeGetMetadata(LEVEL))
+            }
         }
     }
 
@@ -110,6 +154,9 @@ class EditorFragmentTest {
         Intent(app, EditorActivity::class.java).putExtra(EditorActivity.EXTRA_NEW_OBJECT, true),
     )
 
+    private fun floorInput(activity: EditorActivity): EditText =
+        activity.findViewById<View>(R.id.block_level).findViewById(R.id.input)
+
     private fun nameInput(activity: EditorActivity, position: Int): EditText? =
         activity.findViewById<RecyclerView>(R.id.recycler).layoutManager
             ?.findViewByPosition(position)
@@ -117,6 +164,13 @@ class EditorFragmentTest {
 
     private fun nativeName(lang: String): String? =
         Editor.nativeGetNamesDataSource().names.firstOrNull { it.lang == lang }?.name
+
+    private fun paste(input: EditText, text: String) {
+        input.context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText(null, text))
+        input.requestFocus()
+        input.selectAll()
+        input.onTextContextMenuItem(android.R.id.paste)
+    }
 
     private fun waitUntil(
         scenario: ActivityScenario<EditorActivity>,
@@ -145,7 +199,9 @@ class EditorFragmentTest {
         const val TRANSLATION_LANG = "de"
         const val TRANSLATION = "Kaffee"
         const val BAD_NAME = "Bad_Name"
+        const val EMAIL = "cafe@example.com"
         const val TIMEOUT_MS = 5_000L
         const val POLL_MS = 50L
+        val LEVEL = Metadata.MetadataType.FMD_LEVEL.toInt()
     }
 }
