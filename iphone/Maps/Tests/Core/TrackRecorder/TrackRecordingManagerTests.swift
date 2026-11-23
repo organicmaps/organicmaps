@@ -80,14 +80,14 @@ final class TrackRecordingManagerTests: XCTestCase {
 
   func test_GivenStopRecording_WhenLocationEnabled_ThenSuccess() {
     mockTrackRecorder.trackRecordingIsEnabled = true
-    mockTrackRecorder.saveResult = true
+    mockTrackRecorder.saveResult = .success
 
     var completed = false
     trackRecordingManager.stopAndSave(withName: "Test Track") { result in
       switch result {
       case .success:
         completed = true
-      case .trackIsEmpty:
+      case .empty, .fileError:
         XCTFail("Track should not be empty")
       }
     }
@@ -100,13 +100,13 @@ final class TrackRecordingManagerTests: XCTestCase {
 
   func test_GivenStopRecording_WhenTrackIsEmpty_ThenShouldFail() {
     mockTrackRecorder.trackRecordingIsEnabled = true
-    mockTrackRecorder.saveResult = false
+    mockTrackRecorder.saveResult = .empty
     let expectation = expectation(description: "Track recording should be empty")
     trackRecordingManager.stopAndSave(withName: "Test Track") { result in
       switch result {
-      case .success:
-        XCTFail("Should not succeed")
-      case .trackIsEmpty:
+      case .success, .fileError:
+        XCTFail("Expected an empty recording")
+      case .empty:
         expectation.fulfill()
       }
     }
@@ -114,6 +114,18 @@ final class TrackRecordingManagerTests: XCTestCase {
     XCTAssertTrue(mockTrackRecorder.saveTrackRecordingCalled)
     XCTAssertFalse(mockTrackRecorder.discardTrackRecordingCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+  }
+
+  func test_GivenActiveRecording_WhenSaveFails_ThenKeepsRecording() {
+    mockTrackRecorder.trackRecordingIsEnabled = true
+    mockTrackRecorder.saveResult = .fileError
+
+    var result: TrackRecordingSaveResult?
+    trackRecordingManager.stopAndSave(withName: "Test Track") { result = $0 }
+
+    XCTAssertEqual(result, .fileError)
+    XCTAssertEqual(trackRecordingManager.recordingState, .active)
+    XCTAssertFalse(mockActivityManager.stopCalled)
   }
 
   func test_GivenActiveRecording_WhenDiscarded_ThenClearsRecording() {
@@ -145,7 +157,7 @@ final class TrackRecordingManagerTests: XCTestCase {
 
 final class MockTrackRecorder: TrackRecorder {
   static var trackRecordingIsEnabled = false
-  static var saveResult = false
+  static var saveResult: TrackRecordingSaveResult = .empty
   static var startTrackRecordingCalled = false
   static var discardTrackRecordingCalled = false
   static var saveTrackRecordingCalled = false
@@ -154,7 +166,7 @@ final class MockTrackRecorder: TrackRecorder {
 
   static func reset() {
     trackRecordingIsEnabled = false
-    saveResult = false
+    saveResult = .empty
     startTrackRecordingCalled = false
     discardTrackRecordingCalled = false
     saveTrackRecordingCalled = false
@@ -176,9 +188,11 @@ final class MockTrackRecorder: TrackRecorder {
     trackRecordingIsEnabled = false
   }
 
-  static func saveTrackRecording(withName _: String) -> Bool {
+  static func saveTrackRecording(withName _: String) -> TrackRecordingSaveResult {
     saveTrackRecordingCalled = true
-    trackRecordingIsEnabled = false
+    if saveResult != .fileError {
+      trackRecordingIsEnabled = false
+    }
     onSave?()
     return saveResult
   }
