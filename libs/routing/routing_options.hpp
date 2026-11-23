@@ -43,6 +43,9 @@ public:
   static bool LoadRouteOptimizationFromSettings();
   static void SaveRouteOptimizationToSettings(bool enabled);
 
+  static std::optional<double> LoadMaxSpeedFromSettings();
+  static void SaveMaxSpeedToSettings(std::optional<double> maxSpeedKMpH);
+
   void Add(Road type);
   void Remove(Road type);
   bool Has(Road type) const;
@@ -78,5 +81,16 @@ public:
 private:
   VehicleType m_vehicleType;
   std::optional<std::string> m_saved;
+};
+
+/// Max speed constraint guard for debugging/tests.
+class MaxSpeedConstraintSetter
+{
+public:
+  explicit MaxSpeedConstraintSetter(double maxSpeedKMpH);
+  ~MaxSpeedConstraintSetter();
+
+private:
+  std::optional<double> m_saved;
 };
 }  // namespace routing

@@ -1,4 +1,5 @@
 @testable import Organic_Maps__Debug_
+import CarPlay
 import XCTest
 
 final class RoutingOptionsSettingsTests: XCTestCase {
@@ -35,6 +36,50 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: walk) }, [.ferryCrossings, .steps, .difficultTrails])
     XCTAssertTrue(RoutingOptions(routerType: .publicTransport).supportedOptions.isEmpty)
     XCTAssertTrue(RoutingOptions(routerType: .ruler).supportedOptions.isEmpty)
+  }
+
+  func test_RoutingOptionsMaxSpeed() {
+    let car = RoutingOptions(routerType: .vehicle)
+    let previousSpeed = car.maxSpeedKMpH
+    defer { car.maxSpeedKMpH = previousSpeed }
+
+    car.maxSpeedKMpH = 50.0
+    XCTAssertEqual(car.maxSpeedKMpH, 50.0)
+    XCTAssertTrue(car.hasOptions)
+
+    car.maxSpeedKMpH = 0.0
+    XCTAssertEqual(car.maxSpeedKMpH, 0.0)
+  }
+
+  func test_CarPlaySpeedLimitTemplateCustomOptionDisabledWhileDriving() {
+    let car = RoutingOptions(routerType: .vehicle)
+    let previousSpeed = car.maxSpeedKMpH
+    defer { car.maxSpeedKMpH = previousSpeed }
+
+    // When driving, the custom speed limit item must be disabled.
+    let drivingTemplate = SettingsTemplateBuilder.buildSpeedLimitTemplate(isDriving: true)
+    let drivingSection = drivingTemplate.sections.first
+    XCTAssertNotNil(drivingSection)
+    let drivingItems = drivingSection?.items as? [CPListItem] ?? []
+    let drivingCustomItem = drivingItems.last
+    XCTAssertNotNil(drivingCustomItem)
+    XCTAssertFalse(drivingCustomItem?.isEnabled ?? true)
+    XCTAssertEqual(drivingCustomItem?.detailText, L("keyboard_availability_alert"))
+
+    // When stopped / not driving, the custom speed limit item must be enabled.
+    let stoppedTemplate = SettingsTemplateBuilder.buildSpeedLimitTemplate(isDriving: false)
+    let stoppedSection = stoppedTemplate.sections.first
+    let stoppedItems = stoppedSection?.items as? [CPListItem] ?? []
+    let stoppedCustomItem = stoppedItems.last
+    XCTAssertNotNil(stoppedCustomItem)
+    XCTAssertTrue(stoppedCustomItem?.isEnabled ?? false)
+    XCTAssertNil(stoppedCustomItem?.detailText)
+
+    // Verify custom sub-template contains selectable speed limit values.
+    let customTemplate = SettingsTemplateBuilder.buildCustomSpeedLimitTemplate()
+    let customSection = customTemplate.sections.first
+    let customItems = customSection?.items as? [CPListItem] ?? []
+    XCTAssertFalse(customItems.isEmpty)
   }
 
   func test_RoutingOptionsEqualityIncludesProfile() {

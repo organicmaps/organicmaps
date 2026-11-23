@@ -166,4 +166,288 @@ UNIT_TEST(DistanceBiasedStrategy_CapsFastRoadsKeepsSlowRoads)
                           (c.m_type));
   }
 }
+
+UNIT_TEST(MaxSpeedConstraint_PenaltyApplied)
+{
+  auto const makeRoad = [](uint16_t speedKmPH)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(measurement_utils::Units::Metric, speedKmPH, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01 /* weight */, kNotUsed /* eta */},
+                            nullptr /* trafficStash */, nullptr /* dataSourcePtr */, nullptr /* numMwmIds */);
+
+  Segment const segment(0 /* mwmId */, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */);
+
+  auto const road30 = makeRoad(30);
+  auto const road50 = makeRoad(50);
+  auto const road70 = makeRoad(70);
+  auto const road100 = makeRoad(100);
+
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0 /* arrivalTime */); };
+
+  double const normalWeight30 = calc(road30, EdgeEstimator::Purpose::Weight);
+  double const normalWeight50 = calc(road50, EdgeEstimator::Purpose::Weight);
+  double const normalWeight70 = calc(road70, EdgeEstimator::Purpose::Weight);
+  double const normalWeight100 = calc(road100, EdgeEstimator::Purpose::Weight);
+
+  double const eta30 = calc(road30, EdgeEstimator::Purpose::ETA);
+  double const eta50 = calc(road50, EdgeEstimator::Purpose::ETA);
+  double const eta70 = calc(road70, EdgeEstimator::Purpose::ETA);
+  double const eta100 = calc(road100, EdgeEstimator::Purpose::ETA);
+
+  // Without max speed constraint, faster roads have lower weight (weight = distance / speed).
+  TEST_GREATER(normalWeight30, normalWeight50, ());
+  TEST_GREATER(normalWeight50, normalWeight70, ());
+  TEST_GREATER(normalWeight70, normalWeight100, ());
+
+  // Set max speed constraint to 50 km/h.
+  estimator->SetMaxSpeedKMpH(50.0);
+  TEST(estimator->GetMaxSpeedKMpH().has_value(), ());
+  TEST_ALMOST_EQUAL_ABS(*estimator->GetMaxSpeedKMpH(), 50.0, kAccuracyEps, ());
+
+  // Roads <= 50 km/h should NOT be penalized.
+  TEST_ALMOST_EQUAL_ABS(calc(road30, EdgeEstimator::Purpose::Weight), normalWeight30, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road50, EdgeEstimator::Purpose::Weight), normalWeight50, kAccuracyEps, ());
+
+  // Roads > 50 km/h should be heavily penalized in Purpose::Weight.
+  double const penalizedWeight70 = calc(road70, EdgeEstimator::Purpose::Weight);
+  double const penalizedWeight100 = calc(road100, EdgeEstimator::Purpose::Weight);
+
+  TEST_GREATER(penalizedWeight70, normalWeight70, ());
+  TEST_GREATER(penalizedWeight100, normalWeight100, ());
+  // Under the penalty, 70 km/h and 100 km/h roads become much more expensive than a 50 km/h road.
+  TEST_GREATER(penalizedWeight70, normalWeight50, ());
+  TEST_GREATER(penalizedWeight100, penalizedWeight70, ());
+
+  // ETA should remain unaffected by the max speed constraint.
+  TEST_ALMOST_EQUAL_ABS(calc(road30, EdgeEstimator::Purpose::ETA), eta30, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road50, EdgeEstimator::Purpose::ETA), eta50, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road70, EdgeEstimator::Purpose::ETA), eta70, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road100, EdgeEstimator::Purpose::ETA), eta100, kAccuracyEps, ());
+
+  // Resetting max speed removes the penalties.
+  estimator->SetMaxSpeedKMpH(std::nullopt);
+  TEST(!estimator->GetMaxSpeedKMpH().has_value(), ());
+  TEST_ALMOST_EQUAL_ABS(calc(road70, EdgeEstimator::Purpose::Weight), normalWeight70, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road100, EdgeEstimator::Purpose::Weight), normalWeight100, kAccuracyEps, ());
+}
+
+// United States: Interstate (65-70 mph) vs State Highway / Arterial (45-55 mph) vs Local (25 mph).
+// Tests imperial speeds converted to metric km/h, matching GraphHopper custom profile and OSRM
+// motorway penalty expectations.
+UNIT_TEST(MaxSpeedConstraint_US_InterstateVsArterial)
+{
+  auto const makeRoad = [](measurement_utils::Units units, uint16_t speed)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(units, speed, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01 /* weight */, kNotUsed /* eta */},
+                            nullptr /* trafficStash */, nullptr /* dataSourcePtr */, nullptr /* numMwmIds */);
+
+  Segment const segment(0, 0, 0, true);
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0 /* arrivalTime */); };
+
+  // Imperial speeds (mph) as typically posted across the US:
+  auto const interstate70 = makeRoad(measurement_utils::Units::Imperial, 70);
+  auto const interstate65 = makeRoad(measurement_utils::Units::Imperial, 65);
+  auto const stateHwy55 = makeRoad(measurement_utils::Units::Imperial, 55);
+  auto const stateHwy45 = makeRoad(measurement_utils::Units::Imperial, 45);
+  auto const local25 = makeRoad(measurement_utils::Units::Imperial, 25);
+
+  // Unconstrained: faster roads have strictly lower weights.
+  TEST_GREATER(calc(local25, EdgeEstimator::Purpose::Weight), calc(stateHwy45, EdgeEstimator::Purpose::Weight), ());
+  TEST_GREATER(calc(stateHwy45, EdgeEstimator::Purpose::Weight), calc(stateHwy55, EdgeEstimator::Purpose::Weight), ());
+  TEST_GREATER(calc(stateHwy55, EdgeEstimator::Purpose::Weight), calc(interstate65, EdgeEstimator::Purpose::Weight), ());
+  TEST_GREATER(calc(interstate65, EdgeEstimator::Purpose::Weight), calc(interstate70, EdgeEstimator::Purpose::Weight), ());
+
+  // Cap speed at 50 mph (~80.5 km/h).
+  // Roads above 50 mph (65 and 70 mph) receive progressive penalties, reversing the preference
+  // to favor the 45 mph arterial over the fast Interstate.
+  double const k50MphInKmPH = measurement_utils::MiphToKmph(50.0);
+  estimator->SetMaxSpeedKMpH(k50MphInKmPH);
+
+  double const normalWeight45 = calc(stateHwy45, EdgeEstimator::Purpose::Weight);
+  double const normalWeight25 = calc(local25, EdgeEstimator::Purpose::Weight);
+
+  // Roads <= 50 mph retain their exact unpenalized weight.
+  TEST_ALMOST_EQUAL_ABS(calc(stateHwy45, EdgeEstimator::Purpose::Weight), normalWeight45, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(local25, EdgeEstimator::Purpose::Weight), normalWeight25, kAccuracyEps, ());
+
+  // 65 and 70 mph Interstates are heavily penalized beyond the 45 mph arterial.
+  double const penalized65 = calc(interstate65, EdgeEstimator::Purpose::Weight);
+  double const penalized70 = calc(interstate70, EdgeEstimator::Purpose::Weight);
+  TEST_GREATER(penalized65, normalWeight45, ());
+  TEST_GREATER(penalized70, penalized65, ());
+
+  // ETA remains invariant: user gets realistic travel time.
+  double const normalEta70 = calc(interstate70, EdgeEstimator::Purpose::ETA);
+  double const normalEta65 = calc(interstate65, EdgeEstimator::Purpose::ETA);
+  TEST_ALMOST_EQUAL_ABS(calc(interstate70, EdgeEstimator::Purpose::ETA), normalEta70, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(interstate65, EdgeEstimator::Purpose::ETA), normalEta65, kAccuracyEps, ());
+}
+
+// Europe / Germany: Autobahn (130 km/h) vs Landstraße (100 km/h) vs Bundesstraße (80 km/h) vs Innerorts (50 km/h).
+// Simulates trailer hauling, novice driver, or eco-profile capping speed at 80 km/h.
+UNIT_TEST(MaxSpeedConstraint_Europe_AutobahnVsSecondary)
+{
+  auto const makeRoad = [](uint16_t speedKmPH)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(measurement_utils::Units::Metric, speedKmPH, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01, kNotUsed}, nullptr, nullptr, nullptr);
+
+  Segment const segment(0, 0, 0, true);
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0); };
+
+  auto const autobahn130 = makeRoad(130);
+  auto const landstrasse100 = makeRoad(100);
+  auto const bundesstrasse80 = makeRoad(80);
+  auto const innerorts50 = makeRoad(50);
+  auto const tempo30 = makeRoad(30);
+
+  // Unconstrained weights: 130 km/h < 100 km/h < 80 km/h < 50 km/h < 30 km/h.
+  TEST_GREATER(calc(tempo30, EdgeEstimator::Purpose::Weight), calc(innerorts50, EdgeEstimator::Purpose::Weight), ());
+  TEST_GREATER(calc(innerorts50, EdgeEstimator::Purpose::Weight), calc(bundesstrasse80, EdgeEstimator::Purpose::Weight), ());
+  TEST_GREATER(calc(bundesstrasse80, EdgeEstimator::Purpose::Weight), calc(landstrasse100, EdgeEstimator::Purpose::Weight), ());
+  TEST_GREATER(calc(landstrasse100, EdgeEstimator::Purpose::Weight), calc(autobahn130, EdgeEstimator::Purpose::Weight), ());
+
+  // Cap speed at 80 km/h.
+  estimator->SetMaxSpeedKMpH(80.0);
+
+  double const normalWeight80 = calc(bundesstrasse80, EdgeEstimator::Purpose::Weight);
+  double const normalWeight50 = calc(innerorts50, EdgeEstimator::Purpose::Weight);
+  double const normalWeight30 = calc(tempo30, EdgeEstimator::Purpose::Weight);
+
+  // Roads <= 80 km/h stay at normal cost.
+  TEST_ALMOST_EQUAL_ABS(calc(bundesstrasse80, EdgeEstimator::Purpose::Weight), normalWeight80, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(innerorts50, EdgeEstimator::Purpose::Weight), normalWeight50, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(tempo30, EdgeEstimator::Purpose::Weight), normalWeight30, kAccuracyEps, ());
+
+  // Autobahn (130) and Landstraße (100) are penalized above the 80 km/h Bundesstraße.
+  double const penalized100 = calc(landstrasse100, EdgeEstimator::Purpose::Weight);
+  double const penalized130 = calc(autobahn130, EdgeEstimator::Purpose::Weight);
+  TEST_GREATER(penalized100, normalWeight80, ());
+  TEST_GREATER(penalized130, penalized100, ());
+
+  // ETA is unaffected.
+  TEST_ALMOST_EQUAL_ABS(calc(autobahn130, EdgeEstimator::Purpose::ETA),
+                        autobahn130.GetDistance(0) / measurement_utils::KmphToMps(130), 1e-4, ());
+}
+
+// United Kingdom: National Speed Limits (70 mph Motorway, 60 mph Single Carriageway, 30 mph Built-up).
+UNIT_TEST(MaxSpeedConstraint_UK_NationalSpeedLimits)
+{
+  auto const makeRoad = [](uint16_t speedMph)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(measurement_utils::Units::Imperial, speedMph, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01, kNotUsed}, nullptr, nullptr, nullptr);
+
+  Segment const segment(0, 0, 0, true);
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0); };
+
+  auto const motorway70 = makeRoad(70);
+  auto const singleCarriageway60 = makeRoad(60);
+  auto const builtUp30 = makeRoad(30);
+
+  // Driver cap at 50 mph (~80.5 km/h).
+  estimator->SetMaxSpeedKMpH(measurement_utils::MiphToKmph(50.0));
+
+  double const weight30 = calc(builtUp30, EdgeEstimator::Purpose::Weight);
+  double const penalized60 = calc(singleCarriageway60, EdgeEstimator::Purpose::Weight);
+  double const penalized70 = calc(motorway70, EdgeEstimator::Purpose::Weight);
+
+  // Both roads above 50 mph are penalized proportionally.
+  TEST_GREATER(penalized70, penalized60, ());
+  // 30 mph road is not penalized.
+  estimator->SetMaxSpeedKMpH(std::nullopt);
+  TEST_ALMOST_EQUAL_ABS(calc(builtUp30, EdgeEstimator::Purpose::Weight), weight30, kAccuracyEps, ());
+}
+
+// Australia: NSW P-plate (provisional driver) statutory cap of 90 km/h.
+// M1 Motorway (110 km/h) vs A1 Highway (100 km/h) vs Regional (80 km/h) vs Urban (50 km/h).
+UNIT_TEST(MaxSpeedConstraint_Australia_ProvisionalDriverPPlate)
+{
+  auto const makeRoad = [](uint16_t speedKmPH)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(measurement_utils::Units::Metric, speedKmPH, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01, kNotUsed}, nullptr, nullptr, nullptr);
+
+  Segment const segment(0, 0, 0, true);
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0); };
+
+  auto const motorway110 = makeRoad(110);
+  auto const highway100 = makeRoad(100);
+  auto const regional80 = makeRoad(80);
+  auto const urban50 = makeRoad(50);
+
+  // Australian NSW P1 provisional licence holders are restricted to a maximum speed of 90 km/h by law.
+  estimator->SetMaxSpeedKMpH(90.0);
+
+  double const normalWeight80 = calc(regional80, EdgeEstimator::Purpose::Weight);
+  double const normalWeight50 = calc(urban50, EdgeEstimator::Purpose::Weight);
+
+  // 80 and 50 km/h roads incur zero penalty.
+  TEST_ALMOST_EQUAL_ABS(calc(regional80, EdgeEstimator::Purpose::Weight), normalWeight80, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(urban50, EdgeEstimator::Purpose::Weight), normalWeight50, kAccuracyEps, ());
+
+  // 100 km/h and 110 km/h roads are penalized.
+  double const penalized100 = calc(highway100, EdgeEstimator::Purpose::Weight);
+  double const penalized110 = calc(motorway110, EdgeEstimator::Purpose::Weight);
+  TEST_GREATER(penalized100, normalWeight80, ());
+  TEST_GREATER(penalized110, penalized100, ());
+}
+
+// Bottleneck / Sole Connector (GraphHopper & OSRM soft penalty comparison):
+// When a 110 km/h bridge or expressway connector is the ONLY route between two regions,
+// hard avoidance (like avoid motorways) fails with "no route found".
+// Max speed constraint applies a finite penalty, guaranteeing the route still succeeds.
+UNIT_TEST(MaxSpeedConstraint_BottleneckSoftPenalty_AllowsPassage)
+{
+  auto const makeRoad = [](uint16_t speedKmPH)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(measurement_utils::Units::Metric, speedKmPH, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01, kNotUsed}, nullptr, nullptr, nullptr);
+
+  Segment const segment(0, 0, 0, true);
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0); };
+
+  auto const bridge110 = makeRoad(110);
+  estimator->SetMaxSpeedKMpH(50.0);
+
+  double const penalizedWeight = calc(bridge110, EdgeEstimator::Purpose::Weight);
+  // Weight is finite and strictly valid (not infinity or prohibited).
+  TEST(!std::isinf(penalizedWeight), ());
+  TEST_GREATER(penalizedWeight, 0.0, ());
+
+  // ETA matches physical bridge crossing time.
+  double const eta = calc(bridge110, EdgeEstimator::Purpose::ETA);
+  TEST_ALMOST_EQUAL_ABS(eta, bridge110.GetDistance(0) / measurement_utils::KmphToMps(110), 1e-4, ());
+}
 }  // namespace

@@ -1,5 +1,6 @@
 enum RoutingOptionsSettingsSection: String {
   case options
+  case speedLimit
   case optimization
 }
 
@@ -11,6 +12,7 @@ enum RoutingOption: String {
   case motorways
   case steps
   case difficultTrails
+  case maxSpeed
 }
 
 extension RoutingOption {
@@ -25,6 +27,7 @@ extension RoutingOption {
     case .motorways: return options.supportedOptions.contains(.motorway)
     case .steps: return options.supportedOptions.contains(.steps)
     case .difficultTrails: return options.supportedOptions.contains(.difficultTrail)
+    case .maxSpeed: return options.routerType == .vehicle
     }
   }
 
@@ -37,15 +40,22 @@ extension RoutingOption {
     case .motorways: return L("avoid_motorways")
     case .steps: return L("avoid_steps")
     case .difficultTrails: return L("avoid_difficult_trails")
+    case .maxSpeed: return NSLocalizedString("maximum_speed_limit", value: "Maximum Speed", comment: "")
     }
   }
 
   func isEnabled(in options: RoutingOptions) -> Bool {
-    options[keyPath: routingOptionsKeyPath]
+    switch self {
+    case .maxSpeed: return options.maxSpeedKMpH > 0
+    default: return options[keyPath: routingOptionsKeyPath]
+    }
   }
 
   func setEnabled(_ enabled: Bool, in options: RoutingOptions) {
-    options[keyPath: routingOptionsKeyPath] = enabled
+    switch self {
+    case .maxSpeed: break
+    default: options[keyPath: routingOptionsKeyPath] = enabled
+    }
   }
 
   private var routingOptionsKeyPath: ReferenceWritableKeyPath<RoutingOptions, Bool> {
@@ -57,6 +67,7 @@ extension RoutingOption {
     case .motorways: return \.avoidMotorway
     case .steps: return \.avoidSteps
     case .difficultTrails: return \.avoidDifficultTrails
+    case .maxSpeed: fatalError("maxSpeed is not a boolean option")
     }
   }
 }

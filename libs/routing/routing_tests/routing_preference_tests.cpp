@@ -351,6 +351,24 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, ChangedAvoidanceInvalidatesCachedSuffi
     TEST(!UsesRoadType(route, RoutingOptions::Ferry), ());
 }
 
+UNIT_CLASS_TEST(RoutingPreferenceFixture, ChangedMaxSpeedConstraintInvalidatesCachedSuffix)
+{
+  MaxSpeedConstraintSetter guard(0.0);
+  auto router = Router(VehicleType::Car);
+
+  RoutesResult before;
+  TEST_EQUAL(Calculate(*router, before, {}, false, true, true), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(before.GetActive(), RoutingOptions::Ferry), ());
+
+  RoutesResult unchanged;
+  TEST_EQUAL(Calculate(*router, unchanged, {}, true, false, true), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(unchanged.GetActive(), RoutingOptions::Ferry), ());
+
+  RoutingOptions::SaveMaxSpeedToSettings(50.0);
+  RoutesResult after;
+  TEST_EQUAL(Calculate(*router, after, {}, true, true, true), RouterResultCode::NoError, ());
+}
+
 UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)
 {
   auto router = Router(VehicleType::Car);

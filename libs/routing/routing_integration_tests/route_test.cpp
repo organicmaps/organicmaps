@@ -732,6 +732,25 @@ UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'531'210);
 }
 
+// Tests max speed constraint on a US interstate corridor (I-65 / I-75).
+// When speed is capped at 55 mph (88.5 km/h), Interstate segments (70 mph) are penalized,
+// steering the route toward lower-speed arterial highways, matching GraphHopper and OSRM behavior.
+UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_MaxSpeedConstraint)
+{
+  auto const start = FromLatLon(33.5209837, -86.807945);
+  auto const finish = FromLatLon(24.5534713, -81.7932587);
+
+  // Normal route: uses 70 mph Interstate.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'471'410);
+
+  // Constrained to 55 mph (88.5 km/h): routes onto lower-speed highways.
+  MaxSpeedConstraintSetter optionsGuard(88.5);
+  TRouteResult const route = CalculateRoute(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish);
+  TEST_EQUAL(route.second, RouterResultCode::NoError, ());
+  TEST(route.first, ());
+  TEST_GREATER(route.first->GetTotalDistanceMeters(), 1'471'410, ());
+}
+
 UNIT_TEST(Turkey_Salarialaca_Sanliurfa)
 {
   TRouteResult const routeResult =
