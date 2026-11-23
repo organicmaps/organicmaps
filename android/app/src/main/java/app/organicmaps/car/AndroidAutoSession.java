@@ -29,7 +29,6 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
-    // Registering the first car display selects it before the renderer can report a viewport.
     mDisplayManager.addListener(DisplayType.Car, this);
     super.onCreate(owner);
   }
@@ -49,12 +48,12 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
     {
       mScreenManager.push(screen);
-      screen = RequestPermissionsScreenBuilder.build(getCarContext(), mOrganicMapsContext, mSensorsManager::onStart);
+      screen =
+          RequestPermissionsScreenBuilder.build(getCarContext(), mOrganicMapsContext, this::startSensorsIfPermitted);
     }
     if (mDisplayManager.isDeviceDisplayUsed())
     {
       mSurfaceRenderer.disable();
-      onStop(this);
       mScreenManager.push(screen);
       screen = new MapPlaceholderScreen(getCarContext(), mOrganicMapsContext);
     }
@@ -68,7 +67,7 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     if (mDisplayManager.isDeviceDisplayUsed() && getLifecycle().getCurrentState() != Lifecycle.State.DESTROYED)
     {
       setViewportObservationEnabled(false);
-      onStop(this);
+      deactivateCarDisplay();
       mSurfaceRenderer.disable();
       if (findPlaceholderScreen() == null)
         mScreenManager.push(new MapPlaceholderScreen(getCarContext(), mOrganicMapsContext));
@@ -84,10 +83,11 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     {
       setViewportObservationEnabled(true);
       mSurfaceRenderer.enable();
+      // An asynchronous permission result can put an error above the placeholder.
       final Screen placeholder = findPlaceholderScreen();
       if (placeholder != null)
         placeholder.finish();
-      onStart(this);
+      onCarDisplayAvailable();
     }
     onTaskFinishedCallback.run();
   }
@@ -95,10 +95,11 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   @Nullable
   private Screen findPlaceholderScreen()
   {
-    // A permission result can put an error above the placeholder during a handoff.
-    for (Screen screen : mScreenManager.getScreenStack())
+    for (final Screen screen : mScreenManager.getScreenStack())
+    {
       if (screen instanceof MapPlaceholderScreen)
         return screen;
+    }
     return null;
   }
 }

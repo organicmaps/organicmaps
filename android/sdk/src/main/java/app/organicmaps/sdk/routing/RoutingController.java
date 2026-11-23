@@ -435,6 +435,21 @@ public class RoutingController
     Framework.nativeDeleteSavedRoutePoints();
   }
 
+  /**
+   * Active guidance owns its recovery until a replacement route is prepared.
+   * @param addressesCurrentRoute whether the command needs the existing plan, such as adding a stop
+   * @return whether an open preview was cancelled
+   */
+  public boolean onExplicitMapRequest(boolean addressesCurrentRoute)
+  {
+    if (isNavigating())
+      return false;
+    if (!addressesCurrentRoute && isPlanning())
+      return cancel();
+    deleteSavedRoute();
+    return false;
+  }
+
   public boolean isRouteSaved()
   {
     return mRouteSaved;

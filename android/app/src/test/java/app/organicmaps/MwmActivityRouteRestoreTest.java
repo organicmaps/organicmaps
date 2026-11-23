@@ -24,6 +24,26 @@ public class MwmActivityRouteRestoreTest
   }
 
   @Test
+  public void explicitApiRequestKeepsRecoveryDuringActiveGuidance()
+  {
+    final RoutingController routing = mock(RoutingController.class);
+    doCallRealMethod().when(routing).onExplicitMapRequest(false);
+    when(routing.isNavigating()).thenReturn(true);
+    routing.onExplicitMapRequest(false);
+    verify(routing, never()).deleteSavedRoute();
+  }
+
+  @Test
+  public void independentRequestCancelsAnOpenPreview()
+  {
+    final RoutingController routing = mock(RoutingController.class);
+    doCallRealMethod().when(routing).onExplicitMapRequest(false);
+    when(routing.isPlanning()).thenReturn(true);
+    routing.onExplicitMapRequest(false);
+    verify(routing).cancel();
+  }
+
+  @Test
   public void incomingPlanningWithoutNativePointsSuppressesRestoration()
   {
     final RoutingController routing = mock(RoutingController.class);

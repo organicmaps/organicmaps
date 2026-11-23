@@ -53,6 +53,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.api.Const;
+import app.organicmaps.api.MapRequest;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.downloader.DownloaderActivity;
@@ -274,6 +275,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent == null || mIntentConsumed)
       return;
     mIntentConsumed = true;
+    if (MapRequest.isExplicit(intent) || intent.hasExtra(EXTRA_BOOKMARK_ID) || intent.hasExtra(EXTRA_TRACK_ID)
+        || intent.hasExtra(EXTRA_COUNTRY_ID) || intent.hasExtra(EXTRA_CATEGORY_ID))
+      RoutingController.get().onExplicitMapRequest(MapRequest.addressesCurrentRoute(intent));
 
     if (intent.getBooleanExtra(EXTRA_START_TRACK_RECORDING, false))
     {

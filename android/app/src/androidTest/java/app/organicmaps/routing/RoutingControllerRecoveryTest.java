@@ -7,6 +7,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
 import androidx.test.core.app.ActivityScenario;
@@ -80,6 +82,78 @@ public class RoutingControllerRecoveryTest
       Framework.nativeDeleteSavedRoutePoints();
       Router.set(mOriginalRouter);
       RoutingController.get().initialize(mApplication.getLocationHelper());
+    });
+  }
+
+  @Test
+  public void explicitRequestDiscardsDiskRecoveryBeforeANewControllerCanRestoreIt() throws Exception
+  {
+    onMain(() -> {
+      saveRouteWithStop();
+      Framework.nativeCloseRouting();
+      assertTrue(Framework.nativeHasSavedRoutePoints());
+      mController.onExplicitMapRequest(false);
+      assertFalse(Framework.nativeHasSavedRoutePoints());
+      mController.restoreRoute();
+      assertFalse(mController.isPlanning());
+    });
+  }
+
+  @Test
+  public void externalSearchCancelsAnOpenPreviewAndItsRecovery() throws Exception
+  {
+    onMain(() -> {
+      mController.prepare(point("Start", 1), point("Finish", 2), Router.Ruler);
+      Framework.nativeSaveRoutePoints();
+      assertTrue(Framework.nativeHasSavedRoutePoints());
+      mController.onExplicitMapRequest(false);
+      assertFalse(mController.isPlanning());
+      assertFalse(Framework.nativeHasSavedRoutePoints());
+    });
+  }
+
+  @Test
+  public void addStopCommandCanModifyTheAddressedPreview() throws Exception
+  {
+    onMain(() -> {
+      mController.prepare(point("Start", 1), point("Finish", 2), Router.Ruler);
+      Framework.nativeSaveRoutePoints();
+      final Intent command = new Intent("android.intent.action.NAVIGATE", Uri.parse("geo:1.5,1.5?intent=add_a_stop"));
+      mController.onExplicitMapRequest(app.organicmaps.api.MapRequest.addressesCurrentRoute(command));
+      assertTrue(mController.isPlanning());
+      assertFalse(Framework.nativeHasSavedRoutePoints());
+      mController.addStop(point("Stop", 1.5));
+      assertEquals(3, Framework.nativeGetRoutePoints().length);
+    });
+  }
+
+  @Test
+  public void activeGuidanceKeepsRecoveryUntilAReplacementIsPlanned() throws Exception
+  {
+    final CountDownLatch built = new CountDownLatch(1);
+    onMain(() -> {
+      mContainer = new RoutingController.Container() {
+        @Override
+        public void onBuiltRoute()
+        {
+          built.countDown();
+        }
+      };
+      mController.attach(mContainer);
+      mController.prepare(point("Start", 1), point("Finish", 2), Router.Ruler);
+    });
+    assertTrue(built.await(30, TimeUnit.SECONDS));
+    onMain(() -> {
+      mController.start();
+      assertTrue(mController.isNavigating());
+      assertTrue(Framework.nativeHasSavedRoutePoints());
+      mController.onExplicitMapRequest(false);
+      assertTrue(mController.isNavigating());
+      assertTrue(Framework.nativeHasSavedRoutePoints());
+      mController.prepare(point("New start", 3), point("New finish", 4), Router.Ruler);
+      assertTrue(mController.isPlanning());
+      assertFalse(mController.isNavigating());
+      assertFalse(Framework.nativeHasSavedRoutePoints());
     });
   }
 
@@ -221,8 +295,7 @@ public class RoutingControllerRecoveryTest
     });
   }
 
-  @Test
-  public void configurationRecreationKeepsRouteRecovery() throws Exception
+  private void usePhoneController() throws Exception
   {
     // A location permission dialog would pause the Activity during recreation.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
@@ -234,6 +307,42 @@ public class RoutingControllerRecoveryTest
       mController = RoutingController.get();
       mController.initialize(mApplication.getLocationHelper());
     });
+  }
+
+  @Test
+  public void phoneSearchIntentDiscardsRecoveryInsteadOfRestoringItsPoints() throws Exception
+  {
+    usePhoneController();
+    onMain(() -> {
+      saveRouteWithStop();
+      Framework.nativeCloseRouting();
+      assertTrue(Framework.nativeHasSavedRoutePoints());
+    });
+    final Intent request =
+        new Intent(Intent.ACTION_VIEW, Uri.parse("om://search?query=coffee"), mApplication, MwmActivity.class)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    try (ActivityScenario<MwmActivity> scenario = ActivityScenario.launch(request))
+    {
+      final AtomicBoolean saved = new AtomicBoolean(true);
+      final long deadline = SystemClock.uptimeMillis() + TimeUnit.SECONDS.toMillis(30);
+      while (saved.get() && SystemClock.uptimeMillis() < deadline)
+      {
+        onMain(() -> saved.set(Framework.nativeHasSavedRoutePoints()));
+        if (saved.get())
+          Thread.sleep(10);
+      }
+      assertFalse(saved.get());
+      onMain(() -> {
+        assertFalse(mController.isPlanning());
+        assertEquals(0, Framework.nativeGetRoutePoints().length);
+      });
+    }
+  }
+
+  @Test
+  public void configurationRecreationKeepsRouteRecovery() throws Exception
+  {
+    usePhoneController();
     try (ActivityScenario<MwmActivity> scenario = ActivityScenario.launch(MwmActivity.class))
     {
       final AtomicReference<MwmActivity> original = new AtomicReference<>();
