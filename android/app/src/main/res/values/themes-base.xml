@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/apk/res/android">
   <style name="MwmTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
     <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
     <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
@@ -52,7 +52,7 @@
     <item name="ppFloatingMarkerIconColor">@color/black_54</item>
 
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
-    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
+    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_turn_next_turn</item>
     <item name="navLanesBackgroundColor">@color/base_accent</item>
     <item name="navLaneArrowActiveColor">@color/nav_lane_arrow_active</item>
     <item name="navLaneArrowInactiveColor">@color/nav_lane_arrow_inactive</item>
@@ -130,5 +130,6 @@
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
     <!-- Theme used for bottom sheet dialog components -->
     <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
+    <item name="switchPreferenceCompatStyle">@style/App.SwitchPreference</item>
   </style>
 </resources>
