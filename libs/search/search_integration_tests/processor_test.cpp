@@ -13,6 +13,7 @@
 #include "search/features_layer_path_finder.hpp"
 #include "search/mwm_context.hpp"
 #include "search/retrieval.hpp"
+#include "search/reverse_geocoder.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
@@ -136,6 +137,23 @@ private:
 };
 
 using ProcessorTest = SearchTest;
+
+UNIT_CLASS_TEST(ProcessorTest, ExactAddressLookupRejectsDeregisteredMap)
+{
+  auto const map = BuildCountry("Removed Addressland", [&](TestMwmBuilder & builder)
+  { builder.Add(TestBuilding({0, 0}, {}, "123", "Main Street", "en")); });
+  FeatureID const id(map, 0);
+  bool visited = false;
+  m_dataSource.ReadFeature([&](FeatureType &) { visited = true; }, id);
+  TEST(visited, ());
+  DeregisterMap("Removed Addressland");
+  visited = false;
+  m_dataSource.ReadFeature([&](FeatureType &) { visited = true; }, id);
+  TEST(!visited, ());
+  ReverseGeocoder reverse(m_dataSource);
+  ReverseGeocoder::Address address;
+  TEST(!reverse.GetExactAddress(id, address), ());
+}
 
 UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
 {
