@@ -507,10 +507,9 @@ struct TrackData
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers &&
            IsEqual(m_createdTimestamp, data.m_createdTimestamp) &&
-           IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) &&
-           m_geometry == data.m_geometry && m_visible == data.m_visible &&
-           m_nearestToponyms == data.m_nearestToponyms && m_properties == data.m_properties &&
-           m_stops == data.m_stops && m_routerType == data.m_routerType;
+           IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) && m_geometry == data.m_geometry &&
+           m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
+           m_properties == data.m_properties && m_stops == data.m_stops && m_routerType == data.m_routerType;
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
