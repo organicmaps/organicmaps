@@ -989,7 +989,7 @@ bool KmlParser::Push(std::string movedTag)
   {
     if (IsCoord(tag))
       m_trackCoordinate.reset();
-    else if (IsTimestamp(tag))
+    else if (IsWhenTag(tag))
       m_geometry.m_timestamps.back().push_back(base::INVALID_TIME_STAMP);
   }
   return true;

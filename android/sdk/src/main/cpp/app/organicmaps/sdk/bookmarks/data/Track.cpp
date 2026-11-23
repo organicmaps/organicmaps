@@ -138,13 +138,14 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
   auto const description = jni::ToNativeString(env, descr);
   auto edit = frm()->GetBookmarkManager().GetEditSession();
   auto * track = edit.GetTrackForEdit(static_cast<kml::TrackId>(id));
-  if (track->GetName() == title && nTrack->GetDescription() == description && nTrack->GetColor(0) == color)
+  auto argbColor = dp::Color::FromARGB(static_cast<uint32_t>(color));
+  if (track->GetName() == title && track->GetDescription() == description && track->GetColor(0) == argbColor)
     return;  // New parameters match existing track params. Nothing to update.
 
   CHECK(track, ("Invalid track id:", id));
   track->SetName(title);
   track->SetDescription(description);
-  track->SetColor(dp::Color::FromARGB(static_cast<uint32_t>(color)));
+  track->SetColor(argbColor);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeColor(JNIEnv *, jclass, jlong id, jint color)

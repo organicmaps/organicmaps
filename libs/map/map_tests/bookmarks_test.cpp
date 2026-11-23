@@ -1519,9 +1519,8 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_AdvancesOnEachUpdate)
              ("CreateBookmark does not stamp m_modifiedTimestamp"));
 
   {
-    kml::BookmarkData copy = bmManager.GetBookmark(bmId)->GetData();
-    copy.m_color.m_predefinedColor = kml::PredefinedColor::Red;
-    bmManager.GetEditSession().UpdateBookmark(bmId, copy);
+    bmManager.GetEditSession().SetBookmarksAndTracksColor({bmId}, {},
+                                                          ColorFromPredefinedColor(kml::PredefinedColor::Red));
   }
   auto const bmTs1 = bmManager.GetBookmark(bmId)->GetModifiedTimestamp();
   TEST_NOT_EQUAL(bmTs1, kml::Timestamp{}, ("First UpdateBookmark must set m_modifiedTimestamp"));
@@ -1530,9 +1529,9 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_AdvancesOnEachUpdate)
 
   // Android-style second edit: clone the already-stamped data and forward it to UpdateBookmark.
   {
-    kml::BookmarkData copy = bmManager.GetBookmark(bmId)->GetData();
+    kml::BookmarkData copy(bmManager.GetBookmark(bmId)->GetData());
     TEST_NOT_EQUAL(copy.m_modifiedTimestamp, kml::Timestamp{}, ("copy carries the prior stamp"));
-    copy.m_color.m_predefinedColor = kml::PredefinedColor::Green;
+    copy.m_color = kml::MakeCustomBookmarkColorData(ColorFromPredefinedColor(kml::PredefinedColor::Red));
     bmManager.GetEditSession().UpdateBookmark(bmId, copy);
   }
   auto const bmTs2 = bmManager.GetBookmark(bmId)->GetModifiedTimestamp();
@@ -1549,9 +1548,9 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_AdvancesOnEachUpdate)
              ("CreateTrack does not stamp m_modifiedTimestamp"));
 
   {
-    kml::TrackData copy = bmManager.GetTrack(trackId)->GetData();
-    kml::SetDefaultStr(copy.m_name, "renamed");
-    bmManager.GetEditSession().UpdateTrack(trackId, copy);
+    auto es = bmManager.GetEditSession();
+    auto * track = es.GetTrackForEdit(trackId);
+    track->SetName("renamed");
   }
   auto const trTs1 = bmManager.GetTrack(trackId)->GetModifiedTimestamp();
   TEST_NOT_EQUAL(trTs1, kml::Timestamp{}, ("First UpdateTrack must set m_modifiedTimestamp"));
@@ -1559,10 +1558,9 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_AdvancesOnEachUpdate)
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
   {
-    kml::TrackData copy = bmManager.GetTrack(trackId)->GetData();
-    TEST_NOT_EQUAL(copy.m_modifiedTimestamp, kml::Timestamp{}, ("copy carries the prior stamp"));
-    kml::SetDefaultStr(copy.m_name, "renamed again");
-    bmManager.GetEditSession().UpdateTrack(trackId, copy);
+    auto es = bmManager.GetEditSession();
+    auto * track = es.GetTrackForEdit(trackId);
+    track->SetName("renamed again");
   }
   auto const trTs2 = bmManager.GetTrack(trackId)->GetModifiedTimestamp();
   TEST_GREATER(trTs2, trTs1, ("Second UpdateTrack must refresh m_modifiedTimestamp"));
@@ -1608,9 +1606,9 @@ UNIT_TEST(Bookmarks_ModifiedTimestamp_FirstEditAfterImport)
   TEST_EQUAL(bmManager.GetTrack(trackId)->GetModifiedTimestamp(), importedStamp, ());
 
   {
-    kml::TrackData copy = bmManager.GetTrack(trackId)->GetData();
-    kml::SetDefaultStr(copy.m_name, "renamed");
-    bmManager.GetEditSession().UpdateTrack(trackId, copy);
+    auto es = bmManager.GetEditSession();
+    auto * track = es.GetTrackForEdit(trackId);
+    track->SetName("renamed");
   }
   TEST_GREATER(bmManager.GetTrack(trackId)->GetModifiedTimestamp(), importedStamp,
                ("First edit after import must refresh m_modifiedTimestamp"));

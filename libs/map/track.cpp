@@ -96,15 +96,6 @@ void Track::SetDescription(std::string const & description)
   kml::SetDefaultStr(m_data.m_description, description);
 }
 
-void Track::SetData(kml::TrackData const & data)
-{
-  m_data = data;
-
-  m_elevationInfo.reset();
-  m_interactionData.reset();
-  SetDirty();  // Must run after the copy above, which would otherwise overwrite m_modifiedTimestamp.
-}
-
 m2::RectD Track::GetLimitRect() const
 {
   if (m_interactionData)
