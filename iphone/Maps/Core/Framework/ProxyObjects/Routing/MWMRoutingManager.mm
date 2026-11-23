@@ -6,6 +6,7 @@
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"
+#import "MWMTextToSpeech.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -256,6 +257,8 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 - (void)startRoute
 {
   [self saveRoute];
+  // Following a track can queue its first announcement immediately.
+  (void)[MWMTextToSpeech tts];
   self.rm.FollowRoute();
   [MWMThemeManager invalidate];
 }
@@ -335,10 +338,15 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 
 - (void)onLocationUpdate:(CLLocation *)location
 {
+  auto & manager = self.rm;
+  // Route previews can generate recalculation announcements before navigation starts.
+  if (manager.IsRoutingActive())
+    (void)[MWMTextToSpeech tts];
+
   NSMutableArray<NSString *> * turnNotifications = [NSMutableArray array];
   std::vector<std::string> notifications;
   auto announceStreets = [NSUserDefaults.standardUserDefaults boolForKey:@"UserDefaultsNeedToEnableStreetNamesTTS"];
-  self.rm.GenerateNotifications(notifications, announceStreets);
+  manager.GenerateNotifications(notifications, announceStreets);
   for (auto const & text : notifications)
     [turnNotifications addObject:@(text.c_str())];
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;

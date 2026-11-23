@@ -3,6 +3,22 @@ import XCTest
 
 final class PlacePageUserDescriptionWebViewTests: XCTestCase {
   private let width: CGFloat = 320
+  private var window: UIWindow!
+  private var host: UIViewController { window.rootViewController! }
+
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    let scene = try XCTUnwrap(MapsAppDelegate.theApp().window?.windowScene)
+    window = UIWindow(windowScene: scene)
+    window.rootViewController = UIViewController()
+    window.isHidden = false
+  }
+
+  override func tearDown() {
+    window?.isHidden = true
+    window = nil
+    super.tearDown()
+  }
 
   func test_GivenUnmeasuredHTML_WhenHeightIsRequested_ThenReturnsNonZeroCollapsedHeight() {
     let webView = PlacePageUserDescriptionWebView(htmlString: "<b>HTML description</b>")
@@ -21,85 +37,77 @@ final class PlacePageUserDescriptionWebViewTests: XCTestCase {
       </html>
     """
 
-    let (_, measuredHeights) = loadHTML(html) { $0 < 70 }
+    let measuredHeights = loadHTML(html) { $0 < 70 }
 
     XCTAssertTrue(measuredHeights.allSatisfy { $0 > 0 && $0 < 70 }, "Measured heights: \(measuredHeights)")
   }
 
   func test_GivenAlternatingPooledDocuments_WhenHeightIsMeasured_ThenIgnoresPreviousDocument() {
-    var retainedWebView: PlacePageUserDescriptionWebView?
-    var measuredHeights: [CGFloat]
-
-    (retainedWebView, measuredHeights) = loadHTML("<div style=\"height: 240px\"></div>") { $0 > 200 }
-    XCTAssertTrue(measuredHeights.allSatisfy { $0 > 200 })
-    retainedWebView = nil
-
-    (retainedWebView, measuredHeights) = loadHTML("<div style=\"height: 20px\"></div>") { $0 < 70 }
-    XCTAssertTrue(measuredHeights.allSatisfy { $0 > 0 && $0 < 70 })
-    retainedWebView = nil
-
-    (retainedWebView, measuredHeights) = loadHTML("<div style=\"height: 240px\"></div>") { $0 > 200 }
-    XCTAssertTrue(measuredHeights.allSatisfy { $0 > 200 })
-    withExtendedLifetime(retainedWebView) {}
+    var firstWebView: WKWebView?
+    for height in [240, 20, 240] {
+      let expectedHeight: (CGFloat) -> Bool = { height > 70 ? $0 > 200 : $0 > 0 && $0 < 70 }
+      let heights = loadHTML("<div style=\"height: \(height)px\"></div>", afterAttach: { description in
+        let embedded = description.subviews.compactMap { $0 as? WKWebView }.first!
+        if let firstWebView {
+          XCTAssertIdentical(embedded, firstWebView)
+        } else {
+          firstWebView = embedded
+        }
+      }, until: expectedHeight)
+      XCTAssertTrue(heights.allSatisfy(expectedHeight), "Measured heights: \(heights)")
+    }
   }
 
   func test_GivenDifferentCreationAndHostAppearances_WhenHTMLIsLoaded_ThenUsesHostAppearance() {
     for hostStyle in [UIUserInterfaceStyle.light, .dark] {
-      let (_, heights) = loadHTML("Text<br>More text",
-                                  creationStyle: hostStyle == .light ? .dark : .light,
-                                  hostStyle: hostStyle,
-                                  afterLoad: { descriptionView, _ in
-                                    self.assertRenderedBodyColor(in: descriptionView, style: hostStyle)
-                                  }) { $0 > 0 }
-      XCTAssertFalse(heights.isEmpty)
+      withLoadedFragment(creationStyle: hostStyle == .light ? .dark : .light, hostStyle: hostStyle) { description in
+        self.assertRenderedBodyColor(in: description, style: hostStyle)
+      }
     }
   }
 
   func test_GivenLoadedFragment_WhenHostAppearanceChanges_ThenUpdatesColorWithoutReloading() {
     for initialStyle in [UIUserInterfaceStyle.light, .dark] {
-      let (_, heights) = loadHTML("Text<br>More text", hostStyle: initialStyle, afterLoad: { descriptionView, host in
-        self.assertRenderedBodyColor(in: descriptionView, style: initialStyle)
-        self.evaluateJavaScript("document.body.dataset.token = 'original'", in: descriptionView)
+      withLoadedFragment(hostStyle: initialStyle) { description in
+        self.assertRenderedBodyColor(in: description, style: initialStyle)
+        self.evaluateJavaScript("document.body.dataset.token = 'original'", in: description)
         let style: UIUserInterfaceStyle = initialStyle == .light ? .dark : .light
-        host.overrideUserInterfaceStyle = style
-        host.view.layoutIfNeeded()
-        XCTAssertEqual(descriptionView.traitCollection.userInterfaceStyle, style)
-        self.assertRenderedBodyColor(in: descriptionView, style: style)
-        XCTAssertEqual(self.evaluateJavaScript("document.body.dataset.token", in: descriptionView) as? String, "original")
-      }) { $0 > 0 }
-      XCTAssertFalse(heights.isEmpty)
+        self.host.overrideUserInterfaceStyle = style
+        self.host.view.layoutIfNeeded()
+        XCTAssertEqual(description.traitCollection.userInterfaceStyle, style)
+        self.assertRenderedBodyColor(in: description, style: style)
+        XCTAssertEqual(self.evaluateJavaScript("document.body.dataset.token", in: description) as? String, "original")
+      }
     }
   }
 
   func test_GivenHTMLLoadInFlight_WhenDescriptionChanges_ThenDisplaysLatestHTML() {
-    let (_, heights) = loadHTML("First description", afterAttach: { descriptionView in
+    loadHTML("First description", afterAttach: { descriptionView in
       descriptionView.configure(with: "Second description")
       descriptionView.configure(with: "Latest description")
-    }, afterLoad: { descriptionView, _ in
+    }, afterLoad: { descriptionView in
       XCTAssertEqual(self.evaluateJavaScript("document.body.textContent.trim()", in: descriptionView) as? String,
                      "Latest description")
     }) { $0 > 0 }
-    XCTAssertFalse(heights.isEmpty)
   }
 
   func test_GivenQueuedDescription_WhenNavigationFails_ThenLoadsLatestHTML() {
     let failingDelegate = FailingNavigationDelegate()
-    let (_, heights) = loadHTML("First description", afterAttach: { descriptionView in
+    loadHTML("First description", afterAttach: { descriptionView in
       let webView = descriptionView.subviews.compactMap { $0 as? WKWebView }.first!
       failingDelegate.originalDelegate = webView.navigationDelegate
       webView.navigationDelegate = failingDelegate
       descriptionView.configure(with: "Latest description")
-    }, afterLoad: { descriptionView, _ in
+    }, afterLoad: { descriptionView in
       XCTAssertTrue(failingDelegate.didFail)
       XCTAssertEqual(self.evaluateJavaScript("document.body.textContent.trim()", in: descriptionView) as? String,
                      "Latest description")
     }) { $0 > 0 }
-    XCTAssertFalse(heights.isEmpty)
   }
 
   func test_GivenFailedNavigation_WhenViewReattaches_ThenRetriesHTMLLoad() {
     let failingDelegate = FailingNavigationDelegate()
-    let (_, heights) = loadHTML("Text", afterAttach: { descriptionView in
+    loadHTML("Text", afterAttach: { descriptionView in
       let webView = descriptionView.subviews.compactMap { $0 as? WKWebView }.first!
       let container = descriptionView.superview!
       failingDelegate.originalDelegate = webView.navigationDelegate
@@ -108,15 +116,14 @@ final class PlacePageUserDescriptionWebViewTests: XCTestCase {
         container.addSubview(descriptionView)
       }
       webView.navigationDelegate = failingDelegate
-    }, afterLoad: { descriptionView, _ in
+    }, afterLoad: { descriptionView in
       XCTAssertTrue(failingDelegate.didFail)
       XCTAssertEqual(self.evaluateJavaScript("document.body.textContent.trim()", in: descriptionView) as? String, "Text")
     }) { $0 > 0 }
-    XCTAssertFalse(heights.isEmpty)
   }
 
   func test_GivenFinishedDocument_WhenNilFailureArrives_ThenKeepsMeasuringContent() {
-    _ = loadHTML("Text", afterLoad: { descriptionView, _ in
+    loadHTML("Text", afterLoad: { descriptionView in
       let webView = descriptionView.subviews.compactMap { $0 as? WKWebView }.first!
       descriptionView.webView(webView, didFailProvisionalNavigation: nil, withError: NSError(domain: "Test", code: 1))
       self.changeRenderedHeight(in: descriptionView)
@@ -124,7 +131,7 @@ final class PlacePageUserDescriptionWebViewTests: XCTestCase {
   }
 
   func test_GivenWebContentProcessTerminates_WhenViewIsVisible_ThenReloadsCurrentHTML() {
-    _ = loadHTML("Text", afterLoad: { descriptionView, _ in
+    loadHTML("Text", afterLoad: { descriptionView in
       self.evaluateJavaScript("document.body.dataset.token = 'original'", in: descriptionView)
       self.changeRenderedHeight(in: descriptionView)
       let reloaded = self.expectation(description: "Original HTML height restored")
@@ -148,44 +155,70 @@ final class PlacePageUserDescriptionWebViewTests: XCTestCase {
     XCTAssertEqual(descriptionView.expandedHeight(for: width), 240)
   }
 
-  private func loadHTML(_ html: String,
-                        creationStyle: UIUserInterfaceStyle = .unspecified,
-                        hostStyle: UIUserInterfaceStyle = .unspecified,
-                        afterAttach: (PlacePageUserDescriptionWebView) -> Void = { _ in },
-                        afterLoad: (PlacePageUserDescriptionWebView, UIViewController) -> Void = { _, _ in },
-                        until isExpectedHeight: @escaping (CGFloat) -> Bool) ->
-    (PlacePageUserDescriptionWebView, [CGFloat]) {
-    let expectation = expectation(description: "HTML height measured")
-    var webView: PlacePageUserDescriptionWebView!
-    UITraitCollection(userInterfaceStyle: creationStyle).performAsCurrent {
-      webView = PlacePageUserDescriptionWebView(htmlString: html)
-    }
-    var measuredHeights = [CGFloat]()
-    var isFulfilled = false
-    webView.onContentHeightChanged = { [weak webView] in
-      guard let webView else { return }
-      let height = webView.expandedHeight(for: self.width)
-      measuredHeights.append(height)
-      guard !isFulfilled, isExpectedHeight(height) else { return }
-      isFulfilled = true
-      expectation.fulfill()
-    }
-    let host = UIViewController()
-    host.overrideUserInterfaceStyle = hostStyle
-    let window = UIWindow(frame: CGRect(x: 0, y: 0, width: width, height: 640))
-    window.rootViewController = host
-    window.isHidden = false
-    defer { window.isHidden = true }
-    webView.frame = CGRect(x: 0, y: 0, width: width, height: webView.collapsedHeight(for: width))
-    host.view.addSubview(webView)
-    afterAttach(webView)
-    webView.layoutIfNeeded()
+  private func attach(_ description: PlacePageUserDescriptionWebView) {
+    description.frame = CGRect(x: 0, y: 0, width: width, height: description.collapsedHeight(for: width))
+    host.view.addSubview(description)
+  }
 
-    // WebKit's first process launch can be slow in a cold simulator.
-    wait(for: [expectation], timeout: 30)
-    webView.onContentHeightChanged = nil
-    afterLoad(webView, host)
-    return (webView, measuredHeights)
+  @discardableResult
+  private func loadHTML(_ html: String,
+                        afterAttach: (PlacePageUserDescriptionWebView) -> Void = { _ in },
+                        afterLoad: (PlacePageUserDescriptionWebView) -> Void = { _ in },
+                        until isExpectedHeight: @escaping (CGFloat) -> Bool) -> [CGFloat] {
+    // Drain UIKit's temporary references so the next document can take the same WKWebView from the pool.
+    autoreleasepool {
+      let measured = XCTestExpectation(description: "HTML height measured")
+      let description = PlacePageUserDescriptionWebView(htmlString: html)
+      var heights = [CGFloat]()
+      var fulfilled = false
+      description.onContentHeightChanged = { [weak description] in
+        guard let description else { return }
+        let height = description.expandedHeight(for: self.width)
+        heights.append(height)
+        if !fulfilled, isExpectedHeight(height) {
+          fulfilled = true
+          measured.fulfill()
+        }
+      }
+      attach(description)
+      defer { description.removeFromSuperview() }
+      afterAttach(description)
+      description.layoutIfNeeded()
+      guard XCTWaiter.wait(for: [measured], timeout: 30) == .completed else {
+        XCTFail("Expected HTML height was never measured. Received: \(heights)")
+        return heights
+      }
+      description.onContentHeightChanged = nil
+      afterLoad(description)
+      return heights
+    }
+  }
+
+  private func withLoadedFragment(creationStyle: UIUserInterfaceStyle = .unspecified,
+                                  hostStyle: UIUserInterfaceStyle,
+                                  check: (PlacePageUserDescriptionWebView) -> Void) {
+    autoreleasepool {
+      let marker = UUID().uuidString
+      var description: PlacePageUserDescriptionWebView!
+      UITraitCollection(userInterfaceStyle: creationStyle).performAsCurrent {
+        description = PlacePageUserDescriptionWebView(htmlString: "<span id='\(marker)'>Text</span><br>More text")
+      }
+      host.overrideUserInterfaceStyle = hostStyle
+      attach(description)
+      defer { description.removeFromSuperview() }
+      description.layoutIfNeeded()
+      let embedded = description.subviews.compactMap { $0 as? WKWebView }.first!
+      if embedded.isLoading {
+        let finished = XCTKVOExpectation(keyPath: #keyPath(WKWebView.isLoading), object: embedded, expectedValue: false)
+        guard XCTWaiter.wait(for: [finished], timeout: 30) == .completed else {
+          XCTFail("Fragment navigation did not finish")
+          return
+        }
+      }
+      // A pooled view may still contain an earlier document.
+      XCTAssertEqual(evaluateJavaScript("document.body.firstElementChild.id", in: description) as? String, marker)
+      check(description)
+    }
   }
 
   private func assertRenderedBodyColor(in descriptionView: PlacePageUserDescriptionWebView,

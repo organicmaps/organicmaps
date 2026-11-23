@@ -31,8 +31,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED097E752BB80C320006ED01"
-            BuildableName = "OMapsTests.xctest"
-            BlueprintName = "OMapsTests"
+            BuildableName = "OrganicMapsTests.xctest"
+            BlueprintName = "OrganicMapsTests"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -48,8 +48,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ED097E752BB80C320006ED01"
-               BuildableName = "OMapsTests.xctest"
-               BlueprintName = "OMapsTests"
+               BuildableName = "OrganicMapsTests.xctest"
+               BlueprintName = "OrganicMapsTests"
                ReferencedContainer = "container:Maps.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -972,7 +972,7 @@
 		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
 		DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_outdoors.bin; path = ../../data/drules_outdoors.bin; sourceTree = "<group>"; };
 		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
-		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED097E762BB80C320006ED01 /* OrganicMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OrganicMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDescriptionHTMLDocumentBuilder.swift; sourceTree = "<group>"; };
 		ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OneLineScaling.swift"; sourceTree = "<group>"; };
@@ -1960,7 +1960,7 @@
 			isa = PBXGroup;
 			children = (
 				6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */,
-				ED097E762BB80C320006ED01 /* OMapsTests.xctest */,
+				ED097E762BB80C320006ED01 /* OrganicMapsTests.xctest */,
 				ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */,
 			);
 			name = Products;
@@ -4302,9 +4302,9 @@
 			productReference = 6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */;
 			productType = "com.apple.product-type.application";
 		};
-		ED097E752BB80C320006ED01 /* OMapsTests */ = {
+		ED097E752BB80C320006ED01 /* OrganicMapsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED097E802BB80C330006ED01 /* Build configuration list for PBXNativeTarget "OMapsTests" */;
+			buildConfigurationList = ED097E802BB80C330006ED01 /* Build configuration list for PBXNativeTarget "OrganicMapsTests" */;
 			buildPhases = (
 				ED097E722BB80C320006ED01 /* Sources */,
 				ED097E732BB80C320006ED01 /* Frameworks */,
@@ -4315,9 +4315,9 @@
 			dependencies = (
 				ED097E7B2BB80C320006ED01 /* PBXTargetDependency */,
 			);
-			name = OMapsTests;
-			productName = OMapsTests;
-			productReference = ED097E762BB80C320006ED01 /* OMapsTests.xctest */;
+			name = OrganicMapsTests;
+			productName = OrganicMapsTests;
+			productReference = ED097E762BB80C320006ED01 /* OrganicMapsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtension */ = {
@@ -4442,7 +4442,7 @@
 			projectRoot = "";
 			targets = (
 				6741A93D1BF340DE002C974C /* OMaps */,
-				ED097E752BB80C320006ED01 /* OMapsTests */,
+				ED097E752BB80C320006ED01 /* OrganicMapsTests */,
 				ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtension */,
 			);
 		};
@@ -5691,7 +5691,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		ED097E802BB80C330006ED01 /* Build configuration list for PBXNativeTarget "OMapsTests" */ = {
+		ED097E802BB80C330006ED01 /* Build configuration list for PBXNativeTarget "OrganicMapsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED097E7C2BB80C330006ED01 /* Debug */,

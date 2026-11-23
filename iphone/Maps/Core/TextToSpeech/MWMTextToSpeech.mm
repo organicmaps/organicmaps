@@ -1,6 +1,7 @@
 #import "MWMTextToSpeech.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MWMRouter.h"
+#import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
 #include "LocaleTranslator.h"
@@ -24,6 +25,13 @@ NSString * const kUserDefaultsTTSVoiceIdentifier = @"UserDefaultsTTSVoiceIdentif
 NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
 NSString * const kIsStreetNamesTTSEnabled = @"UserDefaultsNeedToEnableStreetNamesTTS";
 NSString * const kDefaultLanguage = @"en-US";
+MWMTextToSpeech * g_textToSpeech = nil;
+Class g_voiceSourceForTesting = Nil;
+
+Class VoiceSource()
+{
+  return g_voiceSourceForTesting ?: AVSpeechSynthesisVoice.class;
+}
 
 // Internal code the notification texts are keyed by, e.g. "en" for en-GB and "zh-Hant" for zh-TW.
 // This is the unit the pickers group by: every voice in one group makes the routing engine speak the
@@ -146,6 +154,13 @@ MWMTTSVoice * VoiceFromSpeechVoice(AVSpeechSynthesisVoice * voice)
 
 using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
+
+Observers * GetObservers()
+{
+  // Registering a navigation view must not load the system voice catalog.
+  static Observers * observers = [Observers weakObjectsHashTable];
+  return observers;
+}
 }  // namespace
 
 @interface MWMTTSLanguage ()
@@ -263,8 +278,8 @@ using Observers = NSHashTable<Observer>;
   {
     // Neither +speechVoices nor +currentLanguageCode is an accessor: both rebuild their answer on
     // every call, tens of milliseconds worth. Ask each of them exactly once.
-    _voicesByLanguage = VoicesByLanguage([AVSpeechSynthesisVoice speechVoices]);
-    _deviceLanguageCode = [AVSpeechSynthesisVoice currentLanguageCode];
+    _voicesByLanguage = VoicesByLanguage([VoiceSource() speechVoices]);
+    _deviceLanguageCode = [VoiceSource() currentLanguageCode];
     _listedVoices = [NSMutableDictionary dictionary];
     for (auto const & [code, title] : routing::turns::sound::kLanguageList)
       if (_voicesByLanguage[@(std::string(code).c_str())] != nil)
@@ -315,8 +330,6 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic, copy) void (^previewCompletion)(void);
 @property(nonatomic) AVAudioPlayer * audioPlayer;
 
-@property(nonatomic) Observers * observers;
-
 - (void)invalidateVoiceCatalog;
 
 @end
@@ -326,14 +339,21 @@ using Observers = NSHashTable<Observer>;
 + (MWMTextToSpeech *)tts
 {
   static dispatch_once_t onceToken;
-  static MWMTextToSpeech * tts = nil;
-  dispatch_once(&onceToken, ^{ tts = [[self alloc] initTTS]; });
-  return tts;
+  dispatch_once(&onceToken, ^{ g_textToSpeech = [[self alloc] initTTS]; });
+  return g_textToSpeech;
+}
+
++ (void)setVoiceSourceForTesting:(Class)source
+{
+  ASSERT(NSThread.isMainThread, ());
+  g_voiceSourceForTesting = source;
+  g_textToSpeech.catalog = nil;
+  g_textToSpeech.speechVoice = nil;
 }
 
 + (void)applicationDidBecomeActive
 {
-  [[self tts] invalidateVoiceCatalog];
+  [g_textToSpeech invalidateVoiceCatalog];
 }
 
 - (void)invalidateVoiceCatalog
@@ -399,7 +419,6 @@ using Observers = NSHashTable<Observer>;
   self = [super init];
   if (self)
   {
-    _observers = [Observers weakObjectsHashTable];
     if (@available(iOS 17.0, *))
     {
       [NSNotificationCenter.defaultCenter addObserver:self
@@ -408,7 +427,12 @@ using Observers = NSHashTable<Observer>;
                                                object:nil];
     }
 
-    [self setNotificationsLocale:[self preferredLocale]];
+    // Route previews need localized recalculation text even with speech disabled.
+    // Loading system voices here can stall the route result callback in XCTest.
+    if ([MapsAppDelegate isTestsEnvironment])
+      [MWMRouter setTurnNotificationsLocale:@"en"];
+    else
+      [self setNotificationsLocale:[self preferredLocale]];
 
     NSError * err = nil;
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
@@ -567,7 +591,7 @@ using Observers = NSHashTable<Observer>;
 + (void)setVoice:(MWMTTSVoice *)voice
 {
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-  AVSpeechSynthesisVoice * speechVoice = [AVSpeechSynthesisVoice voiceWithIdentifier:voice.identifier];
+  AVSpeechSynthesisVoice * speechVoice = [VoiceSource() voiceWithIdentifier:voice.identifier];
   ASSERT(speechVoice, ("A voice is only offered while it is installed", voice.identifier.UTF8String));
   if (!speechVoice)
     return;
@@ -612,7 +636,7 @@ using Observers = NSHashTable<Observer>;
 
   if (savedVoiceIdentifier.length > 0)
   {
-    voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    voice = [VoiceSource() voiceWithIdentifier:savedVoiceIdentifier];
     if (voice && locale.length > 0 && TwineLanguage(voice.language) != TwineLanguage(locale))
       voice = nil;
   }
@@ -811,7 +835,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)onTTSStatusUpdated
 {
-  for (Observer observer in self.observers)
+  for (Observer observer in GetObservers())
     [observer onTTSStatusUpdated];
 }
 
@@ -819,12 +843,12 @@ using Observers = NSHashTable<Observer>;
 
 + (void)addObserver:(id<MWMTextToSpeechObserver>)observer
 {
-  [[self tts].observers addObject:observer];
+  [GetObservers() addObject:observer];
 }
 
 + (void)removeObserver:(id<MWMTextToSpeechObserver>)observer
 {
-  [[self tts].observers removeObject:observer];
+  [GetObservers() removeObject:observer];
 }
 
 @end

@@ -2,9 +2,16 @@
 #import <XCTest/XCTest.h>
 #import "MWMTextToSpeech.h"
 
+#include <CoreApi/Framework.h>
+
 #include "LocaleTranslator.h"
 
-// Voice metadata is sufficient to exercise the catalog without downloading regional voice packs.
+@interface MWMTextToSpeech (Testing)
++ (void)setVoiceSourceForTesting:(Class)source;
+@end
+
+// These tests exercise the picker and routing text. Enumerating the simulator's installed
+// speech voices can block the main thread for minutes on a fresh device.
 @interface TTSVoiceMetadata : NSObject
 @property(nonatomic) NSString * name;
 @property(nonatomic) NSString * language;
@@ -14,13 +21,65 @@
 @end
 
 @implementation TTSVoiceMetadata
+
++ (instancetype)voiceNamed:(NSString *)name language:(NSString *)language
+{
+  TTSVoiceMetadata * voice = [self new];
+  voice.name = name;
+  voice.language = language;
+  voice.identifier = [NSString stringWithFormat:@"test.%@.%@", language, name];
+  voice.quality = AVSpeechSynthesisVoiceQualityDefault;
+  return voice;
+}
+
++ (NSArray<TTSVoiceMetadata *> *)speechVoices
+{
+  return @[
+    [self voiceNamed:@"Eddy" language:@"en-US"], [self voiceNamed:@"Eddy" language:@"en-GB"],
+    [self voiceNamed:@"Flo" language:@"en-GB"], [self voiceNamed:@"Marek" language:@"pl-PL"],
+    [self voiceNamed:@"Łukasz" language:@"pl-PL"]
+  ];
+}
+
++ (NSString *)currentLanguageCode
+{
+  return @"en-US";
+}
+
++ (TTSVoiceMetadata *)voiceWithIdentifier:(NSString *)identifier
+{
+  for (TTSVoiceMetadata * voice in [self speechVoices])
+    if ([voice.identifier isEqualToString:identifier])
+      return voice;
+  return nil;
+}
+
+@end
+
+@interface MWMTextToSpeechInitializationTests : XCTestCase
+@end
+
+@implementation MWMTextToSpeechInitializationTests
+
+- (void)testXCTestHostInitializesRoutingNotificationLocale
+{
+  (void)[MWMTextToSpeech tts];
+  XCTAssertFalse(GetFramework().GetRoutingManager().GetTurnNotificationsLocale().empty());
+}
+
+- (void)testActivationNotifiesVoiceSettingsAfterSpeechInitializes
+{
+  (void)[MWMTextToSpeech tts];
+  XCTestExpectation * refreshed = [self expectationForNotification:MWMTextToSpeechVoicesDidChangeNotification
+                                                            object:nil
+                                                           handler:nil];
+  [MWMTextToSpeech applicationDidBecomeActive];
+  [self waitForExpectations:@[refreshed] timeout:1];
+}
+
 @end
 
 @interface MWMTextToSpeechTest : XCTestCase
-
-@property(nonatomic, strong) MWMTTSLanguage * initialLanguage;
-@property(nonatomic, strong) MWMTTSVoice * initialPinnedVoice;
-
 @end
 
 @implementation MWMTextToSpeechTest
@@ -28,25 +87,28 @@
 - (void)setUp
 {
   [super setUp];
-  self.initialLanguage = [MWMTextToSpeech currentLanguage];
-  self.initialPinnedVoice = [MWMTextToSpeech isVoicePinned] ? [MWMTextToSpeech currentVoice] : nil;
-}
-
-- (void)tearDown
-{
-  if (self.initialPinnedVoice)
-    [MWMTextToSpeech setVoice:self.initialPinnedVoice];
-  else if (self.initialLanguage)
-    [MWMTextToSpeech setLanguage:self.initialLanguage];
-  self.initialLanguage = nil;
-  self.initialPinnedVoice = nil;
-  [super tearDown];
+  [MWMTextToSpeech setVoiceSourceForTesting:TTSVoiceMetadata.class];
+  (void)[MWMTextToSpeech tts];
+  auto const locale = GetFramework().GetRoutingManager().GetTurnNotificationsLocale();
+  NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
+  NSString * const languageKey = @"UserDefaultsTTSLanguageBcp47";
+  NSString * const voiceKey = @"UserDefaultsTTSVoiceIdentifier";
+  NSString * language = [defaults stringForKey:languageKey];
+  NSString * voice = [defaults stringForKey:voiceKey];
+  [defaults removeObjectForKey:languageKey];
+  [defaults removeObjectForKey:voiceKey];
+  [self addTeardownBlock:^{
+    [defaults setObject:language forKey:languageKey];
+    [defaults setObject:voice forKey:voiceKey];
+    GetFramework().GetRoutingManager().SetTurnNotificationsLocale(locale);
+    [MWMTextToSpeech setVoiceSourceForTesting:Nil];
+  }];
 }
 
 - (void)testAvailableLanguagesAreSpeakable
 {
   NSArray<MWMTTSLanguage *> * languages = [MWMTextToSpeech availableLanguages];
-  XCTAssertGreaterThan(languages.count, 0);
+  XCTAssertEqualObjects([NSSet setWithArray:[languages valueForKey:@"code"]], [NSSet setWithArray:(@[@"en", @"pl"])]);
   for (MWMTTSLanguage * language in languages)
   {
     XCTAssertGreaterThan(language.title.length, 0, @"%@ has no name", language.code);
@@ -89,29 +151,6 @@
 // Plain NSString comparison puts Ł after M instead of using the displayed names' localized order.
 - (void)testDisplayedVoiceNamesUseLocalizedOrder
 {
-  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-  id originalCatalog = [tts valueForKey:@"catalog"];
-  id originalVoice = [tts valueForKey:@"speechVoice"];
-  [self addTeardownBlock:^{
-    [tts setValue:originalCatalog forKey:@"catalog"];
-    [tts setValue:originalVoice forKey:@"speechVoice"];
-  }];
-
-  TTSVoiceMetadata * marek = [TTSVoiceMetadata new];
-  marek.name = @"Marek";
-  marek.language = @"pl-PL";
-  marek.identifier = @"test.pl-PL.Marek";
-  TTSVoiceMetadata * lukasz = [TTSVoiceMetadata new];
-  lukasz.name = @"Łukasz";
-  lukasz.language = @"pl-PL";
-  lukasz.identifier = @"test.pl-PL.Lukasz";
-
-  id catalog = [NSClassFromString(@"MWMTTSVoiceCatalog") new];
-  [catalog setValue:@"pl-PL" forKey:@"deviceLanguageCode"];
-  [catalog setValue:@{@"pl": @[marek, lukasz]} forKey:@"voicesByLanguage"];
-  [tts setValue:catalog forKey:@"catalog"];
-  [tts setValue:marek forKey:@"speechVoice"];
-
   MWMTTSLanguage * language = [MWMTTSLanguage languageWithCode:@"pl" title:@"Polski"];
   NSArray<MWMTTSVoice *> * listed = [MWMTextToSpeech voicesForLanguage:language];
   XCTAssertEqualObjects([listed valueForKey:@"title"], (@[@"Łukasz", @"Marek"]), @"Locale: %@",
@@ -254,35 +293,17 @@
 
 - (void)testCurrentVoicePreservesTheAccentInUse
 {
-  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-  id originalCatalog = [tts valueForKey:@"catalog"];
-  id originalVoice = [tts valueForKey:@"speechVoice"];
-  [self addTeardownBlock:^{
-    [tts setValue:originalCatalog forKey:@"catalog"];
-    [tts setValue:originalVoice forKey:@"speechVoice"];
-  }];
-
-  TTSVoiceMetadata * usVoice = [TTSVoiceMetadata new];
-  usVoice.name = @"Eddy";
-  usVoice.language = @"en-US";
-  usVoice.identifier = @"com.apple.eloquence.en-US.Eddy";
-  TTSVoiceMetadata * ukVoice = [TTSVoiceMetadata new];
-  ukVoice.name = @"Eddy";
-  ukVoice.language = @"en-GB";
-  ukVoice.identifier = @"com.apple.eloquence.en-GB.Eddy";
-
-  id catalog = [NSClassFromString(@"MWMTTSVoiceCatalog") new];
-  [catalog setValue:@"en-US" forKey:@"deviceLanguageCode"];
-  [catalog setValue:@{@"en": @[usVoice, ukVoice]} forKey:@"voicesByLanguage"];
-  [tts setValue:catalog forKey:@"catalog"];
-  // A voice selected before the device language changed still speaks its saved regional variant.
-  [tts setValue:ukVoice forKey:@"speechVoice"];
-
-  MWMTTSVoice * currentVoice = [MWMTextToSpeech currentVoice];
-  XCTAssertEqualObjects(currentVoice.identifier, ukVoice.identifier);
+  // The saved UK variant must stay visible even though the device prefers the US variant.
+  MWMTTSVoice * ukVoice = [MWMTTSVoice voiceWithIdentifier:@"test.en-GB.Eddy"
+                                                     title:@"Eddy"
+                                                    region:nil
+                                                     group:MWMTTSVoiceGroupStandard];
+  [MWMTextToSpeech setVoice:ukVoice];
+  MWMTTSVoice * current = [MWMTextToSpeech currentVoice];
+  XCTAssertEqualObjects(current.identifier, ukVoice.identifier);
   NSArray<MWMTTSVoice *> * listed = [MWMTextToSpeech voicesForLanguage:[MWMTextToSpeech currentLanguage]];
-  XCTAssertTrue([listed containsObject:currentVoice]);
-  XCTAssertEqual(listed.count, 1);
+  XCTAssertTrue([listed containsObject:current]);
+  XCTAssertEqual(listed.count, 2u);
 }
 
 @end
