@@ -496,7 +496,9 @@
 "p2p_from_here" = "Rotta minn";
 "p2p_to_here" = "Rotta lejn";
 "p2p_only_from_current" = "In-navigazzjoni hija disponibbli biss mill-post attwali tiegħek.";
-"p2p_reroute_from_current" = "Tixtieq tippjana rotta mill-post attwali tiegħek?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Rotta lejn il-punt ta' bidu";
 "editor_time_add" = "Żid Skeda";
 "editor_time_delete" = "Ħassar l-Iskeda";
 

@@ -63,6 +63,8 @@
     <string name="search_not_found">Ups, ni bilo najdenih rezultatov.</string>
     <string name="search_history_text">Oglejte si svoja nedavna iskanja.</string>
     <string name="p2p_start">Začetek</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Pot do izhodišča</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Ves dan (24 ur)</string>
     <string name="editor_time_open">Odprto</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps v Android Auto potrebuje dovoljenja za lokacijo za učinkovito delovanje</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Podeli dovoljenja</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Doseženo največje število postankov</string>
 </resources>

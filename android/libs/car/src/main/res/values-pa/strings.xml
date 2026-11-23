@@ -17,4 +17,8 @@
     <string name="bookmarks">ਬੁੱਕਮਾਰਕ</string>
     <!-- Settings button in system menu -->
     <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">ਸਟਾਪਾਂ ਦੀ ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਪੂਰੀ ਹੋ ਗਈ</string>
 </resources>

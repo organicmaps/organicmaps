@@ -63,6 +63,8 @@
     <string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
     <string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
     <string name="p2p_start">시작</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">시작 지점까지 경로</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">종일 영업(24시간)</string>
     <string name="editor_time_open">개점</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps Android Auto에서 이 앱이 제대로 작동하려면 위치 권한이 필요합니다</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">권한 부여</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">경유지 최대 개수에 도달했습니다</string>
 </resources>

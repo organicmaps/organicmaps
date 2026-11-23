@@ -360,7 +360,8 @@
     <string name="p2p_from_here">Roete vanaf</string>
     <string name="p2p_to_here">Roete na</string>
     <string name="p2p_only_from_current">Navigering is slegs beskikbaar vanaf u huidige ligging.</string>
-    <string name="p2p_reroute_from_current">Wil u ’n roete vanaf u huidige ligging beplan?</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Roete na beginpunt</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Volgende</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

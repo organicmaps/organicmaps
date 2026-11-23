@@ -496,7 +496,9 @@
 "p2p_from_here" = "Trasa od";
 "p2p_to_here" = "Trasa do";
 "p2p_only_from_current" = "Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.";
-"p2p_reroute_from_current" = "Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Trasa do punktu początkowego";
 "editor_time_add" = "Dodaj harmonogram";
 "editor_time_delete" = "Usuń harmonogram";
 

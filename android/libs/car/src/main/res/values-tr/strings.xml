@@ -63,6 +63,8 @@
     <string name="search_not_found">Tüh, sonuç bulunamadı.</string>
     <string name="search_history_text">Son aramalarınızı görüntüleyin.</string>
     <string name="p2p_start">Başla</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Başlangıç noktasına rota</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Tüm Gün (24 saat)</string>
     <string name="editor_time_open">Açık</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Android Auto\'daki Organic Maps etkin çalışmak için konum iznine gereksiniyor</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İzinleri Verin</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maksimum ara nokta sayısına ulaşıldı</string>
 </resources>

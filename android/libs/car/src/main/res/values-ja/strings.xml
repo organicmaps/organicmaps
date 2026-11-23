@@ -63,6 +63,8 @@
     <string name="search_not_found">該当するものは見つかりませんでした。</string>
     <string name="search_history_text">最近の検索を表示します。</string>
     <string name="p2p_start">開始</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">出発点へのルート</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">終日 (24時間)</string>
     <string name="editor_time_open">営業中</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Android AutoのOrganic Mapsを有効に機能させるには、位置情報の許可が必要です</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">許可を与える</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">経由地の最大数に達しました</string>
 </resources>

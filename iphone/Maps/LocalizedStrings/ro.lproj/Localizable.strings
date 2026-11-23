@@ -496,7 +496,9 @@
 "p2p_from_here" = "De la";
 "p2p_to_here" = "La";
 "p2p_only_from_current" = "Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.";
-"p2p_reroute_from_current" = "Vrei să planifici un traseu din poziția ta actuală?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Traseu către punctul de plecare";
 "editor_time_add" = "Adaugă planificare";
 "editor_time_delete" = "Elimină planificarea";
 

@@ -496,7 +496,9 @@
 "p2p_from_here" = "出発地";
 "p2p_to_here" = "目的地";
 "p2p_only_from_current" = "ナビゲーションは現在位置からのみ利用できます。";
-"p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "出発点へのルート";
 "editor_time_add" = "スケジュール追加";
 "editor_time_delete" = "スケジュール削除";
 

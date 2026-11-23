@@ -360,7 +360,8 @@
     <string name="p2p_from_here">Trasa od</string>
     <string name="p2p_to_here">Trasa do</string>
     <string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
-    <string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Trasa do punktu początkowego</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Dalej</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

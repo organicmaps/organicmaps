@@ -63,6 +63,8 @@
     <string name="search_not_found">Oeps, geen resultate gevind.</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
     <string name="p2p_start">Begin</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Roete na beginpunt</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Heeldag (24 uur)</string>
     <string name="editor_time_open">Oop</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps in Android Auto het \'n liggingtoestemming nodig om effektief te werk</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Gee toestemmings</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maksimum aantal stoppe is bereik</string>
 </resources>

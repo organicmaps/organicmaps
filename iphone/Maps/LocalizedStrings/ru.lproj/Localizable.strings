@@ -496,7 +496,9 @@
 "p2p_from_here" = "Отсюда";
 "p2p_to_here" = "Сюда";
 "p2p_only_from_current" = "Навигация возможна только из текущего местоположения.";
-"p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "К началу маршрута";
 "editor_time_add" = "Добавить расписание";
 "editor_time_delete" = "Удалить расписание";
 

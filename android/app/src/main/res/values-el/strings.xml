@@ -360,7 +360,8 @@
     <string name="p2p_from_here">Διαδρομή από</string>
     <string name="p2p_to_here">Διαδρομή προς</string>
     <string name="p2p_only_from_current">Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.</string>
-    <string name="p2p_reroute_from_current">Θέλετε να σχεδιαστεί μια διαδρομή από την τρέχουσα τοποθεσία σας;</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Διαδρομή προς το σημείο εκκίνησης</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Επόμενο</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

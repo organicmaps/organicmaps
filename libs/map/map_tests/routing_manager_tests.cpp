@@ -716,6 +716,50 @@ UNIT_TEST(RoutingManager_SwapLoneEndpoint)
   TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), ids, ());
 }
 
+UNIT_TEST(RoutingManager_ApproachKeepsOriginalItinerary)
+{
+  TestFramework framework(false /* loadMaps */);
+  auto & manager = framework.GetRoutingManager();
+  auto & bookmarks = framework.GetBookmarkManager();
+  TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false), ());
+  TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2), false), ());
+  auto destination = MakeRoutePoint(RouteMarkType::Finish, 0, 3);
+  destination.m_isMyPosition = true;
+  destination.m_title = "Destination";
+  TEST(manager.AddRoutePoint(std::move(destination), false), ());
+  auto const ids = GetRoutePointIds(bookmarks);
+
+  TEST(manager.PrependMyPosition({3, 3}), ());
+  auto const points = manager.GetRoutePoints();
+  TEST_EQUAL(points.size(), 4, ());
+  TEST(points[0].m_isMyPosition, ());
+  TEST(points[0].m_pointType == RouteMarkType::Start, ());
+  TEST_EQUAL(points[0].m_position, points.back().m_position, ());
+  TEST_EQUAL(GetStopCoordinates(manager), (std::vector<double>{1, 2}), ());
+  TEST(!points.back().m_isMyPosition && points.back().m_isVisible, ());
+  TEST_EQUAL(points.back().m_title, "Destination", ());
+  auto const afterIds = GetRoutePointIds(bookmarks);
+  TEST_EQUAL((std::vector<kml::MarkId>(afterIds.begin() + 1, afterIds.end())), ids, ());
+}
+
+UNIT_TEST(RoutingManager_ApproachAtCapacity)
+{
+  TestFramework framework(false /* loadMaps */);
+  auto & manager = framework.GetRoutingManager();
+  FillRouteToLimit(manager);
+  auto const before = manager.GetRoutePoints();
+  auto const ids = GetRoutePointIds(framework.GetBookmarkManager());
+  TEST(!manager.PrependMyPosition({-1, -1}), ());
+  auto const rejected = manager.GetRoutePoints();
+  TEST_EQUAL(rejected.size(), before.size(), ());
+  for (size_t i = 0; i < rejected.size(); ++i)
+    ExpectSameData(rejected[i], before[i]);
+
+  TEST(manager.PrependMyPosition(before.front().m_position), ());
+  TEST(manager.GetRoutePoints().front().m_isMyPosition, ());
+  TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), ids, ());
+}
+
 UNIT_TEST(RoutingManager_OptimizationWithIncompleteRoute)
 {
   TestFramework framework;

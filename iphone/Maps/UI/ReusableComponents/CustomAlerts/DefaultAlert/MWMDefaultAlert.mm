@@ -231,28 +231,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                  log:@"Points In Different MWM Alert"];
 }
 
-+ (instancetype)point2PointAlertWithOkBlock:(MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild
-{
-  if (needToRebuild)
-  {
-    return [self defaultAlertWithTitle:L(@"p2p_only_from_current")
-                               message:L(@"p2p_reroute_from_current")
-                      rightButtonTitle:L(@"ok")
-                       leftButtonTitle:L(@"cancel")
-                     rightButtonAction:okBlock
-                                   log:@"Default Alert"];
-  }
-  else
-  {
-    return [self defaultAlertWithTitle:L(@"p2p_only_from_current")
-                               message:nil
-                      rightButtonTitle:L(@"ok")
-                       leftButtonTitle:nil
-                     rightButtonAction:nil
-                                   log:@"Default Alert"];
-  }
-}
-
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock
 {
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"downloader_status_failed")

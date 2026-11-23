@@ -63,6 +63,8 @@
     <string name="search_not_found">اوه، نتیجه‌ای یافت نشد.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="p2p_start">شروع</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">مسیر به نقطهٔ شروع</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">شبانه روزی (24 ساعته)</string>
     <string name="editor_time_open">باز</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps در Android Auto برای عملکرد بهتر به مجوزهای مکان نیاز دارد</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">اعطای مجوزها</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">حداکثر تعداد توقف‌ها رسیده است</string>
 </resources>

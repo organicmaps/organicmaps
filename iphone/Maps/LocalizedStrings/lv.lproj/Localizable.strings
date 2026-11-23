@@ -496,7 +496,9 @@
 "p2p_from_here" = "Doties iz";
 "p2p_to_here" = "Doties turp";
 "p2p_only_from_current" = "Navigācija ir pieejama tikai no jūsu pašreizējās atrašanās vietas.";
-"p2p_reroute_from_current" = "Vai vēlaties plānot maršrutu no savas pašreizējās atrašanās vietas?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Maršruts līdz sākuma punktam";
 "editor_time_add" = "Pievienot grafiku";
 "editor_time_delete" = "Dzēst grafiku";
 

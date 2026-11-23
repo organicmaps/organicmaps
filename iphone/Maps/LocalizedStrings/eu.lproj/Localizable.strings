@@ -496,7 +496,9 @@
 "p2p_from_here" = "Abiapuntua";
 "p2p_to_here" = "Helmuga";
 "p2p_only_from_current" = "Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.";
-"p2p_reroute_from_current" = "Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Ibilbidearen hasierako puntura";
 "editor_time_add" = "Gehitu ordutegia";
 "editor_time_delete" = "Ezabatu ordutegia";
 

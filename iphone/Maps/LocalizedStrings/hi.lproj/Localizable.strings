@@ -496,7 +496,9 @@
 "p2p_from_here" = "यहाँ से";
 "p2p_to_here" = "यहाँ तक";
 "p2p_only_from_current" = "नेविगेशन केवल आपके वर्तमान स्थान से उपलब्ध है।";
-"p2p_reroute_from_current" = "क्या आप अपने वर्तमान स्थान से मार्ग की योजना बनाना चाहते हैं?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "प्रारंभिक बिंदु तक मार्ग";
 "editor_time_add" = "अनुसूची जोड़ें";
 "editor_time_delete" = "अनुसूची हटाएँ";
 

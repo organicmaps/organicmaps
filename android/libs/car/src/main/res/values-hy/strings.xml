@@ -63,6 +63,8 @@
     <string name="search_not_found">Ոչինչ չգտնվեց:</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="p2p_start">Սկիզբ</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Երթուղի դեպի մեկնակետ</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Շուրջօրյա (24 ժամ)</string>
     <string name="editor_time_open">Բաց է</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Android Auto-ում Organic Maps-ի արդյունավետ աշխատանքի համար անհրաժեշտ է տեղադիրքի թույլտվություն</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Տալ թույլտվություններ</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Հասել եք կանգառների առավելագույն քանակին</string>
 </resources>

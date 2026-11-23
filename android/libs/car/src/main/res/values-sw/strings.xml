@@ -63,6 +63,8 @@
     <string name="search_not_found">Lo, hakuna matokeo yaliyopatikana.</string>
     <string name="search_history_text">Tazama utafutaji wako wa hivi karibuni.</string>
     <string name="p2p_start">Anza</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Njia ya kwenda mahali pa kuanzia</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Siku nzima (masaa 24)</string>
     <string name="editor_time_open">Fungua</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Toa ruhusa</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Idadi ya juu ya vituo imefikiwa</string>
 </resources>

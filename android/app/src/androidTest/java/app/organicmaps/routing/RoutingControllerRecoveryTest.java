@@ -255,6 +255,36 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
+  public void approachKeepsTheSelectedOriginAndIgnoresAnObsoleteOffer() throws Exception
+  {
+    final CountDownLatch built = new CountDownLatch(1);
+    onMain(() -> {
+      mContainer = new RoutingController.Container() {
+        @Override
+        public void onBuiltRoute()
+        {
+          built.countDown();
+        }
+      };
+      mController.attach(mContainer);
+      mController.prepare(point("A", 1), point("B", 3), Router.Ruler);
+    });
+    assertTrue(built.await(30, TimeUnit.SECONDS));
+    onMain(() -> {
+      final MapObject fix = MapObject.createMapObject(MapObject.MY_POSITION, "", "", 2, 2);
+      mController.planToRouteStart(point("Obsolete origin", 4), fix);
+      assertEquals(2, Framework.nativeGetRoutePoints().length);
+      mController.planToRouteStart(mController.getStartPoint(), fix);
+      final RouteMarkData[] points = Framework.nativeGetRoutePoints();
+      assertEquals(3, points.length);
+      assertTrue(points[0].mIsMyPosition);
+      assertEquals("A", points[1].mTitle);
+      assertEquals(RouteMarkType.Intermediate, points[1].mPointType);
+      assertEquals("B", points[2].mTitle);
+    });
+  }
+
+  @Test
   public void editingAPartialRouteKeepsTheStopAndLeavesTheStartEmpty() throws Exception
   {
     onMain(() -> {

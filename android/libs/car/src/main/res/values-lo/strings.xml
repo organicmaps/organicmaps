@@ -47,6 +47,8 @@
     <string name="search_not_found">ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
     <string name="p2p_start">ເລີ່ມ</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">ເສັ້ນທາງໄປຫາຈຸດເລີ່ມຕົ້ນ</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">ທັງໝົດມື້ (24 ຊົ່ວໂມງ)</string>
     <string name="editor_time_open">ເປີດ</string>
@@ -93,4 +95,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps ໃນ Android Auto ຕ້ອງການການອະນຸຍາດຕຳແໜ່ງທີ່ຕັ້ງເພື່ອໃຫ້ເຮັດວຽກໄດ້ຢ່າງມີປະສິດທິພາບ</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">ໃຫ້ການອະນຸຍາດ</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">ຮອດຈຳນວນຈຸດຈອດສູງສຸດແລ້ວ</string>
 </resources>

@@ -63,6 +63,8 @@
     <string name="search_not_found">अरेच्चा, काहीच सापडले नाही.</string>
     <string name="search_history_text">अलीकडील शोध पहा.</string>
     <string name="p2p_start">सुरू करा</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">प्रारंभ बिंदूपर्यंतचा मार्ग</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">दिवसभर (२४ तास)</string>
     <string name="editor_time_open">उघडे</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps Android Auto मध्ये प्रभावीपणे कार्य करण्यासाठी स्थान परवानग्या आवश्यक आहेत</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">परवानग्या द्या</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">थांब्यांची कमाल संख्या गाठली आहे</string>
 </resources>

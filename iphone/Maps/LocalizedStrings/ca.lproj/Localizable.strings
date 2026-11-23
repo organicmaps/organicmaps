@@ -496,7 +496,9 @@
 "p2p_from_here" = "De";
 "p2p_to_here" = "A";
 "p2p_only_from_current" = "La navegació només és disponible des de la ubicació actual.";
-"p2p_reroute_from_current" = "Voleu que planifiquem una ruta des de la vostra ubicació actual?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Ruta al punt de partida";
 "editor_time_add" = "Afegeix un horari";
 "editor_time_delete" = "Suprimeix l’horari";
 

@@ -43,6 +43,8 @@
     <string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
     <string name="search_history_text">Visualizar as buscas recentes.</string>
     <string name="p2p_start">Início</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Rota até o ponto de partida</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">O dia todo (24 horas)</string>
     <string name="twentyfour_seven">24/7</string>
@@ -72,4 +74,8 @@
     <string name="aa_request_permission_activity_text">O Organic Maps no Android Auto precisa de uma permissão de localização para funcionar corretamente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permissões</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
 </resources>

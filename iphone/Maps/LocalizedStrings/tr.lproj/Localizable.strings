@@ -496,7 +496,9 @@
 "p2p_from_here" = "Başlangıç";
 "p2p_to_here" = "Varış yeri";
 "p2p_only_from_current" = "Navigasyon yalnızca şu anki konumunuzdan kullanılabilir.";
-"p2p_reroute_from_current" = "Şu anki konumunuzdan rota planlamamızı ister misiniz?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Başlangıç noktasına rota";
 "editor_time_add" = "Plan Ekle";
 "editor_time_delete" = "Planı Sil";
 

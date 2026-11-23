@@ -360,7 +360,8 @@
     <string name="p2p_from_here">Երթուղի այստեղից</string>
     <string name="p2p_to_here">Երթուղի դեպի այստեղ</string>
     <string name="p2p_only_from_current">Նավիգացիան հասանելի է միայն ձեր ընթացիկ վայրից:</string>
-    <string name="p2p_reroute_from_current">Ցանկանո՞ւմ եք կառուցել երթուղի ձեր ընթացիկ վայրից:</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Երթուղի դեպի մեկնակետ</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Հաջորդը</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

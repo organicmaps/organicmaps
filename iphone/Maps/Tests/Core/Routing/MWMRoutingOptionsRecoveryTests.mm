@@ -11,6 +11,7 @@
 
 #include <CoreApi/Framework.h>
 
+#include "geometry/mercator.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 
@@ -20,6 +21,10 @@
 #include <memory>
 #include <semaphore>
 #include <utility>
+
+@interface MWMRouter (RouteToStartTesting)
++ (void)routeToStart:(MWMRoutePoint *)origin fromLocation:(CLLocation *)location;
+@end
 
 namespace
 {
@@ -198,6 +203,47 @@ private:
   XCTAssertFalse(points.back().m_isMyPosition);
   XCTAssertTrue(points.back().m_position == m2::PointD(3, 3));
   XCTAssertTrue(points.back().m_title == "Destination");
+}
+
+- (void)testRouteToStartPreservesTheOriginalItinerary
+{
+  [MWMRouter setType:MWMRouterTypeRuler];
+  auto & framework = GetFramework();
+  auto & manager = framework.GetRoutingManager();
+  RouteMarkData start;
+  start.m_title = "A";
+  start.m_position = {1, 1};
+  manager.AddRoutePoint(RouteMarkData(start), false);
+  RouteMarkData stop;
+  stop.m_pointType = RouteMarkType::Intermediate;
+  stop.m_position = {2, 2};
+  manager.AddRoutePoint(std::move(stop), false);
+  RouteMarkData finish;
+  finish.m_pointType = RouteMarkType::Finish;
+  finish.m_position = {3, 3};
+  finish.m_isMyPosition = true;
+  framework.GetBookmarkManager().MyPositionMark().SetUserPosition(finish.m_position, true);
+  manager.AddRoutePoint(std::move(finish), false);
+  [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter rebuildWithBestRouter:NO]; }];
+
+  CLLocation * fix = [[CLLocation alloc] initWithLatitude:mercator::YToLat(4) longitude:4];
+  MWMRoutePoint * origin = MWMRouter.startPoint;
+  start.m_title = "Obsolete origin";
+  [MWMRouter routeToStart:[[MWMRoutePoint alloc] initWithRouteMarkData:start] fromLocation:fix];
+  [MWMRouter routeToStart:origin fromLocation:nil];
+  XCTAssertEqual(manager.GetRoutePointsCount(), 3u);
+
+  framework.GetBookmarkManager().MyPositionMark().SetUserPosition({4, 4}, true);
+  [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter routeToStart:origin fromLocation:fix]; }];
+  auto const points = manager.GetRoutePoints();
+  XCTAssertEqual(points.size(), 4u);
+  XCTAssertTrue(points.front().m_isMyPosition);
+  XCTAssertTrue(points[1].m_pointType == RouteMarkType::Intermediate && points[1].m_title == "A");
+  XCTAssertTrue(points[2].m_position == m2::PointD(2, 2));
+  XCTAssertFalse(points.back().m_isMyPosition);
+  XCTAssertTrue(points.front().m_position == m2::PointD(4, 4));
+  XCTAssertTrue(points.back().m_position == m2::PointD(3, 3));
+  XCTAssertFalse(manager.IsRoutingFollowing());
 }
 
 - (void)testChangedAvoidanceRetriesFailedRoutes

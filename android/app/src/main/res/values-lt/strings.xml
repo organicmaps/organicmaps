@@ -360,7 +360,8 @@
     <string name="p2p_from_here">Maršrutas iš</string>
     <string name="p2p_to_here">Maršrutas į</string>
     <string name="p2p_only_from_current">Navigacija galima tik iš jūsų dabartinės vietos.</string>
-    <string name="p2p_reroute_from_current">Ar norite, kad būtų apskaičiuotas maršrutas iš jūsų dabartinės vietos?</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Maršrutas iki pradžios taško</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Toliau</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

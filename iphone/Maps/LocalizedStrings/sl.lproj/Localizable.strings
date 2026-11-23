@@ -496,7 +496,9 @@
 "p2p_from_here" = "Pot od";
 "p2p_to_here" = "Pot do";
 "p2p_only_from_current" = "Navigacija je na voljo samo z vaše trenutne lokacije.";
-"p2p_reroute_from_current" = "Ali želite načrtovati pot z vaše trenutne lokacije?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Pot do izhodišča";
 "editor_time_add" = "Dodaj urnik";
 "editor_time_delete" = "Izbriši urnik";
 

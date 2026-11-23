@@ -496,7 +496,9 @@
 "p2p_from_here" = "Kiindulási pont";
 "p2p_to_here" = "Úti cél";
 "p2p_only_from_current" = "A navigáció csak a jelenlegi tartózkodási helyétől érhető el.";
-"p2p_reroute_from_current" = "Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Útvonal a kiindulási pontig";
 "editor_time_add" = "Ütemterv hozzáadása";
 "editor_time_delete" = "Ütemterv törlése";
 

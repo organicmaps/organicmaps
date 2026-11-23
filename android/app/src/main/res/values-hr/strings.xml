@@ -360,7 +360,8 @@
     <string name="p2p_from_here">Ruta od</string>
     <string name="p2p_to_here">Ruta do</string>
     <string name="p2p_only_from_current">Navigacija je dostupna samo s vaše trenutne lokacije.</string>
-    <string name="p2p_reroute_from_current">Želite li isplanirati rutu od svoje trenutne lokacije?</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Ruta do polazne točke</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Dalje</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

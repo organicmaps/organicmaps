@@ -496,7 +496,9 @@
 "p2p_from_here" = "Maršrutas iš";
 "p2p_to_here" = "Maršrutas į";
 "p2p_only_from_current" = "Navigacija galima tik iš jūsų dabartinės vietos.";
-"p2p_reroute_from_current" = "Ar norite, kad būtų apskaičiuotas maršrutas iš jūsų dabartinės vietos?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Maršrutas iki pradžios taško";
 "editor_time_add" = "Pridėti darbo laiką";
 "editor_time_delete" = "Šalinti darbo laiką";
 

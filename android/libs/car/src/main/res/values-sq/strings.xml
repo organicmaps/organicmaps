@@ -63,6 +63,8 @@
     <string name="search_not_found">Ups, nuk u gjetën rezultate.</string>
     <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
     <string name="p2p_start">Fillo</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Rruga drejt pikës së nisjes</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Gjithë Ditën (24 orë)</string>
     <string name="editor_time_open">Hapur</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps në Android Auto ka nevojë për leje vendndodhjeje për të punuar me efikasitet</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Jepni Lejet</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Numri maksimal i ndalesave është arritur</string>
 </resources>

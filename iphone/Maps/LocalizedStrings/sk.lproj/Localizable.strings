@@ -496,7 +496,9 @@
 "p2p_from_here" = "Cesta z";
 "p2p_to_here" = "Cesta do";
 "p2p_only_from_current" = "Navigácia je dostupná iba z vašej aktuálnej polohy.";
-"p2p_reroute_from_current" = "Máme naplánovať trasu z vašej súčasnej pozície?";
+
+/* Action that adds a leg from the current location to the start of the planned route. */
+"route_to_start" = "Trasa do východiskového bodu";
 "editor_time_add" = "Pridať rozvrh";
 "editor_time_delete" = "Zmazať rozvrh";
 

@@ -63,6 +63,8 @@
     <string name="search_not_found">Oops, ma nstab l-ebda riżultat.</string>
     <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
     <string name="p2p_start">Ibda</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Rotta lejn il-punt ta\' bidu</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Il-Ġurnata Kollha (24 siegħa)</string>
     <string name="editor_time_open">Miftuħ</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps ġo’ Android Auto jeħtieġ permessi tal-post biex jaħdem b ‘mod effettiv</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Għati Permess</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Inkiseb in-numru massimu ta\' waqfiet</string>
 </resources>

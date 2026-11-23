@@ -63,6 +63,8 @@
     <string name="search_not_found">Maaf, saya tidak menemukan apa pun.</string>
     <string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
     <string name="p2p_start">Mulai</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Rute ke titik awal</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Setiap Hari (24 jam)</string>
     <string name="editor_time_open">Buka</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps di Android Auto membutuhkan izin lokasi agar dapat bekerja secara efektif</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Memberikan Izin</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Jumlah perhentian maksimum telah tercapai</string>
 </resources>

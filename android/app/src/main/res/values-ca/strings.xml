@@ -360,7 +360,8 @@
     <string name="p2p_from_here">De</string>
     <string name="p2p_to_here">A</string>
     <string name="p2p_only_from_current">La navegació només és disponible des de la ubicació actual.</string>
-    <string name="p2p_reroute_from_current">Voleu que planifiquem una ruta des de la vostra ubicació actual?</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Ruta al punt de partida</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Següent</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

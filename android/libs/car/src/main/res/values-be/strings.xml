@@ -63,6 +63,8 @@
     <string name="search_not_found">Нічога не знойдзена.</string>
     <string name="search_history_text">Прагляд апошніх выкарыстаных пошукавых запытаў.</string>
     <string name="p2p_start">Пачаць</string>
+    <!-- Action that adds a leg from the current location to the start of the planned route. -->
+    <string name="route_to_start">Маршрут да адпраўной кропкі</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Цэлы дзень (24 гадзіны)</string>
     <string name="editor_time_open">Адкрыта</string>
@@ -109,4 +111,8 @@
     <string name="aa_request_permission_activity_text">Для эфектыўнай працы Organic Maps у Android Auto патрабуецца дазвол на вызначэнне месцазнаходжання</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Дазволіць</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Дасягнута максімальная колькасць прыпынкаў</string>
 </resources>

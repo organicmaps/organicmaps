@@ -1542,6 +1542,42 @@ bool RoutingManager::SwapRoutePointEndpoints()
   return start != nullptr || finish != nullptr;
 }
 
+bool RoutingManager::PrependMyPosition(m2::PointD const & lastFix)
+{
+  RoutePointsLayout layout(*m_bmManager);
+  auto * start = layout.GetRoutePointForEdit(RouteMarkType::Start);
+  ASSERT(start && !start->IsMyPosition() && layout.GetRoutePoint(RouteMarkType::Finish), ());
+
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  auto const position = myPosition.HasPosition() ? myPosition.GetPivot() : lastFix;
+  bool const atStart = start->GetPivot().EqualDxDy(position, mercator::kPointEqualityEps);
+  if (!atStart && layout.GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount)
+    return false;
+
+  if (auto const * previous = layout.GetMyPositionPoint())
+    FreezeMyPosition(layout, *previous);
+
+  RouteMarkData origin;
+  origin.m_isMyPosition = true;
+  origin.m_isVisible = false;
+  origin.m_position = position;
+  origin.m_title = m_callbacks.m_stringsBundleGetter().GetString("core_my_position");
+  if (atStart)
+    start->SetMarkData(std::move(origin));
+  else
+  {
+    if (start->GetMarkData().m_replaceWithMyPositionAfterRestart)
+    {
+      auto fixed = start->GetMarkData();
+      fixed.m_replaceWithMyPositionAfterRestart = false;
+      start->SetMarkData(std::move(fixed));
+    }
+    VERIFY(layout.AddRoutePoint(std::move(origin)), ());
+  }
+  CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+  return true;
+}
+
 bool RoutingManager::ReverseRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
