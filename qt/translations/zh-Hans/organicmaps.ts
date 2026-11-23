@@ -2,6 +2,11 @@
 <TS version="2.1" language="zh-Hans">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>返回</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -31,10 +36,20 @@
 <source>Miles</source>
 <translation>英里</translation>
 </message>
+<message id="later">
+<extracomment>Update maps later button text</extracomment>
+<source>Later</source>
+<translation>以后再说</translation>
+</message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
 <translation>搜索</translation>
+</message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>您当前已禁用此设备或应用程序的所有位置服务，请在设置中启用。</translation>
 </message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
@@ -50,6 +65,31 @@
 <source>About Organic Maps</source>
 <translation>关于 Organic Maps</translation>
 </message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>对每个人都免费，用爱制成</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• 没有广告，不会跟踪您，更不会收集您的数据</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• 无需耗费太多电量，可离线工作</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• 快速且简约，由社区开发</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>由爱好者和志愿者开发的开源应用程序。</translation>
+</message>
 <message id="close">
 <source>Close</source>
 <translation>关闭</translation>
@@ -57,6 +97,11 @@
 <message id="download">
 <source>Download</source>
 <translation>下载</translation>
+</message>
+<message id="download_country_failed">
+<extracomment>Show popup notification on top of the map when country download has failed.</extracomment>
+<source>%1 download has failed</source>
+<translation>%1的地图下载失败</translation>
 </message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
@@ -78,10 +123,50 @@
 <source>Settings</source>
 <translation>设置</translation>
 </message>
+<message id="maps_storage">
+<extracomment>Header of settings activity where user defines storage path</extracomment>
+<source>Save maps to</source>
+<translation>将地图保存到</translation>
+</message>
+<message id="maps_storage_summary">
+<extracomment>Detailed description of Maps Storage settings button</extracomment>
+<source>Select the folder to download maps to.</source>
+<translation>选择下载地图的文件夹。</translation>
+</message>
+<message id="maps_storage_downloaded">
+<extracomment>E.g. &quot;Downloaded maps: 500Mb&quot; in Maps Storage settings</extracomment>
+<source>Downloaded maps</source>
+<translation>已下载的地图</translation>
+</message>
+<message id="maps_storage_free_size">
+<extracomment>Free space out of total storage size in Maps Storage settings, e.g. &quot;300 MB free of 2 GB&quot;</extracomment>
+<source>%1 free of %2</source>
+<translation>剩余 %1 / 总计 %2</translation>
+</message>
+<message id="move_maps">
+<extracomment>Question dialog for transferring maps from one storage to another</extracomment>
+<source>Move maps?</source>
+<translation>移动地图？</translation>
+</message>
+<message id="move_maps_error">
+<extracomment>Error moving map files from one storage to another</extracomment>
+<source>Error moving map files</source>
+<translation>移动地图文件时出错</translation>
+</message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>测量单位</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>选择公里或英里</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>取消下载</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +278,11 @@
 <source>RV Facilities</source>
 <translation>房车设施</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>您的位置尚未确定</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +323,42 @@
 <source>Email</source>
 <translation>电子邮件</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>已复制到剪贴板：%1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>轨迹</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>分享我的位置</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>常规设置</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>信息</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>导航</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>地图上的“+”和“-”按钮</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>在屏幕上显示</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +375,16 @@
 <source>On</source>
 <translation>开启</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>3D 建筑</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>3D 建筑在省电模式下处于关闭状态</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +394,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>服务器 URL</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>请输入包含 {z}/{x}/{y} 的有效 URL</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,39 +415,189 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>自定义瓦片源由您自行提供。请仅使用您有权访问的服务。署名、许可条款、API 密钥、配额和使用限制由您自行负责。</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>在地图上查看</translation>
+</message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>菜单</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>网站</translation>
+</message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>新闻</translation>
 </message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>帮助</translation>
 </message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>问题和解答</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>捐助我们</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>支持本项目</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>版权</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>报告问题</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>通过以 8 字形移动手机来改善箭头方向，以校准罗盘。</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>通过以 8 字形移动手机以校准罗盘，并在地图上固定箭头方向。</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>再次长按地图即可查看界面</translation>
+</message>
+<message id="downloader_update_all_button">
+<extracomment>Update all button text</extracomment>
+<source>Update All</source>
+<translation>更新全部</translation>
+</message>
+<message id="downloader_cancel_all">
+<extracomment>Cancel all button text</extracomment>
+<source>Cancel All</source>
+<translation>取消全部</translation>
+</message>
+<message id="downloader_downloaded_subtitle">
+<extracomment>Downloaded maps list header</extracomment>
+<source>Downloaded</source>
+<translation>已下载</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
 <translation>已加入到下载队列</translation>
+</message>
+<message id="downloader_near_me_subtitle">
+<source>Near me</source>
+<translation>在我附近</translation>
+</message>
+<message id="downloader_status_maps">
+<extracomment>In maps downloader and country place page shows how many maps are downloaded / to download, e.g. &quot;Maps: 3 of 10&quot;</extracomment>
+<source>Maps</source>
+<translation>地图</translation>
+</message>
+<message id="downloader_download_all_button">
+<source>Download All</source>
+<translation>下载全部</translation>
+</message>
+<message id="downloader_downloading">
+<source>Downloading:</source>
+<translation>正在下载：</translation>
+</message>
+<message id="downloader_download_map">
+<extracomment>Context menu item for downloader.</extracomment>
+<source>Download map</source>
+<translation>下载地图</translation>
 </message>
 <message id="downloader_retry">
 <extracomment>Item status in downloader.</extracomment>
 <source>Retry</source>
 <translation>重新下载</translation>
 </message>
+<message id="downloader_update_map">
+<extracomment>Item in context menu.</extracomment>
+<source>Update Map</source>
+<translation>更新地图</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Organic Maps 版本：%1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>外观</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>浅色</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>深色</translation>
+</message>
+<message id="downloader_available_maps">
+<extracomment>Downloaded maps category</extracomment>
+<source>Available</source>
+<translation>可用</translation>
+</message>
+<message id="downloader_status_outdated">
+<extracomment>Status of outdated country in the list</extracomment>
+<source>Update</source>
+<translation>更新</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
 <source>bookmark</source>
 <translation>书签</translation>
 </message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>要开始搜索和规划路线，请下载地图，然后您就不再需要网络连接了。</translation>
+</message>
+<message id="search_select_map">
+<source>Select Map</source>
+<translation>选择地图</translation>
+</message>
 <message id="categories">
 <source>Categories</source>
 <translation>类别</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>历史</translation>
+</message>
+<message id="search_not_found">
+<source>Oops, no results found.</source>
+<translation>很抱歉，没有搜到任何地点。</translation>
+</message>
+<message id="search_not_found_query">
+<extracomment>The message when user did not find anything in the search.</extracomment>
+<source>Download the region where you are searching or try adding a nearby town/village name.</source>
+<translation>下载您要搜索的区域的地图，或尝试输入附近的城镇或村庄名称。</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>搜索历史记录</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>清除搜索记录</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -334,9 +617,50 @@
 <source>Route to</source>
 <translation>到这去</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>全天（24 小时）</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>正在营业</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>营业时间</translation>
+</message>
+<message id="autodownload">
+<source>Auto-download maps</source>
+<translation>自动下载</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>24/7 全天候营业</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>不营业</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>午夜</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>中午</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>将于 %1 后营业</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>将于 %1 后不营业</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>已停止营业</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -380,14 +704,49 @@
 <source>Floor</source>
 <translation>楼层</translation>
 </message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>楼层：%1</translation>
+</message>
+<message id="downloader_search_field_hint">
+<source>Find map</source>
+<translation>搜索地图</translation>
+</message>
+<message id="common_check_internet_connection_dialog">
+<source>Please make sure your device is connected to the Internet.</source>
+<translation>请检查您的设置并确保您的设备已连接至网络。</translation>
+</message>
+<message id="downloader_no_space_title">
+<source>Not enough space</source>
+<translation>没有足够的空间</translation>
+</message>
+<message id="downloader_no_space_message">
+<extracomment>Message shown when there is not enough space to download maps</extracomment>
+<source>Please delete any unnecessary data</source>
+<translation>请删除不必要的数据</translation>
+</message>
 <message id="editor_edit_place_category_title">
 <source>Category</source>
 <translation>类别</translation>
+</message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>截至 %1 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 详细了解如何编辑和更新地图</translation>
 </message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
 <translation>%1 / %2</translation>
+</message>
+<message id="download_over_mobile_header">
+<source>Download over a cellular network connection?</source>
+<translation>用手机网络连接下载吗？</translation>
+</message>
+<message id="download_over_mobile_message">
+<source>This could be considerably expensive with some plans or if roaming.</source>
+<translation>如果您使用移动数据或漫游来进行下载，将可能导致额外的费用。</translation>
 </message>
 <message id="editor_storey_number">
 <source>Number of floors (maximum of %1)</source>
@@ -396,6 +755,19 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>运营方</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>运营方: %1</translation>
+</message>
+<message id="downloader_no_downloaded_maps_title">
+<source>You haven&#x27;t downloaded any maps</source>
+<translation>您尚未下载任何地图</translation>
+</message>
+<message id="downloader_no_downloaded_maps_message">
+<source>Download maps to search and navigate offline.</source>
+<translation>下载地图来查找位置和离线浏览。</translation>
 </message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
@@ -445,9 +817,34 @@
 <source>Decline</source>
 <translation>拒绝</translation>
 </message>
+<message id="mobile_data_option_always">
+<source>Use Always</source>
+<translation>始终使用</translation>
+</message>
+<message id="mobile_data">
+<source>Mobile Internet</source>
+<translation>移动网络</translation>
+</message>
+<message id="mobile_data_description">
+<extracomment>NOTE to translators: please synchronize your translation with the English one.</extracomment>
+<source>Mobile internet is required for map update notifications and uploading edits.</source>
+<translation>要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。</translation>
+</message>
+<message id="mobile_data_option_never">
+<source>Never Use</source>
+<translation>从不使用</translation>
+</message>
+<message id="mobile_data_option_ask">
+<source>Always Ask</source>
+<translation>总是询问</translation>
+</message>
 <message id="big_font">
 <source>Increase size for map labels</source>
 <translation>增大地图上的字体大小</translation>
+</message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>启用日志记录</translation>
 </message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
@@ -467,6 +864,19 @@
 <source>Please wait…</source>
 <translation>请稍候…</translation>
 </message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>隐私</translation>
+</message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>隐私政策</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>使用条款</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>路况</translation>
@@ -481,10 +891,19 @@
 <source>Cycling</source>
 <translation>骑行</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>卫星</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>地铁</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>地图样式和图层</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +920,26 @@
 <source>Export GeoJSON</source>
 <translation>导出为 GeoJSON</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>省电模式</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>如果开启省电模式，本应用将根据手机的当前电量关闭耗电功能。</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>从不</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>当电量低时</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>最大程度省电</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +952,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>底部显示</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>临时启用此选项，以便使用“报告错误”功能在帮助对话框中记录并手动发送详细诊断日志给我们。日志可能包含位置信息。</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -566,6 +1009,26 @@
 <source>No</source>
 <translation>否</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>是</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>否</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>容量：%1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>网络：%1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>好的</translation>
@@ -594,6 +1057,27 @@
 <source>Others</source>
 <translation>其他</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>现已关门</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>明天 %1 营业</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>%1 %2 营业</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>%1 营业</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>%1 不营业</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>无效的用户名或密码。</translation>
@@ -606,9 +1090,17 @@
 <source>Select category</source>
 <translation>选择类别</translation>
 </message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>…更多</translation>
+</message>
 <message id="refresh">
 <source>Update</source>
 <translation>更新</translation>
+</message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>日志文件大小：%1</translation>
 </message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
@@ -683,15 +1175,47 @@
 <source>3D Terrain</source>
 <translation>3D 地形</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>更新该地区以查看等高线</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>放大地图以查看等高线</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>保持屏幕打开</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>启用后，显示地图时屏幕将始终打开。</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>地图语言</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsZH</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/zh-Hans/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/Zh-hans:关于</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -717,6 +1241,11 @@
 <source>Menu Link</source>
 <translation>菜单链接</translation>
 </message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>查看菜单</translation>
+</message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
 <source>Self-service</source>
@@ -736,6 +1265,21 @@
 <source>Follow the system</source>
 <translation>跟随系统</translation>
 </message>
+<message id="whats_new_auto_update_title">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update downloaded maps</source>
+<translation>更新已下载的地图</translation>
+</message>
+<message id="whats_new_auto_update_message">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Updating maps keeps the information about objects up to date</source>
+<translation>更新地图可以让对象的信息保持最新状态</translation>
+</message>
+<message id="whats_new_auto_update_button_size">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update (%1)</source>
+<translation>更新 (%1)</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
@@ -744,6 +1288,15 @@
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
 <translation>添加地点</translation>
+</message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
 </message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
@@ -754,6 +1307,16 @@
 <extracomment>Default bookmark list name</extracomment>
 <source>My Places</source>
 <translation>我的地点</translation>
+</message>
+<message id="maps_storage_internal">
+<extracomment>Internal storage type in Maps Storage settings (not accessible by the user)</extracomment>
+<source>Internal private storage</source>
+<translation>内部私人存储</translation>
+</message>
+<message id="maps_storage_removable">
+<extracomment>Removable external storage type in Maps Storage settings, e.g. an SD card</extracomment>
+<source>SD card</source>
+<translation>SD 卡</translation>
 </message>
 <message id="category_wifi">
 <extracomment>Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!</extracomment>
@@ -789,6 +1352,11 @@
 <source>ft</source>
 <translation>英尺</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>要显示路线，必须更新地图。</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1365,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>入口</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>紫色已下载区域</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
@@ -1168,6 +1741,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>在地图上选择</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1177,6 +1755,11 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>目的地</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>移动并缩放地图以定位十字</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1257,6 +1840,26 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Less</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copy %1</translation>
+</message>
+<message id="mobile_data_downloads_off">
+<extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
+<source>Map downloads over mobile internet are turned off in the settings.</source>
+<translation>Map downloads over mobile internet are turned off in the settings.</translation>
+</message>
+<message id="maps_storage_restart">
+<extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
+<source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
+<translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
 </message>
 </context>
 </TS>
