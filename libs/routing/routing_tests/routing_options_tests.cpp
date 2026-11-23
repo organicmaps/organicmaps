@@ -167,27 +167,40 @@ UNIT_TEST(RoutingOptions_TrailGradesAndTruncatedSubtypes)
   TEST(classifier.Get(classif().GetTypeByPath({"highway", "motorway", "bridge"})) == RoutingOptions::Motorway, ());
 }
 
-UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
+UNIT_TEST(RoutingOptions_AndroidRoadIds)
 {
-  for (auto const road : {RoutingOptions::Usual, RoutingOptions::Toll, RoutingOptions::Motorway, RoutingOptions::Ferry,
-                          RoutingOptions::Dirty, RoutingOptions::Steps})
-  {
-    auto const parsed = RoutingOptions::RoadFromId(static_cast<uint32_t>(road));
-    TEST(parsed, (road));
-    TEST_EQUAL(*parsed, road, ());
-  }
-  for (uint32_t const invalid : {0u, 3u, 6u, 33u, 64u, 128u, 256u, 0xffffffffu})
-    TEST(!RoutingOptions::RoadFromId(invalid), (invalid));
+  TEST(RoutingOptions::RoadFromId(1) == RoutingOptions::Usual, ());
+  TEST(RoutingOptions::RoadFromId(2) == RoutingOptions::Toll, ());
+  TEST(RoutingOptions::RoadFromId(4) == RoutingOptions::Motorway, ());
+  TEST(RoutingOptions::RoadFromId(8) == RoutingOptions::Ferry, ());
+  TEST(RoutingOptions::RoadFromId(16) == RoutingOptions::Dirty, ());
+  TEST(RoutingOptions::RoadFromId(32) == RoutingOptions::Steps, ());
+
+  // One switch covers both trail grades. ExpertTrail has no separate option ID.
+  TEST(RoutingOptions::RoadFromId(64) == RoutingOptions::DifficultTrail, ());
+  TEST(!RoutingOptions::RoadFromId(128), ());
+
+  TEST(!RoutingOptions::RoadFromId(0), ());
+  TEST(!RoutingOptions::RoadFromId(RoutingOptions::Toll | RoutingOptions::Ferry), ());
+  TEST(!RoutingOptions::RoadFromId(0x100u | RoutingOptions::Toll), ());
+}
+
+UNIT_TEST(RoutingOptions_VehicleTypeForRouter)
+{
   TEST(RoutingOptions::GetVehicleType(RouterType::Vehicle) == VehicleType::Car, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Bicycle) == VehicleType::Bicycle, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Pedestrian) == VehicleType::Pedestrian, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Transit) == VehicleType::Transit, ());
   TEST(!RoutingOptions::GetVehicleType(RouterType::Ruler), ());
+}
+
+UNIT_TEST(RoutingOptions_SupportedOptionsByVehicle)
+{
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Car), 30, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle),
              RoutingOptions::Dirty | RoutingOptions::Ferry | RoutingOptions::Steps, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian),
-             RoutingOptions::Ferry | RoutingOptions::Steps, ());
+             RoutingOptions::Ferry | RoutingOptions::Steps | RoutingOptions::DifficultTrail, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Transit), 0, ());
 }
 

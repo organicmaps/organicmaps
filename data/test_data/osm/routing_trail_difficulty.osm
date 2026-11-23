@@ -7,6 +7,10 @@
   <node id="5" lat="1" lon="1.5" />
   <node id="6" lat="1.04" lon="1.1" />
   <node id="7" lat="1.04" lon="1.14" />
+  <node id="20" lat="2" lon="1" />
+  <node id="21" lat="2" lon="1.05" />
+  <node id="22" lat="2" lon="1.06" />
+  <node id="23" lat="2" lon="1.1" />
   <way id="101">
     <nd ref="1" /><nd ref="2" />
     <tag k="highway" v="path" />
@@ -28,7 +32,20 @@
     <tag k="highway" v="path" />
   </way>
   <way id="105">
-    <nd ref="2" /><nd ref="6" /><nd ref="7" /><nd ref="4" />
+    <nd ref="2" /><nd ref="6" /><nd ref="3" /><nd ref="7" /><nd ref="4" />
+    <tag k="highway" v="path" />
+  </way>
+  <way id="120">
+    <nd ref="20" /><nd ref="21" />
+    <tag k="highway" v="path" />
+  </way>
+  <way id="121">
+    <nd ref="21" /><nd ref="22" />
+    <tag k="highway" v="path" />
+    <tag k="trail_visibility" v="horrible" />
+  </way>
+  <way id="122">
+    <nd ref="22" /><nd ref="23" />
     <tag k="highway" v="path" />
   </way>
 </osm>

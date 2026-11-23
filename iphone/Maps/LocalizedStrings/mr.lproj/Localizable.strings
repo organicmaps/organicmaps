@@ -768,6 +768,9 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "जल मार्ग टाळा";
 
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "अवघड पायवाटा टाळा";
+
 /* Routing option to avoid stairs on walking and cycling routes */
 "avoid_steps" = "पायऱ्या टाळा";
 "avoid_motorways" = "मोटरवे टाळा";

@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage
 
+import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType
 import app.organicmaps.widget.placepage.PlacePageButtons.ButtonType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -51,6 +52,28 @@ class PlacePageButtonsTest {
                 ButtonType.ROUTE_TO,
             )
         assertEquals(listOf(ButtonType.ROUTE_TO), primaries(buttons, false))
+    }
+
+    @Test
+    fun roadWarningsOfferTheirAvoidanceAction() {
+        for (warning in RoadWarningMarkType.entries) {
+            val expected =
+                when (warning) {
+                    RoadWarningMarkType.TOLL -> ButtonType.ROUTE_AVOID_TOLL
+
+                    RoadWarningMarkType.FERRY -> ButtonType.ROUTE_AVOID_FERRY
+
+                    RoadWarningMarkType.DIRTY -> ButtonType.ROUTE_AVOID_UNPAVED
+
+                    RoadWarningMarkType.STEPS -> ButtonType.ROUTE_AVOID_STEPS
+
+                    RoadWarningMarkType.DIFFICULT_TRAIL, RoadWarningMarkType.EXPERT_TRAIL ->
+                        ButtonType.ROUTE_AVOID_DIFFICULT_TRAILS
+
+                    RoadWarningMarkType.GATE, RoadWarningMarkType.LIFT_GATE, RoadWarningMarkType.UNKNOWN -> null
+                }
+            assertEquals(warning.name, expected, PlacePageController.toPlacePageButton(warning))
+        }
     }
 
     @Test

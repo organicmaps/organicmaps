@@ -273,8 +273,7 @@ bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router);
 // before choosing a warning, so unpaved steps still show the Steps warning for walking and cycling.
 RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::RouterType router);
 
-// Warnings backed by road-avoidance controls: Toll/Dirty for driving, Ferry for all road modes,
-// and Steps for cycling/walking. The caller decides whether to signal available routing options.
+// Returns whether the warning has an avoidance setting in a supported routing profile.
 bool IsAvoidableRoadWarning(RoadWarningMarkType type);
 
 // Exit or re-entry of an internal walking transfer on a Water route.

@@ -142,19 +142,25 @@ final class ActionBarViewControllerTests: XCTestCase {
     try assertColors(makeActionBar(data: PlacePageDataStub(objectType: .trackRecording)), primary: nil)
   }
 
-  func test_StepsWarningOffersAvoidanceOnlyForWalkingAndCycling() {
+  func test_AvoidanceActionsMatchTheWarningAndRoutingProfile() {
     let previousType = MWMRouter.type()
     defer { MWMRouter.setType(previousType) }
-    for profile in [MWMRouterType.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler] {
-      MWMRouter.setType(profile)
+    let cases: [(PlacePageRoadType, ActionBarButtonType, [MWMRouterType], String, String)] = [
+      (.steps, .avoidSteps, [.bicycle, .pedestrian], "avoid_steps", "ic_avoid_steps"),
+      (.difficultTrail, .avoidDifficultTrails, [.pedestrian], "avoid_difficult_trails", "ic_avoid_difficult_trails"),
+    ]
+    for (warning, button, supported, title, icon) in cases {
       let data = PlacePageDataStub(objectType: .POI)
-      data.stubRoadType = .steps
-      let actionBar = makeActionBar(data: data)
-      let expected: [ActionBarButtonType] = profile == .bicycle || profile == .pedestrian ? [.avoidSteps] : []
-      XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type }, expected)
+      data.stubRoadType = warning
+      for profile in [MWMRouterType.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler] {
+        MWMRouter.setType(profile)
+        let actionBar = makeActionBar(data: data)
+        let expected = supported.contains(profile) ? [button] : []
+        XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type }, expected)
+      }
+      XCTAssertEqual(titleForButton(button, false), L(title))
+      XCTAssertNotNil(UIImage(named: icon))
     }
-    XCTAssertEqual(titleForButton(.avoidSteps, false), L("avoid_steps"))
-    XCTAssertNotNil(UIImage(named: "ic_avoid_steps"))
   }
 
   private func assertColors(_ actionBar: ActionBarViewController, primary: ActionBarButtonType?,

@@ -32,7 +32,7 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidDirty)
     XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidFerry)
     XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: bike) }, [.unpavedRoads, .ferryCrossings, .steps])
-    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: walk) }, [.ferryCrossings, .steps])
+    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: walk) }, [.ferryCrossings, .steps, .difficultTrails])
     XCTAssertTrue(RoutingOptions(routerType: .publicTransport).supportedOptions.isEmpty)
     XCTAssertTrue(RoutingOptions(routerType: .ruler).supportedOptions.isEmpty)
     XCTAssertTrue(RoutingOptions(routerType: .water).supportedOptions.isEmpty)
@@ -57,6 +57,8 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     for profile in [MWMRouterType.bicycle, .pedestrian] {
       let options = RoutingOptions(routerType: profile)
       options.avoidFerry = false
+      options.avoidDirty = false
+      options.avoidDifficultTrails = false
       options.avoidSteps = true
       options.save()
       let reloaded = RoutingOptions(routerType: profile)
@@ -69,6 +71,18 @@ final class RoutingOptionsSettingsTests: XCTestCase {
       options.avoidSteps = true
       options.save()
       XCTAssertFalse(RoutingOptions(routerType: profile).avoidSteps)
+    }
+  }
+
+  func test_DifficultTrailAvoidancePersistsForWalkingOnly() {
+    let profiles: [MWMRouterType] = [.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler]
+    let saved = profiles.map { RoutingOptions(routerType: $0) }
+    defer { saved.forEach { $0.save() } }
+    for profile in profiles {
+      let options = RoutingOptions(routerType: profile)
+      options.avoidDifficultTrails = true
+      options.save()
+      XCTAssertEqual(RoutingOptions(routerType: profile).avoidDifficultTrails, profile == .pedestrian)
     }
   }
 

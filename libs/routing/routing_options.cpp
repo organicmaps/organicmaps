@@ -39,7 +39,7 @@ RoutingOptions::RoadType RoutingOptions::GetSupportedOptions(VehicleType vehicle
   {
   case VehicleType::Car: return Toll | Motorway | Ferry | Dirty;
   case VehicleType::Bicycle: return Ferry | Dirty | Steps;
-  case VehicleType::Pedestrian: return Ferry | Steps;
+  case VehicleType::Pedestrian: return Ferry | Steps | DifficultTrail;
   case VehicleType::Transit: return 0;
   case VehicleType::Count: break;
   }
@@ -72,7 +72,8 @@ std::optional<RoutingOptions::Road> RoutingOptions::RoadFromId(uint32_t id)
   case Motorway:
   case Ferry:
   case Dirty:
-  case Steps: return static_cast<Road>(id);
+  case Steps:
+  case DifficultTrail: return static_cast<Road>(id);
   default: return {};
   }
 }
