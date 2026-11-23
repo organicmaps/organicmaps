@@ -102,6 +102,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     StringBuilder sb = new StringBuilder();
     for (String p : phonesData)
     {
+      p = p.trim();
       if (!TextUtils.isEmpty(p))
       {
         if (sb.length() > 0)
