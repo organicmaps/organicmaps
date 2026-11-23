@@ -22,7 +22,6 @@ final class PlacePageScrollView: UIScrollView {
 
 @objc final class PlacePageViewController: UIViewController {
   private enum Constants {
-    static let actionBarHeight: CGFloat = 50
     static let additionalPreviewOffset: CGFloat = 80
     static let additionalRevealOffset: CGFloat = 12
     static let fastSwipeDownVelocity: CGFloat = -3.0
@@ -32,7 +31,6 @@ final class PlacePageScrollView: UIScrollView {
   @IBOutlet private var scrollView: PlacePageScrollView!
   @IBOutlet private var stackView: UIStackView!
   @IBOutlet private var actionBarContainerView: UIView!
-  @IBOutlet private var actionBarHeightConstraint: NSLayoutConstraint!
   @IBOutlet private var panGesture: UIPanGestureRecognizer!
 
   private let headerStackView = UIStackView()
@@ -203,12 +201,7 @@ final class PlacePageScrollView: UIScrollView {
     // Keep only an active drag: its release re-targets with the new steps.
     // isDragging alone stays true while decelerating.
     beginDragging = scrollView.isTracking && scrollView.isDragging
-    if let actionBar = layout.actionBar {
-      hideActionBar(false)
-      addActionBar(actionBar)
-    } else {
-      hideActionBar(true)
-    }
+    addActionBar(layout.actionBar)
   }
 
   private func fillHeader(with viewControllers: [UIViewController], showSeparator: Bool = true) {
@@ -237,11 +230,11 @@ final class PlacePageScrollView: UIScrollView {
 
   private func cleanupLayout() {
     guard let layout else { return }
-    let childViewControllers = [layout.actionBar, layout.navigationBar] + layout.headerViewControllers + layout.bodyViewControllers
+    let childViewControllers = [layout.actionBar, layout.navigationBar].compactMap { $0 } + layout.headerViewControllers + layout.bodyViewControllers
     for childViewController in childViewControllers {
-      childViewController?.willMove(toParent: nil)
-      childViewController?.view.removeFromSuperview()
-      childViewController?.removeFromParent()
+      childViewController.willMove(toParent: nil)
+      childViewController.view.removeFromSuperview()
+      childViewController.removeFromParent()
     }
     headerStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -348,10 +341,6 @@ extension PlacePageViewController: PlacePageViewProtocol {
     self.layout = layout
     setupLayout(layout)
     updatePreviewOffset()
-  }
-
-  private func hideActionBar(_ value: Bool) {
-    actionBarHeightConstraint.constant = !value ? Constants.actionBarHeight : .zero
   }
 
   func updatePreviewOffset() {

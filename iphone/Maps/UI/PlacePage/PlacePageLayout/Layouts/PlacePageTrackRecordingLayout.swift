@@ -6,10 +6,6 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
 
   lazy var bodyViewControllers: [UIViewController] = configureViewControllers()
 
-  var actionBar: ActionBarViewController? {
-    actionBarViewController
-  }
-
   var navigationBar: UIViewController? {
     placePageNavigationViewController
   }
@@ -29,7 +25,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     return viewController
   }()
 
-  private lazy var actionBarViewController: ActionBarViewController = {
+  private(set) lazy var actionBar: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
     vc.delegate = interactor
