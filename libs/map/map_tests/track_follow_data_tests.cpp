@@ -49,6 +49,34 @@ UNIT_TEST(TrackFollowData_TrackEntryResolvesBothSidesOfGap)
   TEST(!ResolveTrackEntry(track, MeterPoint(500, 0), 0.0), ("A stale distance must not select a new occurrence"));
 }
 
+UNIT_TEST(TrackFollowData_ChartGapAfterMultiEdgeSection)
+{
+  auto const point = [](double lon, geometry::Altitude altitude)
+  { return geometry::PointWithAltitude(mercator::FromLatLon(0, lon), altitude); };
+  kml::TrackData source;
+  source.m_geometry.AddLine({point(0, 100), point(0.029, 110)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(1, 120), point(1.007, 150), point(1.014, 140)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(2, 130), point(2.01, 120)});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+
+  auto const * elevation = track.GetElevationInfo();
+  TEST(elevation, ());
+  std::vector<double> chart;
+  elevation->ForEachPoint([&chart](double distance, geometry::Altitude) { chart.push_back(distance); });
+  std::vector<double> lengths;
+  for (auto const & line : track.GetCumulativeLengths())
+    lengths.insert(lengths.end(), line.begin(), line.end());
+  TEST_EQUAL(chart, lengths, ("The chart and the track must give every point the same distance"));
+
+  // The end of the multi-edge section, shared with the start of the next one.
+  auto const gap = ResolveTrackEntryAt(track, chart[4]);
+  TEST(gap == (TrackSourcePosition{1, 1, 1.0}), (gap.m_line, gap.m_segment, gap.m_fraction));
+  TEST(!HasRemainingTrackGeometry(source.m_geometry, gap), ());
+}
+
 UNIT_TEST(TrackFollowData_InvalidTrackSelectionDistance)
 {
   kml::TrackData source;
