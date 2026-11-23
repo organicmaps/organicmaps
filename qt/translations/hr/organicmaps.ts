@@ -31,10 +31,20 @@
 <source>Miles</source>
 <translation>Milje</translation>
 </message>
+<message id="later">
+<extracomment>Update maps later button text</extracomment>
+<source>Later</source>
+<translation>Kasnije</translation>
+</message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
 <translation>Pretraživaj</translation>
+</message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>Vi trenutno imate sve lokacijske servise za ovaj uređaj ili aplikaciju isključene. Molim vas uključite ih u postavkama.</translation>
 </message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
@@ -50,6 +60,31 @@
 <source>About Organic Maps</source>
 <translation>O Organic Maps</translation>
 </message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>Besplatno za sve, napravljeno sa ljubavi</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• Nema reklama, nema praćenja, nema prikupljanja podataka</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• Nema pražnjenja baterije, radi izvan mreže</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• Brzo, minimalističko, razvijeno od zajednice</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>Otvorenog koda aplikacija napravljena od entuzijasta i volontera.</translation>
+</message>
 <message id="close">
 <source>Close</source>
 <translation>Zatvori</translation>
@@ -57,6 +92,11 @@
 <message id="download">
 <source>Download</source>
 <translation>Preuzmi</translation>
+</message>
+<message id="download_country_failed">
+<extracomment>Show popup notification on top of the map when country download has failed.</extracomment>
+<source>%1 download has failed</source>
+<translation>%1 neuspješno preuzimanje</translation>
 </message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
@@ -78,10 +118,45 @@
 <source>Settings</source>
 <translation>Postavke</translation>
 </message>
+<message id="maps_storage">
+<extracomment>Header of settings activity where user defines storage path</extracomment>
+<source>Save maps to</source>
+<translation>Sačuvaj karte u</translation>
+</message>
+<message id="maps_storage_summary">
+<extracomment>Detailed description of Maps Storage settings button</extracomment>
+<source>Select the folder to download maps to.</source>
+<translation>Odaberite mapu u koju ćete preuzeti karte.</translation>
+</message>
+<message id="maps_storage_downloaded">
+<extracomment>E.g. &quot;Downloaded maps: 500Mb&quot; in Maps Storage settings</extracomment>
+<source>Downloaded maps</source>
+<translation>Preuzete karte</translation>
+</message>
+<message id="maps_storage_free_size">
+<extracomment>Free space out of total storage size in Maps Storage settings, e.g. &quot;300 MB free of 2 GB&quot;</extracomment>
+<source>%1 free of %2</source>
+<translation>%1 slobodno od %2</translation>
+</message>
+<message id="move_maps">
+<extracomment>Question dialog for transferring maps from one storage to another</extracomment>
+<source>Move maps?</source>
+<translation>Premjesti karte?</translation>
+</message>
+<message id="move_maps_error">
+<extracomment>Error moving map files from one storage to another</extracomment>
+<source>Error moving map files</source>
+<translation>Greška pri premještanju kartnih datoteka</translation>
+</message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>Mjerne jedinice</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>Odaberite između milja i kilometara</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +268,11 @@
 <source>RV Facilities</source>
 <translation>Sadržaji za kampere</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>Vaša lokacija još nije određena</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +313,42 @@
 <source>Email</source>
 <translation>E-mail adresa</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>Kopirano u međuspremnik: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Putevi</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>Dijeli moju lokaciju</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>Opće postavke</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>Informacije</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>Navigacija</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>Gumbi „+“ i „-“ na karti</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>Prikaži na karti</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +365,16 @@
 <source>On</source>
 <translation>Uključeno</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>3D zgrade</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>3D zgrade su deaktivirane u modusu štednje energije</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +384,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>URL poslužitelja</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>Unesite valjani URL s {z}/{x}/{y}</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,39 +405,164 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>Izvore prilagođenih pločica pružate vi. Koristite samo usluge kojima smijete pristupati. Vi ste odgovorni za pripisivanje, uvjete licence, API ključeve, kvote i ograničenja korištenja.</translation>
 </message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>Izbornik</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>Web stranica</translation>
+</message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>Novosti</translation>
 </message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>Pomoć</translation>
 </message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>Često postavljena pitanja</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>Doniraj</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>Podrži projekt</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>Autorska prava</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>Prijavi grešku</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>Poboljšajte smjer strelice pomicanjem telefona u obliku osmice za kalibraciju kompasa.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>Pomaknite telefon u obliku osmice kako biste kalibrirali kompas i fiksirali smjer strelice na karti.</translation>
+</message>
+<message id="downloader_update_all_button">
+<extracomment>Update all button text</extracomment>
+<source>Update All</source>
+<translation>Aktualiziraj sve</translation>
+</message>
+<message id="downloader_cancel_all">
+<extracomment>Cancel all button text</extracomment>
+<source>Cancel All</source>
+<translation>Prekini sve</translation>
+</message>
+<message id="downloader_downloaded_subtitle">
+<extracomment>Downloaded maps list header</extracomment>
+<source>Downloaded</source>
+<translation>Preuzeto</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
 <translation>U redu čekanja</translation>
+</message>
+<message id="downloader_near_me_subtitle">
+<source>Near me</source>
+<translation>U mojoj blizini</translation>
+</message>
+<message id="downloader_status_maps">
+<extracomment>In maps downloader and country place page shows how many maps are downloaded / to download, e.g. &quot;Maps: 3 of 10&quot;</extracomment>
+<source>Maps</source>
+<translation>Karte</translation>
+</message>
+<message id="downloader_download_all_button">
+<source>Download All</source>
+<translation>Preuzmi sve</translation>
+</message>
+<message id="downloader_downloading">
+<source>Downloading:</source>
+<translation>Preuzimanje:</translation>
+</message>
+<message id="downloader_download_map">
+<extracomment>Context menu item for downloader.</extracomment>
+<source>Download map</source>
+<translation>Preuzmi kartu</translation>
 </message>
 <message id="downloader_retry">
 <extracomment>Item status in downloader.</extracomment>
 <source>Retry</source>
 <translation>Pokušaj ponovo</translation>
 </message>
+<message id="downloader_update_map">
+<extracomment>Item in context menu.</extracomment>
+<source>Update Map</source>
+<translation>Aktualiziraj kartu</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Organic Maps verzija: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>Izgled</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>Svijetla</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>Tamna</translation>
+</message>
+<message id="downloader_available_maps">
+<extracomment>Downloaded maps category</extracomment>
+<source>Available</source>
+<translation>Dostupno</translation>
+</message>
+<message id="downloader_status_outdated">
+<extracomment>Status of outdated country in the list</extracomment>
+<source>Update</source>
+<translation>Aktualizirano</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
 <source>bookmark</source>
 <translation>zabilješka</translation>
 </message>
+<message id="search_select_map">
+<source>Select Map</source>
+<translation>Odaberi kartu</translation>
+</message>
 <message id="categories">
 <source>Categories</source>
 <translation>Kategorije</translation>
+</message>
+<message id="search_not_found">
+<source>Oops, no results found.</source>
+<translation>Ups, nema rezultata.</translation>
+</message>
+<message id="search_not_found_query">
+<extracomment>The message when user did not find anything in the search.</extracomment>
+<source>Download the region where you are searching or try adding a nearby town/village name.</source>
+<translation>Preuzmi regiju u kojoj tražiš ili pokušavaš dodati ime obližnjeg grada/sela.</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -337,6 +585,10 @@
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>Radno vrijeme</translation>
+</message>
+<message id="autodownload">
+<source>Auto-download maps</source>
+<translation>Automatski preuzmi karte</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -380,14 +632,44 @@
 <source>Floor</source>
 <translation>Kat</translation>
 </message>
+<message id="downloader_search_field_hint">
+<source>Find map</source>
+<translation>Pronađi kartu</translation>
+</message>
+<message id="common_check_internet_connection_dialog">
+<source>Please make sure your device is connected to the Internet.</source>
+<translation>Molimo provjerite je li vaš uređaj povezan na Internet.</translation>
+</message>
+<message id="downloader_no_space_title">
+<source>Not enough space</source>
+<translation>Nema dovoljno memorije</translation>
+</message>
+<message id="downloader_no_space_message">
+<extracomment>Message shown when there is not enough space to download maps</extracomment>
+<source>Please delete any unnecessary data</source>
+<translation>Izbriši sve nepotrebne podatke</translation>
+</message>
 <message id="editor_edit_place_category_title">
 <source>Category</source>
 <translation>Kategorija</translation>
+</message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>Podaci OpenStreetMapa koje je zajednica kreirala na dan %1. Saznajte više o tome kako uređivati i ažurirati kartu na OpenStreetMap.org</translation>
 </message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
 <translation>%1 of %2</translation>
+</message>
+<message id="download_over_mobile_header">
+<source>Download over a cellular network connection?</source>
+<translation>Preuzimanje putem mobilne mreže?</translation>
+</message>
+<message id="download_over_mobile_message">
+<source>This could be considerably expensive with some plans or if roaming.</source>
+<translation>Ovo može biti znatno skupo s nekim tarifama ili ako ste u roamingu.</translation>
 </message>
 <message id="editor_storey_number">
 <source>Number of floors (maximum of %1)</source>
@@ -396,6 +678,14 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>Operator</translation>
+</message>
+<message id="downloader_no_downloaded_maps_title">
+<source>You haven&#x27;t downloaded any maps</source>
+<translation>Niste preuzeli nijednu kartu</translation>
+</message>
+<message id="downloader_no_downloaded_maps_message">
+<source>Download maps to search and navigate offline.</source>
+<translation>Preuzmite karte za pretraživanje i navigaciju izvan mreže.</translation>
 </message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
@@ -445,9 +735,34 @@
 <source>Decline</source>
 <translation>Odbaci</translation>
 </message>
+<message id="mobile_data_option_always">
+<source>Use Always</source>
+<translation>Uvijek koristi</translation>
+</message>
+<message id="mobile_data">
+<source>Mobile Internet</source>
+<translation>Mobilni internet</translation>
+</message>
+<message id="mobile_data_description">
+<extracomment>NOTE to translators: please synchronize your translation with the English one.</extracomment>
+<source>Mobile internet is required for map update notifications and uploading edits.</source>
+<translation>Za obavijesti o ažuriranju karata i učitavanje izmjena potreban je mobilni internet.</translation>
+</message>
+<message id="mobile_data_option_never">
+<source>Never Use</source>
+<translation>Nikada ne koristiti</translation>
+</message>
+<message id="mobile_data_option_ask">
+<source>Always Ask</source>
+<translation>Uvijek pitaj</translation>
+</message>
 <message id="big_font">
 <source>Increase size for map labels</source>
 <translation>Povećajte veličinu oznaka na karti</translation>
+</message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>Omogući zapisivanje</translation>
 </message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
@@ -467,6 +782,14 @@
 <source>Please wait…</source>
 <translation>Pričekaj …</translation>
 </message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>Politika privatnosti</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>Uvjeti korištenja</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>Promet</translation>
@@ -481,10 +804,19 @@
 <source>Cycling</source>
 <translation>Biciklizam</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>Satelit</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>Podzemna željeznica</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>Stilovi karta i slojevi</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +833,26 @@
 <source>Export GeoJSON</source>
 <translation>Izvezi GeoJSON</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>Modus štednje energije</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>Pokušaj smanjiti potrošnju energije na štetu nekih funkcionalnosti.</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>Nikada</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>Kada je baterija slaba</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>Uvijek</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +865,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>Prikaži dolje</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>Privremeno omogućite ovu opciju kako biste snimili i ručno poslali detaljne dijagnostičke zapise o vašem problemu nama putem opcije &quot;Prijavi grešku&quot; u dijaloškom okviru Pomoć. Zapisi mogu uključivati informacije o lokaciji.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -610,6 +966,10 @@
 <source>Update</source>
 <translation>Ažuriranje</translation>
 </message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>Veličina zapisnika: %1</translation>
+</message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
 <translation>Preuzimanje %1…</translation>
@@ -683,15 +1043,47 @@
 <source>3D Terrain</source>
 <translation>3D teren</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>Ažurirajte ovo područje da biste vidjeli izohipse</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>Uvećaj prikaz karte za prikaz izohipsa</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>Ostavi ekran uključen</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>Kada je omogućeno, zaslon će uvijek biti uključen dok se prikazuje karta.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>Jezik karte</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -736,6 +1128,21 @@
 <source>Follow the system</source>
 <translation>Prati sustav</translation>
 </message>
+<message id="whats_new_auto_update_title">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update downloaded maps</source>
+<translation>Ažuriraj preuzete karte</translation>
+</message>
+<message id="whats_new_auto_update_message">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Updating maps keeps the information about objects up to date</source>
+<translation>Ažuriranje karata održava informacije o objektima ažurnima</translation>
+</message>
+<message id="whats_new_auto_update_button_size">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update (%1)</source>
+<translation>Ažuriranje (%1)</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
@@ -744,6 +1151,15 @@
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
 <translation>Dodaj mjesto</translation>
+</message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
 </message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
@@ -754,6 +1170,16 @@
 <extracomment>Default bookmark list name</extracomment>
 <source>My Places</source>
 <translation>Moja Mjesta</translation>
+</message>
+<message id="maps_storage_internal">
+<extracomment>Internal storage type in Maps Storage settings (not accessible by the user)</extracomment>
+<source>Internal private storage</source>
+<translation>Interna privatna pohrana</translation>
+</message>
+<message id="maps_storage_removable">
+<extracomment>Removable external storage type in Maps Storage settings, e.g. an SD card</extracomment>
+<source>SD card</source>
+<translation>SD kartica</translation>
 </message>
 <message id="category_wifi">
 <extracomment>Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!</extracomment>
@@ -789,6 +1215,11 @@
 <source>ft</source>
 <translation>ft</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>Za prikaz ruta, karte moraju biti ažurirane.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1228,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>Ulaz</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>Ljubičaste preuzete regije</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
@@ -1257,6 +1693,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="mobile_data_downloads_off">
+<extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
+<source>Map downloads over mobile internet are turned off in the settings.</source>
+<translation>Map downloads over mobile internet are turned off in the settings.</translation>
+</message>
+<message id="maps_storage_restart">
+<extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
+<source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
+<translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
 </message>
 </context>
 </TS>
