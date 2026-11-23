@@ -68,7 +68,7 @@
               android:id="@+id/routing_btn_search"
               style="@style/MwmWidget.MapButton.Square.bottom"
               android:layout_height="wrap_content"
-              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_marginEnd="@dimen/margin_half"
               android:layout_weight="1"
               android:contentDescription="@string/search"
               app:fabCustomSize="40dp"
@@ -79,7 +79,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
               android:id="@+id/routing_btn_bookmarks"
               style="@style/MwmWidget.MapButton.Square.bottom"
-              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_marginEnd="@dimen/margin_half"
               android:layout_weight="1"
               android:contentDescription="@string/bookmarks"
               app:fabCustomSize="40dp"
@@ -90,7 +90,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
               android:id="@+id/btn__save"
               style="@style/MwmWidget.MapButton.Square.bottom"
-              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_marginEnd="@dimen/margin_double"
               android:layout_weight="1"
               android:contentDescription="@string/save"
               app:fabCustomSize="40dp"
