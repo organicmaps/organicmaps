@@ -93,6 +93,8 @@ private:
 class TestFramework
 {
 public:
+  explicit TestFramework(bool loadMaps = true) : m_framework(FrameworkParams(false /* m_enableDiffs */), loadMaps) {}
+
   RoutingManager & GetRoutingManager() { return m_framework.GetRoutingManager(); }
   BookmarkManager & GetBookmarkManager() { return m_framework.GetBookmarkManager(); }
   storage::Storage & GetStorage() { return m_framework.GetStorage(); }
@@ -100,7 +102,7 @@ public:
 private:
   // Select the router before Framework reads it, and restore it after Framework is destroyed.
   ScopedVehicleRouter const m_routerSetting;
-  Framework m_framework{FrameworkParams(false /* m_enableDiffs */)};
+  Framework m_framework;
 };
 
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
@@ -187,6 +189,28 @@ RouteMarkData MakeRoutePointOnXAxis(RouteMarkType type, size_t intermediateIndex
   auto point = MakeRoutePoint(type, intermediateIndex, coord);
   point.m_position.y = 0.0;
   return point;
+}
+
+void ExpectSameData(RouteMarkData const & actual, RouteMarkData const & expected)
+{
+  TEST(actual.m_pointType == expected.m_pointType, ());
+  TEST_EQUAL(actual.m_intermediateIndex, expected.m_intermediateIndex, ());
+  TEST_EQUAL(actual.m_position, expected.m_position, ());
+  TEST_EQUAL(actual.m_title, expected.m_title, ());
+  TEST_EQUAL(actual.m_subTitle, expected.m_subTitle, ());
+  TEST_EQUAL(actual.m_isMyPosition, expected.m_isMyPosition, ());
+  TEST_EQUAL(actual.m_isPassed, expected.m_isPassed, ());
+  TEST_EQUAL(actual.m_replaceWithMyPositionAfterRestart, expected.m_replaceWithMyPositionAfterRestart, ());
+  TEST_EQUAL(actual.m_isVisible, expected.m_isVisible, ());
+}
+
+std::vector<kml::MarkId> GetRoutePointIds(BookmarkManager & bookmarks)
+{
+  RoutePointsLayout layout(bookmarks);
+  std::vector<kml::MarkId> ids;
+  for (auto const * point : layout.GetRoutePoints())
+    ids.push_back(point->GetId());
+  return ids;
 }
 
 size_t GetIntermediatePointsCount(std::vector<RouteMarkData> const & points)
@@ -607,6 +631,89 @@ UNIT_TEST(RoutingManager_MoveSingleRoutePointBetweenEndpoints)
   auto const startFromEmptyFinish = manager.GetRoutePoints();
   TEST(startFromEmptyFinish.front().m_pointType == RouteMarkType::Start, ());
   TEST_EQUAL(getMarkId(), markId, ());
+}
+
+UNIT_TEST(RoutingManager_SelectLiveStartPreservesOtherMarksAtCapacity)
+{
+  TestFramework framework(false /* loadMaps */);
+  auto & manager = framework.GetRoutingManager();
+  FillRouteToLimit(manager);
+  {
+    RoutePointsLayout layout(framework.GetBookmarkManager());
+    auto * finish = layout.GetRoutePointForEdit(RouteMarkType::Finish);
+    auto data = finish->GetMarkData();
+    data.m_title = "My Position";
+    data.m_isMyPosition = true;
+    data.m_isVisible = false;
+    finish->SetMarkData(std::move(data));
+    layout.PassRoutePoint(RouteMarkType::Intermediate, 0);
+  }
+  auto expected = manager.GetRoutePoints();
+  auto const expectedIds = GetRoutePointIds(framework.GetBookmarkManager());
+  auto selection = MakeRoutePoint(RouteMarkType::Start, 0, 0.1);
+  selection.m_isMyPosition = true;
+  selection.m_title = "New fix";
+  expected.front() = selection;
+  expected.front().m_isVisible = false;
+  expected.back().m_isMyPosition = false;
+  expected.back().m_isVisible = true;
+  TEST(manager.SelectRouteEndpoint(std::move(selection)), ());
+  auto const after = manager.GetRoutePoints();
+  TEST_EQUAL(after.size(), expected.size(), ());
+  TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), expectedIds, ());
+  for (size_t i = 0; i < after.size(); ++i)
+    ExpectSameData(after[i], expected[i]);
+}
+
+UNIT_TEST(RoutingManager_SelectFinishAsStartMakesReturnTrip)
+{
+  TestFramework framework(false /* loadMaps */);
+  auto & manager = framework.GetRoutingManager();
+  AddTestRoute(manager, {2.0});
+  auto const ids = GetRoutePointIds(framework.GetBookmarkManager());
+  auto expected = manager.GetRoutePoints();
+  expected.front().m_position = expected.back().m_position;
+  TEST(manager.SelectRouteEndpoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 10.0)), ());
+  auto const after = manager.GetRoutePoints();
+  TEST_EQUAL(after.size(), expected.size(), ());
+  TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), ids, ());
+  for (size_t i = 0; i < after.size(); ++i)
+    ExpectSameData(after[i], expected[i]);
+}
+
+UNIT_TEST(RoutingManager_SelectLiveStartKeepsLiveStopAtItsPlannedPosition)
+{
+  TestFramework framework(false /* loadMaps */);
+  auto & manager = framework.GetRoutingManager();
+  auto stop = MakeRoutePoint(RouteMarkType::Intermediate, 0, 2);
+  stop.m_isMyPosition = true;
+  TEST(manager.AddRoutePoint(std::move(stop), false), ());
+  TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 3), false), ());
+  auto const ids = GetRoutePointIds(framework.GetBookmarkManager());
+
+  auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1);
+  start.m_isMyPosition = true;
+  TEST(manager.SelectRouteEndpoint(std::move(start)), ());
+  auto const points = manager.GetRoutePoints();
+  TEST_EQUAL(points.size(), 3, ());
+  TEST(points[0].m_isMyPosition, ());
+  TEST(points[1].m_pointType == RouteMarkType::Intermediate && !points[1].m_isMyPosition && points[1].m_isVisible, ());
+  TEST_EQUAL(points[1].m_position, m2::PointD(2, 2), ());
+  auto const afterIds = GetRoutePointIds(framework.GetBookmarkManager());
+  TEST_EQUAL(afterIds[1], ids[0], ());
+  TEST_EQUAL(afterIds[2], ids[1], ());
+}
+
+UNIT_TEST(RoutingManager_SwapLoneEndpoint)
+{
+  TestFramework framework(false /* loadMaps */);
+  auto & manager = framework.GetRoutingManager();
+  TEST(!manager.SwapRoutePointEndpoints(), ());
+  TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false), ());
+  auto const ids = GetRoutePointIds(framework.GetBookmarkManager());
+  TEST(manager.SwapRoutePointEndpoints(), ());
+  TEST(manager.GetRoutePoints().front().m_pointType == RouteMarkType::Finish, ());
+  TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), ids, ());
 }
 
 UNIT_TEST(RoutingManager_OptimizationWithIncompleteRoute)
@@ -1126,8 +1233,7 @@ UNIT_TEST(RoutingManager_AddRoutePointAtLimitReportsFailure)
   TEST_EQUAL(pointsAfter.back().m_position, pointsBefore.back().m_position, ());
 }
 
-// Callers ignore AddRoutePoint()'s result for start and finish because the layout drops the point
-// standing in the slot before adding. Pin that: at the limit only a new intermediate point can be rejected.
+// Replacing an existing endpoint frees its slot before the new point is added.
 UNIT_TEST(RoutingManager_ReplaceStartAndFinishAtLimitSucceeds)
 {
   TestFramework framework;
@@ -1145,6 +1251,59 @@ UNIT_TEST(RoutingManager_ReplaceStartAndFinishAtLimitSucceeds)
   TEST(points.back().m_pointType == RouteMarkType::Finish, ());
   TEST_EQUAL(points.front().m_position, m2::PointD(200.0, 200.0), ());
   TEST_EQUAL(points.back().m_position, m2::PointD(201.0, 201.0), ());
+}
+
+UNIT_TEST(RoutingManager_ReplaceEndpointInPartialRouteKeepsStop)
+{
+  for (auto const type : {RouteMarkType::Start, RouteMarkType::Finish})
+  {
+    TestFramework framework(false /* loadMaps */);
+    auto & manager = framework.GetRoutingManager();
+    TEST(manager.AddRoutePoint(MakeRoutePoint(type, 0, 1.0), false /* optimize */), ());
+    auto stop = MakeRoutePoint(RouteMarkType::Intermediate, 0, 2.0);
+    stop.m_title = "Stop";
+    TEST(manager.AddRoutePoint(std::move(stop), false /* optimize */), ());
+    auto const before = manager.GetRoutePoints();
+    auto const beforeIds = GetRoutePointIds(framework.GetBookmarkManager());
+
+    TEST(manager.ReplaceRoutePoint(type, 0, MakeRoutePoint(type, 0, 3.0)), ());
+
+    auto const after = manager.GetRoutePoints();
+    TEST_EQUAL(after.size(), 2, ());
+    TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), beforeIds, ());
+    size_t const endpointIndex = type == RouteMarkType::Start ? 0 : 1;
+    TEST(after[endpointIndex].m_pointType == type, ());
+    TEST_EQUAL(after[endpointIndex].m_position, m2::PointD(3.0, 3.0), ());
+    ExpectSameData(after[1 - endpointIndex], before[1 - endpointIndex]);
+  }
+}
+
+UNIT_TEST(RoutingManager_SettingMissingEndpointAtLimitReportsFailure)
+{
+  for (auto const missingType : {RouteMarkType::Start, RouteMarkType::Finish})
+  {
+    TestFramework framework(false /* loadMaps */);
+    auto & manager = framework.GetRoutingManager();
+    auto const oppositeType = missingType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start;
+    auto opposite = MakeRoutePoint(oppositeType, 0, 1.0);
+    opposite.m_isMyPosition = missingType == RouteMarkType::Start;
+    TEST(manager.AddRoutePoint(std::move(opposite), false /* optimize */), ());
+    for (size_t i = 0; i + 1 < RoutePointsLayout::kMaxRoutePointsCount; ++i)
+      TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, i, i + 2.0), false /* optimize */), (i));
+    auto const before = manager.GetRoutePoints();
+    auto const beforeIds = GetRoutePointIds(framework.GetBookmarkManager());
+    TEST_EQUAL(before.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
+
+    auto selection = MakeRoutePoint(missingType, 0, -1.0);
+    selection.m_isMyPosition = missingType == RouteMarkType::Start;
+    TEST(!manager.SelectRouteEndpoint(std::move(selection)), ());
+
+    auto const after = manager.GetRoutePoints();
+    TEST_EQUAL(after.size(), before.size(), ());
+    TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), beforeIds, ());
+    for (size_t i = 0; i < after.size(); ++i)
+      ExpectSameData(after[i], before[i]);
+  }
 }
 
 // If route marks are wiped between IsRoutingActive() and ContinueRouteToPoint(),
@@ -2239,6 +2398,32 @@ UNIT_TEST(RoutingManager_SaveRouteKeepsStopNames)
     TEST_EQUAL(track->GetData().m_stops, expectedStops, ());
     for (auto const & point : track->GetGeometry())
       TEST_EQUAL(point.GetAltitude(), geometry::kInvalidAltitude, ());
+  });
+}
+
+UNIT_TEST(RoutingManager_BuildRoundTrip)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread & gui)
+  {
+    manager.RoutingSession().SetRouter(std::make_unique<routing::RulerRouter>(), nullptr);
+    TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false), ());
+    TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2), false), ());
+    TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 1), false), ());
+    bool built = false;
+    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    {
+      TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+      built = true;
+    });
+    manager.BuildRoute();
+    gui.RunUntil([&] { return built; });
+    TEST(manager.IsRouteBuilt(), ());
+    manager.SaveRoutePoints();
+    manager.CloseRouting(true);
+    TEST(manager.LoadRoutePoints(), ());
+    auto const points = manager.GetRoutePoints();
+    TEST_EQUAL(points.size(), 3, ());
+    TEST_EQUAL(points.front().m_position, points.back().m_position, ());
   });
 }
 

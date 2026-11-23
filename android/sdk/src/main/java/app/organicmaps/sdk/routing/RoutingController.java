@@ -538,8 +538,12 @@ public class RoutingController
     mLastRouterType = routerType;
     Router.set(mLastRouterType);
 
-    if (startPoint != null || endPoint != null)
-      setPointsInternal(startPoint, endPoint);
+    if (startPoint != null)
+      addRoutePoint(RouteMarkType.Start, startPoint);
+    if (endPoint != null)
+      addRoutePoint(RouteMarkType.Finish, endPoint);
+    if ((startPoint != null || endPoint != null) && mContainer != null)
+      mContainer.updateMenu();
 
     startPlanning(startPoint, endPoint);
   }
@@ -579,8 +583,9 @@ public class RoutingController
     final PendingPoiPick pick = requirePendingPoiPick();
     if (!pick.isReplacement())
       throw new IllegalStateException("A route point replacement was not requested");
-    replaceRoutePoint(pick.pointType(), mapObject, pick.replaceStopIndex());
-    finalizeStopChange();
+    if (rejectDuplicateMyPosition(mapObject, pick))
+      return;
+    finalizeStopChange(replaceRoutePoint(pick.pointType(), mapObject, pick.replaceStopIndex()));
   }
 
   /**
@@ -589,29 +594,14 @@ public class RoutingController
   public void addStop(@NonNull MapObject mapObject)
   {
     checkMapsReady();
-    if (!addRoutePoint(RouteMarkType.Intermediate, mapObject))
-    {
-      if (mContainer != null)
-        mContainer.onStopPointLimitReached();
-      // Rejection completes the pending pick too, so its overlay is dismissed with the controls it owns.
-      finalizePendingPoiPick();
-      return;
-    }
-
-    finalizeStopChange();
+    if (!rejectDuplicateMyPosition(mapObject, null))
+      finalizeStopChange(addRoutePoint(RouteMarkType.Intermediate, mapObject));
   }
 
   private void appendStop(@NonNull MapObject mapObject)
   {
-    if (!appendRoutePoint(mapObject))
-    {
-      if (mContainer != null)
-        mContainer.onStopPointLimitReached();
-      finalizePendingPoiPick();
-      return;
-    }
-
-    finalizeStopChange();
+    if (!rejectDuplicateMyPosition(mapObject, null))
+      finalizeStopChange(appendRoutePoint(mapObject));
   }
 
   /**
@@ -629,8 +619,23 @@ public class RoutingController
     }
   }
 
-  private void finalizeStopChange()
+  private boolean rejectDuplicateMyPosition(@NonNull MapObject point, @Nullable PendingPoiPick replacement)
   {
+    if (!point.isMyPosition() || computeCanPickMyPosition(replacement))
+      return false;
+    finalizePendingPoiPick();
+    return true;
+  }
+
+  private void finalizeStopChange(boolean changed)
+  {
+    if (!changed)
+    {
+      if (mContainer != null)
+        mContainer.onStopPointLimitReached();
+      finalizePendingPoiPick();
+      return;
+    }
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -727,9 +732,9 @@ public class RoutingController
   /**
    * Returns whether a further intermediate stop is allowed in the current profile and controller state.
    */
-  public boolean isStopPointAllowed()
+  public boolean isStopPointAllowed(@NonNull MapObject point)
   {
-    return Framework.nativeCouldAddIntermediatePoint();
+    return Framework.nativeCouldAddIntermediatePoint() && (!point.isMyPosition() || computeCanPickMyPosition(null));
   }
 
   public boolean isPoiPickReplaceStop()
@@ -997,14 +1002,11 @@ public class RoutingController
     return pick.isReplacement() && point.mIntermediateIndex == pick.replaceStopIndex();
   }
 
-  // The core keeps a single my-position mark, so adding it to a second slot pulls it out of the one it
-  // already holds (in AddRoutePoint and ContinueRouteToPoint), silently emptying that one. Offer the shortcut only
-  // where the route has no such point, or where the pick replaces the one it has. Cache this per pick
-  // because the search UI asks on every location update; arming or clearing the pick invalidates the cache.
-  private static boolean computeCanPickMyPosition(@NonNull PendingPoiPick pick)
+  // Only replacement of the live mark can reuse My Position. A plain insertion preserves every existing slot.
+  private static boolean computeCanPickMyPosition(@Nullable PendingPoiPick pick)
   {
     for (RouteMarkData point : Framework.nativeGetRoutePoints())
-      if (point.mIsMyPosition && !isReplacedByPick(point, pick))
+      if (point.mIsMyPosition && (pick == null || !isReplacedByPick(point, pick)))
         return false;
     return true;
   }
@@ -1041,24 +1043,12 @@ public class RoutingController
   @Nullable
   private MapObject getStartOrEndPointByType(@NonNull RouteMarkType type)
   {
-    RouteMarkData[] points = Framework.nativeGetRoutePoints();
-    int size = points.length;
-
-    if (size == 0)
+    final RouteMarkData[] points = Framework.nativeGetRoutePoints();
+    if (points.length == 0)
       return null;
 
-    if (size == 1)
-    {
-      RouteMarkData point = points[0];
-      return point.mPointType == type ? toMapObject(point) : null;
-    }
-
-    if (type == RouteMarkType.Start)
-      return toMapObject(points[0]);
-    if (type == RouteMarkType.Finish)
-      return toMapObject(points[size - 1]);
-
-    return null;
+    final RouteMarkData point = points[type == RouteMarkType.Start ? 0 : points.length - 1];
+    return point.mPointType == type ? toMapObject(point) : null;
   }
 
   @Nullable
@@ -1073,33 +1063,13 @@ public class RoutingController
     return mCachedTransitRouteInfo;
   }
 
-  private void setPointsInternal(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
-  {
-    final boolean hasStart = startPoint != null;
-    final boolean hasEnd = endPoint != null;
-    final boolean hasOnePointAtLeast = hasStart || hasEnd;
-
-    // The result is unread on purpose: the core drops the point standing in the slot before adding, so only adding
-    // a stop can run the route out of capacity.
-    if (hasStart)
-      addRoutePoint(RouteMarkType.Start, startPoint);
-
-    if (hasEnd)
-      addRoutePoint(RouteMarkType.Finish, endPoint);
-
-    if (hasOnePointAtLeast && mContainer != null)
-      mContainer.updateMenu();
-  }
-
   /**
    * Builds the plan when both endpoints are available.
    */
   public void checkAndBuildRoute()
   {
     checkMapsReady();
-    // showRoutePlan() runs while POI-pick is still pending on purpose: the plan sheet lands underneath the
-    // search/PP overlay that finalizePendingPoiPick() dismisses right after (via set{Start,End}Point's outer
-    // wrapper). Flipping this order would visibly pop the sheet up post-close instead of revealing it seamlessly.
+    // Show the plan underneath the picker before onPoiPickCompleted dismisses the overlay.
     if (isWaitingPoiPick())
       showRoutePlan();
 
@@ -1108,101 +1078,60 @@ public class RoutingController
   }
 
   /**
-   * Sets starting point.
-   * <ul>
-   *   <li>If {@code point} matches ending one and the starting point was set &mdash; swap points.
-   *   <li>The same as the currently set starting point is skipped.
-   * </ul>
-   * Route starts to build if both points were set.
+   * Sets the start and preserves the stops and destination. Selecting My Position fixes any other live route
+   * point at its planned coordinates. Rebuilds when both endpoints are present.
    *
-   * @return {@code true} if the point was set.
+   * @return whether the selection changed the plan
    */
-  @SuppressWarnings("Duplicates")
   public boolean setStartPoint(@Nullable MapObject point)
   {
-    checkMapsReady();
-    final boolean result = setStartPointInternal(point);
-    finalizePendingPoiPick();
-    return result;
-  }
-
-  private boolean setStartPointInternal(@Nullable MapObject point)
-  {
-    Logger.d(TAG, "setStartPoint");
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    boolean isSamePoint = MapObject.same(startPoint, point);
-    if (isSamePoint)
-    {
-      Logger.d(TAG, "setStartPoint: skip the same starting point");
-      return false;
-    }
-
-    if (point != null && point.sameAs(endPoint))
-    {
-      if (startPoint == null)
-      {
-        Logger.d(TAG, "setStartPoint: skip because starting point is empty");
-        return false;
-      }
-
-      Logger.d(TAG, "setStartPoint: swap with end point");
-      endPoint = startPoint;
-    }
-
-    startPoint = point;
-    setPointsInternal(startPoint, endPoint);
-    checkAndBuildRoute();
-    return true;
+    return setEndpoint(RouteMarkType.Start, point);
   }
 
   /**
    * Sets ending point.
    * <ul>
    *   <li>If {@code point} is the same as starting point &mdash; swap points if ending point is set, skip otherwise.
+   *   <li>The same as the currently set ending point or a null point is skipped.
    * </ul>
    * Route starts to build if both points were set.
    *
    * @return {@code true} if the point was set.
    */
-  @SuppressWarnings("Duplicates")
   public boolean setEndPoint(@Nullable MapObject point)
   {
-    checkMapsReady();
-    final boolean result = setEndPointInternal(point);
-    finalizePendingPoiPick();
-    return result;
+    return setEndpoint(RouteMarkType.Finish, point);
   }
 
-  private boolean setEndPointInternal(@Nullable MapObject point)
+  private boolean setEndpoint(@NonNull RouteMarkType type, @Nullable MapObject point)
   {
-    Logger.d(TAG, "setEndPoint");
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    boolean isSamePoint = MapObject.same(endPoint, point);
-    if (isSamePoint)
-      return false;
-
-    if (point != null && point.sameAs(startPoint))
+    checkMapsReady();
+    final boolean changed = point != null && selectRouteEndpoint(type, point);
+    if (changed)
     {
-      if (endPoint == null)
-        return false;
-
-      startPoint = endPoint;
+      checkAndBuildRoute();
+      if (isNavigating())
+        transitionToPlanning();
+      else if (mContainer != null)
+        mContainer.updateMenu();
     }
-
-    endPoint = point;
-    setPointsInternal(startPoint, endPoint);
-    checkAndBuildRoute();
-    return true;
+    finalizePendingPoiPick();
+    return changed;
   }
 
-  private static void replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int replaceStopIndex)
+  @VisibleForTesting
+  boolean selectRouteEndpoint(@NonNull RouteMarkType type, @NonNull MapObject point)
+  {
+    final Pair<String, String> description = getDescriptionForPoint(point);
+    return Framework.nativeSelectRouteEndpoint(description.first, description.second, type, point.isMyPosition(),
+                                               point.getLat(), point.getLon());
+  }
+
+  private static boolean replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int index)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                      replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                      point.getLon());
+    return Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                             index, point.isMyPosition(), point.getLat(), point.getLon());
   }
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
@@ -1248,20 +1177,15 @@ public class RoutingController
   }
 
   /**
-   * Exchanges the endpoint roles and rebuilds the plan.
+   * Exchanges the endpoint roles, keeping intermediate stops in order, and rebuilds when both endpoints exist.
    */
   public void swapPoints()
   {
     checkMapsReady();
     Logger.d(TAG, "swapPoints");
 
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    MapObject point = startPoint;
-    startPoint = endPoint;
-    endPoint = point;
-
-    setPointsInternal(startPoint, endPoint);
+    if (!Framework.nativeSwapRoutePointEndpoints())
+      return;
     checkAndBuildRoute();
     if (mContainer != null)
       mContainer.updateMenu();

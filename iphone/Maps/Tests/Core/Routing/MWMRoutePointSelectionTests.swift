@@ -183,6 +183,16 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
+  func testReplacingFinishWithStartCreatesReturnTrip() throws {
+    seedRoute()
+    let finish = try XCTUnwrap(MWMRouter.finishPoint())
+
+    select(type: .finish, title: "start", coordinate: 10, replacing: finish)
+
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["start", "first stop", "second stop", "start"])
+    waitUntilRouteReady()
+  }
+
   func test_GivenPendingReplacement_WhenCancelled_ThenKeepsRouteUnchanged() throws {
     seedRoute()
     let finish = try XCTUnwrap(MWMRouter.finishPoint())

@@ -32,6 +32,7 @@ NS_SWIFT_NAME(RoutingManager)
 - (void)stopRoutingAndRemoveRoutePoints:(BOOL)flag;
 - (void)deleteSavedRoutePoints;
 - (void)applyRouterType:(MWMRouterType)type NS_SWIFT_NAME(apply(routeType:));
+- (BOOL)selectStartPoint:(MWMRoutePoint *)point NS_SWIFT_NAME(selectStartPoint(_:));
 - (void)addRoutePoint:(MWMRoutePoint *)point NS_SWIFT_NAME(add(routePoint:));
 - (void)buildRouteWithDidFailError:(NSError **)errorPtr __attribute__((swift_error(nonnull_error)))
                                    NS_SWIFT_NAME(buildRoute());

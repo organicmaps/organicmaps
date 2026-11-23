@@ -3,6 +3,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMRoutingManager.h"
 #import "MWMRoutingOptions.h"
@@ -165,6 +166,38 @@ private:
   finish.m_position = {2, 2};
   manager.AddRoutePoint(std::move(finish), false);
   [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter rebuildWithBestRouter:NO]; }];
+}
+
+- (void)testRouteFromMyPositionPreservesTheDestination
+{
+  [MWMRouter setType:MWMRouterTypeRuler];
+  auto & framework = GetFramework();
+  auto & manager = framework.GetRoutingManager();
+  RouteMarkData point;
+  point.m_position = {1, 1};
+  manager.AddRoutePoint(RouteMarkData(point), false);
+  point.m_pointType = RouteMarkType::Intermediate;
+  point.m_position = {2, 2};
+  manager.AddRoutePoint(RouteMarkData(point), false);
+  point.m_pointType = RouteMarkType::Finish;
+  point.m_position = {3, 3};
+  point.m_title = "Destination";
+  point.m_isMyPosition = true;
+  manager.AddRoutePoint(RouteMarkData(point), false);
+
+  point.m_pointType = RouteMarkType::Start;
+  point.m_position = {4, 4};
+  framework.GetBookmarkManager().MyPositionMark().SetUserPosition(point.m_position, true);
+  MWMRoutePoint * start = [[MWMRoutePoint alloc] initWithRouteMarkData:point];
+  [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter buildFromPoint:start bestRouter:NO]; }];
+
+  auto const points = manager.GetRoutePoints();
+  XCTAssertEqual(points.size(), 3u);
+  XCTAssertTrue(points.front().m_isMyPosition);
+  XCTAssertTrue(points.back().m_pointType == RouteMarkType::Finish);
+  XCTAssertFalse(points.back().m_isMyPosition);
+  XCTAssertTrue(points.back().m_position == m2::PointD(3, 3));
+  XCTAssertTrue(points.back().m_title == "Destination");
 }
 
 - (void)testChangedAvoidanceRetriesFailedRoutes

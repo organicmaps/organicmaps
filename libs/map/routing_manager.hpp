@@ -288,9 +288,13 @@ public:
   /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
   /// still applied while following). Returns false when a new point cannot be added at capacity.
   bool AddRoutePoint(RouteMarkData && markData, bool optimize);
-  /// Replaces an existing slot without optimization. If the target is gone, adds the point normally; otherwise the
-  /// target slot's current type overrides markData.
-  void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
+  /// Route from replaces only the start. Taking over My Position fixes the previous live mark at its stored
+  /// coordinates. Route to exchanges endpoints when both exist and the selection matches the start.
+  /// Returns whether the selection changed the plan.
+  bool SelectRouteEndpoint(RouteMarkData && selection);
+  /// Replaces the target mark in place, or adds it without optimization if missing. Removing a previous My Position
+  /// mark can promote or renumber the target before replacement. Returns false if insertion fails at capacity.
+  bool ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
   /// Reorders stops after the last passed mark in place, keeping endpoints, passed marks, and earlier stops fixed.
   /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without
   /// both endpoints.
@@ -305,6 +309,9 @@ public:
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
   void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
                       size_t targetIntermediateIndex);
+  /// Exchanges endpoint slots in place, keeping intermediate points and all mark metadata unchanged. A lone
+  /// endpoint moves to the other slot. Returns false if neither endpoint exists.
+  bool SwapRoutePointEndpoints();
   /// Reverses the complete route, including intermediate points. Returns false without changing points if either
   /// endpoint is missing.
   bool ReverseRoutePoints();

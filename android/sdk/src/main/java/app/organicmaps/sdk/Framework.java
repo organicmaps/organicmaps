@@ -295,9 +295,13 @@ public class Framework
                                                    boolean isMyPosition, double lat, double lon,
                                                    boolean allowOptimization);
 
-  public static native void nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
-                                                    int intermediateIndex, boolean isMyPosition, double lat,
-                                                    double lon);
+  public static native boolean nativeSelectRouteEndpoint(String title, String subtitle, @NonNull RouteMarkType type,
+                                                         boolean isMyPosition, double lat, double lon);
+
+  /** Returns {@code false} when the point cannot be added at capacity. */
+  public static native boolean nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
+                                                       int intermediateIndex, boolean isMyPosition, double lat,
+                                                       double lon);
 
   /**
    * Appends the point to the end of the route: the current finish becomes the last intermediate point and
@@ -325,6 +329,13 @@ public class Framework
   public static native RouteMarkData[] nativeGetRoutePoints();
 
   public static native void nativeMoveRoutePoint(int currentIndex, int targetIndex);
+
+  /**
+   * Exchanges endpoint slots, preserving stops and mark metadata. A lone endpoint moves to the other slot.
+   *
+   * @return {@code false} if neither endpoint exists.
+   */
+  public static native boolean nativeSwapRoutePointEndpoints();
 
   /**
    * Reverses the complete route, including intermediate points.

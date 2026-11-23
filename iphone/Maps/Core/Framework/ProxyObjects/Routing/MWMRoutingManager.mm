@@ -212,6 +212,12 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
   self.rm.SetRouter(coreRouterType(type));
 }
 
+- (BOOL)selectStartPoint:(MWMRoutePoint *)point
+{
+  NSParameterAssert(point && point.type == MWMRoutePointTypeStart);
+  return self.rm.SelectRouteEndpoint(point.routeMarkData);
+}
+
 - (void)addRoutePoint:(MWMRoutePoint *)point
 {
   RouteMarkData startPt = point.routeMarkData;

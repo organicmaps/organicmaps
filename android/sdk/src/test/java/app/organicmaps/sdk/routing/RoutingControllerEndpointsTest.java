@@ -1,35 +1,56 @@
 package app.organicmaps.sdk.routing;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mockStatic;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.util.log.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
-import org.mockito.MockedStatic;
 
 public class RoutingControllerEndpointsTest
 {
   private static final class Controller extends RoutingController
   {
-    MapObject start;
-    MapObject finish;
+    boolean replaceResult = true;
+    RouteMarkType replacedType;
+    MapObject replacement;
+    final List<String> events = new ArrayList<>();
 
     Controller()
     {
       markInitializedForTesting();
+      attach(new Container() {
+        @Override
+        public void updateMenu()
+        {
+          events.add("menu");
+        }
+
+        @Override
+        public void onPoiPickCompleted()
+        {
+          events.add("complete");
+        }
+      });
     }
 
     @Override
-    public MapObject getStartPoint()
+    boolean selectRouteEndpoint(RouteMarkType type, MapObject point)
     {
-      return start;
+      replacedType = type;
+      replacement = point;
+      events.add("replace");
+      return replaceResult;
     }
 
     @Override
-    public MapObject getEndPoint()
+    public void checkAndBuildRoute()
     {
-      return finish;
+      assertTrue(isWaitingPoiPick());
+      events.add("build");
     }
   }
 
@@ -38,37 +59,56 @@ public class RoutingControllerEndpointsTest
     return MapObject.createMapObject(MapObject.POI, title, "", coordinate, coordinate);
   }
 
-  @Test
-  public void selectingTheCurrentEndpointDoesNotEditNativeMarks()
+  private static boolean select(Controller controller, RouteMarkType type, MapObject point)
   {
-    final MapObject start = point("Start", 1);
-    final MapObject finish = point("Finish", 2);
-    final Controller controller = new Controller();
-    controller.start = start;
-    controller.finish = finish;
+    return type == RouteMarkType.Start ? controller.setStartPoint(point) : controller.setEndPoint(point);
+  }
 
-    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+  @Test
+  public void changedEndpointUpdatesThePlanBeforeCompletingThePick()
+  {
+    for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
     {
-      assertFalse(controller.setStartPoint(start));
-      assertFalse(controller.setEndPoint(finish));
+      final Controller controller = new Controller();
+      controller.waitForPoiPick(type);
+      final MapObject replacement = point("Replacement", 3);
+      assertTrue(select(controller, type, replacement));
+      assertEquals(type, controller.replacedType);
+      assertSame(replacement, controller.replacement);
+      assertEquals(List.of("replace", "build", "menu", "complete"), controller.events);
+      assertFalse(controller.isWaitingPoiPick());
     }
   }
 
   @Test
-  public void selectingTheOnlyPointForTheMissingEndpointDoesNotEditNativeMarks()
+  public void rejectedEndpointDoesNotRebuildAndCompletesThePick()
   {
-    final MapObject point = point("Only point", 1);
-    final Controller controller = new Controller();
-
-    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
     {
-      controller.start = point;
-      controller.finish = null;
-      assertFalse(controller.setEndPoint(point));
+      final Controller controller = new Controller();
+      controller.replaceResult = false;
+      controller.waitForPoiPick(type);
+      final MapObject replacement = point("Replacement", 3);
 
-      controller.start = null;
-      controller.finish = point;
-      assertFalse(controller.setStartPoint(point));
+      assertFalse(select(controller, type, replacement));
+
+      assertEquals(type, controller.replacedType);
+      assertSame(replacement, controller.replacement);
+      assertEquals(List.of("replace", "complete"), controller.events);
+      assertFalse(controller.isWaitingPoiPick());
     }
+  }
+
+  @Test
+  public void unavailableLocationDoesNotEditEndpointsAndCompletesThePick()
+  {
+    final Controller controller = new Controller();
+    for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
+    {
+      controller.waitForPoiPick(type);
+      assertFalse(select(controller, type, null));
+      assertFalse(controller.isWaitingPoiPick());
+    }
+    assertEquals(List.of("complete", "complete"), controller.events);
   }
 }

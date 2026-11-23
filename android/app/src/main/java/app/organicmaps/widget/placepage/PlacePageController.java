@@ -589,13 +589,13 @@ public class PlacePageController
     if (mMapObject == null)
       return;
     RoutingController controller = RoutingController.get();
-    if (!controller.isPlanning())
+    if (controller.isPlanning() || controller.isNavigating())
+      commitRoutePoint(RouteMarkType.Start, mMapObject);
+    else
     {
       controller.prepare(mMapObject, null);
       close();
     }
-    else
-      commitRoutePoint(RouteMarkType.Start, mMapObject);
   }
 
   private void onRouteToBtnClicked()
@@ -706,14 +706,10 @@ public class PlacePageController
       // routing buttons: this branch would hide ROUTE_FROM/ROUTE_TO and leave only the bookmark button.
       if (RoutingController.get().isWaitingStopPick() && !mapObject.isTrackRecording())
       {
-        if (RoutingController.get().isPoiPickReplaceStop())
+        if (!mapObject.isMyPosition() || RoutingController.get().canPickMyPosition())
         {
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_REPLACE);
-        }
-        else
-        {
-          // Unlike Add Stop, appending needs no built route; the points limit was checked when the pick started.
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_APPEND);
+          buttons.add(RoutingController.get().isPoiPickReplaceStop() ? PlacePageButtons.ButtonType.ROUTE_REPLACE
+                                                                     : PlacePageButtons.ButtonType.ROUTE_APPEND);
         }
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                            : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
@@ -725,7 +721,8 @@ public class PlacePageController
 
         // If we can show the add route button, put it in the place of the bookmark button
         // And move the bookmark button at the end
-        if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
+        final boolean canAddStop = needToShowRoutingButtons && RoutingController.get().isStopPointAllowed(mapObject);
+        if (canAddStop)
           buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
         else if (mapObject.isTrackRecording())
         {
@@ -743,7 +740,7 @@ public class PlacePageController
         if (needToShowRoutingButtons)
         {
           buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
-          if (RoutingController.get().isStopPointAllowed())
+          if (canAddStop)
             buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                                : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
         }

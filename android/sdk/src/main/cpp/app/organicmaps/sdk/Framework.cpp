@@ -1448,14 +1448,25 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv
   frm()->GetRoutingManager().RemoveRoutePoints();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                          jstring subtitle, jobject markType,
-                                                                          jint intermediateIndex, jboolean isMyPosition,
-                                                                          jdouble lat, jdouble lon)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSelectRouteEndpoint(JNIEnv * env, jclass, jstring title,
+                                                                                jstring subtitle, jobject markType,
+                                                                                jboolean isMyPosition, jdouble lat,
+                                                                                jdouble lon)
+{
+  auto const type = routing_jni::GetRouteMarkType(env, markType);
+  return frm()->GetRoutingManager().SelectRouteEndpoint(
+      MakeRouteMarkData(env, title, subtitle, type, isMyPosition, lat, lon));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                              jstring subtitle, jobject markType,
+                                                                              jint intermediateIndex,
+                                                                              jboolean isMyPosition, jdouble lat,
+                                                                              jdouble lon)
 {
   auto const type = routing_jni::GetRouteMarkType(env, markType);
   auto data = MakeRouteMarkData(env, title, subtitle, type, isMyPosition, lat, lon);
-  frm()->GetRoutingManager().ReplaceRoutePoint(type, static_cast<size_t>(intermediateIndex), std::move(data));
+  return frm()->GetRoutingManager().ReplaceRoutePoint(type, static_cast<size_t>(intermediateIndex), std::move(data));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,
@@ -1494,6 +1505,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * 
                                                                        jint targetIndex)
 {
   frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSwapRoutePointEndpoints(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().SwapRoutePointEndpoints();
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReverseRoutePoints(JNIEnv * env, jclass)
