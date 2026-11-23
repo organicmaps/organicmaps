@@ -30,6 +30,10 @@ final class CarPlayService: NSObject {
     effectiveDisplay != .device
   }
 
+  @objc var isCarPlayRoutingActive: Bool {
+    routingOwner == .carPlay
+  }
+
   private var searchService: CarPlaySearchService?
   private var bookmarkListObserver: CarPlayBookmarkListObserver?
   private var router: CarPlayRouter?
@@ -43,7 +47,6 @@ final class CarPlayService: NSObject {
   // Layout can run while the shared map is moving, before attachedDisplay is updated.
   private var transitioningTo: CarPlayMapDisplay?
   private var routingOwner: RoutingOwner?
-  private var isCarPlayRouterSubscribed = false
   private var needsCarPlayRoutingRestore = false
   private var isPhoneSceneConnected = false
   private var activeCarPlayDisplay: CarPlayMapDisplay?
@@ -349,10 +352,6 @@ final class CarPlayService: NSObject {
         MWMRouter.rebuild(withBestRouter: true)
       }
     case .carPlay:
-      if !isCarPlayRouterSubscribed {
-        router.subscribeToEvents()
-        isCarPlayRouterSubscribed = true
-      }
       router.addListener(self)
       router.setRoutingPresentationActive(true)
       router.setupCarPlaySpeedCameraMode()
@@ -443,10 +442,8 @@ final class CarPlayService: NSObject {
     }
 
     let router = CarPlayRouter()
-    // Camera show/clear callbacks keep the cached CarPlay UI state exact while the phone owns routing.
-    // Other route and TTS processing remains disabled until routingOwner switches to CarPlay.
+    // Camera updates keep the car displays current while the phone owns routing.
     router.subscribeToEvents()
-    isCarPlayRouterSubscribed = true
     self.router = router
     return router
   }
@@ -576,15 +573,9 @@ final class CarPlayService: NSObject {
     guard window == nil, dashboardWindow == nil, let router else { return }
     // moveMap() may not run on disconnect, so hand routing back here too. No-op if already phone-owned.
     updateRoutingPresentation(for: .device)
-    if isCarPlayRouterSubscribed {
-      router.removeListener(self)
-      router.unsubscribeFromEvents()
-      isCarPlayRouterSubscribed = false
-    }
+    router.unsubscribeFromEvents()
     router.cancelNavigationSession()
     self.router = nil
-    routingOwner = .device
-    needsCarPlayRoutingRestore = false
     mapState.reset()
     speedState = CarPlaySpeedState()
   }

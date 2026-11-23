@@ -309,6 +309,8 @@ void setShowLocationAlert(BOOL needShow)
 
   CLLocation * locationInfo = locations.lastObject;
   self.lastLocationInfo = locationInfo;
+  // Observers read the turn-after-next state and can close a finished route.
+  [MWMRouter playGuidance];
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:locationInfo];
