@@ -33,11 +33,11 @@
         android:layout_marginStart="@dimen/margin_half"
         android:layout_marginTop="@dimen/margin_half"
         android:layout_marginBottom="@dimen/margin_half"
+        android:contentDescription="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/phone_input"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
         tools:src="@drawable/ic_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
