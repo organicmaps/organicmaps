@@ -407,7 +407,7 @@ public class CarAppSessionReadinessTest
 
   private void createSession()
   {
-    mSession = new AndroidAutoSession(mSdk, mDisplay, mock(SessionInfo.class), true, false);
+    mSession = new AndroidAutoSession(mSdk, mDisplay, mock(SessionInfo.class), true);
     final SessionController host = new SessionController(mSession, mContext, new Intent(Intent.ACTION_MAIN));
     moveTo(Lifecycle.State.CREATED);
     host.moveToState(Lifecycle.State.CREATED);

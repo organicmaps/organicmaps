@@ -6,8 +6,6 @@ import androidx.car.app.Screen;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.R;
-import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
 import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
@@ -22,13 +20,10 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
 {
   private static final String TAG = AndroidAutoSession.class.getSimpleName();
 
-  private final boolean mInitFailed;
-
   public AndroidAutoSession(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
-                            @NonNull SessionInfo sessionInfo, boolean isDebug, boolean initFailed)
+                            @NonNull SessionInfo sessionInfo, boolean isDebug)
   {
     super(organicMapsContext, displayManager, sessionInfo, isDebug);
-    mInitFailed = initFailed;
   }
 
   @Override
@@ -50,11 +45,6 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   @Override
   protected Screen prepareScreens()
   {
-    if (mInitFailed)
-      return new ErrorScreen.Builder(getCarContext(), mOrganicMapsContext)
-          .setErrorMessage(R.string.dialog_error_storage_message)
-          .build();
-
     Screen screen = new MapScreen(getCarContext(), mOrganicMapsContext, mSurfaceRenderer);
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
     {

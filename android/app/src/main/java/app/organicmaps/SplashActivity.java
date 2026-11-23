@@ -76,7 +76,7 @@ public class SplashActivity extends AppCompatActivity
 
     final DisplayManager displayManager = MwmApplication.from(this).getDisplayManager();
 
-    if (displayManager.isCarDisplayUsed() && MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
+    if (displayManager.isCarDisplayUsed())
     {
       startActivity(new Intent(this, MapPlaceholderActivity.class));
       finish();
