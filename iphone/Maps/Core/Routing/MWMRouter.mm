@@ -10,7 +10,7 @@
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRoutingManager.h"
 #import "MWMStorage+UI.h"
-#import "MapsAppDelegate.h"
+#import "MWMTextToSpeech.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/ElevationProfileData+Core.h>
@@ -32,7 +32,6 @@ using namespace routing;
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
-@property(nonatomic) BOOL isRestoreProcessCompleted;
 
 + (MWMRouter *)router;
 
@@ -181,7 +180,6 @@ using namespace routing;
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
-    _isRestoreProcessCompleted = NO;
   }
   return self;
 }
@@ -613,22 +611,11 @@ using namespace routing;
 
 + (void)restoreRouteIfNeeded
 {
-  if ([MapsAppDelegate theApp].isDrapeEngineCreated)
-  {
-    auto & rm = GetFramework().GetRoutingManager();
-    if (rm.LoadRoutePoints())
-      [self rebuildWithBestRouter:YES];
-    self.router.isRestoreProcessCompleted = YES;
-  }
-  else
-  {
-    dispatch_async(dispatch_get_main_queue(), ^{ [self restoreRouteIfNeeded]; });
-  }
-}
-
-+ (BOOL)isRestoreProcessCompleted
-{
-  return self.router.isRestoreProcessCompleted;
+  // Install the phone routing observers on startup, including launches without saved points.
+  (void)[self router];
+  auto & rm = GetFramework().GetRoutingManager();
+  if (rm.LoadRoutePoints())
+    [self rebuildWithBestRouter:YES];
 }
 
 + (BOOL)hasSavedRoute

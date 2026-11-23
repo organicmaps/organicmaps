@@ -30,6 +30,7 @@ class GraphicsContextFactory;
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
   CGRect m_lastViewSize;
   bool m_presentAvailable;
+  NSMutableArray<dispatch_block_t> * m_drapeCreationActions;
 }
 @property(nonatomic, readwrite) BOOL graphicContextInitialized;
 @end
@@ -159,8 +160,31 @@ class GraphicsContextFactory;
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), std::move(p));
 
-  self->_drapeEngineCreated = YES;
   LOG(LINFO, ("CreateDrapeEngine Finished"));
+  [self didCreateDrapeEngine];
+}
+
+- (void)whenDrapeEngineCreated:(dispatch_block_t)action
+{
+  ASSERT(NSThread.isMainThread, ());
+  if (self.drapeEngineCreated)
+  {
+    action();
+    return;
+  }
+
+  if (!m_drapeCreationActions)
+    m_drapeCreationActions = [NSMutableArray array];
+  [m_drapeCreationActions addObject:[action copy]];
+}
+
+- (void)didCreateDrapeEngine
+{
+  ASSERT(NSThread.isMainThread, ());
+  _drapeEngineCreated = YES;
+  for (dispatch_block_t action in m_drapeCreationActions)
+    action();
+  m_drapeCreationActions = nil;
 }
 
 - (CGSize)pixelSize

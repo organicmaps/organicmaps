@@ -85,19 +85,11 @@ using namespace osm_auth_ios;
   AuthorizationStoreCredentialsWithOauth2Code(GetFramework().GetParsedOAuth2Code());
 }
 
-- (BOOL)isDrapeEngineCreated
-{
-  return self.mapViewController.mapView.drapeEngineCreated;
-}
-
 - (void)searchQuery:(SearchQuery *)query
 {
-  if (!self.isDrapeEngineCreated)
-  {
-    dispatch_async(dispatch_get_main_queue(), ^{ [self searchQuery:query]; });
-    return;
-  }
-  [[MWMMapViewControlsManager manager] search:query];
+  MapViewController * controller = self.mapViewController;
+  [controller loadViewIfNeeded];
+  [controller.mapView whenDrapeEngineCreated:^{ [[MWMMapViewControlsManager manager] search:query]; }];
 }
 
 - (void)commonInit

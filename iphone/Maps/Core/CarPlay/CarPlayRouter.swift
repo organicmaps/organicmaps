@@ -159,13 +159,7 @@ final class CarPlayRouter: NSObject {
     RoutingManager.routingManager.speedCameraMode = mode
   }
 
-  func restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: Bool) {
-    guard MWMRouter.isRestoreProcessCompleted() else {
-      DispatchQueue.main.async { [weak self] in
-        self?.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: false)
-      }
-      return
-    }
+  func restoreTripPreview(deferUntilMainTemplateAppears: Bool) {
     let manager = RoutingManager.routingManager
     MWMRouter.hideNavigationMapControls()
     guard manager.isRoutingActive,
@@ -187,7 +181,7 @@ final class CarPlayRouter: NSObject {
       CarPlayService.shared.showRecoverRouteAlert(trip: trip, isTypeCorrect: true)
       return
     }
-    if beforeRootTemplateDidAppear {
+    if deferUntilMainTemplateAppears {
       CarPlayService.shared.preparedToPreviewTrips = [trip]
     } else {
       CarPlayService.shared.preparePreview(trips: [trip])
