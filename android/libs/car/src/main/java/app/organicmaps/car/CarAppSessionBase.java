@@ -13,12 +13,16 @@ import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.car.screens.FreeDriveScreen;
+import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
-import app.organicmaps.car.util.CurrentCountryChangedListener;
+import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
+import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
+import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapsReadiness;
 import app.organicmaps.sdk.OrganicMaps;
@@ -29,11 +33,14 @@ import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.renderer.RendererFactory;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import java.util.ArrayDeque;
@@ -53,10 +60,9 @@ public abstract class CarAppSessionBase
   @NonNull
   protected final DisplayManager mDisplayManager;
   protected final boolean mIsDebug;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  protected final ScreenManager mScreenManager;
-  @NonNull
-  protected final CurrentCountryChangedListener mCurrentCountryChangedListener;
+  protected ScreenManager mScreenManager;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   protected Renderer mSurfaceRenderer;
@@ -72,12 +78,26 @@ public abstract class CarAppSessionBase
   private final Queue<Intent> mPendingIntents = new ArrayDeque<>();
   @Nullable
   private MapObject mPendingPlace;
+  private boolean mRestoreRoutePending;
+  private boolean mObservingViewport;
+  @Nullable
+  private String mPendingCountryId;
+  @Nullable
+  private String mLastOfferedCountryId;
   @NonNull
   private final Runnable mCarDisplayWhenReady = this::onCarDisplayReady;
   @NonNull
   private final Runnable mIntentWhenReady = this::processPendingIntents;
   @NonNull
   private final Runnable mPlaceWhenReady = this::showPendingPlace;
+  private final DefaultLifecycleObserver mScreenClosedObserver = new DefaultLifecycleObserver() {
+    @Override
+    public void onDestroy(@NonNull LifecycleOwner owner)
+    {
+      // Screen result callbacks can finish or push another screen during removal.
+      UiThread.runLater(CarAppSessionBase.this::resumeAfterScreenClosed);
+    }
+  };
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
                            @NonNull SessionInfo sessionInfo, boolean isDebug)
@@ -87,8 +107,6 @@ public abstract class CarAppSessionBase
     mSessionInfo = sessionInfo;
     mDisplayManager = displayManager;
     mIsDebug = isDebug;
-    mScreenManager = getCarContext().getCarService(ScreenManager.class);
-    mCurrentCountryChangedListener = new CurrentCountryChangedListener();
     getLifecycle().addObserver(this);
   }
 
@@ -97,6 +115,9 @@ public abstract class CarAppSessionBase
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    mScreenManager = getCarContext().getCarService(ScreenManager.class);
+    // A car surface can report its first viewport before the host starts the session.
+    setViewportObservationEnabled(mDisplayManager.isCarDisplayUsed());
     mSurfaceRenderer =
         RendererFactory.create(getCarContext(), mDisplayManager, mOrganicMapsContext.getLocationHelper(), owner);
     mSensorsManager = new CarSensorsManager(getCarContext(), mOrganicMapsContext.getSensorHelper(),
@@ -138,8 +159,7 @@ public abstract class CarAppSessionBase
 
   private void processPendingIntents()
   {
-    // Preserve host delivery order, including intents received while stopped or maps are loading.
-    while (isStarted() && !mPendingIntents.isEmpty())
+    while (isStarted() && !mPendingIntents.isEmpty() && !deferUntilSetupCloses())
     {
       final Intent intent = mPendingIntents.remove();
       IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
@@ -170,6 +190,7 @@ public abstract class CarAppSessionBase
     if (mDisplayManager.isCarDisplayUsed())
     {
       ThemeUtils.update(getCarContext(), mSurfaceRenderer.isRenderingActive());
+      mRestoreRoutePending = true;
       mMapsReadiness.runWhenReady(mCarDisplayWhenReady);
     }
     if (!mPendingIntents.isEmpty())
@@ -181,11 +202,12 @@ public abstract class CarAppSessionBase
   public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    mRestoreRoutePending = false;
     mMapsReadiness.cancel(mCarDisplayWhenReady);
-    // A display handoff keeps the host Session started, so its queued intents still run once maps load.
+    mMapsReadiness.cancel(mPlaceWhenReady);
+    // The host can still deliver queued intents after a display handoff.
     if (!isStarted())
       mMapsReadiness.cancel(mIntentWhenReady);
-    mMapsReadiness.cancel(mPlaceWhenReady);
     mPendingPlace = null;
 
     mOrganicMapsContext.getLocationHelper().removeListener(mSpeedLocationListener);
@@ -197,18 +219,135 @@ public abstract class CarAppSessionBase
       LocationState.nativeRemoveListener();
       Framework.nativeRemovePlacePageActivationListener(this);
     }
+  }
 
-    mCurrentCountryChangedListener.onStop();
+  @CallSuper
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner)
+  {
+    setViewportObservationEnabled(false);
+  }
+
+  protected final void setViewportObservationEnabled(boolean enabled)
+  {
+    if (enabled == mObservingViewport)
+      return;
+    if (enabled)
+    {
+      if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
+        return;
+      MapManager.nativeSubscribeOnCountryChanged(this::onCurrentCountryChanged);
+    }
+    else
+    {
+      MapManager.nativeUnsubscribeOnCountryChanged();
+      mPendingCountryId = null;
+    }
+    mObservingViewport = enabled;
+  }
+
+  private void onCurrentCountryChanged(@NonNull String countryId)
+  {
+    if (!mDisplayManager.isCarDisplayUsed() || countryId.equals(mLastOfferedCountryId))
+      return;
+    mLastOfferedCountryId = null;
+    if (countryId.isEmpty())
+    {
+      mPendingCountryId = null;
+      return;
+    }
+    final boolean alreadyPending = mPendingCountryId != null;
+    mPendingCountryId = countryId;
+    // Installed regions look missing to CountryItem.fill() until registration completes.
+    if (!alreadyPending && canShowCarScreen() && mMapsReadiness.isReady())
+      UiThread.runLater(this::showPendingCountry);
+  }
+
+  private void showPendingCountry()
+  {
+    if (mPendingCountryId == null || !canShowCarScreen() || mRestoreRoutePending)
+      return;
+    final Screen top = mScreenManager.getTop();
+    if (top instanceof PlaceScreen || top instanceof NavigationScreen || RoutingController.get().isNavigating())
+    {
+      mPendingCountryId = null;
+      return;
+    }
+    if (!(top instanceof MapScreen || top instanceof FreeDriveScreen))
+    {
+      top.getLifecycle().addObserver(mScreenClosedObserver);
+      return;
+    }
+    final String countryId = mPendingCountryId;
+    mPendingCountryId = null;
+    if (CountryItem.fill(countryId).present)
+      return;
+    mLastOfferedCountryId = countryId;
+    final Screen offer = new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                             .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.View)
+                             .setMissingMaps(new String[] {countryId})
+                             .build();
+    mScreenManager.pushForResult(offer, ignored -> {
+      // Closing this offer also handles a return to the same region while it was open.
+      if (countryId.equals(mPendingCountryId))
+      {
+        mLastOfferedCountryId = countryId;
+        mPendingCountryId = null;
+      }
+    });
+  }
+
+  private boolean deferUntilSetupCloses()
+  {
+    // Download progress or an error can sit above the required screen.
+    for (Screen screen : mScreenManager.getScreenStack())
+    {
+      if (screen instanceof UserActionRequired)
+      {
+        screen.getLifecycle().addObserver(mScreenClosedObserver);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private void resumeAfterScreenClosed()
+  {
+    if (!isStarted())
+      return;
+    if (mRestoreRoutePending)
+      onCarDisplayReady();
+    else
+      schedulePendingCountry();
+    if (mPendingPlace != null)
+      showPendingPlace();
+    if (!mPendingIntents.isEmpty())
+      processPendingIntents();
   }
 
   private void onCarDisplayReady()
   {
-    if (!canShowCarScreen())
+    if (!canShowCarScreen() || deferUntilSetupCloses())
       return;
-
-    // Downloaded regions look missing to the download prompt until maps are registered.
-    mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
+    if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
+    {
+      final Screen world = new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                               .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+                               .build();
+      world.getLifecycle().addObserver(mScreenClosedObserver);
+      mScreenManager.push(world);
+      return;
+    }
+    mRestoreRoutePending = false;
     onRestoreRoute();
+    schedulePendingCountry();
+  }
+
+  private void schedulePendingCountry()
+  {
+    // Let queued destinations and viewport reports settle before offering the region.
+    if (mPendingCountryId != null)
+      UiThread.runLater(this::showPendingCountry);
   }
 
   private boolean isStarted()
@@ -257,6 +396,8 @@ public abstract class CarAppSessionBase
 
   private void showPendingPlace()
   {
+    if (deferUntilSetupCloses())
+      return;
     final MapObject mapObject = Objects.requireNonNull(mPendingPlace);
     mPendingPlace = null;
     if (!canShowCarScreen())
