@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-post või kasutajanimi";
-"level" = "Korrus";
 "downloader_delete_map_dialog" = "Kõik sinu kaardimuudatused kustutatakse koos kaardiga.";
 "downloader_update_maps" = "Uuenda kaarte";
 "downloader_search_field_hint" = "Leia kaart";
@@ -1251,3 +1250,9 @@
 /* Hint when a Water checkpoint has no usable water connection or pedestrian access. */
 "water_select_point" = "Select a point on water or near a shore that can be reached on foot.";
 "water_shortest_unconfirmed" = "Shortest route not confirmed";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Sisesta kehtiv korruse number";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Korrus (esimene korrus on 0)";

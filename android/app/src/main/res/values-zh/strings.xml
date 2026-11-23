@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">电子邮件或用户名</string>
     <string name="editor_add_phone">新增电话号码</string>
-    <string name="level">楼层</string>
     <!-- Building level -->
     <string name="level_value_generic">楼层：%s</string>
     <string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
@@ -952,4 +951,8 @@
     <string name="transit_type_train">火车</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">有轨电车</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">请输入有效的楼层号</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">楼层（一楼为0）</string>
 </resources>

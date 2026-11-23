@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Surel atau nama pengguna";
-"level" = "Tingkat";
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";
 "downloader_update_maps" = "Perbarui peta";
 "downloader_search_field_hint" = "Temukan peta";
@@ -1251,3 +1250,9 @@
 /* Hint when a Water checkpoint has no usable water connection or pedestrian access. */
 "water_select_point" = "Select a point on water or near a shore that can be reached on foot.";
 "water_shortest_unconfirmed" = "Shortest route not confirmed";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Masukkan nomor lantai yang valid";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Lantai (lantai dasar adalah 0)";

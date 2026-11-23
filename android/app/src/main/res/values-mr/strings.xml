@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">ईमेल किंवा वापरकर्तानाव</string>
     <string name="editor_add_phone">फोन जोडा</string>
-    <string name="level">मजला</string>
     <!-- Building level -->
     <string name="level_value_generic">स्तर: %s</string>
     <string name="downloader_delete_map_dialog">तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.</string>
@@ -945,4 +944,8 @@
     <string name="transit_type_train">ट्रेन</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ट्राम</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">वैध मजला क्रमांक प्रविष्ट करा</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">मजला (तळमजला 0 आहे)</string>
 </resources>

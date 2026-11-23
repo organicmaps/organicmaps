@@ -228,7 +228,9 @@
           android:id="@+id/block_email"
           layout="@layout/item_editor_input"/>
 
-        <!-- ToDo: Level is missing compared with iOS. -->
+        <include
+          android:id="@+id/block_level"
+          layout="@layout/item_editor_input"/>
 
         <RelativeLayout
             android:id="@+id/block_wifi"

@@ -24,19 +24,22 @@ void Track::CacheDataForInteraction() const
 
 std::vector<Track::Lengths> Track::GetLengthsImpl() const
 {
-  double distance = 0;
+  // Sum like the elevation chart (ElevationInfo ctor + ForEachPoint()): each line from 0, plus the sum of previous
+  // line lengths. Chart distances resolve to points here bit-exactly; any rounding difference at a gap moves the
+  // selection into the next line.
+  double lineOffset = 0;
   std::vector<Lengths> lengths;
   for (auto const & line : m_data.m_geometry.m_lines)
   {
+    double distance = 0;
     Lengths lineLengths;
-    lineLengths.emplace_back(distance);
+    lineLengths.emplace_back(lineOffset);
     for (size_t j = 1; j < line.size(); ++j)
     {
-      auto const & pt1 = line[j - 1].GetPoint();
-      auto const & pt2 = line[j].GetPoint();
-      distance += mercator::DistanceOnEarth(pt1, pt2);
-      lineLengths.emplace_back(distance);
+      distance += mercator::DistanceOnEarth(line[j - 1].GetPoint(), line[j].GetPoint());
+      lineLengths.emplace_back(lineOffset + distance);
     }
+    lineOffset += distance;
     lengths.emplace_back(std::move(lineLengths));
   }
   return lengths;

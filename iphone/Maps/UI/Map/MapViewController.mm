@@ -479,7 +479,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self updateMapFontScaleFactor];
 
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
-    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+    self.controlsManager.menuState = self.controlsManager.closedMenuState;
 
   [self updateStatusBarStyle];
   GetFramework().SetRenderingEnabled();
@@ -524,7 +524,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   }
 
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
-    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+    self.controlsManager.menuState = self.controlsManager.closedMenuState;
 
   // Added in https://github.com/organicmaps/organicmaps/pull/7333
   // After all users migrate to OAuth2 we can remove next code
@@ -628,8 +628,6 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   [super viewWillDisappear:animated];
 
-  if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
-    self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   // The shared EAGLView may already be hosted by CarPlay while the phone controller disappears.
   if (![MWMCarPlayService shared].isCarplayActivated)
     GetFramework().SetRenderingDisabled(false);
@@ -716,7 +714,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)openMenu
 {
   // The menu belongs to the map, so a link that arrives over another screen returns to the map first.
-  // Open it after the pop: viewWillAppear restores the menu state saved when the map was covered.
+  // Open it after the pop: viewWillAppear restores the closed state of the map controls.
   UINavigationController * navigationController = self.navigationController;
   [navigationController popToRootViewControllerAnimated:YES];
   id<UIViewControllerTransitionCoordinator> coordinator = navigationController.transitionCoordinator;
@@ -740,7 +738,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MWMMapViewControlsManager * controlsManager = self.controlsManager;
   MWMBottomMenuState const menuState = controlsManager.menuState;
   if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
-    controlsManager.menuState = controlsManager.menuRestoreState;
+    controlsManager.menuState = controlsManager.closedMenuState;
   // Switching apps to open a link outlasts the short menu/Layers animations,
   // so normal cross-app links need no modal-transition queue.
   [SettingsBuilder showRootIn:self.navigationController];
@@ -1034,9 +1032,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)enableCarPlayRepresentation
 {
   [_searchManager close];
-  UIViewController * presentedController = self.presentedViewController;
-  if (presentedController != nil)
-    [presentedController dismissViewControllerAnimated:NO completion:nil];
+  if (![_controlsManager dismissBottomMenuIfPresentedAnimated:NO])
+    [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
   [[MapsAppDelegate theApp] showMap];
   [self loadViewIfNeeded];
   [self.mapView removeFromSuperview];
@@ -1126,6 +1123,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)closeCurrentView
 {
+  if ([_controlsManager dismissBottomMenuIfPresentedAnimated:YES])
+    return;
+
   if (self.presentedViewController)
   {
     [self dismissViewControllerAnimated:YES completion:nil];

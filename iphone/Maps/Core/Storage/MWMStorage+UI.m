@@ -46,6 +46,27 @@
     success();
 }
 
+- (void)retryDownloadNodeWithAlerts:(NSString *)countryId
+{
+  NSError * error;
+  if ([self retryDownloadNode:countryId error:&error])
+    return;
+
+  if (error.code != kStorageCellularForbidden)
+  {
+    [self handleError:error];
+    return;
+  }
+
+  __weak __typeof(self) ws = self;
+  [[MWMAlertViewController activeAlertController]
+      presentNoWiFiAlertWithOkBlock:^{
+        [ws enableCellularDownload:YES];
+        [ws retryDownloadNodeWithAlerts:countryId];
+      }
+                     andCancelBlock:nil];
+}
+
 - (void)updateNode:(NSString *)countryId
 {
   [self updateNode:countryId onCancel:nil];

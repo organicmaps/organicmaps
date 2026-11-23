@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-postadress eller användarnamn</string>
     <string name="editor_add_phone">Lägg till telefon</string>
-    <string name="level">Våningsplan</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>
     <string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
@@ -953,4 +952,8 @@
     <string name="transit_type_train">Tåg</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Spårvagn</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Ange ett giltigt våningsnummer</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Våningsplan (bottenvåningen är 0)</string>
 </resources>

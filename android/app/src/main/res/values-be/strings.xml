@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">Email або імя карыстальніка</string>
     <string name="editor_add_phone">Дадаць тэлефон</string>
-    <string name="level">Паверх</string>
     <!-- Building level -->
     <string name="level_value_generic">Узровень: %s</string>
     <string name="downloader_delete_map_dialog">Разам з мапай будуць выдалены і ўсе вашы праўкі мапы.</string>
@@ -972,4 +971,8 @@
     <string name="transit_type_train">Цягнік</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Увядзіце правільны нумар паверха</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Паверх (першы паверх — 0)</string>
 </resources>

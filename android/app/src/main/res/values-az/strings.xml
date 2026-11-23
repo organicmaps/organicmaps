@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-poçt və ya istifadəçi adı</string>
     <string name="editor_add_phone">Telefon əlavə edin</string>
-    <string name="level">Mərtəbə</string>
     <!-- Building level -->
     <string name="level_value_generic">Səviyyə: %s</string>
     <string name="downloader_delete_map_dialog">Bütün xəritə dəyişiklikləri xəritə ilə birlikdə silinəcək.</string>
@@ -947,4 +946,8 @@
     <string name="transit_type_train">Qatar</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Etibarlı mərtəbə nömrəsi daxil edin</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Mərtəbə (birinci mərtəbə 0-dır)</string>
 </resources>

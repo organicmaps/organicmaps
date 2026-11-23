@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "电子邮件或用户名";
-"level" = "楼层";
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
 "downloader_update_maps" = "更新地图";
 "downloader_search_field_hint" = "搜索地图";
@@ -1251,3 +1250,9 @@
 /* Hint when a Water checkpoint has no usable water connection or pedestrian access. */
 "water_select_point" = "Select a point on water or near a shore that can be reached on foot.";
 "water_shortest_unconfirmed" = "Shortest route not confirmed";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "请输入有效的楼层号";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "楼层（一楼为0）";
