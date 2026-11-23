@@ -110,7 +110,7 @@ public class LocationUtils
     }
     catch (Settings.SettingNotFoundException e)
     {
-      e.printStackTrace();
+      android.util.Log.w("LocationUtils", "Failed to read location mode setting", e);
       return false;
     }
   }

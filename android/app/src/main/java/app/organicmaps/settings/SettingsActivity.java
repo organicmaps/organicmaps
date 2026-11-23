@@ -58,7 +58,7 @@ public class SettingsActivity
     }
     catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
+      android.util.Log.w("SettingsActivity", "Failed to start preference fragment", e);
     }
     return true;
   }
