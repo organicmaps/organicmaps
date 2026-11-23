@@ -3,6 +3,7 @@
 #import "MWMCoreRouterType.h"
 
 #include "routing/routing_options.hpp"
+#include "platform/settings.hpp"
 
 #include <bit>
 
@@ -79,14 +80,24 @@ static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routi
   [self setOption:(routing::RoutingOptions::Road::Motorway) enabled:avoid];
 }
 
+- (double)maxSpeedKMpH
+{
+  return routing::RoutingOptions::LoadMaxSpeedFromSettings().value_or(0.0);
+}
+
+- (void)setMaxSpeedKMpH:(double)maxSpeedKMpH
+{
+  routing::RoutingOptions::SaveMaxSpeedToSettings(maxSpeedKMpH > 0.0 ? std::make_optional(maxSpeedKMpH) : std::nullopt);
+}
+
 - (BOOL)hasOptions
 {
-  return _options.GetOptions() != 0;
+  return _options.GetOptions() != 0 || self.maxSpeedKMpH > 0.0;
 }
 
 - (NSInteger)enabledOptionsCount
 {
-  return std::popcount(_options.GetOptions());
+  return std::popcount(_options.GetOptions()) + (self.maxSpeedKMpH > 0.0 ? 1 : 0);
 }
 
 - (BOOL)avoidSteps
@@ -139,12 +150,15 @@ static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routi
   if (![object isMemberOfClass:self.class])
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
-  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions();
+  // Only avoidance options and max speed: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
+  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions() &&
+         another.maxSpeedKMpH == self.maxSpeedKMpH;
 }
 
 - (NSUInteger)hash
 {
-  return (static_cast<NSUInteger>(self.routerType) << 8) | _options.GetOptions();
+  return (static_cast<NSUInteger>(self.routerType) << 8) | _options.GetOptions() |
+         (static_cast<NSUInteger>(self.maxSpeedKMpH) << 16);
 }
 
 @end

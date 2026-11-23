@@ -71,6 +71,13 @@ final class CarPlayService: NSObject {
     sessionConfiguration?.limitedUserInterfaces.contains(.keyboard) ?? false
   }
 
+  var isDrivingOrMoving: Bool {
+    if isKeyboardLimited { return true }
+    if speedState.currentSpeedMps > 1.0 { return true }
+    if let speed = LocationManager.lastLocation()?.speed, speed > 1.0 { return true }
+    return false
+  }
+
   private var carplayVC: CarPlayMapViewController? {
     window?.rootViewController as? CarPlayMapViewController
   }
@@ -745,6 +752,10 @@ final class CarPlayService: NSObject {
 
   func popTemplate(animated: Bool) {
     interfaceController?.popTemplate(animated: animated, completion: templateCompletion)
+  }
+
+  func popToRootTemplate(animated: Bool) {
+    interfaceController?.popToRootTemplate(animated: animated, completion: templateCompletion)
   }
 
   func presentAlert(_ template: CPAlertTemplate, animated: Bool) {

@@ -488,6 +488,8 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
     }
   }
 
+  result = ApplyMaxSpeedPenalty(purpose, result, speed);
+
   return ApplyStrategy(purpose, result, distanceM);
 }
 

@@ -15,6 +15,7 @@ namespace routing
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
+std::string_view constexpr kRoutingMaxSpeedKMpHKey = "RoutingMaxSpeedKMpH";
 
 namespace
 {
@@ -105,6 +106,24 @@ bool RoutingOptions::LoadRouteOptimizationFromSettings()
 void RoutingOptions::SaveRouteOptimizationToSettings(bool enabled)
 {
   settings::Set(kRouteOptimizationEnabledKey, enabled);
+}
+
+// static
+std::optional<double> RoutingOptions::LoadMaxSpeedFromSettings()
+{
+  double speed = 0.0;
+  if (settings::Get(kRoutingMaxSpeedKMpHKey, speed) && speed > 0.0)
+    return speed;
+  return std::nullopt;
+}
+
+// static
+void RoutingOptions::SaveMaxSpeedToSettings(std::optional<double> maxSpeedKMpH)
+{
+  if (maxSpeedKMpH.has_value() && *maxSpeedKMpH > 0.0)
+    settings::Set(kRoutingMaxSpeedKMpHKey, *maxSpeedKMpH);
+  else
+    settings::Delete(kRoutingMaxSpeedKMpHKey);
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)
@@ -250,6 +269,17 @@ RoutingOptionSetter::~RoutingOptionSetter()
     settings::Set(key, *m_saved);
   else
     settings::Delete(key);
+}
+
+MaxSpeedConstraintSetter::MaxSpeedConstraintSetter(double maxSpeedKMpH)
+  : m_saved(RoutingOptions::LoadMaxSpeedFromSettings())
+{
+  RoutingOptions::SaveMaxSpeedToSettings(maxSpeedKMpH > 0.0 ? std::make_optional(maxSpeedKMpH) : std::nullopt);
+}
+
+MaxSpeedConstraintSetter::~MaxSpeedConstraintSetter()
+{
+  RoutingOptions::SaveMaxSpeedToSettings(m_saved);
 }
 
 }  // namespace routing

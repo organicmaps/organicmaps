@@ -393,6 +393,7 @@ void IndexRouter::ClearState()
   m_lastAltFakeEdges.reset();
   // A new route starts from the default variant again.
   m_activeStrategy = EdgeEstimator::Strategy::Normal;
+  m_previousMaxSpeed.reset();
 }
 
 void IndexRouter::SwapAltRouteToActive()
@@ -474,6 +475,19 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       m_lastAltFakeEdges.reset();
     }
     m_previousRoutingOptions = m_requestRoutingOptions->GetOptions();
+
+    std::optional<double> const currentMaxSpeed = RoutingOptions::LoadMaxSpeedFromSettings();
+
+    if (m_previousMaxSpeed != currentMaxSpeed)
+    {
+      m_lastRoute.reset();
+      m_lastFakeEdges.reset();
+      m_lastAltRoute.reset();
+      m_lastAltFakeEdges.reset();
+      m_previousMaxSpeed = currentMaxSpeed;
+    }
+    m_estimator->SetMaxSpeedKMpH(currentMaxSpeed);
+
     SCOPE_GUARD(featureRoadGraphClear, [this]
     {
       ClearRouteCalculationState();

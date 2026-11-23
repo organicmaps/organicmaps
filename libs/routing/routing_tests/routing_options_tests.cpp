@@ -225,4 +225,42 @@ UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)
     TEST_EQUAL(RoutingOptions::LoadRouteOptimizationFromSettings(), enabled, ());
   }
 }
+
+UNIT_TEST(MaxSpeedConstraintSetting_DefaultsOffAndPersists)
+{
+  MaxSpeedConstraintSetter guard(0.0);
+
+  TEST(!RoutingOptions::LoadMaxSpeedFromSettings().has_value(), ());
+
+  RoutingOptions::SaveMaxSpeedToSettings(80.0);
+  auto speed = RoutingOptions::LoadMaxSpeedFromSettings();
+  TEST(speed.has_value(), ());
+  TEST_ALMOST_EQUAL_ABS(*speed, 80.0, 1e-6, ());
+
+  RoutingOptions::SaveMaxSpeedToSettings(std::nullopt);
+  TEST(!RoutingOptions::LoadMaxSpeedFromSettings().has_value(), ());
+
+  // Invalid or zero speeds are not considered active constraints.
+  RoutingOptions::SaveMaxSpeedToSettings(0.0);
+  TEST(!RoutingOptions::LoadMaxSpeedFromSettings().has_value(), ());
+  RoutingOptions::SaveMaxSpeedToSettings(-10.0);
+  TEST(!RoutingOptions::LoadMaxSpeedFromSettings().has_value(), ());
+}
+
+UNIT_TEST(MaxSpeedConstraintSetter_RAIIRestoresPreviousValue)
+{
+  MaxSpeedConstraintSetter outerGuard(0.0);
+  TEST(!RoutingOptions::LoadMaxSpeedFromSettings().has_value(), ());
+
+  RoutingOptions::SaveMaxSpeedToSettings(90.0);
+  {
+    MaxSpeedConstraintSetter innerGuard(60.0);
+    auto const current = RoutingOptions::LoadMaxSpeedFromSettings();
+    TEST(current.has_value(), ());
+    TEST_ALMOST_EQUAL_ABS(*current, 60.0, 1e-6, ());
+  }
+  auto const restored = RoutingOptions::LoadMaxSpeedFromSettings();
+  TEST(restored.has_value(), ());
+  TEST_ALMOST_EQUAL_ABS(*restored, 90.0, 1e-6, ());
+}
 }  // namespace

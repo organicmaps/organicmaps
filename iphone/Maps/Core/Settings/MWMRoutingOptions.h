@@ -31,6 +31,7 @@ NS_SWIFT_NAME(RoutingOptions)
 @property(nonatomic) BOOL avoidDifficultTrails;
 /// Persisted immediately, unlike the avoidance options, which need -save.
 @property(nonatomic) BOOL routeOptimizationEnabled;
+@property(nonatomic) double maxSpeedKMpH;
 @property(nonatomic, readonly) BOOL hasOptions;
 @property(nonatomic, readonly) NSInteger enabledOptionsCount;
 

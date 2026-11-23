@@ -46635,3 +46635,40 @@ uk = Трамвай
 vi = Xe điện
 zh-Hans = 有轨电车
 zh-Hant = 路面電車
+
+
+[custom_speed_limit]
+tags = apple-maps
+en = Custom Speed Limit
+
+[enter_max_speed]
+tags = apple-maps
+en = Enter maximum speed in
+
+[maximum_speed_limit]
+tags = apple-maps
+en = Maximum Speed
+
+[speed_limit_custom]
+tags = apple-maps
+en = Custom…
+
+[speed_limit_description]
+tags = apple-maps
+en = Prefer roads at or below this speed limit (best effort).
+
+[speed_limit_header]
+tags = apple-maps
+en = Speed Limit
+
+[speed_limit_none]
+tags = apple-maps
+en = No Limit
+
+[speed_limit_picker_message]
+tags = apple-maps
+en = Only route on roads with at most this speed limit (best effort)
+
+[speed_limit_title]
+tags = apple-maps
+en = Speed Limit
