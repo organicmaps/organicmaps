@@ -46,20 +46,26 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     phonesData.add("");
   }
 
+  // Extract non-empty phones rows.
+  private List<String> nonBlankRows()
+  {
+    List<String> rows = new ArrayList<>();
+    for (String p : phonesData)
+    {
+      p = p.trim();
+      if (TextUtils.isEmpty(p))
+        continue;
+      rows.add(p);
+    }
+
+    return rows;
+  }
+
   // Compare `phonesData` list and `sourecPhoneData` to find any differences.
-  // Ignore last element of `phonesData` 'cause it's always an empty string.
+  // Ignore empty elements of `phonesData`.
   public boolean hasEdits()
   {
-    if (sourcePhonesData == null)
-      return true;
-    if (sourcePhonesData.size() + 1 != phonesData.size())
-      return true;
-
-    for (int i = 0; i < sourcePhonesData.size(); i++)
-      if (!Objects.equals(sourcePhonesData.get(i), phonesData.get(i)))
-        return true;
-
-    return false;
+    return !nonBlankRows().equals(sourcePhonesData);
   }
 
   @NonNull
