@@ -39,6 +39,8 @@ NS_SWIFT_NAME(Storage)
 
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (void)retryDownloadNode:(NSString *)countryId;
+/// Retries failed transfers with disk space and connection checks.
+- (BOOL)retryDownloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (BOOL)deleteNode:(NSString *)countryId
     ignoreUnsavedEdits:(BOOL)force
