@@ -9,10 +9,6 @@ class PlacePageTrackLayout: IPlacePageLayout {
 
   lazy var bodyViewControllers: [UIViewController] = configureViewControllers()
 
-  var actionBar: ActionBarViewController? {
-    actionBarViewController
-  }
-
   var navigationBar: UIViewController? {
     placePageNavigationViewController
   }
@@ -40,7 +36,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
 
   lazy var elevationMapViewController: ElevationProfileViewController? = ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
 
-  private lazy var actionBarViewController: ActionBarViewController = {
+  private(set) lazy var actionBar: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     let navigationManager = MWMNavigationDashboardManager.shared()
     vc.placePageData = placePageData
@@ -75,11 +71,11 @@ class PlacePageTrackLayout: IPlacePageLayout {
     }
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
-      self?.actionBarViewController.updateMapNodeStatus()
+      self?.actionBar.updateMapNodeStatus()
     }
     placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
       guard let self else { return }
-      self.actionBarViewController.downloadButton?.mapDownloadProgress?.progress =
+      self.actionBar.downloadButton?.mapDownloadProgress?.progress =
         CGFloat(AppConstants.maxProgress) * CGFloat(downloadedBytes) / CGFloat(totalBytes)
     }
 
