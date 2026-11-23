@@ -33,7 +33,7 @@ std::string_view constexpr kVowels = "aeiouy";
 
 std::string_view constexpr kMainTags[] = {"amenity",   "shop",    "tourism", "historic", "craft",
                                           "emergency", "barrier", "highway", "office",   "leisure",
-                                          "waterway",  "natural", "place",   "entrance", "building"};
+                                          "waterway",  "natural", "place",   "entrance", "building", "man_made"};
 
 std::string GetTypeForFeature(editor::XMLFeature const & node)
 {
