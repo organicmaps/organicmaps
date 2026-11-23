@@ -27,6 +27,9 @@ on:
       - '!LICENSE'
       - '!NOTICE'
       - '!android/**'
+      # The app converts these Android icons.
+      - android/*/src/main/res/drawable*/**
+      - android/libs/*/src/main/res/drawable*/**
       - '!iphone/**'
       - '!data/countries-strings/**'
       - '!data/organic_maps_emoji/**'
@@ -72,5 +75,8 @@ jobs:
           # 29.4.2 blocks the 32-bit socket calls of the SDK tools.
           docker run --rm --security-opt seccomp=unconfined -v "$PWD:/home/mersdk/src" -w /home/mersdk/src $SDK_IMAGE bash -ec "
             sb2 -t $SDK_TARGET cmake -B build -DSAILFISH=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=OFF
-            sb2 -t $SDK_TARGET cmake --build build --target platform location_service drape qt_translations_check -j \$(nproc)
-            QT_QPA_PLATFORM=minimal sb2 -t $SDK_TARGET ./build/qt_translations_check"
+            sb2 -t $SDK_TARGET cmake --build build --target qt_translations_check organicmaps_sailfish organicmaps_sailfish_touch_check -j \$(nproc)
+            QT_QPA_PLATFORM=minimal sb2 -t $SDK_TARGET ./build/qt_translations_check
+            sb2 -t $SDK_TARGET ./build/organicmaps_sailfish_touch_check
+            # The app-only install of the RPM spec.
+            DESTDIR=/home/mersdk/src/build/install sb2 -t $SDK_TARGET cmake -P build/sailfish/cmake_install.cmake"
