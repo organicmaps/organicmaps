@@ -63,8 +63,14 @@ public class EditorHostFragment
    * Count of names which should always be shown.
    */
   private int mMandatoryNamesCount = 0;
+  @Nullable
+  private Fragment.SavedState mEditorState;
 
-  private static final String NOOB_ALERT_SHOWN = "Alert_for_noob_was_shown";
+  static final String NOOB_ALERT_SHOWN = "Alert_for_noob_was_shown";
+  private static final String STATE_NAME_LANGS = "NameLangs";
+  private static final String STATE_NAMES = "Names";
+  private static final String STATE_MANDATORY_NAMES_COUNT = "MandatoryNamesCount";
+  private static final String STATE_EDITOR = "Editor";
 
   /**
    *   Used in MultilanguageAdapter to show, select and remove items.
@@ -108,7 +114,33 @@ public class EditorHostFragment
     NamesDataSource namesDataSource = Editor.nativeGetNamesDataSource();
     setNames(namesDataSource.getNames());
     setMandatoryNamesCount(namesDataSource.getMandatoryNamesCount());
-    editMapObject();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    final String[] langs = new String[mNames.size()];
+    final String[] names = new String[mNames.size()];
+    for (int i = 0; i < mNames.size(); i++)
+    {
+      langs[i] = mNames.get(i).lang;
+      names[i] = mNames.get(i).name;
+    }
+    outState.putStringArray(STATE_NAME_LANGS, langs);
+    outState.putStringArray(STATE_NAMES, names);
+    outState.putInt(STATE_MANDATORY_NAMES_COUNT, mMandatoryNamesCount);
+    outState.putParcelable(STATE_EDITOR, mEditorState);
+  }
+
+  private void restoreNames(@NonNull Bundle state)
+  {
+    final String[] langs = state.getStringArray(STATE_NAME_LANGS);
+    final String[] names = state.getStringArray(STATE_NAMES);
+    mNames.clear();
+    for (int i = 0; i < langs.length; i++)
+      addName(Editor.nativeMakeLocalizedName(langs[i], names[i]));
+    setMandatoryNamesCount(state.getInt(STATE_MANDATORY_NAMES_COUNT));
   }
 
   @Nullable
@@ -132,9 +164,19 @@ public class EditorHostFragment
 
     if (getArguments() != null)
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
-    getToolbarController().setTitle(getTitle());
 
-    fillNames();
+    if (savedInstanceState == null)
+      fillNames();
+    else
+    {
+      restoreNames(savedInstanceState);
+      mEditorState = Utils.getParcelable(savedInstanceState, STATE_EDITOR, Fragment.SavedState.class);
+    }
+
+    if (getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName()) == null)
+      editMapObject();
+    else
+      showMapObjectToolbar();
 
     View fragmentContainer = view.findViewById(R.id.fragment_container);
     ViewCompat.setOnApplyWindowInsetsListener(fragmentContainer, PaddingInsetsListener.excludeTop());
@@ -185,10 +227,7 @@ public class EditorHostFragment
 
   protected void editMapObject(boolean focusToLastName)
   {
-    mMode = Mode.MAP_OBJECT;
-    showSearchControls(false);
-    getToolbarController().setTitle(getTitle());
-    UiUtils.show(getToolbarController().getToolbar().findViewById(R.id.save));
+    showMapObjectToolbar();
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, mNames.size() - 1);
@@ -196,9 +235,19 @@ public class EditorHostFragment
     final Fragment editorFragment = fragmentManager.getFragmentFactory().instantiate(requireActivity().getClassLoader(),
                                                                                      EditorFragment.class.getName());
     editorFragment.setArguments(args);
+    editorFragment.setInitialSavedState(mEditorState);
+    mEditorState = null;
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
         .commit();
+  }
+
+  private void showMapObjectToolbar()
+  {
+    mMode = Mode.MAP_OBJECT;
+    showSearchControls(false);
+    getToolbarController().setTitle(getTitle());
+    UiUtils.show(getToolbarController().getToolbar().findViewById(R.id.save));
   }
 
   protected void editTimetable()
@@ -243,9 +292,7 @@ public class EditorHostFragment
   private void editWithFragment(Mode newMode, @StringRes int toolbarTitle, @Nullable Bundle args,
                                 Class<? extends Fragment> fragmentClass, boolean showSearch)
   {
-    if (!setEdits())
-      return;
-
+    mEditorState = getChildFragmentManager().saveFragmentInstanceState(getEditorFragment());
     mMode = newMode;
     getToolbarController().setTitle(toolbarTitle);
     showSearchControls(showSearch);
@@ -270,9 +317,10 @@ public class EditorHostFragment
     }
   }
 
-  private boolean setEdits()
+  @NonNull
+  private EditorFragment getEditorFragment()
   {
-    return ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
+    return (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
   }
 
   @Override
@@ -309,7 +357,7 @@ public class EditorHostFragment
       case LANGUAGE -> editMapObject();
       case MAP_OBJECT ->
       {
-        if (!setEdits())
+        if (!getEditorFragment().setEdits())
           return;
 
         // Save object edits
@@ -372,9 +420,7 @@ public class EditorHostFragment
 
   private void saveNote()
   {
-    String tag = EditorFragment.class.getName();
-    EditorFragment fragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(tag);
-    String note = fragment.getDescription();
+    String note = getEditorFragment().getDescription();
     if (!TextUtils.isEmpty(note))
       Editor.nativeCreateNote(note);
   }

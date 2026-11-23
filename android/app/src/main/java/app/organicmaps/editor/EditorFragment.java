@@ -44,6 +44,10 @@ import java.util.Map;
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
   final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
+  private final static String STATE_HOUSE_NUMBER = "HouseNumber";
+  private final static String STATE_BUILDING_LEVELS = "BuildingLevels";
+  private final static String STATE_DESCRIPTION = "Description";
+  private final static String STATE_ADDITIONAL_NAMES_SHOWN = "AdditionalNamesShown";
 
   private TextView mCategory;
   private View mCardName;
@@ -138,6 +142,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private EditorHostFragment mParent;
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    final EditTextDialogFragment dialog =
+        (EditTextDialogFragment) getChildFragmentManager().findFragmentByTag(EditTextDialogFragment.TAG);
+    if (dialog != null)
+      initPlaceDoesntExistDialog(dialog);
+  }
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -207,10 +221,33 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   }
 
   @Override
-  public void onSaveInstanceState(Bundle outState)
+  public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    setEdits();
+    outState.putString(STATE_HOUSE_NUMBER, mHouseNumber.getText().toString());
+    outState.putString(STATE_BUILDING_LEVELS, mBuildingLevels.getText().toString());
+    outState.putString(STATE_DESCRIPTION, mDescription.getText().toString());
+    for (var e : mMetadata.entrySet())
+      outState.putString(e.getKey().name(), e.getValue().mEdit.getText().toString());
+    outState.putBoolean(STATE_ADDITIONAL_NAMES_SHOWN, mNamesAdapter.areAdditionalLanguagesShown());
+  }
+
+  @Override
+  public void onViewStateRestored(@Nullable Bundle savedInstanceState)
+  {
+    // All inputs share R.id.input, so the restored view state must be overwritten.
+    super.onViewStateRestored(savedInstanceState);
+    if (savedInstanceState == null)
+      return;
+
+    mHouseNumber.setText(savedInstanceState.getString(STATE_HOUSE_NUMBER));
+    mBuildingLevels.setText(savedInstanceState.getString(STATE_BUILDING_LEVELS));
+    mDescription.setText(savedInstanceState.getString(STATE_DESCRIPTION));
+    for (var e : mMetadata.entrySet())
+      e.getValue().mEdit.setText(savedInstanceState.getString(e.getKey().name()));
+    // Don't collapse the names expanded for a newly added language.
+    if (savedInstanceState.getBoolean(STATE_ADDITIONAL_NAMES_SHOWN))
+      showAdditionalNames(true);
   }
 
   boolean setEdits()
@@ -364,10 +401,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       showAdditionalNames(false);
       return;
     }
+    final int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
+    args.remove(LAST_INDEX_OF_NAMES_ARRAY);
     showAdditionalNames(true);
     UiUtils.waitLayout(mNamesView, () -> {
       LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
-      int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
 
       View nameItem = lm.findViewByPosition(position);
 
@@ -660,11 +698,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void placeDoesntExist()
   {
-    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
+    initPlaceDoesntExistDialog(EditTextDialogFragment.show(
         getString(R.string.editor_place_doesnt_exist), "", getString(R.string.editor_comment_hint),
-        getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this);
-    dialogFragment.setValidator(getDeleteCommentValidator());
-    dialogFragment.setTextSaveListener(this::commitPlaceDoesntExists);
+        getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this));
+  }
+
+  private void initPlaceDoesntExistDialog(@NonNull EditTextDialogFragment dialog)
+  {
+    dialog.setValidator(getDeleteCommentValidator());
+    dialog.setTextSaveListener(this::commitPlaceDoesntExists);
   }
 
   private void commitPlaceDoesntExists(@NonNull String text)
