@@ -10,7 +10,7 @@ void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRo
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges)
 {
   TwinSegmentsListT twins;
-  GetTwinsInner(segment, isOutgoing, useRoutingOptions, twins);
+  GetTwinsInner(segment, isOutgoing, twins);
 
   CHECK_NOT_EQUAL(GetMode(), WorldGraphMode::LeapsOnly, ());
 
@@ -18,7 +18,12 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
   SetMode(WorldGraphMode::SingleMwm);
 
   for (Segment const & twin : twins)
+  {
+    // Twin expansion skips the incoming-road check. The two maps can tag the same road differently.
+    if (useRoutingOptions && twin.IsRealSegment() && !IsRoutingOptionsGood(twin))
+      continue;
     GetEdgeList(twin, isOutgoing, useRoutingOptions, edges);
+  }
 
   SetMode(prevMode);
 }

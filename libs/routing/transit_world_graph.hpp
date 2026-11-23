@@ -74,8 +74,7 @@ public:
 
 private:
   // WorldGraph overrides:
-  void GetTwinsInner(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                     TwinSegmentsListT & twins) override;
+  void GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins) override;
 
   static double MaxPedestrianTimeSec(double startToFinishDistanceM)
   {

@@ -74,10 +74,6 @@ public:
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { UNREACHABLE(); }
 
-  void GetTwinsInner(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                     TwinSegmentsListT & twins) override
-  {
-    CHECK(false, ());
-  }
+  void GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins) override { CHECK(false, ()); }
 };
 }  // namespace routing

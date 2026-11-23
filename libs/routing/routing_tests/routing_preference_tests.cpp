@@ -518,8 +518,16 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitModeFilterAlsoExcludesRoadFerri
   };
 
   // Try crossing the ferry and starting on a partial ferry segment away from either pier.
-  std::pair<double, double> const endpoints[] = {{1.0995, 1.4005}, {1.25, 1.0995}};
-  for (auto const & [start, finish] : endpoints)
+  struct
+  {
+    double m_start;
+    double m_finish;
+    RouterResultCode m_restrictedResult;
+  } const endpoints[] = {
+      {1.0995, 1.4005, RouterResultCode::TransitRouteNotFoundNoNetwork},
+      {1.25, 1.0995, RouterResultCode::StartPointNotFound},
+  };
+  for (auto const & [start, finish, restrictedResult] : endpoints)
   {
     Checkpoints const checkpoints(mercator::FromLatLon(1, start), mercator::FromLatLon(1, finish));
     RoutesResult allowed;
@@ -530,11 +538,9 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitModeFilterAlsoExcludesRoadFerri
     RoutePlanningOptions options;
     options.m_transitModes = static_cast<transit::ModeMask>(transit::Mode::Bus);
     RoutesResult restricted;
-    auto const code = router->CalculateRoute(checkpoints, {}, false, false, RouterDelegate(options), restricted);
-    if (code == RouterResultCode::NoError)
-      TEST(!usesFerry(restricted.GetActive()), (start, finish));
-    else
-      TEST(restricted.m_routes.empty(), (start, finish, code));
+    TEST_EQUAL(router->CalculateRoute(checkpoints, {}, false, false, RouterDelegate(options), restricted),
+               restrictedResult, (start, finish));
+    TEST(restricted.m_routes.empty(), (start, finish));
   }
 }
 
@@ -551,6 +557,36 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitGateEndingsHonorRoadFerryExclus
     MakeGateEndings({gate}, 0, graph->GetIndexGraph(0), endings);
     TEST_EQUAL(endings.contains(gate.GetOsmId()), !avoid, (avoid));
   }
+}
+
+UNIT_TEST(TransitModeFilterKeepsRoadSnapsLocalNearExcludedFerries)
+{
+  RoutingPreferenceFixture fixture("routing_ferry_snapping.osm");
+  auto router = fixture.Router(VehicleType::Transit);
+  auto const onLand = mercator::FromLatLon(1, 1.0009);
+  auto const onFerry = mercator::FromLatLon(1, 1.0025);
+  auto const nearPier = mercator::FromLatLon(1, 1.0012);
+  auto const calculate =
+      [&](m2::PointD const & start, m2::PointD const & finish, transit::ModeMask modes, RoutesResult & routes)
+  {
+    RoutePlanningOptions options;
+    options.m_transitModes = modes;
+    return router->CalculateRoute(Checkpoints(start, finish), {}, false, false, RouterDelegate(options), routes);
+  };
+
+  RoutesResult allowed;
+  TEST_EQUAL(calculate(onFerry, onLand, transit::kAllModes, allowed), RouterResultCode::NoError, ());
+  auto const buses = static_cast<transit::ModeMask>(transit::Mode::Bus);
+  RoutesResult restricted;
+  TEST_EQUAL(calculate(onFerry, onLand, buses, restricted), RouterResultCode::StartPointNotFound, ());
+  TEST_EQUAL(calculate(onLand, onFerry, buses, restricted), RouterResultCode::EndPointNotFound, ());
+
+  TEST_EQUAL(calculate(nearPier, onLand, buses, restricted), RouterResultCode::NoError, ());
+  auto const & route = restricted.GetActive();
+  TEST_LESS(route.GetRouteSegments().back().GetDistFromBeginningMeters(), 40.0, ());
+  TEST(std::ranges::none_of(route.GetRouteSegments(), [&](RouteSegment const & segment)
+  { return segment.GetSegment().GetFeatureId() == fixture.m_ferryFeature; }),
+       ());
 }
 
 UNIT_TEST(TransitModeFilterChecksTheRoadTwinInItsOwnMap)

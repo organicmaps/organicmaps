@@ -141,8 +141,6 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     RoutingOptions.transitModes = .subway
     let interactor = RoutingOptionsSettingsInteractor(routerType: .publicTransport)
     interactor.handle(.didLoad)
-    interactor.handle(.didChangeSwitch(.transitMode(.subway), isOn: false))
-    XCTAssertEqual(RoutingOptions.transitModes, .subway)
     interactor.handle(.didChangeSwitch(.transitMode(.bus), isOn: true))
     interactor.handle(.didChangeSwitch(.transitMode(.subway), isOn: false))
     XCTAssertEqual(RoutingOptions.transitModes, .bus)

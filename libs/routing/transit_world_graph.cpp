@@ -4,7 +4,6 @@
 #include "routing/index_graph.hpp"
 #include "routing/transit_graph.hpp"
 
-#include <algorithm>
 #include <memory>
 #include <utility>
 
@@ -232,19 +231,11 @@ bool TransitWorldGraph::IsRoutingOptionsGood(Segment const & segment)
   return GetIndexGraph(segment.GetMwmId()).IsRoutingOptionsGood(segment.GetFeatureId());
 }
 
-void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                                      TwinSegmentsListT & twins)
+void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
 {
   if (m_mode == WorldGraphMode::SingleMwm || !m_crossMwmGraph || !m_crossMwmGraph->IsTransition(segment, isOutgoing))
     return;
   m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
-  if (useRoutingOptions && !TransitGraph::IsTransitSegment(segment))
-  {
-    // Twin expansion skips the incoming-road check. Different map versions can disagree on ferry tags.
-    twins.erase(
-        std::remove_if(twins.begin(), twins.end(), [this](auto const & twin) { return !IsRoutingOptionsGood(twin); }),
-        twins.end());
-  }
 }
 
 RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId)

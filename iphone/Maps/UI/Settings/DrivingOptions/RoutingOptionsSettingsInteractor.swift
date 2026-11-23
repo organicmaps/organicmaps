@@ -36,9 +36,7 @@ final class RoutingOptionsSettingsInteractor {
       precondition(state.options.routerType == .publicTransport)
       let selected = state.transitModes
       let modes = enabled ? selected.union(mode) : selected.subtracting(mode)
-      if !modes.isEmpty {
-        RoutingOptions.transitModes = modes
-      }
+      RoutingOptions.transitModes = modes
       let updated = makeState(options: state.options)
       self.state = updated
       present(updated, animatingDifferences: false)

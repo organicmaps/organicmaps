@@ -204,12 +204,6 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     {
       SwitchCompat button = (SwitchCompat) inflater.inflate(R.layout.item_transit_mode_switch, options, false);
       button.setText(transitModeTitle(mode));
-      button.setOnClickListener(v -> {
-        final int modes = RoutingOptions.getTransitModes();
-        final int changed = button.isChecked() ? modes | mode.bit : modes & ~mode.bit;
-        RoutingOptions.setTransitModes(changed);
-        refreshTransitModes(changed);
-      });
       mTransitModeButtons.put(mode, button);
       options.addView(button);
     }
@@ -218,8 +212,15 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private void refreshTransitModes(int modes)
   {
     mTransitModeButtons.forEach((mode, button) -> {
+      button.setOnCheckedChangeListener(null);
       button.setChecked((modes & mode.bit) != 0);
       button.setEnabled(modes != mode.bit);
+      button.setOnCheckedChangeListener((unused, isChecked) -> {
+        final int selected = RoutingOptions.getTransitModes();
+        final int changed = isChecked ? selected | mode.bit : selected & ~mode.bit;
+        RoutingOptions.setTransitModes(changed);
+        refreshTransitModes(changed);
+      });
     });
   }
 

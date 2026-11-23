@@ -616,9 +616,10 @@ std::vector<Segment> IndexRouter::GetBestOutgoingSegments(m2::PointD const & che
 bool IndexRouter::GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges)
 {
   bool dummy = false;
+  bool nearbyExcludedFerry = false;
   PointsOnEdgesSnapping snapping(*this, graph);
   return snapping.FindBestEdges(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */,
-                                FeaturesRoadGraph::kClosestEdgesRadiusM, edges, dummy);
+                                FeaturesRoadGraph::kClosestEdgesRadiusM, edges, dummy, nearbyExcludedFerry);
 }
 
 void IndexRouter::AppendPartsOfReal(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2,
@@ -1571,9 +1572,10 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & che
   // pick (a car starting in a known direction) short-circuits and is never widened.
   for (double const radiusM : {double(kFirstSearchDistanceM), 500.0, 2000.0})
   {
-    if (!FindBestEdges(checkpoint, direction, isOutgoing, radiusM, bestEdges, bestSegmentIsAlmostCodirectional))
-      continue;
-    if (bestSegmentIsAlmostCodirectional || bestEdges.size() >= kMinRoadCandidates)
+    bool nearbyExcludedFerry = false;
+    bool const found = FindBestEdges(checkpoint, direction, isOutgoing, radiusM, bestEdges,
+                                     bestSegmentIsAlmostCodirectional, nearbyExcludedFerry);
+    if (nearbyExcludedFerry || (found && (bestSegmentIsAlmostCodirectional || bestEdges.size() >= kMinRoadCandidates)))
       break;
   }
 
@@ -1590,7 +1592,8 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & che
 bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkpoint, m2::PointD const & direction,
                                                        bool isOutgoing, double closestEdgesRadiusM,
                                                        std::vector<Edge> & bestEdges,
-                                                       bool & bestSegmentIsAlmostCodirectional)
+                                                       bool & bestSegmentIsAlmostCodirectional,
+                                                       bool & nearbyExcludedFerry)
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
   auto closestRoads = m_router.m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
@@ -1626,13 +1629,20 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // should contain all roads independently of routing options to prevent crossing roads
   // which are switched off in RoutingOptions.
   // Then reject dead ends under the selected options and reject excluded ferry snap candidates for transit.
+  auto const withinLocalSnapDistance = [&](EdgeProjectionT const & projection)
+  { return mercator::DistanceOnEarth(checkpoint, projection.second.GetPoint()) <= kFirstSearchDistanceM; };
+  nearbyExcludedFerry = false;
   auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);
     // A disabled transit ferry mode excludes even partial road-ferry segments at checkpoints.
     // Road avoids can still let other profiles snap to the road the user is already on.
     if (m_router.m_vehicleType == VehicleType::Transit && !m_graph.IsRoutingOptionsGood(segment))
+    {
+      if (closestEdgesRadiusM == kFirstSearchDistanceM && !nearbyExcludedFerry)
+        nearbyExcludedFerry = withinLocalSnapDistance(edgeProj);
       return false;
+    }
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds[1]) &&
         m_deadEnds[1].count(segment) == 0)
     {
@@ -1646,6 +1656,10 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
   std::vector<EdgeProjectionT> candidates;
   RoadsToNearestEdges(checkpoint, closestRoads, isGood, candidates);
+
+  // Keep a checkpoint near an excluded ferry from making a long straight connection to a pier.
+  if (nearbyExcludedFerry)
+    std::erase_if(candidates, [&](auto const & candidate) { return !withinLocalSnapDistance(candidate); });
 
   if (candidates.empty())
     return false;
