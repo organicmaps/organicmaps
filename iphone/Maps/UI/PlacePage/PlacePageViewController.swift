@@ -84,7 +84,7 @@ private final class RectShadowView: UIView {
   private var currentScrollContentOffset: CGPoint?
   private var previousScrollContentOffset: CGPoint?
   private var userDefinedStep: PlacePageState?
-  private var isNavigationBarVisible = false
+  private var isNavigationBarVisible: Bool { layout?.navigationBar?.parent === self }
   private var isFirstOpening = true
   private var isVisible: Bool = false
   private var closingAnimator: UIViewPropertyAnimator?
@@ -389,6 +389,8 @@ extension PlacePageViewController: PlacePageViewProtocol {
     self.layout = layout
     setupLayout(layout)
     updatePreviewOffset()
+    // A kept offset doesn't call scrollViewDidScroll, so pin the new header here.
+    onOffsetChanged(scrollView.contentOffset.y)
   }
 
   private func hideActionBar(_ value: Bool) {
@@ -526,17 +528,12 @@ extension PlacePageViewController: UIScrollViewDelegate {
   }
 
   private func onOffsetChanged(_ offset: CGFloat) {
-    if offset > 0, !isNavigationBarVisible {
-      setNavigationBarVisible(true)
-    } else if offset <= 0, isNavigationBarVisible {
-      setNavigationBarVisible(false)
-    }
+    setNavigationBarVisible(offset > 0)
   }
 
   private func setNavigationBarVisible(_ visible: Bool) {
     guard visible != isNavigationBarVisible, let navigationBar = layout?.navigationBar else { return }
-    isNavigationBarVisible = visible
-    if isNavigationBarVisible {
+    if visible {
       addNavigationBar(navigationBar)
     } else {
       navigationBar.removeFromParent()
