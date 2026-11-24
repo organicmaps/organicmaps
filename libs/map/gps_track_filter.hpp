@@ -11,7 +11,8 @@ public:
 
   using GpsVectorT = std::vector<location::GpsInfo>;
   virtual void Process(GpsVectorT const & inPoints, GpsVectorT & outPoints) = 0;
-  virtual void Finalize(GpsVectorT & outPoints) {}
+  // Returns the last fix if sampling deferred it.
+  virtual location::GpsInfo const * GetDeferredPoint() const { return nullptr; }
   virtual void Reset() {}
 };
 
@@ -32,7 +33,7 @@ public:
 
   // IGpsTrackFilter overrides
   void Process(GpsVectorT const & inPoints, GpsVectorT & outPoints) override;
-  void Finalize(GpsVectorT & outPoints) override;
+  location::GpsInfo const * GetDeferredPoint() const override;
   void Reset() override;
 
 private:

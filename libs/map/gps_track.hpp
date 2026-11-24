@@ -19,6 +19,7 @@ class GpsTrack final
 {
 public:
   static size_t constexpr kInvalidId = GpsTrackCollection::kInvalidId;
+  static size_t constexpr kMinValidTrackPoints = 2;
 
   /// @param filePath - path to the crash backup, written in batches while recording
   /// @param filter - filter object used for filtering points, GpsTrackNullFilter is created by default
@@ -56,16 +57,22 @@ public:
   /// @note Only one callback is supported at time.
   /// @note When sink is attached, it receives all points in 'toAdd' at first time,
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
+  /// @note Runs on the worker thread or on the thread calling CanSave().
   void SetCallback(TGpsTrackDiffCallback callback);
 
   /// @note Calling SetStatisticsCallback from the callback causes deadlock.
   using TGpsTrackStatisticsCallback = std::function<void(TrackStatistics const & trackStatistics)>;
 
-  /// Called on the worker thread with the current statistics, then on each change.
+  /// Sends the current statistics, then each change. Runs on the worker thread or on the thread calling CanSave().
   void SetStatisticsCallback(TGpsTrackStatisticsCallback callback);
 
   /// Finishes recording and flushes its backup, keeping it until Clear.
   size_t Finalize();
+
+  /// @pre Recording is active.
+  /// Processes queued fixes and returns whether finalization would keep enough distinct points.
+  /// Both callbacks may run synchronously on the calling thread.
+  bool CanSave();
 
   /// @pre Finalize should be called before.
   template <class FnT>

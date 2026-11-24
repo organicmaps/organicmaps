@@ -15,6 +15,7 @@ public:
   void Start();
   // Flush pending fixes and return the number of accepted points.
   size_t Stop();
+  bool CanSave();
   void Clear();
 
   TrackStatistics GetTrackStatistics();

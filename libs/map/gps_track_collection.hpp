@@ -16,6 +16,9 @@ public:
 
   using TItem = location::GpsInfo;
 
+  /// Returns whether Add would retain |item| after the current last point.
+  bool CanAdd(TItem const & item) const;
+
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
   /// @returns range of identifiers of added items or pair(kInvalidId,kInvalidId) if nothing was added

@@ -30,6 +30,7 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 + (void)startTrackRecording;
 + (void)setTrackRecordingUpdateHandler:(TrackRecordingUpdatedHandler _Nullable)trackRecordingDidUpdate;
 + (void)discardTrackRecording;
++ (BOOL)canSaveTrackRecording;
 + (BOOL)saveTrackRecordingWithName:(nonnull NSString *)name;
 + (BOOL)isTrackRecordingEnabled;
 + (ElevationProfileData * _Nullable)trackRecordingElevationInfo;
