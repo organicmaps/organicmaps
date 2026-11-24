@@ -17,9 +17,7 @@ import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.log.Logger;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -47,7 +45,6 @@ public class RoutingControllerTrackPreviewTest
   private static class FollowController extends RoutingController
   {
     boolean following = true;
-    boolean trackExists = true;
     int cancels;
 
     FollowController()
@@ -59,18 +56,6 @@ public class RoutingControllerTrackPreviewTest
     public boolean isFollowingTrack()
     {
       return following;
-    }
-
-    @Override
-    public FollowedTrackInfo getFollowedTrackInfo()
-    {
-      return trackInfo();
-    }
-
-    @Override
-    boolean hasTrack(long trackId)
-    {
-      return trackExists;
     }
 
     @Override
@@ -223,17 +208,6 @@ public class RoutingControllerTrackPreviewTest
   }
 
   @Test
-  public void backAfterTheSourceWasDeletedEndsTheJourney() throws ReflectiveOperationException
-  {
-    final FollowController controller = new FollowController();
-    controller.trackExists = false;
-    setState(controller, "NAVIGATION");
-    assertTrue(controller.resetToPlanningStateIfNavigating());
-    assertEquals(1, controller.cancels);
-    assertFalse(controller.isPlanning());
-  }
-
-  @Test
   public void routerChangeEndsTheTrackSession() throws ReflectiveOperationException
   {
     final FollowController controller = new FollowController();
@@ -324,36 +298,6 @@ public class RoutingControllerTrackPreviewTest
     controller.rebuildLastRoute();
     assertTrue(controller.isPlanning());
     assertEquals(RoutingController.BuildState.BUILT, controller.getBuildState());
-  }
-
-  @Test
-  public void deletedTrackKeepsItsActiveNavigation() throws ReflectiveOperationException
-  {
-    // Navigation goes on along the frozen geometry. The deleted preview case runs on a device in
-    // RoutingControllerRecoveryTest, which also covers the listener registration.
-    final FollowController controller = new FollowController();
-    controller.trackExists = false;
-    setState(controller, "NAVIGATION");
-    final Method changed = RoutingController.class.getDeclaredMethod("cancelDeletedTrackPreview");
-    changed.setAccessible(true);
-    changed.invoke(controller);
-    assertEquals(0, controller.cancels);
-    assertTrue(controller.isNavigating());
-  }
-
-  private static FollowedTrackInfo trackInfo()
-  {
-    try
-    {
-      final Constructor<FollowedTrackInfo> constructor =
-          FollowedTrackInfo.class.getDeclaredConstructor(long.class, String.class, double.class);
-      constructor.setAccessible(true);
-      return constructor.newInstance(1L, "Track", 0.0);
-    }
-    catch (ReflectiveOperationException e)
-    {
-      throw new AssertionError(e);
-    }
   }
 
   private static void setState(RoutingController controller, String name) throws ReflectiveOperationException

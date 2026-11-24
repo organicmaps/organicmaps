@@ -1052,10 +1052,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onResumeFragments();
     final RoutingController routing = RoutingController.get();
     routing.restore();
-    // Planning can end while this activity is stopped and detached, e.g. by Stop in the navigation notification after a
-    // track Start completed in the background. Nothing removed the plan from this activity then.
-    if (!routing.isPlanning() && !routing.isNavigating()
-        && getSupportFragmentManager().findFragmentByTag(RoutingPlanFragment.TAG) != null)
+    if (routing.isPlanning() || routing.isNavigating())
+      return;
+
+    // Routing can end while this activity is detached, e.g. when its track is deleted from Bookmarks or Stop is tapped
+    // in the navigation notification. Nothing reset the controls this activity kept for it then.
+    if (mMapButtonsViewModel.getLayoutMode().getValue() == MapButtonsController.LayoutMode.navigation)
+      onNavigationCancelled();
+    if (getSupportFragmentManager().findFragmentByTag(RoutingPlanFragment.TAG) != null)
     {
       showRoutePlan(false);
       onPlanningCancelled();

@@ -213,24 +213,16 @@ public class RoutingController
   };
 
   // Bookmark changes are published from inside Core's edit session; teardown must wait for it to finish.
-  private final DataChangedListener mBookmarksListener = () -> UiThread.runLater(this::cancelDeletedTrackPreview);
+  private final DataChangedListener mBookmarksListener = () -> UiThread.runLater(this::cancelIfFollowedTrackDeleted);
 
-  private void cancelDeletedTrackPreview()
+  // Deleting the source track ends its route: the preview, a pending Start and navigation alike.
+  private void cancelIfFollowedTrackDeleted()
   {
-    if (isPlanning() && isFollowedTrackDeleted())
-      cancel();
-  }
-
-  private boolean isFollowedTrackDeleted()
-  {
+    if (mState == State.NONE)
+      return;
     final FollowedTrackInfo track = getFollowedTrackInfo();
-    return track != null && !hasTrack(track.getTrackId());
-  }
-
-  @VisibleForTesting
-  boolean hasTrack(long trackId)
-  {
-    return BookmarkManager.INSTANCE.hasTrack(trackId);
+    if (track != null && !BookmarkManager.INSTANCE.hasTrack(track.getTrackId()))
+      cancel();
   }
 
   public static RoutingController get()
@@ -769,9 +761,9 @@ public class RoutingController
   }
 
   /**
-   * A snapshot of the followed track, or {@code null} when no track is being followed. It stays
-   * valid after the track itself has been deleted (navigation then continues on the frozen
-   * geometry), so resolving it through the bookmark manager needs an existence check.
+   * A snapshot of the followed track, or {@code null} when no track is being followed. Later edits of the track don't
+   * change it. Deleting the track ends the route once the bookmark change is applied, so resolving the snapshot
+   * through the bookmark manager still needs an existence check.
    */
   @Nullable
   public FollowedTrackInfo getFollowedTrackInfo()
@@ -929,20 +921,13 @@ public class RoutingController
   }
 
   /**
-   * Returns navigation to planning and rebuilds. Navigation along a followed track whose source was deleted is
-   * cancelled instead.
-   * @return whether navigation was active
+   * Returns navigation to planning and rebuilds.
+   * @return whether navigation was active and a transition was requested
    */
   public boolean resetToPlanningStateIfNavigating()
   {
     if (isNavigating())
     {
-      // The preview of a deleted track would only be cancelled by the next bookmark change.
-      if (isFollowedTrackDeleted())
-      {
-        cancel();
-        return true;
-      }
       if (isFollowingTrack())
       {
         final FollowTrackResult result = resetFollowedTrackToPlanning();
