@@ -44079,8 +44079,9 @@ en = Looking for position…
 
 [public_transport]
 comment = Public transport routing profile, including subway and trains.
-tags = qt
+tags = android-app,qt
 en = Public transport
+ru = Общественный транспорт
 
 [bookmarks_mouse_shortcuts_tooltip]
 tags = qt
@@ -44143,8 +44144,9 @@ tags = qt
 en = Select mode and use RMB to define selection box
 
 [ruler]
-tags = qt
+tags = android-app,qt
 en = Ruler
+ru = Линейка
 
 [ruler_mouse_shortcuts_tooltip]
 tags = qt
