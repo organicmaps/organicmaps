@@ -16,10 +16,14 @@ std::unique_ptr<HouseToStreetTable> LoadHouseToPlaceTable(MwmValue const & value
 class HouseToStreetTableBuilder
 {
 public:
-  void Put(uint32_t featureId, uint32_t offset);
+  void Put(uint32_t houseId, uint32_t streetId);
+  // Keys and values are stored relative to their table minimums.
   void Freeze(Writer & writer) const;
 
 private:
   MapUint32ToValueBuilder<uint32_t> m_builder;
+  bool m_empty = true;
+  uint32_t m_keyOffset = 0;
+  uint32_t m_valueOffset = 0;
 };
 }  // namespace search
