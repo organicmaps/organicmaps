@@ -67,7 +67,7 @@ template <typename TVertex>
 class BaseLineBuilder : public LineShapeInfo
 {
 public:
-  BaseLineBuilder(BaseBuilderParams const & params, size_t geomsSize, size_t joinsSize)
+  BaseLineBuilder(BaseBuilderParams const & params, size_t geomsSize)
     : m_params(params)
     , m_colorCoord(glsl::ToVec2(params.m_color.GetTexRect().Center()))
     , m_colorCoordLeft(params.m_hasRainbow ? params.m_colorCoordLeft : m_colorCoord)
@@ -145,9 +145,7 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
 public:
   using BuilderParams = BaseBuilderParams;
 
-  SolidLineBuilder(BuilderParams const & params, size_t pointsInSpline)
-    : TBase(params, pointsInSpline * 2, (pointsInSpline - 2) * 8)
-  {}
+  SolidLineBuilder(BuilderParams const & params, size_t pointsInSpline) : TBase(params, (pointsInSpline - 1) * 4) {}
 
   dp::RenderState GetState() override
   {
@@ -225,11 +223,11 @@ public:
     CreateRoundFan(pos, outer, left ? angle : -angle);
   }
 
-  void SubmitCap(glsl::vec2 const & pos)
+  void SubmitCap(glsl::vec2 const & pos, bool hasEndJoin = false)
   {
     // Caps of their own program would be drawn out of the paint order.
     ASSERT(m_params.m_cap == dp::ButtCap || !m_params.m_blendInPaintOrder, ());
-    if (m_params.m_cap != dp::ButtCap)
+    if (m_params.m_cap == dp::RoundCap || (hasEndJoin && m_params.m_join == dp::RoundJoin))
       CreateRoundCap(pos);
   }
 
@@ -286,7 +284,7 @@ public:
   using BuilderParams = BaseBuilderParams;
 
   SimpleSolidLineBuilder(BuilderParams const & params, size_t pointsInSpline, int lineWidth)
-    : TBase(params, pointsInSpline, 0)
+    : TBase(params, pointsInSpline)
     , m_lineWidth(lineWidth)
   {}
 
@@ -319,7 +317,7 @@ public:
   };
 
   DashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
-    : TBase(params, pointsInSpline * 8, (pointsInSpline - 2) * 8)
+    : TBase(params, pointsInSpline * 8)
     , m_texCoordGen(params.m_stipple)
     , m_baseGtoPScale(params.m_baseGtoP)
   {}
@@ -347,14 +345,78 @@ private:
   TextureCoordGenerator m_texCoordGen;
   float const m_baseGtoPScale;
 };
+
+struct SquareDashVertex
+{
+  glsl::vec3 m_position;
+  glsl::vec3 m_normal;  // xy is the side offset, z its side sign.
+  glsl::vec2 m_color;
+  glsl::vec4 m_range;    // Vertex distance, unclipped segment start and end, and endpoint type.
+  glsl::vec2 m_pattern;  // Dash length and period in pixels.
+
+  static dp::BindingInfo const & GetBindingInfo()
+  {
+    static auto const info = []
+    {
+      dp::BindingFiller<SquareDashVertex> f(5);
+      f.FillDecl<glsl::vec3>("a_position");
+      f.FillDecl<glsl::vec3>("a_normal");
+      f.FillDecl<glsl::vec2>("a_colorTexCoord");
+      f.FillDecl<glsl::vec4>("a_range");
+      f.FillDecl<glsl::vec2>("a_pattern");
+      return f.m_info;
+    }();
+    return info;
+  }
+};
+
+// One quad per segment. The shader converts source distances to pixels at the current zoom.
+class SquareDashBuilder : public BaseLineBuilder<SquareDashVertex>
+{
+public:
+  SquareDashBuilder(BaseBuilderParams const & params, size_t points, dp::PenPatternT const & pattern)
+    : BaseLineBuilder(params, (points - 1) * 4)
+    , m_pattern(pattern[0], pattern[0] + pattern[1])
+  {}
+
+  dp::RenderState GetState() override
+  {
+    auto state = CreateRenderState(gpu::Program::SquareDash, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
+    return state;
+  }
+
+  void SubmitEdge(glsl::vec3 const & pivot, glsl::vec2 const & left, glsl::vec4 const & range)
+  {
+    m_geometry.push_back({pivot, {-left, -1}, m_colorCoordRight, range, m_pattern});
+    m_geometry.push_back({pivot, {left, 1}, m_colorCoordLeft, range, m_pattern});
+  }
+
+private:
+  glsl::vec2 const m_pattern;
+};
+
+template <typename Builder, typename... Args>
+void SubmitEdge(Builder & builder, glsl::vec3 const & pivot, glsl::vec2 const & tangent, int extension, Args... args)
+{
+  glsl::vec2 const left(-tangent.y, tangent.x);
+  glsl::vec2 const offset = static_cast<float>(extension) * tangent;
+  builder.SubmitVertex(pivot, offset - left, false, args...);
+  builder.SubmitVertex(pivot, offset + left, true, args...);
+}
 }  // namespace
 
-LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
+LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params, m2::SplineClipInfo clip)
   : m_params(params)
   , m_spline(spline)
+  , m_clip(clip)
   , m_isSimple(false)
 {
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
+  if (m_params.m_cap == dp::SquareCap && m_clip.m_hasStart && m_clip.m_hasEnd &&
+      m_spline->GetPath().front() == m_spline->GetPath().back())
+    m_clip = {.m_hasStart = false, .m_hasEnd = false, .m_hasEndJoin = true};
 }
 
 template <typename TBuilder>
@@ -374,7 +436,8 @@ void LineShape::ForEachSplineSection(FnT && fn) const
   {
     /// @todo Make this kind of filtration in Spline?
     // Area outlines are simplified by zoom, while this accuracy merges vertices of small rings at high zooms.
-    if (!m_params.m_blendInPaintOrder && path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
+    if (m_params.m_cap != dp::SquareCap && !m_params.m_blendInPaintOrder &&
+        path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
       continue;
 
     std::pair<m2::PointD, double> tanlen;
@@ -395,8 +458,11 @@ void LineShape::ForEachSplineSection(FnT && fn) const
 
     glsl::vec2 const tangent = glsl::ToVec2(tanlen.first);
 
-    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]), tangent, tanlen.second, {-tangent.y, tangent.x},
-       {tangent.y, -tangent.x}, (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
+    bool const first = i == 0;
+    bool const last = j == sz;
+    bool const square = m_params.m_cap == dp::SquareCap;
+    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]), tangent, tanlen.second, first, last,
+       square && first && m_clip.m_hasStart ? -1 : 0, square && last && m_clip.m_hasEnd ? 1 : 0);
 
     i = j;
   }
@@ -417,8 +483,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   float const maskLengthG = builder.GetMaskLengthG() / 3;
 
   float offset = 0;
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw,
-                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw, bool,
+                           bool, int startExtension, int endExtension)
   {
     glsl::vec2 currPivot = p1;
     do
@@ -442,10 +508,9 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
         toDraw -= len;
       }
 
-      builder.SubmitVertex({currPivot, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
-      builder.SubmitVertex({currPivot, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
-      builder.SubmitVertex({nextPivot, m_params.m_depth}, rightNormal, false /* isLeft */, nextOffset);
-      builder.SubmitVertex({nextPivot, m_params.m_depth}, leftNormal, true /* isLeft */, nextOffset);
+      SubmitEdge(builder, {currPivot, m_params.m_depth}, tangent, startExtension, offset);
+      SubmitEdge(builder, {nextPivot, m_params.m_depth}, tangent, toDraw == 0 ? endExtension : 0, nextOffset);
+      startExtension = 0;
 
       currPivot = nextPivot;
       offset = nextOffset;
@@ -464,21 +529,19 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   bool const generateJoins = m_params.m_blendInPaintOrder || builder.GetHalfWidth() > 2.5f;
 
   glsl::vec2 prevTangent(0, 0);
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
-                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double, bool first,
+                           bool last, int startExtension, int endExtension)
   {
-    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
-    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
-    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */);
-    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
+    SubmitEdge(builder, {p1, m_params.m_depth}, tangent, startExtension);
+    SubmitEdge(builder, {p2, m_params.m_depth}, tangent, endExtension);
 
     // Generate joins.
-    if (flag & 0x1)  // p1 - first point
+    if (first)
       builder.SubmitCap(p1);
     else if (generateJoins)  // p1 - middle point
       builder.SubmitJoin(p1, prevTangent, tangent);
-    if (flag & 0x2)  // p2 - last point
-      builder.SubmitCap(p2);
+    if (last)
+      builder.SubmitCap(p2, generateJoins && m_clip.m_hasEndJoin);
     prevTangent = tangent;
   });
 }
@@ -543,18 +606,38 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 
   bool const hasRainbow = !m_params.m_rainbowColors.empty();
 
-  // Rainbow lines must use the DashedLine program because the solid Line program samples color
-  // per-vertex (VTF), which blends colors instead of producing crisp stripes. The DashedLine
-  // program always samples per-fragment. For solid rainbow lines, use a fully-opaque stipple mask.
+  // Rainbow stripes need per-fragment color sampling. A fully opaque mask selects the textured
+  // line program for a solid rainbow.
   dp::PenPatternT pattern = m_params.m_pattern;
   if (hasRainbow && pattern.empty())
     pattern = {2};  // Single 2px dash, no gap = fully opaque mask.
 
-  if (pattern.empty())
+  if (m_params.m_cap == dp::SquareCap && pattern.size() == 2)
+  {
+    BaseBuilderParams p;
+    commonParamsBuilder(p);
+    auto builder = std::make_unique<SquareDashBuilder>(p, m_spline->GetSize(), pattern);
+    double distance = m_clip.m_offset;
+    ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double length,
+                             bool first, bool last, int startExtension, int endExtension)
+    {
+      double const startTrim = first ? m_clip.m_startTrim : 0;
+      double const endTrim = last ? m_clip.m_endTrim : 0;
+      double const start = distance - startTrim, end = distance + length + endTrim;
+      glsl::vec2 const left = p.m_pxHalfWidth * glsl::vec2(-tangent.y, tangent.x);
+      // Signed endpoint type: 0 at a tile cut, ±1 at a join, ±2 at an open feature end.
+      builder->SubmitEdge({p1, m_params.m_depth}, left,
+                          {distance, start, end, startTrim > 0 ? 0 : -1 + startExtension});
+      distance += length;
+      builder->SubmitEdge({p2, m_params.m_depth}, left, {distance, start, end, endTrim > 0 ? 0 : 1 + endExtension});
+    });
+    m_lineShapeInfo = std::move(builder);
+  }
+  else if (pattern.empty())
   {
     int lineWidth = 1;
-    // GL lines need another program.
-    m_isSimple = !m_params.m_blendInPaintOrder && CanBeSimplified(lineWidth);
+    // Native line strips cannot extend square endpoints.
+    m_isSimple = m_params.m_cap != dp::SquareCap && !m_params.m_blendInPaintOrder && CanBeSimplified(lineWidth);
     if (m_isSimple)
     {
       SimpleSolidLineBuilder::BuilderParams p;

@@ -16,13 +16,26 @@ using ClipTriangleByRectResultIt = std::function<void(m2::PointD const &, m2::Po
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator);
 
+/// Position of a tile fragment along the original path, in global units.
+struct SplineClipInfo
+{
+  double m_offset = 0;
+  // Length removed from the first and last segments by the clip, for dashes spanning tile edges.
+  double m_startTrim = 0, m_endTrim = 0;
+  bool m_hasStart = true;
+  bool m_hasEnd = true;
+  bool m_hasEndJoin =
+      false;  // The incoming segment owns the join at a source vertex on the tile edge or at ring closure.
+};
+
 /// Clips |path| against |rect| and back-inserts the resulting sub-splines into |out|.
 /// Caller is expected to have already classified the path against the rect
 /// (e.g. via the feature's limit rect) and only invoke this for the real
 /// Intersect case — Inside/Outside dispatch is intentionally absent. The
 /// underlying implementation is still correct for Inside/Outside paths
 /// (just redundant), so passing such paths is safe but wasteful.
-void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out);
+void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out,
+                    std::vector<SplineClipInfo> * info = nullptr);
 std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline);
 /// As above, also returning each clipped spline's start distance from the source spline's beginning.
 std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,

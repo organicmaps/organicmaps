@@ -169,6 +169,7 @@ private:
 
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;
+  std::vector<m2::SplineClipInfo> m_clipInfo;
   std::vector<m2::SharedSpline> m_clippedSplines;
   bool const m_isIsoline;
 

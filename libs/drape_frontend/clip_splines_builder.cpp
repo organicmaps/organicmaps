@@ -190,9 +190,11 @@ void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
   thinner.Finish();
 }
 
-std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
+std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::vector<m2::SplineClipInfo> * info)
 {
   std::vector<m2::SharedSpline> out;
+  if (info)
+    info->clear();
   if (m_path.size() < 2)
     return out;
 
@@ -204,6 +206,12 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   if (!isIsoline && m_knownInside)
   {
     out.emplace_back(std::move(m_path));
+    if (info)
+    {
+      auto const & spline = *out.front();
+      bool const open = spline.GetPath().front() != spline.GetPath().back();
+      info->push_back({.m_hasStart = open, .m_hasEnd = open, .m_hasEndJoin = !open});
+    }
     return out;
   }
 
@@ -215,20 +223,22 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     m2::PathsForSmooth clippedPaths;
     auto extTileRect = m_params.m_tileRect;
     extTileRect.Scale(kIsolineSmoothScale);
-    m2::ClipPathByRectBeforeSmooth(extTileRect, m_path, guidePoints, clippedPaths);
+    // Square dashes measure phase from the start of the smoothed feature.
+    m2::ClipPathByRectBeforeSmooth(info ? m2::RectD::GetInfiniteRect() : extTileRect, m_path, guidePoints,
+                                   clippedPaths);
 
     if (!clippedPaths.empty())
     {
       m2::SmoothPaths(guidePoints, 4 /* newPointsPerSegmentCount */, m2::kCentripetalAlpha, clippedPaths);
 
       for (auto const & path : clippedPaths)
-        m2::ClipPathByRect(m_params.m_tileRect, path, out);
+        m2::ClipPathByRect(m_params.m_tileRect, path, out, info);
     }
   }
   else
   {
     out.reserve(2);
-    m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
+    m2::ClipPathByRect(m_params.m_tileRect, m_path, out, info);
   }
 
   return out;

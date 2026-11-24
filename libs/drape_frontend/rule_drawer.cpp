@@ -658,8 +658,12 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
     auto const * textRule = isolinesStyle.GetPathTextRule(isoline.m_altitude);
 
     builder.SetPath(std::move(isoline.m_points));
-    for (auto const & spline : builder.Release(true /* isIsoline */))
+    std::vector<m2::SplineClipInfo> clipInfo;
+    auto const splines =
+        builder.Release(true /* isIsoline */, lineRule->cap == drule::LineCap::Square ? &clipInfo : nullptr);
+    for (size_t i = 0; i < splines.size(); ++i)
     {
+      auto const & spline = splines[i];
       LineViewParams params;
       params.m_tileCenter = m_applyParams.m_tileRect.Center();
       ExtractLineParams(*lineRule, visScale, params);
@@ -674,7 +678,8 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
       params.m_depthLayer = DepthLayer::GeometryLayer;
       params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
       params.m_zoomLevel = m_zoomLevel;
-      m_applyParams.m_insertShape(make_unique_dp<LineShape>(spline, params));
+      m_applyParams.m_insertShape(
+          make_unique_dp<LineShape>(spline, params, clipInfo.empty() ? m2::SplineClipInfo{} : clipInfo[i]));
 
       if (textRule == nullptr)
         continue;
