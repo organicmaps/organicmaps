@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Email ή όνομα χρήστη";
-"level" = "Όροφος";
 "downloader_delete_map_dialog" = "Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.";
 "downloader_update_maps" = "Ενημέρωση χαρτών";
 "downloader_search_field_hint" = "Εύρεση χάρτη";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Αποφυγή πορθμείων";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Αποφυγή δύσκολων μονοπατιών";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Αποφυγή σκαλιών";
 "avoid_motorways" = "Αποφυγή αυτοκινητόδρομων";
 "unable_to_calc_alert_title" = "Δεν ήταν δυνατός ο υπολογισμός διαδρομής";
 "unable_to_calc_alert_subtitle" = "Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Κατάβαση";
 "elevation_profile_min_elevation" = "Ελάχ. υψόμετρο";
 "elevation_profile_max_elevation" = "Μέγ. υψόμετρο";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Ξεκινήστε να κινείστε για να δείτε το υψομετρικό προφίλ";
 "isolines_toast_zooms_1_10" = "Μεγεθύνετε για να δείτε περιγράμματα";
 "downloader_loading_ios" = "Κατέβασμα";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Επιτεύχθηκε ο μέγιστος αριθμός στάσεων";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Η διαδρομή δεν μπόρεσε να αποθηκευτεί ως ίχνος";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Μετακινήστε και μεγεθύνετε τον χάρτη για να τοποθετήσετε τον σταυρό";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Αντιστροφή διαδρομής";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Εισάγετε έναν έγκυρο αριθμό ορόφου";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Όροφος (το ισόγειο είναι 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Πλοήγηση";
+
+/* Track start point label. */
+"navigate_track_start" = "Αρχή ίχνους";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Τέλος ίχνους";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Δεν απομένει ίχνος προς αυτή την κατεύθυνση. Επιλέξτε άλλο σημείο.";

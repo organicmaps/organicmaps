@@ -1,10 +1,5 @@
 import UIKit
 
-public enum ChartType {
-  case regular
-  case percentage
-}
-
 public enum ChartLineType: String {
   case line
   case lineArea
@@ -12,6 +7,7 @@ public enum ChartLineType: String {
 
 public protocol ChartFormatter {
   func xAxisString(from value: Double) -> String
+  func xAxisLabels(lowerBound: Double, upperBound: Double) -> [(value: Double, text: String)]
   func yAxisString(from value: Double) -> String
   func yAxisLowerBound(from value: CGFloat) -> CGFloat
   func yAxisUpperBound(from value: CGFloat) -> CGFloat
@@ -22,7 +18,6 @@ public protocol ChartData {
   var xAxisValues: [Double] { get }
   var lines: [ChartLine] { get }
   var segmentDistances: [Double] { get }
-  var type: ChartType { get }
 }
 
 public extension ChartData {
@@ -65,8 +60,6 @@ public extension Array {
 }
 
 extension Array where Element == ChartValue {
-  var maxDistance: CGFloat { map(\.x).max() ?? 0 }
-
   func interpolatedAltitude(at distance: CGFloat) -> CGFloat {
     guard let first, let last else { return 0 }
     if distance <= first.x {

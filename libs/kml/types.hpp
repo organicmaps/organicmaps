@@ -428,6 +428,11 @@ struct MultiGeometry
   std::vector<TimeT> m_timestamps;
 
   void Clear();
+  bool HasLines() const { return !m_lines.empty(); }
+  static bool IsValidSectionTimestamps(TimeT const & times, size_t pointCount);
+  // A single representative keeps the first available measurements at each retained position.
+  static void RemoveDuplicatePoints(LineT & line, TimeT & times);
+  // Each runtime section has at least two points and either aligned capture times or none.
   bool IsValid() const;
 
   bool operator==(MultiGeometry const & rhs) const
@@ -451,10 +456,6 @@ struct MultiGeometry
   void AddTimestamps(std::initializer_list<TimeInt> lst);
 
   bool HasTimestamps() const;
-  bool HasTimestampsFor(size_t lineIndex) const;
-
-  size_t GetNumberOfLinesWithouTimestamps() const;
-  size_t GetNumberOfLinesWithTimestamps() const;
 };
 
 // Intermediate route stop. KML preserves it; GPX imports named rtepts and exports waypoints,

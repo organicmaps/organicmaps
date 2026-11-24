@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import app.organicmaps.widget.placepage.ElevationChartUtils.YAxisBounds;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
 import java.util.List;
 import org.junit.Test;
 
@@ -180,6 +181,80 @@ public class ElevationChartUtilsTest
     List<Entry> entries = List.of(new Entry(0f, 100f), new Entry(5e-10f, 200f));
 
     assertEquals(100f, ElevationChartUtils.interpolateY(entries, 2.5e-10f), EPS);
+  }
+
+  @Test
+  public void highlightIsClampedToTheProfileEnds()
+  {
+    List<Entry> entries = List.of(new Entry(0f, 100f), new Entry(400f, 300f), new Entry(1000f, 0f));
+
+    assertHighlight(ElevationChartUtils.highlightAt(entries, -5f), 0f, 100f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 1200f), 1000f, 0f);
+  }
+
+  @Test
+  public void highlightInsideTheProfileIsInterpolated()
+  {
+    List<Entry> entries = List.of(new Entry(0f, 100f), new Entry(400f, 300f), new Entry(1000f, 0f));
+
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 200f), 200f, 200f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 400f), 400f, 300f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 700f), 700f, 150f);
+  }
+
+  @Test
+  public void chartXOfTheSelectedPointKeepsItsExactDistance()
+  {
+    // A gap entry, and one whose float would pass the finish of the 999999.995 m track.
+    final double gap = 100.16474326527293;
+    final double[] data = profile(0.0, gap, gap, 999999.995);
+    for (double selected : new double[] {gap, 999999.975})
+    {
+      final float x = (float) selected;
+      assertEquals(selected, ElevationChartUtils.toDistance(x, selected, data), 0.0);
+      final float previous = Math.nextDown(x);
+      assertEquals(previous, ElevationChartUtils.toDistance(previous, selected, data), 0.0);
+    }
+    assertTrue(Double.isNaN(ElevationChartUtils.toDistance(Float.NaN, 5.0, profile(0.0, 5.0))));
+    assertTrue(Double.isNaN(ElevationChartUtils.toDistance(Float.NaN, Double.NaN, profile())));
+  }
+
+  @Test
+  public void chartXOfAProfilePointKeepsItsExactDistance()
+  {
+    // The float of this gap is 2.25 cm into the second section, while the core picks the first one by the exact
+    // distance. The next point shares that float too.
+    final double gap = 1000000.04;
+    final double[] data = profile(0.0, 400.0, gap, gap, 1000000.05, 1000100.0);
+    assertEquals(1000000.0625f, (float) gap, 0f);
+    assertEquals(gap, ElevationChartUtils.toDistance((float) gap, 400.0, data), 0.0);
+    assertEquals(gap, ElevationChartUtils.toDistance((float) gap, Double.NaN, data), 0.0);
+    assertEquals(0.0, ElevationChartUtils.toDistance(0f, 400.0, data), 0.0);
+    assertEquals(1000100.0, ElevationChartUtils.toDistance(1000100f, 400.0, data), 0.0);
+    assertEquals(999999.995, ElevationChartUtils.toDistance(1000000f, Double.NaN, profile(0.0, 999999.995)), 0.0);
+    // The finish of a place-page chart without a selection to prefer.
+    final double finish = 1001853.8972297852;
+    assertEquals(1001853.875f, (float) finish, 0f);
+    assertEquals(finish, ElevationChartUtils.toDistance((float) finish, Double.NaN, profile(0.0, finish)), 0.0);
+    // The right edge is the finish, not the earlier point with the same float.
+    final double[] edge = profile(0.0, 2115024.894151767, 2115025.1067818934);
+    assertEquals(2115025.0f, (float) edge[1], 0f);
+    assertEquals(2115025.0f, (float) edge[2], 0f);
+    assertEquals(edge[2], ElevationChartUtils.toDistance(2115025.0f, Double.NaN, edge), 0.0);
+    // Points the chart did not select itself stay as they are.
+    assertEquals(200.0, ElevationChartUtils.toDistance(200f, 400.0, data), 0.0);
+  }
+
+  private static double[] profile(double... distances)
+  {
+    return distances;
+  }
+
+  private static void assertHighlight(Highlight highlight, float x, float y)
+  {
+    assertEquals(x, highlight.getX(), EPS);
+    assertEquals(y, highlight.getY(), EPS);
+    assertEquals(0, highlight.getDataSetIndex());
   }
 
   private static void assertBounds(YAxisBounds bounds, float lower, float upper)

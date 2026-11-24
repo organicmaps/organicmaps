@@ -37,19 +37,21 @@ enum class DepthLayer : uint8_t
 class RenderStateExtension : public dp::BaseRenderStateExtension
 {
 public:
-  explicit RenderStateExtension(DepthLayer depthLayer);
+  explicit RenderStateExtension(DepthLayer depthLayer, bool animateBookmark = false);
 
   bool Less(ref_ptr<dp::BaseRenderStateExtension> other) const override;
   bool Equal(ref_ptr<dp::BaseRenderStateExtension> other) const override;
 
   DepthLayer GetDepthLayer() const { return m_depthLayer; }
+  bool ShouldAnimateBookmark() const { return m_animateBookmark; }
 
 private:
   DepthLayer const m_depthLayer;
+  bool const m_animateBookmark;
 };
 
 extern DepthLayer GetDepthLayer(dp::RenderState const & state);
-extern dp::RenderState CreateRenderState(gpu::Program program, DepthLayer depthLayer);
+extern dp::RenderState CreateRenderState(gpu::Program program, DepthLayer depthLayer, bool animateBookmark = false);
 
 inline std::string DebugPrint(DepthLayer layer)
 {

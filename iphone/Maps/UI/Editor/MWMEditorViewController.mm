@@ -624,15 +624,11 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
   case MetadataID::FMD_LEVEL:
   {
-    /// @todo Is it ok to use the same error string as in building levels?
-    NSString * errorMessage = [NSString stringWithFormat:L(@"error_enter_correct_storey_number"),
-                                                         osm::EditableMapObject::kMaximumLevelsEditableByUsers];
-
     [self configTextViewCell:cell
                       cellID:cellID
                         icon:@"ic_placepage_level"
-                 placeholder:L(@"level")
-                errorMessage:errorMessage
+                 placeholder:L(@"editor_level")
+                errorMessage:L(@"error_enter_correct_level")
                      isValid:isValid
                 keyboardType:UIKeyboardTypeNumbersAndPunctuation];
     break;

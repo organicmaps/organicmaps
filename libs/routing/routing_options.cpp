@@ -38,8 +38,8 @@ RoutingOptions::RoadType RoutingOptions::GetSupportedOptions(VehicleType vehicle
   switch (vehicleType)
   {
   case VehicleType::Car: return Toll | Motorway | Ferry | Dirty;
-  case VehicleType::Bicycle:
-  case VehicleType::Pedestrian: return Ferry;
+  case VehicleType::Bicycle: return Ferry | Dirty | Steps;
+  case VehicleType::Pedestrian: return Ferry | Steps | DifficultTrail;
   case VehicleType::Transit: return 0;
   case VehicleType::Count: break;
   }
@@ -71,7 +71,8 @@ std::optional<RoutingOptions::Road> RoutingOptions::RoadFromId(uint32_t id)
   case Motorway:
   case Ferry:
   case Dirty:
-  case Steps: return static_cast<Road>(id);
+  case Steps:
+  case DifficultTrail: return static_cast<Road>(id);
   default: return {};
   }
 }
@@ -123,7 +124,7 @@ bool RoutingOptions::Has(RoutingOptions::Road type) const
 
 // RoutingOptionsClassifier ---------------------------------------------------------------------------
 
-RoutingOptionsClassifier::RoutingOptionsClassifier()
+RoutingOptionsClassifier::RoutingOptionsClassifier(bool includeDirtyRoadClasses)
 {
   Classificator const & c = classif();
 
@@ -134,33 +135,50 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
 
       {{"route", "ferry"}, RoutingOptions::Road::Ferry},
 
-      {{"highway", "track"}, RoutingOptions::Road::Dirty},
-      {{"highway", "road"}, RoutingOptions::Road::Dirty},
       {{"psurface", "unpaved_bad"}, RoutingOptions::Road::Dirty},
       {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty},
 
-      {{"highway", "steps"}, RoutingOptions::Road::Steps}};
+      {{"highway", "steps"}, RoutingOptions::Road::Steps},
 
-  m_data.Reserve(std::size(types));
+      {{"highway", "path", "difficult"}, RoutingOptions::Road::DifficultTrail},
+      {{"highway", "path", "expert"}, RoutingOptions::Road::ExpertTrail}};
+
+  char const * const dirtyRoadClasses[] = {"track", "road"};
+  m_data.Reserve(std::size(types) + (includeDirtyRoadClasses ? std::size(dirtyRoadClasses) : 0));
   for (auto const & data : types)
     m_data.Insert(c.GetTypeByPath(data.first), data.second);
+  if (includeDirtyRoadClasses)
+    for (auto const * roadClass : dirtyRoadClasses)
+      m_data.Insert(c.GetTypeByPath({"highway", roadClass}), RoutingOptions::Dirty);
   m_data.FinishBuilding();
 }
 
 std::optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
-  ftype::TruncValue(type, 2);  // in case of highway-motorway-bridge
+  if (auto const * road = m_data.Find(type))
+    return *road;
 
-  auto const * res = m_data.Find(type);
-  if (res)
-    return *res;
+  // In case of highway-motorway-bridge.
+  if (auto const baseType = ftype::Trunc(type, 2); baseType != type)
+    if (auto const * road = m_data.Find(baseType))
+      return *road;
   return {};
 }
 
-RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance()
+RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance(VehicleType vehicleType)
 {
-  static RoutingOptionsClassifier instance;
-  return instance;
+  // Road classes alone do not establish an unpaved surface for cycling.
+  static RoutingOptionsClassifier const withRoadClasses(true);
+  static RoutingOptionsClassifier const surfaceOnly(false);
+  switch (vehicleType)
+  {
+  case VehicleType::Bicycle: return surfaceOnly;
+  case VehicleType::Car:
+  case VehicleType::Pedestrian:
+  case VehicleType::Transit: return withRoadClasses;
+  case VehicleType::Count: break;
+  }
+  UNREACHABLE();
 }
 
 std::string DebugPrint(RoutingOptions const & routingOptions)
@@ -184,6 +202,8 @@ std::string DebugPrint(RoutingOptions const & routingOptions)
   append(RoutingOptions::Road::Ferry);
   append(RoutingOptions::Road::Dirty);
   append(RoutingOptions::Road::Steps);
+  append(RoutingOptions::Road::DifficultTrail);
+  append(RoutingOptions::Road::ExpertTrail);
 
   if (wasAppended)
     ss << " | ";
@@ -202,6 +222,8 @@ std::string DebugPrint(RoutingOptions::Road type)
   case RoutingOptions::Road::Ferry: return "ferry";
   case RoutingOptions::Road::Dirty: return "dirty";
   case RoutingOptions::Road::Steps: return "steps";
+  case RoutingOptions::Road::DifficultTrail: return "difficult trail";
+  case RoutingOptions::Road::ExpertTrail: return "expert trail";
   case RoutingOptions::Road::Usual: return "usual";
   case RoutingOptions::Road::Max: return "max";
   }

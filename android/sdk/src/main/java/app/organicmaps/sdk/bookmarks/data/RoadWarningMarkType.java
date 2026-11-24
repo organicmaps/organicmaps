@@ -9,5 +9,7 @@ public enum RoadWarningMarkType
   STEPS,
   GATE,
   LIFT_GATE,
+  DIFFICULT_TRAIL,
+  EXPERT_TRAIL,
   UNKNOWN
 }

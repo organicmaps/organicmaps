@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">ईमेल या उपयोगकर्ता नाम</string>
     <string name="editor_add_phone">फोन नंबर डालें</string>
-    <string name="level">मंजिल</string>
     <!-- Building level -->
     <string name="level_value_generic">स्तर: %s</string>
     <string name="downloader_delete_map_dialog">आपके सभी नक्शा संपादन नक्शे के साथ हटा दिए जाएंगे।</string>
@@ -653,6 +652,10 @@
     <string name="avoid_unpaved">कच्ची सड़कों से बचें</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">नौकाओं से बचें</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">कठिन पगडंडियों से बचें</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">सीढ़ियों से बचें</string>
     <string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
     <string name="unable_to_calc_alert_title">मार्ग की गणना करने में असमर्थ</string>
     <string name="unable_to_calc_alert_subtitle">कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।</string>
@@ -693,6 +696,8 @@
     <string name="moreyear_ago_sorttype">एक साल से भी अधिक पहले</string>
     <string name="near_me_sorttype">मेरे पास</string>
     <string name="others_sorttype">अन्य</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">रूट योजना विफल</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">अब बंद</string>
     <string name="opens_tomorrow_at">कल सुबह %s बजे खुलेगा</string>
@@ -905,6 +910,8 @@
     <string name="change_stop_along_route">स्टॉप बदलें</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">अधिकतम स्टॉप संख्या प्राप्त हो गई</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">मार्ग को ट्रैक के रूप में सहेजा नहीं जा सका</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">क्रॉस रखने के लिए मानचित्र को हिलाएँ और ज़ूम करें</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -928,4 +935,16 @@
     <string name="transit_type_train">ट्रेन</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ट्राम</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">एक मान्य मंजिल संख्या दर्ज करें</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">मंजिल (भूतल 0 है)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">नेविगेट करें</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">ट्रैक की शुरुआत</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">ट्रैक का अंत</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">इस दिशा में कोई ट्रैक शेष नहीं है। कोई दूसरा बिंदु चुनें।</string>
 </resources>

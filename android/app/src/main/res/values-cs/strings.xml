@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mail nebo uživatelské jméno</string>
     <string name="editor_add_phone">Přidat telefon</string>
-    <string name="level">Podlaží</string>
     <!-- Building level -->
     <string name="level_value_generic">Podlaží: %s</string>
     <string name="downloader_delete_map_dialog">Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.</string>
@@ -664,6 +663,10 @@
     <string name="avoid_unpaved">Vyhnout se nezpevněným silnicím</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vyhnout se trajektům</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Vyhnout se obtížným stezkám</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Vyhnout se schodům</string>
     <string name="avoid_motorways">Vyhnout se dálnicím</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
     <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.</string>
@@ -710,6 +713,8 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Naplánování trasy se nezdařilo</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Nyní je zavřeno</string>
     <string name="opens_tomorrow_at">Otevírá zítra v %s</string>
@@ -936,6 +941,8 @@
     <string name="change_stop_along_route">Změnit zastávku</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Byl dosažen maximální počet zastávek</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Trasu se nepodařilo uložit jako stopu</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Posuňte a přibližujte mapu, abyste umístili křížek</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -960,4 +967,16 @@
     <string name="transit_type_train">Vlak</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvaj</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Zadejte platné číslo podlaží</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Podlaží (přízemí je 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigovat</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Začátek stopy</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Konec stopy</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">V tomto směru už žádná stopa nezbývá. Vyberte jiný bod.</string>
 </resources>

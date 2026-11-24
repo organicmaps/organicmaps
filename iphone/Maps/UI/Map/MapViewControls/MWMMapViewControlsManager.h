@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, TrackRecordingButtonState) {
 @property(nonatomic) BOOL sideButtonsHidden;
 @property(nonatomic) BOOL trafficButtonHidden;
 @property(nonatomic) MWMBottomMenuState menuState;
-@property(nonatomic) MWMBottomMenuState menuRestoreState;
+@property(nonatomic, readonly) MWMBottomMenuState closedMenuState;
 @property(nonatomic) BOOL isDirectionViewHidden;
 @property(nonatomic) BottomTabBarViewController * tabBarController;
 @property(nonatomic) TrackRecordingButtonViewController * trackRecordingButton;
@@ -42,6 +42,10 @@ typedef NS_ENUM(NSUInteger, TrackRecordingButtonState) {
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 
 - (void)setTrackRecordingButtonState:(TrackRecordingButtonState)state;
+
+/// Closes a presented bottom menu or Layers sheet and updates the menu state together.
+/// Returns NO if there is no managed dismissal to perform or cancel.
+- (BOOL)dismissBottomMenuIfPresentedAnimated:(BOOL)animated;
 
 /// Unlike the menu button, a link never closes the menu: an open menu highlights the requested item instead.
 - (void)openMenuFromDeepLink;

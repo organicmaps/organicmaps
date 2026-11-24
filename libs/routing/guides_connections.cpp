@@ -3,6 +3,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 
+#include <optional>
+
 namespace routing
 {
 namespace
@@ -18,26 +20,6 @@ double constexpr kEqDistToTrackPointM = 20.0;
 // this track completely. For time optimization purposes only.
 double constexpr kMaxDistToTrackForSkippingM = 100'000.0;
 }  // namespace
-
-CheckpointTrackProj::CheckpointTrackProj(kml::MarkGroupId guideId, size_t trackIdx, size_t trackPointIdx,
-                                         geometry::PointWithAltitude const & projectedPoint,
-                                         double distToProjectedPointM)
-  : m_guideId(guideId)
-  , m_trackIdx(trackIdx)
-  , m_trackPointIdx(trackPointIdx)
-  , m_projectedPoint(projectedPoint)
-  , m_distToProjectedPointM(distToProjectedPointM)
-{}
-
-std::pair<geometry::PointWithAltitude, double> GetProjectionAndDistOnSegment(
-    m2::PointD const & point, geometry::PointWithAltitude const & startPath,
-    geometry::PointWithAltitude const & endPath)
-{
-  m2::PointD const projection =
-      m2::ParametrizedSegment<m2::PointD>(startPath.GetPoint(), endPath.GetPoint()).ClosestPointTo(point);
-  double const distM = mercator::DistanceOnEarth(projection, point);
-  return std::make_pair(geometry::PointWithAltitude(projection, 0 /* altitude */), distM);
-}
 
 bool GuidesConnections::IsActive() const
 {
@@ -68,32 +50,33 @@ void GuidesConnections::PullCheckpointsToTracks(CheckpointsGeometry const & chec
 {
   for (size_t checkpointIdx = 0; checkpointIdx < checkpoints.size(); ++checkpointIdx)
   {
+    auto const & checkpoint = checkpoints[checkpointIdx];
+    std::optional<CheckpointTrackProj> closest;
     for (auto const & [guideId, tracks] : m_allTracks)
     {
       for (size_t trackIdx = 0; trackIdx < tracks.size(); ++trackIdx)
       {
-        CHECK(!tracks[trackIdx].empty(), (trackIdx));
-        for (size_t pointIdx = 0; pointIdx < tracks[trackIdx].size() - 1; ++pointIdx)
+        auto const & track = tracks[trackIdx];
+        CHECK(!track.empty(), (trackIdx));
+        for (size_t pointIdx = 0; pointIdx + 1 < track.size(); ++pointIdx)
         {
-          auto const [checkpointProj, distM] = GetProjectionAndDistOnSegment(
-              checkpoints[checkpointIdx], tracks[trackIdx][pointIdx], tracks[trackIdx][pointIdx + 1]);
+          auto const & from = track[pointIdx].GetPoint();
+          auto const & to = track[pointIdx + 1].GetPoint();
+          auto const checkpointProj = m2::ParametrizedSegment<m2::PointD>(from, to).ClosestPointTo(checkpoint);
+          double const distM = mercator::DistanceOnEarth(checkpointProj, checkpoint);
 
           // Skip too far track.
           if (distM > kMaxDistToTrackForSkippingM)
             break;
 
           // We consider only really close points to be attached to the track.
-          if (distM > kMaxDistToTrackPointM)
-            continue;
-
-          CheckpointTrackProj const curProj(guideId, trackIdx, pointIdx, checkpointProj, distM);
-          auto const [it, inserted] = m_checkpointsOnTracks.emplace(checkpointIdx, curProj);
-
-          if (!inserted && it->second.m_distToProjectedPointM > distM)
-            it->second = curProj;
+          if (distM <= kMaxDistToTrackPointM && (!closest || distM < closest->m_distToProjectedPointM))
+            closest.emplace(guideId, trackIdx, pointIdx, checkpointProj, distM);
         }
       }
     }
+    if (closest)
+      m_checkpointsOnTracks.emplace(checkpointIdx, *closest);
   }
 }
 
@@ -110,20 +93,10 @@ void GuidesConnections::AddTerminalGuidePoint(size_t checkpointIdx, size_t neigh
   CHECK_GREATER(track.size(), 1,
                 ("checkpointIdx:", checkpointIdx, "neighbourIdx:", neighbourIdx, "trackIdx:", trackIdx));
 
-  // Connect start checkpoint to the starting point of the track.
-  if (checkpointIdx == 0)
-  {
-    double const distToStartM = mercator::DistanceOnEarth(curPoint, track.front().GetPoint());
-    m_checkpointsOnTracks[checkpointIdx] =
-        CheckpointTrackProj(guideId, trackIdx, 0 /* trackPointIdx */, track.front() /* proj */, distToStartM);
-
-    return;
-  }
-
-  // Connect finish checkpoint to the finish point of the track.
-  double const distToSFinishM = mercator::DistanceOnEarth(curPoint, track.back().GetPoint());
-  m_checkpointsOnTracks[checkpointIdx] = CheckpointTrackProj(guideId, trackIdx, track.size() - 2 /* trackPointIdx */,
-                                                             track.back() /* proj */, distToSFinishM);
+  bool const isStart = checkpointIdx == 0;
+  auto const & projectedPoint = (isStart ? track.front() : track.back()).GetPoint();
+  m_checkpointsOnTracks[checkpointIdx] = {guideId, trackIdx, isStart ? 0 : track.size() - 2, projectedPoint,
+                                          mercator::DistanceOnEarth(curPoint, projectedPoint)};
 }
 
 bool GuidesConnections::IsCheckpointAttached(size_t checkpointIdx) const
@@ -246,17 +219,22 @@ void GuidesConnections::ConnectToGuidesGraph(CheckpointsGeometry const & checkpo
   for (auto const & [checkpointIdx, proj] : m_checkpointsOnTracks)
   {
     auto const & checkpoint = checkpoints[checkpointIdx];
-    auto const & checkpointProj = proj.m_projectedPoint;
+    auto const & track = m_allTracks.at(proj.m_guideId)[proj.m_trackIdx];
+    auto const & from = track[proj.m_trackPointIdx];
+    auto const & to = track[proj.m_trackPointIdx + 1];
+    auto const & projectedPoint = proj.m_projectedPoint;
+    double const fraction = projectedPoint == from.GetPoint() ? 0.0
+                          : projectedPoint == to.GetPoint()
+                              ? 1.0
+                              : projectedPoint.Length(from.GetPoint()) / to.GetPoint().Length(from.GetPoint());
+    geometry::PointWithAltitude const checkpointProj(projectedPoint, from.Interpolate(to, fraction).GetAltitude());
 
     Segment segmentOnTrack;
     auto const [it, insertedSegment] =
         addedTracks.emplace(std::make_pair(proj.m_guideId, proj.m_trackIdx), segmentOnTrack);
     if (insertedSegment)
     {
-      CHECK(!m_allTracks[proj.m_guideId][proj.m_trackIdx].empty(),
-            ("checkpointIdx:", checkpointIdx, "guideId:", proj.m_guideId, "trackIdx:", proj.m_trackIdx));
-
-      segmentOnTrack = m_graph.AddTrack(m_allTracks[proj.m_guideId][proj.m_trackIdx], proj.m_trackPointIdx);
+      segmentOnTrack = m_graph.AddTrack(track, proj.m_trackPointIdx);
       it->second = segmentOnTrack;
     }
     else
@@ -273,19 +251,16 @@ void GuidesConnections::ConnectToGuidesGraph(CheckpointsGeometry const & checkpo
       AddConnectionToOsm(checkpointIdx, segmentOnTrack, checkpointProj, true /* fromCheckpoint */);
 
     // Connect to OSM start and finish points of the track.
-    auto const & firstPointOnTrack = m_allTracks[proj.m_guideId][proj.m_trackIdx][0];
-    if (!(fitsForOsmLink && firstPointOnTrack == checkpointProj))
+    if (!(fitsForOsmLink && track.front().GetPoint() == projectedPoint))
     {
       auto const & firstSegmentOnTrack = m_graph.FindSegment(segmentOnTrack, 0);
-      AddConnectionToOsm(checkpointIdx, firstSegmentOnTrack, firstPointOnTrack, false /* fromCheckpoint */);
+      AddConnectionToOsm(checkpointIdx, firstSegmentOnTrack, track.front(), false /* fromCheckpoint */);
     }
 
-    auto const & lastPointIdx = m_allTracks[proj.m_guideId][proj.m_trackIdx].size() - 1;
-    auto const & lastPointOnTrack = m_allTracks[proj.m_guideId][proj.m_trackIdx][lastPointIdx];
-    if (!(fitsForOsmLink && lastPointOnTrack == checkpointProj))
+    if (!(fitsForOsmLink && track.back().GetPoint() == projectedPoint))
     {
-      auto const & lastSegmentOnTrack = m_graph.FindSegment(segmentOnTrack, lastPointIdx - 1);
-      AddConnectionToOsm(checkpointIdx, lastSegmentOnTrack, lastPointOnTrack, false /* fromCheckpoint */);
+      auto const & lastSegmentOnTrack = m_graph.FindSegment(segmentOnTrack, track.size() - 2);
+      AddConnectionToOsm(checkpointIdx, lastSegmentOnTrack, track.back(), false /* fromCheckpoint */);
     }
   }
 }
@@ -293,7 +268,7 @@ void GuidesConnections::ConnectToGuidesGraph(CheckpointsGeometry const & checkpo
 void GuidesConnections::AddConnectionToOsm(size_t checkpointIdx, Segment const & real,
                                            geometry::PointWithAltitude const & loop, bool fromCheckpoint)
 {
-  LatLonWithAltitude const loopPoint(mercator::ToLatLon(loop.GetPoint()), loop.GetAltitude());
+  LatLonWithAltitude const loopPoint(loop);
 
   ConnectionToOsm link;
   link.m_loopVertex = FakeVertex(kFakeNumMwmId, loopPoint, loopPoint, FakeVertex::Type::PureFake);

@@ -217,8 +217,6 @@ public class TrackRecordingService
     if (action != null && STOP_TRACK_RECORDING.equals(action))
     {
       Logger.d(TAG, "Stop action received");
-      // The notification action always promises a save, unlike the in-app button which is hidden
-      // when there is nothing to save.
       if (!TrackRecorder.saveAndStop())
         Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
       stopSelf();

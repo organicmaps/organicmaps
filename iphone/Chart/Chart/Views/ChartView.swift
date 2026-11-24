@@ -15,7 +15,6 @@ public class ChartView: UIView {
   let xAxisView = ChartXAxisView()
   let chartInfoView = ChartInfoView()
   let segmentLinesView = ChartSegmentLinesView()
-  private let placeholderLabel = UILabel()
   var lineViews: [ChartLineView] = []
   var showPreview: Bool = false // Set true to show the preview
 
@@ -25,6 +24,13 @@ public class ChartView: UIView {
   private var pinchStartLower = 0
   private var pinchStartUpper = 0
   private var pinchGR: UIPinchGestureRecognizer!
+
+  public var isZoomEnabled = true {
+    didSet {
+      pinchGR.isEnabled = isZoomEnabled
+      panGR.isEnabled = isZoomEnabled
+    }
+  }
 
   public var myPosition: Double = -1 {
     didSet {
@@ -71,12 +77,6 @@ public class ChartView: UIView {
     }
   }
 
-  public var placeholderFont: UIFont = .systemFont(ofSize: 14, weight: .regular) {
-    didSet {
-      placeholderLabel.font = placeholderFont
-    }
-  }
-
   public var textColor: UIColor = .init(white: 0, alpha: 0.2) {
     didSet {
       xAxisView.textColor = textColor
@@ -85,29 +85,10 @@ public class ChartView: UIView {
     }
   }
 
-  public var placeholderTextColor: UIColor = .init(white: 0, alpha: 0.2) {
-    didSet {
-      placeholderLabel.textColor = placeholderTextColor
-    }
-  }
-
-  public var placeholderText: String? {
-    didSet {
-      placeholderLabel.text = placeholderText
-      placeholderLabel.isHidden = placeholderText?.isEmpty ?? true
-    }
-  }
-
   public var gridColor: UIColor = .init(white: 0, alpha: 0.2) {
     didSet {
       yAxisView.gridColor = gridColor
       segmentLinesView.lineColor = gridColor
-    }
-  }
-
-  public var isXAxisViewHidden: Bool = false {
-    didSet {
-      xAxisView.isHidden = isXAxisViewHidden
     }
   }
 
@@ -146,7 +127,7 @@ public class ChartView: UIView {
       chartInfoView.textColor = textColor
       chartsContainerView.addSubview(chartInfoView)
 
-      xAxisView.values = chartData.xAxisValues.enumerated().map { ChartXAxisView.Value(index: $0.offset, value: $0.element, text: chartData.labels[$0.offset]) }
+      xAxisView.chartData = chartData
       chartPreviewView.chartData = chartData
       xAxisView.setBounds(lower: chartPreviewView.minX, upper: chartPreviewView.maxX)
       updateCharts()
@@ -162,6 +143,8 @@ public class ChartView: UIView {
 
   public typealias OnSelectedPointChangedClosure = (_ distance: Double) -> Void
   public var onSelectedPointChanged: OnSelectedPointChangedClosure?
+  public var onSelectionFinished: OnSelectedPointChangedClosure?
+  public var onSelectionCancelled: (() -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -187,12 +170,6 @@ public class ChartView: UIView {
     chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
     yAxisView.textBackgroundColor = infoBackgroundColor.withAlphaComponent(0.7)
     segmentLinesView.lineColor = gridColor
-    placeholderLabel.font = placeholderFont
-    placeholderLabel.textColor = placeholderTextColor
-    placeholderLabel.textAlignment = .center
-    placeholderLabel.numberOfLines = 0
-    placeholderLabel.isHidden = true
-    placeholderLabel.isUserInteractionEnabled = false
 
     tapGR = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
     tapGR.require(toFail: chartInfoView.selectionGestureRecognizer)
@@ -213,12 +190,11 @@ public class ChartView: UIView {
     }
     chartPreviewView.delegate = self
     addSubview(xAxisView)
-    addSubview(placeholderLabel)
   }
 
   public func setSelectedPoint(_ x: Double) {
     let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
-    let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
+    var upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
     let rangeLength = upper - lower
     if x < lower || x > upper, routeLength > 0 {
@@ -239,11 +215,7 @@ public class ChartView: UIView {
       chartPreviewView.setX(min: lowerIdx, max: upperIdx, notifyDelegate: false)
       updateViewport()
       lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
-      let updatedUpper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
-      let currentRangeLength = updatedUpper - lower
-      guard currentRangeLength > 0 else { return }
-      chartInfoView.infoX = max(0, min(1, CGFloat((x - lower) / currentRangeLength)))
-      return
+      upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     }
     let currentRangeLength = upper - lower
     guard currentRangeLength > 0 else { return }
@@ -279,7 +251,6 @@ public class ChartView: UIView {
                              width: bounds.width,
                              height: bounds.maxY - previewFrame.height - xAxisFrame.height)
     chartsContainerView.frame = chartsFrame
-    placeholderLabel.frame = chartsFrame.insetBy(dx: 16, dy: 0)
   }
 
   override public func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
@@ -295,9 +266,11 @@ public class ChartView: UIView {
     updateCharts(animationStyle: .none)
     chartInfoView.update(point.x)
     chartInfoView(chartInfoView, didMoveToPoint: point.x)
+    notifySelectionFinished()
   }
 
   @objc func onPinch(_ sender: UIPinchGestureRecognizer) {
+    guard isZoomEnabled, chartData != nil else { return }
     if sender.state == .began {
       pinchStartLower = xAxisView.lowerBound
       pinchStartUpper = xAxisView.upperBound
@@ -310,16 +283,13 @@ public class ChartView: UIView {
     let rangeLength = CGFloat(pinchStartUpper - pinchStartLower)
     let dx = Int(round((rangeLength * sender.scale - rangeLength) / 2))
     let lower = max(pinchStartLower + dx, 0)
-    let upper = min(pinchStartUpper - dx, chartData.labels.count - 1)
+    let upper = min(pinchStartUpper - dx, chartData.pointsCount - 1)
 
-    guard upper - lower > max(1, chartData.labels.count / 10) else {
+    guard upper - lower > max(1, chartData.pointsCount / 10) else {
       return
     }
 
     chartPreviewView.setX(min: lower, max: upper)
-    xAxisView.setBounds(lower: lower, upper: upper)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
@@ -336,28 +306,33 @@ public class ChartView: UIView {
     let dx = Int(round(t.x / chartsContainerView.bounds.width * CGFloat(xAxisView.upperBound - xAxisView.lowerBound)))
     let lower = panStartPoint - dx
     let upper = lower + xAxisView.upperBound - xAxisView.lowerBound
-    if lower < 0 || upper > chartData.labels.count - 1 {
+    if lower < 0 || upper > chartData.pointsCount - 1 {
       return
     }
 
     chartPreviewView.setX(min: lower, max: upper)
-    xAxisView.setBounds(lower: lower, upper: upper)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
   }
 
   func updateCharts(animationStyle: ChartAnimation = .none) {
     var lower = CGFloat(Int.max)
     var upper = CGFloat(Int.min)
+    let minX = CGFloat(xAxisView.lowerBound)
+    let maxX = CGFloat(xAxisView.upperBound)
 
     for i in 0 ..< chartData.linesCount {
+      // Compare in the X coordinates of the drawn path: converting the viewport to distances can round past
+      // a vertex on the viewport edge, e.g. both vertices of a segment break.
       let line = chartData.lineAt(i)
-      let subrange = line.aggregatedValues[xAxisView.lowerBound ... xAxisView.upperBound]
-      for item in subrange {
+      let values = line.values.map { ChartValue(xValues: $0.x * line.xScale, y: $0.y) }
+      // Include the interpolated edges when the viewport cuts through a segment.
+      let lowerAltitude = values.interpolatedAltitude(at: minX)
+      let upperAltitude = values.interpolatedAltitude(at: maxX)
+      lower = min(lower, lowerAltitude, upperAltitude)
+      upper = max(upper, lowerAltitude, upperAltitude)
+      let start = values.firstIndexAtOrAfter(minX, by: \.x) ?? values.endIndex
+      for item in values[start...].prefix(while: { $0.x <= maxX }) {
         upper = max(item.y, upper)
-        if line.type == .line || line.type == .lineArea {
-          lower = min(item.y, lower)
-        }
+        lower = min(item.y, lower)
       }
     }
 
@@ -407,6 +382,12 @@ public class ChartView: UIView {
   private func notifySelectedPointChanged(at chartX: CGFloat) {
     onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
+
+  private func notifySelectionFinished() {
+    guard let chartData else { return }
+    let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    onSelectionFinished?(chartData.distance(forChartX: chartX))
+  }
 }
 
 extension ChartView: ChartPreviewViewDelegate {
@@ -418,7 +399,16 @@ extension ChartView: ChartPreviewViewDelegate {
 }
 
 extension ChartView: ChartInfoViewDelegate {
+  func chartInfoViewDidFinishSelection(_: ChartInfoView) {
+    notifySelectionFinished()
+  }
+
+  func chartInfoViewDidCancelSelection(_: ChartInfoView) {
+    onSelectionCancelled?()
+  }
+
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
+    guard bounds.width > 0 else { return }
     let p = convert(CGPoint(x: pointX, y: 0), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     notifySelectedPointChanged(at: chartX)

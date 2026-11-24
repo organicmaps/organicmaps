@@ -5,6 +5,6 @@
 
 @interface TrackInfo (Core)
 
-- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics;
+- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics hasElevationInfo:(BOOL)hasElevationInfo;
 
 @end

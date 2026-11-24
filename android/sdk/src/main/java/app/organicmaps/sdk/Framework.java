@@ -12,6 +12,8 @@ import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.products.ProductsConfig;
+import app.organicmaps.sdk.routing.FollowTrackResult;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
@@ -235,6 +237,8 @@ public class Framework
   // Routing.
   public static native boolean nativeIsRoutingActive();
 
+  public static native boolean nativeIsRoutingFollowing();
+
   public static native boolean nativeIsRouteBuilt();
 
   public static native boolean nativeIsRouteBuilding();
@@ -246,6 +250,49 @@ public class Framework
   public static native void nativeFollowRoute();
 
   public static native void nativeDisableFollowing();
+
+  /**
+   * Captures the selected track section and starts its asynchronous preview build.
+   * The outcome arrives through the standard routing listener; navigation starts separately.
+   *
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeNavigateTrack(long trackId);
+
+  /** Explicitly returns a followed track to planning using its captured entry/profile. */
+  public static native int nativeResetFollowedTrackToPlanning();
+
+  /** Updates the track preview from a distance along its source, retaining profile and viewport. */
+  public static native int nativeUpdateFollowedTrackEntryAt(double distanceMeters);
+
+  /**
+   * Switches this track preview's profile without changing the persisted default.
+   *
+   * @param routerType a {@link Router#getType()} value.
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeSetFollowTrackProfile(int routerType);
+
+  public static native boolean nativeIsFollowingTrack();
+
+  /**
+   * Requests navigation of the followed track, completing any approach refresh before native following begins.
+   * Requires {@link #nativeIsFollowingTrack()}.
+   *
+   * @return whether following has started or waits for a build; {@code false} when the core refuses, e.g. without a
+   *         GPS fix.
+   */
+  public static native boolean nativeStartFollowedTrack();
+
+  /** @return {@code null} when no track is being followed. */
+  @Nullable
+  public static native FollowedTrackInfo nativeGetFollowedTrackInfo();
+
+  /**
+   * The router type to present and gate on: while following a track it is the follow profile
+   * (never Transit/Ruler), otherwise the current router type. Encoded like Router.nativeGet().
+   */
+  public static native int nativeGetRenderRouterType();
 
   /** Returns a JNI-created snapshot of current route guidance, or {@code null} when unavailable. */
   @FastNative
@@ -259,11 +306,19 @@ public class Framework
   /// @param[in] maxDistM Max distance between points in meters.
   public static native JunctionInfo[] nativeGetRouteJunctionPoints(double maxDistM);
 
+  /**
+   * The elevation profile of the current route. A track preview charts the whole followed track instead, so its
+   * distances, including the ones passed to {@link #nativeRouteSetElevationActivePoint}, count from the track start.
+   */
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();
 
+  /**
+   * Marks the route point at the given distance on the map. Ignored while a place page is open: it owns the selection.
+   */
   public static native void nativeRouteSetElevationActivePoint(double distanceMeters);
 
+  /** Removes the route point marker from the map; the selection of an open place page stays. */
   public static native void nativeRouteRemoveElevationActivePoint();
 
   // When an end user is going to a turn he gets sound turn instructions.
@@ -463,7 +518,7 @@ public class Framework
 
   public static native void nativeDidSelectProduct(String title, String link);
 
-  public static native void nativeSaveRoute();
+  public static native boolean nativeSaveRoute();
 
   public static native boolean nativeCanShowCrowdfundingPromo();
 

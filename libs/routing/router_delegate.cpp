@@ -10,11 +10,13 @@ void DefaultProgressFn(float /* progress */) {}
 void DefaultPointFn(ms::LatLon const & /* point */) {}
 }  //  namespace
 
-RouterDelegate::RouterDelegate()
-{
-  m_progressCallback = DefaultProgressFn;
-  m_pointCallback = DefaultPointFn;
-}
+RouterDelegate::RouterDelegate() : RouterDelegate(std::nullopt) {}
+
+RouterDelegate::RouterDelegate(std::optional<RoutingOptions> routingOptions)
+  : m_progressCallback(DefaultProgressFn)
+  , m_pointCallback(DefaultPointFn)
+  , m_routingOptions(routingOptions)
+{}
 
 void RouterDelegate::OnProgress(float progress) const
 {

@@ -71,6 +71,8 @@ private:
 
   routing::NumMwmId const m_mwmId;
   FrozenDataSource m_dataSource;
+  // Referenced by m_graph's geometry loader: declared after m_dataSource and before m_graph to outlive the graph.
+  MwmSet::MwmHandle m_mwmHandle;
   std::shared_ptr<routing::VehicleModelInterface> m_vehicleModel;
   std::unique_ptr<routing::IndexGraph> m_graph;
   uint64_t m_tracksCount = 0;

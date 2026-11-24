@@ -171,6 +171,7 @@ public:
   Segment const & GetSegment() const { return m_segment; }
   Segment & GetSegment() { return m_segment; }
   geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
+  void SetAltitude(geometry::Altitude altitude) { m_junction.SetAltitude(altitude); }
   RoadNameInfo const & GetRoadNameInfo() const { return m_roadNameInfo; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
   void ClearTurnLanes() { m_turn.m_lanes.clear(); }
@@ -335,6 +336,11 @@ public:
 
   double GetTotalTimeSec() const;
 
+  double GetSegmentStartDistanceMerc(size_t index) const
+  {
+    return index == 0 ? 0.0 : m_routeSegments[index - 1].GetDistFromBeginningMerc();
+  }
+
   m2::RectD GetLimitRect() const;
 
   // Subroute interface.
@@ -348,7 +354,7 @@ public:
   SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
 
   void GetAltitudes(geometry::Altitudes & altitudes) const;
-  bool HaveAltitudes() const { return m_haveAltitudes; }
+  bool HaveAltitudes() const;
   // Unset for ordinary routes; zero when a geometric track starts without an approach.
   std::optional<double> GetTrackStartDistanceMeters() const { return m_trackStartDistanceM; }
   bool IsTrack() const { return m_trackStartDistanceM.has_value(); }
@@ -399,7 +405,7 @@ protected:
 
   std::vector<RouteSegment> m_routeSegments;
   // True if every segment's end junction has a valid altitude.
-  bool m_haveAltitudes = false;
+  bool m_haveSegmentAltitudes = false;
   std::optional<double> m_trackStartDistanceM;
 
   // Subroute

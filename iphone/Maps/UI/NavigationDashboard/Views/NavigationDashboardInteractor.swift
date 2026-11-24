@@ -34,15 +34,23 @@ extension NavigationDashboard {
       presenter.process(response)
     }
 
+    private var planningMode: PlanningMode { router.hasTrackNavigationSession() ? .navigateTrack : .default }
+
     private func resolve(_ event: Request) -> Response {
       switch event {
       case .updateState(let state):
         return .updateState(state)
 
       case .updateRoutePoints:
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .selectRouterType(let routerType):
+        assert(planningMode.transportOptions.contains(routerType))
+        if router.hasTrackNavigationSession() {
+          let result = router.setFollowTrackProfile(routerType)
+          showTrackError(result)
+          return showRoutePoints()
+        }
         router.setType(routerType)
         router.rebuild(withBestRouter: false)
         return .none
@@ -66,7 +74,7 @@ extension NavigationDashboard {
 
       case .deleteRoutePoint(let point):
         router.removePointAndRebuild(point)
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .startNavigation:
         clearRouteElevationActivePoint()
@@ -96,7 +104,10 @@ extension NavigationDashboard {
         return .none
 
       case .saveRouteAsTrackButtonDidTap:
-        router.saveRouteAsTrack()
+        guard router.saveRouteAsTrack() else {
+          Toast.show(withText: L("routing_save_route_error"))
+          return .none
+        }
         return .setRouteAsTrackSaved
 
       case .updateRouteBuildingProgress(let progress, let routerType):
@@ -121,17 +132,17 @@ extension NavigationDashboard {
         return .updateSearchState(state)
 
       case .updateDrivingOptionsState:
-        let routingOptions = RoutingOptions(routerType: router.type())
+        let routingOptions = RoutingOptions(routerType: router.renderType())
         return .updateDrivingOptionsState(routingOptions)
 
       case .moveRoutePoint(let from, let to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .reverseRoutePoints:
         router.reverseRoute()
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .updateVisibleAreaInsets(let insets):
         mapViewController.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
@@ -154,6 +165,22 @@ extension NavigationDashboard {
       }
     }
 
+    private func showRoutePoints() -> Response {
+      let points = router.followedTrackInfo().map { RoutePoints(trackName: $0.name) }
+        ?? RoutePoints(points: router.points())
+      return .show(points: points, routerType: router.renderType())
+    }
+
+    private func restoreAcceptedTrackEntry() {
+      routeElevationActivePointDistance = router.routeElevationActivePointDistance()?.doubleValue
+      buildElevationInfoIfNeeded()
+    }
+
+    private func showTrackError(_ result: MWMFollowTrackResult) {
+      guard result != .ok, result != .busy else { return }
+      Toast.show(withText: result.planningErrorMessage)
+    }
+
     fileprivate func clearRouteElevationActivePoint() {
       guard isValid else { return }
       routeElevationActivePointDistance = nil
@@ -174,6 +201,19 @@ extension NavigationDashboard.Interactor: ElevationProfileViewControllerDelegate
     guard isValid else { return }
     routeElevationActivePointDistance = distance
     router.setRouteElevationActivePointDistance(distance)
+  }
+
+  func didFinishSelectingPoint(distance: Double) {
+    guard isValid, router.hasTrackNavigationSession(), !router.isOnRoute(), router.routeElevationActivePointDistance()?.doubleValue != distance else { return }
+    let result = router.updateFollowedTrackEntry(atDistance: distance)
+    guard result != .ok else { return }
+    restoreAcceptedTrackEntry()
+    showTrackError(result)
+  }
+
+  func didCancelSelectingPoint() {
+    guard isValid, router.hasTrackNavigationSession(), !router.isOnRoute() else { return }
+    restoreAcceptedTrackEntry()
   }
 }
 
@@ -209,7 +249,9 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
   }
 
   func statePrepare() {
-    clearRouteElevationActivePoint()
+    if !router.hasTrackNavigationSession() {
+      clearRouteElevationActivePoint()
+    }
     process(.updateState(.prepare))
   }
 
@@ -219,12 +261,14 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
   }
 
   func stateReady() {
+    guard isValid else { return }
     process(.updateState(.ready))
     buildElevationInfoIfNeeded()
     process(.updateRoutePoints)
   }
 
   func stateClosed() {
+    guard isValid else { return }
     clearRouteElevationActivePoint()
     process(.updateState(.closed))
   }
@@ -260,7 +304,8 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
     }
 
     let maxDistance = elevationInfo.elevationProfileData?.points.last?.distance ?? 0
-    let activePointDistance = routeElevationActivePointDistance.map { min(max(0, $0), maxDistance) }
+    let selectedDistance = routeElevationActivePointDistance ?? router.routeElevationActivePointDistance()?.doubleValue
+    let activePointDistance = selectedDistance.map { min(max(0, $0), maxDistance) }
     routeElevationActivePointDistance = activePointDistance
     process(.updateElevationInfo(elevationInfo, activePointDistance: activePointDistance))
     // Restore on the next run loop because Place Page finishes deselecting its map marker after the route-ready callback.

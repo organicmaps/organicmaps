@@ -29,8 +29,9 @@ import java.io.IOException;
 
 /**
  * Process-wide entry point for the native map framework.
- * Create one instance in {@link android.app.Application#onCreate}, then call {@link #init} on the main thread
- * before using native feature APIs or inflating a {@link MapView}. The instance retains the application context.
+ * Create one instance in {@link android.app.Application#onCreate} and call {@link #init} on the main thread.
+ * Wait for {@link #getMapsReadiness()} before inflating a {@link MapView} or using search, editing or routing.
+ * The instance retains the application context.
  * The native framework and its feature managers are shared by every map view in the process.
  */
 public final class OrganicMaps implements DefaultLifecycleObserver
@@ -57,6 +58,9 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   private final LocationHelper mLocationHelper;
   @NonNull
   private final SensorHelper mSensorHelper;
+
+  @NonNull
+  private final MapsReadiness mMapsReadiness;
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
@@ -97,6 +101,15 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   public IsolinesManager getIsolinesManager()
   {
     return mIsolinesManager;
+  }
+
+  /**
+   * Returns the process-wide readiness of maps loaded by {@link #init}.
+   */
+  @NonNull
+  public MapsReadiness getMapsReadiness()
+  {
+    return mMapsReadiness;
   }
 
   @NonNull
@@ -155,32 +168,27 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
     mIsolinesManager = new IsolinesManager();
     mSubwayManager = new SubwayManager(mContext);
+    mMapsReadiness = new MapsReadiness();
 
     ConnectionState.INSTANCE.initialize(mContext);
   }
 
   /**
-   * Initializes the platform and framework and starts asynchronous map loading. Call on the main thread.
+   * Initializes the platform and framework and starts asynchronous map loading on the main thread.
+   * Repeated calls share the same load. Use {@link #getMapsReadiness()} to wait for completion.
    *
-   * The first successful call returns {@code true}; its callback runs on the main thread after maps are registered.
-   * Later calls return {@code false} and do not register or invoke their callback, even if the first load is still
-   * in progress. Hosts must retain readiness separately across activity recreation and notify new activities when
-   * the original callback completes. A {@code false} return alone does not mean map loading has completed.
-   *
-   * @param onComplete callback for the first initialization attempt; it must not retain a destroyed activity
-   * @return whether this call initiated framework initialization
-   * @throws IOException if a required platform directory cannot be created; do not use native APIs after failure
+   * @throws IOException if a required platform directory cannot be created
    */
-  public boolean init(@NonNull Runnable onComplete) throws IOException
+  public void init() throws IOException
   {
     initNativePlatform();
-    return initNativeFramework(onComplete);
+    initNativeFramework();
   }
 
   /**
    * Reports whether platform and framework setup have run.
-   * This becomes {@code true} before asynchronous map loading finishes. Use the completion callback from
-   * {@link #init} to decide when an activity may display its map.
+   * This becomes {@code true} before asynchronous map loading finishes. Use {@link MapsReadiness} to decide when
+   * an activity may display its map.
    *
    * @return whether the platform and framework have been initialized
    */
@@ -245,18 +253,20 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     Logger.i(TAG, "Platform initialized");
   }
 
-  private boolean initNativeFramework(@NonNull Runnable onComplete)
+  private void initNativeFramework()
   {
     if (mFrameworkInitialized)
-      return false;
+      return;
 
-    nativeInitFramework(onComplete);
+    nativeInitFramework(() -> {
+      RoutingController.get().initialize(mLocationHelper);
+      mMapsReadiness.complete();
+    });
 
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(mContext);
-    RoutingController.get().initialize(mLocationHelper);
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();
@@ -264,7 +274,6 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
     Logger.i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
-    return true;
   }
 
   private void createPlatformDirectories(@NonNull String writablePath, @NonNull String privatePath,

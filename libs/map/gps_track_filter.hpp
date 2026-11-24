@@ -43,13 +43,11 @@ private:
   location::GpsInfo const & GetLastAcceptedInfo() const;
 
   void AddLastInfo(location::GpsInfo const & info);
-  void AddLastAcceptedInfo(location::GpsInfo const & info);
 
   double m_minAccuracy;
 
   location::GpsInfo m_lastInfo[2];
-  size_t m_countLastInfo;
+  size_t m_countLastInfo = 0;
 
-  location::GpsInfo m_lastAcceptedInfo[2];
-  size_t m_countAcceptedInfo;
+  location::GpsInfo m_lastAcceptedInfo;
 };

@@ -35,6 +35,13 @@ public class RouteAltitudeData
     return mDistances.length;
   }
 
+  /** @return the distances in ascending order, without a copy; do not modify them. */
+  @NonNull
+  public double[] getDistances()
+  {
+    return mDistances;
+  }
+
   public double getDistance(int index)
   {
     return mDistances[index];

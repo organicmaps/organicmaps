@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mail-cím vagy felhasználónév</string>
     <string name="editor_add_phone">Telefonszám hozzáadása</string>
-    <string name="level">Szint</string>
     <!-- Building level -->
     <string name="level_value_generic">%s. szint</string>
     <string name="downloader_delete_map_dialog">Az összes térképszerkesztés törlődik a térképpel együtt.</string>
@@ -659,6 +658,10 @@
     <string name="avoid_unpaved">Burkolatlan utak elkerülése</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Kompátkelők elkerülése</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Nehéz túraösvények elkerülése</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Lépcsők elkerülése</string>
     <string name="avoid_motorways">Autópályák elkerülése</string>
     <string name="unable_to_calc_alert_title">Nem lehet kiszámítani az útvonalat</string>
     <string name="unable_to_calc_alert_subtitle">Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.</string>
@@ -705,6 +708,8 @@
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
     <string name="near_me_sorttype">A közelben</string>
     <string name="others_sorttype">Egyebek</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Sikertelen útvonaltervezés</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Most zárva</string>
     <string name="opens_tomorrow_at">Holnap ekkor nyit: %s</string>
@@ -929,6 +934,8 @@
     <string name="change_stop_along_route">Megálló módosítása</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Elérte a megállók maximális számát</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Az útvonalat nem sikerült nyomvonalként elmenteni</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -952,4 +959,16 @@
     <string name="transit_type_train">Vonat</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Villamos</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Adjon meg egy érvényes szintet</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Szint (a földszint 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigáció</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Nyomvonal kezdete</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Nyomvonal vége</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Ebben az irányban nem maradt több nyomvonal. Válasszon másik pontot.</string>
 </resources>

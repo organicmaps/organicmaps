@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-postadresse eller brukernavn";
-"level" = "Gulv";
 "downloader_delete_map_dialog" = "Alle endringer i kartet vil slettes sammen med kartet.";
 "downloader_update_maps" = "Oppdater kart";
 "downloader_search_field_hint" = "Finn kartet";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Unngå fergeoverganger";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Unngå krevende stier";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Unngå trapper";
 "avoid_motorways" = "Unngå motorveien";
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 "unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. høyde";
 "elevation_profile_max_elevation" = "Maks. høyde";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Begynn å bevege deg for å se høydeprofilen";
 "isolines_toast_zooms_1_10" = "Forstørr kartet for å se høydekurver";
 "downloader_loading_ios" = "Nedlasting";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Maksimalt antall stopp er nådd";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Kunne ikke lagre ruten som et spor";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Flytt og zoom på kartet for å plassere korset";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Snu ruten";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Angi et gyldig etasjenummer";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Etasje (første etasje er 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Naviger";
+
+/* Track start point label. */
+"navigate_track_start" = "Start på sporet";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Slutt på sporet";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Det er ikke mer spor igjen i denne retningen. Velg et annet punkt.";

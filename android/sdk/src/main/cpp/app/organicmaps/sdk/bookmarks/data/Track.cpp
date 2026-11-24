@@ -116,7 +116,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevati
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetStatistics(JNIEnv * env, jclass, jlong id)
 {
-  return ToJavaTrackStatistics(env, frm()->GetBookmarkManager().GetTrack(id)->GetStatistics());
+  auto const [stats, elevation] = frm()->GetBookmarkManager().GetTrack(id)->GetStatisticsAndElevationInfo();
+  return ToJavaTrackStatistics(env, stats, elevation != nullptr);
 }
 
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevationActivePointCoordinates(
@@ -133,17 +134,14 @@ JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetEl
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNIEnv * env, jclass, jlong id,
                                                                              jstring name, jint color, jstring descr)
 {
-  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(id));
-  CHECK(nTrack, ("Track must not be null with id:", id));
-
-  kml::TrackData trackData(nTrack->GetData());
-  auto const trkName = jni::ToNativeString(env, name);
-  kml::SetDefaultStr(trackData.m_name, trkName);
-  kml::SetDefaultStr(trackData.m_description, jni::ToNativeString(env, descr));
-
-  trackData.m_layers[0].m_color.m_rgba = dp::Color::FromARGB(static_cast<uint32_t>(color)).GetRGBA();
-
-  g_framework->ReplaceTrack(static_cast<kml::TrackId>(id), trackData);
+  auto const title = jni::ToNativeString(env, name);
+  auto const description = jni::ToNativeString(env, descr);
+  auto edit = frm()->GetBookmarkManager().GetEditSession();
+  auto * track = edit.GetTrackForEdit(static_cast<kml::TrackId>(id));
+  CHECK(track, ("Invalid track id:", id));
+  track->SetName(title);
+  track->SetDescription(description);
+  track->SetColor(dp::Color::FromARGB(static_cast<uint32_t>(color)));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeColor(JNIEnv *, jclass, jlong id, jint color)

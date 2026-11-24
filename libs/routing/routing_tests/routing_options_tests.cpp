@@ -3,6 +3,9 @@
 #include "routing/router.hpp"
 #include "routing/routing_options.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
+
 #include "platform/settings.hpp"
 
 #include "base/scope_guard.hpp"
@@ -44,7 +47,7 @@ void Checker(std::vector<RoutingOptions::Road> const & include)
     TEST(options.Has(type), ());
 
   auto max = static_cast<RoadType>(RoutingOptions::Road::Max);
-  for (uint8_t i = 1; i < max; i <<= 1)
+  for (uint32_t i = 1; i < max; i <<= 1)
   {
     bool hasInclude = false;
     auto type = static_cast<RoutingOptions::Road>(i);
@@ -146,25 +149,58 @@ UNIT_CLASS_TEST(RoutingOptionsTests, SetterRestoresAbsentKeysAndRawValues)
   TEST_EQUAL(value, "255", ());
 }
 
-UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
+UNIT_TEST(RoutingOptions_StepsSubtypes)
 {
-  for (auto const road : {RoutingOptions::Usual, RoutingOptions::Toll, RoutingOptions::Motorway, RoutingOptions::Ferry,
-                          RoutingOptions::Dirty, RoutingOptions::Steps})
-  {
-    auto const parsed = RoutingOptions::RoadFromId(static_cast<uint32_t>(road));
-    TEST(parsed, (road));
-    TEST_EQUAL(*parsed, road, ());
-  }
-  for (uint32_t const invalid : {0u, 3u, 6u, 33u, 64u, 256u, 0xffffffffu})
-    TEST(!RoutingOptions::RoadFromId(invalid), (invalid));
+  classificator::Load();
+  auto const & classifier = RoutingOptionsClassifier::Instance(VehicleType::Bicycle);
+  for (auto const & path :
+       {std::vector<std::string>{"highway", "steps"}, {"highway", "steps", "bridge"}, {"highway", "steps", "tunnel"}})
+    TEST(classifier.Get(classif().GetTypeByPath(path)) == RoutingOptions::Steps, (path));
+}
+
+UNIT_TEST(RoutingOptions_TrailGradesAndTruncatedSubtypes)
+{
+  classificator::Load();
+  auto const & classifier = RoutingOptionsClassifier::Instance(VehicleType::Pedestrian);
+  TEST(classifier.Get(classif().GetTypeByPath({"highway", "path", "difficult"})) == RoutingOptions::DifficultTrail, ());
+  TEST(classifier.Get(classif().GetTypeByPath({"highway", "path", "expert"})) == RoutingOptions::ExpertTrail, ());
+  TEST(classifier.Get(classif().GetTypeByPath({"highway", "motorway", "bridge"})) == RoutingOptions::Motorway, ());
+}
+
+UNIT_TEST(RoutingOptions_AndroidRoadIds)
+{
+  TEST(RoutingOptions::RoadFromId(1) == RoutingOptions::Usual, ());
+  TEST(RoutingOptions::RoadFromId(2) == RoutingOptions::Toll, ());
+  TEST(RoutingOptions::RoadFromId(4) == RoutingOptions::Motorway, ());
+  TEST(RoutingOptions::RoadFromId(8) == RoutingOptions::Ferry, ());
+  TEST(RoutingOptions::RoadFromId(16) == RoutingOptions::Dirty, ());
+  TEST(RoutingOptions::RoadFromId(32) == RoutingOptions::Steps, ());
+
+  // One switch covers both trail grades. ExpertTrail has no separate option ID.
+  TEST(RoutingOptions::RoadFromId(64) == RoutingOptions::DifficultTrail, ());
+  TEST(!RoutingOptions::RoadFromId(128), ());
+
+  TEST(!RoutingOptions::RoadFromId(0), ());
+  TEST(!RoutingOptions::RoadFromId(RoutingOptions::Toll | RoutingOptions::Ferry), ());
+  TEST(!RoutingOptions::RoadFromId(0x100u | RoutingOptions::Toll), ());
+}
+
+UNIT_TEST(RoutingOptions_VehicleTypeForRouter)
+{
   TEST(RoutingOptions::GetVehicleType(RouterType::Vehicle) == VehicleType::Car, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Bicycle) == VehicleType::Bicycle, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Pedestrian) == VehicleType::Pedestrian, ());
   TEST(RoutingOptions::GetVehicleType(RouterType::Transit) == VehicleType::Transit, ());
   TEST(!RoutingOptions::GetVehicleType(RouterType::Ruler), ());
+}
+
+UNIT_TEST(RoutingOptions_SupportedOptionsByVehicle)
+{
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Car), 30, ());
-  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle), 8, ());
-  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian), 8, ());
+  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle),
+             RoutingOptions::Dirty | RoutingOptions::Ferry | RoutingOptions::Steps, ());
+  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian),
+             RoutingOptions::Ferry | RoutingOptions::Steps | RoutingOptions::DifficultTrail, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Transit), 0, ());
 }
 

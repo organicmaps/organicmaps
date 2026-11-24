@@ -1,5 +1,7 @@
 #include "map/elevation_info.hpp"
 
+#include "kml/serdes_common.hpp"
+
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/simplification.hpp"
@@ -218,34 +220,16 @@ ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude thre
   return info;
 }
 
-void GpsTrackElevation::AddGpsPoints(GpsPoints const & points)
+void GpsTrackElevation::AddGpsPoint(location::GpsInfo const & gps)
 {
-  if (points.empty())
-    return;
-
   // GPS track recording always produces a single line.
+  auto const latLon = gps.GetLatLon();
+  double distance = 0;
   if (m_lines.empty())
     m_lines.emplace_back();
+  else
+    distance = m_lines.back().back().m_distance + ms::DistanceOnEarth(m_lastLatLon, latLon);
 
-  auto & line = m_lines.back();
-
-  for (auto const & gps : points)
-  {
-    ms::LatLon const ll(gps.m_latitude, gps.m_longitude);
-
-    if (m_hasLastPoint)
-      m_lastDistance += ms::DistanceOnEarth(m_lastLatLon, ll);
-
-    line.emplace_back(m_lastDistance, static_cast<geometry::Altitude>(gps.m_altitude));
-    m_lastLatLon = ll;
-    m_hasLastPoint = true;
-  }
-}
-
-void GpsTrackElevation::Clear()
-{
-  m_lines.clear();
-  m_difficulty = Difficulty::Unknown;
-  m_lastDistance = 0;
-  m_hasLastPoint = false;
+  m_lines.back().emplace_back(distance, kml::ToAltitude(gps.m_altitude));
+  m_lastLatLon = latLon;
 }

@@ -5,11 +5,6 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
-namespace
-{
-double constexpr kZeroAltitude = 0.0;
-}  // namespace
-
 namespace routing
 {
 bool GuideSegmentCompare::operator()(Segment const & lhs, Segment const & rhs) const
@@ -94,9 +89,8 @@ Segment GuidesGraph::AddTrack(kml::TrackGeometry const & guideTrack, size_t requ
     if (i == requiredSegmentIdx)
       segment = curSegment;
 
-    data.m_pointFirst = LatLonWithAltitude(mercator::ToLatLon(guideTrack[i].GetPoint()), guideTrack[i].GetAltitude());
-    data.m_pointLast =
-        LatLonWithAltitude(mercator::ToLatLon(guideTrack[i + 1].GetPoint()), guideTrack[i + 1].GetAltitude());
+    data.m_pointFirst = LatLonWithAltitude(guideTrack[i]);
+    data.m_pointLast = LatLonWithAltitude(guideTrack[i + 1]);
 
     data.m_weight = CalcSegmentTimeS(data.m_pointFirst, data.m_pointLast);
 
@@ -132,14 +126,13 @@ FakeEnding GuidesGraph::MakeFakeEnding(Segment const & segment, m2::PointD const
 {
   auto const & frontJunction = GetJunction(segment, true /* front */);
   auto const & backJunction = GetJunction(segment, false /* front */);
+  LatLonWithAltitude const projectedJunction(projection);
 
   FakeEnding ending;
-  ending.m_projections.emplace_back(
-      segment, false /* isOneWay */, frontJunction, backJunction,
-      LatLonWithAltitude(mercator::ToLatLon(projection.GetPoint()), projection.GetAltitude()) /* junction */);
+  ending.m_projections.emplace_back(segment, false /* isOneWay */, frontJunction, backJunction, projectedJunction);
 
   ending.m_originJunction =
-      LatLonWithAltitude(mercator::ToLatLon(point), static_cast<geometry::Altitude>(kZeroAltitude));
+      LatLonWithAltitude(mercator::ToLatLon(point), projectedJunction.GetAltitude(), projectedJunction.HasAltitude());
   return ending;
 }
 

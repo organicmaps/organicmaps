@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Имейл или потребителско име";
-"level" = "Етаж";
 "downloader_delete_map_dialog" = "Всички ваши редакции на картата ще бъдат изтрити заедно с нея.";
 "downloader_update_maps" = "Обновяване на карти";
 "downloader_search_field_hint" = "Намиране на карта";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Избягване на преходи с ферибот";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Избягване на трудни пътеки";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Избягване на стълби";
 "avoid_motorways" = "Избягвайте магистралата";
 "unable_to_calc_alert_title" = "Не е възможнос изчисляване на маршрут";
 "unable_to_calc_alert_subtitle" = "За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Спускане";
 "elevation_profile_min_elevation" = "Мин. височина";
 "elevation_profile_max_elevation" = "Макс. височина";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Започнете да се движите, за да видите профила на височината";
 "isolines_toast_zooms_1_10" = "Увеличете мащаба, за да разгледате изолиниите";
 "downloader_loading_ios" = "Изтегляне";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Достигнат е максималният брой спирки";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Маршрутът не можа да се запази като трак";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Преместете и мащабирайте картата, за да позиционирате кръстчето";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Обърни маршрута";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Въведете валиден номер на етаж";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Етаж (първият етаж е 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Навигация";
+
+/* Track start point label. */
+"navigate_track_start" = "Начало на следата";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Край на следата";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "В тази посока не остава следа. Изберете друга точка.";

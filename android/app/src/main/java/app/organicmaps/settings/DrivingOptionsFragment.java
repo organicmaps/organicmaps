@@ -151,6 +151,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     bindOption(root, R.id.avoid_motorways_btn, RoadType.Motorway);
     bindOption(root, R.id.avoid_ferries_btn, RoadType.Ferry);
     bindOption(root, R.id.avoid_dirty_roads_btn, RoadType.Dirty);
+    bindOption(root, R.id.avoid_steps_btn, RoadType.Steps);
+    bindOption(root, R.id.avoid_difficult_trails_btn, RoadType.DifficultTrail);
   }
 
   private void bindOption(@NonNull View root, @IdRes int buttonId, @NonNull RoadType roadType)

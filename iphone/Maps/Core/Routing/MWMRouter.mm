@@ -15,6 +15,7 @@
 
 #include <CoreApi/ElevationProfileData+Core.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/MWMBookmarksManager.h>
 #include <CoreApi/RouteElevationPreviewData.h>
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
@@ -28,12 +29,33 @@
 
 using namespace routing;
 
-@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
+@interface MWMFollowedTrackInfo ()
+
+- (instancetype)initWithCoreInfo:(FollowedTrackInfo const &)info;
+
+@end
+
+@implementation MWMFollowedTrackInfo
+
+- (instancetype)initWithCoreInfo:(FollowedTrackInfo const &)info
+{
+  self = [super init];
+  if (self)
+  {
+    _trackId = info.m_id;
+    _name = @(info.m_name.c_str());
+    _entryDistanceMeters = info.m_entryDistanceM;
+  }
+  return self;
+}
+
+@end
+
+@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver, MWMBookmarksObserver>
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
-@property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
 + (MWMRouter *)router;
 
@@ -49,69 +71,44 @@ using namespace routing;
   return router;
 }
 
-+ (BOOL)hasRouteAltitude
-{
-  switch ([self type])
-  {
-  case MWMRouterTypeVehicle:
-  case MWMRouterTypePublicTransport:
-  case MWMRouterTypeRuler: return NO;
-  case MWMRouterTypePedestrian:
-  case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
-  }
-}
-
 + (RouteElevationPreviewData *)routeElevationProfileData
 {
-  if (![self hasRouteAltitude])
+  auto const & manager = GetFramework().GetRoutingManager();
+  auto const profile = manager.GetRenderRouterType();
+  if (!manager.IsFollowingTrack() && profile != RouterType::Pedestrian && profile != RouterType::Bicycle)
     return nil;
 
-  ElevationInfo elevationInfo;
-  if (!GetFramework().GetRoutingManager().GetRouteElevationInfo(elevationInfo))
+  auto const data = manager.GetRouteElevationData();
+  if (!data)
     return nil;
 
-  auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-  // Uniform profiles can be fallback values when elevation data is unavailable.
-  if (altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
-    return nil;
-
-  TrackStatistics trackStatistics;
-  trackStatistics.m_ascent = altitudesInfo.GetTotalAscent();
-  trackStatistics.m_descent = altitudesInfo.GetTotalDescent();
-  trackStatistics.m_maxElevation = altitudesInfo.m_maxAltitude;
-  trackStatistics.m_minElevation = altitudesInfo.m_minAltitude;
-
-  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:trackStatistics];
+  auto const & statistics = data->m_statistics;
+  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:statistics hasElevationInfo:YES];
   ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
-                                                                       elevationInfo:elevationInfo];
+                                                                       elevationInfo:data->m_elevationInfo];
   return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
+}
+
++ (NSNumber *)routeElevationActivePointDistance
+{
+  auto const & manager = GetFramework().GetRoutingManager();
+  auto const info = manager.GetFollowedTrackInfo();
+  return info && !manager.IsRoutingFollowing() ? @(info->m_entryDistanceM) : nil;
 }
 
 + (void)setRouteElevationActivePointDistance:(double)distance
 {
-  auto & framework = GetFramework();
-  if (framework.GetDrapeEngine() == nullptr)
-    return;
-
-  auto const point = framework.GetRoutingManager().GetRoutePointAtDistance(distance);
-  if (!point)
-    return;
-
-  framework.GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
-                                           false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                                           true /* isSelectionShapeVisible */);
+  GetFramework().SetRouteElevationActivePoint(distance);
 }
 
 + (void)resetRouteElevationActivePoint
 {
-  auto & framework = GetFramework();
-  if (!framework.HasPlacePageInfo())
-    framework.DeactivateMapSelectionCircle(false /* restoreViewport */);
+  GetFramework().ResetRouteElevationActivePoint();
 }
 
-+ (void)saveRouteAsTrack
++ (BOOL)saveRouteAsTrack
 {
-  GetFramework().SaveRoute();
+  return GetFramework().SaveRoute();
 }
 
 + (void)startRouting
@@ -122,6 +119,61 @@ using namespace routing;
 + (void)stopRouting
 {
   [self stop:YES];
+}
+
+#pragma mark - Track navigation
+
+static MWMFollowTrackResult ToMWMFollowTrackResult(FollowTrackResult result)
+{
+  switch (result)
+  {
+  case FollowTrackResult::Ok: return MWMFollowTrackResultOk;
+  case FollowTrackResult::NoTrack: return MWMFollowTrackResultNoTrack;
+  case FollowTrackResult::Busy: return MWMFollowTrackResultBusy;
+  case FollowTrackResult::InvalidSelection: return MWMFollowTrackResultInvalidSelection;
+  case FollowTrackResult::NoRemainingGeometry: return MWMFollowTrackResultNoRemainingGeometry;
+  }
+}
+
+// The accepted core build reports ready/error/progress through the regular routing callbacks.
+static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
+{
+  if (result == FollowTrackResult::Ok)
+    [[MWMMapViewControlsManager manager] onRouteRebuild];
+  return ToMWMFollowTrackResult(result);
+}
+
++ (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId
+{
+  // The core validates the selection and refuses busy sessions before any teardown.
+  auto const result = GetFramework().GetRoutingManager().NavigateTrack(trackId);
+  if (result == FollowTrackResult::Ok)
+  {
+    [self hideNavigationMapControls];
+    [[MWMCarPlayService shared] preservePhoneTrackSession];
+  }
+  return OnFollowTrackResult(result);
+}
+
++ (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
+{
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().UpdateFollowedTrackEntryAt(distance));
+}
+
++ (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type
+{
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().SetFollowTrackProfile(coreRouterType(type)));
+}
+
++ (BOOL)hasTrackNavigationSession
+{
+  return GetFramework().GetRoutingManager().IsFollowingTrack();
+}
+
++ (MWMFollowedTrackInfo *)followedTrackInfo
+{
+  auto const info = GetFramework().GetRoutingManager().GetFollowedTrackInfo();
+  return info ? [[MWMFollowedTrackInfo alloc] initWithCoreInfo:*info] : nil;
 }
 
 + (BOOL)isRoutingActive
@@ -213,8 +265,8 @@ using namespace routing;
     self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
+    [MWMBookmarksManager.sharedManager addObserver:self];
     _canAutoAddLastLocation = YES;
-    _routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     _isRestoreProcessCompleted = NO;
   }
   return self;
@@ -224,12 +276,26 @@ using namespace routing;
 {
   [MWMFrameworkListener addObserver:[MWMRouter router]];
   [MWMLocationManager addObserver:[MWMRouter router]];
+  [MWMBookmarksManager.sharedManager addObserver:[MWMRouter router]];
 }
 
 + (void)unsubscribeFromEvents
 {
   [MWMFrameworkListener removeObserver:[MWMRouter router]];
   [MWMLocationManager removeObserver:[MWMRouter router]];
+  [MWMBookmarksManager.sharedManager removeObserver:[MWMRouter router]];
+}
+
+- (void)onBookmarksChanged
+{
+  if (![MWMRouter hasTrackNavigationSession])
+    return;
+  // Core is still publishing bookmark edits. Recheck the current session after that edit finishes.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto const info = [MWMRouter followedTrackInfo];
+    if (info && ![MWMRouter isOnRoute] && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
+      [MWMRouter stopRouting];
+  });
 }
 
 + (void)setType:(MWMRouterType)type
@@ -244,6 +310,11 @@ using namespace routing;
 + (MWMRouterType)type
 {
   return routerType(GetFramework().GetRoutingManager().GetRouter());
+}
+
++ (MWMRouterType)renderType
+{
+  return routerType(GetFramework().GetRoutingManager().GetRenderRouterType());
 }
 
 + (NSString *)stringFromRouterType:(MWMRouterType)type
@@ -378,10 +449,20 @@ using namespace routing;
   [self rebuildWithBestRouter:NO];
 }
 
+// Stop the track session before adding editable points to the ordinary route.
++ (void)leaveTrackFollowIfNeeded
+{
+  if (![self hasTrackNavigationSession])
+    return;
+  [self stop:NO];
+  [[MWMMapViewControlsManager manager] onRoutePrepare];
+}
+
 + (void)buildFromPoint:(MWMRoutePoint *)startPoint bestRouter:(BOOL)bestRouter
 {
   if (!startPoint)
     return;
+  [self leaveTrackFollowIfNeeded];
   [self addPoint:startPoint];
   [self rebuildWithBestRouter:bestRouter];
 }
@@ -390,6 +471,7 @@ using namespace routing;
 {
   if (!finishPoint)
     return;
+  [self leaveTrackFollowIfNeeded];
   [self addPoint:finishPoint];
   if (![self startPoint] && [MWMLocationManager lastLocation] && [MWMRouter router].canAutoAddLastLocation)
     [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart intermediateIndex:0]];
@@ -419,6 +501,9 @@ using namespace routing;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   auto & rm = GetFramework().GetRoutingManager();
+  // Track previews rebuild through their profile and entry APIs, using their captured geometry.
+  if (rm.IsFollowingTrack())
+    return;
   auto const & points = rm.GetRoutePoints();
   auto const pointsCount = points.size();
   if (pointsCount < 2)
@@ -434,10 +519,51 @@ using namespace routing;
   rm.BuildRoute();
 }
 
++ (void)playGuidance
+{
+  if (![self isOnRoute])
+    return;
+  auto * tts = [MWMTextToSpeech tts];
+  NSArray<NSString *> * turnNotifications = [self turnNotifications];
+  if (tts.active)
+  {
+    [tts playTurnNotifications:turnNotifications];
+    [tts playWarningSound];
+  }
+}
+
++ (void)enterTrackNavigation
+{
+  if (MWMNavigationDashboardManager.sharedManager.state == MWMNavigationDashboardStateNavigation)
+    return;
+  [self showNavigationMapControls];
+  auto * tts = [MWMTextToSpeech tts];
+  auto const approach = GetFramework().GetRoutingManager().GenerateTrackApproachNotification();
+  if (!approach.empty() && tts.active)
+    [tts playTurnNotifications:@[@(approach.c_str())]];
+}
+
 + (void)start
 {
   auto const doStart = ^{
     auto & rm = GetFramework().GetRoutingManager();
+    if (rm.IsFollowingTrack())
+    {
+      // Track navigation needs a GPS fix for its approach, using the existing missing-location alert.
+      if ([MWMLocationManager lastLocation])
+      {
+        [[MWMRoutingManager routingManager] startRoute];
+        if (rm.IsRoutingFollowing())
+          [self enterTrackNavigation];
+        else if (rm.IsStartingFollowedTrack())
+          [[MWMMapViewControlsManager manager] onRouteRebuild];
+      }
+      else
+      {
+        [[MWMAlertViewController activeAlertController] presentAlert:RouterResultCode::NoCurrentPosition];
+      }
+      return;
+    }
     auto const routePoints = rm.GetRoutePoints();
     if (routePoints.size() >= 2)
     {
@@ -509,38 +635,40 @@ using namespace routing;
   if (!info.IsValid())
     return;
   auto navManager = [MWMNavigationDashboardManager sharedManager];
-  if ([MWMRouter type] == MWMRouterTypePublicTransport)
+  // The render type: a followed track is presented as its follow profile, never as transit.
+  auto const type = [MWMRouter renderType];
+  if (type == MWMRouterTypePublicTransport)
     [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
   else
-    [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:[MWMRouter type]];
+    [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:type];
 }
 
 #pragma mark - MWMLocationObserver
 
 - (void)onLocationUpdate:(CLLocation *)location
 {
-  if (![MWMRouter isRoutingActive])
-    return;
-  auto tts = [MWMTextToSpeech tts];
-  NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];
-  if ([MWMRouter isOnRoute] && tts.active)
-  {
-    [tts playTurnNotifications:turnNotifications];
-    [tts playWarningSound];
-  }
-
-  [self updateFollowingInfo];
+  if (![MWMCarPlayService shared].isCarPlayRoutingActive)
+    [self updateFollowingInfo];
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
 
 - (void)onRouteReady:(BOOL)hasWarnings
 {
-  self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
+  if ([MWMRouter hasTrackNavigationSession] && [MWMRouter isOnRoute])
+  {
+    [MWMRouter enterTrackNavigation];
+    [self updateFollowingInfo];
+    return;
+  }
 
-  auto startPoint = [MWMRouter startPoint];
-  if (!startPoint || !startPoint.isMyPosition)
-    [MWMRouter disableFollowMode];
+  // Track previews have no route marks; disabling following would prevent Start.
+  if (![MWMRouter hasTrackNavigationSession])
+  {
+    auto startPoint = [MWMRouter startPoint];
+    if (!startPoint || !startPoint.isMyPosition)
+      [MWMRouter disableFollowMode];
+  }
 
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
@@ -555,7 +683,6 @@ using namespace routing;
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;
   case routing::RouterResultCode::HasWarnings: [self onRouteReady:YES]; break;
   case routing::RouterResultCode::NeedMoreMaps:
-    self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     [self presentDownloaderAlert:code countries:absentCountries];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
     // the user may decline extra maps and still navigate along the current route.
@@ -564,7 +691,6 @@ using namespace routing;
     break;
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
-    self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     [self presentDownloaderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
@@ -676,8 +802,8 @@ using namespace routing;
 
 + (void)updateRoute
 {
-  MWMRoutingOptions * newOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
-  if ((self.isRoutingActive && !self.isOnRoute) && ![newOptions isEqual:[self router].routingOptions])
+  auto const & rm = GetFramework().GetRoutingManager();
+  if (rm.GetRoutePointsCount() >= 2 && !rm.IsRoutingFollowing() && rm.HaveRoutePlanningOptionsChanged())
     [self rebuildWithBestRouter:YES];
 }
 
@@ -693,6 +819,8 @@ using namespace routing;
   {
   case MWMRoadTypeToll: options.avoidToll = YES; break;
   case MWMRoadTypeDirty: options.avoidDirty = YES; break;
+  case MWMRoadTypeSteps: options.avoidSteps = YES; break;
+  case MWMRoadTypeDifficultTrail: options.avoidDifficultTrails = YES; break;
   case MWMRoadTypeFerry: options.avoidFerry = YES; break;
   case MWMRoadTypeMotorway: options.avoidMotorway = YES; break;
   }

@@ -14,7 +14,6 @@ enum class Program
   Texturing,
   MaskedTexturing,
   Bookmark,
-  BookmarkAnim,
   TextOutlined,
   Text,
   TextStaticOutlinedGui,
@@ -55,7 +54,6 @@ enum class Program
   RouteMarker,
   CirclePoint,
   BookmarkAboveText,
-  BookmarkAnimAboveText,
   DebugRect,
   ScreenQuad,
   Arrow3d,
@@ -66,9 +64,7 @@ enum class Program
   TexturingBillboard,
   MaskedTexturingBillboard,
   BookmarkBillboard,
-  BookmarkAnimBillboard,
   BookmarkAboveTextBillboard,
-  BookmarkAnimAboveTextBillboard,
   TextOutlinedBillboard,
   TextBillboard,
   Traffic,
@@ -92,7 +88,6 @@ inline std::string_view DebugPrint(Program p)
   case Program::Texturing: return "Texturing";
   case Program::MaskedTexturing: return "MaskedTexturing";
   case Program::Bookmark: return "Bookmark";
-  case Program::BookmarkAnim: return "BookmarkAnim";
   case Program::TextOutlined: return "TextOutlined";
   case Program::Text: return "Text";
   case Program::TextStaticOutlinedGui: return "TextStaticOutlinedGui";
@@ -126,7 +121,6 @@ inline std::string_view DebugPrint(Program p)
   case Program::RouteMarker: return "RouteMarker";
   case Program::CirclePoint: return "CirclePoint";
   case Program::BookmarkAboveText: return "BookmarkAboveText";
-  case Program::BookmarkAnimAboveText: return "BookmarkAnimAboveText";
   case Program::DebugRect: return "DebugRect";
   case Program::ScreenQuad: return "ScreenQuad";
   case Program::Arrow3d: return "Arrow3d";
@@ -137,9 +131,7 @@ inline std::string_view DebugPrint(Program p)
   case Program::TexturingBillboard: return "TexturingBillboard";
   case Program::MaskedTexturingBillboard: return "MaskedTexturingBillboard";
   case Program::BookmarkBillboard: return "BookmarkBillboard";
-  case Program::BookmarkAnimBillboard: return "BookmarkAnimBillboard";
   case Program::BookmarkAboveTextBillboard: return "BookmarkAboveTextBillboard";
-  case Program::BookmarkAnimAboveTextBillboard: return "BookmarkAnimAboveTextBillboard";
   case Program::TextOutlinedBillboard: return "TextOutlinedBillboard";
   case Program::TextBillboard: return "TextBillboard";
   case Program::Traffic: return "Traffic";

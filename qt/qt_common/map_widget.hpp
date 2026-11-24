@@ -17,12 +17,10 @@ class Framework;
 class QMouseEvent;
 class QWidget;
 class ScreenBase;
-class QOpenGLShaderProgram;
-class QOpenGLVertexArrayObject;
-class QOpenGLBuffer;
 
 namespace qt::common
 {
+class FrameBlit;
 class ScaleSlider;
 
 class MapWidget : public QOpenGLWidget
@@ -91,7 +89,6 @@ protected:
   df::Touch GetSymmetrical(df::Touch const & touch) const;
 
   void UpdateScaleControl();
-  void Build();
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
   void OnViewportChanged(ScreenBase const & screen);
@@ -118,9 +115,8 @@ protected:
 
   std::unique_ptr<QTimer> m_updateTimer;
 
-  std::unique_ptr<QOpenGLShaderProgram> m_program;
-  std::unique_ptr<QOpenGLVertexArrayObject> m_vao;
-  std::unique_ptr<QOpenGLBuffer> m_vbo;
+private:
+  std::unique_ptr<FrameBlit> m_frameBlit;
 };
 
 }  // namespace qt::common

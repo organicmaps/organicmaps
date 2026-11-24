@@ -638,7 +638,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
     if (!operatorName.empty())
       addSubtitle(operatorName);
   }
-  else  // Dirty / Steps / Gate / LiftGate
+  else
   {
     m_uiTitle = localizedType;
     // Point warnings (gate/lift_gate) carry no span length.

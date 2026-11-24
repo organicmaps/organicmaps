@@ -4,41 +4,42 @@
 #include "map/user_mark_id_storage.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/parametrized_segment.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
 {
   m_data.m_id = GetId();
-  CHECK(m_data.m_geometry.IsValid(), ());
+  CHECK(m_data.m_geometry.HasLines(), (m_data.m_id));
+  ASSERT(m_data.m_geometry.IsValid(), (m_data.m_id));
 }
 
 void Track::CacheDataForInteraction() const
 {
-  m_interactionData = InteractionData();
-  m_interactionData->m_lengths = GetLengthsImpl();
-  m_interactionData->m_limitRect = GetLimitRectImpl();
+  m_interactionData = InteractionData{GetLengthsImpl(), GetLimitRectImpl()};
 }
 
 std::vector<Track::Lengths> Track::GetLengthsImpl() const
 {
-  double distance = 0;
+  // Sum like the elevation chart (ElevationInfo ctor + ForEachPoint()): each line from 0, plus the sum of previous
+  // line lengths. Chart distances resolve to points here bit-exactly; any rounding difference at a gap moves the
+  // selection into the next line.
+  double lineOffset = 0;
   std::vector<Lengths> lengths;
   for (auto const & line : m_data.m_geometry.m_lines)
   {
-    ASSERT(!line.empty(), ());
+    double distance = 0;
     Lengths lineLengths;
-    lineLengths.emplace_back(distance);
+    lineLengths.emplace_back(lineOffset);
     for (size_t j = 1; j < line.size(); ++j)
     {
-      auto const & pt1 = line[j - 1].GetPoint();
-      auto const & pt2 = line[j].GetPoint();
-      distance += mercator::DistanceOnEarth(pt1, pt2);
-      lineLengths.emplace_back(distance);
+      distance += mercator::DistanceOnEarth(line[j - 1].GetPoint(), line[j].GetPoint());
+      lineLengths.emplace_back(lineOffset + distance);
     }
+    lineOffset += distance;
     lengths.emplace_back(std::move(lineLengths));
   }
   return lengths;
@@ -47,9 +48,14 @@ std::vector<Track::Lengths> Track::GetLengthsImpl() const
 m2::RectD Track::GetLimitRectImpl() const
 {
   m2::RectD limitRect;
+  double x = 0.0;
   for (auto const & line : m_data.m_geometry.m_lines)
     for (auto const & pt : line)
-      limitRect.Add(pt.GetPoint());
+    {
+      auto const point = mercator::NearestWorldCopy(pt.GetPoint(), x);
+      limitRect.Add(point);
+      x = point.x;
+    }
   return limitRect;
 }
 
@@ -93,15 +99,6 @@ void Track::SetDescription(std::string const & description)
   kml::SetDefaultStr(m_data.m_description, description);
 }
 
-void Track::SetData(kml::TrackData const & data)
-{
-  m_isDirty = true;
-  m_data = data;
-
-  m_elevationInfo.reset();
-  m_interactionData.reset();
-}
-
 m2::RectD Track::GetLimitRect() const
 {
   if (m_interactionData)
@@ -111,35 +108,37 @@ m2::RectD Track::GetLimitRect() const
 
 double Track::GetLengthMeters() const
 {
-  if (!m_interactionData)
-    CacheDataForInteraction();
-  auto const & lengths = m_interactionData->m_lengths;
-  return lengths.empty() ? 0 : lengths.back().back();
+  return GetCumulativeLengths().back().back();
 }
 
-double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
+std::vector<Track::Lengths> const & Track::GetCumulativeLengths() const
 {
   if (!m_interactionData)
     CacheDataForInteraction();
-  auto const & lineLengths = m_interactionData->m_lengths[lineIndex];
-  return lineLengths[ptIndex];
+  return m_interactionData->m_lengths;
 }
 
 void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
 {
   // Caller sets info.m_squareDist to the max allowed squared distance (mercator). Any segment
   // whose closest point is strictly closer replaces the current best.
-  if (m_interactionData && m_interactionData->m_limitRect.SquaredDistance(tapPoint) >= info.m_squareDist)
-    return;
+  if (m_interactionData)
+  {
+    auto const & rect = m_interactionData->m_limitRect;
+    if (rect.SquaredDistance(mercator::NearestWorldCopy(tapPoint, rect.Center().x)) >= info.m_squareDist)
+      return;
+  }
 
   for (size_t lineIndex = 0; lineIndex < m_data.m_geometry.m_lines.size(); ++lineIndex)
   {
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
     for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
-      m2::ParametrizedSegment<m2::PointD> seg(line[ptIndex].GetPoint(), line[ptIndex + 1].GetPoint());
-      auto const closestPoint = seg.ClosestPointTo(tapPoint);
-      auto const squaredDist = closestPoint.SquaredLength(tapPoint);
+      auto const & from = line[ptIndex].GetPoint();
+      auto const & to = line[ptIndex + 1].GetPoint();
+      double const fraction = mercator::SegmentProjectionFraction(from, to, tapPoint);
+      auto const closestPoint = mercator::Interpolate(from, to, fraction);
+      auto const squaredDist = mercator::NearestWorldCopy(closestPoint, tapPoint.x).SquaredLength(tapPoint);
       if (squaredDist >= info.m_squareDist)
         continue;
 
@@ -149,8 +148,9 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;
 
-      auto const segDistInMeters = mercator::DistanceOnEarth(line[ptIndex].GetPoint(), closestPoint);
-      info.m_distFromBegM = segDistInMeters + GetLengthMetersImpl(lineIndex, ptIndex);
+      // Interpolate cumulative chart distance with the same segment fraction as GetPoint().
+      auto const & lengths = GetCumulativeLengths()[lineIndex];
+      info.m_distFromBegM = std::lerp(lengths[ptIndex], lengths[ptIndex + 1], fraction);
     }
   }
 }
@@ -190,8 +190,6 @@ bool Track::IsVisible() const
 
 void Track::SetVisibility(bool visible)
 {
-  // Visibility doesn't affect geometry, so (unlike SetData) the elevation/interaction caches
-  // stay valid and are intentionally preserved across a hide/show toggle.
   m_isDirty = true;
   m_data.m_visible = visible;
 }
@@ -229,10 +227,7 @@ void Track::Detach()
 
 m2::PointD Track::GetPoint(double distanceInMeters) const
 {
-  if (!m_interactionData)
-    CacheDataForInteraction();
-
-  auto const & lengths = m_interactionData->m_lengths;
+  auto const & lengths = GetCumulativeLengths();
   ASSERT(!lengths.empty(), ());
 
   for (size_t lineIndex = 0; lineIndex < lengths.size(); ++lineIndex)
@@ -261,7 +256,7 @@ m2::PointD Track::GetPoint(double distanceInMeters) const
     double const f = (distanceInMeters - lineLengths[ptIdx]) / segLen;
     auto const & p1 = line[ptIdx].GetPoint();
     auto const & p2 = line[ptIdx + 1].GetPoint();
-    return p1 + (p2 - p1) * f;
+    return mercator::Interpolate(p1, p2, f);
   }
 
   // Distance beyond last line — return last point.
@@ -277,13 +272,14 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
-TrackStatistics Track::GetStatistics() const
+std::pair<TrackStatistics, ElevationInfo const *> Track::GetStatisticsAndElevationInfo() const
 {
   TrackStatistics ts;
   ts.m_length = GetLengthMeters();
   ts.CalculateDuration(m_data.m_geometry);
 
-  if (auto const * ei = GetElevationInfo())
+  auto const * ei = GetElevationInfo();
+  if (ei)
   {
     // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
     auto const threshold =
@@ -294,15 +290,15 @@ TrackStatistics Track::GetStatistics() const
     ts.m_minElevation = altInfo.m_minAltitude;
     ts.m_maxElevation = altInfo.m_maxAltitude;
   }
-  return ts;
+  return {ts, ei};
 }
 
 ElevationInfo const * Track::GetElevationInfo() const
 {
-  if (!HasAltitudes())
-    return nullptr;
   if (!m_elevationInfo)
   {
+    if (!HasAltitudes())
+      return nullptr;
     m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
 
     // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.

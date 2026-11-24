@@ -15,6 +15,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeDeleteTrackRecording: return L(@"delete");
   case MWMActionBarButtonTypeRouteFrom: return L(@"p2p_from_here");
   case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
+  case MWMActionBarButtonTypeRouteAlongTrack: return L(@"navigate_track");
   case MWMActionBarButtonTypeMore: return L(@"placepage_more_button");
   case MWMActionBarButtonTypeRouteAddStop: return L(@"placepage_add_stop");
   case MWMActionBarButtonTypeRouteAddDestination: return L(@"route_add_destination");
@@ -23,6 +24,8 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeAvoidToll: return L(@"avoid_tolls");
   case MWMActionBarButtonTypeAvoidDirty: return L(@"avoid_unpaved");
   case MWMActionBarButtonTypeAvoidFerry: return L(@"avoid_ferry");
+  case MWMActionBarButtonTypeAvoidSteps: return L(@"avoid_steps");
+  case MWMActionBarButtonTypeAvoidDifficultTrails: return L(@"avoid_difficult_trails");
   }
 }
 
@@ -103,6 +106,9 @@ typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
   case MWMActionBarButtonTypeRouteAddDestination:
     [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
     break;
+  case MWMActionBarButtonTypeRouteAlongTrack:
+    [self.button setImage:[UIImage imageNamed:@"ic_navigate_track"] forState:UIControlStateNormal];
+    break;
   case MWMActionBarButtonTypeMore:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];
     break;
@@ -121,6 +127,12 @@ typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
     break;
   case MWMActionBarButtonTypeAvoidFerry:
     [self.button setImage:[UIImage imageNamed:@"ic_avoid_ferry"] forState:UIControlStateNormal];
+    break;
+  case MWMActionBarButtonTypeAvoidSteps:
+    [self.button setImage:[UIImage imageNamed:@"ic_avoid_steps"] forState:UIControlStateNormal];
+    break;
+  case MWMActionBarButtonTypeAvoidDifficultTrails:
+    [self.button setImage:[UIImage imageNamed:@"ic_avoid_difficult_trails"] forState:UIControlStateNormal];
     break;
   }
 

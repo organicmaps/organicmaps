@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">电子邮件或用户名</string>
     <string name="editor_add_phone">新增电话号码</string>
-    <string name="level">楼层</string>
     <!-- Building level -->
     <string name="level_value_generic">楼层：%s</string>
     <string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
@@ -656,6 +655,10 @@
     <string name="avoid_unpaved">避开未铺砌道路</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">避开轮渡</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">避开难走的步道</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">避开阶梯</string>
     <string name="avoid_motorways">避开高速公路</string>
     <string name="unable_to_calc_alert_title">无法规划路线</string>
     <string name="unable_to_calc_alert_subtitle">找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。</string>
@@ -702,6 +705,8 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">路线计划失败</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">现已关门</string>
     <string name="opens_tomorrow_at">明天 %s 营业</string>
@@ -924,6 +929,8 @@
     <string name="change_stop_along_route">更改途经点</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">已达到最大途经点数量</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">无法将路线保存为轨迹</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">移动并缩放地图以定位十字</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -946,4 +953,16 @@
     <string name="transit_type_train">火车</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">有轨电车</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">请输入有效的楼层号</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">楼层（一楼为0）</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">导航</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">轨迹起点</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">轨迹终点</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">此方向上已没有剩余轨迹。请选择其他点。</string>
 </resources>

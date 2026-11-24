@@ -7,6 +7,13 @@
 
 namespace routing
 {
+LatLonWithAltitude::LatLonWithAltitude(geometry::PointWithAltitude const & point)
+  : m_latlon(point.ToLatLon())
+  , m_altitude(point.GetAltitude() == geometry::kInvalidAltitude ? geometry::kDefaultAltitudeMeters
+                                                                 : point.GetAltitude())
+  , m_hasAltitude(point.GetAltitude() != geometry::kInvalidAltitude)
+{}
+
 std::string DebugPrint(LatLonWithAltitude const & latLonWithAltitude)
 {
   std::stringstream ss;
@@ -29,4 +36,5 @@ geometry::PointWithAltitude LatLonWithAltitude::ToPointWithAltitude() const
 {
   return geometry::PointWithAltitude(mercator::FromLatLon(m_latlon), m_altitude);
 }
+
 }  // namespace routing

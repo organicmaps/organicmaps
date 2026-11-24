@@ -15,6 +15,17 @@ public class RoutingControllerEndpointsTest
     MapObject start;
     MapObject finish;
 
+    Controller()
+    {
+      markInitializedForTesting();
+    }
+
+    @Override
+    public boolean isFollowingTrack()
+    {
+      return false;
+    }
+
     @Override
     public MapObject getStartPoint()
     {

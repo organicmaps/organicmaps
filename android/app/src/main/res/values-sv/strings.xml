@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-postadress eller användarnamn</string>
     <string name="editor_add_phone">Lägg till telefon</string>
-    <string name="level">Våningsplan</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>
     <string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
@@ -656,6 +655,10 @@
     <string name="avoid_unpaved">Undvik oasfalterade vägar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Undvik färjetrafik</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Undvik svåra stigar</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Undvik trappor</string>
     <string name="avoid_motorways">Undvik motorvägen</string>
     <string name="unable_to_calc_alert_title">Det går inte att hitta rutt</string>
     <string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.</string>
@@ -702,6 +705,8 @@
     <string name="moreyear_ago_sorttype">Över ett år sedan</string>
     <string name="near_me_sorttype">Nära mig</string>
     <string name="others_sorttype">Andra</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ruttplaneringen misslyckades</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Stängt just nu</string>
     <string name="opens_tomorrow_at">Öppnar i morgon på %s</string>
@@ -924,6 +929,8 @@
     <string name="change_stop_along_route">Ändra stopp</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Maximalt antal stopp har uppnåtts</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Det gick inte att spara rutten som ett spår</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Flytta och zooma på kartan för att placera korset</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -947,4 +954,16 @@
     <string name="transit_type_train">Tåg</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Spårvagn</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Ange ett giltigt våningsnummer</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Våningsplan (bottenvåningen är 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigera</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Spårets start</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Spårets slut</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Det finns inget spår kvar i den här riktningen. Välj en annan punkt.</string>
 </resources>

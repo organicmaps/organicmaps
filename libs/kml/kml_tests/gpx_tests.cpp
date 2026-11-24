@@ -57,7 +57,8 @@ std::string Serialize(kml::FileData const & dataFromFile)
 
 std::string ReadFileAndSerialize(char const * testFile)
 {
-  kml::FileData const dataFromFile = LoadGpxFromFile(testFile);
+  auto dataFromFile = LoadGpxFromFile(testFile);
+  kml::NormalizeImportedTracks(dataFromFile);
   return Serialize(dataFromFile);
 }
 
@@ -196,8 +197,6 @@ UNIT_TEST(Gpx_Test_Track_Without_Timestamps)
     TEST(geometry.m_timestamps[0].empty(), ());
     TEST(geometry.m_timestamps[1].empty(), ());
     TEST(!geometry.HasTimestamps(), ());
-    TEST(!geometry.HasTimestampsFor(0), ());
-    TEST(!geometry.HasTimestampsFor(1), ());
   }
 }
 
@@ -210,23 +209,19 @@ UNIT_TEST(Gpx_Test_Track_With_Timestamps)
   TEST_EQUAL(geometry.m_timestamps.size(), 2, ());
   TEST(geometry.IsValid(), ());
   TEST(geometry.HasTimestamps(), ());
-  TEST(geometry.HasTimestampsFor(0), ());
-  TEST(geometry.HasTimestampsFor(1), ());
+  TEST(!geometry.m_timestamps[0].empty(), ());
+  TEST(!geometry.m_timestamps[1].empty(), ());
 }
 
-UNIT_TEST(Gpx_Test_Track_With_Timestamps_Mismatch)
+UNIT_TEST(Gpx_RejectsIncompleteTrackTimestamps)
 {
-  auto const fileName = GetPlatform().TestsDataPathForFile("test_data/gpx/track_with_timestamps_broken.gpx");
-  std::string text;
-  FileReader(fileName).ReadAsString(text);
-
-  kml::FileData data;
-  kml::DeserializerGpx(data).Deserialize(MemReader(text));
-
+  auto data = LoadGpxFromFile("test_data/gpx/track_with_timestamps_broken.gpx");
+  kml::NormalizeImportedTracks(data);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
-  TEST_EQUAL(data.m_tracksData[0].m_geometry.m_timestamps.size(), 2, ());
-  TEST(data.m_tracksData[0].m_geometry.HasTimestampsFor(0), ());
-  TEST(data.m_tracksData[0].m_geometry.HasTimestampsFor(1), ());
+  auto const & geometry = data.m_tracksData.front().m_geometry;
+  TEST_EQUAL(geometry.m_lines.size(), 2, ());
+  TEST(geometry.IsValid(), ());
+  TEST(!geometry.HasTimestamps(), ());
 }
 
 UNIT_TEST(Gpx_Altitude_Issues)
@@ -248,73 +243,16 @@ UNIT_TEST(Gpx_Altitude_Issues)
 </gpx>
 )";
 
-  kml::FileData const dataFromText = LoadGpxFromString(input);
+  auto dataFromText = LoadGpxFromString(input);
+  kml::NormalizeImportedTracks(dataFromText);
   auto const & line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 6, ());
-  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(1, 1), geometry::kInvalidAltitude), ());
-  TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(2, 2), 1), ());
-  TEST_EQUAL(line[2], geometry::PointWithAltitude(mercator::FromLatLon(3, 3), geometry::kInvalidAltitude), ());
-  TEST_EQUAL(line[3], geometry::PointWithAltitude(mercator::FromLatLon(4, 4), 2), ());
-  TEST_EQUAL(line[4], geometry::PointWithAltitude(mercator::FromLatLon(5, 5), geometry::kInvalidAltitude), ());
-  TEST_EQUAL(line[5], geometry::PointWithAltitude(mercator::FromLatLon(6, 6), 3), ());
-}
-
-UNIT_TEST(Gpx_Export_MixedAltitudes)
-{
-  // A track whose first point has no <ele> but later points do must still export elevation
-  // (TrackHasAltitudes scans every point, not just the first), and points without altitude
-  // must be skipped instead of being written as the kInvalidAltitude sentinel (-32768).
-  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.0">
-<trk>
-    <name>mixed</name>
-    <trkseg>
-      <trkpt lat="1" lon="1"></trkpt>
-      <trkpt lat="2" lon="2"><ele>100</ele></trkpt>
-      <trkpt lat="3" lon="3"><ele>200</ele></trkpt>
-    </trkseg>
-</trk>
-</gpx>
-)";
-
-  std::string const exported = Serialize(LoadGpxFromString(input));
-  TEST(exported.find("<ele>100</ele>") != std::string::npos, (exported));
-  TEST(exported.find("<ele>200</ele>") != std::string::npos, (exported));
-  TEST(exported.find("-32768") == std::string::npos, (exported));
-}
-
-UNIT_TEST(Gpx_Timestamp_Issues)
-{
-  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.0">
-<trk>
-    <name>new</name>
-    <type>Cycling</type>
-    <trkseg>
-      <trkpt lat="0" lon="0"></trkpt>
-      <trkpt lat="1" lon="1"><time>2024-05-04T19:00:00Z</time></trkpt>
-      <trkpt lat="2" lon="2"><time>2024-05-04T19:00:01Z</time></trkpt>
-      <trkpt lat="3" lon="3"></trkpt>
-      <trkpt lat="4" lon="4"><time>Abra-hadabra</time></trkpt>
-      <trkpt lat="5" lon="5"><time>2024-05-04T19:00:04Z</time></trkpt>
-      <trkpt lat="6" lon="6"><time>2024-05-04T19:00:05Z</time></trkpt>
-      <trkpt lat="7" lon="7"></trkpt>
-    </trkseg>
-</trk>
-</gpx>
-)";
-
-  kml::FileData const dataFromText = LoadGpxFromString(input);
-  auto const & times = dataFromText.m_tracksData[0].m_geometry.m_timestamps[0];
-  TEST_EQUAL(times.size(), 8, ());
-  TEST_EQUAL(times[0], base::StringToTimestamp("2024-05-04T19:00:00Z"), ());
-  TEST_EQUAL(times[1], base::StringToTimestamp("2024-05-04T19:00:00Z"), ());
-  TEST_EQUAL(times[2], base::StringToTimestamp("2024-05-04T19:00:01Z"), ());
-  TEST_EQUAL(times[3], base::StringToTimestamp("2024-05-04T19:00:02Z"), ());
-  TEST_EQUAL(times[4], base::StringToTimestamp("2024-05-04T19:00:03Z"), ());
-  TEST_EQUAL(times[5], base::StringToTimestamp("2024-05-04T19:00:04Z"), ());
-  TEST_EQUAL(times[6], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
-  TEST_EQUAL(times[7], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
+  geometry::Altitude constexpr kMissing = geometry::kInvalidAltitude;
+  geometry::Altitude const altitudes[] = {kMissing, 1, kMissing, 2, kMissing, 3};
+  for (size_t i = 0; i < line.size(); ++i)
+    TEST_EQUAL(line[i], geometry::PointWithAltitude(mercator::FromLatLon(i + 1, i + 1), altitudes[i]), (i));
+  auto const reloaded = LoadGpxFromString(Serialize(dataFromText));
+  TEST_EQUAL(reloaded.m_tracksData.front().m_geometry, dataFromText.m_tracksData.front().m_geometry, ());
 }
 
 UNIT_TEST(Gpx_Track_Invalid_Coordinates)
@@ -356,23 +294,14 @@ UNIT_TEST(GoMap)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/go_map.gpx");
   auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 101, ());
+  TEST_EQUAL(line.size(), 124, ());
 }
 
 UNIT_TEST(GpxStudio)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/gpx_studio.gpx");
   auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 328, ());
-}
-
-UNIT_TEST(OsmTrack)
-{
-  kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/osm_track.gpx");
-  auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
-  auto const & timestamps = dataFromFile.m_tracksData[0].m_geometry.m_timestamps[0];
-  TEST_EQUAL(line.size(), 182, ());
-  TEST_EQUAL(timestamps.size(), 182, ());
+  TEST_EQUAL(line.size(), 331, ());
 }
 
 UNIT_TEST(TowerCollector)
@@ -428,7 +357,7 @@ UNIT_TEST(Gpx_Route_Stops_Import)
   kml::FileData const dataFromText = LoadGpxFromString(input);
   TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
   auto const & track = dataFromText.m_tracksData[0];
-  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 5, ());
+  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 7, ());
   std::vector<kml::TrackStopData> const expectedStops = {{mercator::FromLatLon(1, 1), "Stop at the start"},
                                                          {mercator::FromLatLon(3, 3), "Coffee break"},
                                                          {mercator::FromLatLon(1, 1), "Back at the start"},

@@ -12,10 +12,10 @@ public:
   static GpsTracker & Instance();
 
   bool IsEnabled() const;
-  void SetEnabled(bool enabled);
+  void Start();
+  // Flush pending fixes and return the number of accepted points.
+  size_t Stop();
   void Clear();
-
-  bool IsEmpty() const;
 
   TrackStatistics GetTrackStatistics();
   ElevationInfo const & GetElevationInfo();
@@ -29,9 +29,7 @@ public:
 
   void OnLocationUpdated(location::GpsInfo const & info);
 
-  size_t Finalize() { return m_track.Finalize(); }
-
-  /// @pre Finalize should be called before.
+  /// @pre Stop should be called before.
   template <class FnT>
   void ForEachTrackPoint(FnT && fn)
   {

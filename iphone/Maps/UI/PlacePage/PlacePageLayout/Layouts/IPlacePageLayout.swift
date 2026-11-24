@@ -23,7 +23,7 @@ protocol IPlacePageLayout: AnyObject {
   var headerViewControllers: [UIViewController] { get }
   var headerViewController: PlacePageHeaderViewController { get }
   var bodyViewControllers: [UIViewController] { get }
-  var actionBar: ActionBarViewController? { get }
+  var actionBar: ActionBarViewController { get }
   var navigationBar: UIViewController? { get }
   var sectionSpacing: CGFloat { get }
   /// The lowest section shown when the place page opens. Nil for the preview.

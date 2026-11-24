@@ -204,6 +204,7 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryF
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
+  m_routingManager.OnLocationLost();
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
   if (m_drapeEngine != nullptr)
     m_drapeEngine->LoseLocation();
@@ -1444,10 +1445,7 @@ void Framework::MakeFrameActive()
 
 int Framework::GetDrawScale() const
 {
-  if (m_drapeEngine != nullptr)
-    return df::GetDrawTileScale(m_currentModelView);
-
-  return 0;
+  return m_drapeEngine ? df::GetStyleZoom(m_currentModelView) : 0;
 }
 
 void Framework::RunFirstLaunchAnimation()
@@ -1621,7 +1619,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   using namespace search;
   place_page::BuildInfo info;
   info.m_source = place_page::BuildInfo::Source::Search;
-  info.m_needAnimationOnSelection = false;
+  info.m_animateSelection = animation;
   int scale = -1;
   switch (result.GetResultType())
   {
@@ -2161,7 +2159,7 @@ void Framework::EnableDebugRectRendering(bool enabled)
 void Framework::StartTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
-  tracker.SetEnabled(true);
+  tracker.Start();
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
@@ -2183,13 +2181,14 @@ ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
   return GpsTracker::Instance().GetElevationInfo();
 }
 
-void Framework::StopTrackRecording()
+size_t Framework::StopTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
-  tracker.SetEnabled(false);
+  auto const pointCount = tracker.Stop();
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
+  return pointCount;
 }
 
 void Framework::DiscardTrackRecording()
@@ -2198,18 +2197,19 @@ void Framework::DiscardTrackRecording()
   GpsTracker::Instance().Clear();
 }
 
-void Framework::SaveTrackRecordingWithName(std::string const & name)
+bool Framework::SaveTrackRecordingWithName(std::string const & name)
 {
-  auto const trackId = GetBookmarkManager().SaveTrackRecording(name);
-  if (m_drapeEngine)
-    m_drapeEngine->ClearGpsTrackPoints();
+  auto const pointCount = StopTrackRecording();
+  auto & tracker = GpsTracker::Instance();
+  if (pointCount < 2)
+  {
+    tracker.Clear();
+    return false;
+  }
+  auto const trackId = GetBookmarkManager().SaveTrackRecording(name, pointCount);
+  tracker.Clear();
   ShowTrack(trackId);
-  GpsTracker::Instance().Clear();
-}
-
-bool Framework::IsTrackRecordingEmpty() const
-{
-  return GpsTracker::Instance().IsEmpty();
+  return true;
 }
 
 bool Framework::IsTrackRecordingEnabled() const
@@ -2217,11 +2217,13 @@ bool Framework::IsTrackRecordingEnabled() const
   return GpsTracker::Instance().IsEnabled();
 }
 
-void Framework::SaveRoute()
+bool Framework::SaveRoute()
 {
   auto const trackId = m_routingManager.SaveRoute();
-  if (trackId != kml::kInvalidTrackId)
-    ShowTrack(trackId);
+  if (trackId == kml::kInvalidTrackId)
+    return false;
+  ShowTrack(trackId);
+  return true;
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
@@ -2435,8 +2437,8 @@ void Framework::ActivateMapSelection()
   if (m_drapeEngine)
   {
     auto const & bi = m_currentPlacePageInfo->GetBuildInfo();
-    m_drapeEngine->SelectObject(selObj, m_currentPlacePageInfo->GetMercator(), featureId, bi.m_needAnimationOnSelection,
-                                bi.m_isGeometrySelectionAllowed, true);
+    m_drapeEngine->SelectObject(selObj, m_currentPlacePageInfo->GetMercator(), featureId,
+                                bi.m_isGeometrySelectionAllowed, bi.m_animateSelection);
   }
 
   /// @todo Current android logic is strange (see SetPlacePageListeners comments), so skip assert.
@@ -2498,6 +2500,22 @@ void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
     m_drapeEngine->DeselectObject(restoreViewport);
 }
 
+void Framework::SetRouteElevationActivePoint(double distanceMeters)
+{
+  // Route chart callbacks can arrive while the place page is using the same map selection circle.
+  if (!m_drapeEngine || HasPlacePageInfo())
+    return;
+  if (auto const point = m_routingManager.GetRoutePointAtDistance(distanceMeters))
+    m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
+                                false /* isGeometrySelectionAllowed */, false /* animateSelection */);
+}
+
+void Framework::ResetRouteElevationActivePoint()
+{
+  if (!HasPlacePageInfo())
+    DeactivateMapSelectionCircle(false /* restoreViewport */);
+}
+
 void Framework::SwitchFullScreen()
 {
   if (m_onSwitchFullScreen)
@@ -2543,7 +2561,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
-  if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
+  if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
       !placePageInfo.IsRoutePoint())
   {
     DeactivateMapSelection();
@@ -2591,8 +2609,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       if (m_drapeEngine)
       {
         m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
-                                    m_currentPlacePageInfo->GetMercator(), FeatureID(), false /* isAnim */,
-                                    false /* isGeometrySelectionAllowed */, true /* isSelectionShapeVisible */);
+                                    m_currentPlacePageInfo->GetMercator(), FeatureID(),
+                                    false /* isGeometrySelectionAllowed */, false /* animateSelection */);
       }
       return;
     }
@@ -2896,20 +2914,6 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
     return df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
   }, [](UserMark::Type type) { return type == UserMark::Type::TRACK_INFO || type == UserMark::Type::TRACK_SELECTION; });
   return mark;
-}
-
-void Framework::PredictLocation(double & lat, double & lon, double accuracy, double bearing, double speed,
-                                double elapsedSeconds)
-{
-  double offsetInM = speed * elapsedSeconds;
-  double angle = math::DegToRad(90.0 - bearing);
-
-  m2::PointD mercatorPt = mercator::MetersToXY(lon, lat, accuracy).Center();
-  mercatorPt = mercator::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
-  // GetSmPoint may return extended coordinates past the antimeridian.
-  // Wrap back to [-180, 180] so callers (e.g. iOS CLLocation) get valid longitude.
-  lon = mercator::XToLon(mercator::WrapX(mercatorPt.x));
-  lat = mercator::YToLat(mercatorPt.y);
 }
 
 StringsBundle const & Framework::GetStringsBundle()
@@ -3243,7 +3247,7 @@ bool Framework::LoadAutoZoom()
 
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
-  routing::RouterType const type = m_routingManager.GetRouter();
+  routing::RouterType const type = m_routingManager.GetRenderRouterType();
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
 
   if (m_drapeEngine != nullptr)

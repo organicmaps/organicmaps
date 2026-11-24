@@ -38,9 +38,6 @@ struct ConnectionToOsm
 // Information about checkpoint projection to the nearest guides track.
 struct CheckpointTrackProj
 {
-  CheckpointTrackProj() = default;
-  CheckpointTrackProj(kml::MarkGroupId guideId, size_t trackIdx, size_t trackPointIdx,
-                      geometry::PointWithAltitude const & projectedPoint, double distToProjectedPointM);
   // Guide id.
   kml::MarkGroupId m_guideId = 0;
   // Index of the track belonging to |m_guideId|.
@@ -48,7 +45,7 @@ struct CheckpointTrackProj
   // Index of the nearest segment 'from' or 'to' point on the track to the checkpoint.
   size_t m_trackPointIdx = 0;
   // Projection of the checkpoint to the track.
-  geometry::PointWithAltitude m_projectedPoint;
+  m2::PointD m_projectedPoint;
   // Distance between the checkpoint and |m_projectedPoint|
   double m_distToProjectedPointM = 0;
 };

@@ -1,6 +1,5 @@
 #import "MWMStorage.h"
 #import "MWMMapNodeAttributes+Core.h"
-#import "MWMMapUpdateInfo+Core.h"
 
 #include <CoreApi/Framework.h>
 
@@ -105,6 +104,30 @@ using namespace storage;
 {
   if ([self checkConnection:nil])
     GetFramework().GetStorage().RetryDownloadNode(countryId.UTF8String);
+}
+
+- (BOOL)retryDownloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
+{
+  auto & storage = GetFramework().GetStorage();
+  CountryId const id = countryId.UTF8String;
+  NodeAttrs attrs;
+  storage.GetNodeAttrs(id, attrs);
+  // Only the Error state reports the size of the failed transfers.
+  if (attrs.m_status != NodeStatus::Error || attrs.m_downloadSize == 0)
+    return YES;
+
+  if (!IsEnoughSpaceForDownload(attrs.m_downloadSize))
+  {
+    if (error)
+      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
+    return NO;
+  }
+
+  if (![self checkConnection:error])
+    return NO;
+
+  storage.RetryDownloadNode(id);
+  return YES;
 }
 
 - (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
@@ -335,17 +358,6 @@ using namespace storage;
   if (!IsCountryIdValid(country))
     return nil;
   return [NSString stringWithCString:country.c_str() encoding:NSUTF8StringEncoding];
-}
-
-- (MWMMapUpdateInfo *)updateInfoWithParent:(nullable NSString *)countryId
-{
-  auto const & s = GetFramework().GetStorage();
-  Storage::UpdateInfo updateInfo;
-  if (countryId.length > 0)
-    s.GetUpdateInfo(countryId.UTF8String, updateInfo);
-  else
-    s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  return [[MWMMapUpdateInfo alloc] initWithUpdateInfo:updateInfo];
 }
 
 @end

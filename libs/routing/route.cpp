@@ -67,21 +67,13 @@ void RouteSegment::MergeLanes(RouteSegment & from)
 void RouteBase::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 {
   m_routeSegments = std::move(routeSegments);
-  m_haveAltitudes = true;
-  for (auto const & s : m_routeSegments)
-  {
-    if (s.GetJunction().GetAltitude() == geometry::kInvalidAltitude)
-    {
-      m_haveAltitudes = false;
-      break;
-    }
-  }
+  m_haveSegmentAltitudes = std::ranges::all_of(m_routeSegments, [](RouteSegment const & segment)
+  { return segment.GetJunction().GetAltitude() != geometry::kInvalidAltitude; });
 }
 
 RouteBase::SubrouteAttrs const & RouteBase::GetFirstNonEmptySubroute() const
 {
-  // Leading subroutes can be empty because PushPassedSubroutes() (index_router.cpp:140)
-  // emplaces a [0, 0) subroute per already-passed checkpoint.
+  // Passed checkpoints have empty subroutes and contribute no geometry.
   auto const it = std::find_if(m_subrouteAttrs.begin(), m_subrouteAttrs.end(),
                                [](SubrouteAttrs const & attrs) { return attrs.GetSize() != 0; });
   CHECK(it != m_subrouteAttrs.end(), ());
@@ -264,6 +256,12 @@ void RouteBase::GetAltitudes(geometry::Altitudes & altitudes) const
   ForEachPoint([&altitudes](geometry::PointWithAltitude const & p) { altitudes.push_back(p.GetAltitude()); });
 }
 
+bool RouteBase::HaveAltitudes() const
+{
+  return m_haveSegmentAltitudes && IsValid() &&
+         GetFirstNonEmptySubroute().GetStart().GetAltitude() != geometry::kInvalidAltitude;
+}
+
 traffic::SpeedGroup RouteBase::GetTraffic(size_t segmentIdx) const
 {
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
@@ -356,8 +354,7 @@ double Route::GetMercatorDistanceFromBegin() const
   auto const & curIter = m_poly.GetCurrentIter();
   ASSERT_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
-  double const distMerc = curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
-  return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
+  return GetSegmentStartDistanceMerc(curIter.m_ind) + m_poly.GetDistFromCurPointToRoutePointMerc();
 }
 
 double Route::GetCurrentTimeToEndSec() const

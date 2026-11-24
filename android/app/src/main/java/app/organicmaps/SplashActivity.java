@@ -12,7 +12,6 @@ import android.view.View;
 import android.window.SplashScreenView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -22,7 +21,6 @@ import androidx.core.view.ViewCompat;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.display.DisplayManager;
-import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.util.Config;
@@ -55,6 +53,8 @@ public class SplashActivity extends AppCompatActivity
 
   @NonNull
   private final Runnable mInitCoreDelayedTask = this::init;
+  @NonNull
+  private final Runnable mMapsReadyTask = this::processNavigation;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -78,9 +78,8 @@ public class SplashActivity extends AppCompatActivity
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
     final DisplayManager displayManager = MwmApplication.from(this).getDisplayManager();
-    displayManager.init(DisplayType.Device);
 
-    if (displayManager.isCarDisplayUsed())
+    if (displayManager.isCarDisplayUsed() && MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       startActivity(new Intent(this, MapPlaceholderActivity.class));
       finish();
@@ -108,6 +107,7 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onPause();
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
+    MwmApplication.from(this).getMapsReadiness().cancel(mMapsReadyTask);
   }
 
   @Override
@@ -136,10 +136,9 @@ public class SplashActivity extends AppCompatActivity
   private void init()
   {
     MwmApplication app = MwmApplication.from(this);
-    boolean asyncContinue = false;
     try
     {
-      asyncContinue = app.initOrganicMaps(this::processNavigation);
+      app.initOrganicMaps();
     }
     catch (IOException error)
     {
@@ -155,21 +154,11 @@ public class SplashActivity extends AppCompatActivity
         locationHelper.start();
     }
 
-    if (!asyncContinue)
-      processNavigation();
+    app.getMapsReadiness().runWhenReady(mMapsReadyTask);
   }
 
-  // Called from MwmApplication::nativeInitFramework like callback.
-  @Keep
-  @SuppressWarnings({"unused", "unchecked"})
-  public void processNavigation()
+  private void processNavigation()
   {
-    if (isDestroyed())
-    {
-      Logger.w(TAG, "Ignore late callback from core because activity is already destroyed");
-      return;
-    }
-
     // Re-use original intent with the known safe subset of flags to retain security permissions.
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());

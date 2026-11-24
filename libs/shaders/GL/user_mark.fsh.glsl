@@ -14,8 +14,8 @@ layout (binding = 0) uniform UBO
   vec2 u_contrastGamma;
   float u_opacity;
   float u_zScale;
-  float u_interpolation;
   float u_isOutlinePass;
+  float u_bookmarkScale;
 };
 
 layout (binding = 1) uniform sampler2D u_colorTex;

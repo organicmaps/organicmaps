@@ -1,0 +1,62 @@
+name: Cache Robolectric SDK JARs
+description: Restore or save the instrumented Android SDKs used by Robolectric tests
+
+inputs:
+  mode:
+    description: Use restore before tests or save after tests
+    required: true
+  restored-key:
+    description: Cache key returned by the restore call, or empty on a miss
+    required: false
+    default: ''
+outputs:
+  restored-key:
+    description: Key of the restored SDK set, or empty on a miss
+    value: ${{ steps.restore.outputs.cache-matched-key }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get Robolectric SDK cache key
+      id: cache
+      shell: python
+      env:
+        MODE: ${{ inputs.mode }}
+      run: |
+        import hashlib
+        import os
+        import tomllib
+        from pathlib import Path
+
+        path = "~/.m2/repository/org/robolectric/android-all-instrumented"
+        with open("android/gradle/libs.versions.toml", "rb") as catalog:
+            version = tomllib.load(catalog)["versions"]["robolectric"]
+        key = f"robolectric-sdks-{version}-"
+        if os.environ["MODE"] == "save":
+            sdk_dir = Path(path).expanduser()
+            jars = sorted(p.relative_to(sdk_dir).as_posix() for p in sdk_dir.glob("*/*.jar"))
+            if not jars:
+                raise SystemExit(f"No Robolectric SDK JARs found in {sdk_dir}")
+            key += hashlib.sha256(("\n".join(jars) + "\n").encode()).hexdigest()
+        elif os.environ["MODE"] != "restore":
+            raise SystemExit("Expected mode to be restore or save")
+
+        with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+            print(f"path={path}", f"key={key}", sep="\n", file=output)
+
+    - name: Restore the latest SDK set for this Robolectric version
+      if: inputs.mode == 'restore'
+      id: restore
+      uses: actions/cache/restore@v6
+      with:
+        path: ${{ steps.cache.outputs.path }}
+        key: ${{ steps.cache.outputs.key }}
+        # Saved keys include the SDK set digest. Before tests, only the version prefix is known.
+        restore-keys: ${{ steps.cache.outputs.key }}
+
+    - name: Save the SDK set if it changed
+      if: inputs.mode == 'save' && steps.cache.outputs.key != inputs.restored-key
+      uses: actions/cache/save@v6
+      with:
+        path: ${{ steps.cache.outputs.path }}
+        key: ${{ steps.cache.outputs.key }}

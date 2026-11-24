@@ -28,8 +28,6 @@ public:
   search::ReverseGeocoder::RegionAddress const & GetAddress() const;
   void SetAddress(search::ReverseGeocoder::RegionAddress const & address);
 
-  bool HasCreationAnimation() const override;
-
   std::string GetPreferredName() const;
 
   kml::LocalizableString GetName() const;
@@ -69,6 +67,7 @@ public:
   df::ColorConstant GetColorConstant() const override;
 
   kml::MarkGroupId GetGroupId() const override;
+  bool HasCreationAnimation() const override { return true; }
 
   int GetMinZoom() const override { return m_data.m_minZoom; }
 

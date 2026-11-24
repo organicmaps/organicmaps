@@ -62,37 +62,23 @@ public final class HttpClient
   private static final int kInconsistentFileSize = -3;
   private static final int kCancelled = -6;
 
-  private static volatile OkHttpClient sBaseClient;
-
-  private static OkHttpClient getBaseClient()
+  private static final class BaseClient
   {
-    if (sBaseClient == null)
+    static final OkHttpClient INSTANCE = create();
+
+    private static OkHttpClient create()
     {
-      synchronized (HttpClient.class)
+      OkHttpClient.Builder builder = new OkHttpClient.Builder();
+      // Apply custom root certificates for Android 7 and below.
+      if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.N)
       {
-        if (sBaseClient == null)
-        {
-          OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                                             .connectTimeout(Constants.READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)
-                                             .readTimeout(Constants.READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)
-                                             .writeTimeout(Constants.READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)
-                                             .followRedirects(true)
-                                             .followSslRedirects(true);
-
-          // Apply custom root certificates for Android 7 and below.
-          if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.N)
-          {
-            javax.net.ssl.SSLSocketFactory factory = Android7RootCertificateWorkaround.getSslSocketFactory();
-            javax.net.ssl.X509TrustManager trustManager = Android7RootCertificateWorkaround.getTrustManager();
-            if (factory != null && trustManager != null)
-              builder.sslSocketFactory(factory, trustManager);
-          }
-
-          sBaseClient = builder.build();
-        }
+        javax.net.ssl.SSLSocketFactory factory = Android7RootCertificateWorkaround.getSslSocketFactory();
+        javax.net.ssl.X509TrustManager trustManager = Android7RootCertificateWorkaround.getTrustManager();
+        if (factory != null && trustManager != null)
+          builder.sslSocketFactory(factory, trustManager);
       }
+      return builder.build();
     }
-    return sBaseClient;
   }
 
   // Asynchronous HTTP request using OkHttp's enqueue(). Called from C++ RunHttpRequestAsync.
@@ -155,8 +141,7 @@ public final class HttpClient
 
   private static OkHttpClient buildClient(@NonNull final Params p)
   {
-    return getBaseClient()
-        .newBuilder()
+    return BaseClient.INSTANCE.newBuilder()
         .connectTimeout(p.timeoutMillisec, TimeUnit.MILLISECONDS)
         .readTimeout(p.timeoutMillisec, TimeUnit.MILLISECONDS)
         .writeTimeout(p.timeoutMillisec, TimeUnit.MILLISECONDS)
@@ -439,7 +424,7 @@ public final class HttpClient
     int httpResponseCode = -1;
     boolean followRedirects = true;
     boolean loadHeaders;
-    int timeoutMillisec = Constants.READ_TIMEOUT_MS;
+    final int timeoutMillisec;
     // Segment mode: when true, outputFilePath points to an existing file and the
     // response body is streamed into it at outputFileOffset. Transport validates
     // 206 + Content-Range against outputFileSegmentBytes / outputFileTotalBytes
@@ -450,9 +435,10 @@ public final class HttpClient
     long outputFileSegmentBytes;
     long outputFileTotalBytes; // -1 = do not validate the total file size.
 
-    public Params(String url)
+    public Params(String url, int timeoutMillisec)
     {
       this.url = url;
+      this.timeoutMillisec = timeoutMillisec;
       httpMethod = "GET";
     }
   }

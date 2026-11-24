@@ -585,11 +585,6 @@ void Framework::ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm)
   m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
 }
 
-void Framework::ReplaceTrack(kml::TrackId trackId, kml::TrackData & trackData)
-{
-  m_work.GetBookmarkManager().GetEditSession().UpdateTrack(trackId, trackData);
-}
-
 void Framework::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
 {
   m_work.GetBookmarkManager().GetEditSession().ChangeTrackColor(trackId, color);
@@ -1191,9 +1186,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSelectTrackCandidate(JNI
   frm()->SelectTrackCandidate(c.m_trackId, c.m_relationId);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
 {
-  frm()->SaveRoute();
+  return frm()->SaveRoute();
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)
@@ -1244,6 +1239,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutingActive(JNIE
   return frm()->GetRoutingManager().IsRoutingActive();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutingFollowing(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsRoutingFollowing();
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteBuilding();
@@ -1272,6 +1272,60 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeFollowRoute(JNIEnv * env
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().DisableFollowMode();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeNavigateTrack(JNIEnv *, jclass, jlong trackId)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().NavigateTrack(static_cast<kml::TrackId>(trackId)));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeResetFollowedTrackToPlanning(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().ResetFollowedTrackToPlanning());
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntryAt(JNIEnv *, jclass,
+                                                                                   jdouble distanceMeters)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().UpdateFollowedTrackEntryAt(distanceMeters));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(JNIEnv *, jclass)
+{
+  auto & manager = frm()->GetRoutingManager();
+  ASSERT(manager.IsFollowingTrack(), ());
+  manager.FollowRoute();
+  return manager.IsRoutingFollowing() || manager.IsStartingFollowedTrack();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
+{
+  return static_cast<jint>(
+      frm()->GetRoutingManager().SetFollowTrackProfile(static_cast<routing::RouterType>(routerType)));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsFollowingTrack(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsFollowingTrack();
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(JNIEnv * env, jclass)
+{
+  auto const info = frm()->GetRoutingManager().GetFollowedTrackInfo();
+  if (!info)
+    return nullptr;
+
+  static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;D)V");
+
+  jni::TScopedLocalRef const name(env, jni::ToJavaStringWithSupplementalCharsFix(env, info->m_name));
+  return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
+                        static_cast<jdouble>(info->m_entryDistanceM));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().GetRenderRouterType());
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jclass,
@@ -1343,14 +1397,12 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
 {
-  ElevationInfo ei;
-  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
-  {
-    LOG(LWARNING, ("Can't get distance to route points and altitude."));
+  auto const & manager = frm()->GetRoutingManager();
+  auto const data = manager.GetRouteElevationData();
+  if (!data)
     return nullptr;
-  }
-
-  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+  auto const & ei = data->m_elevationInfo;
+  auto const & statistics = data->m_statistics;
 
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
   static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
@@ -1376,25 +1428,20 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   env->ReleaseDoubleArrayElements(jDistances, distances, 0);
   env->ReleaseIntArrayElements(jElevs, elevations, 0);
 
-  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(altInfo.GetTotalAscent()),
-                        static_cast<jint>(altInfo.GetTotalDescent()), static_cast<jint>(altInfo.m_minAltitude),
-                        static_cast<jint>(altInfo.m_maxAltitude));
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(statistics.m_ascent),
+                        static_cast<jint>(statistics.m_descent), static_cast<jint>(statistics.m_minElevation),
+                        static_cast<jint>(statistics.m_maxElevation));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,
                                                                                      jdouble distanceMeters)
 {
-  if (frm()->GetDrapeEngine() == nullptr)
-    return;
-  if (auto const pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters))
-    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(), false,
-                                          false, true);
+  frm()->SetRouteElevationActivePoint(distanceMeters);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)
 {
-  if (frm()->GetDrapeEngine() != nullptr)
-    frm()->GetDrapeEngine()->DeselectObject(false);
+  frm()->ResetRouteElevationActivePoint();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env, jclass, jstring countryId,

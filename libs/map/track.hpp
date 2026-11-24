@@ -10,6 +10,7 @@
 #include "geometry/any_rect2d.hpp"
 
 #include <string>
+#include <utility>
 
 class Track : public df::UserLineMark
 {
@@ -26,7 +27,6 @@ public:
   void ResetChanges() const override { m_isDirty = false; }
 
   kml::TrackData const & GetData() const { return m_data; }
-  void SetData(kml::TrackData const & data);
 
   std::string GetName() const;
   void SetName(std::string const & name);
@@ -35,9 +35,11 @@ public:
 
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
+  // One cumulative distance per vertex, measured from the beginning of the full track, excluding gaps.
+  std::vector<Lengths> const & GetCumulativeLengths() const;
   double GetDurationInSeconds() const;
 
-  TrackStatistics GetStatistics() const;
+  std::pair<TrackStatistics, ElevationInfo const *> GetStatisticsAndElevationInfo() const;
   ElevationInfo const * GetElevationInfo() const;
 
   std::pair<m2::PointD, double> GetCenterPoint() const;
@@ -77,7 +79,7 @@ public:
     std::string m_title;
     dp::Color m_color = dp::Color::Transparent();
 
-    // Distance in meters from the beginning to m_trackPoint.
+    // Cumulative chart distance in meters at m_trackPoint.
     double m_distFromBegM;
     // Mercator square distance, used to select nearest track.
     double m_squareDist = std::numeric_limits<double>::max();
@@ -107,9 +109,12 @@ public:
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
+  // Clamp a distance to the source endpoints, using the preceding section at a gap.
   m2::PointD GetPoint(double distanceInMeters) const;
 
   kml::MultiGeometry::LineT GetGeometry() const;
+  /// Elevation charts and totals require complete heights, with at least one nonzero height.
+  /// Incomplete saved tracks retain measured heights for export and still show distance and available duration.
   bool HasAltitudes() const;
 
 private:
@@ -117,8 +122,6 @@ private:
   m2::RectD GetLimitRectImpl() const;
 
   void CacheDataForInteraction() const;
-
-  double GetLengthMetersImpl(size_t lineIndex, size_t ptIdx) const;
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;

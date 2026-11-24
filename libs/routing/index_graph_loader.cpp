@@ -50,7 +50,7 @@ public:
 
 private:
   using GeometryPtrT = std::shared_ptr<Geometry>;
-  GeometryPtrT CreateGeometry(NumMwmId numMwmId);
+  GeometryPtrT CreateGeometry(MwmSet::MwmHandle const & handle);
   using GraphPtrT = std::unique_ptr<IndexGraph>;
   GraphPtrT CreateIndexGraph(NumMwmId numMwmId, GeometryPtrT & geometry);
 
@@ -92,7 +92,7 @@ Geometry & IndexGraphLoaderImpl::GetGeometry(NumMwmId numMwmId)
   if (res.second)
   {
     // Create geometry only, graph stays nullptr.
-    res.first->second.m_geometry = CreateGeometry(numMwmId);
+    res.first->second.m_geometry = CreateGeometry(m_dataSource.GetHandle(numMwmId));
   }
   return *(res.first->second.m_geometry);
 }
@@ -134,10 +134,7 @@ IndexGraphLoaderImpl::GraphPtrT IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId 
     base::Timer timer;
 
     if (!geometry)
-    {
-      auto vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(value->GetCountryFileName());
-      geometry = std::make_shared<Geometry>(GeometryLoader::Create(handle, std::move(vehicleModel), m_loadAltitudes));
-    }
+      geometry = CreateGeometry(handle);
 
     LOG(LINFO, ("Loading route graph for", value->GetCountryFileName()));
 
@@ -155,13 +152,12 @@ IndexGraphLoaderImpl::GraphPtrT IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId 
   }
 }
 
-IndexGraphLoaderImpl::GeometryPtrT IndexGraphLoaderImpl::CreateGeometry(NumMwmId numMwmId)
+IndexGraphLoaderImpl::GeometryPtrT IndexGraphLoaderImpl::CreateGeometry(MwmSet::MwmHandle const & handle)
 {
-  MwmSet::MwmHandle const & handle = m_dataSource.GetHandle(numMwmId);
   MwmValue const * value = handle.GetValue();
 
   auto vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(value->GetCountryFileName());
-  return std::make_shared<Geometry>(GeometryLoader::Create(handle, std::move(vehicleModel), m_loadAltitudes));
+  return std::make_shared<Geometry>(GeometryLoader::Create(handle, m_vehicleType, vehicleModel, m_loadAltitudes));
 }
 
 void IndexGraphLoaderImpl::Clear()

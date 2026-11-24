@@ -21,6 +21,109 @@ final class CarPlayServiceTests: XCTestCase {
     super.tearDown()
   }
 
+  func testPhoneTrackWithoutCarDoesNotChangeTheNextMapSelection() throws {
+    carPlayService.preservePhoneTrackSession()
+    carPlayService.phoneTrackSessionDidEnd()
+    let state = try XCTUnwrap(try Mirror(reflecting: XCTUnwrap(carPlayService)).children
+      .first { $0.label == "mapState" }?.value as? CarPlayMapOwnershipState)
+    let availability = CarPlayMapAvailability(isDeviceConnected: true, isDashboardConnected: true)
+    XCTAssertEqual(state.desiredDisplay(for: availability), .dashboardCarPlay)
+  }
+
+  func testCarPlayTakesRoutingOwnershipAfterStoppingAnEditedPhoneTrack() throws {
+    let map = try XCTUnwrap(MapViewController.shared())
+    map.loadViewIfNeeded()
+    MWMRouter.stopRouting()
+    let previousType = MWMRouter.type()
+    let category = try importBookmarkFixture(trackCount: 1)
+    let trackId = try XCTUnwrap(BookmarksManager.shared().trackIds(forCategory: category.categoryId).first).uint64Value
+    carPlayService = .shared
+    carPlayService.phoneSceneDidConnect()
+    let window = CarPlayWindowStub(frame: CGRect(x: 0, y: 0, width: 800, height: 480))
+    let controller = try XCTUnwrap(UIStoryboard.instance(.carPlay).instantiateInitialViewController())
+    window.rootViewController = controller
+    window.addSubview(controller.view)
+    let interface = CarPlayInterfaceStub()
+    defer {
+      MWMRouter.stopRouting()
+      carPlayService.destroy(window: window)
+      BookmarksManager.shared().deleteCategory(category.categoryId)
+      MWMRouter.setType(previousType)
+    }
+    carPlayService.setup(window: window, interfaceController: unsafeBitCast(interface, to: CPInterfaceController.self))
+    carPlayService.showOnPhone()
+    carPlayService.processMyPositionStateModeEvent(.follow)
+    let roadTemplate = try XCTUnwrap(interface.rootTemplate as? CPMapTemplate)
+    XCTAssertFalse(roadTemplate.leadingNavigationBarButtons.isEmpty)
+    FrameworkHelper.showTrack(trackId)
+    XCTAssertEqual(MWMRouter.navigateTrack(trackId), .ok)
+    waitForTrackPreview()
+    carPlayService.openMainCarPlay()
+    XCTAssertTrue(interface.rootTemplate === roadTemplate)
+    XCTAssertTrue(roadTemplate.leadingNavigationBarButtons.isEmpty)
+    XCTAssertFalse(carPlayService.isCarPlayRoutingActive)
+
+    XCTAssertEqual(MWMRouter.updateFollowedTrackEntry(atDistance: 100), .ok)
+    waitForTrackPreview()
+    XCTAssertEqual(MWMRouter.setFollowTrackProfile(.pedestrian), .ok)
+    waitForTrackPreview()
+    XCTAssertFalse(carPlayService.isCarPlayRoutingActive)
+
+    let router = CarPlayRouter()
+    let start = MWMRoutePoint(cgPoint: .zero, title: "Start", subtitle: nil, type: .start, intermediateIndex: 0)
+    let finish = MWMRoutePoint(cgPoint: CGPoint(x: 1, y: 1), title: "Finish", subtitle: nil, type: .finish, intermediateIndex: 0)
+    let trip = router.createTrip(startPoint: start, endPoint: finish)
+    let pushes = interface.pushes
+    carPlayService.preparePreview(trips: [trip])
+    XCTAssertEqual(interface.pushes, pushes)
+
+    MWMRouter.stopRouting()
+    XCTAssertTrue(carPlayService.isCarPlayRoutingActive)
+    MWMRouter.stopRouting()
+    XCTAssertTrue(carPlayService.isCarPlayRoutingActive)
+    carPlayService.preparePreview(trips: [trip])
+    XCTAssertEqual(interface.pushes, pushes + 1)
+  }
+
+  private func waitForTrackPreview() {
+    let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+      MWMRouter.hasTrackNavigationSession() && MWMRouter.isRouteBuilt()
+    }, object: nil)
+    wait(for: [ready], timeout: 5)
+  }
+
+  func testPhoneOwnedTrackNeverShowsACarSpeedSnapshot() throws {
+    let onRoute = try XCTUnwrap(class_getClassMethod(MWMRouter.self, #selector(MWMRouter.isOnRoute)))
+    let routeInfo = try XCTUnwrap(class_getInstanceMethod(RoutingManager.self, NSSelectorFromString("routeInfo")))
+    let info = RouteInfo(timeToTarget: 60, targetDistance: 100, targetUnitsIndex: 0,
+                         distanceToTurn: 100, turnUnitsIndex: 0, currentStreetName: "", streetName: "",
+                         nextStreetName: "", turnDirection: .none, nextTurnDirection: .none,
+                         turnImageName: nil, nextTurnImageName: nil, speedMps: 15, speedLimitMps: 20,
+                         roundExitNumber: 0, isLeftHandTraffic: false)
+    let onRouteBlock: @convention(block) (AnyObject) -> Bool = { _ in true }
+    let infoBlock: @convention(block) (AnyObject) -> RouteInfo? = { _ in info }
+    let replacementOnRoute = imp_implementationWithBlock(onRouteBlock)
+    let replacementInfo = imp_implementationWithBlock(infoBlock)
+    let originalOnRoute = method_setImplementation(onRoute, replacementOnRoute)
+    let originalInfo = method_setImplementation(routeInfo, replacementInfo)
+    defer {
+      method_setImplementation(onRoute, originalOnRoute)
+      method_setImplementation(routeInfo, originalInfo)
+      imp_removeBlock(replacementOnRoute)
+      imp_removeBlock(replacementInfo)
+    }
+    try withPhoneTrackSession { _, _ in
+      let window = try XCTUnwrap(Mirror(reflecting: carPlayService!).children
+        .first { $0.label == "window" }?.value as? CPWindow)
+      let controller = try XCTUnwrap(window.rootViewController as? CarPlayMapViewController)
+      let speed = try XCTUnwrap(controller.value(forKey: "speedInfoView") as? UIView)
+      XCTAssertTrue(speed.isHidden)
+      carPlayService.showOnPhone()
+      carPlayService.openMainCarPlay()
+      XCTAssertTrue(speed.isHidden)
+    }
+  }
+
   func testTripEstimatesPreserveRawSeconds() {
     let cases: [TimeInterval] = [0, 20.75, 1665, 94485, 2_147_483_647]
     for seconds in cases {
@@ -672,4 +775,212 @@ final class CarPlayServiceTests: XCTestCase {
                      "direction \(direction.rawValue)")
     }
   }
+}
+
+/// A message-level stand-in for the connected CarPlay interface controller.
+private final class CarPlayInterfaceStub: NSObject {
+  @objc weak var delegate: CPInterfaceControllerDelegate?
+  @objc var templates: [CPTemplate] = []
+  @objc var rootTemplate: CPTemplate? { templates.first }
+  @objc var topTemplate: CPTemplate? { templates.last }
+  @objc var presentedTemplate: CPTemplate?
+  var rootChanges = 0
+  var pushes = 0
+
+  @objc func setRootTemplate(_ template: CPTemplate, animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    rootChanges += 1
+    templates = [template]
+    completion?(true, nil)
+  }
+
+  @objc func pushTemplate(_ template: CPTemplate, animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    pushes += 1
+    templates.append(template)
+    completion?(true, nil)
+  }
+
+  @objc(popToRootTemplateAnimated:completion:)
+  func popToRootTemplate(animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    templates = Array(templates.prefix(1))
+    completion?(true, nil)
+  }
+
+  @objc func presentTemplate(_ template: CPTemplate, animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    presentedTemplate = template
+    completion?(true, nil)
+  }
+
+  @objc(dismissTemplateAnimated:completion:)
+  func dismissTemplate(animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    presentedTemplate = nil
+    completion?(true, nil)
+  }
+}
+
+private final class CarPlayWindowStub: CPWindow {
+  override var mapButtonSafeAreaLayoutGuide: UILayoutGuide { safeAreaLayoutGuide }
+}
+
+extension CarPlayServiceTests {
+  private final class TrackState {
+    var active = true
+  }
+
+  private func withPhoneTrackSession(_ body: (CarPlayInterfaceStub, TrackState) throws -> Void) throws {
+    let state = TrackState()
+    let method = try XCTUnwrap(class_getClassMethod(MWMRouter.self, #selector(MWMRouter.hasTrackNavigationSession)))
+    let block: @convention(block) (AnyObject) -> Bool = { _ in state.active }
+    let replacement = imp_implementationWithBlock(block)
+    let original = method_setImplementation(method, replacement)
+    defer {
+      method_setImplementation(method, original)
+      imp_removeBlock(replacement)
+    }
+    carPlayService = .shared
+    carPlayService.phoneSceneDidConnect()
+    let window = CarPlayWindowStub(frame: CGRect(x: 0, y: 0, width: 800, height: 480))
+    let controller = try XCTUnwrap(UIStoryboard.instance(.carPlay).instantiateInitialViewController())
+    window.rootViewController = controller
+    window.addSubview(controller.view)
+    let interface = CarPlayInterfaceStub()
+    defer { carPlayService.destroy(window: window) }
+    carPlayService.setup(window: window, interfaceController: unsafeBitCast(interface, to: CPInterfaceController.self))
+    try body(interface, state)
+  }
+
+  func testTrackEndRestoresCarPreviewsWithoutMovingTheMap() throws {
+    try withPhoneTrackSession { interface, state in
+      state.active = false
+      carPlayService.phoneTrackSessionDidEnd()
+      carPlayService.pushTemplate(CPListTemplate(title: "Search", sections: []), animated: false)
+      let pushes = interface.pushes
+      carPlayService.preparePreview(trips: [])
+      XCTAssertEqual(interface.pushes, pushes + 1)
+    }
+  }
+
+  func testTrackStopKeepsDoneUntilTheCarPanningInterfaceCloses() throws {
+    try withPhoneTrackSession { interface, state in
+      let template = PanningMapTemplate()
+      template.userInfo = MapInfo(type: CPConstants.TemplateType.main)
+      interface.templates = [template]
+      MapTemplateBuilder.configurePanUI(template)
+      XCTAssertEqual(template.trailingNavigationBarButtons.first?.title, L("done"))
+      state.active = false
+      carPlayService.phoneTrackSessionDidEnd()
+      XCTAssertTrue(template.isPanningInterfaceVisible)
+      XCTAssertEqual(template.trailingNavigationBarButtons.first?.title, L("done"))
+      carPlayService.processMyPositionStateModeEvent(.follow)
+      XCTAssertEqual(template.mapButtons.count, 2)
+      XCTAssertTrue(template.leadingNavigationBarButtons.isEmpty)
+      XCTAssertEqual(template.trailingNavigationBarButtons.first?.title, L("done"))
+      template.panning = false
+      carPlayService.mapTemplateDidDismissPanningInterface(template)
+      XCTAssertEqual(template.trailingNavigationBarButtons.first?.image, UIImage.icCarplaySettings)
+    }
+  }
+
+  func testPhoneMuteUpdatesTheCarSoundButton() throws {
+    try XCTUnwrap(MapViewController.shared()).loadViewIfNeeded()
+    let tts = try XCTUnwrap(MWMTextToSpeech.tts())
+    let wasEnabled = MWMTextToSpeech.isTTSEnabled()
+    let wasActive = tts.active
+    let onRoute = try XCTUnwrap(class_getClassMethod(MWMRouter.self, #selector(MWMRouter.isOnRoute)))
+    let block: @convention(block) (AnyObject) -> Bool = { _ in true }
+    let replacement = imp_implementationWithBlock(block)
+    let original = method_setImplementation(onRoute, replacement)
+    defer {
+      method_setImplementation(onRoute, original)
+      imp_removeBlock(replacement)
+      MWMTextToSpeech.setTTSEnabled(wasEnabled)
+      tts.active = wasActive
+    }
+    MWMTextToSpeech.setTTSEnabled(true)
+    tts.active = true
+    try withPhoneTrackSession { interface, _ in
+      carPlayService.processMyPositionStateModeEvent(.follow)
+      let template = try XCTUnwrap(interface.rootTemplate as? CPMapTemplate)
+      XCTAssertEqual(template.leadingNavigationBarButtons.count, 1)
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayUnmuted)
+      let phone = try XCTUnwrap(MWMNavigationDashboardManager.shared() as? RouteNavigationControlsDelegate)
+      phone.ttsButtonDidTap()
+      waitForSpeechStatusUpdate()
+      XCTAssertTrue(MWMTextToSpeech.isTTSEnabled())
+      XCTAssertFalse(tts.active)
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayMuted)
+
+      carPlayService.toggleNavigationSpeech()
+      waitForSpeechStatusUpdate()
+      XCTAssertTrue(tts.active, "One car action must unmute the phone-owned track")
+      XCTAssertTrue(MWMTextToSpeech.isTTSEnabled())
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayUnmuted)
+
+      carPlayService.toggleNavigationSpeech()
+      waitForSpeechStatusUpdate()
+      XCTAssertFalse(tts.active)
+      XCTAssertTrue(MWMTextToSpeech.isTTSEnabled(), "Session mute must not hide the phone sound control")
+      phone.ttsButtonDidTap()
+      waitForSpeechStatusUpdate()
+      XCTAssertTrue(tts.active)
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayUnmuted)
+
+      // The action reads live state even before the queued icon update has run.
+      phone.ttsButtonDidTap()
+      carPlayService.toggleNavigationSpeech()
+      waitForSpeechStatusUpdate()
+      XCTAssertTrue(tts.active)
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayUnmuted)
+
+      MWMTextToSpeech.setTTSEnabled(false)
+      waitForSpeechStatusUpdate()
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayMuted)
+      carPlayService.toggleNavigationSpeech()
+      waitForSpeechStatusUpdate()
+      XCTAssertTrue(MWMTextToSpeech.isTTSEnabled())
+      XCTAssertTrue(tts.active)
+      XCTAssertEqual(template.leadingNavigationBarButtons.first?.image, UIImage.icCarplayUnmuted)
+
+      let pan = PanningMapTemplate()
+      pan.userInfo = MapInfo(type: CPConstants.TemplateType.main)
+      interface.templates = [pan]
+      MapTemplateBuilder.configurePanUI(pan)
+      phone.ttsButtonDidTap()
+      waitForSpeechStatusUpdate()
+      XCTAssertTrue(pan.leadingNavigationBarButtons.isEmpty)
+      XCTAssertEqual(pan.trailingNavigationBarButtons.first?.title, L("done"))
+      pan.panning = false
+      carPlayService.mapTemplateDidDismissPanningInterface(pan)
+      XCTAssertEqual(pan.leadingNavigationBarButtons.first?.image, UIImage.icCarplayMuted)
+    }
+  }
+
+  private func waitForSpeechStatusUpdate() {
+    let updated = expectation(description: "Shared speech status reaches the car")
+    DispatchQueue.main.async { updated.fulfill() }
+    wait(for: [updated], timeout: 2)
+  }
+
+  func testRepeatedPhoneTrackHandoffPreservesBearingAndTemplates() throws {
+    try withPhoneTrackSession { interface, _ in
+      carPlayService.preservePhoneTrackSession()
+      let roots = interface.rootChanges
+      let method = try XCTUnwrap(class_getClassMethod(FrameworkHelper.self, NSSelectorFromString("rotateMap:animated:")))
+      var rotations = 0
+      let block: @convention(block) (AnyObject, Double, Bool) -> Void = { _, _, _ in rotations += 1 }
+      let replacement = imp_implementationWithBlock(block)
+      let original = method_setImplementation(method, replacement)
+      defer {
+        method_setImplementation(method, original)
+        imp_removeBlock(replacement)
+      }
+      carPlayService.preservePhoneTrackSession()
+      XCTAssertEqual(interface.rootChanges, roots)
+      XCTAssertEqual(rotations, 0)
+    }
+  }
+}
+
+private final class PanningMapTemplate: CPMapTemplate {
+  var panning = true
+  override var isPanningInterfaceVisible: Bool { panning }
 }

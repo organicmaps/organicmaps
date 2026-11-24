@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">ایمیل یا نام کاربری</string>
     <string name="editor_add_phone">افزودن تلفن</string>
-    <string name="level">طبقه</string>
     <!-- Building level -->
     <string name="level_value_generic">سطح: %s</string>
     <string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
@@ -656,6 +655,10 @@
     <string name="avoid_unpaved">اجتناب از جاده‌های آسفالت نشده</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">اجتناب از گذرگاه‌های کشتی</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">پرهیز از پاکوب‌های دشوار</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">اجتناب از پله‌ها</string>
     <string name="avoid_motorways">از بزرگراه دوری کنید</string>
     <string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
     <string name="unable_to_calc_alert_subtitle">مسیر یافت نشد. این مشکل ممکن است به دلیل تنظیمات مسیر‌یابی شما یا داده‌های ناقص OpenStreetMap باشد. لطفا تنظیمات مسیر‌یابی خود را تغییر دهید و دوباره امتحان کنید.</string>
@@ -663,7 +666,7 @@
     <string name="unpaved_road">جاده آسفالت نشده</string>
     <string name="ferry_crossing">گذرگاه جاده‌ای</string>
     <!-- Route warning shown on the map for this obstacle type. -->
-    <string name="road_warning_steps">مسیر</string>
+    <string name="road_warning_steps">پله‌ها</string>
     <!-- Route warning shown on the map for this obstacle type. -->
     <string name="road_warning_gate">دروازه</string>
     <!-- Route warning shown on the map for this obstacle type. -->
@@ -702,6 +705,8 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">برنامه‌ریزی مسیر ناموفق</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">اکنون تعطیل است</string>
     <string name="opens_tomorrow_at">فردا در %s باز می‌شود</string>
@@ -924,6 +929,8 @@
     <string name="change_stop_along_route">تغییر توقف</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">حداکثر تعداد توقف‌ها رسیده است</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">مسیر به‌عنوان مسیر ثبت‌شده ذخیره نشد</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">نقشه را جابجا و بزرگنمایی کنید تا صلیب را قرار دهید</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -947,4 +954,16 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">تراموا</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">یک شماره طبقه معتبر وارد کنید</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">طبقه (همکف 0 است)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">مسیریابی</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">آغاز مسیر</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">پایان مسیر</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">در این جهت مسیری باقی نمانده است. نقطهٔ دیگری را انتخاب کنید.</string>
 </resources>

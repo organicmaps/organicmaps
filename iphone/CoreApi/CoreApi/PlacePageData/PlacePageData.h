@@ -16,6 +16,8 @@ typedef NS_ENUM(NSInteger, PlacePageRoadType) {
   PlacePageRoadTypeToll,
   PlacePageRoadTypeFerry,
   PlacePageRoadTypeDirty,
+  PlacePageRoadTypeSteps,
+  PlacePageRoadTypeDifficultTrail,
   PlacePageRoadTypeNone
 };
 

@@ -6,7 +6,9 @@ public enum RoadType
   Toll(2),
   Motorway(4),
   Ferry(8),
-  Dirty(16);
+  Dirty(16),
+  Steps(32),
+  DifficultTrail(64);
 
   public final int nativeValue;
 

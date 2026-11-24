@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Correo electrónico o usuario";
-"level" = "Piso";
 "downloader_delete_map_dialog" = "Todas las ediciones hechas al mapa se eliminarán junto con este.";
 "downloader_update_maps" = "Actualizar mapas";
 "downloader_search_field_hint" = "Buscar en el mapa";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar ferris";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Evitar senderos difíciles";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Evitar escaleras";
 "avoid_motorways" = "Evitar autopistas";
 "unable_to_calc_alert_title" = "No se puede calcular la ruta";
 "unable_to_calc_alert_subtitle" = "No se pudo encontrar una ruta. Quizá se deba a las opciones de enrutamiento o a datos faltantes en OpenStreetMap. Revise sus opciones de enrutamiento y vuelva a intentarlo.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Descenso";
 "elevation_profile_min_elevation" = "Elevación mín.";
 "elevation_profile_max_elevation" = "Elevación máx.";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Empieza a moverte para ver el perfil de elevación";
 "isolines_toast_zooms_1_10" = "Amplíe el mapa para ver las isolíneas";
 "downloader_loading_ios" = "Descargando";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Se ha alcanzado el número máximo de paradas";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "No se pudo guardar la ruta como trayecto";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Mueva y amplíe o reduzca el mapa para situar la cruz";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Invertir ruta";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Introduzca un número de piso válido";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Piso (la planta baja es 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navegar";
+
+/* Track start point label. */
+"navigate_track_start" = "Inicio del trayecto";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Fin del trayecto";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "No queda trayecto en este sentido. Seleccione otro punto.";

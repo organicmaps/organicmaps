@@ -6,8 +6,6 @@ protocol ElevationProfileViewProtocol: AnyObject {
   var userInteractionEnabled: Bool { get set }
   var isChartViewHidden: Bool { get set }
   var isChartViewInfoHidden: Bool { get set }
-  var isXAxisViewHidden: Bool { get set }
-  var placeholderText: String? { get set }
   var canReceiveUpdates: Bool { get }
 
   func setChartData(_ data: ChartPresentationData)
@@ -74,6 +72,11 @@ final class ElevationProfileViewController: UIViewController {
 
   var presenter: ElevationProfilePresenterProtocol?
 
+  var isChartZoomEnabled: Bool {
+    get { chartView.isZoomEnabled }
+    set { chartView.isZoomEnabled = newValue }
+  }
+
   init(presentationStyle: PresentationStyle) {
     super.init(nibName: nil, bundle: nil)
     setPresentationStyle(presentationStyle)
@@ -127,10 +130,14 @@ final class ElevationProfileViewController: UIViewController {
   private func setupChartView() {
     graphViewContainer.translatesAutoresizingMaskIntoConstraints = false
     chartView.translatesAutoresizingMaskIntoConstraints = false
-    chartView.placeholderFont = .regular14.dynamic
-    chartView.placeholderTextColor = .blackSecondaryText
-    chartView.onSelectedPointChanged = { [weak self] in
-      self?.presenter?.onSelectedPointChanged($0)
+    chartView.onSelectedPointChanged = { [weak self] distance in
+      self?.presenter?.onSelectedPointChanged(distance)
+    }
+    chartView.onSelectionFinished = { [weak self] distance in
+      self?.presenter?.onSelectionFinished(distance)
+    }
+    chartView.onSelectionCancelled = { [weak self] in
+      self?.presenter?.onSelectionCancelled()
     }
   }
 
@@ -170,6 +177,9 @@ final class ElevationProfileViewController: UIViewController {
       equalTo: view.trailingAnchor,
       constant: contentInsets.right
     )
+    // Let the place-page stack collapse a hidden recording profile.
+    let bottomConstraint = graphViewContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    bottomConstraint.priority = UILayoutPriority(999)
     NSLayoutConstraint.activate([
       descriptionCollectionViewTopConstraint,
       descriptionCollectionViewLeadingConstraint,
@@ -179,7 +189,7 @@ final class ElevationProfileViewController: UIViewController {
                                                         constant: Constants.graphViewContainerInsets.top),
       graphViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       graphViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      graphViewContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      bottomConstraint,
       chartViewLeadingConstraint,
       chartViewTrailingConstraint,
       chartView.topAnchor.constraint(equalTo: graphViewContainer.topAnchor),
@@ -257,16 +267,6 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
   var isChartViewInfoHidden: Bool {
     get { chartView.isChartViewInfoHidden }
     set { chartView.isChartViewInfoHidden = forcedChartViewInfoHidden ?? newValue }
-  }
-
-  var isXAxisViewHidden: Bool {
-    get { chartView.isXAxisViewHidden }
-    set { chartView.isXAxisViewHidden = newValue }
-  }
-
-  var placeholderText: String? {
-    get { chartView.placeholderText }
-    set { chartView.placeholderText = newValue }
   }
 
   var canReceiveUpdates: Bool {

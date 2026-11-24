@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-bost neu enw defnyddiwr</string>
     <string name="editor_add_phone">Ychwanegu rhif ffôn</string>
-    <string name="level">Llawr</string>
     <!-- Building level -->
     <string name="level_value_generic">Lefel: %s</string>
     <string name="downloader_delete_map_dialog">Bydd eich holl olygiadau map yn cael eu dileu gyda\'r map.</string>
@@ -672,6 +671,10 @@
     <string name="avoid_unpaved">Osgoi ffyrdd heb eu palmantu</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Osgoi fferïau</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Osgoi llwybrau anodd</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Osgoi grisiau</string>
     <string name="avoid_motorways">Osgoi traffyrdd</string>
     <string name="unable_to_calc_alert_title">Methu cyfrifo llwybr</string>
     <string name="unable_to_calc_alert_subtitle">Ni ellid dod o hyd i lwybr. Gall hyn fod wedi\'i achosi gan eich opsiynau llwybro neu ddata OpenStreetMap anghyflawn. Newidiwch eich opsiynau llwybro a cheisiwch eto.</string>
@@ -718,6 +721,8 @@
     <string name="moreyear_ago_sorttype">Mwy na blwyddyn yn ôl</string>
     <string name="near_me_sorttype">Gerllaw</string>
     <string name="others_sorttype">Eraill</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Methodd cynllunio llwybr</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Ar gau nawr</string>
     <string name="opens_tomorrow_at">Yn agor yfory am %s</string>
@@ -948,6 +953,8 @@
     <string name="change_stop_along_route">Newid y pwynt aros</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Cyrhaeddwyd y nifer uchaf o bwyntiau aros</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Ni ellid cadw\'r llwybr fel trac</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Symudwch a chwyddwch y map i osod y groes</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -971,4 +978,16 @@
     <string name="transit_type_train">Trên</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Rhowch rif llawr dilys</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Llawr (llawr gwaelod yw 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Llywio</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Dechrau’r trac</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Diwedd y trac</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Does dim trac ar ôl i\'r cyfeiriad hwn. Dewiswch bwynt arall.</string>
 </resources>

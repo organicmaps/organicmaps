@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "ईमेल या उपयोगकर्ता नाम";
-"level" = "मंजिल";
 "downloader_delete_map_dialog" = "आपके सभी नक्शा संपादन नक्शे के साथ हटा दिए जाएंगे।";
 "downloader_update_maps" = "नक्शे अपडेट करें";
 "downloader_search_field_hint" = "मानचित्र ढूंढें";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "नौकाओं से बचें";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "कठिन पगडंडियों से बचें";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "सीढ़ियों से बचें";
 "avoid_motorways" = "फ़्रीवेज़ से बचें";
 "unable_to_calc_alert_title" = "मार्ग की गणना करने में असमर्थ";
 "unable_to_calc_alert_subtitle" = "कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "उतरान";
 "elevation_profile_min_elevation" = "न्यूनतम ऊँचाई";
 "elevation_profile_max_elevation" = "अधिकतम ऊँचाई";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "ऊँचाई प्रोफ़ाइल देखने के लिए चलना शुरू करें";
 "isolines_toast_zooms_1_10" = "इज़ोलाइन्स का अन्वेषण करने के लिए ज़ूम इन करें";
 "downloader_loading_ios" = "डाउनलोड हो रहा है";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "अधिकतम स्टॉप संख्या प्राप्त हो गई";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "मार्ग को ट्रैक के रूप में सहेजा नहीं जा सका";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "क्रॉस रखने के लिए मानचित्र को हिलाएँ और ज़ूम करें";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "मार्ग उलटें";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "एक मान्य मंजिल संख्या दर्ज करें";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "मंजिल (भूतल 0 है)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "नेविगेट करें";
+
+/* Track start point label. */
+"navigate_track_start" = "ट्रैक की शुरुआत";
+
+/* Track finish point label. */
+"navigate_track_finish" = "ट्रैक का अंत";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "इस दिशा में कोई ट्रैक शेष नहीं है। कोई दूसरा बिंदु चुनें।";

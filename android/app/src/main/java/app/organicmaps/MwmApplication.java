@@ -24,6 +24,7 @@ import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapsReadiness;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -101,6 +102,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   @NonNull
+  public MapsReadiness getMapsReadiness()
+  {
+    return getOrganicMaps().getMapsReadiness();
+  }
+
+  @NonNull
   public DisplayManager getDisplayManager()
   {
     return mDisplayManager;
@@ -139,6 +146,12 @@ public class MwmApplication extends Application implements Application.ActivityL
                                    BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
     // API and map server (production, or the local one in development builds), before the core starts.
     SyriaServer.init(this);
+    getMapsReadiness().runWhenReady(() -> {
+      // Before the first-launch screen downloads the country map.
+      MapUpdateLogger.init(this);
+      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+      ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
+    });
 
     DownloaderNotifier.createNotificationChannel(this);
     initNavigationService();
@@ -149,7 +162,13 @@ public class MwmApplication extends Application implements Application.ActivityL
     WearBridge.publishNavigating(RoutingController.get().isNavigating());
     // The service outlives phone/car UI handoffs and stops when navigation ends, including in the background.
     RoutingController.get().addNavigationStateListener(navigating -> {
-      if (!navigating)
+      if (navigating)
+      {
+        // A track Start can complete in the background, after location was stopped there.
+        if (LocationUtils.checkLocationPermission(this))
+          getLocationHelper().restartWithNewMode();
+      }
+      else
       {
         NavigationService.stopService(this);
         onNavigationOrRecordingStopped();
@@ -163,17 +182,10 @@ public class MwmApplication extends Application implements Application.ActivityL
     mDisplayManager = new DisplayManager();
   }
 
-  public boolean initOrganicMaps(@Nullable Runnable onComplete) throws IOException
+  public void initOrganicMaps() throws IOException
   {
     ThemeSwitcher.INSTANCE.initialize(this);
-    return mOrganicMaps.init(() -> {
-      // Before the first-launch screen downloads the country map.
-      MapUpdateLogger.init(this);
-      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-      ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
-      if (onComplete != null)
-        onComplete.run();
-    });
+    mOrganicMaps.init();
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {

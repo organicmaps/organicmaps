@@ -23,9 +23,12 @@ class BottomMenuPresenter: NSObject {
   private let sections: [Sections]
   private let menuCells: [CellType]
   private let trackRecorder = TrackRecordingManager.shared
-  private let mapsStorage: Storage
-  private let countryId: String?
-  private let shouldUpdateMapToContribute: Bool
+  private let mapsStorage = Storage.shared()
+
+  private var addPlaceCountryId: String? {
+    guard MWMNavigationDashboardManager.shared().state == .closed else { return nil }
+    return mapsStorage.countryForViewportCenter()
+  }
 
   init(view: BottomMenuViewProtocol,
        interactor: BottomMenuInteractorProtocol,
@@ -35,13 +38,6 @@ class BottomMenuPresenter: NSObject {
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
     menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
-    let mapsStorage = Storage.shared()
-    self.mapsStorage = mapsStorage
-    countryId = mapsStorage.countryForViewportCenter()
-    shouldUpdateMapToContribute =
-      !(MWMNavigationDashboardManager.shared().state == .closed &&
-        FrameworkHelper.canEditMapAtViewportCenter() &&
-        countryId != nil)
     super.init()
   }
 
@@ -98,9 +94,11 @@ extension BottomMenuPresenter {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
       case .addPlace:
+        let enabled = addPlaceCountryId != nil
+        let shouldUpdateMapToContribute = enabled && !FrameworkHelper.canEditMapAtViewportCenter()
         cell.configure(image: shouldUpdateMapToContribute ? UIImage(resource: .icMenuAddPlaceExclamation) : UIImage(resource: .icMenuAddPlace),
                        title: L("placepage_add_place_button"),
-                       enabled: countryId != nil)
+                       enabled: enabled)
       case .recordTrack:
         switch trackRecorder.recordingState {
         case .inactive:
@@ -146,10 +144,10 @@ extension BottomMenuPresenter {
     case .items:
       switch menuCells[indexPath.row] {
       case .addPlace:
-        if shouldUpdateMapToContribute {
-          guard let countryId else {
-            fatalError("Add place button should be disabled when there is no country")
-          }
+        guard let countryId = addPlaceCountryId else { return }
+        if FrameworkHelper.canEditMapAtViewportCenter() {
+          interactor.addPlace()
+        } else {
           let countryName = mapsStorage.name(forCountry: countryId)
           MWMAlertViewController.activeAlert().presentDefaultAlert(
             withTitle: L("contribute_to_osm_update_map"),
@@ -159,8 +157,6 @@ extension BottomMenuPresenter {
           ) { [weak self] in
             self?.interactor.startDownloadingMapForCountry(countryId)
           }
-        } else {
-          interactor.addPlace()
         }
       case .recordTrack:
         interactor.toggleTrackRecording()

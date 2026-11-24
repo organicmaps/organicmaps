@@ -59,14 +59,6 @@ void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<IDCollections> && ids)
     m_areas.erase(id);
 }
 
-void UserMarkGenerator::SetJustCreatedUserMarks(drape_ptr<IDCollections> && ids)
-{
-  if (ids == nullptr)
-    return;
-  for (auto const & id : ids->m_markIds)
-    m_marks[id]->m_justCreated = true;
-}
-
 void UserMarkGenerator::SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks)
 {
   for (auto & pair : *marks)

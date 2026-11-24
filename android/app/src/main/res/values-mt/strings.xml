@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mejl jew isem l-utent</string>
     <string name="editor_add_phone">Żid in-Numru tat-Telefown</string>
-    <string name="level">Livell</string>
     <!-- Building level -->
     <string name="level_value_generic">Livell: %s</string>
     <string name="downloader_delete_map_dialog">L-editti kollha tal-mappa tiegħek se jitħassru mal-mappa.</string>
@@ -668,6 +667,10 @@
     <string name="avoid_unpaved">Evita toroq mhux pavimentati</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evita l-laneċ</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Evita l-mogħdijiet diffiċli</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Evita t-taraġ</string>
     <string name="avoid_motorways">Evita l-passaġġi ħielsa</string>
     <string name="unable_to_calc_alert_title">Ir-rotta ma\' tistax tiġi kalkulata</string>
     <string name="unable_to_calc_alert_subtitle">Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.</string>
@@ -708,6 +711,8 @@
     <string name="moreyear_ago_sorttype">Aktar minn sena ilu</string>
     <string name="near_me_sorttype">Ħdejja</string>
     <string name="others_sorttype">Oħrajn</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">L-Ippjanar tar-rotta ma rnexxiex</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Magħluq issa</string>
     <string name="opens_tomorrow_at">Jiftaħ għada fil-%s</string>
@@ -922,6 +927,8 @@
     <string name="change_stop_along_route">Biddel il-waqfa</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Inkiseb in-numru massimu ta\' waqfiet</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Ir-rotta ma setgħetx tiġi ssejvjata bħala traċċa</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Mexxi u kabbar il-mappa biex tqiegħed is-salib</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -945,4 +952,16 @@
     <string name="transit_type_train">Ferrovija</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramm</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Daħħal numru ta’ sular validu</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Sular (il-pjan terran huwa 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Innaviga</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Bidu tat-traċċa</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Tmiem tat-traċċa</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Ma fadal l-ebda traċċa f\'din id-direzzjoni. Agħżel punt ieħor.</string>
 </resources>
