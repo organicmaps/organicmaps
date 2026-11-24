@@ -306,7 +306,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   // Core is still publishing bookmark edits. Recheck the current session after that edit finishes.
   dispatch_async(dispatch_get_main_queue(), ^{
     auto const info = [MWMRouter followedTrackInfo];
-    if (info && ![MWMRouter isOnRoute] && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
+    if (info && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
       [MWMRouter stopRouting];
   });
 }
