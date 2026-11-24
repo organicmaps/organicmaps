@@ -21,9 +21,14 @@ class AltitudeLoaderBase
 public:
   explicit AltitudeLoaderBase(MwmValue const & mwmValue);
 
-  /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
-  /// or the returned vector is empty.
-  geometry::Altitudes GetAltitudes(uint32_t featureId, size_t pointCount);
+  struct Result
+  {
+    geometry::Altitudes m_altitudes;
+    bool m_available = false;
+  };
+
+  /// Returns one numeric height per point. Availability is false for fallback values.
+  Result GetAltitudes(uint32_t featureId, size_t pointCount);
 
   bool HasAltitudes() const;
 
@@ -44,8 +49,7 @@ class AltitudeLoaderCached : public AltitudeLoaderBase
 public:
   explicit AltitudeLoaderCached(MwmValue const & mwmValue) : AltitudeLoaderBase(mwmValue) {}
 
-  /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
-  /// or the returned vector is empty.
+  /// Returns cached numeric heights, including fallbacks.
   geometry::Altitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
 
   void ClearCache() { m_cache.clear(); }

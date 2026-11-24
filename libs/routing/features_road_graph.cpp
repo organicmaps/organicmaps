@@ -247,7 +247,7 @@ void FeaturesRoadGraphBase::ExtractRoadInfo(FeatureID const & featureId, Feature
   geometry::Altitudes altitudes;
   auto const loader = GetAltitudesLoader(featureId.m_mwmId);
   if (loader)
-    altitudes = loader->GetAltitudes(featureId.m_index, pointsCount);
+    altitudes = loader->GetAltitudes(featureId.m_index, pointsCount).m_altitudes;
   else
     altitudes = geometry::Altitudes(pointsCount, geometry::kDefaultAltitudeMeters);
 

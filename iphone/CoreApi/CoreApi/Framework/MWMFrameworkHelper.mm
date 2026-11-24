@@ -309,14 +309,10 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   }
   GetFramework().SetTrackRecordingUpdateHandler([trackRecordingDidUpdate](TrackStatistics const & statistics)
   {
-    TrackInfo * info = [[TrackInfo alloc] initWithTrackStatistics:statistics];
+    TrackInfo * info = [[TrackInfo alloc] initWithTrackStatistics:statistics
+                                                 hasElevationInfo:statistics.HasGpsElevationProfile()];
     trackRecordingDidUpdate(info);
   });
-}
-
-+ (void)stopTrackRecording
-{
-  GetFramework().StopTrackRecording();
 }
 
 + (void)discardTrackRecording
@@ -324,9 +320,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DiscardTrackRecording();
 }
 
-+ (void)saveTrackRecordingWithName:(nonnull NSString *)name
++ (BOOL)saveTrackRecordingWithName:(nonnull NSString *)name
 {
-  GetFramework().SaveTrackRecordingWithName(name.UTF8String);
+  return GetFramework().SaveTrackRecordingWithName(name.UTF8String);
 }
 
 + (BOOL)isTrackRecordingEnabled
@@ -334,17 +330,10 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return GetFramework().IsTrackRecordingEnabled();
 }
 
-+ (BOOL)isTrackRecordingEmpty
-{
-  return GetFramework().IsTrackRecordingEmpty();
-}
-
 + (ElevationProfileData * _Nullable)trackRecordingElevationInfo
 {
-  if (GetFramework().IsTrackRecordingEmpty())
-    return nil;
-
-  return [[ElevationProfileData alloc] initWithElevationInfo:GetFramework().GetTrackRecordingElevationInfo()];
+  auto const & elevationInfo = GetFramework().GetTrackRecordingElevationInfo();
+  return elevationInfo.IsEmpty() ? nil : [[ElevationProfileData alloc] initWithElevationInfo:elevationInfo];
 }
 
 // MARK: - ProductsManager

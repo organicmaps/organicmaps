@@ -1,9 +1,11 @@
 package app.organicmaps.intent;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -85,6 +87,28 @@ public class GoogleAssistantRoutingOptionsTest
         assertTrue(new GoogleAssistantIntentHandler() {}.handleIntent(carAction(action), (query, viewport) -> {}));
         verify(controller).onRoutingOptionsChanged();
         verify(controller, never()).rebuildLastRoute();
+      }
+    }
+  }
+
+  @Test
+  public void followModeStartsOnlyATrackPreviewThroughTheController()
+  {
+    for (boolean followingTrack : new boolean[] {true, false})
+    {
+      RoutingController controller = mockPlan(followingTrack ? Router.Pedestrian : Router.Ruler);
+      when(controller.isFollowingTrack()).thenReturn(followingTrack);
+      try (MockedStatic<Logger> ignored = mockStatic(Logger.class);
+           MockedStatic<RoutingController> routing = mockStatic(RoutingController.class))
+      {
+        routing.when(RoutingController::get).thenReturn(controller);
+        final Intent intent = carAction("follow_mode");
+        final GoogleAssistantIntentHandler handler = new GoogleAssistantIntentHandler() {};
+        if (followingTrack)
+          assertTrue(handler.handleIntent(intent, (query, viewport) -> {}));
+        else // The Ruler plan reaches the direct core call, which a JVM test cannot run.
+          assertThrows(UnsatisfiedLinkError.class, () -> handler.handleIntent(intent, (query, viewport) -> {}));
+        verify(controller, followingTrack ? times(1) : never()).start();
       }
     }
   }

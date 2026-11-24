@@ -264,8 +264,6 @@ downloader::MetaConfig MapFilesDownloader::LoadMetaConfig() const
     // request.SetRawHeader("X-OM-AppVersion", "2025.09.19-6-ios");  // "2025.09.15-18-FDroid"
     // request.SetRawHeader("Accept-Language", "de-DE");
 
-    request.SetTimeout(10.0);  // timeout in seconds
-
     std::string httpResult;
     request.RunHttpRequest(httpResult);
     metaConfig = downloader::ParseMetaConfig(httpResult);

@@ -94,14 +94,6 @@ public final class Editor
   }
   public static native int nativeGetStars();
   public static native int nativeGetMaxEditableBuildingLevels();
-  public static String nativeGetBuildingLevels()
-  {
-    return nativeGetMetadata(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt());
-  }
-  public static void nativeSetBuildingLevels(String levels)
-  {
-    nativeSetMetadata(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt(), levels);
-  }
   public static native boolean nativeHasWifi();
   public static native void nativeSetHasWifi(boolean hasWifi);
 
@@ -133,10 +125,6 @@ public final class Editor
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
   public static native boolean nativeIsHouseValid(String houseNumber);
-  public static boolean nativeIsLevelValid(String level)
-  {
-    return nativeIsMetadataValid(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt(), level);
-  }
   public static boolean nativeIsPhoneValid(String phone)
   {
     return nativeIsMetadataValid(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), phone);

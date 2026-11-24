@@ -39,6 +39,11 @@ public class PlacePageButtonFactory
         titleId = R.string.save;
         yield R.drawable.ic_track_recording_off;
       }
+      case TRACK_NAVIGATE ->
+      {
+        titleId = R.string.navigate_track;
+        yield R.drawable.ic_navigate_track;
+      }
       case TRACK_DELETE, TRACK_RECORDING_DELETE ->
       {
         titleId = R.string.delete;
@@ -88,6 +93,16 @@ public class PlacePageButtonFactory
       {
         titleId = R.string.avoid_ferry;
         yield R.drawable.ic_avoid_ferry;
+      }
+      case ROUTE_AVOID_STEPS ->
+      {
+        titleId = R.string.avoid_steps;
+        yield R.drawable.ic_avoid_steps;
+      }
+      case ROUTE_AVOID_DIFFICULT_TRAILS ->
+      {
+        titleId = R.string.avoid_difficult_trails;
+        yield R.drawable.ic_avoid_difficult_trails;
       }
       case MORE ->
       {

@@ -22,6 +22,7 @@
 #include "base/thread_checker.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
 
 namespace location
@@ -45,6 +46,10 @@ public:
   void Init(PointCheckCallback const & pointCheckCallback);
 
   void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder);
+
+  // Capture for the entire preview, including planning attempts that fail before enqueuing.
+  void SetRoutePlanningOptions(RoutingOptions options) { m_routePlanningOptions = options; }
+  std::optional<RoutingOptions> GetRoutePlanningOptions() const { return m_routePlanningOptions; }
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
@@ -71,8 +76,6 @@ public:
 
   void SetState(SessionState state);
 
-  /// \returns true if altitude information along |m_route| is available and false otherwise.
-  bool HasRouteAltitude() const;
   bool IsRouteId(uint64_t routeId) const;
   bool IsRouteValid() const;
 
@@ -121,6 +124,9 @@ public:
 
   void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback);
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
+
+  /// Consume only the queued initial approach, without advancing maneuver or departure notifications.
+  std::string GenerateTrackApproachNotification();
 
   // Sound notifications for turn instructions.
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
@@ -184,6 +190,7 @@ private:
   SessionState m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
+  std::optional<RoutingOptions> m_routePlanningOptions;
 
   EdgeProj m_proj;
   bool m_projectedToRoadGraph = false;

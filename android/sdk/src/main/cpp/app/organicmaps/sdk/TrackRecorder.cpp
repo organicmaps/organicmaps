@@ -1,11 +1,8 @@
 #include "Framework.hpp"
 
 #include "app/organicmaps/sdk/bookmarks/data/ElevationInfo.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/TrackStatistics.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-
-#include "map/gps_tracker.hpp"
-
-#include <chrono>
 
 extern "C"
 {
@@ -23,20 +20,17 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRec
     return;
   }
   ASSERT(frm()->IsTrackRecordingEnabled(), ());
-  static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDII)V");
 
   frm()->SetTrackRecordingUpdateHandler(
       [listener = jni::make_global_ref(updateListener)](TrackStatistics const & trackStats)
   {
     // The handler is a platform::SafeCallback, so it always runs on the attached GUI thread.
     JNIEnv * env = jni::GetEnv();
-    jobject stats =
-        env->NewObject(g_trackStatisticsClazz, cId, trackStats.m_length, trackStats.m_duration, trackStats.m_ascent,
-                       trackStats.m_descent, trackStats.m_minElevation, static_cast<jint>(trackStats.m_maxElevation));
+    jni::TScopedLocalRef stats(env, ToJavaTrackStatistics(env, trackStats, trackStats.HasGpsElevationProfile()));
 
     jmethodID onUpdateFn = jni::GetMethodID(env, *listener, "onTrackRecordingUpdate",
                                             "(Lapp/organicmaps/sdk/bookmarks/data/TrackStatistics;)V");
-    env->CallVoidMethod(*listener, onUpdateFn, stats);
+    env->CallVoidMethod(*listener, onUpdateFn, stats.get());
     jni::HandleJavaException(env);
   });
 }
@@ -44,9 +38,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRec
 JNIEXPORT jobject Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetElevationInfo(JNIEnv * env, jclass clazz)
 {
   ASSERT(frm()->IsTrackRecordingEnabled(), ("Track recording is not started"));
-  if (frm()->IsTrackRecordingEmpty())
-    return nullptr;
-  return ToJavaElevationInfo(env, frm()->GetTrackRecordingElevationInfo());
+  auto const & elevationInfo = frm()->GetTrackRecordingElevationInfo();
+  return elevationInfo.IsEmpty() ? nullptr : ToJavaElevationInfo(env, elevationInfo);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeStopTrackRecording(JNIEnv * env, jclass clazz)
@@ -59,17 +52,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeDiscardTrac
   frm()->DiscardTrackRecording();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env,
-                                                                                                jclass clazz,
-                                                                                                jstring name)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env,
+                                                                                                    jclass clazz,
+                                                                                                    jstring name)
 {
-  frm()->SaveTrackRecordingWithName(jni::ToNativeString(env, name));
-}
-
-JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeIsTrackRecordingEmpty(JNIEnv * env,
-                                                                                               jclass clazz)
-{
-  return frm()->IsTrackRecordingEmpty();
+  return frm()->SaveTrackRecordingWithName(jni::ToNativeString(env, name));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_location_TrackRecorder_nativeIsTrackRecordingEnabled(JNIEnv * env,

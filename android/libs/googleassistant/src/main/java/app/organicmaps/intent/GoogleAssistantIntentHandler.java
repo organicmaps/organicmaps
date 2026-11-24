@@ -37,7 +37,10 @@ public abstract class GoogleAssistantIntentHandler
 
       applyAvoidOptions(uri, routingMode);
 
-      RoutingController.get().setRouterType(routingMode);
+      final RoutingController routing = RoutingController.get();
+      // A router change ends a followed track, but a search only lists places: the track stays until one is routed to.
+      if (dst.hasLatLon() || !routing.isFollowingTrack())
+        routing.setRouterType(routingMode);
 
       if (!dst.hasLatLon())
       {
@@ -56,9 +59,10 @@ public abstract class GoogleAssistantIntentHandler
       switch (intentParam)
       {
       case "add_a_stop":
-        if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
+        // A followed track has no route points to extend, so the stop starts a new route instead.
+        if ((routing.isNavigating() || routing.isPlanning()) && !routing.isFollowingTrack())
         {
-          RoutingController.get().addStop(dest);
+          routing.addStop(dest);
         }
         else
         {
@@ -303,7 +307,14 @@ public abstract class GoogleAssistantIntentHandler
       case "show_traffic":
       case "hide_traffic": Logger.d(TAG, "Traffic actions not supported"); return false;
 
-      case "follow_mode": Framework.nativeFollowRoute(); return true;
+      case "follow_mode":
+        // A track preview starts through the controller to keep its navigation state. A Ruler plan has no
+        // navigation, and the planner disables Start for it.
+        if (RoutingController.get().isPlanning() && RoutingController.get().isFollowingTrack())
+          RoutingController.get().start();
+        else
+          Framework.nativeFollowRoute();
+        return true;
 
       case "report_crash":
       case "report_hazard":

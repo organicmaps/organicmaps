@@ -13,30 +13,15 @@
 		347F52101DC2334A0064B273 /* drape_api_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */; };
 		347F52111DC2334A0064B273 /* drape_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F520B1DC2334A0064B273 /* drape_api.cpp */; };
 		347F52121DC2334A0064B273 /* drape_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F520C1DC2334A0064B273 /* drape_api.hpp */; };
-		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
-		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
 		34C624C31DABDB0400510300 /* traffic_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624BF1DABDB0400510300 /* traffic_generator.cpp */; };
 		34C624C41DABDB0400510300 /* traffic_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C01DABDB0400510300 /* traffic_generator.hpp */; };
 		34C624C51DABDB0400510300 /* traffic_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624C11DABDB0400510300 /* traffic_renderer.cpp */; };
 		34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C21DABDB0400510300 /* traffic_renderer.hpp */; };
 		451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */; };
 		451A2A831EE8464E003E05A4 /* circles_pack_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */; };
-		452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC21CEDCF3200A55E57 /* animation.cpp */; };
 		452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC31CEDCF3200A55E57 /* animation.hpp */; };
 		452C9ED61CEDCF3200A55E57 /* arrow_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */; };
 		452C9ED71CEDCF3200A55E57 /* arrow_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */; };
-		452C9ED81CEDCF3200A55E57 /* follow_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC61CEDCF3200A55E57 /* follow_animation.cpp */; };
-		452C9ED91CEDCF3200A55E57 /* follow_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC71CEDCF3200A55E57 /* follow_animation.hpp */; };
-		452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC81CEDCF3200A55E57 /* interpolators.cpp */; };
-		452C9EDB1CEDCF3200A55E57 /* interpolators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC91CEDCF3200A55E57 /* interpolators.hpp */; };
-		452C9EDC1CEDCF3200A55E57 /* linear_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECA1CEDCF3200A55E57 /* linear_animation.cpp */; };
-		452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */; };
-		452C9EDE1CEDCF3200A55E57 /* parallel_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */; };
-		452C9EDF1CEDCF3200A55E57 /* parallel_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */; };
-		452C9EE21CEDCF3200A55E57 /* scale_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */; };
-		452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */; };
-		452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */; };
-		452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */; };
 		452FE5C31EB2004F00EE470C /* screen_quad_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452FE5C11EB2004F00EE470C /* screen_quad_renderer.cpp */; };
 		452FE5C41EB2004F00EE470C /* screen_quad_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452FE5C21EB2004F00EE470C /* screen_quad_renderer.hpp */; };
 		453D67D82273225B00072ADB /* batcher_bucket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453D67D52273225A00072ADB /* batcher_bucket.hpp */; };
@@ -150,8 +135,6 @@
 		670947FF1BDF9BF5005014C0 /* batchers_pool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947F11BDF9BF5005014C0 /* batchers_pool.hpp */; };
 		670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947F41BDF9BF5005014C0 /* drape_engine.cpp */; };
 		670948031BDF9BF5005014C0 /* drape_engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947F51BDF9BF5005014C0 /* drape_engine.hpp */; };
-		670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948071BDF9C39005014C0 /* base_interpolator.cpp */; };
-		670948151BDF9C39005014C0 /* base_interpolator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948081BDF9C39005014C0 /* base_interpolator.hpp */; };
 		670948161BDF9C39005014C0 /* interpolation_holder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948091BDF9C39005014C0 /* interpolation_holder.cpp */; };
 		670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */; };
 		670948181BDF9C39005014C0 /* interpolations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709480B1BDF9C39005014C0 /* interpolations.cpp */; };
@@ -160,7 +143,6 @@
 		6709481D1BDF9C39005014C0 /* opacity_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948101BDF9C39005014C0 /* opacity_animation.hpp */; };
 		6709481E1BDF9C39005014C0 /* show_hide_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948111BDF9C39005014C0 /* show_hide_animation.cpp */; };
 		6709481F1BDF9C39005014C0 /* show_hide_animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948121BDF9C39005014C0 /* show_hide_animation.hpp */; };
-		670948201BDF9C39005014C0 /* value_mapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948131BDF9C39005014C0 /* value_mapping.hpp */; };
 		6709483B1BDF9C48005014C0 /* compass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948231BDF9C48005014C0 /* compass.cpp */; };
 		6709483C1BDF9C48005014C0 /* compass.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948241BDF9C48005014C0 /* compass.hpp */; };
 		6709483D1BDF9C48005014C0 /* copyright_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948251BDF9C48005014C0 /* copyright_label.cpp */; };
@@ -231,8 +213,6 @@
 		347F520A1DC2334A0064B273 /* drape_api_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api_renderer.hpp; sourceTree = "<group>"; };
 		347F520B1DC2334A0064B273 /* drape_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_api.cpp; sourceTree = "<group>"; };
 		347F520C1DC2334A0064B273 /* drape_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api.hpp; sourceTree = "<group>"; };
-		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
-		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
 		34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34C624BF1DABDB0400510300 /* traffic_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_generator.cpp; sourceTree = "<group>"; };
@@ -241,22 +221,9 @@
 		34C624C21DABDB0400510300 /* traffic_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_renderer.hpp; sourceTree = "<group>"; };
 		451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = circles_pack_shape.cpp; sourceTree = "<group>"; };
 		451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = circles_pack_shape.hpp; sourceTree = "<group>"; };
-		452C9EC21CEDCF3200A55E57 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation.cpp; sourceTree = "<group>"; };
 		452C9EC31CEDCF3200A55E57 /* animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation.hpp; sourceTree = "<group>"; };
 		452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arrow_animation.cpp; sourceTree = "<group>"; };
 		452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = arrow_animation.hpp; sourceTree = "<group>"; };
-		452C9EC61CEDCF3200A55E57 /* follow_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = follow_animation.cpp; sourceTree = "<group>"; };
-		452C9EC71CEDCF3200A55E57 /* follow_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = follow_animation.hpp; sourceTree = "<group>"; };
-		452C9EC81CEDCF3200A55E57 /* interpolators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolators.cpp; sourceTree = "<group>"; };
-		452C9EC91CEDCF3200A55E57 /* interpolators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = interpolators.hpp; sourceTree = "<group>"; };
-		452C9ECA1CEDCF3200A55E57 /* linear_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linear_animation.cpp; sourceTree = "<group>"; };
-		452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = linear_animation.hpp; sourceTree = "<group>"; };
-		452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parallel_animation.cpp; sourceTree = "<group>"; };
-		452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parallel_animation.hpp; sourceTree = "<group>"; };
-		452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scale_animation.cpp; sourceTree = "<group>"; };
-		452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scale_animation.hpp; sourceTree = "<group>"; };
-		452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sequence_animation.cpp; sourceTree = "<group>"; };
-		452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sequence_animation.hpp; sourceTree = "<group>"; };
 		452FE5C11EB2004F00EE470C /* screen_quad_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_quad_renderer.cpp; sourceTree = "<group>"; };
 		452FE5C21EB2004F00EE470C /* screen_quad_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_quad_renderer.hpp; sourceTree = "<group>"; };
 		453D67D52273225A00072ADB /* batcher_bucket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = batcher_bucket.hpp; sourceTree = "<group>"; };
@@ -378,8 +345,6 @@
 		670947F11BDF9BF5005014C0 /* batchers_pool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = batchers_pool.hpp; sourceTree = "<group>"; };
 		670947F41BDF9BF5005014C0 /* drape_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_engine.cpp; sourceTree = "<group>"; };
 		670947F51BDF9BF5005014C0 /* drape_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_engine.hpp; sourceTree = "<group>"; };
-		670948071BDF9C39005014C0 /* base_interpolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base_interpolator.cpp; sourceTree = "<group>"; };
-		670948081BDF9C39005014C0 /* base_interpolator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base_interpolator.hpp; sourceTree = "<group>"; };
 		670948091BDF9C39005014C0 /* interpolation_holder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolation_holder.cpp; sourceTree = "<group>"; };
 		6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = interpolation_holder.hpp; sourceTree = "<group>"; };
 		6709480B1BDF9C39005014C0 /* interpolations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpolations.cpp; sourceTree = "<group>"; };
@@ -388,7 +353,6 @@
 		670948101BDF9C39005014C0 /* opacity_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opacity_animation.hpp; sourceTree = "<group>"; };
 		670948111BDF9C39005014C0 /* show_hide_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = show_hide_animation.cpp; sourceTree = "<group>"; };
 		670948121BDF9C39005014C0 /* show_hide_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = show_hide_animation.hpp; sourceTree = "<group>"; };
-		670948131BDF9C39005014C0 /* value_mapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = value_mapping.hpp; sourceTree = "<group>"; };
 		670948231BDF9C48005014C0 /* compass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compass.cpp; sourceTree = "<group>"; };
 		670948241BDF9C48005014C0 /* compass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = compass.hpp; sourceTree = "<group>"; };
 		670948251BDF9C48005014C0 /* copyright_label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = copyright_label.cpp; sourceTree = "<group>"; };
@@ -482,8 +446,6 @@
 				454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */,
 				454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */,
 				454C19B91CCE3EC0002A2C86 /* animation_system.cpp */,
-				3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */,
-				3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */,
 				670947E91BDF9BF5005014C0 /* apply_feature_functors.hpp */,
 				670947E81BDF9BF5005014C0 /* apply_feature_functors.cpp */,
 				ACB92F742EE0F10300AF185A /* apply_feature_params.hpp */,
@@ -654,33 +616,17 @@
 		670948051BDF9C0D005014C0 /* animation */ = {
 			isa = PBXGroup;
 			children = (
-				452C9EC21CEDCF3200A55E57 /* animation.cpp */,
 				452C9EC31CEDCF3200A55E57 /* animation.hpp */,
 				452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */,
 				452C9EC51CEDCF3200A55E57 /* arrow_animation.hpp */,
-				670948071BDF9C39005014C0 /* base_interpolator.cpp */,
-				670948081BDF9C39005014C0 /* base_interpolator.hpp */,
-				452C9EC61CEDCF3200A55E57 /* follow_animation.cpp */,
-				452C9EC71CEDCF3200A55E57 /* follow_animation.hpp */,
 				670948091BDF9C39005014C0 /* interpolation_holder.cpp */,
 				6709480A1BDF9C39005014C0 /* interpolation_holder.hpp */,
 				6709480B1BDF9C39005014C0 /* interpolations.cpp */,
 				6709480C1BDF9C39005014C0 /* interpolations.hpp */,
-				452C9EC81CEDCF3200A55E57 /* interpolators.cpp */,
-				452C9EC91CEDCF3200A55E57 /* interpolators.hpp */,
-				452C9ECA1CEDCF3200A55E57 /* linear_animation.cpp */,
-				452C9ECB1CEDCF3200A55E57 /* linear_animation.hpp */,
 				6709480F1BDF9C39005014C0 /* opacity_animation.cpp */,
 				670948101BDF9C39005014C0 /* opacity_animation.hpp */,
-				452C9ECC1CEDCF3200A55E57 /* parallel_animation.cpp */,
-				452C9ECD1CEDCF3200A55E57 /* parallel_animation.hpp */,
-				452C9ED01CEDCF3200A55E57 /* scale_animation.cpp */,
-				452C9ED11CEDCF3200A55E57 /* scale_animation.hpp */,
-				452C9ED21CEDCF3200A55E57 /* sequence_animation.cpp */,
-				452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */,
 				670948111BDF9C39005014C0 /* show_hide_animation.cpp */,
 				670948121BDF9C39005014C0 /* show_hide_animation.hpp */,
-				670948131BDF9C39005014C0 /* value_mapping.hpp */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -735,9 +681,7 @@
 				BBAD59FC21258843005543FC /* debug_rect_renderer.hpp in Headers */,
 				670947CB1BDF9BE1005014C0 /* threads_commutator.hpp in Headers */,
 				347F52121DC2334A0064B273 /* drape_api.hpp in Headers */,
-				452C9EDF1CEDCF3200A55E57 /* parallel_animation.hpp in Headers */,
 				670947A41BDF9BE1005014C0 /* my_position_controller.hpp in Headers */,
-				452C9ED91CEDCF3200A55E57 /* follow_animation.hpp in Headers */,
 				670947A01BDF9BE1005014C0 /* message_queue.hpp in Headers */,
 				452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */,
 				45B4B8CE1CF5C16B00A54761 /* screen_operations.hpp in Headers */,
@@ -756,7 +700,6 @@
 				347F520E1DC2334A0064B273 /* drape_api_builder.hpp in Headers */,
 				45D7ADDE2113532700160DE3 /* render_state_extension.hpp in Headers */,
 				6709484E1BDF9C48005014C0 /* shape.hpp in Headers */,
-				452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */,
 				F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */,
 				670947B61BDF9BE1005014C0 /* render_node.hpp in Headers */,
 				6709484C1BDF9C48005014C0 /* ruler.hpp in Headers */,
@@ -781,13 +724,11 @@
 				6709479A1BDF9BE1005014C0 /* map_shape.hpp in Headers */,
 				672D249B1E892768004BB7B1 /* overlays_tracker.hpp in Headers */,
 				347F52101DC2334A0064B273 /* drape_api_renderer.hpp in Headers */,
-				3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */,
 				670947FB1BDF9BF5005014C0 /* backend_renderer.hpp in Headers */,
 				452C9ED71CEDCF3200A55E57 /* arrow_animation.hpp in Headers */,
 				454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */,
 				670947DF1BDF9BE1005014C0 /* visual_params.hpp in Headers */,
 				452FE5C41EB2004F00EE470C /* screen_quad_renderer.hpp in Headers */,
-				452C9EDB1CEDCF3200A55E57 /* interpolators.hpp in Headers */,
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
 				670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */,
 				BB59CED820BF6E46008A9ADF /* transit_scheme_builder.hpp in Headers */,
@@ -795,7 +736,6 @@
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
 				AC6DD3662E3ABE9E00197E8B /* relations_draw_info.hpp in Headers */,
 				670947D91BDF9BE1005014C0 /* user_mark_shapes.hpp in Headers */,
-				452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */,
 				454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */,
 				6709481F1BDF9C39005014C0 /* show_hide_animation.hpp in Headers */,
 				670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */,
@@ -814,11 +754,9 @@
 				670947CF1BDF9BE1005014C0 /* tile_key.hpp in Headers */,
 				670947BA1BDF9BE1005014C0 /* route_renderer.hpp in Headers */,
 				453EEA6E1E3A28F400505E09 /* colored_symbol_shape.hpp in Headers */,
-				670948201BDF9C39005014C0 /* value_mapping.hpp in Headers */,
 				670948441BDF9C48005014C0 /* drape_gui.hpp in Headers */,
 				670947B41BDF9BE1005014C0 /* render_group.hpp in Headers */,
 				BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */,
-				452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */,
 				670947A11BDF9BE1005014C0 /* message_subclasses.hpp in Headers */,
 				BBD9E2D41F009D9E00DF189A /* user_mark_generator.hpp in Headers */,
 				670947C51BDF9BE1005014C0 /* text_handle.hpp in Headers */,
@@ -830,7 +768,6 @@
 				670947B81BDF9BE1005014C0 /* route_builder.hpp in Headers */,
 				45BE604E20E504FC00A456AE /* frame_values.hpp in Headers */,
 				45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */,
-				670948151BDF9C39005014C0 /* base_interpolator.hpp in Headers */,
 				BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */,
 				670947A61BDF9BE1005014C0 /* my_position.hpp in Headers */,
 				670947A81BDF9BE1005014C0 /* navigator.hpp in Headers */,
@@ -900,7 +837,6 @@
 				56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */,
 				6743D36D1C3A9F090095054B /* arrow3d.cpp in Sources */,
 				BBD9E2D31F009D9E00DF189A /* user_mark_generator.cpp in Sources */,
-				452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */,
 				451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */,
 				67E91C781BDFC85E005CEE88 /* area_shape.cpp in Sources */,
 				67E91C791BDFC85E005CEE88 /* base_renderer.cpp in Sources */,
@@ -911,12 +847,9 @@
 				67E91C7D1BDFC85E005CEE88 /* user_marks_provider.cpp in Sources */,
 				67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */,
 				675D21661BFB785900717E4F /* ruler.cpp in Sources */,
-				452C9EE21CEDCF3200A55E57 /* scale_animation.cpp in Sources */,
 				670947CE1BDF9BE1005014C0 /* tile_key.cpp in Sources */,
 				670947AB1BDF9BE1005014C0 /* path_text_shape.cpp in Sources */,
-				452C9EDC1CEDCF3200A55E57 /* linear_animation.cpp in Sources */,
 				670947F61BDF9BF5005014C0 /* apply_feature_functors.cpp in Sources */,
-				3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */,
 				670947D81BDF9BE1005014C0 /* user_mark_shapes.cpp in Sources */,
 				670947A51BDF9BE1005014C0 /* my_position.cpp in Sources */,
 				670947BB1BDF9BE1005014C0 /* route_shape.cpp in Sources */,
@@ -930,7 +863,6 @@
 				6709484D1BDF9C48005014C0 /* shape.cpp in Sources */,
 				670948431BDF9C48005014C0 /* drape_gui.cpp in Sources */,
 				670947D61BDF9BE1005014C0 /* user_event_stream.cpp in Sources */,
-				452C9EDE1CEDCF3200A55E57 /* parallel_animation.cpp in Sources */,
 				BB8403202151380500AB8783 /* message.cpp in Sources */,
 				670947B11BDF9BE1005014C0 /* read_mwm_task.cpp in Sources */,
 				670948471BDF9C48005014C0 /* layer_render.cpp in Sources */,
@@ -951,7 +883,6 @@
 				670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */,
 				670948451BDF9C48005014C0 /* gui_text.cpp in Sources */,
 				EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */,
-				670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */,
 				670948491BDF9C48005014C0 /* ruler_helper.cpp in Sources */,
 				670947E41BDF9BEC005014C0 /* engine_context.cpp in Sources */,
 				EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */,
@@ -962,9 +893,7 @@
 				BB59CED620BF6E46008A9ADF /* transit_scheme_renderer.cpp in Sources */,
 				45F1DA8520F3B274006E8CB3 /* drape_notifier.cpp in Sources */,
 				6709479F1BDF9BE1005014C0 /* message_queue.cpp in Sources */,
-				452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */,
 				BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */,
-				452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */,
 				670947A71BDF9BE1005014C0 /* navigator.cpp in Sources */,
 				6709484F1BDF9C48005014C0 /* skin.cpp in Sources */,
 				670947B91BDF9BE1005014C0 /* route_renderer.cpp in Sources */,
@@ -987,7 +916,6 @@
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,
 				672D249A1E892768004BB7B1 /* overlays_tracker.cpp in Sources */,
 				BB59CED520BF6E46008A9ADF /* transit_scheme_builder.cpp in Sources */,
-				452C9ED81CEDCF3200A55E57 /* follow_animation.cpp in Sources */,
 				6709481C1BDF9C39005014C0 /* opacity_animation.cpp in Sources */,
 				452FE5C31EB2004F00EE470C /* screen_quad_renderer.cpp in Sources */,
 				670947E61BDF9BEC005014C0 /* frontend_renderer.cpp in Sources */,

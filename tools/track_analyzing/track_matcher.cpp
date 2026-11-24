@@ -58,14 +58,14 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId, pla
   auto registerResult = m_dataSource.Register(*localCountryFile);
   CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success, ("Can't register mwm", countryFile.GetName()));
 
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
+  m_mwmHandle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
 
-  m_graph = make_unique<IndexGraph>(
-      make_shared<Geometry>(GeometryLoader::Create(handle, m_vehicleModel, false /* loadAltitudes */)),
-      EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */, nullptr /* dataSource */,
-                            nullptr /* numMvmIds */));
+  m_graph = make_unique<IndexGraph>(make_shared<Geometry>(GeometryLoader::Create(
+                                        m_mwmHandle, VehicleType::Car, m_vehicleModel, false /* loadAltitudes */)),
+                                    EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */,
+                                                          nullptr /* dataSource */, nullptr /* numMvmIds */));
 
-  DeserializeIndexGraph(*handle.GetValue(), VehicleType::Car, *m_graph);
+  DeserializeIndexGraph(*m_mwmHandle.GetValue(), VehicleType::Car, *m_graph);
 }
 
 void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTrack> & matchedTracks)

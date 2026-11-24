@@ -30,21 +30,12 @@ public class DisplayManager
 
   private final Handler mHandler = new Handler(Looper.getMainLooper());
 
-  @Nullable
-  private DisplayType mCurrentDisplayType;
+  @NonNull
+  private DisplayType mCurrentDisplayType = DisplayType.Device;
   @Nullable
   private DisplayHolder mDevice;
   @Nullable
   private DisplayHolder mCar;
-
-  public void init(@NonNull final DisplayType initialDisplayType)
-  {
-    if (mCurrentDisplayType != null)
-      return;
-
-    Logger.d(TAG, "initialDisplayType = " + initialDisplayType);
-    mCurrentDisplayType = initialDisplayType;
-  }
 
   public boolean isCarConnected()
   {
@@ -81,10 +72,9 @@ public class DisplayManager
       mCar = new DisplayHolder();
       mCar.notify = true;
       mCar.listener = listener;
+      if (mDevice == null)
+        mCurrentDisplayType = DisplayType.Car;
     }
-
-    if (isCarConnected() && !isDeviceConnected())
-      mCurrentDisplayType = displayType;
   }
 
   public void removeListener(@NonNull final DisplayType displayType)
@@ -95,15 +85,20 @@ public class DisplayManager
     {
       mDevice.destroy();
       mDevice = null;
-      if (isCarConnected() && !isCarDisplayUsed())
+      if (isCarConnected())
         changeDisplay(DisplayType.Car);
     }
     else if (displayType == DisplayType.Car && mCar != null)
     {
       mCar.destroy();
       mCar = null;
-      if (isDeviceConnected() && !isDeviceDisplayUsed())
+      if (isDeviceConnected())
         changeDisplay(DisplayType.Device);
+      else
+      {
+        // No phone host to notify; select its display for the next launch.
+        mCurrentDisplayType = DisplayType.Device;
+      }
     }
   }
 

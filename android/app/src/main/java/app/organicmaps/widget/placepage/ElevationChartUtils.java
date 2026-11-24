@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import java.util.List;
 
 public final class ElevationChartUtils
@@ -217,5 +218,42 @@ public final class ElevationChartUtils
     }
 
     return entries.get(entries.size() - 1).getY();
+  }
+
+  /** @return the profile point at the given X, clamped to the profile's ends. */
+  @NonNull
+  public static Highlight highlightAt(@NonNull List<Entry> entries, float xVal)
+  {
+    final float x = Math.max(entries.get(0).getX(), Math.min(xVal, entries.get(entries.size() - 1).getX()));
+    return new Highlight(x, interpolateY(entries, x), 0);
+  }
+
+  /**
+   * Both sides of a track gap share one exact distance. The core resolves a new distance to the end of the preceding
+   * section, and only the accepted entry's own distance keeps its stored source position, such as the next section.
+   * @param distances the exact distances of the profile points, in ascending order
+   * @return {@code selectedDistance} when the float chart X stands for it, otherwise the finish at the chart's right
+   * edge, otherwise the exact distance of the first profile point at that X, otherwise {@code chartX}.
+   */
+  public static double toDistance(float chartX, double selectedDistance, @NonNull double[] distances)
+  {
+    // The selected distance goes first: its float can also be a later point's, like the finish.
+    if (chartX == (float) selectedDistance)
+      return selectedDistance;
+    // The right edge is the finish even when the float of the point before it is the same.
+    final int last = distances.length - 1;
+    if (last >= 0 && chartX == (float) distances[last])
+      return distances[last];
+    int lo = 0;
+    int hi = distances.length;
+    while (lo < hi)
+    {
+      final int mid = (lo + hi) >>> 1;
+      if ((float) distances[mid] < chartX)
+        lo = mid + 1;
+      else
+        hi = mid;
+    }
+    return lo < distances.length && (float) distances[lo] == chartX ? distances[lo] : chartX;
   }
 }

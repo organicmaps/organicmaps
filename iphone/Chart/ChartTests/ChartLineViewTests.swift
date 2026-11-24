@@ -1,0 +1,187 @@
+@testable import Chart
+import UIKit
+import XCTest
+
+@MainActor
+final class ChartLineViewTests: XCTestCase {
+  func testAreaFillsBelowSignedProfiles() throws {
+    let profiles: [[CGFloat]] = [
+      [-80, -50, -20],
+      [20, 50, 80],
+      [-50, 0, 50],
+      [-0.2, 0, 0.2],
+    ]
+    for heights in profiles {
+      for width: CGFloat in [320, 640] {
+        let chart = makeChart(heights: heights, width: width)
+        try assertFillBelowLine(chart)
+      }
+    }
+  }
+
+  func testFlatProfilesHaveDrawableStrokeAndFill() throws {
+    for altitude: CGFloat in [-50, 0, 100] {
+      let chart = makeChart(heights: [altitude, altitude, altitude])
+      XCTAssertGreaterThan(chart.yAxisView.upperBound, chart.yAxisView.lowerBound)
+      try assertFillBelowLine(chart)
+    }
+  }
+
+  func testZoomedFillReachesBothBottomCorners() throws {
+    let chart = makeChart(heights: [-80, -50, -20, -50, -80])
+    chart.chartPreviewView.setX(min: 1, max: 3)
+    try assertFillBelowLine(chart)
+  }
+
+  func testZoomingIntoFlatSectionKeepsPathsDrawable() throws {
+    let chart = makeChart(heights: [-50, 0, 0, 0, 50])
+    chart.chartPreviewView.setX(min: 1, max: 3)
+    XCTAssertGreaterThan(chart.yAxisView.upperBound, chart.yAxisView.lowerBound)
+    try assertFillBelowLine(chart)
+  }
+
+  func testPreviewUsesTheSameFillGeometry() throws {
+    let chart = makeChart(heights: [-80, -50, -20])
+    let preview = chart.chartPreviewView
+    preview.frame = chart.chartsContainerView.bounds
+    preview.layoutIfNeeded()
+    preview.previewViews.forEach { $0.layoutIfNeeded() }
+
+    let fill = try XCTUnwrap(preview.previewViews[1].shapeLayer.path)
+    XCTAssertFalse(fill.isEmpty)
+    XCTAssertEqual(fill.boundingBoxOfPath.minY, 0)
+    for point in points(in: fill) {
+      XCTAssertTrue(point.x.isFinite && point.y.isFinite)
+    }
+    XCTAssertTrue(fill.contains(CGPoint(x: preview.bounds.midX, y: 1)))
+    XCTAssertFalse(fill.contains(CGPoint(x: preview.bounds.midX, y: preview.bounds.maxY - 1)))
+  }
+
+  func testFillStartsAtTheFirstDistanceAfterTransforming() throws {
+    let values = [
+      ChartValue(xValues: 10, y: -80),
+      ChartValue(xValues: 20, y: -50),
+      ChartValue(xValues: 30, y: -20),
+    ]
+    let line = ChartPresentationLine(TestLine(values: values, type: .lineArea))
+    let originalPoints = points(in: line.path)
+    let view = ChartLineView(frame: CGRect(x: 0, y: 0, width: 300, height: 150))
+    view.chartLine = line
+    view.setViewport(minX: 0, maxX: 2, minY: -100, maxY: 0)
+    let fullPath = try XCTUnwrap(view.shapeLayer.path)
+    XCTAssertEqual(fullPath.boundingBoxOfPath.minX, 100, accuracy: 0.001)
+
+    view.setViewport(minX: 1, maxX: 2, minY: -100, maxY: 0)
+    let zoomedPath = try XCTUnwrap(view.shapeLayer.path)
+    let lastPoint = try XCTUnwrap(points(in: zoomedPath).last)
+    XCTAssertEqual(lastPoint.x, -100, accuracy: 0.001)
+    XCTAssertEqual(lastPoint.y, 0)
+    XCTAssertEqual(points(in: line.path), originalPoints)
+  }
+
+  func testFlatPreviewDrawsStrokeAndFill() throws {
+    let preview = ChartPreviewView(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+    preview.chartData = ChartPresentationData(TestData(heights: [100, 100, 100]), formatter: TestFormatter())
+    preview.layoutIfNeeded()
+    preview.previewViews.forEach { $0.layoutIfNeeded() }
+
+    let stroke = try XCTUnwrap(preview.previewViews[0].shapeLayer.path)
+    let fill = try XCTUnwrap(preview.previewViews[1].shapeLayer.path)
+    XCTAssertFalse(stroke.isEmpty)
+    XCTAssertFalse(fill.isEmpty)
+    for point in points(in: stroke) + points(in: fill) {
+      XCTAssertTrue(point.x.isFinite && point.y.isFinite)
+    }
+  }
+
+  func testViewportEdgeOnSegmentBreakKeepsBothHeights() {
+    // 13 samples over 108 m draw at chart X = distance / 9, so both vertices of the break at 63 m are at X 7.
+    let distances: [CGFloat] = [0, 9, 18, 27, 36, 45, 54, 63, 63, 81, 90, 99, 108]
+    let heights: [CGFloat] = [100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0]
+    let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 180))
+    chart.chartData = ChartPresentationData(TestData(heights: heights, distances: distances), formatter: TestFormatter())
+    chart.layoutIfNeeded()
+    chart.chartPreviewView.setX(min: 7, max: 11)
+    chart.layoutIfNeeded()
+
+    XCTAssertEqual(chart.yAxisView.lowerBound, 0)
+    XCTAssertGreaterThanOrEqual(chart.yAxisView.upperBound, 100)
+  }
+
+  private func makeChart(heights: [CGFloat], width: CGFloat = 320) -> ChartView {
+    let chart = ChartView(frame: CGRect(x: 0, y: 0, width: width, height: 180))
+    chart.chartData = ChartPresentationData(TestData(heights: heights), formatter: TestFormatter())
+    chart.setNeedsLayout()
+    chart.layoutIfNeeded()
+    chart.lineViews.forEach { $0.layoutIfNeeded() }
+    return chart
+  }
+
+  private func assertFillBelowLine(_ chart: ChartView, file: StaticString = #filePath, line: UInt = #line) throws {
+    let stroke = try XCTUnwrap(chart.lineViews[0].shapeLayer.path, file: file, line: line)
+    let fill = try XCTUnwrap(chart.lineViews[1].shapeLayer.path, file: file, line: line)
+    XCTAssertFalse(stroke.isEmpty, file: file, line: line)
+    XCTAssertFalse(fill.isEmpty, file: file, line: line)
+    let fillPoints = points(in: fill)
+    for corner in fillPoints.suffix(2) {
+      XCTAssertEqual(corner.y, 0, file: file, line: line)
+    }
+    for point in points(in: stroke) + fillPoints {
+      XCTAssertTrue(point.x.isFinite && point.y.isFinite, file: file, line: line)
+    }
+
+    let strokePoints = points(in: stroke)
+    for (start, end) in zip(strokePoints, strokePoints.dropFirst()) {
+      let x = (start.x + end.x) / 2
+      guard x > 0, x < chart.chartsContainerView.bounds.width else { continue }
+      let y = (start.y + end.y) / 2
+      XCTAssertTrue(fill.contains(CGPoint(x: x, y: y / 2)), file: file, line: line)
+      XCTAssertFalse(fill.contains(CGPoint(x: x, y: y + 1)), file: file, line: line)
+    }
+  }
+
+  private func points(in path: CGPath) -> [CGPoint] {
+    var result: [CGPoint] = []
+    path.applyWithBlock { element in
+      switch element.pointee.type {
+      case .moveToPoint, .addLineToPoint:
+        result.append(element.pointee.points[0])
+      case .closeSubpath:
+        break
+      default:
+        XCTFail("Expected a polyline")
+      }
+    }
+    return result
+  }
+}
+
+private struct TestLine: ChartLine {
+  let values: [ChartValue]
+  let type: ChartLineType
+  var color: UIColor { .red }
+}
+
+private struct TestData: ChartData {
+  let heights: [CGFloat]
+  var distances: [CGFloat]?
+  var xAxisValues: [Double] { (distances ?? heights.indices.map { CGFloat($0) }).map(Double.init) }
+  var lines: [ChartLine] {
+    let values = zip(xAxisValues, heights).map { ChartValue(xValues: CGFloat($0), y: $1) }
+    return [TestLine(values: values, type: .line), TestLine(values: values, type: .lineArea)]
+  }
+}
+
+private struct TestFormatter: ChartFormatter {
+  func xAxisString(from value: Double) -> String { String(value) }
+  func xAxisLabels(lowerBound: Double, upperBound: Double) -> [(value: Double, text: String)] {
+    [(lowerBound, String(lowerBound)), (upperBound, String(upperBound))]
+  }
+
+  func yAxisString(from value: Double) -> String { String(value) }
+  func yAxisLowerBound(from value: CGFloat) -> CGFloat { floor(value / 50) * 50 }
+  func yAxisUpperBound(from value: CGFloat) -> CGFloat { ceil(value / 50) * 50 }
+  func yAxisSteps(lowerBound: CGFloat, upperBound: CGFloat) -> [CGFloat] {
+    Array(stride(from: lowerBound, through: upperBound, by: 50))
+  }
+}

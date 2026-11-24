@@ -51,6 +51,7 @@ class TrackRecordingWidgetContentTest {
                 texts.copy(descent = "6 m"),
                 texts.copy(maxElevation = "301 m"),
                 texts.copy(minElevation = "99 m"),
+                texts.copy(showElevation = false),
             )
         for (current in changed) {
             assertTrue(
@@ -62,7 +63,7 @@ class TrackRecordingWidgetContentTest {
 
     @Test
     fun firstStatisticsAreFormattedNow() {
-        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(null, 0.0, 100_000L))
+        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(null, 0.0, true, 100_000L))
     }
 
     @Test
@@ -70,13 +71,19 @@ class TrackRecordingWidgetContentTest {
         val previous = TrackRecordingWidgetContent.create(texts, 60.0, 100_000L, 100_000L)
         val interval = TrackRecordingWidgetContent.MIN_PUSH_INTERVAL_MS
 
-        assertEquals(interval - 4_000L, TrackRecordingWidgetContent.formatDelayMs(previous, 64.0, 104_000L))
-        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(previous, 70.0, 100_000L + interval))
+        assertEquals(interval - 4_000L, TrackRecordingWidgetContent.formatDelayMs(previous, 64.0, true, 104_000L))
+        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(previous, 70.0, true, 100_000L + interval))
     }
 
     @Test
     fun startOfTickingIsFormattedNow() {
         val previous = TrackRecordingWidgetContent.create(texts, 0.0, 100_000L, 100_000L)
-        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(previous, 1.0, 101_000L))
+        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(previous, 1.0, true, 101_000L))
+    }
+
+    @Test
+    fun elevationAvailabilityChangesAreFormattedNow() {
+        val previous = TrackRecordingWidgetContent.create(texts, 60.0, 100_000L, 100_000L)
+        assertEquals(0L, TrackRecordingWidgetContent.formatDelayMs(previous, 61.0, false, 101_000L))
     }
 }

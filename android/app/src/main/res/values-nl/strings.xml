@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mailadres of gebruikersnaam</string>
     <string name="editor_add_phone">Voeg telefoonnummer toe</string>
-    <string name="level">Verdieping</string>
     <!-- Building level -->
     <string name="level_value_generic">Niveau: %s</string>
     <string name="downloader_delete_map_dialog">Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.</string>
@@ -659,6 +658,10 @@
     <string name="avoid_unpaved">Vermijd onverharde wegen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vermijd veerboten</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Vermijd moeilijke paden</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Vermijd trappen</string>
     <string name="avoid_motorways">Vermijd snelwegen</string>
     <string name="unable_to_calc_alert_title">Kan route niet berekenen</string>
     <string name="unable_to_calc_alert_subtitle">Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.</string>
@@ -705,6 +708,8 @@
     <string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
     <string name="near_me_sorttype">Dicht bij mij</string>
     <string name="others_sorttype">Andere</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Routeberekening mislukt</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Nu gesloten</string>
     <string name="opens_tomorrow_at">Opent morgen om %s</string>
@@ -929,6 +934,8 @@
     <string name="change_stop_along_route">Stop wijzigen</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Het maximale aantal stops is bereikt</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">De route kon niet als track worden opgeslagen</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Verplaats en zoom in of uit op de kaart om het kruis te plaatsen</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -952,4 +959,16 @@
     <string name="transit_type_train">Trein</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Voer een geldig verdiepingsnummer in</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Verdieping (begane grond is 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigeren</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Begin van track</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Einde van track</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Er is in deze richting geen track meer over. Selecteer een ander punt.</string>
 </resources>

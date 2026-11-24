@@ -1,16 +1,42 @@
 #import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
+#import <CoreApi/MWMTypes.h>
+
 @class RouteElevationPreviewData;
 
 typedef NS_ENUM(NSInteger, MWMRoadType) {
   MWMRoadTypeToll,
   MWMRoadTypeDirty,
   MWMRoadTypeFerry,
-  MWMRoadTypeMotorway
+  MWMRoadTypeMotorway,
+  MWMRoadTypeSteps,
+  MWMRoadTypeDifficultTrail
+};
+
+/// Why a follow-track request was refused; mirrors the core FollowTrackResult. Everything but
+/// Ok leaves the routing session exactly as it was.
+typedef NS_ENUM(NSInteger, MWMFollowTrackResult) {
+  MWMFollowTrackResultOk,
+  /// The track does not exist (anymore).
+  MWMFollowTrackResultNoTrack,
+  MWMFollowTrackResultBusy,
+  MWMFollowTrackResultInvalidSelection,
+  MWMFollowTrackResultNoRemainingGeometry,
 };
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// Captured track details remain valid after source deletion. Looking up the original track by
+/// its ID requires an existence check.
+@interface MWMFollowedTrackInfo : NSObject
+
+@property(nonatomic, readonly) MWMTrackID trackId;
+@property(copy, nonatomic, readonly) NSString * name;
+/// Captured distance along the full source, independent of the map selection.
+@property(nonatomic, readonly) double entryDistanceMeters;
+
+@end
 
 @interface MWMRouter : NSObject
 
@@ -41,7 +67,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)setType:(MWMRouterType)type;
 + (MWMRouterType)type;
+/// The router type to present and to gate on: the follow profile (never ruler/publicTransport)
+/// while a track is being followed, the current router type otherwise.
++ (MWMRouterType)renderType;
 + (NSString *)stringFromRouterType:(MWMRouterType)type;
+
+/// Captures the selected point and previews the remaining connected track section.
+/// Refusals preserve the current session; accepted builds report through normal routing events.
++ (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
+/// Rebuilds from a finite distance along the full track, preserving profile and viewport.
+/// Refusals leave the preview and selection unchanged.
++ (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
+    NS_SWIFT_NAME(updateFollowedTrackEntry(atDistance:));
+/// Switches the preview profile without changing the persisted default. Refusals preserve the session.
++ (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type;
++ (BOOL)hasTrackNavigationSession;
+/// nil when no track is being followed.
++ (nullable MWMFollowedTrackInfo *)followedTrackInfo;
 
 + (void)disableFollowMode;
 
@@ -49,6 +91,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)areTurnNotificationsEnabled;
 + (void)setTurnNotificationsLocale:(NSString *)locale;
 + (NSArray<NSString *> *)turnNotifications;
+/// Poll once per accepted location batch while following, before updating navigation controls.
++ (void)playGuidance;
 
 + (void)addPoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
@@ -65,9 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
                   finishPoint:(MWMRoutePoint *)finishPoint;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
 
-+ (BOOL)hasRouteAltitude;
-+ (void)saveRouteAsTrack;
++ (BOOL)saveRouteAsTrack;
 + (nullable RouteElevationPreviewData *)routeElevationProfileData;
++ (nullable NSNumber *)routeElevationActivePointDistance;
 + (void)setRouteElevationActivePointDistance:(double)distance;
 + (void)resetRouteElevationActivePoint;
 

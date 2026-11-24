@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Tölvupóstur eða notandanafn";
-"level" = "Hæð";
 "downloader_delete_map_dialog" = "Öllum breytingunum þínum verður eytt með kortinu.";
 "downloader_update_maps" = "Uppfæra kort";
 "downloader_search_field_hint" = "Finna kort";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Forðast ferjur";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Forðast erfiða göngustíga";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Forðast stiga";
 "avoid_motorways" = "Forðast hraðbrautir";
 "unable_to_calc_alert_title" = "Tókst ekki að reikna leið";
 "unable_to_calc_alert_subtitle" = "Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";
 "elevation_profile_max_elevation" = "Hám.hæð";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Byrjaðu að hreyfa þig til að sjá hæðarsniðið";
 "isolines_toast_zooms_1_10" = "Renndu að til að skoða hæðarlínur";
 "downloader_loading_ios" = "Sæki";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Hámarksfjölda stoppa er náð";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Ekki tókst að vista leiðina sem feril";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Hreyfðu og stækkaðu kortið til að staðsetja krossinn";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Snúa leið við";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Settu inn gilt hæðarnúmer";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Hæð (jarðhæð er 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Leiðsögn";
+
+/* Track start point label. */
+"navigate_track_start" = "Upphaf ferils";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Endir ferils";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Enginn ferill er eftir í þessa átt. Veldu annan punkt.";

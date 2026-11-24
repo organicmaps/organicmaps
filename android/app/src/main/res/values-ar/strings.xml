@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
     <string name="editor_add_phone">إضافة رقم هاتف</string>
-    <string name="level">طابق</string>
     <!-- Building level -->
     <string name="level_value_generic">المستوى: %s</string>
     <string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
@@ -672,6 +671,10 @@
     <string name="avoid_unpaved">تجنب الطرق الغير معبدة</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">تجنب استخدام العبّارات</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">تجنب مسارات المشي الصعبة</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">تجنب الدرج</string>
     <string name="avoid_motorways">تجنب الطريق السريع</string>
     <string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
     <string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا.</string>
@@ -718,6 +721,8 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">فشل في تخطيط المسار</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">مغلق الآن</string>
     <string name="opens_tomorrow_at">يُفتتح غداً في %s</string>
@@ -948,6 +953,8 @@
     <string name="change_stop_along_route">تغيير نقطة التوقف</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">تم الوصول إلى الحد الأقصى لعدد نقاط التوقف</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">تعذّر حفظ المسار المخطّط كمسار مسجّل</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">حرك الخريطة وقم بتكبيرها أو تصغيرها لوضع الصليب</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -975,4 +982,16 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ترام</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">أدخل رقم طابق صحيح</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">طابق (الطابق الأرضي هو 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">الملاحة</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">بداية المسار</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">نهاية المسار</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">لم يتبقَّ أي جزء من المسار في هذا الاتجاه. اختر نقطة أخرى.</string>
 </resources>

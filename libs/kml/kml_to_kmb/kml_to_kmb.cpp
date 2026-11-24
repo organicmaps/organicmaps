@@ -1,6 +1,7 @@
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 #include "kml/serdes_binary_v8.hpp"
+#include "kml/serdes_common.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -40,6 +41,7 @@ int main(int argc, char ** argv)
     FileReader reader(filePath);
     kml::DeserializerKml des(kmlData);
     des.Deserialize(reader);
+    kml::NormalizeImportedTracks(kmlData);
   }
   catch (kml::DeserializerKml::DeserializeException const & ex)
   {

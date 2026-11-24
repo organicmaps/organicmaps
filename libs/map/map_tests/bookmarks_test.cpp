@@ -17,6 +17,8 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "kml/serdes_common.hpp"
+
 #include "platform/gui_thread.hpp"
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
@@ -988,11 +990,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackSwitchAndEdit)
   TEST_EQUAL(manager.GetTrack(ids[0])->GetDepthLayer(), df::DepthLayer::UserLineLayer, ());
   TEST_EQUAL(manager.GetTrack(ids[0])->GetData(), original, ());
 
-  auto edited = manager.GetTrack(ids[1])->GetData();
-  kml::SetDefaultStr(edited.m_name, "edited selection");
-  edited.m_geometry.m_lines.front().back().SetPoint({2.0, 0.0});
-  manager.GetEditSession().UpdateTrack(ids[1], edited);
-  TEST(manager.GetTrack(ids[1])->IsSelected(), ("Editing keeps the current selection on the updated geometry"));
+  manager.GetEditSession().GetTrackForEdit(ids[1])->SetName("edited selection");
+  TEST_EQUAL(manager.GetTrack(ids[1])->GetName(), "edited selection", ());
+  TEST(manager.GetTrack(ids[1])->IsSelected(), ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackRemovalClearsSelection)
@@ -1371,6 +1371,25 @@ kml::TrackId AddTrack(BookmarkManager & bmManager, kml::MarkGroupId groupId)
   auto const trackId = es.CreateTrack(MakeLineTrackData())->GetId();
   es.AttachTrack(trackId, groupId);
   return trackId;
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CreationAnimationOnIncrementalUpdates)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const group = manager.CreateBookmarkCategory("Animated bookmarks", false /* autoSave */);
+  manager.GetEditSession().NotifyChanges();
+  manager.ResetDrapeChangesForTests();  // The renderer has already received the visible category.
+  auto const markId = AddBookmark(manager, group, 1.0);
+  auto const & changes = manager.GetDrapeChangesForTests();
+
+  using Mode = df::DrapeEngine::UserMarksUpdateMode;
+  for (auto const mode : {Mode::Changes, Mode::All, Mode::Titles})
+  {
+    auto const update = df::DrapeEngine::CollectUserMarksUpdate(&changes, mode, settings::Placement::None);
+    TEST(update.m_marks->contains(markId), ());
+    TEST_EQUAL(update.m_marks->at(markId)->m_animateCreation, mode == Mode::Changes, ());
+  }
 }
 
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchDelete)
@@ -3386,22 +3405,84 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_EditReloadedTrackWithMissingAltitude)
+{
+  kml::FileData source;
+  auto & data = source.m_tracksData.emplace_back();
+  kml::SetDefaultStr(data.m_name, "Recording");
+  data.m_layers.emplace_back().m_color.m_rgba = kml::kDefaultTrackColor;
+  data.m_geometry.AddLine({{{19, 0}, 100}, {{19.001, 0}, geometry::kInvalidAltitude}, {{19.002, 0}, 110}});
+  data.m_geometry.AddTimestamps({100, 160, 220});
+
+  auto const path = base::JoinPath(GetBookmarksDirectory(), "Recording.kml");
+  TEST(SaveKmlFileSafe(source, path, FileType::Kml), ());
+  auto checkFile = [&](std::string const & file)
+  {
+    std::string text;
+    FileReader(file).ReadAsString(text);
+    TEST(text.contains("<gx:coord>19.001 0</gx:coord>"), (text));
+    auto reloaded = LoadKmlData(MemReader(text), FileType::Kml);
+    TEST(reloaded, (file));
+    TEST_EQUAL(reloaded->m_tracksData.size(), 1, (file));
+    TEST_EQUAL(reloaded->m_tracksData.front().m_geometry, data.m_geometry, (file));
+    return reloaded;
+  };
+
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  BookmarkManager::KMLDataCollection collection;
+  collection.emplace_back(path, checkFile(path));
+  manager.CreateCategories(std::move(collection), true /* autoSave */);
+  auto const group = manager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId = *manager.GetTrackIds(group).begin();
+  dp::Color const color(10, 20, 30, 255);
+  {
+    auto edit = manager.GetEditSession();
+    auto * track = edit.GetTrackForEdit(trackId);
+    track->SetName("Edited recording");
+    track->SetDescription("With a gap in altitude");
+    edit.ChangeTrackColor(trackId, color);
+  }
+  auto const checkMetadata = [&](kml::FileData const & file)
+  {
+    Track const track(kml::TrackData{file.m_tracksData.front()});
+    TEST_EQUAL(track.GetName(), "Edited recording", ());
+    TEST_EQUAL(track.GetDescription(), "With a gap in altitude", ());
+    TEST_EQUAL(track.GetColor(0), color, ());
+    TEST(!track.GetElevationInfo(), ());
+  };
+  checkMetadata(*checkFile(path));
+
+  manager.PrepareTrackFileForSharing(trackId, [&](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    SCOPE_GUARD(deleteArchive, [&] { base::DeleteFileX(result.m_sharingPath); });
+    auto const files = GetKMLOrGPXFilesPathsToLoad(result.m_sharingPath);
+    TEST_EQUAL(files.size(), 1, ());
+    checkMetadata(*checkFile(files.front()));
+  }, FileType::Kml);
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
-  auto const points = {geometry::PointWithAltitude({0.0, 0.0}, 0.0), geometry::PointWithAltitude({0.001, 0.001}, 0)};
-  auto const trackId =
-      bmManager.SaveRoute(points, "London", "Paris", {{m2::PointD(0.0005, 0.0005), "Calais"}}, "bicycle");
+  kml::TrackGeometry const points = {{{19, 0}, 0}, {{19.001, 0}, geometry::kInvalidAltitude}, {{19.002, 0}, 110}};
+  std::vector<kml::TrackStopData> const stops = {{{19.001, 0}, "Calais"}};
+  auto const trackId = bmManager.SaveRoute(points, "London", "Paris", stops, "bicycle");
   auto const * track = bmManager.GetTrack(trackId);
+  TEST(track, ());
   TEST_EQUAL(track->GetName(), "London - Paris", ());
-  auto const & trackData = track->GetData();
-  auto const line = trackData.m_geometry.m_lines[0];
-  std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0),
-                                     geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}};
-  TEST_EQUAL(line, expectedLine, ());
-  TEST_EQUAL(trackData.m_stops, (std::vector<kml::TrackStopData>{{m2::PointD(0.0005, 0.0005), "Calais"}}), ());
-  TEST_EQUAL(trackData.m_routerType, "bicycle", ());
+  TEST_EQUAL(track->GetGeometry(), points, ());
+  TEST(!track->GetElevationInfo(), ());
+
+  auto const reloaded = LoadKmlFile(bmManager.GetCategoryFileName(track->GetGroupId()), FileType::Kml);
+  TEST(reloaded, ());
+  TEST_EQUAL(reloaded->m_tracksData.size(), 1, ());
+  auto const & saved = reloaded->m_tracksData.front();
+  TEST_EQUAL(saved.m_geometry, track->GetData().m_geometry, ());
+  TEST_EQUAL(saved.m_stops, stops, ());
+  TEST_EQUAL(saved.m_routerType, "bicycle", ());
 }
 
 // Regression test for the iOS crash in MWMPlacePageManager addBookmark: when adding a bookmark on
@@ -3451,9 +3532,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TrackVisibilityPersistence)
   TEST_EQUAL(true, bmManager.GetTrack(trackId1)->IsVisible(), ());
 
   // Change visibility and save
-  kml::TrackData trackData = bmManager.GetTrack(trackId1)->GetData();
-  trackData.m_visible = false;
-  bmManager.GetEditSession().UpdateTrack(trackId1, trackData);
+  bmManager.GetEditSession().SetTrackVisibility(trackId1, false);
 
   {
     FileWriter writer(fileName);

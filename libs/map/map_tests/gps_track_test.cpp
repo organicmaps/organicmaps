@@ -1,13 +1,18 @@
 #include "testing/testing.hpp"
 
+#include "map/framework.hpp"
 #include "map/gps_track.hpp"
 #include "map/gps_track_storage.hpp"
+#include "map/gps_tracker.hpp"
+
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 
 #include "platform/platform.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -42,6 +47,7 @@ location::GpsInfo MakePoint(double timestamp, double meters, double speed = 15.0
   info.m_latitude = 0.0;
   info.m_longitude = meters * kDegreesPerMeter;
   info.m_horizontalAccuracy = 5.0;
+  info.m_verticalAccuracy = 1.0;
   info.m_source = location::EAndroidNative;
   return info;
 }
@@ -189,6 +195,8 @@ void CheckPoints(Points const & actual, Points const & expected)
     TEST_EQUAL(actual[i].m_latitude, expected[i].m_latitude, (i));
     TEST_EQUAL(actual[i].m_longitude, expected[i].m_longitude, (i));
     TEST_EQUAL(actual[i].m_speed, expected[i].m_speed, (i));
+    TEST_EQUAL(actual[i].HasAltitude(), expected[i].HasAltitude(), (i));
+    TEST_EQUAL(actual[i].m_altitude, expected[i].m_altitude, (i));
   }
 }
 
@@ -246,9 +254,78 @@ UNIT_TEST(GpsTrack_RecordsWithoutCallback)
   track.AddPoints(points);
 
   TEST_EQUAL(track.Finalize(), points.size(), ());
-  TEST(!track.IsEmpty(), ());
   CheckPoints(GetPoints(track), points);
   CheckPoints(file.Load(), points);
+}
+
+using df::test_support::VisualParamsFixture;
+
+UNIT_CLASS_TEST(VisualParamsFixture, Framework_SaveRecordingFinalizesBeforeCheckingGeometry)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto & bookmarks = framework.GetBookmarkManager();
+  bookmarks.EnableTestMode(true);
+  auto & tracker = GpsTracker::Instance();
+  tracker.Clear();
+  SCOPE_GUARD(cleanup, [&]
+  {
+    framework.DiscardTrackRecording();
+    tracker.Stop();
+  });
+
+  auto start = MakePoint(100.0, 0.0);
+  start.m_longitude = 180.0;
+  start.m_altitude = 100.0;
+  auto finish = MakePoint(160.0, 0.0);
+  finish.m_longitude = -179.999999;
+  framework.StartTrackRecording();
+  tracker.OnLocationUpdated(start);
+  tracker.OnLocationUpdated(finish);
+  TEST(!framework.SaveTrackRecordingWithName("Stationary"), ());
+
+  finish.m_longitude = -179.99998;
+  finish.m_altitude = 102.0;
+  auto missingAltitude = finish;
+  missingAltitude.m_verticalAccuracy = -1.0;
+  framework.StartTrackRecording();
+  tracker.OnLocationUpdated(start);
+  tracker.OnLocationUpdated(missingAltitude);
+  TEST(framework.SaveTrackRecordingWithName("Missing altitude"), ());
+  auto const * incomplete = bookmarks.GetTrack(framework.GetCurrentPlacePageInfo().GetTrackId());
+  TEST(incomplete, ());
+  TEST(!incomplete->GetElevationInfo(), ());
+  auto const & mixedGeometry = incomplete->GetData().m_geometry;
+  TEST_EQUAL(mixedGeometry.m_lines.front(),
+             (kml::TrackGeometry{{{180.0, 0}, 100}, {{-179.99998, 0}, geometry::kInvalidAltitude}}), ());
+  TEST_EQUAL(mixedGeometry.m_timestamps.front(), (kml::MultiGeometry::TimeT{100, 160}), ());
+  TEST_EQUAL(incomplete->GetDurationInSeconds(), 60.0, ());
+
+  // The sampling filter defers this close but distinct fix until finalization.
+  framework.StartTrackRecording();
+  tracker.OnLocationUpdated(start);
+  tracker.OnLocationUpdated(finish);
+  TEST(framework.SaveTrackRecordingWithName("Recorded track"), ());
+  TEST(!framework.IsTrackRecordingEnabled(), ());
+
+  auto const id = framework.GetCurrentPlacePageInfo().GetTrackId();
+  auto const * track = bookmarks.GetTrack(id);
+  TEST(track, ());
+  TEST(track->GetElevationInfo(), ());
+  auto const & geometry = track->GetData().m_geometry;
+  TEST_EQUAL(geometry.m_lines.front().size(), 2, ());
+  TEST_EQUAL(geometry.m_lines.front().back().GetAltitude(), 102, ());
+  TEST_EQUAL(geometry.m_timestamps.front(), (kml::MultiGeometry::TimeT{100, 160}), ());
+
+  start.m_altitude = finish.m_altitude = 0;
+  framework.StartTrackRecording();
+  tracker.OnLocationUpdated(start);
+  tracker.OnLocationUpdated(finish);
+  TEST(framework.SaveTrackRecordingWithName("Sea level"), ());
+  auto const * seaLevel = bookmarks.GetTrack(framework.GetCurrentPlacePageInfo().GetTrackId());
+  TEST(seaLevel, ());
+  for (auto const & point : seaLevel->GetData().m_geometry.m_lines.front())
+    TEST_EQUAL(point.GetAltitude(), 0, ());
+  TEST(!seaLevel->GetElevationInfo(), ());
 }
 
 UNIT_TEST(GpsTrack_StartRestoresBackupOnce)
@@ -266,7 +343,6 @@ UNIT_TEST(GpsTrack_StartRestoresBackupOnce)
   GpsTrack track(file.m_path);
   track.SetCallback(callback.GetCallback());
   TEST_EQUAL(track.Finalize(), 0, ("Attaching a renderer must not restore a stopped recording"));
-  TEST(track.IsEmpty(), ());
 
   track.Start();
   track.Start();
@@ -307,7 +383,6 @@ UNIT_TEST(GpsTrack_FinalizePreservesBackupAndRejectsLatePoints)
 
   restored.Clear();
   TEST_EQUAL(restored.Finalize(), 0, ());
-  TEST(restored.IsEmpty(), ());
   TEST(!file.Exists(), ("Discard must remove the backup after finalizing"));
 
   // Discarding resets the filter and collection, including their timestamp history.
@@ -323,6 +398,7 @@ UNIT_TEST(GpsTrack_RestoresRawFilterHistory)
 {
   TrackFile file("filter_history");
   auto prefix = MakePoints(3);
+  prefix[1].m_verticalAccuracy = -1.0;
   auto turn = MakePoint(103.0, 30.0);
   turn.m_latitude = 5.0 * kDegreesPerMeter;
   prefix.push_back(turn);
@@ -335,6 +411,7 @@ UNIT_TEST(GpsTrack_RestoresRawFilterHistory)
   filter.Process(suffix, expected);
   filter.Finalize(expected);
   TEST_EQUAL(expected.size(), 5, ());
+  TEST_EQUAL(expected.front().m_timestamp, 100.0, ());
   {
     GpsTrack track(file.m_path, std::make_unique<GpsTrackFilter>());
     track.Start();
@@ -347,6 +424,7 @@ UNIT_TEST(GpsTrack_RestoresRawFilterHistory)
   restored.AddPoints(suffix);
   TEST_EQUAL(restored.Finalize(), expected.size(), ());
   CheckPoints(GetPoints(restored), expected);
+  TEST(restored.GetElevationInfo().IsEmpty(), ());
   auto rawPoints = prefix;
   rawPoints.insert(rawPoints.end(), suffix.begin(), suffix.end());
   CheckPoints(file.Load(), rawPoints);
@@ -493,7 +571,7 @@ UNIT_TEST(GpsTrack_StatisticsOfRestoredTrack)
   track.SetStatisticsCallback(callback.GetCallback());
 
   TEST(callback.WaitForLength(GetLength(points)), ());
-  TEST(!track.IsEmpty(), ());
+  CheckPoints(GetPoints(track), points);
 }
 
 UNIT_TEST(GpsTrack_LargeBackupRoundTrip)

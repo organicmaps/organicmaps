@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "qt/qt_common/frame_blit.hpp"
 #include "qt/qt_common/qtoglcontext.hpp"
 
 #include "qt_tstfrm/test_main_loop.hpp"
@@ -9,11 +10,18 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
+#include <QtResource>
 
 #include <array>
 
+static void InitFrameBlitResources()
+{
+  Q_INIT_RESOURCE(resources_common);
+}
+
 namespace qtoglcontext_tests
 {
+using qt::common::FrameBlit;
 using qt::common::QtRenderOGLContext;
 
 struct Environment
@@ -47,16 +55,17 @@ struct Environment
     context.Present();
   }
 
-  bool Acquire()
+  GLuint Acquire()
   {
     TEST(root->makeCurrent(surface), ());
-    return context.AcquireFrame();
+    return context.AcquireFrameTexture();
   }
 
-  void CheckSize(GLint width, GLint height)
+  void CheckFrame(GLuint texture, GLint width, GLint height, bool red)
   {
+    TEST_NOT_EQUAL(texture, 0u, ());
     auto * functions = root->extraFunctions();
-    functions->glBindTexture(GL_TEXTURE_2D, context.GetTextureHandle());
+    functions->glBindTexture(GL_TEXTURE_2D, texture);
     GLint actualWidth = 0;
     GLint actualHeight = 0;
     functions->glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &actualWidth);
@@ -64,16 +73,11 @@ struct Environment
     functions->glBindTexture(GL_TEXTURE_2D, 0);
     TEST_EQUAL(actualWidth, width, ());
     TEST_EQUAL(actualHeight, height, ());
-  }
 
-  void CheckColor(bool red)
-  {
-    auto * functions = root->functions();
     GLuint framebuffer = 0;
     functions->glGenFramebuffers(1, &framebuffer);
     functions->glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    functions->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, context.GetTextureHandle(),
-                                      0);
+    functions->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
     TEST_EQUAL(functions->glCheckFramebufferStatus(GL_FRAMEBUFFER), static_cast<GLenum>(GL_FRAMEBUFFER_COMPLETE), ());
     std::array<uint8_t, 4> pixel{};
     functions->glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel.data());
@@ -84,32 +88,68 @@ struct Environment
   }
 };
 
+UNIT_TEST(QtFrameBlit_PaintsAcquiredTextureAndClearsWithoutOne)
+{
+  InitFrameBlitResources();
+  RunTestInOpenGLOffscreenEnvironment("Blit acquired frame", []
+  {
+    int constexpr kWidth = 13;
+    int constexpr kHeight = 29;
+    Environment env;
+    env.Resize(kWidth, kHeight);
+    env.context.SetFramebuffer(nullptr);
+
+    auto * producer = QOpenGLContext::currentContext()->functions();
+    producer->glDisable(GL_SCISSOR_TEST);
+    producer->glClearColor(0.0, 0.0, 1.0, 1.0);
+    producer->glClear(GL_COLOR_BUFFER_BIT);
+    producer->glEnable(GL_SCISSOR_TEST);
+    producer->glScissor(0, kHeight / 2, kWidth, kHeight - kHeight / 2);
+    producer->glClearColor(1.0, 0.0, 0.0, 1.0);
+    producer->glClear(GL_COLOR_BUFFER_BIT);
+    producer->glDisable(GL_SCISSOR_TEST);
+    env.context.Present();
+
+    GLuint const texture = env.Acquire();
+    TEST_NOT_EQUAL(texture, 0u, ());
+    QOpenGLFramebufferObject output(kWidth, kHeight);
+    TEST(output.bind(), ());
+    env.root->functions()->glViewport(0, 0, kWidth, kHeight);
+    FrameBlit blit;
+    blit.Draw(texture);
+    auto const image = output.toImage();
+    TEST_EQUAL(image.pixel(0, 0), qRgb(255, 0, 0), ());
+    TEST_EQUAL(image.pixel(kWidth - 1, kHeight - 1), qRgb(0, 0, 255), ());
+
+    TEST(output.bind(), ());
+    blit.Draw(0);
+    auto const cleared = output.toImage();
+    TEST_EQUAL(cleared.pixel(0, 0), qRgb(0, 0, 0), ());
+    TEST_EQUAL(cleared.pixel(kWidth - 1, kHeight - 1), qRgb(0, 0, 0), ());
+  });
+}
+
 UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
 {
   RunTestInOpenGLOffscreenEnvironment("Keep acquired frame", []
   {
     Environment env;
-    TEST(!env.Acquire(), ());
+    TEST_EQUAL(env.Acquire(), 0u, ());
     env.Resize(13, 29);
-    TEST(!env.Acquire(), ());
+    TEST_EQUAL(env.Acquire(), 0u, ());
     env.Present(true);
-    TEST(env.Acquire(), ());
-    auto const texture = env.context.GetTextureHandle();
-    env.CheckSize(13, 29);
-    env.CheckColor(true);
+    GLuint const texture = env.Acquire();
+    env.CheckFrame(texture, 13, 29, true);
 
     env.Resize(31, 13);
     // Allocate the replacement before checking that the acquired frame survives.
     env.context.SetFramebuffer(nullptr);
-    TEST(env.Acquire(), ());
-    TEST_EQUAL(env.context.GetTextureHandle(), texture, ());
-    env.CheckSize(13, 29);
-    env.CheckColor(true);
+    GLuint const retainedTexture = env.Acquire();
+    TEST_EQUAL(retainedTexture, texture, ());
+    env.CheckFrame(retainedTexture, 13, 29, true);
 
     env.Present(false);
-    TEST(env.Acquire(), ());
-    env.CheckSize(31, 13);
-    env.CheckColor(false);
+    env.CheckFrame(env.Acquire(), 31, 13, false);
   });
 }
 
@@ -121,13 +161,9 @@ UNIT_TEST(QtRenderContext_PendingFrameKeepsItsSizeAcrossResize)
     env.Resize(13, 29);
     env.Present(true);
     env.Resize(31, 13);
-    TEST(env.Acquire(), ());
-    env.CheckSize(13, 29);
-    env.CheckColor(true);
+    env.CheckFrame(env.Acquire(), 13, 29, true);
     env.Present(false);
-    TEST(env.Acquire(), ());
-    env.CheckSize(31, 13);
-    env.CheckColor(false);
+    env.CheckFrame(env.Acquire(), 31, 13, false);
   });
 }
 
@@ -142,14 +178,10 @@ UNIT_TEST(QtRenderContext_RecyclesResizedFramesAndKeepsLatestPresentation)
       env.Present(true);
       env.Resize(70, 15);
       env.Present(false);
-      TEST(env.Acquire(), ());
-      env.CheckSize(70, 15);
-      env.CheckColor(false);
+      env.CheckFrame(env.Acquire(), 70, 15, false);
       env.Resize(5, 7);
       env.Present(true);
-      TEST(env.Acquire(), ());
-      env.CheckSize(5, 7);
-      env.CheckColor(true);
+      env.CheckFrame(env.Acquire(), 5, 7, true);
     }
   });
 }
@@ -161,8 +193,8 @@ UNIT_TEST(QtRenderContext_FinishesConsumerSamplingBeforeRecycling)
     Environment env;
     env.Resize(64, 64);
     env.Present(true);
-    TEST(env.Acquire(), ());
-    auto const texture = env.context.GetTextureHandle();
+    GLuint const texture = env.Acquire();
+    TEST_NOT_EQUAL(texture, 0u, ());
 
     QOpenGLFramebufferObject output(QSize(512, 512));
     TEST(output.isValid(), ());
@@ -213,10 +245,11 @@ UNIT_TEST(QtRenderContext_FinishesConsumerSamplingBeforeRecycling)
     auto completion = functions->glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
     TEST(completion, ());
     functions->glFlush();
-    bool const acquired = env.context.AcquireFrame();
+    GLuint const nextTexture = env.context.AcquireFrameTexture();
     auto const status = functions->glClientWaitSync(completion, 0, 0);
     functions->glDeleteSync(completion);
-    TEST(acquired, ());
+    TEST_NOT_EQUAL(nextTexture, 0u, ());
+    TEST_NOT_EQUAL(nextTexture, texture, ());
     TEST(status == GL_ALREADY_SIGNALED || status == GL_CONDITION_SATISFIED, (status));
     program.release();
     vao.release();

@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "ईमेल किंवा वापरकर्तानाव";
-"level" = "मजला";
 "downloader_delete_map_dialog" = "तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.";
 "downloader_update_maps" = "नकाशे अद्ययावत करा";
 "downloader_search_field_hint" = "नकाशा शोधा";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "जल मार्ग टाळा";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "अवघड पायवाटा टाळा";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "पायऱ्या टाळा";
 "avoid_motorways" = "मोटरवे टाळा";
 "unable_to_calc_alert_title" = "मार्गाची गणना करण्यात अक्षम";
 "unable_to_calc_alert_subtitle" = "दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";
 "elevation_profile_max_elevation" = "कमाल उंची";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "उंची प्रोफाइल पाहण्यासाठी हालचाल सुरू करा";
 "isolines_toast_zooms_1_10" = "समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा";
 "downloader_loading_ios" = "डाउनलोड करत आहे";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "थांब्यांची कमाल संख्या गाठली आहे";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "मार्ग ट्रॅक म्हणून जतन करता आला नाही";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "मार्ग उलटा करा";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "वैध मजला क्रमांक प्रविष्ट करा";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "मजला (तळमजला 0 आहे)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "नेव्हिगेट करा";
+
+/* Track start point label. */
+"navigate_track_start" = "ट्रॅकची सुरुवात";
+
+/* Track finish point label. */
+"navigate_track_finish" = "ट्रॅकचा शेवट";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "या दिशेने कोणताही ट्रॅक उरलेला नाही. दुसरा बिंदू निवडा.";

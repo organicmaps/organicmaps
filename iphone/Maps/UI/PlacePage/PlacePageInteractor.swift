@@ -267,12 +267,27 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       MWMPlacePageManagerHelper.routeRemoveStop(placePageData)
     case .routeTo:
       MWMPlacePageManagerHelper.route(to: placePageData)
+    case .routeAlongTrack:
+      guard let trackId = placePageData.trackData?.trackId else {
+        assertionFailure("Track place page without trackData")
+        return
+      }
+      let result = MWMRouter.navigateTrack(trackId)
+      guard result == .ok else {
+        Toast.show(withText: result.planningErrorMessage)
+        return
+      }
+      presenter?.close()
     case .avoidToll:
-      MWMPlacePageManagerHelper.avoidToll()
+      MWMPlacePageManagerHelper.avoidRoadType(.toll)
     case .avoidDirty:
-      MWMPlacePageManagerHelper.avoidDirty()
+      MWMPlacePageManagerHelper.avoidRoadType(.dirty)
     case .avoidFerry:
-      MWMPlacePageManagerHelper.avoidFerry()
+      MWMPlacePageManagerHelper.avoidRoadType(.ferry)
+    case .avoidSteps:
+      MWMPlacePageManagerHelper.avoidRoadType(.steps)
+    case .avoidDifficultTrails:
+      MWMPlacePageManagerHelper.avoidRoadType(.difficultTrail)
     case .more:
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:

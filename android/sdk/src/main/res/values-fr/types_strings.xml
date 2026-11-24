@@ -434,9 +434,9 @@
     <string name="type.highway.motorway_link.tunnel">Tunnel</string>
     <string name="type.highway.path">Chemin</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Sentier difficile ou peu visibl</string>
+    <string name="type.highway.path.difficult">Sentier difficile ou peu visible</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Sentier très difficile ou indiscernabl</string>
+    <string name="type.highway.path.expert">Sentier très difficile ou indiscernable</string>
     <string name="type.highway.path.bicycle">Chemin</string>
     <string name="type.highway.footway.bicycle">Chemin</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->

@@ -193,6 +193,9 @@ UNIT_TEST(TrackRouter_OneSubroutePerCheckpointLeg)
     TEST_EQUAL(attrs.GetEndSegmentIdx(), expectedIdx[i][1], (i));
   }
   TEST_EQUAL(route.GetSubrouteAttrs(2).GetEndSegmentIdx(), route.GetRouteSegments().size(), ());
+  // A renderer restored after both stops starts drawing at the last leg.
+  TEST_ALMOST_EQUAL_ABS(route.GetSegmentStartDistanceMerc(route.GetSubrouteAttrs(2).GetBeginSegmentIdx()),
+                        MeterPoint(700, 0).x, 1e-12, ());
   TEST(route.GetSubrouteAttrs(0).GetFinish().GetPoint().EqualDxDy(track[3].GetPoint(), mercator::kPointEqualityEps),
        ());
   TEST(route.GetSubrouteAttrs(1).GetStart().GetPoint().EqualDxDy(track[3].GetPoint(), mercator::kPointEqualityEps), ());

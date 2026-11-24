@@ -55,13 +55,12 @@ public class PlacePageTrackRecordingFragment extends Fragment
     MapObject mo = mViewModel.getMapObject().getValue();
     if (mo == null || !mo.isTrackRecording())
       return;
-    mViewModel.setTrackRecordingSaveVisible(!TrackRecorder.nativeIsTrackRecordingEmpty());
     ((TrackRecording) mo)
         .setTrackRecordingPPDescription(
             StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(requireContext()) + " • "
             + Utils.formatDuration(requireContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
+    // A live profile needs positive distance, complete heights and at least one nonzero height.
     ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
-    // elevationInfo can be null when Track Recording has just started and no elevation data exists yet.
     if (elevationInfo != null)
     {
       mElevationProfileViewRenderer.render(/* track */ null, elevationInfo, trackStatistics);

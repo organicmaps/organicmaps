@@ -16,6 +16,8 @@ namespace df
 {
 namespace
 {
+double constexpr kSelectionAnimationTimeSec = 0.18;
+
 // clang-format off
 std::array<float, 20> const kHalfLineWidthInPixel = {
     // 1   2     3     4     5     6     7     8     9     10
@@ -28,48 +30,35 @@ std::array<float, 20> const kHalfLineWidthInPixel = {
 SelectionShape::SelectionShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
   , m_positionZ(0.0)
-  , m_animation(false, 0.25)
   , m_selectedObject(OBJECT_EMPTY)
 {
   m_renderNode = SelectionShapeGenerator::GenerateSelectionMarker(context, mng);
   m_trackRenderNode = SelectionShapeGenerator::GenerateTrackSelectionMarker(context, mng);
   m_radius = 15.0f * VisualParams::Instance().GetVisualScale();
-  m_mapping.AddRangePoint(0.6, 1.3 * m_radius);
-  m_mapping.AddRangePoint(0.85, 0.8 * m_radius);
-  m_mapping.AddRangePoint(1.0, m_radius);
 }
 
-void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate)
+void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool animateSelection)
 {
-  m_animation.Hide();
   m_position = position;
   m_positionZ = positionZ;
   m_selectedObject = obj;
-  if (isAnimate)
-    m_animation.ShowAnimated();
+  ResetSelectionGeometry();
+  if (animateSelection && obj != OBJECT_TRACK)
+    m_scaleAnimation.emplace(kSelectionAnimationTimeSec, 0.0, 1.0);
   else
-    m_animation.Show();
-  m_recacheId++;
-  m_selectionGeometry.clear();
+    m_scaleAnimation.reset();
 }
 
 void SelectionShape::Hide()
 {
-  m_animation.Hide();
   m_selectedObject = OBJECT_EMPTY;
-  m_recacheId++;
-  m_selectionGeometry.clear();
+  m_scaleAnimation.reset();
+  ResetSelectionGeometry();
 }
 
-bool SelectionShape::SelectionShape::IsVisible() const
+std::optional<m2::PointD> SelectionShape::GetPixelPosition(ScreenBase const & screen) const
 {
-  auto const state = m_animation.GetState();
-  return (state == ShowHideAnimation::STATE_VISIBLE || state == ShowHideAnimation::STATE_SHOW_DIRECTION);
-}
-
-std::optional<m2::PointD> SelectionShape::GetPixelPosition(ScreenBase const & screen, int zoomLevel) const
-{
-  if (!IsVisible())
+  if (m_selectedObject == OBJECT_EMPTY)
     return {};
 
   m2::PointD pos = m_position;
@@ -89,7 +78,7 @@ std::optional<m2::PointD> SelectionShape::GetPixelPosition(ScreenBase const & sc
 void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                             ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
-  if (!IsVisible())
+  if (m_selectedObject == OBJECT_EMPTY)
     return;
 
   if (m_selectionGeometry.empty())
@@ -104,7 +93,15 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     m2::PointD const pos = MapShape::ConvertToLocal(adjustedPos, key.GetGlobalRect().Center(), kShapeCoordScalar);
     params.m_position = glsl::vec3(pos.x, pos.y, -m_positionZ);
 
-    float accuracy = m_selectedObject == OBJECT_TRACK ? 1.0 : m_mapping.GetValue(m_animation.GetT());
+    float accuracy = m_selectedObject == OBJECT_TRACK ? 1.0f : static_cast<float>(m_radius);
+    if (m_scaleAnimation)
+    {
+      double const t = m_scaleAnimation->GetOpacity();
+      // Ease in and out so the ring lands smoothly at its resting size.
+      accuracy *= static_cast<float>(0.75 + 0.25 * t * t * (3.0 - 2.0 * t));
+      if (m_scaleAnimation->IsFinished())
+        m_scaleAnimation.reset();
+    }
     if (screen.isPerspective())
     {
       m2::PointD const pt1 = screen.GtoP(adjustedPos);
@@ -150,6 +147,7 @@ void SelectionShape::AddSelectionGeometry(drape_ptr<RenderNode> && renderNode, i
   if (m_recacheId != recacheId)
     return;
 
+  m_scaleAnimation.reset();
   m_selectionGeometry.push_back(std::move(renderNode));
 }
 

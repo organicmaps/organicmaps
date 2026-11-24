@@ -13,7 +13,10 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <algorithm>
 #include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include <glaze/util/zmij.hpp>
 
@@ -38,7 +41,7 @@ bool IsTrack(std::string const & s)
   return s == "Track" || s == "gx:Track";
 }
 
-bool IsCoord(std::string const & s)
+bool IsCoord(std::string_view s)
 {
   return s == "coord" || s == "gx:coord";
 }
@@ -432,100 +435,47 @@ void SaveTrackLayer(Writer & writer, TrackLayer const & layer, std::string_view 
   writer << indent << "<width>" << strings::to_string(layer.m_lineWidth) << "</width>\n";
 }
 
-void SaveLineStrings(Writer & writer, MultiGeometry const & geom)
+void SaveTimedTrackSection(Writer & writer, MultiGeometry::LineT const & line, MultiGeometry::TimeT const & times,
+                           std::string_view indent)
 {
-  auto linesIndent = kIndent4;
-  auto const lineStringsSize = geom.GetNumberOfLinesWithouTimestamps();
+  writer << indent << "<gx:Track>\n";
+  for (auto const time : times)
+    writer << indent << kIndent4 << "<when>" << base::SecondsSinceEpochToString(time) << "</when>\n";
 
-  if (lineStringsSize > 1)
-  {
-    linesIndent = kIndent8;
-    writer << kIndent4 << "<MultiGeometry>\n";
-  }
+  for (auto const & point : line)
+    writer << indent << kIndent4 << "<gx:coord>" << PointToGxString(point) << "</gx:coord>\n";
 
-  for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
-  {
-    auto const & line = geom.m_lines[lineIndex];
-    if (line.empty())
-    {
-      LOG(LERROR, ("Unexpected empty Track"));
-      continue;
-    }
-
-    // Skip the tracks with the timestamps when writing the <LineString> points.
-    if (geom.HasTimestampsFor(lineIndex))
-      continue;
-
-    writer << linesIndent << "<LineString><coordinates>";
-
-    writer << PointToLineString(line[0]);
-    for (size_t pointIndex = 1; pointIndex < line.size(); ++pointIndex)
-      writer << " " << PointToLineString(line[pointIndex]);
-
-    writer << "</coordinates></LineString>\n";
-  }
-
-  if (lineStringsSize > 1)
-    writer << kIndent4 << "</MultiGeometry>\n";
-}
-
-void SaveGxTracks(Writer & writer, MultiGeometry const & geom)
-{
-  auto linesIndent = kIndent4;
-  auto const gxTracksSize = geom.GetNumberOfLinesWithTimestamps();
-
-  if (gxTracksSize > 1)
-  {
-    linesIndent = kIndent8;
-    writer << kIndent4 << "<gx:MultiTrack>\n";
-    /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
-  }
-
-  for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
-  {
-    auto const & line = geom.m_lines[lineIndex];
-    if (line.empty())
-    {
-      LOG(LERROR, ("Unexpected empty Track"));
-      continue;
-    }
-
-    // Skip the tracks without the timestamps when writing the <gx:Track> points.
-    if (!geom.HasTimestampsFor(lineIndex))
-      continue;
-
-    writer << linesIndent << "<gx:Track>\n";
-    /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
-
-    auto const & timestamps = geom.m_timestamps[lineIndex];
-    CHECK_EQUAL(line.size(), timestamps.size(), ());
-
-    for (auto const & time : timestamps)
-      writer << linesIndent << kIndent4 << "<when>" << base::SecondsSinceEpochToString(time) << "</when>\n";
-
-    for (auto const & point : line)
-      writer << linesIndent << kIndent4 << "<gx:coord>" << PointToGxString(point) << "</gx:coord>\n";
-
-    writer << linesIndent << "</gx:Track>\n";
-  }
-
-  if (gxTracksSize > 1)
-    writer << kIndent4 << "</gx:MultiTrack>\n";
+  writer << indent << "</gx:Track>\n";
 }
 
 void SaveTrackGeometry(Writer & writer, MultiGeometry const & geom)
 {
-  size_t const sz = geom.m_lines.size();
-  if (sz == 0)
+  ASSERT(geom.IsValid(), ());
+  // gx:MultiTrack accepts only timed sections. MultiGeometry keeps mixed sections in source order.
+  bool const allTimed = std::ranges::all_of(geom.m_timestamps, [](auto const & times) { return !times.empty(); });
+  bool const multipleSections = geom.m_lines.size() > 1;
+  std::string_view const wrapper = allTimed ? "gx:MultiTrack" : "MultiGeometry";
+  auto const indent = multipleSections ? kIndent8 : kIndent4;
+  if (multipleSections)
+    writer << kIndent4 << "<" << wrapper << ">\n";
+
+  for (size_t i = 0; i < geom.m_lines.size(); ++i)
   {
-    LOG(LERROR, ("Unexpected empty MultiGeometry"));
-    return;
+    auto const & line = geom.m_lines[i];
+    if (auto const & times = geom.m_timestamps[i]; !times.empty())
+    {
+      SaveTimedTrackSection(writer, line, times, indent);
+      continue;
+    }
+
+    writer << indent << "<LineString><coordinates>" << PointToLineString(line.front());
+    for (size_t j = 1; j < line.size(); ++j)
+      writer << " " << PointToLineString(line[j]);
+    writer << "</coordinates></LineString>\n";
   }
 
-  CHECK_EQUAL(geom.m_lines.size(), geom.m_timestamps.size(), ("Number of coordinates and timestamps should match"));
-
-  SaveLineStrings(writer, geom);
-  SaveGxTracks(writer, geom);
+  if (multipleSections)
+    writer << kIndent4 << "</" << wrapper << ">\n";
 }
 
 void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
@@ -708,29 +658,27 @@ void SaveAreaData(Writer & writer, AreaData const & area)
   writer << kIndent2 << "</Placemark>\n";
 }
 
-bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, geometry::Altitude & altitude)
+bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, geometry::Altitude & altitude,
+                bool singleTuple = false)
 {
   // Order in string is: lon, lat, z.
   strings::SimpleTokenizer iter(s, delim);
-  if (!iter)
+  double lon, lat;
+  if (!iter || !strings::to_double(*iter, lon) || !++iter || !strings::to_double(*iter, lat) ||
+      !IsValidLatLon(lat, lon))
     return false;
 
-  double lon;
-  if (strings::to_double(*iter, lon) && ++iter)
+  if (++iter)
   {
-    double lat;
-    if (strings::to_double(*iter, lat) && IsValidLatLon(lat, lon))
-    {
-      pt = mercator::FromLatLon(lat, lon);
-
-      double rawAltitude;
-      if (++iter && strings::to_double(*iter, rawAltitude))
-        altitude = ToAltitude(rawAltitude);
-
-      return true;
-    }
+    auto const elevation = *iter;
+    if (singleTuple && ++iter)
+      return false;
+    double rawAltitude;
+    if (strings::to_double(elevation, rawAltitude))
+      altitude = ToAltitude(rawAltitude);
   }
-  return false;
+  pt = mercator::FromLatLon(lat, lon);
+  return true;
 }
 
 bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt)
@@ -739,17 +687,14 @@ bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt)
   return ParsePoint(s, delim, pt, dummyAltitude);
 }
 
-bool ParsePointWithAltitude(std::string_view s, char const * delim, geometry::PointWithAltitude & point)
+std::optional<geometry::PointWithAltitude> ParsePointWithAltitude(std::string_view s, char const * delim,
+                                                                  bool singleTuple = false)
 {
   geometry::Altitude altitude = geometry::kInvalidAltitude;
   m2::PointD pt;
-  if (ParsePoint(s, delim, pt, altitude))
-  {
-    point.SetPoint(pt);
-    point.SetAltitude(altitude);
-    return true;
-  }
-  return false;
+  if (!ParsePoint(s, delim, pt, altitude, singleTuple))
+    return std::nullopt;
+  return geometry::PointWithAltitude(pt, altitude);
 }
 }  // namespace
 
@@ -815,8 +760,6 @@ void KmlParser::ResetPoint()
 
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
-  m_skipTimes.clear();
-  m_lastTrackPointsCount = std::numeric_limits<size_t>::max();
   m_polygon.reset();
   m_areaPolygons.clear();
   m_invalidArea = false;
@@ -894,26 +837,19 @@ void KmlParser::SetOrigin(std::string const & s)
     LOG(LWARNING, ("Can not parse KML point coordinates from", s));
 }
 
-void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s, char const * blockSeparator,
-                                  char const * coordSeparator)
-{
-  strings::Tokenize(s, blockSeparator, [&](std::string_view v)
-  {
-    geometry::PointWithAltitude point;
-    if (ParsePointWithAltitude(v, coordSeparator, point))
-      line.emplace_back(point);
-    else
-      LOG(LWARNING, ("Can not parse KML coordinates from", v));
-  });
-}
-
 void KmlParser::ParseLineString(std::string const & s)
 {
   if (m_geometryType != GEOMETRY_TYPE_POINT)
     m_geometryType = GEOMETRY_TYPE_LINE;
 
   MultiGeometry::LineT line;
-  ParseAndAddPoints(line, s, " \n\r\t", ",");
+  strings::Tokenize(s, " \n\r\t", [&](std::string_view coordinates)
+  {
+    if (auto const point = ParsePointWithAltitude(coordinates, ","))
+      line.push_back(*point);
+    else
+      LOG(LWARNING, ("Can not parse KML coordinates from", coordinates));
+  });
 
   if (line.size() > 1)
   {
@@ -924,39 +860,6 @@ void KmlParser::ParseLineString(std::string const & s)
 
 bool KmlParser::MakeValid()
 {
-  if (m_geometry.IsValid())
-  {
-    for (size_t lineIdx = 0; lineIdx < m_geometry.m_lines.size(); ++lineIdx)
-    {
-      auto & timestamps = m_geometry.m_timestamps[lineIdx];
-      if (timestamps.empty())
-        continue;
-
-      std::set<size_t> * skipSet = nullptr;
-      if (auto it = m_skipTimes.find(lineIdx); it != m_skipTimes.end())
-        skipSet = &it->second;
-
-      size_t const pointsSize = m_geometry.m_lines[lineIdx].size();
-      if (pointsSize + (skipSet ? skipSet->size() : 0) != timestamps.size())
-      {
-        MYTHROW(kml::DeserializerKml::DeserializeException,
-                ("Timestamps size", timestamps.size(), "mismatch with the points size:", pointsSize,
-                 "for the track:", lineIdx));
-      }
-
-      if (skipSet)
-      {
-        MultiGeometry::TimeT newTimes;
-        newTimes.reserve(timestamps.size() - skipSet->size());
-
-        for (size_t i = 0; i < timestamps.size(); ++i)
-          if (!skipSet->contains(i))
-            newTimes.push_back(timestamps[i]);
-        timestamps.swap(newTimes);
-      }
-    }
-  }
-
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
     // SetOrigin() sets this type only together with a validated m_org.
@@ -968,7 +871,7 @@ bool KmlParser::MakeValid()
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
-    return m_geometry.IsValid();
+    return m_geometry.HasLines();
   }
 
   return false;
@@ -1067,10 +970,14 @@ bool KmlParser::Push(std::string movedTag)
     m_geometryType = GEOMETRY_TYPE_LINE;
     m_geometry.m_lines.emplace_back();
     m_geometry.m_timestamps.emplace_back();
+    m_skippedTrackCoordinates.clear();
   }
-  else if (IsProcessTrackCoord())
+  else if (IsProcessTrackTag(1))
   {
-    m_lastTrackPointsCount = m_geometry.m_lines.back().size();
+    if (IsCoord(tag))
+      m_trackCoordinate.reset();
+    else if (IsTimestamp(tag))
+      m_geometry.m_timestamps.back().push_back(base::INVALID_TIME_STAMP);
   }
   return true;
 }
@@ -1104,16 +1011,43 @@ std::string const & KmlParser::GetTagFromEnd(size_t n) const
   return m_tags[m_tags.size() - n - 1];
 }
 
-bool KmlParser::IsProcessTrackTag() const
+bool KmlParser::IsProcessTrackTag(size_t offset) const
 {
-  size_t const n = m_tags.size();
-  return n >= 3 && IsTrack(m_tags[n - 1]) && (m_tags[n - 2] == kPlacemark || m_tags[n - 3] == kPlacemark);
+  if (m_tags.size() < offset + 3 || !IsTrack(GetTagFromEnd(offset)))
+    return false;
+  auto const & parent = GetTagFromEnd(offset + 1);
+  return parent == kPlacemark || (GetTagFromEnd(offset + 2) == kPlacemark &&
+                                  (parent == "MultiGeometry" || parent == "MultiTrack" || parent == "gx:MultiTrack"));
 }
 
-bool KmlParser::IsProcessTrackCoord() const
+void KmlParser::FinishTrackSection()
 {
-  size_t const n = m_tags.size();
-  return n >= 4 && IsTrack(m_tags[n - 2]) && IsCoord(m_tags[n - 1]);
+  auto & line = m_geometry.m_lines.back();
+  if (line.size() < 2)
+  {
+    m_geometry.m_lines.pop_back();
+    m_geometry.m_timestamps.pop_back();
+    return;
+  }
+
+  auto & times = m_geometry.m_timestamps.back();
+  size_t const coordinateCount = line.size() + m_skippedTrackCoordinates.size();
+  if (!times.empty() && times.size() != coordinateCount)
+  {
+    LOG(LWARNING, ("KML track timestamp count does not match coordinates", GetDefaultStr(m_name)));
+    times.clear();
+  }
+  else if (!times.empty() && !m_skippedTrackCoordinates.empty())
+  {
+    auto skipped = m_skippedTrackCoordinates.begin();
+    size_t kept = 0;
+    for (size_t i = 0; i < coordinateCount; ++i)
+      if (skipped != m_skippedTrackCoordinates.end() && i == *skipped)
+        ++skipped;
+      else
+        times[kept++] = times[i];
+    times.resize(kept);
+  }
 }
 
 void KmlParser::Pop(std::string_view tag)
@@ -1174,7 +1108,7 @@ void KmlParser::Pop(std::string_view tag)
         m_data.m_bookmarksData.push_back(std::move(data));
 
         // There is a track stored inside a bookmark
-        if (m_geometry.IsValid())
+        if (m_geometry.HasLines())
         {
           BookmarkData const & bookmarkData = m_data.m_bookmarksData.back();
           TrackData trackData;
@@ -1261,37 +1195,16 @@ void KmlParser::Pop(std::string_view tag)
   }
   else if (IsProcessTrackTag())
   {
-    // Simple line validation.
-    auto & lines = m_geometry.m_lines;
-    ASSERT(!lines.empty(), ());
-    if (lines.back().size() < 2)
-    {
-      m_skipTimes.erase(lines.size() - 1);
-      lines.pop_back();
-      m_geometry.m_timestamps.pop_back();
-    }
-    else
-    {
-      // KML does not require <when> timestamps to be ordered, but downstream time
-      // metadata code assumes they are monotonic non-decreasing. Drop broken
-      // timestamps rather than the track -- geometry is preserved.
-      auto & timestamps = m_geometry.m_timestamps.back();
-      if (!std::is_sorted(timestamps.begin(), timestamps.end()))
-      {
-        LOG(LWARNING, ("Non-monotonic timestamps in track, dropping them"));
-        timestamps.clear();
-      }
-    }
+    FinishTrackSection();
   }
-  else if (IsProcessTrackCoord())
+  else if (IsCoord(tag) && IsProcessTrackTag(1))
   {
-    // Check if coordinate was not added.
-    if (m_geometry.m_lines.back().size() == m_lastTrackPointsCount)
-    {
-      // Add skip coordinate/timestamp index.
-      auto & e = m_skipTimes[m_geometry.m_lines.size() - 1];
-      e.insert(m_lastTrackPointsCount + e.size());
-    }
+    // Each gx:coord consumes one source timestamp index.
+    auto & line = m_geometry.m_lines.back();
+    if (m_trackCoordinate)
+      line.push_back(*m_trackCoordinate);
+    else
+      m_skippedTrackCoordinates.push_back(line.size() + m_skippedTrackCoordinates.size());
   }
   else if (tag == "mwm:stop" && m_tags.size() >= 4 && GetTagFromEnd(1) == "mwm:stops" &&
            GetTagFromEnd(2) == kExtendedData && GetTagFromEnd(3) == kPlacemark)
@@ -1354,30 +1267,18 @@ void KmlParser::CharData(std::string & value)
       return;
     }
 
-    auto const TrackTag = [this, &prevTag, &currTag, &value]()
+    if (IsProcessTrackTag(1))
     {
-      if (!IsTrack(prevTag))
-        return false;
-
       if (IsTimestamp(currTag))
-      {
-        auto & timestamps = m_geometry.m_timestamps;
-        ASSERT(!timestamps.empty(), ());
-
-        /// @todo Add INVALID_TIME_STAMP post processing like in GpxParser?
-        auto const timestamp = base::StringToTimestamp(value);
-        ASSERT(timestamp != base::INVALID_TIME_STAMP, (value));
-
-        timestamps.back().emplace_back(timestamp);
-      }
+        m_geometry.m_timestamps.back().back() = base::StringToTimestamp(value);
       else if (IsCoord(currTag))
       {
-        auto & lines = m_geometry.m_lines;
-        ASSERT(!lines.empty(), ());
-        ParseAndAddPoints(lines.back(), value, "\n\r\t", " ");
+        m_trackCoordinate = ParsePointWithAltitude(value, " \n\r\t", true /* singleTuple */);
+        if (!m_trackCoordinate)
+          LOG(LWARNING, ("Can not parse KML track coordinates from", value));
       }
-      return true;
-    };
+      return;
+    }
 
     if (prevTag == kDocument)
     {
@@ -1587,10 +1488,6 @@ void KmlParser::CharData(std::string & value)
         if (currTag == kCoordinates)
           ParseLineString(value);
       }
-      else if (TrackTag())
-      {
-        // noop
-      }
       else if (prevTag == kExtendedData)
       {
         if (currTag == "mwm:multiPolygon")
@@ -1657,10 +1554,6 @@ void KmlParser::CharData(std::string & value)
         if (currTag == kCoordinates)
           ParseLineString(value);
       }
-      else if (TrackTag())
-      {
-        // noop
-      }
     }
     else if (pppTag == kPlacemark)
     {
@@ -1701,10 +1594,6 @@ void KmlParser::CharData(std::string & value)
           }
         }
       }
-      else if ((ppTag == "MultiTrack" || ppTag == "gx:MultiTrack") && TrackTag())
-      {
-        // noop
-      }
     }
     else if (ppppTag == kPlacemark && pppTag == kExtendedData && ppTag == "mwm:stops" && prevTag == "mwm:stop")
     {
@@ -1720,15 +1609,6 @@ void KmlParser::CharData(std::string & value)
       }
     }
   }
-}
-
-// static
-kml::TrackLayer KmlParser::GetDefaultTrackLayer()
-{
-  kml::TrackLayer layer;
-  layer.m_lineWidth = kDefaultTrackWidth;
-  layer.m_color.m_rgba = kDefaultTrackColor;
-  return layer;
 }
 
 DeserializerKml::DeserializerKml(FileData & fileData) : m_fileData(fileData)

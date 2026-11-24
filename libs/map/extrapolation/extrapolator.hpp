@@ -19,14 +19,7 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, locati
 /// \param info2 the latest location information.
 bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::GpsInfo const & info2);
 
-/// \brief This class implements linear extrapolation based on methods LinearExtrapolation()
-/// and AreCoordsGoodForExtrapolation(). The idea implemented in this class is
-/// - OnLocationUpdate() should be called from gui thread when new data from gps is available.
-/// - When OnLocationUpdate() was called twice so that AreCoordsGoodForExtrapolation()
-///   returns true, extrapolation for this two location will be launched.
-/// - That means all obsolete extrapolation calls in background thread will be canceled by
-///   incrementing |m_locationUpdateMinValid|.
-/// - Several new extrapolations based on two previous locations will be generated.
+/// Extrapolates recent GPS measurements and delivers locations on the GUI thread.
 class Extrapolator
 {
   static uint64_t constexpr kExtrapolationCounterUndefined = std::numeric_limits<uint64_t>::max();
@@ -48,6 +41,9 @@ public:
   /// |update| will be called on gui thread.
   explicit Extrapolator(ExtrapolatedLocationUpdateFn const & update);
   void OnLocationUpdate(location::GpsInfo const & gpsInfo);
+  void Reset();
+  // Last input before extrapolation. Invalid when no fix is available.
+  location::GpsInfo GetLastGpsInfo() const;
   // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
   // extrapolated position.
 
@@ -62,18 +58,13 @@ private:
 
   bool m_isEnabled;
 
-  std::mutex m_mutex;
+  mutable std::mutex m_mutex;
   ExtrapolatedLocationUpdateFn m_extrapolatedLocationUpdate;
   location::GpsInfo m_lastGpsInfo;
   location::GpsInfo m_beforeLastGpsInfo;
   uint64_t m_consecutiveRuns = kExtrapolationCounterUndefined;
-  // Number of calls Extrapolator::OnLocationUpdate() method. This way |m_locationUpdateCounter|
-  // reflects generation of extrapolations. That mean the next gps location is
-  // the next generation.
   uint64_t m_locationUpdateCounter = 0;
-  // If |m_locationUpdateCounter| < |m_locationUpdateMinValid| when
-  // ExtrapolatedLocationUpdate() is called (on background thread)
-  // ExtrapolatedLocationUpdate() cancels its execution.
-  uint64_t m_locationUpdateMinValid = 0;
+  // Location loss invalidates measurements already queued for GUI delivery.
+  uint64_t m_lastResetGeneration = 0;
 };
 }  // namespace extrapolation

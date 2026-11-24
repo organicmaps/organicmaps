@@ -198,7 +198,7 @@ void DrapeEngine::Scroll(double distanceX, double distanceY)
 
 void DrapeEngine::Rotate(double azimuth, bool isAnim)
 {
-  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim));
 }
 
 void DrapeEngine::MakeFrameActive()
@@ -209,21 +209,18 @@ void DrapeEngine::MakeFrameActive()
 void DrapeEngine::ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
                                     bool trackVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetCenterEvent>(scaleFactor, centerPt, isAnim, trackVisibleViewport,
-                                               nullptr /* parallelAnimCreator */));
+  PostUserEvent(make_unique_dp<SetCenterEvent>(scaleFactor, centerPt, isAnim, trackVisibleViewport));
 }
 
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim, bool trackVisibleViewport)
 {
-  PostUserEvent(
-      make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport, nullptr /* parallelAnimCreator */));
+  PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport));
 }
 
 void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim,
                                    bool useVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport,
-                                             nullptr /* parallelAnimCreator */));
+  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport));
 }
 
 void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport)
@@ -273,13 +270,12 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 void DrapeEngine::PostUserMarksUpdate(UserMarksUpdate && update)
 {
   if (!update.m_marks->empty() || !update.m_lines->empty() || !update.m_areas->empty() ||
-      !update.m_removedIds->IsEmpty() || !update.m_justCreatedIds->IsEmpty())
+      !update.m_removedIds->IsEmpty())
   {
     m_threadCommutator->PostMessage(
         ThreadsCommutator::ResourceUploadThread,
-        make_unique_dp<UpdateUserMarksMessage>(std::move(update.m_justCreatedIds), std::move(update.m_removedIds),
-                                               std::move(update.m_marks), std::move(update.m_lines),
-                                               std::move(update.m_areas)),
+        make_unique_dp<UpdateUserMarksMessage>(std::move(update.m_removedIds), std::move(update.m_marks),
+                                               std::move(update.m_lines), std::move(update.m_areas)),
         MessagePriority::Normal);
   }
 
@@ -305,7 +301,6 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
   auto & marksRenderCollection = update.m_marks;
   auto & linesRenderCollection = update.m_lines;
   auto & areasRenderCollection = update.m_areas;
-  auto & justCreatedIdCollection = update.m_justCreatedIds;
   auto & removedIdCollection = update.m_removedIds;
   auto & groupsVisibleIds = update.m_groups;
 
@@ -314,29 +309,29 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
 
   using GroupFilter = std::function<bool(kml::MarkGroupId groupId)>;
 
-  auto const collectIds = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds,
-                              GroupFilter const & filter, IDCollections & collection)
+  auto const collectIds = [](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds,
+                             kml::AreaIdSet const & areaIds, IDCollections & collection)
   {
-    for (auto const markId : markIds)
-      if (filter == nullptr || filter(provider->GetUserPointMark(markId)->GetGroupId()))
-        collection.m_markIds.push_back(markId);
-
-    for (auto const lineId : lineIds)
-      if (filter == nullptr || filter(provider->GetUserLineMark(lineId)->GetGroupId()))
-        collection.m_lineIds.push_back(lineId);
+    collection.m_markIds.insert(collection.m_markIds.end(), markIds.begin(), markIds.end());
+    collection.m_lineIds.insert(collection.m_lineIds.end(), lineIds.begin(), lineIds.end());
+    collection.m_areaIds.insert(collection.m_areaIds.end(), areaIds.begin(), areaIds.end());
   };
 
   auto const outlineColor =
       MapStyleIsDark(GetStyleReader().GetCurrentStyle()) ? dp::Color::Black() : dp::Color::White();
 
-  auto const collectRenderData =
-      [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds, GroupFilter const & filter)
+  auto const collectRenderData = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds,
+                                     GroupFilter const & filter, bool created = false)
   {
     for (auto const markId : markIds)
     {
       auto const mark = provider->GetUserPointMark(markId);
       if (filter == nullptr || filter(mark->GetGroupId()))
-        marksRenderCollection->emplace(markId, GenerateMarkRenderInfo(mark, outlineColor, textPlacement));
+      {
+        auto renderInfo = GenerateMarkRenderInfo(mark, outlineColor, textPlacement);
+        renderInfo->m_animateCreation = created && mark->HasCreationAnimation();
+        marksRenderCollection->emplace(markId, std::move(renderInfo));
+      }
     }
 
     for (auto const lineId : lineIds)
@@ -346,9 +341,6 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
         linesRenderCollection->emplace(lineId, GenerateLineRenderInfo(line));
     }
   };
-
-  auto const collectAreaIds = [&](kml::AreaIdSet const & areaIds, IDCollections & collection)
-  { collection.m_areaIds.insert(collection.m_areaIds.end(), areaIds.begin(), areaIds.end()); };
 
   auto const collectAreaRenderData = [&](kml::AreaIdSet const & areaIds, kml::AreaIdSet const * createdIds)
   {
@@ -371,11 +363,10 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
 
       if (provider->IsGroupVisible(groupId))
       {
-        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), nullptr /* filter */,
-                   *visibleIdCollection);
+        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                   provider->GetGroupAreaIds(groupId), *visibleIdCollection);
         collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
                           nullptr /* filter */);
-        collectAreaIds(provider->GetGroupAreaIds(groupId), *visibleIdCollection);
         collectAreaRenderData(provider->GetGroupAreaIds(groupId), nullptr /* createdIds */);
       }
       groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
@@ -388,9 +379,8 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
       auto visibleIdCollection = make_unique_dp<IDCollections>();
       if (provider->IsGroupVisible(groupId))
       {
-        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), nullptr /* filter */,
-                   *visibleIdCollection);
-        collectAreaIds(provider->GetGroupAreaIds(groupId), *visibleIdCollection);
+        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                   provider->GetGroupAreaIds(groupId), *visibleIdCollection);
         // Areas are created only within their groups, so they are filtered by the updated groups.
         if (groupFilter(groupId))
           collectAreaRenderData(provider->GetGroupAreaIds(groupId), &provider->GetCreatedAreaIds());
@@ -398,12 +388,10 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
       groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
     }
 
-    collectIds(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter, *justCreatedIdCollection);
-    collectIds(provider->GetRemovedMarkIds(), provider->GetRemovedLineIds(), nullptr /* filter */,
+    collectIds(provider->GetRemovedMarkIds(), provider->GetRemovedLineIds(), provider->GetRemovedAreaIds(),
                *removedIdCollection);
-    collectAreaIds(provider->GetRemovedAreaIds(), *removedIdCollection);
 
-    collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter);
+    collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter, true /* created */);
     collectRenderData(provider->GetUpdatedMarkIds(), provider->GetUpdatedLineIds(), groupFilter);
 
     for (auto const groupId : provider->GetBecameVisibleGroupIds())
@@ -417,9 +405,8 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
 
     for (auto const groupId : provider->GetBecameInvisibleGroupIds())
     {
-      collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), nullptr /* filter */,
-                 *removedIdCollection);
-      collectAreaIds(provider->GetGroupAreaIds(groupId), *removedIdCollection);
+      collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                 provider->GetGroupAreaIds(groupId), *removedIdCollection);
     }
   }
 
@@ -593,12 +580,12 @@ void DrapeEngine::SetUserPositionListener(UserPositionChangedHandler && fn)
 }
 
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, FeatureID const & featureId,
-                               bool isAnim, bool isGeometrySelectionAllowed, bool isSelectionShapeVisible)
+                               bool isGeometrySelectionAllowed, bool animateSelection)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SelectObjectMessage>(
-                                      obj, pt, featureId, isAnim, isGeometrySelectionAllowed, isSelectionShapeVisible),
-                                  MessagePriority::Normal);
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::RenderThread,
+      make_unique_dp<SelectObjectMessage>(obj, pt, featureId, isGeometrySelectionAllowed, animateSelection),
+      MessagePriority::Normal);
 }
 
 void DrapeEngine::DeselectObject(bool restoreViewport)
@@ -989,7 +976,6 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_displacement = mark->GetDisplacement();
   renderInfo->m_index = mark->GetIndex();
   renderInfo->m_featureId = mark->GetFeatureID();
-  renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
   renderInfo->m_isMarkAboveText = mark->IsMarkAboveText();
   renderInfo->m_symbolOpacity = mark->GetSymbolOpacity();
   renderInfo->m_isSymbolSelectable = mark->IsSymbolSelectable();

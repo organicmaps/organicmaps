@@ -6,8 +6,6 @@ public final class Constants
   public static final int MB = 1024 * 1024;
   public static final int GB = 1024 * 1024 * 1024;
 
-  static final int READ_TIMEOUT_MS = 10000;
-
   public static class Url
   {
     public static final String MAILTO_SCHEME = "mailto:";

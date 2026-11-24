@@ -15,15 +15,16 @@ struct TrackRecordingLiveActivityView: View {
         AppLogo()
           .frame(width: 20, height: 20)
       }
-      .padding([.top, .leading, .trailing], 16)
-      HStack(alignment: .top, spacing: 20) {
-        StatisticDetailView(title: state.ascent.value, subtitle: state.ascent.key)
-        StatisticDetailView(title: state.descent.value, subtitle: state.descent.key)
-        StatisticDetailView(title: state.maxElevation.value, subtitle: state.maxElevation.key)
-        StatisticDetailView(title: state.minElevation.value, subtitle: state.minElevation.key)
+      if let elevation = state.elevation {
+        HStack(alignment: .top, spacing: 20) {
+          StatisticDetailView(title: elevation.ascent.value, subtitle: elevation.ascent.key)
+          StatisticDetailView(title: elevation.descent.value, subtitle: elevation.descent.key)
+          StatisticDetailView(title: elevation.maxElevation.value, subtitle: elevation.maxElevation.key)
+          StatisticDetailView(title: elevation.minElevation.value, subtitle: elevation.minElevation.key)
+        }
       }
-      .padding([.leading, .trailing, .bottom], 16)
     }
+    .padding(16)
     .activityBackgroundTint(.black.opacity(0.2))
     // Uncomment the line below to simulate the background color in Preview because the `activityBackgroundTint` can only displayed on the device or simulator.
     // .background(.black.opacity(0.85))
@@ -44,21 +45,11 @@ struct TrackRecordingLiveActivityWidget_Previews: PreviewProvider {
           key: "Distance",
           value: "12 km"
         ),
-        ascent: .init(
-          key: "Ascent",
-          value: "100 m"
-        ),
-        descent: .init(
-          key: "Descent",
-          value: "100 m"
-        ),
-        maxElevation: .init(
-          key: "Max Elevation",
-          value: "100 m"
-        ),
-        minElevation: .init(
-          key: "Min Elevation",
-          value: "10 m"
+        elevation: .init(
+          ascent: .init(key: "Ascent", value: "100 m"),
+          descent: .init(key: "Descent", value: "100 m"),
+          maxElevation: .init(key: "Max Elevation", value: "100 m"),
+          minElevation: .init(key: "Min Elevation", value: "10 m")
         )
       )
 

@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "Surel atau nama pengguna";
-"level" = "Tingkat";
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";
 "downloader_update_maps" = "Perbarui peta";
 "downloader_search_field_hint" = "Temukan peta";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Hindari feri";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Hindari jalur pendakian yang sulit";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Hindari tangga";
 "avoid_motorways" = "Hindari jalan raya";
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 "unable_to_calc_alert_subtitle" = "Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi";
@@ -813,7 +818,7 @@
 "others_sorttype" = "Lainnya";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Sudah sampai di tujuan";
+"routing_planning_error" = "Gagal merencanakan rute";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Menurun";
 "elevation_profile_min_elevation" = "Min. tinggi";
 "elevation_profile_max_elevation" = "Maks. tinggi";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Mulai bergerak untuk melihat profil ketinggian";
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
 "downloader_loading_ios" = "Mengunduh";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Jumlah perhentian maksimum telah tercapai";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Rute tidak dapat disimpan sebagai trek";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Gerakkan dan perbesar/perkecil peta untuk menempatkan tanda silang";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Balikkan rute";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Masukkan nomor lantai yang valid";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Lantai (lantai dasar adalah 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navigasi";
+
+/* Track start point label. */
+"navigate_track_start" = "Awal trek";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Akhir trek";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Tidak ada trek tersisa ke arah ini. Pilih titik lain.";

@@ -162,8 +162,6 @@ public:
     void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
     void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
     void ChangeTrackColor(kml::TrackId trackId, dp::Color color);
-    /// @todo Get data by value and make moves by call-chain.
-    void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
     void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
     void SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc);
@@ -381,6 +379,7 @@ public:
 
   void EnableTestMode(bool enable);
   df::UserMarksProvider const & GetDrapeChangesForTests() const { return m_drapeChangesTracker; }
+  void ResetDrapeChangesForTests() { m_drapeChangesTracker.ResetChanges(); }
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, FileType fileType) const;
 
@@ -433,7 +432,7 @@ public:
   void OnTrackSelected(kml::TrackId trackId);
   void OnTrackDeselected();
 
-  kml::TrackId SaveTrackRecording(std::string trackName);
+  kml::TrackId SaveTrackRecording(std::string trackName, size_t pointCount);
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
@@ -599,7 +598,6 @@ private:
   void DeleteTrack(kml::TrackId trackId);
   void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
   void ChangeTrackColor(kml::TrackId trackId, dp::Color color);
-  void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
   void ClearGroup(kml::MarkGroupId groupId);
   void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data);

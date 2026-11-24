@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "电子邮件或用户名";
-"level" = "楼层";
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
 "downloader_update_maps" = "更新地图";
 "downloader_search_field_hint" = "搜索地图";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "避开轮渡";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "避开难走的步道";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "避开阶梯";
 "avoid_motorways" = "避开高速公路";
 "unable_to_calc_alert_title" = "无法规划路线";
 "unable_to_calc_alert_subtitle" = "找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
 "elevation_profile_max_elevation" = "最高高度";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "开始移动以查看海拔剖面";
 "isolines_toast_zooms_1_10" = "放大地图以查看等高线";
 "downloader_loading_ios" = "正在下载";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "已达到最大途经点数量";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "无法将路线保存为轨迹";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "移动并缩放地图以定位十字";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "反转路线";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "请输入有效的楼层号";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "楼层（一楼为0）";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "导航";
+
+/* Track start point label. */
+"navigate_track_start" = "轨迹起点";
+
+/* Track finish point label. */
+"navigate_track_finish" = "轨迹终点";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "此方向上已没有剩余轨迹。请选择其他点。";

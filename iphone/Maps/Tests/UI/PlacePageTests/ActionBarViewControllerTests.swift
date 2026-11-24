@@ -19,14 +19,14 @@ final class ActionBarViewControllerTests: XCTestCase {
     let cases: [(PlacePageObjectType, RouteState, [ActionBarButtonType])] = [
       (.POI, fullReplacing, [.routeReplaceStop, .bookmark]),
       (.bookmark, fullReplacing, [.routeReplaceStop, .bookmark]),
-      (.track, fullReplacing, [.routeReplaceStop, .bookmark, .track]),
+      (.track, fullReplacing, [.routeReplaceStop, .bookmark, .routeAlongTrack, .track]),
       (.relationTrack, fullReplacing, [.routeReplaceStop, .bookmark]),
-      (.track, spareReplacing, [.routeReplaceStop, .bookmark, .track]),
+      (.track, spareReplacing, [.routeReplaceStop, .bookmark, .routeAlongTrack, .track]),
       (.relationTrack, spareReplacing, [.routeReplaceStop, .bookmark]),
       (.POI, spare, [.routeFrom, .routeAddStop, .bookmark, .routeTo]),
-      (.track, spareAppending, [.routeAddDestination, .bookmark, .track]),
+      (.track, spareAppending, [.routeAddDestination, .bookmark, .routeAlongTrack, .track]),
       (.POI, full, [.routeFrom, .bookmark, .routeTo]),
-      (.track, full, [.routeFrom, .bookmark, .routeTo, .track]),
+      (.track, full, [.routeFrom, .bookmark, .routeTo, .routeAlongTrack, .track]),
       (.bookmark, appendingWithoutRoute, [.routeAddDestination, .bookmark]),
       (.relationTrack, appendingWithoutRoute, [.routeAddDestination, .bookmark]),
       (.trackRecording, spareReplacing, [.deleteTrackRecording, .saveTrackRecording]),
@@ -142,6 +142,61 @@ final class ActionBarViewControllerTests: XCTestCase {
     try assertColors(makeActionBar(data: PlacePageDataStub(objectType: .trackRecording)), primary: nil)
   }
 
+  func test_AvoidanceActionsMatchTheWarningAndRoutingProfile() {
+    let previousType = MWMRouter.type()
+    defer { MWMRouter.setType(previousType) }
+    let cases: [(PlacePageRoadType, ActionBarButtonType, [MWMRouterType], String, String)] = [
+      (.steps, .avoidSteps, [.bicycle, .pedestrian], "avoid_steps", "ic_avoid_steps"),
+      (.difficultTrail, .avoidDifficultTrails, [.pedestrian], "avoid_difficult_trails", "ic_avoid_difficult_trails"),
+    ]
+    for (warning, button, supported, title, icon) in cases {
+      let data = PlacePageDataStub(objectType: .POI)
+      data.stubRoadType = warning
+      for profile in [MWMRouterType.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler] {
+        MWMRouter.setType(profile)
+        let actionBar = makeActionBar(data: data)
+        let expected = supported.contains(profile) ? [button] : []
+        XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type }, expected)
+      }
+      XCTAssertEqual(titleForButton(button, false), L(title))
+      XCTAssertNotNil(UIImage(named: icon))
+    }
+  }
+
+  func testRelationTrackKeepsStandardActionsWithoutNavigateTrack() throws {
+    let actionBar = makeActionBar(data: PlacePageDataStub(objectType: .relationTrack))
+    XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type },
+                   [.routeFrom, .bookmark, .routeTo])
+    try assertColors(actionBar, primary: .routeTo)
+  }
+
+  func testNavigateTrackIsAlwaysAvailableForTracks() throws {
+    let actionBar = makeActionBar(data: PlacePageDataStub(objectType: .track))
+    XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type },
+                   [.routeFrom, .bookmark, .routeTo, .routeAlongTrack, .track])
+    try assertColors(actionBar, primary: .routeAlongTrack)
+    let navigate = try XCTUnwrap(actionBar.stackView.arrangedSubviews.compactMap { $0 as? ActionBarButton }.first { $0.type == .routeAlongTrack })
+    XCTAssertEqual(iconButton(in: navigate)?.image(for: .normal), UIImage(named: "ic_navigate_track"))
+  }
+
+  func testDownloadRetainsPriorityAndOverflowWhenNavigateTrackIsAvailable() throws {
+    for isTrackRouting in [false, true] {
+      let data = PlacePageDataStub(objectType: .track)
+      data.stubMapNodeAttributes = MapNodeAttributesStub()
+      let actionBar = makeActionBar(data: data)
+      actionBar.isTrackRouting = isTrackRouting
+      actionBar.resetButtons()
+      XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type },
+                     [.download, .routeFrom, .bookmark, .routeAlongTrack, .more])
+      try assertColors(actionBar, primary: .download)
+      (data.stubMapNodeAttributes as? MapNodeAttributesStub)?.status = .onDisk
+      actionBar.resetButtons()
+      XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type },
+                     [.routeFrom, .bookmark, .routeTo, .routeAlongTrack, .track])
+      try assertColors(actionBar, primary: .routeAlongTrack)
+    }
+  }
+
   private func assertColors(_ actionBar: ActionBarViewController, primary: ActionBarButtonType?,
                             file: StaticString = #filePath, line: UInt = #line) throws {
     let actions = actionBar.stackView.arrangedSubviews.compactMap { $0 as? ActionBarButton }
@@ -210,6 +265,7 @@ final class ActionBarViewControllerTests: XCTestCase {
 private final class PlacePageDataStub: PlacePageData {
   var stubMapNodeAttributes: MapNodeAttributes?
   var stubBookmarkData: PlacePageBookmarkData?
+  var stubRoadType: PlacePageRoadType = .none
   private let stubObjectType: PlacePageObjectType
 
   init(objectType: PlacePageObjectType) {
@@ -220,6 +276,7 @@ private final class PlacePageDataStub: PlacePageData {
   override var mapNodeAttributes: MapNodeAttributes? { stubMapNodeAttributes }
   override var bookmarkData: PlacePageBookmarkData? { stubBookmarkData }
   override var objectType: PlacePageObjectType { stubObjectType }
+  override var roadType: PlacePageRoadType { stubRoadType }
 }
 
 private final class MapNodeAttributesStub: MapNodeAttributes {

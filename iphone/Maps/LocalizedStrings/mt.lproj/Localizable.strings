@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-mejl jew isem l-utent";
-"level" = "Livell";
 "downloader_delete_map_dialog" = "L-editti kollha tal-mappa tiegħek se jitħassru mal-mappa.";
 "downloader_update_maps" = "Aġġorna l-Mapep";
 "downloader_search_field_hint" = "Sib mappa";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evita l-laneċ";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Evita l-mogħdijiet diffiċli";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Evita t-taraġ";
 "avoid_motorways" = "Evita l-passaġġi ħielsa";
 "unable_to_calc_alert_title" = "Ir-rotta ma' tistax tiġi kalkulata";
 "unable_to_calc_alert_subtitle" = "Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Inżul";
 "elevation_profile_min_elevation" = "Elevazzjoni minima";
 "elevation_profile_max_elevation" = "Elevazzjoni massima";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Ibda ċċaqlaq biex tara l-profil tal-elevazzjoni";
 "isolines_toast_zooms_1_10" = "Iżżumja ’l ġewwa biex tesplora l-isolines";
 "downloader_loading_ios" = "Tniżżil";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Inkiseb in-numru massimu ta' waqfiet";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Ir-rotta ma setgħetx tiġi ssejvjata bħala traċċa";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Mexxi u kabbar il-mappa biex tqiegħed is-salib";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Aqleb ir-rotta";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Daħħal numru ta’ sular validu";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Sular (il-pjan terran huwa 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Innaviga";
+
+/* Track start point label. */
+"navigate_track_start" = "Bidu tat-traċċa";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Tmiem tat-traċċa";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Ma fadal l-ebda traċċa f'din id-direzzjoni. Agħżel punt ieħor.";

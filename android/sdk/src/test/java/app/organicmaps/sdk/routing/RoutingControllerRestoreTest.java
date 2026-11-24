@@ -19,6 +19,17 @@ public class RoutingControllerRestoreTest
   {
     int builds;
 
+    Controller()
+    {
+      markInitializedForTesting();
+    }
+
+    @Override
+    public boolean isFollowingTrack()
+    {
+      return false;
+    }
+
     @Override
     public MapObject getStartPoint()
     {

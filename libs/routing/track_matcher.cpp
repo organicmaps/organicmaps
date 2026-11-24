@@ -61,9 +61,10 @@ bool TrackMatcher::Update(FollowedPolyline & poly, location::GpsInfo const & inf
   ASSERT(AlmostEqualAbs(poly.GetSegDistanceMeters().front(), entryDistanceM, 1e-3), (entryDistanceM));
 
   ASSERT_LESS_OR_EQUAL(info.m_horizontalAccuracy, settings.m_matchingThresholdM, ());
-  m2::RectD const rect = mercator::MetersToXY(info.m_longitude, info.m_latitude, settings.m_matchingThresholdM);
+  auto const lon = mercator::NearestWrapX(info.m_longitude, poly.GetCurrentIter().m_pt.x);
+  m2::RectD const rect = mercator::MetersToXY(lon, info.m_latitude, settings.m_matchingThresholdM);
   double const tolerance = std::max(kTrackProgressToleranceM, info.m_horizontalAccuracy);
-  auto const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  auto const position = mercator::FromLatLon(info.m_latitude, lon);
   double const currentDistance = poly.GetDistanceFromStartMeters();
   bool matched = false;
   // Outside the entry corridor, prefer the approach over nearby later laps.
@@ -90,7 +91,7 @@ bool TrackMatcher::Update(FollowedPolyline & poly, location::GpsInfo const & inf
          .m_isFirstFix = !m_lastFix});
   }
   if (!matched)
-    matched = TryRejoin(poly, info, rect, entryDistanceM);
+    matched = TryRejoin(poly, info, position, rect, entryDistanceM);
   if (matched)
   {
     m_joined = m_joined || poly.GetDistanceFromStartMeters() >= entryDistanceM - tolerance;
@@ -100,10 +101,9 @@ bool TrackMatcher::Update(FollowedPolyline & poly, location::GpsInfo const & inf
   return matched;
 }
 
-bool TrackMatcher::TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, m2::RectD const & rect,
-                             double entryDistanceM)
+bool TrackMatcher::TryRejoin(FollowedPolyline & poly, location::GpsInfo const & info, m2::PointD const & position,
+                             m2::RectD const & rect, double entryDistanceM)
 {
-  auto const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
   Fix const fix{position, info.m_timestamp};
   if (!m_rejoin)
   {

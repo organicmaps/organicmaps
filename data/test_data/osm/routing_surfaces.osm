@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1" lat="1" lon="1" />
+  <node id="2" lat="1" lon="1.1" />
+  <node id="3" lat="1" lon="1.11" />
+  <node id="4" lat="1" lon="1.5" />
+  <node id="5" lat="1.02" lon="1.1" />
+  <node id="6" lat="1.02" lon="1.11" />
+  <node id="40" lat="2" lon="1" />
+  <node id="41" lat="2" lon="1.05" />
+  <node id="42" lat="2" lon="1.06" />
+  <node id="43" lat="2" lon="1.1" />
+  <node id="50" lat="3" lon="1" />
+  <node id="51" lat="3" lon="1.01" />
+  <node id="52" lat="3" lon="1.02" />
+  <node id="53" lat="3" lon="1.03" />
+  <node id="54" lat="3" lon="1.04" />
+  <node id="55" lat="3" lon="1.05" />
+  <node id="56" lat="3" lon="1.06" />
+  <node id="57" lat="3" lon="1.07" />
+  <node id="58" lat="3" lon="1.08" />
+  <node id="59" lat="3" lon="1.09" />
+  <node id="60" lat="3" lon="1.1" />
+  <way id="10">
+    <nd ref="1" /><nd ref="2" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Approach" />
+  </way>
+  <way id="11">
+    <nd ref="2" /><nd ref="3" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="gravel" />
+    <tag k="segregated" v="yes" />
+    <tag k="name" v="Unpaved cycleway" />
+  </way>
+  <way id="12">
+    <nd ref="3" /><nd ref="4" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Paved road" />
+  </way>
+  <way id="13">
+    <nd ref="2" /><nd ref="5" /><nd ref="6" /><nd ref="3" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Paved detour" />
+  </way>
+  <way id="40">
+    <nd ref="40" /><nd ref="41" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Required approach" />
+  </way>
+  <way id="41">
+    <nd ref="41" /><nd ref="42" />
+    <tag k="highway" v="residential" /><tag k="surface" v="gravel" />
+    <tag k="name" v="Unpaved road" />
+  </way>
+  <way id="42">
+    <nd ref="42" /><nd ref="43" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Required finish" />
+  </way>
+  <way id="50">
+    <nd ref="50" /><nd ref="51" />
+    <tag k="highway" v="track" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Paved track" />
+  </way>
+  <way id="51">
+    <nd ref="51" /><nd ref="52" />
+    <tag k="highway" v="track" /><tag k="name" v="Unknown track" />
+  </way>
+  <way id="52">
+    <nd ref="52" /><nd ref="53" />
+    <tag k="highway" v="road" /><tag k="name" v="Generic road" />
+  </way>
+  <way id="53">
+    <nd ref="53" /><nd ref="54" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="sand" />
+    <tag k="name" v="Bad unpaved cycleway" />
+  </way>
+  <way id="54">
+    <nd ref="54" /><nd ref="55" />
+    <tag k="highway" v="track" /><tag k="smoothness" v="very_bad" />
+    <tag k="name" v="Smoothness track" />
+  </way>
+  <way id="55">
+    <nd ref="55" /><nd ref="56" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
+    <tag k="name" v="Paved connection" />
+  </way>
+  <way id="56">
+    <nd ref="56" /><nd ref="57" />
+    <tag k="highway" v="track" /><tag k="tracktype" v="grade4" />
+    <tag k="name" v="Tracktype-only track" />
+  </way>
+  <way id="57">
+    <nd ref="57" /><nd ref="58" />
+    <tag k="highway" v="path" /><tag k="sac_scale" v="mountain_hiking" />
+    <tag k="bicycle" v="yes" /><tag k="name" v="Trail without surface" />
+  </way>
+  <way id="58">
+    <nd ref="58" /><nd ref="59" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="compacted" />
+    <tag k="name" v="Compacted cycleway" />
+  </way>
+  <way id="59">
+    <nd ref="59" /><nd ref="60" />
+    <tag k="highway" v="track" /><tag k="surface" v="asphalt" />
+    <tag k="smoothness" v="bad" /><tag k="name" v="Rough paved track" />
+  </way>
+</osm>

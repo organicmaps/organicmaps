@@ -5,7 +5,7 @@ class ElevationProfileBuilder {
     static let minPointsToDraw = 2
   }
 
-  static func build(state: ElevationProfileState,
+  static func build(state: ElevationProfileState?,
                     delegate: ElevationProfileViewControllerDelegate?,
                     presentationStyle: ElevationProfileViewController.PresentationStyle) -> ElevationProfileViewController {
     let viewController = ElevationProfileViewController(presentationStyle: presentationStyle)
@@ -19,16 +19,10 @@ class ElevationProfileBuilder {
   static func build(trackData: PlacePageTrackData,
                     delegate: ElevationProfileViewControllerDelegate?,
                     presentationStyle: ElevationProfileViewController.PresentationStyle) -> ElevationProfileViewController? {
-    guard let state = makeTrackState(trackData: trackData) else {
+    guard let data = makeTrackDisplayData(trackData: trackData) else {
       return nil
     }
-    return build(state: state, delegate: delegate, presentationStyle: presentationStyle)
-  }
-
-  static func build(trackRecordingData trackData: PlacePageTrackData,
-                    delegate: ElevationProfileViewControllerDelegate?,
-                    presentationStyle: ElevationProfileViewController.PresentationStyle) -> ElevationProfileViewController {
-    build(state: makeTrackRecordingState(trackData: trackData), delegate: delegate, presentationStyle: presentationStyle)
+    return build(state: .track(data), delegate: delegate, presentationStyle: presentationStyle)
   }
 
   static func makeRoutePreviewState(routeElevationPreviewData: RouteElevationPreviewData,
@@ -43,26 +37,19 @@ class ElevationProfileBuilder {
     return .routePreview(data)
   }
 
-  static func makeTrackRecordingState(trackData: PlacePageTrackData) -> ElevationProfileState {
-    let chartData = makeChartData(elevationProfileData: trackData.elevationProfileData)
-      ?? makePlaceholderChartData(elevationProfileData: trackData.elevationProfileData)
-    let data = ElevationProfileDisplayData(trackInfo: trackData.trackInfo,
-                                           chartData: chartData,
-                                           activePointDistance: trackData.activePointDistance,
-                                           myPositionDistance: trackData.myPositionDistance)
-    return .trackRecording(data)
+  static func makeTrackRecordingState(trackData: PlacePageTrackData) -> ElevationProfileState? {
+    makeTrackDisplayData(trackData: trackData).map(ElevationProfileState.trackRecording)
   }
 
-  private static func makeTrackState(trackData: PlacePageTrackData) -> ElevationProfileState? {
+  private static func makeTrackDisplayData(trackData: PlacePageTrackData) -> ElevationProfileDisplayData? {
     guard trackData.trackInfo.hasElevationInfo,
           let chartData = makeChartData(elevationProfileData: trackData.elevationProfileData) else {
       return nil
     }
-    let data = ElevationProfileDisplayData(trackInfo: trackData.trackInfo,
-                                           chartData: chartData,
-                                           activePointDistance: trackData.activePointDistance,
-                                           myPositionDistance: trackData.myPositionDistance)
-    return .track(data)
+    return ElevationProfileDisplayData(trackInfo: trackData.trackInfo,
+                                       chartData: chartData,
+                                       activePointDistance: trackData.activePointDistance,
+                                       myPositionDistance: trackData.myPositionDistance)
   }
 
   private static func makeChartData(elevationProfileData: ElevationProfileData?) -> ElevationProfileChartData? {
@@ -74,17 +61,5 @@ class ElevationProfileBuilder {
       return nil
     }
     return chartData
-  }
-
-  private static func makePlaceholderChartData(elevationProfileData: ElevationProfileData?) -> ElevationProfileChartData {
-    let altitude = elevationProfileData?.points.first?.altitude ?? currentAltitude ?? 0
-    return .placeholder(altitude: altitude)
-  }
-
-  private static var currentAltitude: Double? {
-    guard let location = LocationManager.lastLocation(), location.verticalAccuracy >= 0 else {
-      return nil
-    }
-    return location.altitude
   }
 }

@@ -17,6 +17,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,8 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
+import app.organicmaps.sdk.routing.FollowTrackResult;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -165,6 +168,13 @@ final class RoutingBottomMenuController
       {
         Framework.nativeRouteRemoveElevationActivePoint();
       }
+
+      @Override
+      public void onElevationSelectionFinished(double distanceMeters)
+      {
+        if (RoutingController.get().isFollowingTrack())
+          updateFollowedTrackEntry(distanceMeters);
+      }
     });
     mTime = time;
     mAltitudeDifference = altitudeDifference;
@@ -243,7 +253,9 @@ final class RoutingBottomMenuController
   {
     UiUtils.hide(mError, mAltitudeChart, mTimeElevationLine);
 
-    if (!RoutingController.get().isVehicleRouterType() && !RoutingController.get().isRulerRouterType())
+    final RoutingController controller = RoutingController.get();
+    // A followed track keeps its altitudes with every profile.
+    if (controller.isFollowingTrack() || (!controller.isVehicleRouterType() && !controller.isRulerRouterType()))
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
@@ -253,9 +265,13 @@ final class RoutingBottomMenuController
 
   void updateSaveButton()
   {
+    // A followed track is already a saved track: don't offer saving it as another one (the core
+    // guards SaveRoute anyway).
+    UiUtils.showIf(!RoutingController.get().isFollowingTrack(), mSaveButton);
     setSaveButtonEnabled(RoutingController.get().isBuilt() && !RoutingController.get().isRouteSaved());
   }
 
+  // Keeps the enabled flag and the dimming in sync so a saved (disabled) button is always restored on rebuild.
   private void setSaveButtonEnabled(boolean enabled)
   {
     mSaveButton.setEnabled(enabled);
@@ -419,6 +435,8 @@ final class RoutingBottomMenuController
       UiUtils.hide(mAltitudeChart, mTimeElevationLine);
       return;
     }
+    // Every pick on a track chart rebuilds the route, which resets the zoom, so a track preview offers none.
+    mRouteElevationChartController.setZoomEnabled(!RoutingController.get().isFollowingTrack());
     mRouteElevationChartController.setData(data);
     final int formatResId =
         StringUtils.isRtl() ? R.string.route_ascent_descent_format_rtl : R.string.route_ascent_descent_format_ltr;
@@ -426,6 +444,37 @@ final class RoutingBottomMenuController
     final String descent = Framework.nativeFormatAltitude(data.getTotalDescent());
     mAltitudeDifference.setText(mContext.getString(formatResId, ascent, descent));
     UiUtils.show(mAltitudeDifference, mAltitudeChart);
+    restoreElevationActivePoint();
+  }
+
+  // A track preview selects the point the track is entered at. A closing place page deselects the map marker, so it is
+  // set again whenever the panel is shown.
+  void restoreElevationActivePoint()
+  {
+    if (!UiUtils.isVisible(mAltitudeChart))
+      return;
+    final FollowedTrackInfo track = RoutingController.get().getFollowedTrackInfo();
+    final double distance;
+    if (track != null && !mRouteElevationChartController.isUserSelecting())
+    {
+      // Keep the exact entry for the map because the chart highlight uses a float.
+      distance = track.getEntryDistanceMeters();
+      mRouteElevationChartController.select(distance);
+    }
+    else
+      distance = mRouteElevationChartController.getSelectedDistance();
+    if (!Double.isNaN(distance))
+      Framework.nativeRouteSetElevationActivePoint(distance);
+  }
+
+  private void updateFollowedTrackEntry(double distanceMeters)
+  {
+    final FollowTrackResult result = RoutingController.get().updateFollowedTrackEntryAt(distanceMeters);
+    if (result == FollowTrackResult.Ok)
+      return;
+    Utils.showFollowTrackError(mContext, result);
+    // A rejected point keeps the preview's entry: move the marker back onto it.
+    restoreElevationActivePoint();
   }
 
   private void showRoutingDetails()
@@ -438,7 +487,9 @@ final class RoutingBottomMenuController
     }
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
-    if (RoutingController.get().isVehicleRouterType())
+    // The elevation line carries the time next to the chart's ascent/descent; a route without elevation data, such as
+    // a car route, uses the standalone line.
+    if (!UiUtils.isVisible(mAltitudeChart))
     {
       hideAltitudeChartAndRoutingDetails();
       UiUtils.show(mTimeVehicle);
@@ -524,7 +575,11 @@ final class RoutingBottomMenuController
     // Clear elevation preview marker before saving.
     mRouteElevationChartController.clearSelection();
     Framework.nativeRouteRemoveElevationActivePoint();
-    Framework.nativeSaveRoute();
+    if (!Framework.nativeSaveRoute())
+    {
+      Toast.makeText(mContext, R.string.routing_save_route_error, Toast.LENGTH_SHORT).show();
+      return;
+    }
     RoutingController.get().setRouteSaved();
     setSaveButtonEnabled(false);
   }

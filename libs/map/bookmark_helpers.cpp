@@ -4,6 +4,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_common.hpp"
 #include "kml/serdes_geojson.hpp"
 #include "kml/serdes_gpx.hpp"
 
@@ -213,94 +214,6 @@ constexpr auto kFeatureTypeToBookmarkMatchInfo = []() consteval
   std::ranges::sort(arr, {}, &FeatureMatchPair::first);
   return arr;
 }();
-
-void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
-{
-  if (!data)
-    return;
-
-  for (auto & t : data->m_tracksData)
-    if (t.m_layers.empty())
-      t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
-}
-
-/// @todo(KK): This code is a temporary solution for the filtering the duplicated points in KMLs.
-/// When the deserealizer reads the data from the KML that uses <gx:Track>
-/// as a first step will be parsed the list of the timestamps <when> and than the list of the coordinates <gx:coord>.
-/// So the filtering can be done only when all the data is parsed.
-void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
-{
-  for (auto & trackData : data->m_tracksData)
-  {
-    auto const & geometry = trackData.m_geometry;
-    kml::MultiGeometry validGeometry;
-
-    for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
-    {
-      auto const & line = geometry.m_lines[lineIndex];
-      auto const & timestamps = geometry.m_timestamps[lineIndex];
-
-      if (line.empty())
-      {
-        LOG(LWARNING, ("Empty line in track:", trackData.m_name[kml::kDefaultLang]));
-        continue;
-      }
-
-      bool const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
-      if (hasTimestamps && timestamps.size() != line.size())
-        MYTHROW(kml::DeserializerKml::DeserializeException,
-                ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
-
-      validGeometry.m_lines.emplace_back();
-      validGeometry.m_timestamps.emplace_back();
-
-      auto & validLine = validGeometry.m_lines.back();
-      validLine.reserve(line.size());
-      auto & validTimestamps = validGeometry.m_timestamps.back();
-      validTimestamps.reserve(timestamps.size());
-
-      /// @todo Can rewrite with unique loop analog to filter existing geometry and avoid new vectors allocation.
-      for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
-      {
-        auto const & currPoint = line[pointIndex];
-
-        // We don't expect vertical surfaces, so do not compare heights here.
-        // Will get a lot of duplicating points otherwise after import some user KMLs.
-        // https://github.com/organicmaps/organicmaps/issues/3895
-        if (validLine.empty() || !AlmostEqualAbs(validLine.back().GetPoint(), currPoint.GetPoint(), kMwmPointAccuracy))
-        {
-          validLine.push_back(currPoint);
-          if (hasTimestamps)
-            validTimestamps.push_back(timestamps[pointIndex]);
-        }
-      }
-
-      if (validLine.size() < 2)
-      {
-        validGeometry.m_lines.pop_back();
-        validGeometry.m_timestamps.pop_back();
-        LOG(LWARNING, ("Degenerated line in track:", trackData.m_name[kml::kDefaultLang]));
-      }
-    }
-
-    trackData.m_geometry = std::move(validGeometry);
-  }
-
-  std::set<kml::LocalId> removedIds;
-  base::EraseIf(data->m_tracksData, [&removedIds](kml::TrackData const & td)
-  {
-    if (!td.m_geometry.IsValid())
-    {
-      removedIds.insert(td.m_localId);
-      return true;
-    }
-    return false;
-  });
-
-  if (!removedIds.empty())
-    for (auto & bm : data->m_bookmarksData)
-      base::EraseIf(bm.m_boundTracks, [&removedIds](kml::LocalId id) { return removedIds.contains(id); });
-}
 
 bool IsBadCharForPath(strings::UniChar c)
 {
@@ -601,8 +514,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileT
     {
       CHECK(false, ("Not supported FileType"));
     }
-    ValidateKmlData(data);
-    RemoveDuplicatedTrackPoints(data);
+    kml::NormalizeImportedTracks(*data);
   }
   catch (Reader::Exception const & e)
   {

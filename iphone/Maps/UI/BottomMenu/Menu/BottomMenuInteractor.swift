@@ -40,7 +40,7 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     guard let controlsManager = controlsManager else {
       fatalError()
     }
-    controlsManager.menuState = controlsManager.menuRestoreState
+    controlsManager.menuState = controlsManager.closedMenuState
   }
 
   func addPlace() {
@@ -65,13 +65,27 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func startDownloadingMapForCountry(_ countryId: String) {
     let mapNodeAttributes = mapsStorage.attributes(forCountry: countryId)
-    switch mapNodeAttributes.nodeStatus {
+    // Terrain does not affect map editing eligibility.
+    switch mapNodeAttributes.mapStatus {
+    case .onDisk:
+      // The map may have finished updating while the confirmation was open.
+      if MWMNavigationDashboardManager.shared().state == .closed,
+         mapsStorage.countryForViewportCenter() == countryId {
+        addPlace()
+      } else {
+        close()
+      }
+      return
     case .downloading, .inQueue, .applying:
       break
-    case .notDownloaded, .partly, .onDiskOutOfDate, .error:
+    case .onDiskOutOfDate:
+      mapsStorage.updateNode(countryId)
+    case .error:
+      mapsStorage.retryDownloadNode(withAlerts: countryId)
+    case .notDownloaded, .partly:
       mapsStorage.downloadNode(countryId)
-    case .undefined, .onDisk:
-      fatalError("Download button shouldn't be displayed when node is in these states")
+    case .undefined:
+      fatalError("Download button shouldn't be displayed for an undefined map status")
     @unknown default:
       fatalError()
     }

@@ -162,14 +162,16 @@ RouteGeometry AssembleRouteGeometry(TrackFollowingData const & data, Checkpoints
   auto const & trackPoints = data.m_points;
   size_t const numSubroutes = checkpoints.GetNumSubroutes();
 
-  m2::PointD const & startPoint = checkpoints.GetPointFrom();
   auto const & entryPoint = trackPoints.front();
+  // The entry fixes the world copy for the route even when a new GPS fix moves the approach.
+  auto const startPoint = mercator::NearestWorldCopy(checkpoints.GetPointFrom(), entryPoint.GetPoint().x);
   RouteGeometry geom;
   auto & junctions = geom.m_junctions;
   size_t const maxJunctions = trackPoints.size() + numSubroutes + 1;
   junctions.reserve(maxJunctions);
   geom.m_distM.reserve(maxJunctions);
 
+  // Use the entry point's height for the straight approach, including a missing height.
   junctions.emplace_back(startPoint, entryPoint.GetAltitude());
   geom.m_distM.push_back(0.0);
   // Even an empty approach makes the entry altitude a segment endpoint.
@@ -179,12 +181,12 @@ RouteGeometry AssembleRouteGeometry(TrackFollowingData const & data, Checkpoints
   // Keep differing elevation samples even when their horizontal positions coincide.
   auto const appendJunction = [&](geometry::PointWithAltitude const & point)
   {
-    if (!junctions.back().GetPoint().EqualDxDy(point.GetPoint(), mercator::kPointEqualityEps) ||
+    auto const pos = mercator::NearestWorldCopy(point.GetPoint(), junctions.back().GetPoint().x);
+    if (!junctions.back().GetPoint().EqualDxDy(pos, mercator::kPointEqualityEps) ||
         junctions.back().GetAltitude() != point.GetAltitude())
     {
-      double const distM =
-          geom.m_distM.back() + mercator::DistanceOnEarth(junctions.back().GetPoint(), point.GetPoint());
-      junctions.push_back(point);
+      double const distM = geom.m_distM.back() + mercator::DistanceOnEarth(junctions.back().GetPoint(), pos);
+      junctions.emplace_back(pos, point.GetAltitude());
       geom.m_distM.push_back(distM);
     }
   };

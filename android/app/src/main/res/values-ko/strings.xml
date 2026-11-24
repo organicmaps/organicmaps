@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">이메일 또는 사용자 이름</string>
     <string name="editor_add_phone">전화 추가</string>
-    <string name="level">층</string>
     <!-- Building level -->
     <string name="level_value_generic">레벨: %s</string>
     <string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
@@ -653,6 +652,10 @@
     <string name="avoid_unpaved">비포장 도로 피하기</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">여객선 횡단길 피하기</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">어려운 등산로 피하기</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">계단 피하기</string>
     <string name="avoid_motorways">고속도로 피하기</string>
     <string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
     <string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
@@ -699,6 +702,8 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">경로 계획 실패</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">지금 닫힘</string>
     <string name="opens_tomorrow_at">내일 %s에 오픈</string>
@@ -911,6 +916,8 @@
     <string name="change_stop_along_route">경유지 변경</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">경유지 최대 개수에 도달했습니다</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">경로를 트랙으로 저장할 수 없습니다</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -933,4 +940,16 @@
     <string name="transit_type_train">기차</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">트램</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">유효한 층 번호를 입력하십시오</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">층 (1층은 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">길 안내</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">트랙 시작점</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">트랙 도착점</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">이 방향으로는 남은 트랙이 없습니다. 다른 지점을 선택하세요.</string>
 </resources>

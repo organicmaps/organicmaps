@@ -62,12 +62,20 @@ extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
 
 private extension TrackRecordingLiveActivityAttributes.ContentState {
   init(trackInfo: TrackInfo) {
-    distance = StatisticsViewModel(key: "", value: trackInfo.distance)
-    duration = StatisticsViewModel(key: "", value: trackInfo.duration)
-    maxElevation = StatisticsViewModel(key: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation)
-    minElevation = StatisticsViewModel(key: L("elevation_profile_min_elevation"), value: trackInfo.minElevation)
-    ascent = StatisticsViewModel(key: L("elevation_profile_ascent"), value: trackInfo.ascent)
-    descent = StatisticsViewModel(key: L("elevation_profile_descent"), value: trackInfo.descent)
+    let elevation: ElevationStats?
+    if trackInfo.hasElevationInfo {
+      elevation = ElevationStats(
+        ascent: .init(key: L("elevation_profile_ascent"), value: trackInfo.ascent),
+        descent: .init(key: L("elevation_profile_descent"), value: trackInfo.descent),
+        maxElevation: .init(key: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation),
+        minElevation: .init(key: L("elevation_profile_min_elevation"), value: trackInfo.minElevation)
+      )
+    } else {
+      elevation = nil
+    }
+    self.init(duration: .init(key: "", value: trackInfo.duration),
+              distance: .init(key: "", value: trackInfo.distance),
+              elevation: elevation)
   }
 }
 

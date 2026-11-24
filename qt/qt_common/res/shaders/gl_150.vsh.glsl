@@ -1,11 +1,9 @@
 #version 150 core
 
-in vec4 a_position;
-uniform vec2 u_samplerSize;
 out vec2 v_texCoord;
 
 void main()
 {
-    v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y);
-    gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);
+    v_texCoord = vec2(gl_VertexID % 2, 1 - gl_VertexID / 2);
+    gl_Position = vec4(v_texCoord * 2.0 - 1.0, 0.0, 1.0);
 }

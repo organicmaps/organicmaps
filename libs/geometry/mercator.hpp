@@ -75,6 +75,31 @@ inline double NearestWrapX(double x, double refX)
   return refX + std::remainder(dx, 360.0);
 }
 
+inline m2::PointD NearestWorldCopy(m2::PointD const & point, double refX)
+{
+  return {NearestWrapX(point.x, refX), point.y};
+}
+
+/// Project onto the short segment across the antimeridian, in the world copy nearest its midpoint.
+inline double SegmentProjectionFraction(m2::PointD const & from, m2::PointD const & to, m2::PointD const & point)
+{
+  auto const direction = NearestWorldCopy(to, from.x) - from;
+  auto const squaredLength = direction.SquaredLength();
+  if (squaredLength == 0.0)
+    return 0.0;
+  auto const offset = NearestWorldCopy(point, from.x + 0.5 * direction.x) - from;
+  return math::Clamp(m2::DotProduct(offset, direction) / squaredLength, 0.0, 1.0);
+}
+
+inline m2::PointD Interpolate(m2::PointD const & from, m2::PointD const & to, double fraction)
+{
+  if (fraction == 0.0)
+    return from;
+  if (fraction == 1.0)
+    return to;
+  return NearestWorldCopy(from + (NearestWorldCopy(to, from.x) - from) * fraction, 0.0);
+}
+
 /// Shifts the rect by whole world widths so that its center is within [-180, 180).
 /// The result may still cross the antimeridian.
 inline m2::RectD WrapRectX(m2::RectD rect)

@@ -62,6 +62,29 @@ vector<vector<Segment>> const GetSegments()
   return {segmentsAllReal, segmentsFakeHeadAndTail, segmentsAllFake};
 }
 
+UNIT_TEST(RouteAltitudeProfileIncludesFirstNonemptySubrouteStart)
+{
+  geometry::PointWithAltitude const finish({19.001, 0}, 110);
+  geometry::PointWithAltitude const passed({18.999, 0}, geometry::kInvalidAltitude);
+  Route route;
+  m2::PointD const points[] = {{19, 0}, finish.GetPoint()};
+  route.SetGeometry(std::begin(points), std::end(points));
+  vector<RouteSegment> segments;
+  segments.emplace_back(Segment(), turns::TurnItem(), finish, RouteSegment::RoadNameInfo{});
+  route.SetRouteSegments(std::move(segments));
+
+  for (auto const altitude : {geometry::kInvalidAltitude, geometry::Altitude{0}})
+  {
+    geometry::PointWithAltitude const start({19, 0}, altitude);
+    route.SetSubroutes(vector<Route::SubrouteAttrs>{{passed, start, 0, 0}, {start, finish, 0, 1}}, 1);
+    TEST(route.IsValid(), ());
+    TEST_EQUAL(route.HaveAltitudes(), altitude == 0, ());
+    geometry::Altitudes altitudes;
+    route.GetAltitudes(altitudes);
+    TEST_EQUAL(altitudes, (geometry::Altitudes{altitude, 110}), ());
+  }
+}
+
 UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
 {
   for (auto const vehicleType : {VehicleType::Car, VehicleType::Bicycle, VehicleType::Pedestrian, VehicleType::Transit})

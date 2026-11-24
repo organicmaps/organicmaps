@@ -7,6 +7,7 @@
 #include "routing/routing_callbacks.hpp"
 
 #include "kml/serdes.hpp"
+#include "kml/serdes_common.hpp"
 #include "kml/type_utils.hpp"
 #include "kml/types.hpp"
 
@@ -38,13 +39,9 @@ vector<geometry::PointWithAltitude> GetTrackPoints(std::vector<m2::PointD> const
   for (size_t i = 0; i < size;)
   {
     size_t j = i + 1;
-    size_t consecutiveNumber = 1;
     /// Check number of consecutive junctions with the same point.
     while (j < size && routePoints[j] == routePoints[i])
-    {
       ++j;
-      ++consecutiveNumber;
-    }
 
     ///             S3  S4
     ///             ⥀  ⥀
@@ -55,9 +52,8 @@ vector<geometry::PointWithAltitude> GetTrackPoints(std::vector<m2::PointD> const
     ///             |   *
     /// —— S1 ——> *      —— S6 ——> *
 
-    /// If there is 3 or more consecutive point than it's an intermediate point
-    /// which is the start and the end of the subroute simultaneously.
-    if (consecutiveNumber >= 3)
+    /// A run of three or more points before the finish is an intermediate checkpoint.
+    if (j < size && j - i >= 3)
     {
       /// —— S1 ——> *
       ///           |
@@ -75,7 +71,7 @@ vector<geometry::PointWithAltitude> GetTrackPoints(std::vector<m2::PointD> const
     }
     else
     {
-      result.emplace_back(routePoints[i], geometry::kDefaultAltitudeMeters);
+      result.emplace_back(routePoints[i], geometry::kInvalidAltitude);
     }
 
     i = j;
@@ -127,8 +123,10 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
     numberOfTracks += data.m_tracksData.size();
     for (auto & track : data.m_tracksData)
     {
-      for (auto & line : track.m_geometry.m_lines)
+      auto & geometry = track.m_geometry;
+      for (size_t i = 0; i < geometry.m_lines.size(); ++i)
       {
+        auto & line = geometry.m_lines[i];
         std::vector<m2::PointD> waypoints;
         waypoints.reserve(line.size());
         for (auto const & pt : line)
@@ -145,11 +143,14 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
         }
 
         line = GetTrackPoints(result.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints());
+        // Capture times belong to the original positions.
+        geometry.m_timestamps[i].clear();
       }
     }
 
     try
     {
+      kml::NormalizeImportedTracks(data);
       kml::SerializerKml ser(data);
       FileWriter sink(base::JoinPath(outputDir, file));
       ser.Serialize(sink);

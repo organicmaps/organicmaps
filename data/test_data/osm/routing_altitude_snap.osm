@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1" lat="2" lon="1" />
+  <node id="2" lat="2" lon="1.04" />
+  <node id="3" lat="2" lon="1.08" />
+  <node id="4" lat="2" lon="1.1" />
+  <node id="5" lat="2.0001" lon="1" />
+  <node id="6" lat="2.0001" lon="1.04" />
+  <way id="10">
+    <nd ref="1" /><nd ref="2" /><nd ref="3" /><nd ref="4" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" /><tag k="name" v="Surveyed road" />
+  </way>
+  <way id="11">
+    <nd ref="5" /><nd ref="6" /><nd ref="2" />
+    <tag k="highway" v="residential" /><tag k="surface" v="asphalt" /><tag k="name" v="Side road" />
+  </way>
+</osm>

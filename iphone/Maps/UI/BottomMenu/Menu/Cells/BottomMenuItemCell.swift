@@ -16,6 +16,11 @@ final class BottomMenuItemCell: UITableViewCell {
                  imageStyle: GlobalStyleSheet = .black,
                  enabled: Bool = true) {
     isEnabled = enabled
+    if enabled {
+      accessibilityTraits.remove(.notEnabled)
+    } else {
+      accessibilityTraits.insert(.notEnabled)
+    }
     icon.setStyleAndApply(enabled ? imageStyle : .gray)
     icon.image = image
     label.text = title

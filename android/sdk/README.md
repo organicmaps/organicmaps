@@ -58,21 +58,23 @@ providers. Wear bridge modules are not part of this publication set.
 
 Loading the `OrganicMaps` class loads the native library. Create one instance in
 your `Application` to configure application-private settings. Call `init()` on
-the main thread to create the framework and load maps asynchronously.
+the main thread to create the framework and load maps asynchronously. Repeated
+calls share the same map load. `arePlatformAndCoreInitialized()` reports the
+initial platform and framework setup. The SDK publishes readiness after maps load.
 
-The first successful `init(callback)` call returns `true`. The callback runs on
-the main thread after maps, search, editor state, and routing initialization are
-ready. Later calls return `false` without invoking their callbacks, including
-while the first load is pending. `arePlatformAndCoreInitialized()` also does not
-mean map loading has completed.
+`sdk.getMapsReadiness()` tracks map registration, search, editor and routing setup.
+Query it with `isReady()` or register a one-shot task with `runWhenReady(task)`.
+Tasks run on the main thread once maps are loaded, immediately if already ready.
+Cancel pending tasks with `cancel(task)` when the activity or car session stops,
+and register them again when it returns, including after recreation.
 
-Keep readiness in the application, for example in a `LiveData<Boolean>`, and let
-activities observe it with their own lifecycle. Register the original completion
-callback against that process-owned state rather than an activity. Handle
-`IOException` from `init()` by displaying an initialization error and avoiding
-native API calls. The constructor throws `AssertionError` if its private settings
-directory cannot be created. Keeping readiness in the application also handles
-rotation during the first map load.
+Preparing, editing, building or restoring a route before readiness is a contract error:
+`RoutingController` throws before changing routing state, and native route building
+also requires readiness. `Router.set()` can save a profile preference while maps load.
+Until readiness, read it with `Router.getLastUsed()`: `Router.get()` requires initialized routing.
+Handle `IOException` from `init()` by displaying an initialization error and avoiding
+native API calls; readiness stays false after this failure. The constructor throws
+`AssertionError` if its private settings directory cannot be created.
 
 After readiness is reported, inflate a `MapView`, construct a `MapController`
 before attaching the view to a window, and register the controller:
@@ -158,14 +160,22 @@ build can return region IDs that must be downloaded before rebuilding. World
 overview maps alone do not contain the road graph for detailed routing.
 
 Enable the start action only after a successful build in planning mode. Starting
-navigation requires a usable current position and location updates. Stop or
-cancel through the controller. Detaching the UI alone does not cancel navigation.
+navigation requires a created map engine (`Map.isEngineCreated()`), a usable current
+position and location updates. Stop or cancel through the controller. Detaching the
+UI alone does not cancel navigation.
 Call `onSaveState(container)` when the host saves its UI, `restore()` after
 reattaching the active host, and `detach(container)` when that host stops. Only the
 currently attached container can save or detach its UI, so late callbacks from a
 previous host do not affect its replacement. Route state survives activity
 recreation; the host still owns its controls, listener cleanup, and any background
 service.
+
+To navigate a saved track, select a point on it and call
+`RoutingController.navigateTrack(trackId)`: it previews the connected section from
+that point without downloaded road maps. Adjust the preview with
+`setFollowTrackProfile(router)` and `updateFollowedTrackEntryAt(distanceMeters)`, then
+call `start()` after the build succeeds. Navigation can begin after the host stops;
+see `Container.onNavigationStartPending()`. Deleting the source track ends its route.
 
 ## Release consumers
 

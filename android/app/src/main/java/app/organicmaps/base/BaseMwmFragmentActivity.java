@@ -29,18 +29,20 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   private boolean mSafeCreated;
 
   /**
-   * Shows splash screen and initializes the core in case when it was not initialized.
-   * <p>
-   * Do not override this method!
-   * Use {@link #onSafeCreate(Bundle savedInstanceState)}
+   * Restores fragments when the SDK is ready for this screen. A redirect through {@link SplashActivity}
+   * starts a fresh activity. Override {@link #onSafeCreate(Bundle)} for screen setup.
    */
   @CallSuper
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     EdgeToEdge.enable(this, getStatusBarStyle());
-    super.onCreate(savedInstanceState);
-    if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
+    final MwmApplication app = MwmApplication.from(this);
+    final boolean ready =
+        requiresMapsReady() ? app.getMapsReadiness().isReady() : app.getOrganicMaps().arePlatformAndCoreInitialized();
+    // super.onCreate() restores fragments from the saved state, which must not happen before the redirect.
+    super.onCreate(ready ? savedInstanceState : null);
+    if (!ready)
     {
       final Intent intent = Objects.requireNonNull(getIntent());
       prepareIntentForCoreRestart(intent, savedInstanceState);
@@ -53,10 +55,16 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     onSafeCreate(savedInstanceState);
   }
 
+  /** Setup-only screens can run while maps load; feature screens require loaded maps. */
+  protected boolean requiresMapsReady()
+  {
+    return true;
+  }
+
   /**
-   * Preserves activity-specific state when a restored activity must restart the core through
-   * {@link SplashActivity}. The new activity created after initialization does not receive this
-   * instance's saved state.
+   * Preserves activity-specific state when an activity is redirected through {@link SplashActivity}
+   * because the SDK is not ready yet. The new activity created after initialization does not receive
+   * this instance's saved state.
    * <p>
    * Staying silent means "the state of this intent is unknown", which lets {@link SplashActivity}
    * guess. Override whenever this screen's intent can carry a payload that MwmActivity acts on.
@@ -77,7 +85,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   /**
    * Use this safe method instead of {@link #onCreate(Bundle savedInstanceState)}.
-   * When this method is called, the core is already initialized.
+   * When this method is called, the SDK is ready for this screen, see {@link #requiresMapsReady()}.
    */
   @CallSuper
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)

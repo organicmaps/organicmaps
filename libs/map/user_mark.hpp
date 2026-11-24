@@ -34,6 +34,8 @@ public:
     RoadWarningFirstSteps,
     RoadWarningFirstGate,
     RoadWarningFirstLiftGate,
+    RoadWarningFirstDifficultTrail,
+    RoadWarningFirstExpertTrail,
   };
 
   enum Type : uint32_t
@@ -86,7 +88,6 @@ public:
   int GetMinZoom() const override { return 1; }
   int GetMinTitleZoom() const override { return GetMinZoom(); }
   FeatureID GetFeatureID() const override { return FeatureID(); }
-  bool HasCreationAnimation() const override { return false; }
   df::ColorConstant GetColorConstant() const override { return {}; }
   bool IsMarkAboveText() const override { return false; }
   float GetSymbolOpacity() const override { return 1.0f; }

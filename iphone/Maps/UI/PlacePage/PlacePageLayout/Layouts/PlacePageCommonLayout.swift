@@ -16,10 +16,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
   lazy var bodyViewControllers: [UIViewController] = configureViewControllers()
 
-  var actionBar: ActionBarViewController? {
-    actionBarViewController
-  }
-
   var navigationBar: UIViewController? {
     placePageNavigationViewController
   }
@@ -86,7 +82,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
   private lazy var buttonsViewController: PlacePageOSMContributionViewController = .init(data: placePageData.osmContributionData!, delegate: interactor)
 
-  private lazy var actionBarViewController: ActionBarViewController = {
+  private(set) lazy var actionBar: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     let navigationManager = MWMNavigationDashboardManager.shared()
     vc.placePageData = placePageData
@@ -94,6 +90,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.canReplaceStop = navigationManager.selectedRoutePoint != nil
     vc.shouldAppendNewPoints = navigationManager.shouldAppendNewPoints
     vc.delegate = interactor
+    vc.isTrackRouting = MWMRouter.hasTrackNavigationSession()
     return vc
   }()
 
@@ -152,11 +149,11 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       if let buttonsData = self.placePageData.osmContributionData {
         self.buttonsViewController.buttonsData = buttonsData
       }
-      self.actionBarViewController.updateMapNodeStatus()
+      self.actionBar.updateMapNodeStatus()
     }
     placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
       guard let self = self else { return }
-      self.actionBarViewController.downloadButton?.mapDownloadProgress?.progress =
+      self.actionBar.downloadButton?.mapDownloadProgress?.progress =
         CGFloat(AppConstants.maxProgress) * CGFloat(downloadedBytes) / CGFloat(totalBytes)
     }
 

@@ -10,6 +10,39 @@ protocol PlacePageViewProtocol: AnyObject {
 }
 
 final class PlacePageScrollView: UIScrollView {
+  private enum Constants {
+    /// Keeps the blur from the shadow's lower edge below the frame, even with the upward offset.
+    static let bottomShadowHeight: CGFloat = 10
+    /// Ignores sub-point leftovers of the scroll offset at the end of the content.
+    static let hiddenContentTolerance: CGFloat = 1
+  }
+
+  /// Shows that a part of the content is hidden under the action bar.
+  private let bottomShadowView = RectShadowView()
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // The view sits right below the frame, which clips the shadow to the part that falls on the content.
+    bottomShadowView.setStyle(.ppActionBarShadowView)
+    bottomShadowView.isHidden = true
+    bottomShadowView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(bottomShadowView)
+    NSLayoutConstraint.activate([
+      bottomShadowView.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
+      bottomShadowView.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor),
+      bottomShadowView.topAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
+      bottomShadowView.heightAnchor.constraint(equalToConstant: Constants.bottomShadowHeight),
+    ])
+  }
+
+  /// Runs on every scroll frame and after the content or the frame changes size.
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    let isHidden = contentSize.height - bounds.maxY <= Constants.hiddenContentTolerance
+    guard bottomShadowView.isHidden != isHidden else { return }
+    bottomShadowView.setHidden(isHidden)
+  }
+
   override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
     point.y > 0
   }
@@ -20,9 +53,16 @@ final class PlacePageScrollView: UIScrollView {
   }
 }
 
+/// With an explicit path, Core Animation draws the shadow without an offscreen pass for the layer's alpha.
+private final class RectShadowView: UIView {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+  }
+}
+
 @objc final class PlacePageViewController: UIViewController {
   private enum Constants {
-    static let actionBarHeight: CGFloat = 50
     static let additionalPreviewOffset: CGFloat = 80
     static let additionalRevealOffset: CGFloat = 12
     static let fastSwipeDownVelocity: CGFloat = -3.0
@@ -32,7 +72,6 @@ final class PlacePageScrollView: UIScrollView {
   @IBOutlet private var scrollView: PlacePageScrollView!
   @IBOutlet private var stackView: UIStackView!
   @IBOutlet private var actionBarContainerView: UIView!
-  @IBOutlet private var actionBarHeightConstraint: NSLayoutConstraint!
   @IBOutlet private var panGesture: UIPanGestureRecognizer!
 
   private let headerStackView = UIStackView()
@@ -43,7 +82,7 @@ final class PlacePageScrollView: UIScrollView {
   private var currentScrollContentOffset: CGPoint?
   private var previousScrollContentOffset: CGPoint?
   private var userDefinedStep: PlacePageState?
-  private var isNavigationBarVisible = false
+  private var isNavigationBarVisible: Bool { layout?.navigationBar?.parent === self }
   private var isFirstOpening = true
   private var isVisible: Bool = false
   private var closingAnimator: UIViewPropertyAnimator?
@@ -189,7 +228,7 @@ final class PlacePageScrollView: UIScrollView {
   private func setupLayout(_ layout: IPlacePageLayout) {
     let showSeparator = layout.sectionSpacing > 0
     stackView.spacing = layout.sectionSpacing
-    fillHeader(with: layout.headerViewControllers, showSeparator: showSeparator)
+    fillHeader(with: layout.headerViewControllers)
     fillBody(with: layout.bodyViewControllers, showSeparator: showSeparator)
 
     layout.headerViewController.didStartEditingTitle = { [weak self] isEditing in
@@ -203,45 +242,40 @@ final class PlacePageScrollView: UIScrollView {
     // Keep only an active drag: its release re-targets with the new steps.
     // isDragging alone stays true while decelerating.
     beginDragging = scrollView.isTracking && scrollView.isDragging
-    if let actionBar = layout.actionBar {
-      hideActionBar(false)
-      addActionBar(actionBar)
-    } else {
-      hideActionBar(true)
-    }
+    addActionBar(layout.actionBar)
   }
 
-  private func fillHeader(with viewControllers: [UIViewController], showSeparator: Bool = true) {
+  private func fillHeader(with viewControllers: [UIViewController]) {
     viewControllers.forEach { [self] viewController in
       if !stackView.arrangedSubviews.contains(headerStackView) {
         stackView.addArrangedSubview(headerStackView)
       }
       headerStackView.addArrangedSubview(viewController.view)
     }
-    if showSeparator {
-      headerStackView.addSeparator(.bottom)
-    }
   }
 
   private func fillBody(with viewControllers: [UIViewController], showSeparator: Bool = true) {
+    // A section draws both lines of the gap above it, the upper one outside its bounds at the top of the gap: neither
+    // the content nor the preview ends with a line at the action bar, and a hidden section takes its gap and lines.
+    let upperLineInsets = UIEdgeInsets(top: -stackView.spacing, left: 0, bottom: 0, right: 0)
     viewControllers.forEach { [self] viewController in
       addChild(viewController)
       stackView.addArrangedSubview(viewController.view)
       viewController.didMove(toParent: self)
       if showSeparator {
         viewController.view.addSeparator(.top)
-        viewController.view.addSeparator(.bottom)
+        viewController.view.addSeparator(.top, insets: upperLineInsets)
       }
     }
   }
 
   private func cleanupLayout() {
     guard let layout else { return }
-    let childViewControllers = [layout.actionBar, layout.navigationBar] + layout.headerViewControllers + layout.bodyViewControllers
+    let childViewControllers = [layout.actionBar, layout.navigationBar].compactMap { $0 } + layout.headerViewControllers + layout.bodyViewControllers
     for childViewController in childViewControllers {
-      childViewController?.willMove(toParent: nil)
-      childViewController?.view.removeFromSuperview()
-      childViewController?.removeFromParent()
+      childViewController.willMove(toParent: nil)
+      childViewController.view.removeFromSuperview()
+      childViewController.removeFromParent()
     }
     headerStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -348,10 +382,8 @@ extension PlacePageViewController: PlacePageViewProtocol {
     self.layout = layout
     setupLayout(layout)
     updatePreviewOffset()
-  }
-
-  private func hideActionBar(_ value: Bool) {
-    actionBarHeightConstraint.constant = !value ? Constants.actionBarHeight : .zero
+    // A kept offset doesn't call scrollViewDidScroll, so pin the new header here.
+    onOffsetChanged(scrollView.contentOffset.y)
   }
 
   func updatePreviewOffset() {
@@ -485,17 +517,12 @@ extension PlacePageViewController: UIScrollViewDelegate {
   }
 
   private func onOffsetChanged(_ offset: CGFloat) {
-    if offset > 0, !isNavigationBarVisible {
-      setNavigationBarVisible(true)
-    } else if offset <= 0, isNavigationBarVisible {
-      setNavigationBarVisible(false)
-    }
+    setNavigationBarVisible(offset > 0)
   }
 
   private func setNavigationBarVisible(_ visible: Bool) {
     guard visible != isNavigationBarVisible, let navigationBar = layout?.navigationBar else { return }
-    isNavigationBarVisible = visible
-    if isNavigationBarVisible {
+    if visible {
       addNavigationBar(navigationBar)
     } else {
       navigationBar.removeFromParent()

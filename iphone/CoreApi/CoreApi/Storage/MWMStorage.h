@@ -2,7 +2,6 @@
 #import <Foundation/Foundation.h>
 
 @class MWMMapNodeAttributes;
-@class MWMMapUpdateInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +39,8 @@ NS_SWIFT_NAME(Storage)
 
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (void)retryDownloadNode:(NSString *)countryId;
+/// Retries failed transfers with disk space and connection checks.
+- (BOOL)retryDownloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 - (BOOL)deleteNode:(NSString *)countryId
     ignoreUnsavedEdits:(BOOL)force
@@ -69,7 +70,6 @@ NS_SWIFT_NAME(Storage)
 - (NSString *)nameForCountry:(NSString *)countryId;
 - (nullable NSArray<NSString *> *)nearbyAvailableCountries:(CLLocationCoordinate2D)location;
 - (nullable NSString *)countryForViewportCenter;
-- (MWMMapUpdateInfo *)updateInfoWithParent:(nullable NSString *)countryId;
 
 @end
 

@@ -25,16 +25,17 @@ LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin, Lat
   auto const distBeginToEnd = ms::DistanceOnEarth(begin.GetLatLon(), end.GetLatLon());
 
   auto const projectedLatLon = mercator::ToLatLon(projectedPoint);
+  bool const hasAltitude = begin.HasAltitude() && end.HasAltitude();
 
   double constexpr kEpsMeters = 2.0;
   if (AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
-    return LatLonWithAltitude(projectedLatLon, begin.GetAltitude());
+    return LatLonWithAltitude(projectedLatLon, begin.GetAltitude(), hasAltitude);
 
   auto const distBeginToProjection = ms::DistanceOnEarth(begin.GetLatLon(), projectedLatLon);
 
   auto const altitude =
       begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) * distBeginToProjection / distBeginToEnd;
-  return LatLonWithAltitude(projectedLatLon, altitude);
+  return LatLonWithAltitude(projectedLatLon, altitude, hasAltitude);
 }
 
 bool Projection::operator==(Projection const & other) const
@@ -47,6 +48,7 @@ FakeEnding MakeFakeEnding(std::vector<Segment> const & segments, m2::PointD cons
 {
   FakeEnding ending;
   double averageAltitude = 0.0;
+  bool hasAltitude = !segments.empty();
 
   ending.m_projections.reserve(segments.size());
   for (size_t i = 0; i < segments.size(); ++i)
@@ -61,10 +63,11 @@ FakeEnding MakeFakeEnding(std::vector<Segment> const & segments, m2::PointD cons
     ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
 
     averageAltitude = (i * averageAltitude + projectedJunction.GetAltitude()) / (i + 1);
+    hasAltitude &= projectedJunction.HasAltitude();
   }
 
   ending.m_originJunction =
-      LatLonWithAltitude(mercator::ToLatLon(point), static_cast<geometry::Altitude>(averageAltitude));
+      LatLonWithAltitude(mercator::ToLatLon(point), static_cast<geometry::Altitude>(averageAltitude), hasAltitude);
   return ending;
 }
 
@@ -77,7 +80,8 @@ FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, Ind
   auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
   FakeEnding ending;
-  ending.m_originJunction = LatLonWithAltitude(mercator::ToLatLon(point), projectedJunction.GetAltitude());
+  ending.m_originJunction =
+      LatLonWithAltitude(mercator::ToLatLon(point), projectedJunction.GetAltitude(), projectedJunction.HasAltitude());
   ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
   return ending;
 }

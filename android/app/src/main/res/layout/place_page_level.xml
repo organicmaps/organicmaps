@@ -17,5 +17,5 @@
     android:id="@+id/tv__place_level"
     android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
-    tools:text="@string/level" />
+    tools:text="Floor: 2" />
 </LinearLayout>

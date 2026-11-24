@@ -547,7 +547,6 @@
 
 /* login text field */
 "email_or_username" = "E-mail adresa ili korisničko ime";
-"level" = "Kat";
 "downloader_delete_map_dialog" = "Sve vaše izmjene karte bit će izbrisane zajedno s kartom.";
 "downloader_update_maps" = "Ažuriraj karte";
 "downloader_search_field_hint" = "Pronađi kartu";
@@ -767,6 +766,12 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Izbjegni trajekte";
+
+/* Walking routing option to avoid paths mapped as difficult, expert, or hard to see. */
+"avoid_difficult_trails" = "Izbjegni zahtjevne staze";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Izbjegni stepenice";
 "avoid_motorways" = "Izbjegni autoputeve";
 "unable_to_calc_alert_title" = "Nije moguće izračunati rutu";
 "unable_to_calc_alert_subtitle" = "Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.";
@@ -963,9 +968,6 @@
 "elevation_profile_descent" = "Nizbrdo";
 "elevation_profile_min_elevation" = "Min. visina";
 "elevation_profile_max_elevation" = "Maks. visina";
-
-/* Displayed in the elevation profile chart while track recording has fewer than two points. */
-"elevation_profile_placeholder" = "Počnite se kretati za prikaz visinskog profila";
 "isolines_toast_zooms_1_10" = "Uvećaj prikaz karte za prikaz izohipsa";
 "downloader_loading_ios" = "Preuzimanje";
 
@@ -1228,8 +1230,29 @@
 /* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
 "routing_max_stops_reached" = "Postignut je maksimalni broj stajališta";
 
+/* Toast shown when saving a planned route as a bookmark track fails */
+"routing_save_route_error" = "Rutu nije bilo moguće spremiti kao stazu";
+
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Pomaknite i zumirajte kartu kako biste postavili križić";
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Obrni rutu";
+
+/* Error message in Editor when a user enters an invalid floor (level) of a place */
+"error_enter_correct_level" = "Unesite valjan broj kata";
+
+/* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
+"editor_level" = "Kat (prizemlje je 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navigacija";
+
+/* Track start point label. */
+"navigate_track_start" = "Početak staze";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Kraj staze";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "U ovom smjeru nema više staze. Odaberite drugu točku.";

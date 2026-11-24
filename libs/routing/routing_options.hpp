@@ -23,8 +23,10 @@ public:
     Ferry = 1u << 3,
     Dirty = 1u << 4,
     Steps = 1u << 5,
+    DifficultTrail = 1u << 6,  // The walking avoidance mask uses this bit for both trail grades.
+    ExpertTrail = 1u << 7,     // Last free bit in RoadType.
 
-    Max = (1u << 5) + 1
+    Max = ExpertTrail + 1
   };
 
   using RoadType = std::underlying_type_t<Road>;
@@ -54,12 +56,12 @@ private:
 class RoutingOptionsClassifier
 {
 public:
-  RoutingOptionsClassifier();
-
   std::optional<RoutingOptions::Road> Get(uint32_t type) const;
-  static RoutingOptionsClassifier const & Instance();
+  static RoutingOptionsClassifier const & Instance(VehicleType vehicleType);
 
 private:
+  explicit RoutingOptionsClassifier(bool includeDirtyRoadClasses);
+
   base::SmallMap<uint32_t, RoutingOptions::Road> m_data;
 };
 

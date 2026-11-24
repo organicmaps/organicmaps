@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/animation/arrow_animation.hpp"
 #include "drape_frontend/kinetic_scroller.hpp"
 #include "drape_frontend/navigator.hpp"
 
@@ -17,14 +18,13 @@
 #include <list>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 
 namespace df
 {
+class AnimationSystem;
 int const kDoNotChangeZoom = -1;
-double const kDoNotAutoZoom = -1.0;
-
-using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class UserEvent
 {
@@ -48,6 +48,10 @@ public:
 
   virtual ~UserEvent() = default;
   virtual EventType GetType() const = 0;
+  AnimationClock::time_point GetRequestTime() const { return m_requestedAt; }
+
+private:
+  AnimationClock::time_point const m_requestedAt = AnimationClock::now();
 };
 
 struct Touch
@@ -159,23 +163,23 @@ class SetCenterEvent : public UserEvent
 {
 public:
   SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim, bool trackVisibleViewport,
-                 TAnimationCreator const & parallelAnimCreator)
+                 std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_center(center)
     , m_zoom(zoom)
     , m_scaleFactor(0.0)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
-    , m_parallelAnimCreator(parallelAnimCreator)
+    , m_arrowTarget(arrowTarget)
   {}
 
   SetCenterEvent(double scaleFactor, m2::PointD const & center, bool isAnim, bool trackVisibleViewport,
-                 TAnimationCreator const & parallelAnimCreator)
+                 std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_center(center)
     , m_zoom(-1)
     , m_scaleFactor(scaleFactor)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
-    , m_parallelAnimCreator(parallelAnimCreator)
+    , m_arrowTarget(arrowTarget)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::SetCenter; }
@@ -185,7 +189,7 @@ public:
   double GetScaleFactor() const { return m_scaleFactor; }
   bool IsAnim() const { return m_isAnim; }
   bool TrackVisibleViewport() const { return m_trackVisibleViewport; }
-  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
+  std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
   m2::PointD m_center;   // center point in mercator
@@ -194,20 +198,20 @@ private:
                          // if scaleFactor <= 0.0, then scale will not change
   bool m_isAnim;
   bool m_trackVisibleViewport;
-  TAnimationCreator m_parallelAnimCreator;
+  std::optional<ArrowPose> m_arrowTarget;
 };
 
 class SetRectEvent : public UserEvent
 {
 public:
   SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim, bool useVisibleViewport,
-               TAnimationCreator const & parallelAnimCreator)
+               std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
     , m_useVisibleViewport(useVisibleViewport)
-    , m_parallelAnimCreator(parallelAnimCreator)
+    , m_arrowTarget(arrowTarget)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::SetRect; }
@@ -217,7 +221,7 @@ public:
   int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
   bool UseVisibleViewport() const { return m_useVisibleViewport; }
-  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
+  std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
   m2::RectD m_rect;      // destination mercator rect
@@ -225,7 +229,7 @@ private:
   int m_zoom;            // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
   bool m_useVisibleViewport;
-  TAnimationCreator m_parallelAnimCreator;
+  std::optional<ArrowPose> m_arrowTarget;
 };
 
 class SetAnyRectEvent : public UserEvent
@@ -256,30 +260,22 @@ class FollowAndRotateEvent : public UserEvent
 {
 public:
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero, double azimuth, double autoScale,
-                       TAnimationCreator const & parallelAnimCreator)
+                       std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
     , m_preferredZoomLevel(kDoNotChangeZoom)
     , m_autoScale(autoScale)
-    , m_isAutoScale(true)
-    , m_isAnim(true)
-    , m_onFinishAction(nullptr)
-    , m_parallelAnimCreator(parallelAnimCreator)
+    , m_arrowTarget(arrowTarget)
   {}
 
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero, double azimuth, int preferredZoomLevel,
-                       bool isAnim, Animation::TAction const & onFinishAction,
-                       TAnimationCreator const & parallelAnimCreator)
+                       std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
     , m_azimuth(azimuth)
     , m_preferredZoomLevel(preferredZoomLevel)
-    , m_autoScale(kDoNotAutoZoom)
-    , m_isAutoScale(false)
-    , m_isAnim(isAnim)
-    , m_onFinishAction(onFinishAction)
-    , m_parallelAnimCreator(parallelAnimCreator)
+    , m_arrowTarget(arrowTarget)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::FollowAndRotate; }
@@ -287,23 +283,17 @@ public:
   m2::PointD const & GetUserPos() const { return m_userPos; }
   m2::PointD const & GetPixelZero() const { return m_pixelZero; }
   double GetAzimuth() const { return m_azimuth; }
-  int GetPreferredZoomLelel() const { return m_preferredZoomLevel; }
-  double GetAutoScale() const { return m_autoScale; }
-  bool IsAutoScale() const { return m_isAutoScale; }
-  bool IsAnim() const { return m_isAnim; }
-  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
-  Animation::TAction const & GetOnFinishAction() const { return m_onFinishAction; }
+  int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
+  std::optional<double> GetAutoScale() const { return m_autoScale; }
+  std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
   m2::PointD m_userPos;
   m2::PointD m_pixelZero;
   double m_azimuth;
   int m_preferredZoomLevel;
-  double m_autoScale;
-  bool m_isAutoScale;
-  bool m_isAnim;
-  Animation::TAction m_onFinishAction;
-  TAnimationCreator m_parallelAnimCreator;
+  std::optional<double> m_autoScale;
+  std::optional<ArrowPose> m_arrowTarget;
 };
 
 class SetAutoPerspectiveEvent : public UserEvent
@@ -322,22 +312,22 @@ private:
 class RotateEvent : public UserEvent
 {
 public:
-  RotateEvent(double targetAzimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
+  RotateEvent(double targetAzimuth, bool isAnim, std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_targetAzimuth(targetAzimuth)
     , m_isAnim(isAnim)
-    , m_parallelAnimCreator(parallelAnimCreator)
+    , m_arrowTarget(arrowTarget)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::Rotate; }
 
   bool IsAnim() const { return m_isAnim; }
   double GetTargetAzimuth() const { return m_targetAzimuth; }
-  TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
+  std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
   double m_targetAzimuth;
   bool m_isAnim;
-  TAnimationCreator m_parallelAnimCreator;
+  std::optional<ArrowPose> m_arrowTarget;
 };
 
 class ResizeEvent : public UserEvent
@@ -415,23 +405,24 @@ public:
     virtual void CorrectGlobalScalePoint(m2::PointD & pt) const = 0;
     virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
     virtual void OnScaleEnded() = 0;
-    virtual void OnAnimatedScaleEnded() = 0;
+    virtual void OnScaleRequested() = 0;
 
     virtual void OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch) = 0;
 
+    // Return a nonzero correction in the camera target's coordinates when a selection needs to move.
     virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
                                       m2::PointD & gOffset) = 0;
   };
 
-  UserEventStream();
+  explicit UserEventStream(AnimationSystem & animationSystem);
 
   void AddEvent(drape_ptr<UserEvent> && event);
-  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, bool & activeFrame);
+  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, bool & activeFrame,
+                                   AnimationClock::time_point now);
   ScreenBase const & GetCurrentScreen() const;
   m2::RectD const & GetVisibleViewport() const;
 
-  void GetTargetScreen(ScreenBase & screen);
-  m2::AnyRectD GetTargetRect();
+  ScreenBase GetTargetScreen() const;
 
   bool IsInUserAction() const;
   bool IsWaitingForActionCompletion() const;
@@ -464,31 +455,30 @@ public:
 #endif
 
 private:
-  bool OnSetScale(ref_ptr<ScaleEvent> scaleEvent);
-  bool OnMove(ref_ptr<MoveEvent> moveEvent);
-  bool OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent);
-  bool OnSetRect(ref_ptr<SetRectEvent> rectEvent);
-  bool OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);
-  bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
-  bool OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
-  bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
+  void OnSetScale(ref_ptr<ScaleEvent> scaleEvent);
+  void OnMove(ref_ptr<MoveEvent> moveEvent);
+  void OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent);
+  void OnSetRect(ref_ptr<SetRectEvent> rectEvent);
+  void OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);
+  void OnRotate(ref_ptr<RotateEvent> rotateEvent);
+  void OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
+  void OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
-  bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
-               TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
-               TAnimationCreator const & parallelAnimCreator = nullptr);
+  void SetAngle(double azimuth, bool isAnim, std::optional<ArrowPose> const & arrowTarget = std::nullopt);
+  void SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
+               std::optional<ArrowPose> const & arrowTarget = std::nullopt);
+  void SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
+               std::optional<ArrowPose> const & arrowTarget = std::nullopt);
 
-  bool SetScreen(ScreenBase const & screen, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
-                          int preferredZoomLevel, double autoScale, bool isAnim, bool isAutoScale,
-                          Animation::TAction const & onFinishAction = nullptr,
-                          TAnimationCreator const & parallelAnimCreator = nullptr);
+  void SetScreen(ScreenBase const & screen, double duration = 0.0,
+                 std::optional<ArrowPose> const & arrowTarget = std::nullopt,
+                 MapAnimation::Type type = MapAnimation::Type::Camera, std::optional<m2::PointD> anchor = std::nullopt);
+  void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
+                          int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
+                          std::optional<ArrowPose> const & arrowTarget);
   void SetAutoPerspective(bool isAutoPerspective);
 
-  m2::AnyRectD GetCurrentRect() const;
-
-  bool ProcessTouch(TouchEvent const & touch);
+  void ProcessTouch(TouchEvent const & touch);
 
   bool TouchDown(std::array<Touch, 2> const & touches);
   bool TouchMove(std::array<Touch, 2> const & touches);
@@ -525,12 +515,7 @@ private:
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
 
-  void ApplyAnimations();
-  void ResetAnimations(Animation::Type animType, bool rewind = true, bool finishAll = false);
-  void ResetAnimations(Animation::Type animType, std::string const & customType, bool rewind = true,
-                       bool finishAll = false);
-  void ResetMapPlaneAnimations();
-  bool InterruptFollowAnimations(bool force);
+  double KeepZoomDuration(double duration, double targetScale) const;
 
   bool CheckDrag(std::array<Touch, 2> const & touches, double threshold) const;
 
@@ -560,8 +545,7 @@ private:
   std::array<Touch, 2> m_touches;
 
   AnimationSystem & m_animationSystem;
-
-  bool m_modelViewChanged = false;
+  AnimationClock::time_point m_eventTime;
 
   ref_ptr<Listener> m_listener;
 

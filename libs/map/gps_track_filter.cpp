@@ -1,7 +1,5 @@
 #include "map/gps_track_filter.hpp"
 
-#include "coding/point_coding.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
@@ -24,13 +22,6 @@ double constexpr kClosePointDistanceMeters = 10;
 double constexpr kMaxAcceptableAcceleration = 2;  // m / sec ^ 2
 
 double constexpr kCosine45degrees = 0.70710678118;
-
-// Same tolerance as the KML/GPX import, which drops such points from imported tracks.
-bool IsSamePoint(location::GpsInfo const & a, location::GpsInfo const & b)
-{
-  return AlmostEqualAbs(mercator::FromLatLon(a.m_latitude, a.m_longitude),
-                        mercator::FromLatLon(b.m_latitude, b.m_longitude), kMwmPointAccuracy);
-}
 
 m2::PointD GetDirection(location::GpsInfo const & from, location::GpsInfo const & to)
 {
@@ -57,10 +48,7 @@ void GpsTrackFilter::StoreMinHorizontalAccuracy(double value)
   settings::Set(kMinHorizontalAccuracyKey, value);
 }
 
-GpsTrackFilter::GpsTrackFilter()
-  : m_minAccuracy(kMinHorizontalAccuracyMeters)
-  , m_countLastInfo(0)
-  , m_countAcceptedInfo(0)
+GpsTrackFilter::GpsTrackFilter() : m_minAccuracy(kMinHorizontalAccuracyMeters)
 {
   settings::TryGet(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
@@ -68,7 +56,6 @@ GpsTrackFilter::GpsTrackFilter()
 void GpsTrackFilter::Reset()
 {
   m_countLastInfo = 0;
-  m_countAcceptedInfo = 0;
 }
 
 void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints)
@@ -84,18 +71,24 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
 
   for (location::GpsInfo const & currInfo : inPoints)
   {
-    // Do not accept points from the predictor
-    if (currInfo.m_source == location::EPredictor)
-      continue;
-
-    // Skip any function without speed
+    // Jump filtering needs the previous fix's speed to estimate acceleration.
     if (!currInfo.HasSpeed())
       continue;
 
-    if (m_countAcceptedInfo == 0 || (IsGoodPoint(currInfo) && (m_countLastInfo < 2 || IsGoodVector(currInfo))))
+    // A replayed fix (same time and position) must not enter the history: IsGoodVector() would take a zero
+    // direction from it and reject the next fix. Other fixes still do, also an older one, so the filter follows
+    // a backward clock correction.
+    if (m_countLastInfo > 0)
+    {
+      auto const & lastInfo = GetLastInfo();
+      if (currInfo.m_timestamp == lastInfo.m_timestamp && currInfo.GetLatLon() == lastInfo.GetLatLon())
+        continue;
+    }
+
+    if (m_countLastInfo == 0 || (IsGoodPoint(currInfo) && (m_countLastInfo < 2 || IsGoodVector(currInfo))))
     {
       outPoints.emplace_back(currInfo);
-      AddLastAcceptedInfo(currInfo);
+      m_lastAcceptedInfo = currInfo;
     }
 
     AddLastInfo(currInfo);
@@ -106,14 +99,13 @@ void GpsTrackFilter::Finalize(GpsVectorT & outPoints)
 {
   if (m_countLastInfo > 0)
   {
-    // Force append the last point, if wasn't added before. A repeated fix would only make a zero-length
-    // segment in the saved track, which the track geometry does not accept.
+    // Offer the final fix even if sampling skipped it. The collection filters duplicate positions.
     auto const & info = GetLastInfo();
     auto const & lastAccepted = GetLastAcceptedInfo();
-    if (info.m_timestamp > lastAccepted.m_timestamp && !IsSamePoint(lastAccepted, info))
+    if (info.m_timestamp > lastAccepted.m_timestamp)
     {
       outPoints.push_back(info);
-      AddLastAcceptedInfo(info);
+      m_lastAcceptedInfo = info;
     }
   }
 }
@@ -184,8 +176,8 @@ location::GpsInfo const & GpsTrackFilter::GetLastInfo() const
 
 location::GpsInfo const & GpsTrackFilter::GetLastAcceptedInfo() const
 {
-  ASSERT_GREATER(m_countAcceptedInfo, 0, ());
-  return m_lastAcceptedInfo[0];
+  ASSERT_GREATER(m_countLastInfo, 0, ());
+  return m_lastAcceptedInfo;
 }
 
 void GpsTrackFilter::AddLastInfo(location::GpsInfo const & info)
@@ -193,11 +185,4 @@ void GpsTrackFilter::AddLastInfo(location::GpsInfo const & info)
   m_lastInfo[1] = m_lastInfo[0];
   m_lastInfo[0] = info;
   ++m_countLastInfo;
-}
-
-void GpsTrackFilter::AddLastAcceptedInfo(location::GpsInfo const & info)
-{
-  m_lastAcceptedInfo[1] = m_lastAcceptedInfo[0];
-  m_lastAcceptedInfo[0] = info;
-  ++m_countAcceptedInfo;
 }

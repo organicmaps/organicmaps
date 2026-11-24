@@ -207,7 +207,6 @@
     <string name="choose_language">Elija una lengua</string>
     <!-- login text field -->
     <string name="email_or_username">Correo electrónico o nombre de usuario</string>
-    <string name="level">Suelo</string>
     <string name="downloader_delete_map_dialog">Todas las ediciones del mapa se eliminarán con él.</string>
     <string name="common_check_internet_connection_dialog">Asegúrate de que tu dispositivo está conectado a Internet.</string>
     <string name="downloader_no_space_title">Espacio insuficiente</string>
@@ -351,6 +350,8 @@
     <string name="avoid_unpaved">Evitar vías sin pavimentar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evite los transbordadores</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Evite las escaleras</string>
     <string name="avoid_motorways">Evite las autopistas</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <string name="unable_to_calc_alert_subtitle">No se ha podido encontrar una ruta. Esto puede deberse a sus opciones de ruta o a datos incompletos de OpenStreetMap. Cambia tus opciones de ruta y vuelve a intentarlo.</string>
@@ -364,6 +365,8 @@
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenar favoritos</string>
     <string name="near_me_sorttype">Cerca a mí</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planificación de ruta fallida</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Cerrado</string>
     <string name="opens_tomorrow_at">Abre mañana en %s</string>
@@ -467,4 +470,16 @@
     <!-- SECTION: gps strings -->
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">No se pudo guardar la ruta como pista</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Ingrese un número de piso válido</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Piso (la planta baja es 0)</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Inicio de la pista</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fin de la pista</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">No queda pista en esta dirección. Seleccione otro punto.</string>
 </resources>

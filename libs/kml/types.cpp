@@ -6,7 +6,9 @@
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
+#include <algorithm>
 #include <random>
 #include <utility>
 
@@ -29,10 +31,47 @@ void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
   minZoomQuadtree.SetMinZoom(countPerTile, maxZoom, setMinZoom);
 }
 
+bool MultiGeometry::IsValidSectionTimestamps(TimeT const & times, size_t pointCount)
+{
+  return times.empty() || (times.size() == pointCount && std::ranges::is_sorted(times) &&
+                           std::ranges::find(times, base::INVALID_TIME_STAMP) == times.end());
+}
+
+void MultiGeometry::RemoveDuplicatePoints(LineT & line, TimeT & times)
+{
+  bool const timed = !times.empty();
+  ASSERT(!timed || times.size() == line.size(), (line.size(), times.size()));
+
+  size_t kept = 0;
+  for (size_t i = 0; i < line.size(); ++i)
+  {
+    if (kept != 0 && IsSameTrackPoint(line[kept - 1].GetPoint(), line[i].GetPoint()))
+    {
+      if (line[kept - 1].GetAltitude() == geometry::kInvalidAltitude)
+        line[kept - 1].SetAltitude(line[i].GetAltitude());
+      if (timed && times[kept - 1] == base::INVALID_TIME_STAMP)
+        times[kept - 1] = times[i];
+      continue;
+    }
+    line[kept] = line[i];
+    if (timed)
+      times[kept] = times[i];
+    ++kept;
+  }
+  line.resize(kept);
+  if (timed)
+    times.resize(kept);
+}
+
 bool MultiGeometry::IsValid() const
 {
-  ASSERT_EQUAL(m_lines.size(), m_timestamps.size(), ());
-  return !m_lines.empty();
+  if (!HasLines() || m_lines.size() != m_timestamps.size())
+    return false;
+
+  for (size_t i = 0; i < m_lines.size(); ++i)
+    if (m_lines[i].size() < 2 || !IsValidSectionTimestamps(m_timestamps[i], m_lines[i].size()))
+      return false;
+  return true;
 }
 
 void MultiGeometry::Clear()
@@ -43,41 +82,15 @@ void MultiGeometry::Clear()
 
 bool MultiGeometry::HasTimestamps() const
 {
-  if (m_timestamps.empty())
-    return false;
-  for (auto const & timestamp : m_timestamps)
-    if (!timestamp.empty())
-      return true;
-  return false;
-}
-
-bool MultiGeometry::HasTimestampsFor(size_t lineIndex) const
-{
-  ASSERT(!m_timestamps.empty(), ());
-  ASSERT_EQUAL(m_lines.size(), m_timestamps.size(), ());
-  return !m_timestamps[lineIndex].empty();
-}
-
-size_t MultiGeometry::GetNumberOfLinesWithouTimestamps() const
-{
-  return m_lines.size() - GetNumberOfLinesWithTimestamps();
-}
-
-size_t MultiGeometry::GetNumberOfLinesWithTimestamps() const
-{
-  ASSERT_EQUAL(m_lines.size(), m_timestamps.size(), ());
-  size_t size = 0;
-  for (auto const & timestamp : m_timestamps)
-    if (!timestamp.empty())
-      ++size;
-  return size;
+  return std::ranges::any_of(m_timestamps, [](auto const & times) { return !times.empty(); });
 }
 
 void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
 {
   LineT line;
+  line.reserve(points.size());
   for (auto const & pt : points)
-    line.emplace_back(pt);
+    line.emplace_back(pt, geometry::kInvalidAltitude);
 
   ASSERT(line.size() > 1, ());
   m_lines.push_back(std::move(line));

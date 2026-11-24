@@ -16,6 +16,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
+
 #include "storage/storage_helpers.hpp"
 
 #include "map/place_page_info.hpp"
@@ -31,6 +33,8 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic) MWMTrafficButtonViewController * trafficButton;
 @property(nonatomic) UIButton * promoButton;
 @property(nonatomic) UIViewController * menuController;
+@property(nonatomic) BOOL isDismissingMenu;
+@property(nonatomic) NSURL * pendingMenuURL;
 @property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager * navigationManager;
 @property(nonatomic) SearchOnMapManager * searchManager;
@@ -62,7 +66,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuState = MWMBottomMenuStateInactive;
-  self.menuRestoreState = MWMBottomMenuStateInactive;
   self.isAddingPlace = NO;
   self.searchManager = controller.searchManager;
   return self;
@@ -130,7 +133,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   self.isAddingPlace = NO;
   self.trafficButtonHidden = NO;
-  self.menuState = MWMBottomMenuStateInactive;
+  self.menuState = self.closedMenuState;
 }
 
 - (void)addPlace
@@ -294,7 +297,12 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     _hidden = hidden;
   self.sideButtonsHidden = _sideButtonsHidden;
   self.trafficButtonHidden = _trafficButtonHidden;
-  self.menuState = hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
+  self.menuState = self.closedMenuState;
+}
+
+- (MWMBottomMenuState)closedMenuState
+{
+  return self.hidden || self.isAddingPlace ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden
@@ -332,8 +340,32 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)setMenuState:(MWMBottomMenuState)menuState
 {
-  _menuState = menuState;
+  [self setMenuState:menuState animated:YES];
+}
+
+- (void)setMenuState:(MWMBottomMenuState)menuState animated:(BOOL)animated
+{
   MapViewController * ownerController = _ownerController;
+  if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
+  {
+    if (_isDismissingMenu)
+      return;
+    if (_menuState == MWMBottomMenuStateLayers && menuState == MWMBottomMenuStateActive)
+    {
+      [self replaceLayersWithMenuForURL:nil];
+      return;
+    }
+    // An unrelated modal (such as Share) owns the presenter. UIKit would reject another presentation.
+    if (_menuController == nil && (ownerController.presentedViewController != nil ||
+                                   ownerController.viewIfLoaded.window == nil || ownerController.controlsView.isHidden))
+    {
+      if (_menuState == MWMBottomMenuStateActive)
+        [self setMenuState:self.closedMenuState animated:NO];
+      return;
+    }
+  }
+
+  _menuState = menuState;
   switch (_menuState)
   {
   case MWMBottomMenuStateActive:
@@ -357,36 +389,91 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     }
     break;
   case MWMBottomMenuStateInactive:
-    _tabBarController.isHidden = NO;
-    if (_menuController != nil)
-    {
-      [_menuController dismissViewControllerAnimated:YES completion:nil];
-      _menuController = nil;
-    }
-    break;
   case MWMBottomMenuStateHidden:
-    _tabBarController.isHidden = YES;
-    if (_menuController != nil)
-    {
-      [_menuController dismissViewControllerAnimated:YES completion:nil];
-      _menuController = nil;
-    }
+    _tabBarController.isHidden = menuState == MWMBottomMenuStateHidden;
+    if (_pendingMenuURL != nil && [DeepLinkHandler.shared.url isEqual:_pendingMenuURL])
+      (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
+    _pendingMenuURL = nil;
+    [self dismissBottomMenuAnimated:animated completion:nil];
     break;
   default: break;
   }
+}
+
+- (void)replaceLayersWithMenuForURL:(NSURL *)url
+{
+  _menuState = MWMBottomMenuStateActive;
+  _pendingMenuURL = url;
+  [self dismissBottomMenuAnimated:NO
+                       completion:^{
+                         NSURL * pendingURL = self->_pendingMenuURL;
+                         self->_pendingMenuURL = nil;
+                         if (self->_menuState != MWMBottomMenuStateActive)
+                           return;
+                         if (pendingURL != nil && ![DeepLinkHandler.shared.url isEqual:pendingURL])
+                         {
+                           [self setMenuState:self.closedMenuState animated:NO];
+                           return;
+                         }
+                         self.menuState = MWMBottomMenuStateActive;
+                         if (pendingURL != nil && self->_menuState != MWMBottomMenuStateActive)
+                           (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
+                       }];
+}
+
+- (void)dismissBottomMenuAnimated:(BOOL)animated completion:(void (^)(void))completion
+{
+  if (_isDismissingMenu)
+    return;
+
+  UIViewController * menuController = _menuController;
+  UIViewController * presenter = menuController.presentingViewController;
+  if (presenter == nil)
+  {
+    _menuController = nil;
+    if (completion)
+      completion();
+    return;
+  }
+
+  // Keep the outgoing sheet identifiable until UIKit finishes, so other actions can cancel a replacement.
+  _isDismissingMenu = YES;
+  [presenter dismissViewControllerAnimated:animated
+                                completion:^{
+                                  ASSERT(self->_menuController == menuController, ("Menu changed during dismissal"));
+                                  self->_menuController = nil;
+                                  self->_isDismissingMenu = NO;
+                                  if (completion)
+                                    completion();
+                                }];
+}
+
+- (BOOL)dismissBottomMenuIfPresentedAnimated:(BOOL)animated
+{
+  if (!_isDismissingMenu && (_menuController == nil || _menuController != _ownerController.presentedViewController))
+    return NO;
+
+  [self setMenuState:self.closedMenuState animated:animated];
+  return YES;
 }
 
 - (void)openMenuFromDeepLink
 {
   switch (_menuState)
   {
-  case MWMBottomMenuStateInactive: self.menuState = MWMBottomMenuStateActive; break;
-  case MWMBottomMenuStateActive: [(BottomMenuViewController *)_menuController highlightRequestedItem]; break;
-  case MWMBottomMenuStateLayers:
-    // The layers sheet has no menu items, so replace it with the menu.
-    [_menuController dismissViewControllerAnimated:NO completion:nil];
-    _menuController = nil;
+  case MWMBottomMenuStateLayers: [self replaceLayersWithMenuForURL:DeepLinkHandler.shared.url]; break;
+  case MWMBottomMenuStateInactive:
     self.menuState = MWMBottomMenuStateActive;
+    if (_menuState != MWMBottomMenuStateActive)
+      (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
+    break;
+  case MWMBottomMenuStateActive:
+    if (_isDismissingMenu)
+      _pendingMenuURL = DeepLinkHandler.shared.url;
+    else if (_menuController != nil && _menuController == _ownerController.presentedViewController)
+      [(BottomMenuViewController *)_menuController highlightRequestedItem];
+    else
+      (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
     break;
   case MWMBottomMenuStateHidden:
     // The controls are hidden in the full screen mode or while adding a place. Keep them hidden and drop the

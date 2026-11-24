@@ -52,8 +52,8 @@ public class NavigationServiceLifetimeTest
     onMain(() -> {
       try
       {
-        if (!mApplication.initOrganicMaps(initialized::countDown))
-          initialized.countDown();
+        mApplication.initOrganicMaps();
+        mApplication.getMapsReadiness().runWhenReady(initialized::countDown);
       }
       catch (IOException e)
       {

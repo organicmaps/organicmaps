@@ -9,8 +9,11 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
@@ -21,6 +24,7 @@ import org.chromium.base.ObserverList;
  * call {@link #restore} when that host becomes active, and detach it when the host stops. The controller
  * retains route state across activity recreation; it does not provide the host foreground service or UI.
  * Detailed route building requires all relevant region maps. Missing-map errors are reported to the container.
+ * Wait for {@link app.organicmaps.sdk.MapsReadiness} before preparing, editing, building or restoring a route.
  */
 @androidx.annotation.UiThread
 public class RoutingController
@@ -80,6 +84,12 @@ public class RoutingController
     default void updateMenu() {}
     default void onNavigationCancelled() {}
     default void onNavigationStarted() {}
+    /**
+     * A track Start was accepted, but navigation begins only after the core refreshes the approach to the track,
+     * possibly once this host has stopped. A host that owns a foreground service should start it now.
+     * If the Start is dropped instead, {@link NavigationStateListener}s are told navigation is inactive.
+     */
+    default void onNavigationStartPending() {}
     default void onPlanningCancelled() {}
     default void onPlanningStarted() {}
     default void onAddedStop() {}
@@ -107,7 +117,8 @@ public class RoutingController
   /**
    * Process-scoped observer of navigation start/stop, independent of the UI {@link Container}. Fires
    * on every transition into or out of {@link State#NAVIGATION}, whatever the trigger -- phone UI,
-   * Android Auto, notification stop, or route finished.
+   * Android Auto, notification stop, or route finished, and with the UI host detached. Also reports
+   * {@code false} when a pending track Start is dropped, see {@link Container#onNavigationStartPending}.
    */
   public interface NavigationStateListener
   {
@@ -118,6 +129,9 @@ public class RoutingController
 
   @Nullable
   private Container mContainer;
+  // The SDK initializes the controller on the same call stack right before it publishes maps readiness.
+  private boolean mInitialized;
+  private LocationHelper mLocationHelper;
 
   @NonNull
   private final ObserverList<NavigationStateListener> mNavigationStateListeners = new ObserverList<>();
@@ -133,6 +147,10 @@ public class RoutingController
   private int mLastBuildProgress;
   private Router mLastRouterType;
   private boolean mPendingOptionsRebuild;
+  // Start was accepted for a track preview whose approach the core is refreshing.
+  private boolean mTrackStartPending;
+  // Navigation started while no host could present it; restore() hands it over.
+  private boolean mNavigationStartUnpresented;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
@@ -155,17 +173,32 @@ public class RoutingController
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
+      final boolean built = mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS;
+      if (built)
         onBuiltRoute();
+
+      // The core follows a track once a pending Start's approach is ready. Navigation observers must see it even
+      // while the host is stopped; the host presents it in restore().
+      if (built && isPlanning() && isFollowingTrack() && isRoutingFollowing())
+        enterNavigation();
+      else
+        dropPendingTrackStart();
 
       processRoutingEvent();
     }
   };
 
+  @VisibleForTesting
+  @Nullable
+  RoutingInfo fetchRouteFollowingInfo()
+  {
+    return Framework.nativeGetRouteFollowingInfo();
+  }
+
   private void onBuiltRoute()
   {
-    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
-    if (mLastRouterType == Router.Transit)
+    mCachedRoutingInfo = fetchRouteFollowingInfo();
+    if (isTransitType())
       mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
     setBuildState(BuildState.BUILT);
     mLastBuildProgress = 100;
@@ -179,9 +212,28 @@ public class RoutingController
     updateProgress();
   };
 
+  // Bookmark changes are published from inside Core's edit session; teardown must wait for it to finish.
+  private final DataChangedListener mBookmarksListener = () -> UiThread.runLater(this::cancelIfFollowedTrackDeleted);
+
+  // Deleting the source track ends its route: the preview, a pending Start and navigation alike.
+  private void cancelIfFollowedTrackDeleted()
+  {
+    if (mState == State.NONE)
+      return;
+    final FollowedTrackInfo track = getFollowedTrackInfo();
+    if (track != null && !BookmarkManager.INSTANCE.hasTrack(track.getTrackId()))
+      cancel();
+  }
+
   public static RoutingController get()
   {
     return sInstance;
+  }
+
+  private void checkMapsReady()
+  {
+    if (!mInitialized)
+      throw new IllegalStateException("Wait for SDK maps to load before issuing routing commands");
   }
 
   private void processRoutingEvent()
@@ -233,13 +285,25 @@ public class RoutingController
     final boolean isNavigating = mState == State.NAVIGATION;
 
     if (isNavigating != wasNavigating)
-    {
-      for (final NavigationStateListener listener : mNavigationStateListeners)
-        listener.onNavigationStateChanged(isNavigating);
-    }
+      notifyNavigationState(isNavigating);
 
     if (mContainer != null)
       mContainer.updateMenu();
+  }
+
+  private void notifyNavigationState(boolean active)
+  {
+    for (final NavigationStateListener listener : mNavigationStateListeners)
+      listener.onNavigationStateChanged(active);
+  }
+
+  // The host may have started its navigation service for this Start.
+  private void dropPendingTrackStart()
+  {
+    if (!mTrackStartPending)
+      return;
+    mTrackStartPending = false;
+    notifyNavigationState(false);
   }
 
   /**
@@ -261,7 +325,8 @@ public class RoutingController
     Logger.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
 
-    if (mBuildState == BuildState.BUILT)
+    // Track previews have no route marks; disabling following would prevent Start.
+    if (mBuildState == BuildState.BUILT && !isFollowingTrack())
     {
       final MapObject startPoint = getStartPoint();
       if (startPoint == null || !startPoint.isMyPosition())
@@ -275,7 +340,7 @@ public class RoutingController
   private void updateProgress()
   {
     if (mContainer != null)
-      mContainer.updateBuildProgress(mLastBuildProgress, mLastRouterType);
+      mContainer.updateBuildProgress(mLastBuildProgress, getLastRouterType());
   }
 
   private void showRoutePlan()
@@ -293,12 +358,13 @@ public class RoutingController
   }
 
   /**
-   * Installs native routing callbacks using the application location helper. Called automatically by SDK
-   * initialization.
+   * Reads the installed profile and registers routing callbacks after native routing initialization.
+   * Called automatically before the SDK publishes maps readiness.
    */
   public void initialize(@NonNull LocationHelper locationHelper)
   {
-    mLastRouterType = Router.getLastUsed();
+    mLocationHelper = locationHelper;
+    mLastRouterType = Router.get();
 
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
@@ -306,6 +372,8 @@ public class RoutingController
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
         setStartPoint(locationHelper.getMyPosition());
     }));
+    BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mBookmarksListener);
+    mInitialized = true;
   }
 
   /**
@@ -319,7 +387,8 @@ public class RoutingController
   }
 
   /**
-   * Replays planning, navigation, build progress, and any deferred result to the attached container.
+   * Replays planning, navigation, build progress, and any deferred result to the attached container,
+   * including a navigation start that happened while no host could present it.
    * Call after attaching a resumed host; this also clears the saved-UI-state flag.
    */
   @MainThread
@@ -330,16 +399,26 @@ public class RoutingController
     if (container == null)
       return;
 
+    if (!isNavigating())
+      mNavigationStartUnpresented = false;
+    final boolean presentStart = mNavigationStartUnpresented;
     // Presentation callbacks can replace this host; its successor must restore its own UI and result.
-    if (isPlanning())
+    if (isPlanning() || presentStart)
     {
-      container.showRoutePlan(true);
+      container.showRoutePlan(isPlanning());
       if (mContainer != container)
         return;
     }
     container.showNavigation(isNavigating());
     if (mContainer != container)
       return;
+    if (presentStart)
+    {
+      mNavigationStartUnpresented = false;
+      container.onNavigationStarted();
+      if (mContainer != container)
+        return;
+    }
     container.updateMenu();
     if (mContainer != container)
       return;
@@ -362,6 +441,12 @@ public class RoutingController
   RoutingListener getRoutingListenerForTesting()
   {
     return mRoutingListener;
+  }
+
+  @VisibleForTesting
+  void markInitializedForTesting()
+  {
+    mInitialized = true;
   }
 
   @VisibleForTesting
@@ -388,6 +473,7 @@ public class RoutingController
    */
   public void restoreRoute()
   {
+    checkMapsReady();
     // Recovery preserves the user's last-used router.
     if (Framework.nativeLoadRoutePoints())
       rebuildLastRoute();
@@ -439,6 +525,7 @@ public class RoutingController
    */
   public boolean optimizeRoutePoints()
   {
+    checkMapsReady();
     return Framework.nativeOptimizeRoutePoints();
   }
 
@@ -472,9 +559,13 @@ public class RoutingController
 
   /**
    * Returns to planning and rebuilds the existing native itinerary with the selected profile and settings.
+   * Does nothing for a followed track: road-route settings and stale actions cannot replace its captured entry.
    */
   public void rebuildLastRoute()
   {
+    checkMapsReady();
+    if (isFollowingTrack())
+      return;
     mContainsCachedResult = false;
     setState(State.PREPARE);
     setBuildState(BuildState.NONE);
@@ -488,6 +579,7 @@ public class RoutingController
    */
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
+    checkMapsReady();
     Logger.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
     initLastRouteType(startPoint, endPoint);
     prepare(startPoint, endPoint, mLastRouterType);
@@ -507,6 +599,7 @@ public class RoutingController
    */
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint, Router routerType)
   {
+    checkMapsReady();
     if (!cancel())
     {
       Framework.nativeRemoveRoutePoints();
@@ -525,7 +618,9 @@ public class RoutingController
 
   /**
    * Starts following a successfully built planned route; otherwise does nothing.
-   * The host supplies location updates and any foreground-service lifecycle required for navigation.
+   * A track approach refresh keeps the plan open until the core enters following.
+   * Requires a created map engine ({@link app.organicmaps.sdk.Map#isEngineCreated()}). The host supplies location
+   * updates and any foreground-service lifecycle required for navigation.
    */
   public void start()
   {
@@ -533,19 +628,176 @@ public class RoutingController
     if (!isPlanning() || !isBuilt())
       return;
     Logger.d(TAG, "start");
+    final boolean followsTrack = isFollowingTrack();
+    if (followsTrack)
+    {
+      if (!startFollowedTrack())
+        return;
+      if (!isRoutingFollowing())
+      {
+        mTrackStartPending = true;
+        onCoreStartedTrackBuild();
+        if (mContainer != null)
+          mContainer.onNavigationStartPending();
+        return;
+      }
+    }
 
+    enterNavigation();
+    if (!followsTrack)
+      Framework.nativeFollowRoute();
+  }
+
+  @VisibleForTesting
+  boolean startFollowedTrack()
+  {
+    return Framework.nativeStartFollowedTrack();
+  }
+
+  @VisibleForTesting
+  boolean isRoutingFollowing()
+  {
+    return Framework.nativeIsRoutingFollowing();
+  }
+
+  private void enterNavigation()
+  {
+    mTrackStartPending = false;
+    prepareNavigation();
+    setState(State.NAVIGATION);
+
+    // A stopped host cannot change its UI; restore() presents the start instead.
+    mNavigationStartUnpresented = mContainer == null || mHasContainerSavedState;
+    if (mNavigationStartUnpresented)
+      return;
+    cancelPlanning(false);
+    startNavigation();
+  }
+
+  @VisibleForTesting
+  void prepareNavigation()
+  {
     // This saving is needed just for situation when the user starts navigation
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
 
     // Clear stale elevation preview marker.
     Framework.nativeRouteRemoveElevationActivePoint();
-    setState(State.NAVIGATION);
+  }
 
-    cancelPlanning(false);
-    startNavigation();
+  /**
+   * Captures the selected track section and opens planning. The core reports its asynchronous
+   * preview build through the normal routing listener. Navigation begins through {@link #start}.
+   *
+   * @return anything but {@link FollowTrackResult#Ok} leaves the previous session, if any,
+   *         untouched.
+   */
+  @NonNull
+  public FollowTrackResult navigateTrack(long trackId)
+  {
+    checkMapsReady();
+    Logger.d(TAG, "navigateTrack: " + trackId);
+    // The core validates the track before tearing anything down, so it goes first: a refusal
+    // leaves the previous session fully usable.
+    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeNavigateTrack(trackId));
+    if (result != FollowTrackResult.Ok)
+      return result;
+    // The core has already closed the previous session as part of NavigateTrack; cancel() here
+    // would close the just-started build with it (nativeCloseRouting), so only the Java-side
+    // session state is reset.
+    resetPoiPickState();
+    if (isPlanning() || isNavigating())
+      Framework.nativeRouteRemoveElevationActivePoint();
+    if (isNavigating())
+    {
+      // Leave NAVIGATION before the teardown, like cancel(): onNavigationCancelled() re-syncs the app theme and
+      // the map style from isNavigating().
+      setState(State.PREPARE);
+      cancelNavigation(true);
+    }
+    enterTrackFollowPlanning();
+    return result;
+  }
 
-    Framework.nativeFollowRoute();
+  public boolean isFollowingTrack()
+  {
+    return Framework.nativeIsFollowingTrack();
+  }
+
+  /**
+   * Switches the profile a followed track is navigated with; requires {@link #isFollowingTrack()}. Only
+   * {@link Router#Vehicle}, {@link Router#Bicycle} and {@link Router#Pedestrian} are supported. The core validates
+   * before teardown and keeps the choice in this preview. A preview build in flight is replaced.
+   *
+   * @return anything but {@link FollowTrackResult#Ok} leaves the current session untouched, e.g.
+   *         {@link FollowTrackResult#Busy} for a pending Start. A request for the active profile is ignored and
+   *         reports {@code Ok}.
+   */
+  @NonNull
+  public FollowTrackResult setFollowTrackProfile(@NonNull Router router)
+  {
+    Assert.debug(isFollowingTrack(), "Switching the follow profile without a followed track");
+    if (router == Router.getRender())
+      return FollowTrackResult.Ok;
+    Logger.d(TAG, "setFollowTrackProfile: " + router);
+    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeSetFollowTrackProfile(router.getType()));
+    if (result == FollowTrackResult.Ok)
+      onCoreStartedTrackBuild();
+    return result;
+  }
+
+  /**
+   * Rebuilds from a finite distance along the full track, preserving profile and viewport; requires
+   * {@link #isFollowingTrack()}. Refusals leave the preview and selection unchanged.
+   */
+  @NonNull
+  public FollowTrackResult updateFollowedTrackEntryAt(double distanceMeters)
+  {
+    final FollowTrackResult result =
+        FollowTrackResult.valueOf(Framework.nativeUpdateFollowedTrackEntryAt(distanceMeters));
+    if (result == FollowTrackResult.Ok)
+      onCoreStartedTrackBuild();
+    return result;
+  }
+
+  /**
+   * A snapshot of the followed track, or {@code null} when no track is being followed. Later edits of the track don't
+   * change it. Deleting the track ends the route once the bookmark change is applied, so resolving the snapshot
+   * through the bookmark manager still needs an existence check.
+   */
+  @Nullable
+  public FollowedTrackInfo getFollowedTrackInfo()
+  {
+    return Framework.nativeGetFollowedTrackInfo();
+  }
+
+  // Mirror a core-started track build; its result uses the standard routing listener.
+  private void onCoreStartedTrackBuild()
+  {
+    resetForTrackBuild();
+    updatePlan();
+  }
+
+  private void resetForTrackBuild()
+  {
+    mContainsCachedResult = false;
+    mCachedRoutingInfo = null;
+    mCachedTransitRouteInfo = null;
+    mLastBuildProgress = 0;
+    mRouteSaved = false;
+    setBuildState(BuildState.BUILDING);
+    if (mContainer != null)
+      mContainer.onStartRouteBuilding();
+  }
+
+  // A followed track has no route marks (the track defines the route), so planning starts
+  // point-less and the planning panel shows fixed rows for the followed track instead.
+  private void enterTrackFollowPlanning()
+  {
+    setState(State.PREPARE);
+    // startPlanning() publishes the initial progress once the plan is shown.
+    resetForTrackBuild();
+    startPlanning(null, null);
   }
 
   /**
@@ -554,6 +806,7 @@ public class RoutingController
    */
   public void replaceStop(@NonNull MapObject mapObject)
   {
+    checkMapsReady();
     final PendingPoiPick pick = requirePendingPoiPick();
     if (!pick.isReplacement())
       throw new IllegalStateException("A route point replacement was not requested");
@@ -566,6 +819,7 @@ public class RoutingController
    */
   public void addStop(@NonNull MapObject mapObject)
   {
+    checkMapsReady();
     if (!addRoutePoint(RouteMarkType.Intermediate, mapObject))
     {
       if (mContainer != null)
@@ -597,6 +851,7 @@ public class RoutingController
    */
   public void commitStopPick(@NonNull MapObject mapObject)
   {
+    checkMapsReady();
     switch (getPoiPickMode())
     {
     case REPLACE -> replaceStop(mapObject);
@@ -634,6 +889,7 @@ public class RoutingController
    */
   public void removeStop(@NonNull RouteMarkType type, int intermediateIndex)
   {
+    checkMapsReady();
     if (Framework.nativeGetRoutePoints().length == 1)
     {
       cancel();
@@ -654,6 +910,7 @@ public class RoutingController
    */
   public void launchPlanning()
   {
+    checkMapsReady();
     build();
     setState(State.PREPARE);
     showRoutePlan();
@@ -671,11 +928,25 @@ public class RoutingController
   {
     if (isNavigating())
     {
-      build();
+      if (isFollowingTrack())
+      {
+        final FollowTrackResult result = resetFollowedTrackToPlanning();
+        Assert.debug(result == FollowTrackResult.Ok, "Unexpected track reset result: " + result);
+        onCoreStartedTrackBuild();
+      }
+      else
+        build();
       transitionToPlanning();
       return true;
     }
     return false;
+  }
+
+  @VisibleForTesting
+  @NonNull
+  FollowTrackResult resetFollowedTrackToPlanning()
+  {
+    return FollowTrackResult.valueOf(Framework.nativeResetFollowedTrackToPlanning());
   }
 
   // Each caller has already requested a route build; this only changes the navigation and planning UI.
@@ -733,6 +1004,7 @@ public class RoutingController
     Logger.d(TAG, "cancelInternal");
 
     resetPoiPickState();
+    dropPendingTrackStart();
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -837,7 +1109,7 @@ public class RoutingController
 
   public boolean isTransitType()
   {
-    return mLastRouterType == Router.Transit;
+    return getLastRouterType() == Router.Transit;
   }
 
   /**
@@ -845,12 +1117,12 @@ public class RoutingController
    */
   public boolean isVehicleRouterType()
   {
-    return mLastRouterType == Router.Vehicle;
+    return getLastRouterType() == Router.Vehicle;
   }
 
   public boolean isRulerRouterType()
   {
-    return mLastRouterType == Router.Ruler;
+    return getLastRouterType() == Router.Ruler;
   }
 
   public boolean isNavigating()
@@ -1070,6 +1342,7 @@ public class RoutingController
    */
   public void checkAndBuildRoute()
   {
+    checkMapsReady();
     // showRoutePlan() runs while POI-pick is still pending on purpose: the plan sheet lands underneath the
     // search/PP overlay that finalizePendingPoiPick() dismisses right after (via set{Start,End}Point's outer
     // wrapper). Flipping this order would visibly pop the sheet up post-close instead of revealing it seamlessly.
@@ -1093,6 +1366,7 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(@Nullable MapObject point)
   {
+    checkMapsReady();
     final boolean result = setStartPointInternal(point);
     finalizePendingPoiPick();
     return result;
@@ -1101,6 +1375,12 @@ public class RoutingController
   private boolean setStartPointInternal(@Nullable MapObject point)
   {
     Logger.d(TAG, "setStartPoint");
+    if (point != null && isFollowingTrack())
+    {
+      // Route marks belong to a new road plan, which closes the track session first.
+      prepare(point, null /* endPoint */);
+      return true;
+    }
     MapObject startPoint = getStartPoint();
     MapObject endPoint = getEndPoint();
     boolean isSamePoint = MapObject.same(startPoint, point);
@@ -1140,6 +1420,7 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setEndPoint(@Nullable MapObject point)
   {
+    checkMapsReady();
     final boolean result = setEndPointInternal(point);
     finalizePendingPoiPick();
     return result;
@@ -1148,6 +1429,12 @@ public class RoutingController
   private boolean setEndPointInternal(@Nullable MapObject point)
   {
     Logger.d(TAG, "setEndPoint");
+    if (point != null && isFollowingTrack())
+    {
+      // Route marks belong to a new road plan, starting at the current position when available.
+      prepare(mLocationHelper.getMyPosition(), point);
+      return true;
+    }
     MapObject startPoint = getStartPoint();
     MapObject endPoint = getEndPoint();
     boolean isSamePoint = MapObject.same(endPoint, point);
@@ -1223,6 +1510,7 @@ public class RoutingController
    */
   public void swapPoints()
   {
+    checkMapsReady();
     Logger.d(TAG, "swapPoints");
 
     MapObject startPoint = getStartPoint();
@@ -1242,6 +1530,7 @@ public class RoutingController
    */
   public void reverseRoute()
   {
+    checkMapsReady();
     Logger.d(TAG, "reverseRoute");
 
     if (Framework.nativeReverseRoutePoints())
@@ -1253,11 +1542,16 @@ public class RoutingController
    */
   public void setRouterType(Router router)
   {
+    checkMapsReady();
     Logger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
 
     // Nothing to rebuild when the already selected router type is tapped again.
     if (router == mLastRouterType)
       return;
+
+    // A router change closes the core's track session; end it here too, so no stale planning or navigation remains.
+    if (isFollowingTrack())
+      cancel();
 
     mLastRouterType = router;
     Router.set(router);
@@ -1266,8 +1560,16 @@ public class RoutingController
       build();
   }
 
+  /**
+   * The router type to present and gate on. While following a track it is the render router
+   * type — the follow profile the core routes with, never Transit/Ruler, so e.g. the Start
+   * button stays enabled — and the user's own selection ({@code mLastRouterType}) is left
+   * untouched to survive the track session.
+   */
   public Router getLastRouterType()
   {
+    if (isFollowingTrack())
+      return Router.getRender();
     return mLastRouterType;
   }
 

@@ -59,7 +59,8 @@ bool IsRoad(Types const & types)
 void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment> & routeSegments);
 
 void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, base::Cancellable const & cancellable,
-                      RouteJunctions const & path, std::vector<double> const & times, Route & route);
+                      RouteJunctions const & path, geometry::Altitudes const & routeAltitudes,
+                      std::vector<double> const & times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
 /// \returns Segment() if mwm of |edge| is not alive.

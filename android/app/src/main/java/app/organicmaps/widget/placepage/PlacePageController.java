@@ -16,6 +16,7 @@ import android.view.ViewOutlineProvider;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -38,12 +39,13 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
-import app.organicmaps.sdk.location.TrackRecorder;
+import app.organicmaps.sdk.routing.FollowTrackResult;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.colorpicker.ColorPickerFragment;
@@ -201,16 +203,18 @@ public class PlacePageController
   }
 
   // Returns the "avoid" routing button for an avoidable warning, or null otherwise.
-  // STEPS/GATE/LIFT_GATE warnings have no routing option to avoid them, and UNKNOWN is not a warning.
+  @VisibleForTesting
   @Nullable
-  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
+  static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
   {
     return switch (type)
     {
       case DIRTY -> PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
       case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
       case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
-      default -> null;
+      case STEPS -> PlacePageButtons.ButtonType.ROUTE_AVOID_STEPS;
+      case DIFFICULT_TRAIL, EXPERT_TRAIL -> PlacePageButtons.ButtonType.ROUTE_AVOID_DIFFICULT_TRAILS;
+      case GATE, LIFT_GATE, UNKNOWN -> null;
     };
   }
 
@@ -249,10 +253,13 @@ public class PlacePageController
   public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
   {
     final List<PlacePageButtons.ButtonType> currentItems = mViewModel.getCurrentButtons().getValue();
-    if (currentItems == null || currentItems.size() <= mMaxButtons)
+    if (currentItems == null)
+      return null;
+    final int maxButtons = PlacePageButtons.getMaxButtons(currentItems, mMaxButtons);
+    if (currentItems.size() <= maxButtons)
       return null;
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    for (int i = mMaxButtons - 1; i < currentItems.size(); i++)
+    for (int i = maxButtons - 1; i < currentItems.size(); i++)
     {
       final PlacePageButton bsItem = PlacePageButtonFactory.createButton(currentItems.get(i), requireActivity());
       items.add(
@@ -513,6 +520,7 @@ public class PlacePageController
     switch (item)
     {
     case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
+    case TRACK_NAVIGATE -> onTrackNavigateClicked();
     case TRACK_DELETE -> onTrackRemoveClicked();
     case TRACK_RECORDING_SAVE -> mPlacePageListener.onTrackRecordingSaved();
     case TRACK_RECORDING_DELETE -> mPlacePageListener.onTrackRecordingCancelled();
@@ -522,9 +530,11 @@ public class PlacePageController
     case ROUTE_ADD, ROUTE_APPEND -> onRouteAddBtnClicked();
     case ROUTE_REPLACE -> onRouteReplaceBtnClicked();
     case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
-    case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
-    case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
-    case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
+    case ROUTE_AVOID_TOLL -> onAvoidBtnClicked(RoadType.Toll);
+    case ROUTE_AVOID_UNPAVED -> onAvoidBtnClicked(RoadType.Dirty);
+    case ROUTE_AVOID_FERRY -> onAvoidBtnClicked(RoadType.Ferry);
+    case ROUTE_AVOID_STEPS -> onAvoidBtnClicked(RoadType.Steps);
+    case ROUTE_AVOID_DIFFICULT_TRAILS -> onAvoidBtnClicked(RoadType.DifficultTrail);
     }
   }
 
@@ -539,6 +549,21 @@ public class PlacePageController
       Framework.nativeDeleteBookmarkFromMapObject();
     else
       BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
+  }
+
+  private void onTrackNavigateClicked()
+  {
+    // mMapObject is set to null when the place page closes
+    // We don't want users to interact with the buttons when the PP is closing
+    if (mMapObject == null)
+      return;
+    // The core rejects missing/degenerate tracks and leaves the current session untouched then:
+    // keep the place page open and say why nothing happened.
+    final FollowTrackResult result = RoutingController.get().navigateTrack(((Track) mMapObject).getTrackId());
+    if (result == FollowTrackResult.Ok)
+      close();
+    else
+      Utils.showFollowTrackError(requireContext(), result);
   }
 
   private void onTrackRemoveClicked()
@@ -643,21 +668,6 @@ public class PlacePageController
       RoutingController.get().removeStop(mMapObject);
   }
 
-  private void onAvoidUnpavedBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Dirty);
-  }
-
-  private void onAvoidFerryBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Ferry);
-  }
-
-  private void onAvoidTollBtnClicked()
-  {
-    onAvoidBtnClicked(RoadType.Toll);
-  }
-
   private void onAvoidBtnClicked(@NonNull RoadType roadType)
   {
     if (mMapObject != null)
@@ -703,11 +713,11 @@ public class PlacePageController
   {
     List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
     PlacePageButtons.ButtonType roadAvoidButton = toPlacePageButton(mapObject.getRoadWarningMarkType());
-    if (roadAvoidButton != null)
+    if (roadAvoidButton != null && !RoutingController.get().isFollowingTrack())
     {
       buttons.add(roadAvoidButton);
     }
-    else if (RoutingController.get().isRoutePoint(mapObject))
+    else if (RoutingController.get().isRoutePoint(mapObject) && !RoutingController.get().isFollowingTrack())
     {
       buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
     }
@@ -735,6 +745,17 @@ public class PlacePageController
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                            : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
+      // A relation track is a transient preview: it has no track actions, so it falls through
+      // to the generic buttons below.
+      else if (mapObject.isTrack() && !((Track) mapObject).isRelationTrack())
+      {
+        // The core refuses to follow a track during active navigation. Other refusals are explained on tap:
+        // the chart can still move the selection while this page is open. A pending Start refuses as Busy,
+        // which is ignored without a message, as in the planner.
+        final boolean canNavigate = !RoutingController.get().isNavigating();
+        PlacePageButtons.addTrackButtons(buttons, mMaxButtons, RoutingController.get().isStopPointAllowed(),
+                                         canNavigate);
+      }
       else
       {
         if (needToShowRoutingButtons)
@@ -747,15 +768,12 @@ public class PlacePageController
         else if (mapObject.isTrackRecording())
         {
           buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE);
-          if (!TrackRecorder.nativeIsTrackRecordingEmpty())
-            buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+          buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
         }
         else
         {
           buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                              : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
-          if (mapObject.isTrack() && !((Track) mapObject).isRelationTrack())
-            buttons.add(PlacePageButtons.ButtonType.TRACK_DELETE);
         }
 
         if (needToShowRoutingButtons)

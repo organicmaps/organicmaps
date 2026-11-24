@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
     <string name="editor_add_phone">Lisää puhelinnumero</string>
-    <string name="level">Kerros</string>
     <!-- Building level -->
     <string name="level_value_generic">Kerros: %s</string>
     <string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
@@ -656,6 +655,10 @@
     <string name="avoid_unpaved">Vältä päällystämättömiä teitä</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vältä lautan käyttöä</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Vältä vaikeita polkuja</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Vältä portaita</string>
     <string name="avoid_motorways">Vältä moottoritietä</string>
     <string name="unable_to_calc_alert_title">Reittiä ei voi luoda</string>
     <string name="unable_to_calc_alert_subtitle">Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen</string>
@@ -702,6 +705,8 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Reitin suunnittelu epäonnistui</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Suljettu nyt</string>
     <string name="opens_tomorrow_at">Aukeaa huomenna kello %s</string>
@@ -922,6 +927,8 @@
     <string name="change_stop_along_route">Vaihda pysähdys</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Pysähdysten enimmäismäärä on saavutettu</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Reittiä ei voitu tallentaa GPS-jälkenä</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Siirrä ja zoomaa karttaa ristin sijoittamiseksi</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -945,4 +952,16 @@
     <string name="transit_type_train">Juna</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Raitiovaunu</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Syötä kelvollinen kerroksen numero</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Kerros (ensimmäinen kerros on 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigoi</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Reitin alku</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Reitin loppu</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Tähän suuntaan ei ole enää reittiä. Valitse toinen piste.</string>
 </resources>

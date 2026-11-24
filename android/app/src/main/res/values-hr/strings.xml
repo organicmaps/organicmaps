@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mail adresa ili korisničko ime</string>
     <string name="editor_add_phone">Dodaj telefon</string>
-    <string name="level">Kat</string>
     <!-- Building level -->
     <string name="level_value_generic">Kat: %s</string>
     <string name="downloader_delete_map_dialog">Sve vaše izmjene karte bit će izbrisane zajedno s kartom.</string>
@@ -661,6 +660,10 @@
     <string name="avoid_unpaved">Izbjegni neasfaltirane ceste</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Izbjegni trajekte</string>
+    <!-- Walking routing option to avoid paths mapped as difficult, expert, or hard to see. -->
+    <string name="avoid_difficult_trails">Izbjegni zahtjevne staze</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Izbjegni stepenice</string>
     <string name="avoid_motorways">Izbjegni autoputeve</string>
     <string name="unable_to_calc_alert_title">Nije moguće izračunati rutu</string>
     <string name="unable_to_calc_alert_subtitle">Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.</string>
@@ -701,6 +704,8 @@
     <string name="moreyear_ago_sorttype">Više od godinu dana</string>
     <string name="near_me_sorttype">U mojoj blizini</string>
     <string name="others_sorttype">Drugo</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planiranje rute nije uspjelo</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Zatvoreno sada</string>
     <string name="opens_tomorrow_at">Otvara se sutra u %s</string>
@@ -921,6 +926,8 @@
     <string name="change_stop_along_route">Promijeni stajalište</string>
     <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
     <string name="routing_max_stops_reached">Postignut je maksimalni broj stajališta</string>
+    <!-- Toast shown when saving a planned route as a bookmark track fails -->
+    <string name="routing_save_route_error">Rutu nije bilo moguće spremiti kao stazu</string>
     <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
     <string name="choose_point_on_map_hint">Pomaknite i zumirajte kartu kako biste postavili križić</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
@@ -945,4 +952,16 @@
     <string name="transit_type_train">Vlak</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvaj</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Unesite valjan broj kata</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Kat (prizemlje je 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigacija</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Početak staze</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Kraj staze</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">U ovom smjeru nema više staze. Odaberite drugu točku.</string>
 </resources>

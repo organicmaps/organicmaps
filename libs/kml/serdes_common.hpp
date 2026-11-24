@@ -1,6 +1,4 @@
 #pragma once
-#include "kml/type_utils.hpp"
-
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/writer.hpp"
 
@@ -9,6 +7,8 @@
 
 namespace kml
 {
+struct FileData;
+
 auto constexpr kDefaultLang = StringUtf8Multilang::kDefaultCode;
 auto constexpr kDefaultTrackWidth = 5.0;
 auto constexpr kDefaultTrackColor = 0x006ec7ff;
@@ -17,10 +17,10 @@ std::string PointToString(m2::PointD const & org, char const separator);
 std::string PointToLineString(geometry::PointWithAltitude const & pt);
 std::string PointToGxString(geometry::PointWithAltitude const & pt);
 
-// True if the line carries real elevation, i.e. any point has a non-default, non-invalid
-// altitude. Used to decide whether to export elevation (GPX <ele>, GeoJSON Z) for a line, so a
-// flat sea-level track isn't bloated with zero altitudes. Mirrors Track::HasAltitudes intent.
-bool LineHasAltitude(TrackGeometry const & line);
+// Compact imported tracks, allowing a duplicate to supply a missing capture time.
+// A section retains its times only when every retained point has a valid, nondecreasing time.
+// A missing or invalid time clears the section's times and preserves its geometry.
+void NormalizeImportedTracks(FileData & data);
 
 // Checks WGS84 coordinate ranges. The import parsers guarantee finite inputs.
 bool IsValidLatLon(double lat, double lon);

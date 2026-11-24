@@ -18,12 +18,14 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership con
                                                       NeedMoreMapsCallback const & onNeedMoreMaps,
                                                       RemoveRouteCallback const & onRemoveRoute,
                                                       PointCheckCallback const & onPointCheck,
-                                                      ProgressCallback const & onProgress, uint32_t timeoutSec)
+                                                      ProgressCallback const & onProgress, uint32_t timeoutSec,
+                                                      std::optional<RoutingOptions> routingOptions)
   : m_onReadyOwnership(onReady)
   , m_onNeedMoreMaps(onNeedMoreMaps)
   , m_onRemoveRoute(onRemoveRoute)
   , m_onPointCheck(onPointCheck)
   , m_onProgress(onProgress)
+  , m_delegate(routingOptions)
 {
   m_delegate.Reset();
   m_delegate.SetPointCheckCallback(std::bind(&RouterDelegateProxy::OnPointCheck, this, std::placeholders::_1));
@@ -167,7 +169,8 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
                                  bool needAlternatives, ReadyCallbackOwnership const & readyCallback,
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
-                                 ProgressCallback const & progressCallback, uint32_t timeoutSec)
+                                 ProgressCallback const & progressCallback, uint32_t timeoutSec,
+                                 std::optional<RoutingOptions> routingOptions)
 {
   lock_guard ul(m_guard);
 
@@ -179,8 +182,9 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   ResetDelegate();
 
-  m_delegateProxy = std::make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
-                                                          m_pointCheckCallback, progressCallback, timeoutSec);
+  m_delegateProxy =
+      std::make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
+                                            m_pointCheckCallback, progressCallback, timeoutSec, routingOptions);
 
   m_hasRequest = true;
   m_threadCondVar.notify_one();

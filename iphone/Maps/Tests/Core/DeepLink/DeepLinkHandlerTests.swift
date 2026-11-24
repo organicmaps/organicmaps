@@ -9,7 +9,7 @@ private final class RouteValidationObserver: NSObject, RoutingManagerListener {
     onEvent?(code)
   }
 
-  func didLocationUpdate(_: [String]) {}
+  func didLocationUpdate() {}
   func updateCameraInfo(isCameraOnRoute _: Bool, speedLimitMps _: Double) {}
 }
 

@@ -261,12 +261,11 @@ private:
 class UpdateUserMarksMessage : public Message
 {
 public:
-  UpdateUserMarksMessage(drape_ptr<IDCollections> && justCreatedIds, drape_ptr<IDCollections> && removedIds,
+  UpdateUserMarksMessage(drape_ptr<IDCollections> && removedIds,
                          drape_ptr<UserMarksRenderCollection> && marksRenderParams,
                          drape_ptr<UserLinesRenderCollection> && linesRenderParams,
                          drape_ptr<UserAreasRenderCollection> && areasRenderParams)
-    : m_justCreatedIds(std::move(justCreatedIds))
-    , m_removedIds(std::move(removedIds))
+    : m_removedIds(std::move(removedIds))
     , m_marksRenderParams(std::move(marksRenderParams))
     , m_linesRenderParams(std::move(linesRenderParams))
     , m_areasRenderParams(std::move(areasRenderParams))
@@ -278,10 +277,8 @@ public:
   drape_ptr<UserLinesRenderCollection> AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
   drape_ptr<UserAreasRenderCollection> AcceptAreaRenderParams() { return std::move(m_areasRenderParams); }
   drape_ptr<IDCollections> AcceptRemovedIds() { return std::move(m_removedIds); }
-  drape_ptr<IDCollections> AcceptJustCreatedIds() { return std::move(m_justCreatedIds); }
 
 private:
-  drape_ptr<IDCollections> m_justCreatedIds;
   drape_ptr<IDCollections> m_removedIds;
   drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
@@ -543,23 +540,20 @@ public:
   explicit SelectObjectMessage(DismissTag, bool restoreViewport)
     : m_selected(SelectionShape::OBJECT_EMPTY)
     , m_glbPoint(m2::PointD::Zero())
-    , m_isAnim(false)
     , m_isDismiss(true)
     , m_isGeometrySelectionAllowed(false)
-    , m_isSelectionShapeVisible(false)
+    , m_animateSelection(false)
     , m_restoreViewport(restoreViewport)
   {}
 
   SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint,
-                      FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
-                      bool isSelectionShapeVisible)
+                      FeatureID const & featureID, bool isGeometrySelectionAllowed, bool animateSelection)
     : m_selected(selectedObject)
     , m_glbPoint(glbPoint)
     , m_featureID(featureID)
-    , m_isAnim(isAnim)
     , m_isDismiss(false)
     , m_isGeometrySelectionAllowed(isGeometrySelectionAllowed)
-    , m_isSelectionShapeVisible(isSelectionShapeVisible)
+    , m_animateSelection(animateSelection)
     , m_restoreViewport(false)
   {}
 
@@ -569,20 +563,18 @@ public:
   m2::PointD const & GetPosition() const { return m_glbPoint; }
   SelectionShape::ESelectedObject GetSelectedObject() const { return m_selected; }
   FeatureID const & GetFeatureID() const { return m_featureID; }
-  bool IsAnim() const { return m_isAnim; }
   bool IsDismiss() const { return m_isDismiss; }
   bool IsGeometrySelectionAllowed() const { return m_isGeometrySelectionAllowed; }
-  bool IsSelectionShapeVisible() const { return m_isSelectionShapeVisible; }
+  bool ShouldAnimateSelection() const { return m_animateSelection; }
   bool ShouldRestoreViewport() const { return m_restoreViewport; }
 
 private:
   SelectionShape::ESelectedObject m_selected;
   m2::PointD m_glbPoint;
   FeatureID m_featureID;
-  bool m_isAnim;
   bool m_isDismiss;
   bool m_isGeometrySelectionAllowed;
-  bool m_isSelectionShapeVisible;
+  bool m_animateSelection;
   bool m_restoreViewport;
 };
 

@@ -1,17 +1,18 @@
 #include "kml/serdes_gpx.hpp"
 #include "kml/color_parser.hpp"
 #include "kml/serdes_common.hpp"
+#include "kml/type_utils.hpp"
 
 #include "coding/hex.hpp"
-#include "coding/point_coding.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include <limits>
+#include <utility>
 
 namespace kml
 {
@@ -64,7 +65,7 @@ void GpxParser::ResetPoint()
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
   ResetCoordinates();
   m_altitude = geometry::kInvalidAltitude;
-  m_timestamp = base::INVALID_TIME_STAMP;
+  m_timestamp.reset();
   m_rteptName.clear();
   m_stopCandidates.clear();
   m_rteptOrdinal = 0;
@@ -94,7 +95,7 @@ bool GpxParser::MakeValid()
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
-    return m_geometry.IsValid();
+    return m_geometry.HasLines();
   }
 
   return false;
@@ -111,6 +112,10 @@ bool GpxParser::Push(std::string tag)
   {
     m_geometryType = GEOMETRY_TYPE_LINE;
     ResetCoordinates();
+  }
+  else if (tag == gpx::kTime && !m_tags.empty() && (m_tags.back() == gpx::kTrkPt || m_tags.back() == gpx::kRtePt))
+  {
+    m_timestamp = base::INVALID_TIME_STAMP;
   }
 
   m_tags.emplace_back(std::move(tag));
@@ -190,66 +195,6 @@ void GpxParser::ParseGarminColor(std::string const & v)
     m_color = *res;
 }
 
-void GpxParser::CheckAndCorrectTimestamps()
-{
-  ASSERT_EQUAL(m_line.size(), m_timestamps.size(), ());
-
-  size_t const numInvalid = std::count(m_timestamps.begin(), m_timestamps.end(), base::INVALID_TIME_STAMP);
-  if (numInvalid * 2 > m_timestamps.size())
-  {
-    // >50% invalid
-    m_timestamps.clear();
-  }
-  else if (numInvalid > 0)
-  {
-    LOG(LDEBUG, ("Invalid timestamps count =", numInvalid, "; Total timestamps count =", m_timestamps.size()));
-
-    // Find INVALID_TIME_STAMP ranges and interpolate them.
-    for (size_t i = 0; i < m_timestamps.size();)
-    {
-      if (m_timestamps[i] == base::INVALID_TIME_STAMP)
-      {
-        size_t j = i + 1;
-        for (; j < m_timestamps.size(); ++j)
-        {
-          if (m_timestamps[j] != base::INVALID_TIME_STAMP)
-          {
-            if (i == 0)
-            {
-              // Beginning range assign to the first valid timestamp.
-              while (i < j)
-                m_timestamps[i++] = m_timestamps[j];
-            }
-            else
-            {
-              // naive interpolation
-              auto const last = m_timestamps[i - 1];
-              auto count = j - i + 1;
-              double const delta = (m_timestamps[j] - last) / double(count);
-              for (size_t k = 1; k < count; ++k)
-                m_timestamps[i++] = last + k * delta;
-            }
-            break;
-          }
-        }
-
-        if (j == m_timestamps.size())
-        {
-          // Ending range assign to the last valid timestamp.
-          ASSERT(i > 0, ());
-          auto const last = m_timestamps[i - 1];
-          while (i < j)
-            m_timestamps[i++] = last;
-        }
-
-        i = j + 1;
-      }
-      else
-        ++i;
-    }
-  }
-}
-
 void GpxParser::Pop(std::string_view tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
@@ -261,34 +206,31 @@ void GpxParser::Pop(std::string_view tag)
     else
     {
       auto const p = mercator::FromLatLon(m_lat, m_lon);
-      if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
+      m_line.emplace_back(p, m_altitude);
+      if (!m_timestamps.empty() || m_timestamp)
       {
-        m_line.emplace_back(p, m_altitude);
-
-        if (!m_timestamps.empty() && m_timestamp != base::INVALID_TIME_STAMP)
-          ASSERT_LESS_OR_EQUAL(m_timestamps.back(), m_timestamp, ());
-        m_timestamps.emplace_back(m_timestamp);
+        // Keep optional times aligned so compaction can remove gaps on duplicate positions.
+        if (m_timestamps.empty())
+          m_timestamps.resize(m_line.size() - 1, base::INVALID_TIME_STAMP);
+        m_timestamps.push_back(m_timestamp.value_or(base::INVALID_TIME_STAMP));
       }
 
       if (tag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte)
       {
         if (!m_rteptName.empty())
           m_stopCandidates.push_back({m_rteptOrdinal, {p, std::move(m_rteptName)}});
-        // Count valid occurrences even when consecutive duplicates are omitted from the geometry.
         ++m_rteptOrdinal;
       }
     }
 
     m_altitude = geometry::kInvalidAltitude;
-    m_timestamp = base::INVALID_TIME_STAMP;
+    m_timestamp.reset();
     m_rteptName.clear();
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
     if (m_line.size() > 1)
     {
-      CheckAndCorrectTimestamps();
-
       m_geometry.m_lines.push_back(std::move(m_line));
       m_geometry.m_timestamps.push_back(std::move(m_timestamps));
     }
@@ -335,16 +277,6 @@ void GpxParser::Pop(std::string_view tag)
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
-#ifdef DEBUG
-        // Default gpx parser doesn't check points and timestamps count as the kml parser does.
-        for (size_t lineIndex = 0; lineIndex < m_geometry.m_lines.size(); ++lineIndex)
-        {
-          auto const pointsSize = m_geometry.m_lines[lineIndex].size();
-          auto const timestampsSize = m_geometry.m_timestamps[lineIndex].size();
-          ASSERT(!m_geometry.HasTimestampsFor(lineIndex) || pointsSize == timestampsSize, (pointsSize, timestampsSize));
-        }
-#endif
-
         TrackLayer layer;
         layer.m_lineWidth = kml::kDefaultTrackWidth;
         if (m_color != kInvalidColor)
@@ -375,12 +307,6 @@ void GpxParser::Pop(std::string_view tag)
     ResetPoint();
   }
 
-  if (tag == gpx::kMetadata)
-  {
-    /// @todo(KK): Process the <metadata><time> tag.
-    m_timestamp = base::INVALID_TIME_STAMP;
-  }
-
   m_tags.pop_back();
 }
 
@@ -404,12 +330,12 @@ void GpxParser::CharData(std::string & value)
       ParseOsmandColor(value);
     else if (currTag == gpx::kColor)
       ParseColor(value);
-    else if (currTag == gpx::kEle)
+    else if (currTag == gpx::kEle && (prevTag == gpx::kTrkPt || prevTag == gpx::kRtePt || prevTag == gpx::kWpt))
       ParseAltitude(value);
     else if (currTag == gpx::kCmt)
       m_comment = value;
-    else if (currTag == gpx::kTime)
-      ParseTimestamp(value);
+    else if (currTag == gpx::kTime && (prevTag == gpx::kTrkPt || prevTag == gpx::kRtePt))
+      m_timestamp = base::StringToTimestamp(value);
   }
 }
 
@@ -463,11 +389,6 @@ void GpxParser::ParseAltitude(std::string const & value)
     m_altitude = geometry::kInvalidAltitude;
 }
 
-void GpxParser::ParseTimestamp(std::string const & value)
-{
-  m_timestamp = base::StringToTimestamp(value);
-}
-
 std::string GpxParser::BuildDescription() const
 {
   if (m_description.empty())
@@ -480,12 +401,10 @@ std::string GpxParser::BuildDescription() const
 namespace
 {
 
-std::string CoordToString(double c)
+std::string CoordToString(double coordinate)
 {
-  std::ostringstream ss;
-  ss.precision(8);
-  ss << c;
-  return ss.str();
+  // GPX coordinates use xsd:decimal, which requires plain decimal notation.
+  return strings::to_string_dac(coordinate, 6);
 }
 
 void SaveColorToRGB(Writer & writer, uint32_t rgba)
@@ -565,14 +484,6 @@ void SaveTrackStopData(Writer & writer, TrackStopData const & stop)
   SaveBookmarkData(writer, bookmarkData);
 }
 
-// True if any line in the track carries real elevation (see LineHasAltitude). Scanning every
-// point (not just the first) keeps GPX export consistent with the elevation chart
-// (Track::HasAltitudes) for mixed tracks whose first point lacks altitude.
-bool TrackHasAltitudes(TrackData const & trackData)
-{
-  return base::AnyOf(trackData.m_geometry.m_lines, LineHasAltitude);
-}
-
 uint32_t TrackColor(TrackData const & trackData)
 {
   if (trackData.m_layers.empty())
@@ -609,17 +520,12 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
     writer << "</color></xsi:gpx>\n";
     writer << kIndent2 << "</extensions>\n";
   }
-  bool const trackHasAltitude = TrackHasAltitudes(trackData);
   auto const & geom = trackData.m_geometry;
+  ASSERT(geom.IsValid(), ());
   for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
   {
     auto const & line = geom.m_lines[lineIndex];
     auto const & timestampsForLine = geom.m_timestamps[lineIndex];
-    auto const lineHasTimestamps = geom.HasTimestampsFor(lineIndex);
-
-    if (lineHasTimestamps)
-      CHECK_EQUAL(line.size(), timestampsForLine.size(), ());
-
     writer << kIndent2 << "<trkseg>\n";
 
     for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
@@ -629,10 +535,9 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
 
       writer << kIndent4 << "<trkpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
 
-      if (trackHasAltitude && point.GetAltitude() != geometry::kInvalidAltitude)
-        writer << kIndent6 << "<ele>" << CoordToString(point.GetAltitude()) << "</ele>\n";
-
-      if (lineHasTimestamps && timestampsForLine[pointIndex] != base::INVALID_TIME_STAMP)
+      if (auto const altitude = point.GetAltitude(); altitude != geometry::kInvalidAltitude)
+        writer << kIndent6 << "<ele>" << std::to_string(altitude) << "</ele>\n";
+      if (!timestampsForLine.empty())
         writer << kIndent6 << "<time>" << base::SecondsSinceEpochToString(timestampsForLine[pointIndex]) << "</time>\n";
 
       writer << kIndent4 << "</trkpt>\n";

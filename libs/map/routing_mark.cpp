@@ -825,6 +825,8 @@ uint16_t RoadWarningMark::GetPriority() const
     case Steps: return static_cast<uint16_t>(Priority::RoadWarningFirstSteps);
     case Gate: return static_cast<uint16_t>(Priority::RoadWarningFirstGate);
     case LiftGate: return static_cast<uint16_t>(Priority::RoadWarningFirstLiftGate);
+    case DifficultTrail: return static_cast<uint16_t>(Priority::RoadWarningFirstDifficultTrail);
+    case ExpertTrail: return static_cast<uint16_t>(Priority::RoadWarningFirstExpertTrail);
     case Count: CHECK(false, ()); break;
     }
   }
@@ -867,6 +869,8 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   case Steps: symbolName = "warning-steps"; break;
   case Gate: symbolName = "warning-gate"; break;
   case LiftGate: symbolName = "warning-lift_gate"; break;
+  case DifficultTrail:
+  case ExpertTrail: symbolName = "warning-difficult_trail"; break;
   case Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
@@ -886,6 +890,8 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
   case Steps: return platform::GetLocalizedString("road_warning_steps");
   case Gate: return platform::GetLocalizedString("road_warning_gate");
   case LiftGate: return platform::GetLocalizedString("road_warning_lift_gate");
+  case DifficultTrail: return platform::GetLocalizedTypeName("highway-path-difficult");
+  case ExpertTrail: return platform::GetLocalizedTypeName("highway-path-expert");
   case Count: CHECK(false, ("Invalid road warning mark type", type)); break;
   }
   return {};
@@ -902,6 +908,8 @@ std::string DebugPrint(RoadWarningMarkType type)
   case Steps: return "Steps";
   case Gate: return "Gate";
   case LiftGate: return "LiftGate";
+  case DifficultTrail: return "DifficultTrail";
+  case ExpertTrail: return "ExpertTrail";
   case Count: return "Count";
   }
   UNREACHABLE();
@@ -919,6 +927,8 @@ bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router)
   case Dirty:
   case LiftGate: return isCar;
   case Steps: return isPedestrianOrBicycle;
+  case DifficultTrail:
+  case ExpertTrail: return router == RouterType::Pedestrian;
   case Ferry:
   case Gate: return isCar || isPedestrianOrBicycle;
   case Count: break;
@@ -934,6 +944,8 @@ RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::
   std::pair<Road, RoadWarningMarkType> const order[] = {
       {Road::Toll, RoadWarningMarkType::Toll},
       {Road::Ferry, RoadWarningMarkType::Ferry},
+      {Road::ExpertTrail, RoadWarningMarkType::ExpertTrail},
+      {Road::DifficultTrail, RoadWarningMarkType::DifficultTrail},
       {Road::Steps, RoadWarningMarkType::Steps},
       {Road::Dirty, RoadWarningMarkType::Dirty},
   };
@@ -946,5 +958,6 @@ RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::
 bool IsAvoidableRoadWarning(RoadWarningMarkType type)
 {
   using enum RoadWarningMarkType;
-  return type == Toll || type == Ferry || type == Dirty;
+  return type == Toll || type == Ferry || type == Dirty || type == Steps || type == DifficultTrail ||
+         type == ExpertTrail;
 }

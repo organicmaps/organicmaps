@@ -234,6 +234,38 @@ UNIT_CLASS_TEST(TrackVoiceTest, InitialApproachIsSpokenOnce)
   TEST(Notifications().empty(), ());
 }
 
+UNIT_CLASS_TEST(TrackVoiceTest, StartSpeechConsumesOnlyTheInitialApproach)
+{
+  Build(0, -100);
+  Start();
+  RunOnGui([&]
+  {
+    TEST_EQUAL(m_session->GenerateTrackApproachNotification(), kApproach, ());
+    TEST(m_session->GenerateTrackApproachNotification().empty(), ());
+  });
+  TEST(Notifications().empty(), ());
+}
+
+UNIT_CLASS_TEST(TrackVoiceTest, StartSpeechLeavesDepartureForTheLocationConsumer)
+{
+  PrepareNotification(false);
+  RunOnGui([&] { TEST(m_session->GenerateTrackApproachNotification().empty(), ()); });
+  TEST_EQUAL(Notifications(), std::vector<std::string>({kPhrase}), ());
+}
+
+UNIT_CLASS_TEST(TrackVoiceTest, StartSpeechLeavesTheFirstManeuverForTheLocationConsumer)
+{
+  m_track = {{Point(0, 0), 100}, {Point(200, 0), 100}, {Point(200, 1000), 100}};
+  Build();
+  Start();
+  RunOnGui([&]
+  {
+    m_session->SetTurnNotificationsLocale("en");
+    TEST(m_session->GenerateTrackApproachNotification().empty(), ());
+  });
+  TEST(!Notifications().empty(), ("The initial maneuver must remain available to the first GPS consumer"));
+}
+
 UNIT_CLASS_TEST(TrackVoiceTest, StartingAtTrackArmsDeparture)
 {
   for (double approachY : {0.0, -10.0, -100.0})
