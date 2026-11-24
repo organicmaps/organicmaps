@@ -878,7 +878,7 @@
 <message id="public_transport">
 <extracomment>Public transport routing profile, including subway and trains.</extracomment>
 <source>Public transport</source>
-<translation>Public transport</translation>
+<translation>Общественный транспорт</translation>
 </message>
 <message id="bookmarks_mouse_shortcuts_tooltip">
 <source>Show bookmarks and tracks; use ALT + RMB to add a bookmark</source>
@@ -942,7 +942,7 @@
 </message>
 <message id="ruler">
 <source>Ruler</source>
-<translation>Ruler</translation>
+<translation>Линейка</translation>
 </message>
 <message id="ruler_mouse_shortcuts_tooltip">
 <source>Check this button and use ALT + LMB to set points</source>
