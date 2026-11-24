@@ -34,6 +34,7 @@
 namespace storage_tests
 {
 struct UnitClass_StorageTest_DeleteCountry;
+struct UnitClass_StorageTest_DownloadedMap;
 }  // namespace storage_tests
 
 namespace storage
@@ -72,6 +73,7 @@ struct NodeAttrs
   MwmCounter m_mwmCounter;
 
   /// Number of mwms belonging to the node which have been downloaded.
+  /// Bundled maps are included in this count.
   MwmCounter m_localMwmCounter;
 
   /// Number of leaf maps that are downloaded, queued, downloading, validating,
@@ -82,6 +84,7 @@ struct NodeAttrs
   MwmSize m_mwmSize;
 
   /// Installed map and terrain bytes, including older versions and counting shared terrain once.
+  /// Bundled maps contribute zero bytes to this size.
   MwmSize m_localMwmSize;
 
   /// Bytes for the node's download/update/retry action;
@@ -767,6 +770,7 @@ protected:
 
 private:
   friend struct storage_tests::UnitClass_StorageTest_DeleteCountry;
+  friend struct storage_tests::UnitClass_StorageTest_DownloadedMap;
 
   void SaveDownloadQueue();
 
