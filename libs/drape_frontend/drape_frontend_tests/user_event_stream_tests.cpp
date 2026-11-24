@@ -440,10 +440,96 @@ UNIT_CLASS_TEST(CameraAnimationFixture, RecenterOnMyPositionAnimatesAfterOneSwip
     auto const & moving = Process(recenter + 100ms);
     TEST(m_animations.IsCameraMoving(), (drag, swiped.GetOrg(), moving.GetOrg()));
     TEST_LESS(moving.GetOrg().Length(position), swiped.GetOrg().Length(position), ());
-    auto const & settled = Process(recenter + 200ms);
+    Process(recenter + 250ms);
+    TEST(m_animations.IsCameraMoving(), (drag));
+    auto const & settled = Process(recenter + 500ms);
     TEST(settled.GetOrg().EqualDxDy(position, 1e-9), ());
     TEST_ALMOST_EQUAL_ABS(settled.GetAngle(), followAndRotate ? -0.3 : 0.0, 1e-9, ());
   }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, MyPositionRecenterUsesTheVisibleViewportAndGpsPosition)
+{
+  m2::RectD const visible(0, 0, 800, 400);
+  AddEvent<df::SetVisibleViewportEvent>(visible);
+  for (double const heights : {-3.0, 3.0, -3.01, 3.01})
+  {
+    AddEvent<df::RotateEvent>(0.0, false);
+    auto const reset = AddEvent<df::SetCenterEvent>(m2::PointD::Zero(), 12, false, false);
+    ScreenBase const start = Process(reset);
+    auto const position = start.PtoG(visible.Center() + m2::PointD(3.0 * visible.SizeX(), heights * visible.SizeY()));
+    // Navigation places the arrow below centre and can request several zoom levels at once.
+    m2::PointD const anchor(400, 360);
+    auto const recenter = AddEvent<df::FollowAndRotateEvent>(position, anchor, 0.4, 16);
+    auto const & first = Process(recenter);
+    bool const intersects = std::abs(heights) == 3.0;
+    TEST_EQUAL(m_animations.IsCameraMoving(), intersects, (heights));
+    if (intersects)
+    {
+      TEST(first.GetOrg().EqualDxDy(start.GetOrg(), 1e-9), ());
+      Process(recenter + 250ms);
+      TEST(m_animations.IsCameraMoving(), ());
+    }
+    auto const & settled = Process(recenter + 500ms);
+    TEST(!m_animations.IsCameraMoving(), ());
+    TEST(settled.GtoP(position).EqualDxDy(anchor, 1e-6), (heights, settled.GtoP(position)));
+    TEST_ALMOST_EQUAL_ABS(settled.GetScale(), df::GetScreenScale(16), 1e-10, ());
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, MyPositionRecenterUsesTiltedMapFootprint)
+{
+  for (bool farEdge : {false, true})
+  {
+    AddEvent<df::SetCenterEvent>(m2::PointD::Zero(), 19, false, false);
+    auto const tilt = AddEvent<df::SetAutoPerspectiveEvent>(true);
+    ScreenBase const start = Process(tilt);
+    TEST(start.isPerspective(), ());
+    auto const & visible = m_stream.GetVisibleViewport();
+    auto const farCorner = start.P3dtoP({visible.maxX(), visible.minY()});
+    auto const nearCorner = start.P3dtoP({visible.maxX(), visible.maxY()});
+    double const width = farCorner.x - start.P3dtoP({visible.minX(), visible.minY()}).x;
+    double const height = nearCorner.y - farCorner.y;
+    // Both regions overlap the footprint's bounding box. Only the one at the wide, far edge touches the map.
+    auto const gps =
+        start.PtoG({farCorner.x + 2.45 * width, farEdge ? farCorner.y - 2.45 * height : nearCorner.y + 2.45 * height});
+    auto const recenter = AddEvent<df::SetCenterEvent>(gps, df::kDoNotChangeZoom, std::nullopt);
+    Process(recenter);
+    TEST_EQUAL(m_animations.IsCameraMoving(), farEdge, ());
+    auto const & settled = Process(recenter + 500ms);
+    TEST(settled.PtoG(settled.P3dtoP(visible.Center())).EqualDxDy(gps, 1e-8), ());
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, MyPositionAccuracyAreaAnimatesLargeLocalZoom)
+{
+  ScreenBase const screen = m_stream.GetCurrentScreen();
+  auto const position = screen.GetOrg();
+  m2::RectD const accuracy(position, screen.GetScale() * 10, screen.GetScale() * 10);
+  auto const requestedAt = AddEvent<df::SetRectEvent>(accuracy, std::nullopt);
+  Process(requestedAt + 250ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  auto const & settled = Process(requestedAt + 500ms);
+  TEST(!m_animations.IsCameraMoving(), ());
+  TEST(settled.GetOrg().EqualDxDy(position, 1e-9), ());
+  TEST_LESS(settled.GetScale(), screen.GetScale() / 4.0, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, MyPositionRecenterCanOutlastAnEarlierZoom)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  ScreenBase zoomed = start;
+  zoomed.SetScale(start.GetScale() * 0.5);
+  m_animations.StartMapAnimation(
+      {df::MapAnimation::Type::Zoom, start, zoomed, df::AnimationClock::now() - 150ms, 0.16});
+  auto const & view = start.PixelRect();
+  auto const position = start.PtoG(view.Center() + m2::PointD(2.0 * view.SizeX(), 0));
+  auto const recenter = AddEvent<df::SetCenterEvent>(position, df::kDoNotChangeZoom, std::nullopt);
+  Process(recenter + 200ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  auto const & settled = Process(recenter + 500ms);
+  TEST(settled.GetOrg().EqualDxDy(position, 1e-9), ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetScale(), zoomed.GetScale(), 1e-10, ());
 }
 
 UNIT_CLASS_TEST(CameraAnimationFixture, PausingBeforeReleaseSuppressesFling)

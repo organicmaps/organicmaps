@@ -210,15 +210,21 @@ private:
 class SetRectEvent : public UserEvent
 {
 public:
-  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim, bool useVisibleViewport,
-               std::optional<ArrowPose> const & arrowTarget = std::nullopt)
+  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim, bool useVisibleViewport)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
     , m_useVisibleViewport(useVisibleViewport)
-    , m_arrowTarget(arrowTarget)
   {}
+
+  // Fit the accuracy area when a pending location becomes available.
+  SetRectEvent(m2::RectD const & accuracyRect, std::optional<ArrowPose> const & arrowTarget)
+    : SetRectEvent(accuracyRect, true /* rotate */, kDoNotChangeZoom, true /* isAnim */, false /* useVisibleViewport */)
+  {
+    m_animationType = MapAnimation::Type::Follow;
+    m_arrowTarget = arrowTarget;
+  }
 
   EventType GetType() const override { return UserEvent::EventType::SetRect; }
 
@@ -227,6 +233,7 @@ public:
   int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
   bool UseVisibleViewport() const { return m_useVisibleViewport; }
+  MapAnimation::Type GetAnimationType() const { return m_animationType; }
   std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
@@ -235,6 +242,7 @@ private:
   int m_zoom;            // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
   bool m_useVisibleViewport;
+  MapAnimation::Type m_animationType = MapAnimation::Type::Camera;
   std::optional<ArrowPose> m_arrowTarget;
 };
 
@@ -471,14 +479,14 @@ private:
   void OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
   void SetAngle(double azimuth, bool isAnim, std::optional<ArrowPose> const & arrowTarget = std::nullopt);
-  void SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
-               std::optional<ArrowPose> const & arrowTarget = std::nullopt);
   void SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
-               std::optional<ArrowPose> const & arrowTarget = std::nullopt);
+               std::optional<ArrowPose> const & arrowTarget = std::nullopt,
+               MapAnimation::Type type = MapAnimation::Type::Camera);
 
-  void SetScreen(ScreenBase const & screen, double duration = 0.0,
+  void SetScreen(ScreenBase const & screen, m2::PointD const & focus, double duration = 0.0,
                  std::optional<ArrowPose> const & arrowTarget = std::nullopt,
-                 MapAnimation::Type type = MapAnimation::Type::Camera, std::optional<m2::PointD> anchor = std::nullopt);
+                 MapAnimation::Type type = MapAnimation::Type::Camera, std::optional<m2::PointD> anchor = std::nullopt,
+                 bool keepZoom = false);
   void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                           int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
                           std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type);
@@ -520,8 +528,6 @@ private:
   bool TryBeginFilter(Touch const & t);
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
-
-  double KeepZoomDuration(double duration, double targetScale) const;
 
   bool CheckDrag(std::array<Touch, 2> const & touches, double threshold) const;
 

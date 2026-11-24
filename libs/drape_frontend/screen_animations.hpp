@@ -44,6 +44,5 @@ private:
   Pose const m_end;
 };
 
-bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to,
-                               MapAnimation::Type type);
+bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to);
 }  // namespace df

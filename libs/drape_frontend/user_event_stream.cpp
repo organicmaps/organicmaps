@@ -5,6 +5,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/rect_intersect.hpp"
 
 #include "platform/platform.hpp"
 
@@ -30,12 +31,46 @@ uint64_t constexpr kKineticDelayMs = 500;
 
 float constexpr kForceTapThreshold = 0.75;
 
-bool IsLocalCameraMove(ScreenBase const & current, ScreenBase const & target, MapAnimation::Type type)
+bool IsLocalCameraMove(ScreenBase const & current, ScreenBase const & target)
 {
   double constexpr kMaxZoomRatio = 4.0;
   double const zoomRatio = target.GetScale() / current.GetScale();
   return zoomRatio >= 1.0 / kMaxZoomRatio && zoomRatio <= kMaxZoomRatio &&
-         IsWithinAnimationDistance(current, current.GetOrg(), target.GetOrg(), type);
+         IsWithinAnimationDistance(current, current.GetOrg(), target.GetOrg());
+}
+
+double GetFollowDuration(ScreenBase const & screen, m2::RectD const & visibleViewport, m2::PointD const & position,
+                         double targetScale, double minDuration)
+{
+  if (visibleViewport.IsEmptyInterior())
+    return 0.0;
+
+  // Measure the visible map on the ground plane at the starting zoom and bearing.
+  std::array const corners = {screen.P3dtoP(visibleViewport.LeftTop()), screen.P3dtoP(visibleViewport.RightTop()),
+                              screen.P3dtoP(visibleViewport.RightBottom()),
+                              screen.P3dtoP(visibleViewport.LeftBottom())};
+  m2::RectD bounds;
+  for (auto const & corner : corners)
+    bounds.Add(corner);
+
+  auto const gps = screen.GtoP(position);
+  double constexpr kHalfRegionInViewports = 2.5;
+  m2::RectD const region(gps, kHalfRegionInViewports * bounds.SizeX(), kHalfRegionInViewports * bounds.SizeY());
+  // The region is larger than the viewport. Any overlap touches at least one viewport edge,
+  // including when perspective makes the ground footprint trapezoidal.
+  for (size_t i = 0; i < corners.size(); ++i)
+  {
+    auto a = corners[i];
+    auto b = corners[(i + 1) % corners.size()];
+    if (m2::Intersect(region, a, b))
+    {
+      auto const delta = gps - bounds.Center();
+      double const viewports = std::max(std::abs(delta.x) / bounds.SizeX(), std::abs(delta.y) / bounds.SizeY());
+      double const zoomLevels = std::abs(std::log2(targetScale / screen.GetScale()));
+      return std::clamp(kCameraAnimationTimeSec * std::max(viewports, zoomLevels), minDuration, kMaxAnimationTimeSec);
+    }
+  }
+  return 0.0;
 }
 
 size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
@@ -363,7 +398,8 @@ void UserEventStream::OnMove(ref_ptr<MoveEvent> moveEvent)
   auto const & rect = screen.PixelRectIn3d();
   screen.Move(factorX * rect.SizeX(), -factorY * rect.SizeY());
 
-  SetScreen(screen, moveEvent->IsAnim() ? kStepAnimationTimeSec : 0.0, std::nullopt, MapAnimation::Type::Pan);
+  SetScreen(screen, screen.GetOrg(), moveEvent->IsAnim() ? kStepAnimationTimeSec : 0.0, std::nullopt,
+            MapAnimation::Type::Pan);
 }
 
 void UserEventStream::OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent)
@@ -374,8 +410,15 @@ void UserEventStream::OnSetAnyRect(ref_ptr<SetAnyRectEvent> anyRectEvent)
 
 void UserEventStream::OnSetRect(ref_ptr<SetRectEvent> rectEvent)
 {
-  SetRect(rectEvent->GetRect(), rectEvent->GetZoom(), rectEvent->GetApplyRotation(), rectEvent->IsAnim(),
-          rectEvent->UseVisibleViewport(), rectEvent->GetArrowTarget());
+  auto rect = rectEvent->GetRect();
+  if (rectEvent->IsAnim())
+    rect.Offset(mercator::NearestWrapX(rect.Center().x, GetCurrentScreen().GetOrg().x) - rect.Center().x, 0.0);
+
+  CheckMinGlobalRect(rect, kDefault3dScale);
+  CheckMinMaxVisibleScale(rect, rectEvent->GetZoom(), kDefault3dScale);
+  auto const targetRect = rectEvent->GetApplyRotation() ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
+  SetRect(targetRect, rectEvent->IsAnim(), true /* fitInViewport */, rectEvent->UseVisibleViewport(),
+          rectEvent->GetArrowTarget(), rectEvent->GetAnimationType());
 }
 
 void UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
@@ -410,10 +453,9 @@ void UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
     screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
 
-  double duration = centerEvent->IsAnim() ? kCameraAnimationTimeSec : 0.0;
-  if (zoom == kDoNotChangeZoom && scaleFactor <= 0.0)
-    duration = KeepZoomDuration(duration, screen.GetScale());
-  SetScreen(screen, duration, centerEvent->GetArrowTarget(), centerEvent->GetAnimationType());
+  bool const keepZoom = zoom == kDoNotChangeZoom && scaleFactor <= 0.0;
+  SetScreen(screen, center, centerEvent->IsAnim() ? kCameraAnimationTimeSec : 0.0, centerEvent->GetArrowTarget(),
+            centerEvent->GetAnimationType(), std::nullopt, keepZoom);
 }
 
 void UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
@@ -445,7 +487,7 @@ void UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
       m_animationSystem.IsCameraMoving() && !m_animationSystem.HasMapAnimation(MapAnimation::Type::Fling)
           ? std::min(kCameraAnimationTimeSec, m_animationSystem.GetRemainingCameraTime(m_eventTime))
           : 0.0;
-  SetScreen(target, duration);
+  SetScreen(target, target.GetOrg(), duration);
 }
 
 void UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
@@ -459,7 +501,7 @@ void UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
   if (m_listener)
     m_listener->OnScrolled({-distanceX, -distanceY});
 
-  SetScreen(screen);
+  SetScreen(screen, screen.GetOrg());
 }
 
 void UserEventStream::SetAngle(double azimuth, bool isAnim, std::optional<ArrowPose> const & arrowTarget)
@@ -472,25 +514,8 @@ void UserEventStream::SetAngle(double azimuth, bool isAnim, std::optional<ArrowP
                      MapAnimation::Type::Camera);
 }
 
-void UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
-                              std::optional<ArrowPose> const & arrowTarget)
-{
-  // For animated transitions, choose the shortest horizontal path across the antimeridian.
-  if (isAnim)
-  {
-    double const offset = mercator::NearestWrapX(rect.Center().x, GetCurrentScreen().GetOrg().x) - rect.Center().x;
-    if (offset != 0.0)
-      rect.Offset(offset, 0.0);
-  }
-
-  CheckMinGlobalRect(rect, kDefault3dScale);
-  CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
-  m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
-  SetRect(targetRect, isAnim, true /* fitInViewport */, useVisibleViewport, arrowTarget);
-}
-
 void UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
-                              std::optional<ArrowPose> const & arrowTarget)
+                              std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type)
 {
   ScreenBase tmp = GetCurrentScreen();
   if (fitInViewport)
@@ -505,18 +530,31 @@ void UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitIn
   {
     tmp.SetFromRects(rect, tmp.PixelRect());
   }
-  SetScreen(tmp, isAnim ? kCameraAnimationTimeSec : 0.0, arrowTarget);
+  SetScreen(tmp, rect.GlobalCenter(), isAnim ? kCameraAnimationTimeSec : 0.0, arrowTarget, type);
 }
 
-void UserEventStream::SetScreen(ScreenBase const & target, double duration,
+void UserEventStream::SetScreen(ScreenBase const & target, m2::PointD const & focus, double duration,
                                 std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type,
-                                std::optional<m2::PointD> anchor)
+                                std::optional<m2::PointD> anchor, bool keepZoom)
 {
   auto const & current = GetCurrentScreen();
-  bool const animate = duration > 0.0 && current != target && IsLocalCameraMove(current, target, type);
+  if (duration == 0.0 || current == target)
+    duration = 0.0;
+  else if (type == MapAnimation::Type::Follow)
+    duration = GetFollowDuration(current, m_visibleViewport, focus, target.GetScale(), duration);
+  else if (!IsLocalCameraMove(current, target))
+    duration = 0.0;
+
+  // Follow updates inherit an active follow zoom's deadline. A new return from browsing gets its own duration.
+  if (keepZoom && target.GetScale() != current.GetScale())
+  {
+    double const remaining = m_animationSystem.GetRemainingCameraTime(m_eventTime);
+    if (type != MapAnimation::Type::Follow || (remaining > 0.0 && m_animationSystem.HasMapAnimation(type)))
+      duration = std::min(duration, remaining);
+  }
   if (arrowTarget)
-    m_animationSystem.AnimateArrowTo(*arrowTarget, m_eventTime, animate ? duration : 0.0);
-  if (animate)
+    m_animationSystem.AnimateArrowTo(*arrowTarget, m_eventTime, duration);
+  if (duration > 0.0)
   {
     m_animationSystem.StartMapAnimation({type, current, target, m_eventTime, duration, anchor});
     return;
@@ -540,11 +578,8 @@ void UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   target.SetFromParams(position, -azimuth, scale);
   target.MatchGandP3d(position, pixelPos);
 
-  double duration = autoScale ? kAutoZoomAnimationTimeSec : kCameraAnimationTimeSec;
-  if (keepZoom)
-    duration = KeepZoomDuration(duration, scale);
-
-  SetScreen(target, isAnim ? duration : 0.0, arrowTarget, type, pixelPos);
+  double const duration = autoScale ? kAutoZoomAnimationTimeSec : kCameraAnimationTimeSec;
+  SetScreen(target, position, isAnim ? duration : 0.0, arrowTarget, type, pixelPos, keepZoom);
 }
 
 void UserEventStream::SetAutoPerspective(bool isAutoPerspective)
@@ -554,14 +589,6 @@ void UserEventStream::SetAutoPerspective(bool isAutoPerspective)
   else
     m_navigator.Disable3dMode();
   m_navigator.SetAutoPerspective(isAutoPerspective);
-}
-
-double UserEventStream::KeepZoomDuration(double duration, double targetScale) const
-{
-  // A recenter that inherits a zoom target finishes on that zoom's original deadline.
-  if (targetScale == GetCurrentScreen().GetScale())
-    return duration;
-  return std::min(duration, m_animationSystem.GetRemainingCameraTime(m_eventTime));
 }
 
 ScreenBase UserEventStream::GetTargetScreen() const

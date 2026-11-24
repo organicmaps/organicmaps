@@ -2763,8 +2763,7 @@ void FrontendRenderer::ChangeModelView(double azimuth, std::optional<ArrowPose> 
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect, std::optional<ArrowPose> const & arrowTarget)
 {
-  AddUserEvent(make_unique_dp<SetRectEvent>(rect, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
-                                            false /* useVisibleViewport */, arrowTarget));
+  AddUserEvent(make_unique_dp<SetRectEvent>(rect, arrowTarget));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
@@ -2894,8 +2893,7 @@ void FrontendRenderer::CenterFirstLaunchViewportIfReady()
 
   int constexpr kDesiredZoomLevel = 13;
   m2::PointD const pos = m_myPositionController->GetDrawablePosition();
-  AddUserEvent(
-      make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */, false /* trackVisibleViewport */));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, std::nullopt));
 }
 
 void FrontendRenderer::ScheduleOverlayCollecting()
