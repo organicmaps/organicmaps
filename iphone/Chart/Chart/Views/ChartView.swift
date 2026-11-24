@@ -25,6 +25,13 @@ public class ChartView: UIView {
   private var pinchStartUpper = 0
   private var pinchGR: UIPinchGestureRecognizer!
 
+  public var isZoomEnabled = true {
+    didSet {
+      pinchGR.isEnabled = isZoomEnabled
+      panGR.isEnabled = isZoomEnabled
+    }
+  }
+
   public var myPosition: Double = -1 {
     didSet {
       setMyPosition(myPosition)
@@ -136,6 +143,8 @@ public class ChartView: UIView {
 
   public typealias OnSelectedPointChangedClosure = (_ distance: Double) -> Void
   public var onSelectedPointChanged: OnSelectedPointChangedClosure?
+  public var onSelectionFinished: OnSelectedPointChangedClosure?
+  public var onSelectionCancelled: (() -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -257,9 +266,11 @@ public class ChartView: UIView {
     updateCharts(animationStyle: .none)
     chartInfoView.update(point.x)
     chartInfoView(chartInfoView, didMoveToPoint: point.x)
+    notifySelectionFinished()
   }
 
   @objc func onPinch(_ sender: UIPinchGestureRecognizer) {
+    guard isZoomEnabled, chartData != nil else { return }
     if sender.state == .began {
       pinchStartLower = xAxisView.lowerBound
       pinchStartUpper = xAxisView.upperBound
@@ -371,6 +382,12 @@ public class ChartView: UIView {
   private func notifySelectedPointChanged(at chartX: CGFloat) {
     onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
+
+  private func notifySelectionFinished() {
+    guard let chartData else { return }
+    let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    onSelectionFinished?(chartData.distance(forChartX: chartX))
+  }
 }
 
 extension ChartView: ChartPreviewViewDelegate {
@@ -382,7 +399,16 @@ extension ChartView: ChartPreviewViewDelegate {
 }
 
 extension ChartView: ChartInfoViewDelegate {
+  func chartInfoViewDidFinishSelection(_: ChartInfoView) {
+    notifySelectionFinished()
+  }
+
+  func chartInfoViewDidCancelSelection(_: ChartInfoView) {
+    onSelectionCancelled?()
+  }
+
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
+    guard bounds.width > 0 else { return }
     let p = convert(CGPoint(x: pointX, y: 0), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     notifySelectedPointChanged(at: chartX)

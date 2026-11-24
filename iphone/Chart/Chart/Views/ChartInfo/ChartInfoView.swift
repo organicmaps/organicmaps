@@ -9,6 +9,8 @@ struct ChartLineInfo {
 protocol ChartInfoViewDelegate: AnyObject {
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])?
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat)
+  func chartInfoViewDidFinishSelection(_ view: ChartInfoView)
+  func chartInfoViewDidCancelSelection(_ view: ChartInfoView)
   func chartInfoView(_ view: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool
 }
 
@@ -148,8 +150,16 @@ class ChartInfoView: ExpandedTouchView {
       guard captured else { return }
       update(x)
       delegate?.chartInfoView(self, didMoveToPoint: x)
-    case .ended, .cancelled, .failed:
+    case .ended:
+      guard captured else { return }
+      update(x)
+      delegate?.chartInfoView(self, didMoveToPoint: x)
       captured = false
+      delegate?.chartInfoViewDidFinishSelection(self)
+    case .cancelled, .failed:
+      guard captured else { return }
+      captured = false
+      delegate?.chartInfoViewDidCancelSelection(self)
     @unknown default:
       fatalError()
     }

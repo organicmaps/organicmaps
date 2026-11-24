@@ -1256,3 +1256,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "Nadstropje (pritličje je 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navigiraj";
+
+/* Track start point label. */
+"navigate_track_start" = "Začetek sledi";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Konec sledi";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "V tej smeri ni več sledi. Izberite drugo točko.";

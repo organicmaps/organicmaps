@@ -125,6 +125,9 @@ public:
   void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback);
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
 
+  /// Consume only the queued initial approach, without advancing maneuver or departure notifications.
+  std::string GenerateTrackApproachNotification();
+
   // Sound notifications for turn instructions.
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
   void EnableTurnNotifications(bool enable);

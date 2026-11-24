@@ -1256,3 +1256,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "Piso (la planta baja es 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navegar";
+
+/* Track start point label. */
+"navigate_track_start" = "Inicio de la pista";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Fin de la pista";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "No queda pista en esta dirección. Seleccione otro punto.";

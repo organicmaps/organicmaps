@@ -151,8 +151,6 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
     _targetDistance = @(info.m_distToTarget.GetDistanceString().c_str());
     _targetUnits = @(info.m_distToTarget.GetUnitsString().c_str());
     _progress = info.m_completionPercent;
-    _distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
-    _turnUnits = @(info.m_distToTurn.GetUnitsString().c_str());
     _streetName = @(info.m_nextStreetName.c_str());
     _speedLimitMps = info.m_speedLimitMps;
 
@@ -164,6 +162,11 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
     else
       _transitSteps = [[NSArray alloc] init];
 
+    if (!info.m_distToTurn.IsValid())
+      return self;
+
+    _distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
+    _turnUnits = @(info.m_distToTurn.GetUnitsString().c_str());
     if (type == MWMRouterTypePedestrian)
     {
       _turnImage = image(info.m_pedestrianTurn);

@@ -69,3 +69,9 @@ extension MWMRouterType: CaseIterable {
     return image
   }
 }
+
+extension MWMFollowTrackResult {
+  var planningErrorMessage: String {
+    self == .noRemainingGeometry ? L("track_no_remaining_geometry") : L("routing_planning_error")
+  }
+}

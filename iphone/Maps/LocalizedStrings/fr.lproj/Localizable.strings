@@ -1256,3 +1256,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "Étage (le rez-de-chaussée est 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Naviguer";
+
+/* Track start point label. */
+"navigate_track_start" = "Début de la trace";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Fin de la trace";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Il ne reste plus de trace dans ce sens. Sélectionnez un autre point.";

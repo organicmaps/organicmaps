@@ -1256,3 +1256,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "Հարկ (առաջին հարկը 0 է)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Նավիգացիա";
+
+/* Track start point label. */
+"navigate_track_start" = "Հետագծի սկիզբ";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Հետագծի ավարտ";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Այս ուղղությամբ հետագիծ չի մնացել։ Ընտրեք այլ կետ։";

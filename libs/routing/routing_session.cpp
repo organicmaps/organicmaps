@@ -547,6 +547,18 @@ void RoutingSession::PassCheckpoints()
   }
 }
 
+std::string RoutingSession::GenerateTrackApproachNotification()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_pendingTrackNotification != TrackNotification::Approach)
+    return {};
+  m_pendingTrackNotification = TrackNotification::None;
+  ASSERT(m_isFollowing && IsTrackRoute() && m_turnNotificationsMgr.IsEnabled(), ());
+  auto text = m_turnNotificationsMgr.GenerateTrackApproachText();
+  ASSERT(!text.empty(), ());
+  return text;
+}
+
 void RoutingSession::GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

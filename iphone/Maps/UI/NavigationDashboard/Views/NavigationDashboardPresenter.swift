@@ -1,10 +1,14 @@
 extension NavigationDashboard {
+  protocol Rendering: AnyObject {
+    func render(_ viewModel: ViewModel)
+  }
+
   final class Presenter: NSObject {
-    private weak var view: NavigationDashboardViewController?
+    private weak var view: Rendering?
     private var viewModel: ViewModel = .initial
     private var isSearchOpened: Bool = false
 
-    init(view: NavigationDashboardViewController) {
+    init(view: Rendering) {
       self.view = view
       super.init()
     }
@@ -30,7 +34,7 @@ extension NavigationDashboard {
         if state == .planning {
           viewModel.progress = 0
         }
-        if state == .prepare || state == .planning || state == .error {
+        if viewModel.planningMode == .default, state == .prepare || state == .planning || state == .error {
           viewModel.routeElevationPreviewData = nil
           viewModel.routeElevationActivePointDistance = nil
           viewModel.entity = MWMNavigationDashboardEntity()
@@ -108,14 +112,14 @@ extension NavigationDashboard {
         viewModel.routingOptions = routingOptions
 
       case .show(let points, let routerType):
-        var canSaveRouteAsTrack = points.count > 1
+        var canSaveRouteAsTrack = points.points.count > 1
         if !viewModel.canSaveRouteAsTrack { // track was saved in the previous session
-          canSaveRouteAsTrack = points.count > 1 && (viewModel.routePoints.points != points || viewModel.routerType != routerType)
+          canSaveRouteAsTrack = points.points.count > 1 && (viewModel.routePoints.points != points.points || viewModel.routerType != routerType)
         }
-        viewModel.routePoints = RoutePoints(points: points)
+        viewModel.routePoints = points
         viewModel.routerType = routerType
         viewModel.routingOptions = RoutingOptions(routerType: routerType)
-        viewModel.canSaveRouteAsTrack = canSaveRouteAsTrack
+        viewModel.canSaveRouteAsTrack = points.planningMode == .default && canSaveRouteAsTrack
         if !isSearchOpened, viewModel.presentationStep == .hidden {
           let step = viewModel.latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
           viewModel.presentationStep = step
@@ -126,6 +130,11 @@ extension NavigationDashboard {
 
       case .showError(let errorMessage):
         viewModel.errorMessage = errorMessage
+      }
+      if viewModel.dashboardState == .error || !viewModel.supportsElevationProfile ||
+        (viewModel.dashboardState == .prepare && !viewModel.routePoints.hasStartAndFinish) {
+        viewModel.routeElevationPreviewData = nil
+        viewModel.routeElevationActivePointDistance = nil
       }
       return viewModel
     }
