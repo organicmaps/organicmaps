@@ -394,7 +394,8 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FastFlingReachesTwoViewportsAlongItsDire
     screen.SetFromParams(m2::PointD::Zero(), 0.7, df::GetScreenScale(perspective ? 18 : 11));
     screen.SetAutoPerspective(perspective);
     TEST_EQUAL(screen.isPerspective(), perspective, ());
-    auto const & viewport = screen.PixelRectIn3d();
+    m2::RectD viewport;
+    screen.PixelRectIn3d().ForEachCorner([&](m2::PointD const & p) { viewport.Add(screen.P3dtoP(p)); });
     for (m2::PointD const edge : {m2::PointD(1, 0), {0, -1}, {-1, 1}, {0.5, 1}})
     {
       m2::PointD const expected(2.0 * edge.x * viewport.SizeX(), 2.0 * edge.y * viewport.SizeY());

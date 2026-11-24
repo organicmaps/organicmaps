@@ -45,13 +45,7 @@ double GetFollowDuration(ScreenBase const & screen, m2::RectD const & visibleVie
   if (visibleViewport.IsEmptyInterior())
     return 0.0;
 
-  // Measure the visible map on the ground plane at the starting zoom and bearing.
-  std::array const corners = {screen.P3dtoP(visibleViewport.LeftTop()), screen.P3dtoP(visibleViewport.RightTop()),
-                              screen.P3dtoP(visibleViewport.RightBottom()),
-                              screen.P3dtoP(visibleViewport.LeftBottom())};
-  m2::RectD bounds;
-  for (auto const & corner : corners)
-    bounds.Add(corner);
+  auto const [corners, bounds] = ViewportFootprint(screen, visibleViewport);
 
   auto const gps = screen.GtoP(position);
   double constexpr kHalfRegionInViewports = 2.5;
