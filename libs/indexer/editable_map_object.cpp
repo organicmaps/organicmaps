@@ -516,22 +516,35 @@ bool EditableMapObject::ValidateLevel(std::string const & level)
   if (level.empty())
     return true;
 
-  if (level.size() > 4 /* 10.5, for example */)
-    return false;
+  auto const isValidFloor = [](std::string_view floor)
+  {
+    if (floor.empty() || floor.size() > 4)
+      return false;
 
-  // Allowing only half-levels.
-  if (level.find('.') != std::string::npos && !level.ends_with(".5"))
-    return false;
+    if (floor.find('.') != std::string_view::npos && !floor.ends_with(".5"))
+      return false;
 
-  // Forbid "04" and "0.".
-  if ('0' == level.front() && level.size() == 2)
-    return false;
+    if (floor.front() == '0' && floor.size() == 2)
+      return false;
 
-  auto constexpr kMinBuildingLevel = -9;
-  double result;
-  return strings::to_double(level, result) && result > kMinBuildingLevel && result <= kMaximumLevelsEditableByUsers;
+    constexpr int kMinBuildingLevel = -9;
+    double value;
+    return strings::to_double(floor, value) && value > kMinBuildingLevel &&
+           value <= kMaximumLevelsEditableByUsers;
+  };
+
+  std::string_view remaining = level;
+  for (;;)
+  {
+    auto const separator = remaining.find(';');
+    if (!isValidFloor(remaining.substr(0, separator)))
+      return false;
+    if (separator == std::string_view::npos)
+      return true;
+
+    remaining.remove_prefix(separator + 1);
+  }
 }
-
 // static
 bool EditableMapObject::ValidateName(std::string const & name)
 {
