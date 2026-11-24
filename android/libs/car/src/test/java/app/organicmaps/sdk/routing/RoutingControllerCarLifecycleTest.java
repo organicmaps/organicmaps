@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.withSettings;
 
+import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.navigation.NavigationManager;
 import androidx.lifecycle.LifecycleOwner;
@@ -122,6 +123,37 @@ public class RoutingControllerCarLifecycleTest
     verify(place, never()).getScreenManager();
   }
 
+  @Test
+  public void carStopEndsThePhoneTrackNavigation() throws ReflectiveOperationException
+  {
+    final RoutingController controller = mock(RoutingController.class);
+    when(controller.isFollowingTrack()).thenReturn(true);
+    when(controller.isNavigating()).thenReturn(true);
+    final NavigationScreen navigation = mockNavigationScreen(mock(Renderer.class));
+    setField(navigation, NavigationScreen.class, "mRoutingController", controller);
+    doCallRealMethod().when(navigation).onStopNavigation();
+    navigation.onStopNavigation();
+    verify(controller).cancel(false);
+    verify(navigation, never()).finish();
+  }
+
+  @NonNull
+  private static NavigationScreen mockNavigationScreen(@NonNull Renderer renderer)
+  {
+    final CarContext context = mock(CarContext.class);
+    final LocationHelper location = mock(LocationHelper.class);
+    // Bypass Android/native initialization; the tested callbacks and the routing controller are real.
+    return mock(NavigationScreen.class, withSettings().defaultAnswer(invocation -> {
+      return switch (invocation.getMethod().getName())
+      {
+        case "getCarContext" -> context;
+        case "getLocationHelper" -> location;
+        case "getSurfaceRenderer" -> renderer;
+        default -> Answers.RETURNS_DEFAULTS.answer(invocation);
+      };
+    }));
+  }
+
   private void checkDestroyedCarScreen(boolean lifecycleStarted) throws ReflectiveOperationException
   {
     final RoutingController controller = new RoutingController() {
@@ -137,19 +169,8 @@ public class RoutingControllerCarLifecycleTest
         return true;
       }
     };
-    final CarContext context = mock(CarContext.class);
-    final LocationHelper location = mock(LocationHelper.class);
     final Renderer renderer = mock(Renderer.class);
-    // Bypass Android/native initialization; the teardown and routing controller are real.
-    final NavigationScreen screen = mock(NavigationScreen.class, withSettings().defaultAnswer(invocation -> {
-      return switch (invocation.getMethod().getName())
-      {
-        case "getCarContext" -> context;
-        case "getLocationHelper" -> location;
-        case "getSurfaceRenderer" -> renderer;
-        default -> Answers.RETURNS_DEFAULTS.answer(invocation);
-      };
-    }));
+    final NavigationScreen screen = mockNavigationScreen(renderer);
     setField(screen, NavigationScreen.class, "mRoutingController", controller);
     final NavigationManager navigationManager = mock(NavigationManager.class);
     setField(screen, NavigationScreen.class, "mNavigationManager", navigationManager);

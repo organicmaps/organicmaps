@@ -101,7 +101,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onStopNavigation()
   {
     // The car host can deliver Stop after the phone has taken over routing.
-    if (mRoutingController.isFollowingTrack())
+    if (isPhoneTrackPreview())
     {
       mNavigationCancelled = true;
       finish();
@@ -124,7 +124,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onAutoDriveEnabled()
   {
     // Clearing the host callback does not retract an already queued simulation request.
-    if (mRoutingController.isFollowingTrack())
+    if (isPhoneTrackPreview())
       return;
     Logger.i(TAG);
     if (mRouteSimulationEnabled)
@@ -164,7 +164,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
-    if (mRoutingController.isFollowingTrack())
+    if (isPhoneTrackPreview())
     {
       finish();
       return;
@@ -187,7 +187,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
-    if (mRoutingController.isFollowingTrack())
+    if (isPhoneTrackPreview())
     {
       finish();
       return;
@@ -223,8 +223,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     stopActionBuilder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
     stopActionBuilder.setOnClickListener(() -> {
-      // A cached action can outlive the road journey that created it.
-      if (mRoutingController.isFollowingTrack())
+      // A cached action can outlive the journey that created it.
+      if (isPhoneTrackPreview())
       {
         mNavigationCancelled = true;
         finish();
@@ -342,13 +342,19 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private void updateTrip(@Nullable Location location)
   {
     // A location update queued before removeListener() can arrive after phone takeover.
-    if (mRoutingController.isFollowingTrack())
+    if (isPhoneTrackPreview())
       return;
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);
     updateSpeedLimit(info);
     invalidate();
+  }
+
+  // The car shows navigation along a phone track, but the phone keeps the track preview.
+  private boolean isPhoneTrackPreview()
+  {
+    return mRoutingController.isFollowingTrack() && !mRoutingController.isNavigating();
   }
 
   private void updateSpeedLimit(@Nullable RoutingInfo info)

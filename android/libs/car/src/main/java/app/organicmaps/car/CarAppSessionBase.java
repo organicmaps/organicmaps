@@ -78,6 +78,9 @@ public abstract class CarAppSessionBase
   private final Runnable mIntentWhenReady = this::processPendingIntents;
   @NonNull
   private final Runnable mPlaceWhenReady = this::showPendingPlace;
+  @NonNull
+  private final RoutingController.NavigationStateListener mNavigationStateListener =
+      active -> onNavigationStateChanged();
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
                            @NonNull SessionInfo sessionInfo, boolean isDebug)
@@ -101,6 +104,14 @@ public abstract class CarAppSessionBase
         RendererFactory.create(getCarContext(), mDisplayManager, mOrganicMapsContext.getLocationHelper(), owner);
     mSensorsManager = new CarSensorsManager(getCarContext(), mOrganicMapsContext.getSensorHelper(),
                                             mOrganicMapsContext.getLocationHelper());
+    RoutingController.get().addNavigationStateListener(mNavigationStateListener);
+  }
+
+  @CallSuper
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner)
+  {
+    RoutingController.get().removeNavigationStateListener(mNavigationStateListener);
   }
 
   @CallSuper
@@ -299,14 +310,25 @@ public abstract class CarAppSessionBase
     mScreenManager.popToRoot();
   }
 
+  // A phone track preview has no car screen attached to the routing controller, so entering navigation
+  // and returning to the preview are presented from here. Ending the journey reaches NavigationScreen itself.
+  private void onNavigationStateChanged()
+  {
+    final RoutingController routing = RoutingController.get();
+    if (canShowCarScreen() && routing.isFollowingTrack() && (routing.isNavigating() || routing.isPlanning()))
+      onRestoreRoute();
+  }
+
   private void onRestoreRoute()
   {
     final RoutingController routingController = RoutingController.get();
-    // Track previews and journeys remain phone-owned until a geometric car trip is supported.
-    // Only a road-route stack is stale then; permission, download and settings screens stay.
+    // The phone keeps track previews, the car shows only the navigation along a track.
+    // Only a road-route stack is stale for a preview; permission, download and settings screens stay.
     if (routingController.isFollowingTrack())
     {
-      if (hasRouteScreenInStack())
+      if (routingController.isNavigating())
+        showNavigationScreen();
+      else if (hasRouteScreenInStack())
         mScreenManager.popToRoot();
       return;
     }
@@ -333,6 +355,19 @@ public abstract class CarAppSessionBase
       mScreenManager.popToRoot();
       mScreenManager.push(placeScreen);
     }
+  }
+
+  private void showNavigationScreen()
+  {
+    if (hasNavigationScreenInStack())
+    {
+      mScreenManager.popTo(NavigationScreen.MARKER);
+      return;
+    }
+    mScreenManager.popToRoot();
+    mScreenManager.push(new NavigationScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer)
+                            .setDebugMode(mIsDebug)
+                            .build());
   }
 
   private boolean hasNavigationScreenInStack()
