@@ -14,6 +14,7 @@ public:
   enum class Type
   {
     Camera,
+    Follow,
     Pan,
     Zoom,
     Fling
@@ -43,5 +44,6 @@ private:
   Pose const m_end;
 };
 
-bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to);
+bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to,
+                               MapAnimation::Type type);
 }  // namespace df

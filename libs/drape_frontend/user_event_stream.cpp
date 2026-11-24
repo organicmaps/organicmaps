@@ -30,12 +30,12 @@ uint64_t constexpr kKineticDelayMs = 500;
 
 float constexpr kForceTapThreshold = 0.75;
 
-bool IsLocalCameraMove(ScreenBase const & current, ScreenBase const & target)
+bool IsLocalCameraMove(ScreenBase const & current, ScreenBase const & target, MapAnimation::Type type)
 {
   double constexpr kMaxZoomRatio = 4.0;
   double const zoomRatio = target.GetScale() / current.GetScale();
   return zoomRatio >= 1.0 / kMaxZoomRatio && zoomRatio <= kMaxZoomRatio &&
-         IsWithinAnimationDistance(current, current.GetOrg(), target.GetOrg());
+         IsWithinAnimationDistance(current, current.GetOrg(), target.GetOrg(), type);
 }
 
 size_t GetValidTouchesCount(std::array<Touch, 2> const & touches)
@@ -244,7 +244,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       ref_ptr<FollowAndRotateEvent> followEvent = make_ref(e);
       SetFollowAndRotate(followEvent->GetUserPos(), followEvent->GetPixelZero(), followEvent->GetAzimuth(),
                          followEvent->GetPreferredZoomLevel(), followEvent->GetAutoScale(), true /* isAnim */,
-                         followEvent->GetArrowTarget());
+                         followEvent->GetArrowTarget(), MapAnimation::Type::Follow);
     }
     break;
     case UserEvent::EventType::AutoPerspective:
@@ -413,7 +413,7 @@ void UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   double duration = centerEvent->IsAnim() ? kCameraAnimationTimeSec : 0.0;
   if (zoom == kDoNotChangeZoom && scaleFactor <= 0.0)
     duration = KeepZoomDuration(duration, screen.GetScale());
-  SetScreen(screen, duration, centerEvent->GetArrowTarget());
+  SetScreen(screen, duration, centerEvent->GetArrowTarget(), centerEvent->GetAnimationType());
 }
 
 void UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
@@ -468,7 +468,8 @@ void UserEventStream::SetAngle(double azimuth, bool isAnim, std::optional<ArrowP
   auto const anchor = m_visibleViewport.Center();
   auto const point = screen.PtoG(screen.P3dtoP(anchor));
   // Follow-and-rotate takes a heading, which has the opposite sign to a screen angle.
-  SetFollowAndRotate(point, anchor, -azimuth, kDoNotChangeZoom, std::nullopt, isAnim, arrowTarget);
+  SetFollowAndRotate(point, anchor, -azimuth, kDoNotChangeZoom, std::nullopt, isAnim, arrowTarget,
+                     MapAnimation::Type::Camera);
 }
 
 void UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
@@ -512,7 +513,7 @@ void UserEventStream::SetScreen(ScreenBase const & target, double duration,
                                 std::optional<m2::PointD> anchor)
 {
   auto const & current = GetCurrentScreen();
-  bool const animate = duration > 0.0 && current != target && IsLocalCameraMove(current, target);
+  bool const animate = duration > 0.0 && current != target && IsLocalCameraMove(current, target, type);
   if (arrowTarget)
     m_animationSystem.AnimateArrowTo(*arrowTarget, m_eventTime, animate ? duration : 0.0);
   if (animate)
@@ -527,7 +528,7 @@ void UserEventStream::SetScreen(ScreenBase const & target, double duration,
 
 void UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                                          int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
-                                         std::optional<ArrowPose> const & arrowTarget)
+                                         std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type)
 {
   auto const & current = GetCurrentScreen();
   auto const position = AdjustPointForViewport(userPos, current);
@@ -543,7 +544,7 @@ void UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   if (keepZoom)
     duration = KeepZoomDuration(duration, scale);
 
-  SetScreen(target, isAnim ? duration : 0.0, arrowTarget, MapAnimation::Type::Camera, pixelPos);
+  SetScreen(target, isAnim ? duration : 0.0, arrowTarget, type, pixelPos);
 }
 
 void UserEventStream::SetAutoPerspective(bool isAutoPerspective)

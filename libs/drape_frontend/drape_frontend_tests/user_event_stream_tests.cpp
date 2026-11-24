@@ -326,7 +326,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, QueuedArrowTargetStartsAtThePreviousEndp
   Process(previousTime + 205ms);
 
   df::ArrowPose const nextTarget{origin + m2::PointD(0.4, 0.0), 0.6};
-  auto const time = AddEvent<df::SetCenterEvent>(nextTarget.m_position, df::kDoNotChangeZoom, true, false, nextTarget);
+  auto const time = AddEvent<df::SetCenterEvent>(nextTarget.m_position, df::kDoNotChangeZoom, nextTarget);
   Process(time);
   auto const start = m_animations.GetArrowPose();
   TEST(start.has_value(), ());
@@ -413,6 +413,36 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FastFlingReachesTwoViewportsAlongItsDire
       auto const travel = released.GtoP(end.GetOrg()) - released.GtoP(released.GetOrg());
       TEST(travel.EqualDxDy(expected, 1e-6), (travel, expected, perspective));
     }
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, RecenterOnMyPositionAnimatesAfterOneSwipe)
+{
+  ScreenBase const centered = m_stream.GetCurrentScreen();
+  auto const position = centered.GetOrg();
+  auto const viewport = centered.PixelRectIn3d();
+  for (bool followAndRotate : {false, true})
+  {
+    m2::PointD const drag(0.4 * viewport.SizeX(), followAndRotate ? -0.4 * viewport.SizeY() : 0.0);
+    auto const release = AddEvent<df::ScrollEvent>(drag.x, drag.y);
+    ScreenBase const released = Process(release);
+    df::KineticScroller scroller;
+    scroller.Init(centered, release - 50ms);
+    scroller.Update(released, release);
+    auto fling = scroller.CreateKineticAnimation(released, release);
+    TEST(fling.has_value(), (drag));
+    m_animations.StartMapAnimation(std::move(*fling));
+    ScreenBase const swiped = Process(release + 1200ms);
+
+    auto const recenter = followAndRotate
+                            ? AddEvent<df::FollowAndRotateEvent>(position, viewport.Center(), 0.3, df::kDoNotChangeZoom)
+                            : AddEvent<df::SetCenterEvent>(position, df::kDoNotChangeZoom, std::nullopt);
+    auto const & moving = Process(recenter + 100ms);
+    TEST(m_animations.IsCameraMoving(), (drag, swiped.GetOrg(), moving.GetOrg()));
+    TEST_LESS(moving.GetOrg().Length(position), swiped.GetOrg().Length(position), ());
+    auto const & settled = Process(recenter + 200ms);
+    TEST(settled.GetOrg().EqualDxDy(position, 1e-9), ());
+    TEST_ALMOST_EQUAL_ABS(settled.GetAngle(), followAndRotate ? -0.3 : 0.0, 1e-9, ());
   }
 }
 

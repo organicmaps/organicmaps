@@ -4,6 +4,8 @@
 
 #include "base/math.hpp"
 
+#include <cmath>
+
 namespace df
 {
 MapAnimation::MapAnimation(Type type, ScreenBase const & start, ScreenBase const & end,
@@ -37,11 +39,19 @@ void MapAnimation::Apply(ScreenBase & screen, double progress) const
     screen.MatchGandP3d(position, *m_pixelAnchor);
 }
 
-bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to)
+bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to,
+                               MapAnimation::Type type)
 {
   double constexpr kMaxViewports = 2.0;
   auto const & viewport = screen.PixelRect();
   auto const delta = screen.GtoP(to) - screen.GtoP(from);
+  if (type == MapAnimation::Type::Follow)
+  {
+    // One swipe can drag across the visible map, then coast another two viewports per axis.
+    auto const & flingViewport = screen.PixelRectIn3d();
+    return std::abs(delta.x) <= viewport.SizeX() + kMaxFlingViewports * flingViewport.SizeX() &&
+           std::abs(delta.y) <= viewport.SizeY() + kMaxFlingViewports * flingViewport.SizeY();
+  }
   m2::PointD const viewports(delta.x / viewport.SizeX(), delta.y / viewport.SizeY());
   return viewports.SquaredLength() <= math::Pow2(kMaxViewports);
 }

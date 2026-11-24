@@ -162,24 +162,28 @@ private:
 class SetCenterEvent : public UserEvent
 {
 public:
-  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim, bool trackVisibleViewport,
-                 std::optional<ArrowPose> const & arrowTarget = std::nullopt)
+  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim, bool trackVisibleViewport)
     : m_center(center)
     , m_zoom(zoom)
     , m_scaleFactor(0.0)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
-    , m_arrowTarget(arrowTarget)
   {}
 
-  SetCenterEvent(double scaleFactor, m2::PointD const & center, bool isAnim, bool trackVisibleViewport,
-                 std::optional<ArrowPose> const & arrowTarget = std::nullopt)
+  // Follow the user's position, including when the arrow is stationary.
+  SetCenterEvent(m2::PointD const & position, int zoom, std::optional<ArrowPose> const & arrowTarget)
+    : SetCenterEvent(position, zoom, true /* isAnim */, false /* trackVisibleViewport */)
+  {
+    m_animationType = MapAnimation::Type::Follow;
+    m_arrowTarget = arrowTarget;
+  }
+
+  SetCenterEvent(double scaleFactor, m2::PointD const & center, bool isAnim, bool trackVisibleViewport)
     : m_center(center)
     , m_zoom(-1)
     , m_scaleFactor(scaleFactor)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
-    , m_arrowTarget(arrowTarget)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::SetCenter; }
@@ -189,6 +193,7 @@ public:
   double GetScaleFactor() const { return m_scaleFactor; }
   bool IsAnim() const { return m_isAnim; }
   bool TrackVisibleViewport() const { return m_trackVisibleViewport; }
+  MapAnimation::Type GetAnimationType() const { return m_animationType; }
   std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
@@ -198,6 +203,7 @@ private:
                          // if scaleFactor <= 0.0, then scale will not change
   bool m_isAnim;
   bool m_trackVisibleViewport;
+  MapAnimation::Type m_animationType = MapAnimation::Type::Camera;
   std::optional<ArrowPose> m_arrowTarget;
 };
 
@@ -475,7 +481,7 @@ private:
                  MapAnimation::Type type = MapAnimation::Type::Camera, std::optional<m2::PointD> anchor = std::nullopt);
   void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                           int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
-                          std::optional<ArrowPose> const & arrowTarget);
+                          std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type);
   void SetAutoPerspective(bool isAutoPerspective);
 
   void ProcessTouch(TouchEvent const & touch);

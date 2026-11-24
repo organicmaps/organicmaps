@@ -796,7 +796,9 @@ void MyPositionController::AnimateArrow(ArrowPose const & oldPose, ScreenBase co
 {
   ArrowPose const target{AdjustPointForViewport(m_position, screen), m_drawDirection};
   m2::PointD const start(mercator::NearestWrapX(oldPose.m_position.x, target.m_position.x), oldPose.m_position.y);
-  if (!IsWithinAnimationDistance(screen, start, target.m_position))
+  bool const follow = m_listener && IsModeChangeViewport() && !m_needBlockAnimation;
+  auto const type = follow ? MapAnimation::Type::Follow : MapAnimation::Type::Camera;
+  if (!IsWithinAnimationDistance(screen, start, target.m_position, type))
   {
     m_arrowTarget.reset();
     m_animationSystem.CancelArrowAnimation();
@@ -804,7 +806,7 @@ void MyPositionController::AnimateArrow(ArrowPose const & oldPose, ScreenBase co
   }
 
   m_animationSystem.HoldArrowPose(oldPose);
-  if (m_listener && IsModeChangeViewport() && !m_needBlockAnimation)
+  if (follow)
   {
     m_arrowTarget = target;
     return;

@@ -22,7 +22,6 @@ double constexpr kFlingInitialToAverageSpeedRatio = 3.0;
 
 double CalculateMaxFlingSpeed(ScreenBase const & screen, m2::PointD const & direction)
 {
-  double constexpr kMaxFlingViewports = 2.0;
   auto const screenDirection = m2::Rotate(direction, -screen.GetAngle());
   auto const & viewport = screen.PixelRectIn3d();
   double const viewportsPerPixel =

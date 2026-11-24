@@ -1017,7 +1017,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ++m_scenarioViewportRevision;
       m_scenarioViewportStage = ScenarioViewportStage::WaitViewport;
       AddUserEvent(make_unique_dp<SetCenterEvent>(request->m_center, request->m_zoom, false /* isAnim */,
-                                                  false /* trackVisibleViewport */, nullptr));
+                                                  false /* trackVisibleViewport */));
     }
     break;
   }
@@ -2753,8 +2753,7 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosi
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
                                        std::optional<ArrowPose> const & arrowTarget)
 {
-  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, true /* isAnim */, false /* trackVisibleViewport */,
-                                              arrowTarget));
+  AddUserEvent(make_unique_dp<SetCenterEvent>(center, zoomLevel, arrowTarget));
 }
 
 void FrontendRenderer::ChangeModelView(double azimuth, std::optional<ArrowPose> const & arrowTarget)
