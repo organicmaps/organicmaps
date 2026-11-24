@@ -318,6 +318,28 @@ UNIT_TEST(Clipping_ClipSplineByRect_SourceOffsets)
   TEST(sourceOffsets.empty(), ());
 }
 
+UNIT_TEST(Clipping_PathEndpointInfo)
+{
+  m2::RectD const tile(0, 0, 10, 10);
+  std::vector<m2::SharedSpline> pieces;
+  std::vector<m2::SplineClipInfo> info;
+  m2::ClipPathByRect(tile, {{-1, 1}, {1, -1}}, pieces, &info);
+  TEST(pieces.empty() && info.empty(), ());
+
+  m2::ClipPathByRect(tile, {{5, 5}, {10, 5}, {15, 5}}, pieces, &info);
+  TEST_EQUAL(info.size(), 1, ());
+  TEST(info[0].m_hasStart && !info[0].m_hasEnd && info[0].m_hasEndJoin, ());
+
+  // A closed ring leaves and re-enters the tile. The second piece owns the closing join.
+  m2::ClipPathByRect(tile, {{5, 5}, {15, 5}, {15, 9}, {5, 9}, {5, 5}}, pieces, &info);
+  TEST_EQUAL(info.size(), 3, ());
+  TEST(!info[1].m_hasStart && !info[1].m_hasEnd && !info[1].m_hasEndJoin, ());
+  TEST(!info[2].m_hasStart && !info[2].m_hasEnd && info[2].m_hasEndJoin, ());
+  TEST_EQUAL(info[1].m_endTrim, 5, ());
+  TEST_EQUAL(info[2].m_startTrim, 5, ());
+  TEST_EQUAL(info[2].m_offset, 19, ());
+}
+
 UNIT_TEST(Clipping_PreSmoothFragments)
 {
   m2::RectD const rect(0, 0, 10, 10);

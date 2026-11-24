@@ -21,24 +21,12 @@ layout (binding = 0) uniform UBO
 void main()
 {
   float scale = length(vec4(kShapeCoordScalar, 0, 0, 0) * u_modelView);
-  vec3 distances = a_range.xyz * scale;
-  float dash = a_pattern.x, period = a_pattern.y;
-  // Only dashes painted on this source segment can send a cap along its tangent.
-  float first = floor(distances.y / period) * period;
-  if (first + dash <= distances.y)
-    first += period;
-  float last = (ceil(distances.z / period) - 1.0) * period;
-  float type = a_range.w;
-  float extension = sign(type);
-  // When a dash continues through a join, the body ends at the vertex.
-  if ((type == -1.0 && first < distances.y) || (type == 1.0 && last + dash > distances.z))
-    extension = 0.0;
-  vec2 side = a_normal.xy;
-  float h = length(side);
-  vec2 offset = side + extension * a_normal.z * vec2(side.y, -side.x);
+  float pixelToPeriod = 1.0 / (scale * a_pattern.y);
+  vec2 offset = a_normal.xy;
   vec2 axis = (vec4(a_position.xy, 0.0, 1.0) * u_modelView).xy;
   vec2 transformedAxisPos = calcLineTransformedAxisPos(axis, a_position.xy + offset, u_modelView, length(offset));
-  v_dash = vec4(distances.x - first + (1.0 + extension) * h, period, dash + 2.0 * h, last - first);
+  float h = a_range.w * pixelToPeriod;
+  v_dash = vec4(a_range.x + a_normal.z * pixelToPeriod + h, a_pattern.x + 2.0 * h, a_range.yz);
   v_colorTexCoord = a_colorTexCoord;
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * u_projection;
   gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);

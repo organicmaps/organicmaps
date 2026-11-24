@@ -511,24 +511,12 @@ vertex SquareDashFragment vsSquareDash(const SquareDashVertex in [[stage_in]],
 {
   SquareDashFragment out;
   float scale = length(float4(kShapeCoordScalar, 0, 0, 0) * uniforms.u_modelView);
-  float3 distances = in.a_range.xyz * scale;
-  float dash = in.a_pattern.x, period = in.a_pattern.y;
-  // Only dashes painted on this source segment can send a cap along its tangent.
-  float first = floor(distances.y / period) * period;
-  if (first + dash <= distances.y)
-    first += period;
-  float last = (ceil(distances.z / period) - 1.0) * period;
-  float type = in.a_range.w;
-  float extension = sign(type);
-  // When a dash continues through a join, the body ends at the vertex.
-  if ((type == -1.0 && first < distances.y) || (type == 1.0 && last + dash > distances.z))
-    extension = 0.0;
-  float2 side = in.a_normal.xy;
-  float h = length(side);
-  float2 offset = side + extension * in.a_normal.z * float2(side.y, -side.x);
+  float pixelToPeriod = 1.0 / (scale * in.a_pattern.y);
+  float2 offset = in.a_normal.xy;
   float2 axis = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
   float2 transformedAxisPos = CalcLineTransformedAxisPos(axis, in.a_position.xy + offset, uniforms.u_modelView, length(offset));
-  out.dash = float4(distances.x - first + (1.0 + extension) * h, period, dash + 2.0 * h, last - first);
+  float h = in.a_range.w * pixelToPeriod;
+  out.dash = float4(in.a_range.x + in.a_normal.z * pixelToPeriod + h, in.a_pattern.x + 2.0 * h, in.a_range.yz);
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
   out.colorTexCoord = in.a_colorTexCoord;
@@ -541,8 +529,8 @@ fragment float4 fsSquareDash(const SquareDashFragment in [[stage_in]],
                              sampler u_colorTexSampler [[sampler(0)]])
 {
   float4 d = in.dash;
-  float start = min(floor(d.x / d.y) * d.y, d.w);
-  if (start < 0.0 || d.x - start > d.z)
+  float start = min(floor(d.x), d.w);
+  if (start < d.z || d.x - start > d.y)
     discard_fragment();
   float4 color = u_colorTex.sample(u_colorTexSampler, in.colorTexCoord);
   color.a *= in.opacity;

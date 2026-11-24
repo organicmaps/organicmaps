@@ -19,16 +19,24 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
 /// Position of a tile fragment along the original path, in global units.
 struct SplineClipInfo
 {
+  static SplineClipInfo Whole(Spline const & spline)
+  {
+    bool const open = spline.GetPath().front() != spline.GetPath().back();
+    return {.m_hasStart = open, .m_hasEnd = open, .m_hasEndJoin = !open};
+  }
+
   double m_offset = 0;
   // Length removed from the first and last segments by the clip, for dashes spanning tile edges.
   double m_startTrim = 0, m_endTrim = 0;
+  // True only at an open source endpoint. The default describes a whole open line.
   bool m_hasStart = true;
   bool m_hasEnd = true;
-  bool m_hasEndJoin =
-      false;  // The incoming segment owns the join at a source vertex on the tile edge or at ring closure.
+  // The incoming segment owns the join at a source vertex on a tile edge or at ring closure.
+  bool m_hasEndJoin = false;
 };
 
 /// Clips |path| against |rect| and back-inserts the resulting sub-splines into |out|.
+/// When requested, append matching source distances and endpoint information to |info|.
 /// Caller is expected to have already classified the path against the rect
 /// (e.g. via the feature's limit rect) and only invoke this for the real
 /// Intersect case — Inside/Outside dispatch is intentionally absent. The

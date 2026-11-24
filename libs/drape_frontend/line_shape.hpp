@@ -35,7 +35,8 @@ public:
 class LineShape : public MapShape
 {
 public:
-  LineShape(m2::SharedSpline const & spline, LineViewParams const & params, m2::SplineClipInfo clip = {});
+  LineShape(m2::SharedSpline const & spline, LineViewParams const & params);
+  LineShape(m2::SharedSpline const & spline, LineViewParams const & params, m2::SplineClipInfo clip);
 
   void Prepare(ref_ptr<dp::TextureManager> textures) const override;
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,

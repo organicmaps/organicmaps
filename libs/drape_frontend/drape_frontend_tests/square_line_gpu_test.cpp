@@ -15,7 +15,7 @@ using Path = std::vector<m2::PointD>;
 
 df::LineViewParams SquareLine(float width)
 {
-  df::LineViewParams p;
+  df::LineViewParams p{};
   p.m_cap = dp::SquareCap;
   p.m_join = dp::RoundJoin;
   p.m_color = dp::Color::Black();
@@ -63,30 +63,37 @@ UNIT_TEST(SquareLine_Segments)
 
 UNIT_TEST(SquareLine_DashesAcrossTiles)
 {
-  // A non-unit scale, a vertex in a gap and two tile fragments, spanning several stipple masks.
-  Path const path{{-200, 0}, {-190, 0}, {200, 0}};
+  // Compare an open feature with a tile fragment 40 million base-scale pixels from its start.
+  double constexpr unit = 1e-6;
   auto params = SquareLine(4);
-  params.m_pattern = {7, 13};
+  params.m_pattern = {8, 12};
+  params.m_baseGtoPScale = 1 / unit;
   ShapeTestFixture f;
-  f.SetWorldToPixelScale(1.5f);
-  f.Render("Square dash phase", 624, 24, [&](ShapeTestFixture & scene)
+  f.SetWorldToPixelScale(1.5 / unit);
+  f.Render("Square dash phase", 624, 32, [&](ShapeTestFixture & scene)
   {
-    for (auto const & tile : {m2::RectD(-210, -10, -5, 10), m2::RectD(-5, -10, 210, 10)})
+    for (bool longPrefix : {false, true})
     {
-      std::vector<m2::SharedSpline> pieces;
-      std::vector<m2::SplineClipInfo> info;
-      m2::ClipPathByRect(tile, path, pieces, &info);
-      TEST_EQUAL(pieces.size(), 1, ());
-      scene.AddShape(make_unique_dp<df::LineShape>(pieces[0], params, info[0]));
+      double const y = longPrefix ? -5 * unit : 5 * unit;
+      Path const path{{-200 * unit - (longPrefix ? 40 : 0), y}, {-190 * unit, y}, {200 * unit, y}};
+      for (auto const & tile : {m2::RectD(-200 * unit, -1, -5 * unit, 1), m2::RectD(-5 * unit, -1, 210 * unit, 1)})
+      {
+        std::vector<m2::SharedSpline> pieces;
+        std::vector<m2::SplineClipInfo> info;
+        m2::ClipPathByRect(tile, path, pieces, &info);
+        TEST_EQUAL(pieces.size(), 1, ());
+        scene.AddShape(make_unique_dp<df::LineShape>(pieces[0], params, info[0]));
+      }
     }
   });
   auto const & image = f.GetLastImage();
   for (int x = 0; x < image.width(); ++x)
   {
-    // 30 painted dashes. The source ends exactly where a 31st dash would start.
+    // At 1.5x zoom the period grows from 20 to 30 px and the dash from 8 to 12 px. Each cap is still 2 px.
     int const d = x - 12 + 2;
-    bool const painted = d >= 0 && d / 20 < 30 && d % 20 < 11;
-    TEST_EQUAL(qRed(image.pixel(x, 12)), painted ? 0 : 255, (x));
+    bool const painted = d >= 0 && d / 30 < 20 && d % 30 < 16;
+    TEST_EQUAL(qRed(image.pixel(x, 8)), painted ? 0 : 255, (x));
+    TEST_EQUAL(qRed(image.pixel(x, 23)), painted && x >= 12 ? 0 : 255, (x));
   }
 }
 
@@ -108,48 +115,67 @@ UNIT_TEST(SquareLine_DashEndsBeforeTurn)
   TEST_EQUAL(qRed(image.pixel(24, 15)), 0, ());
 }
 
-UNIT_TEST(SquareLine_CasingRainbowAndElbow)
+QImage RenderStroke(Path path, df::LineViewParams const & p)
 {
   ShapeTestFixture f;
-  f.Render("Square casing and rainbow", 80, 80, [&](ShapeTestFixture & scene)
+  f.Render("Square stroke", 64, 64, [&](ShapeTestFixture & scene)
+  { scene.AddShape(make_unique_dp<df::LineShape>(m2::SharedSpline(std::move(path)), p)); });
+  return f.GetLastImage();
+}
+
+UNIT_TEST(SquareLine_TranslucentCasing)
+{
+  ShapeTestFixture f;
+  f.Render("Square casing", 64, 64, [&](ShapeTestFixture & scene)
   {
-    auto add = [&](Path path, df::LineViewParams const & p)
-    { scene.AddShape(make_unique_dp<df::LineShape>(m2::SharedSpline(std::move(path)), p)); };
-    Path line{{-20, 20}, {20, 20}};
+    m2::SharedSpline const line(Path{{-20, 0}, {20, 0}});
     auto casing = SquareLine(12);
     casing.m_color = dp::Color(0, 0, 0, 128);
-    add(line, casing);
-    add(line, SquareLine(4));
-
-    auto rainbow = SquareLine(8);
-    rainbow.m_rainbowColors = {dp::Color::Red(), dp::Color::Blue()};
-    add({{-20, 0}, {20, 0}}, rainbow);
-    add({{-20, -26}, {0, -26}, {0, -12}}, SquareLine(8));
-
-    auto dashes = SquareLine(4);
-    dashes.m_pattern = {6, 2};  // The adjacent square caps fill the entire gap.
-    add({{12, -26}, {24, -26}}, dashes);
-
-    add({{-24, -18}, {-32, -18}, {-32, -10}, {-24, -10}, {-24, -18}}, SquareLine(8));
+    scene.AddShape(make_unique_dp<df::LineShape>(line, casing));
+    scene.AddShape(make_unique_dp<df::LineShape>(line, SquareLine(4)));
   });
   auto const & image = f.GetLastImage();
-  for (int x = 14; x < 66; ++x)
-    TEST_EQUAL(qRed(image.pixel(x, 15)), 127, (x));  // Single translucent layer, including all four corners.
-  TEST_EQUAL(qRed(image.pixel(18, 20)), 0, ());
-  TEST_EQUAL(qRed(image.pixel(17, 20)), 127, ());
-  for (int y = 36; y < 44; ++y)
+  for (int x = 6; x < 58; ++x)
+    TEST_EQUAL(qRed(image.pixel(x, 27)), 127, (x));  // One layer of casing across the whole stroke.
+  TEST_EQUAL(qRed(image.pixel(10, 32)), 0, ());
+  TEST_EQUAL(qRed(image.pixel(9, 32)), 127, ());
+}
+
+UNIT_TEST(SquareLine_Rainbow)
+{
+  auto p = SquareLine(8);
+  p.m_rainbowColors = {dp::Color::Red(), dp::Color::Blue()};
+  auto const image = RenderStroke({{-20, 0}, {20, 0}}, p);
+  for (int y = 28; y < 36; ++y)
   {
-    auto const color = image.pixel(40, y);
+    auto const color = image.pixel(32, y);
     TEST(color != qRgb(255, 255, 255), (y));
-    TEST_EQUAL(image.pixel(16, y), color, (y));
-    TEST_EQUAL(image.pixel(63, y), color, (y));
+    TEST_EQUAL(image.pixel(8, y), color, (y));
+    TEST_EQUAL(image.pixel(55, y), color, (y));
   }
-  TEST_NOT_EQUAL(image.pixel(40, 37), image.pixel(40, 42), ());
-  TEST_EQUAL(qRed(image.pixel(43, 69)), 255, ());  // Outside round join; a square extension would cover it.
-  TEST_EQUAL(qRed(image.pixel(40, 66)), 0, ());
-  TEST_EQUAL(qRed(image.pixel(16, 58)), 0, ());  // The closing vertex also has a round join.
-  TEST_EQUAL(qRed(image.pixel(19, 61)), 255, ());
-  for (int x = 50; x < 66; ++x)
-    TEST_EQUAL(qRed(image.pixel(x, 66)), 0, (x));
+  TEST_NOT_EQUAL(image.pixel(32, 29), image.pixel(32, 34), ());
+}
+
+UNIT_TEST(SquareLine_Elbow)
+{
+  auto const image = RenderStroke({{-20, 0}, {0, 0}, {0, 16}}, SquareLine(8));
+  TEST_EQUAL(qRed(image.pixel(35, 35)), 255, ());  // Outside the round join.
+  TEST_EQUAL(qRed(image.pixel(32, 32)), 0, ());
+}
+
+UNIT_TEST(SquareLine_ClosedRing)
+{
+  auto const image = RenderStroke({{0, 0}, {-16, 0}, {-16, 16}, {0, 16}, {0, 0}}, SquareLine(8));
+  TEST_EQUAL(qRed(image.pixel(32, 32)), 0, ());  // The closing vertex also has a round join.
+  TEST_EQUAL(qRed(image.pixel(35, 35)), 255, ());
+}
+
+UNIT_TEST(SquareLine_ShortDashGap)
+{
+  auto p = SquareLine(4);
+  p.m_pattern = {6, 2};
+  auto const image = RenderStroke({{-6, 0}, {6, 0}}, p);
+  for (int x = 24; x < 40; ++x)
+    TEST_EQUAL(qRed(image.pixel(x, 32)), 0, (x));
 }
 }  // namespace square_line_gpu_test

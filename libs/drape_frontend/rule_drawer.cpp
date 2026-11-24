@@ -659,8 +659,9 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
 
     builder.SetPath(std::move(isoline.m_points));
     std::vector<m2::SplineClipInfo> clipInfo;
-    auto const splines =
-        builder.Release(true /* isIsoline */, lineRule->cap == drule::LineCap::Square ? &clipInfo : nullptr);
+    // Dynamic contours are traced separately in each tile's terrain window. Their dash phase is local to that trace.
+    bool const square = lineRule->cap == drule::LineCap::Square;
+    auto const splines = builder.Release(true /* isIsoline */, square ? &clipInfo : nullptr);
     for (size_t i = 0; i < splines.size(); ++i)
     {
       auto const & spline = splines[i];
@@ -679,7 +680,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
       params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
       params.m_zoomLevel = m_zoomLevel;
       m_applyParams.m_insertShape(
-          make_unique_dp<LineShape>(spline, params, clipInfo.empty() ? m2::SplineClipInfo{} : clipInfo[i]));
+          make_unique_dp<LineShape>(spline, params, square ? clipInfo[i] : m2::SplineClipInfo{}));
 
       if (textRule == nullptr)
         continue;

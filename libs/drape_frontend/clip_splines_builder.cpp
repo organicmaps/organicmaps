@@ -190,7 +190,8 @@ void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
   thinner.Finish();
 }
 
-std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::vector<m2::SplineClipInfo> * info)
+std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::vector<m2::SplineClipInfo> * info,
+                                                          bool keepDashPhase)
 {
   std::vector<m2::SharedSpline> out;
   if (info)
@@ -207,11 +208,7 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::v
   {
     out.emplace_back(std::move(m_path));
     if (info)
-    {
-      auto const & spline = *out.front();
-      bool const open = spline.GetPath().front() != spline.GetPath().back();
-      info->push_back({.m_hasStart = open, .m_hasEnd = open, .m_hasEndJoin = !open});
-    }
+      info->push_back(m2::SplineClipInfo::Whole(*out.front()));
     return out;
   }
 
@@ -224,7 +221,7 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::v
     auto extTileRect = m_params.m_tileRect;
     extTileRect.Scale(kIsolineSmoothScale);
     // Square dashes measure phase from the start of the smoothed feature.
-    m2::ClipPathByRectBeforeSmooth(info ? m2::RectD::GetInfiniteRect() : extTileRect, m_path, guidePoints,
+    m2::ClipPathByRectBeforeSmooth(keepDashPhase ? m2::RectD::GetInfiniteRect() : extTileRect, m_path, guidePoints,
                                    clippedPaths);
 
     if (!clippedPaths.empty())
@@ -233,6 +230,15 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::v
 
       for (auto const & path : clippedPaths)
         m2::ClipPathByRect(m_params.m_tileRect, path, out, info);
+      // Pre-clipping can split a ring at its closing vertex into two open smoothing paths.
+      if (info && !keepDashPhase && m_path.front() == m_path.back())
+      {
+        for (auto & piece : *info)
+        {
+          piece.m_hasEndJoin |= piece.m_hasEnd;
+          piece.m_hasStart = piece.m_hasEnd = false;
+        }
+      }
     }
   }
   else

@@ -349,10 +349,10 @@ private:
 struct SquareDashVertex
 {
   glsl::vec3 m_position;
-  glsl::vec3 m_normal;  // xy is the side offset, z its side sign.
+  glsl::vec3 m_normal;  // XY extrudes the edge; Z is its longitudinal extrusion in pixels.
   glsl::vec2 m_color;
-  glsl::vec4 m_range;    // Vertex distance, unclipped segment start and end, and endpoint type.
-  glsl::vec2 m_pattern;  // Dash length and period in pixels.
+  glsl::vec4 m_range;    // Local phase, first and last dash indices, pixel half-width.
+  glsl::vec2 m_pattern;  // Painted fraction and period in world units.
 
   static dp::BindingInfo const & GetBindingInfo()
   {
@@ -374,9 +374,10 @@ struct SquareDashVertex
 class SquareDashBuilder : public BaseLineBuilder<SquareDashVertex>
 {
 public:
-  SquareDashBuilder(BaseBuilderParams const & params, size_t points, dp::PenPatternT const & pattern)
+  SquareDashBuilder(BaseBuilderParams const & params, size_t points, dp::PenPatternT const & pattern, double baseScale)
     : BaseLineBuilder(params, (points - 1) * 4)
-    , m_pattern(pattern[0], pattern[0] + pattern[1])
+    , m_period((pattern[0] + pattern[1]) / baseScale)
+    , m_duty(static_cast<double>(pattern[0]) / (pattern[0] + pattern[1]))
   {}
 
   dp::RenderState GetState() override
@@ -387,14 +388,40 @@ public:
     return state;
   }
 
-  void SubmitEdge(glsl::vec3 const & pivot, glsl::vec2 const & left, glsl::vec4 const & range)
+  void SubmitSegment(glsl::vec3 const & p1, glsl::vec3 const & p2, glsl::vec2 const & tangent, double distance,
+                     double length, double startTrim, double endTrim, bool openStart, bool openEnd)
   {
-    m_geometry.push_back({pivot, {-left, -1}, m_colorCoordRight, range, m_pattern});
-    m_geometry.push_back({pivot, {left, 1}, m_colorCoordLeft, range, m_pattern});
+    // Anchor the pattern at the tile's base scale. Keep fragment positions within one tile of zero
+    // even for a short piece millions of pixels from the source start.
+    double const phase = std::fmod(distance, m_period) / m_period;
+    double const start = phase - startTrim / m_period;
+    double const endPhase = phase + length / m_period;
+    double const end = endPhase + endTrim / m_period;
+    double first = std::floor(start);
+    if (first + m_duty <= start)
+      ++first;
+    double const last = std::ceil(end) - 1;
+    if (first > last)
+      return;
+
+    // A cut stays flush. A join gets an extension only when a dash actually starts or ends on this segment.
+    float const h = GetHalfWidth();
+    auto const edge = [&](glsl::vec3 const & pivot, double pos, float extension)
+    {
+      glsl::vec2 const left = h * glsl::vec2(-tangent.y, tangent.x);
+      glsl::vec2 const offset = extension * tangent;
+      glsl::vec4 const range(pos, first, last, h);
+      glsl::vec2 const pattern(m_duty, m_period);
+      m_geometry.push_back({pivot, {offset - left, extension}, m_colorCoordRight, range, pattern});
+      m_geometry.push_back({pivot, {offset + left, extension}, m_colorCoordLeft, range, pattern});
+    };
+    edge(p1, phase, startTrim == 0 && (openStart || first >= start) ? -h : 0);
+    edge(p2, endPhase, endTrim == 0 && (openEnd || last + m_duty <= end) ? h : 0);
   }
 
 private:
-  glsl::vec2 const m_pattern;
+  double const m_period;
+  double const m_duty;
 };
 
 template <typename Builder, typename... Args>
@@ -407,6 +434,10 @@ void SubmitEdge(Builder & builder, glsl::vec3 const & pivot, glsl::vec2 const & 
 }
 }  // namespace
 
+LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
+  : LineShape(spline, params, params.m_cap == dp::SquareCap ? m2::SplineClipInfo::Whole(*spline) : m2::SplineClipInfo{})
+{}
+
 LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params, m2::SplineClipInfo clip)
   : m_params(params)
   , m_spline(spline)
@@ -414,9 +445,6 @@ LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & par
   , m_isSimple(false)
 {
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
-  if (m_params.m_cap == dp::SquareCap && m_clip.m_hasStart && m_clip.m_hasEnd &&
-      m_spline->GetPath().front() == m_spline->GetPath().back())
-    m_clip = {.m_hasStart = false, .m_hasEnd = false, .m_hasEndJoin = true};
 }
 
 template <typename TBuilder>
@@ -612,24 +640,20 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   if (hasRainbow && pattern.empty())
     pattern = {2};  // Single 2px dash, no gap = fully opaque mask.
 
+  ASSERT(m_params.m_cap != dp::SquareCap || pattern.size() <= 2, ());
   if (m_params.m_cap == dp::SquareCap && pattern.size() == 2)
   {
     BaseBuilderParams p;
     commonParamsBuilder(p);
-    auto builder = std::make_unique<SquareDashBuilder>(p, m_spline->GetSize(), pattern);
+    auto builder = std::make_unique<SquareDashBuilder>(p, m_spline->GetSize(), pattern, m_params.m_baseGtoPScale);
     double distance = m_clip.m_offset;
     ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double length,
                              bool first, bool last, int startExtension, int endExtension)
     {
-      double const startTrim = first ? m_clip.m_startTrim : 0;
-      double const endTrim = last ? m_clip.m_endTrim : 0;
-      double const start = distance - startTrim, end = distance + length + endTrim;
-      glsl::vec2 const left = p.m_pxHalfWidth * glsl::vec2(-tangent.y, tangent.x);
-      // Signed endpoint type: 0 at a tile cut, ±1 at a join, ±2 at an open feature end.
-      builder->SubmitEdge({p1, m_params.m_depth}, left,
-                          {distance, start, end, startTrim > 0 ? 0 : -1 + startExtension});
+      builder->SubmitSegment({p1, m_params.m_depth}, {p2, m_params.m_depth}, tangent, distance, length,
+                             first ? m_clip.m_startTrim : 0, last ? m_clip.m_endTrim : 0, startExtension != 0,
+                             endExtension != 0);
       distance += length;
-      builder->SubmitEdge({p2, m_params.m_depth}, left, {distance, start, end, endTrim > 0 ? 0 : 1 + endExtension});
     });
     m_lineShapeInfo = std::move(builder);
   }
@@ -680,8 +704,11 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     Prepare(textures);
 
   ASSERT(m_lineShapeInfo != nullptr, ());
+  auto const vertexCount = m_lineShapeInfo->GetLineSize();
+  if (vertexCount == 0)
+    return;
   dp::RenderState state = m_lineShapeInfo->GetState();
-  dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
+  dp::AttributeProvider provider(1, vertexCount);
   provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
   if (!m_isSimple)
   {

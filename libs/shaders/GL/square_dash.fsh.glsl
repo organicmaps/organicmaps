@@ -18,8 +18,8 @@ layout (binding = 1) uniform sampler2D u_colorTex;
 
 void main()
 {
-  float start = min(floor(v_dash.x / v_dash.y) * v_dash.y, v_dash.w);
-  if (start < 0.0 || v_dash.x - start > v_dash.z)
+  float start = min(floor(v_dash.x), v_dash.w);
+  if (start < v_dash.z || v_dash.x - start > v_dash.y)
     discard;
   vec4 color = texture(u_colorTex, v_colorTexCoord);
   color.a *= u_opacity;

@@ -743,7 +743,9 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   // Directions/lengths are computed only on the splines actually returned —
   // see ClipSplinesBuilder::Release.
   bool const square = std::ranges::any_of(lineRules, [](auto r) { return r->cap == drule::LineCap::Square; });
-  m_clippedSplines = m_builder.Release(m_isIsoline, square ? &m_clipInfo : nullptr);
+  auto const * rule = lineRules.front();
+  bool const keepDashPhase = m_isIsoline && square && rule->dashdot && rule->dashdot->dd.size() == 2;
+  m_clippedSplines = m_builder.Release(m_isIsoline, square ? &m_clipInfo : nullptr, keepDashPhase);
 
   if (m_clippedSplines.empty())
     return;
