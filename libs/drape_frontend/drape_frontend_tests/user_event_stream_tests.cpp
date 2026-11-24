@@ -385,6 +385,28 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlingCarriesReleaseSpeedAndSettlesGently
   }
 }
 
+UNIT_CLASS_TEST(CameraAnimationFixture, UncappedFlingHasTheSameGlideInEveryDirection)
+{
+  ScreenBase start = m_stream.GetCurrentScreen();
+  start.OnSize(0, 0, 360, 800);
+  auto const release = df::AnimationClock::now();
+  for (m2::PointD const drag : {m2::PointD(30, 0), {0, 30}, {-18, 24}})
+  {
+    df::KineticScroller scroller;
+    scroller.Init(start, release - 20ms);
+    ScreenBase released = start;
+    released.Move(drag.x, drag.y);
+    scroller.Update(released, release);
+    auto fling = scroller.CreateKineticAnimation(released, release);
+    TEST(fling.has_value(), (drag));
+    TEST_ALMOST_EQUAL_ABS(fling->GetRemainingTime(release), 1.15, 1e-9, (drag));
+    ScreenBase end = released;
+    fling->ApplyTarget(end);
+    double const travel = end.GetOrg().Length(released.GetOrg()) / released.GetScale();
+    TEST_ALMOST_EQUAL_ABS(travel, 575.0, 1e-6, (drag));
+  }
+}
+
 UNIT_CLASS_TEST(CameraAnimationFixture, FastFlingReachesTwoViewportsAlongItsDirection)
 {
   for (bool perspective : {false, true})

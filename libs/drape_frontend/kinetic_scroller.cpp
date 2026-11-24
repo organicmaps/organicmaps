@@ -20,14 +20,6 @@ double constexpr kInstantVelocityThreshold = 200.0;
 // Cubic ease-out starts at three times the average speed.
 double constexpr kFlingInitialToAverageSpeedRatio = 3.0;
 
-double CalculateMaxFlingSpeed(ScreenBase const & screen, m2::PointD const & direction)
-{
-  auto const screenDirection = m2::Rotate(direction, -screen.GetAngle());
-  auto const viewport = ViewportFootprint(screen, screen.PixelRectIn3d()).m_bounds;
-  double const viewportsPerPixel =
-      std::max(std::abs(screenDirection.x) / viewport.SizeX(), std::abs(screenDirection.y) / viewport.SizeY());
-  return kMaxFlingViewports * kFlingInitialToAverageSpeedRatio / (kMaxFlingDurationSec * viewportsPerPixel);
-}
 }  // namespace
 
 void KineticScroller::Init(ScreenBase const & modelView, AnimationClock::time_point now)
@@ -96,11 +88,19 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
   if (releaseSpeed == 0.0)
     return {};
 
-  double const maxSpeed = CalculateMaxFlingSpeed(modelView, direction);
-  double const speed = std::min(releaseSpeed, maxSpeed);
-  double const duration = InterpolateDouble(kMinFlingDurationSec, kMaxFlingDurationSec, speed / maxSpeed);
+  auto const viewport = ViewportFootprint(modelView, modelView.PixelRectIn3d()).m_bounds;
+  // Use the shorter viewport dimension to set the duration for a given release speed in any direction.
+  double const speedForFullDuration = std::min(viewport.SizeX(), viewport.SizeY()) * kMaxFlingViewports *
+                                      kFlingInitialToAverageSpeedRatio / kMaxFlingDurationSec;
+  double const duration =
+      InterpolateDouble(kMinFlingDurationSec, kMaxFlingDurationSec, std::min(releaseSpeed / speedForFullDuration, 1.0));
+  auto const screenDirection = m2::Rotate(direction, -modelView.GetAngle());
+  double const viewportsPerPixel =
+      std::max(std::abs(screenDirection.x) / viewport.SizeX(), std::abs(screenDirection.y) / viewport.SizeY());
+  double const distancePixels =
+      std::min(releaseSpeed * duration / kFlingInitialToAverageSpeedRatio, kMaxFlingViewports / viewportsPerPixel);
   auto const & center = modelView.GetOrg();
-  auto const target = center + direction * (speed * modelView.GetScale() * duration / kFlingInitialToAverageSpeedRatio);
+  auto const target = center + direction * (distancePixels * modelView.GetScale());
   auto const & world = GetWorldRect();
   if (target.y < world.minY() || target.y > world.maxY())
     return {};
