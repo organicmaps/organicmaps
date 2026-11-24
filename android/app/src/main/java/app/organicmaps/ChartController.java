@@ -43,6 +43,9 @@ public class ChartController implements OnChartValueSelectedListener
 
   @Nullable
   private Track mTrack;
+  // The exact distances of the chart points: the chart keeps only their floats.
+  @NonNull
+  private double[] mDistances = new double[0];
 
   private boolean mCurrentPositionOutOfTrack = true;
   private boolean mInformSelectedActivePointToCore = true;
@@ -67,9 +70,14 @@ public class ChartController implements OnChartValueSelectedListener
   public void setData(@Nullable Track track, @NonNull ElevationInfo info, @NonNull TrackStatistics stats)
   {
     mTrack = track;
+    final List<ElevationInfo.Point> points = info.getPoints();
+    mDistances = new double[points.size()];
     List<Entry> values = new ArrayList<>();
-    for (ElevationInfo.Point point : info.getPoints())
-      values.add(new Entry((float) point.getDistance(), point.getAltitude()));
+    for (int i = 0; i < points.size(); i++)
+    {
+      mDistances[i] = points.get(i).getDistance();
+      values.add(new Entry((float) mDistances[i], points.get(i).getAltitude()));
+    }
 
     ElevationChartUtils.configureYAxisBounds(mChart, stats.getMinElevation(), stats.getMaxElevation());
     ElevationChartUtils.addSegmentSeparators(mChart, info.getSegmentDistances(), mContext);
@@ -114,8 +122,10 @@ public class ChartController implements OnChartValueSelectedListener
     else
       mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
 
+    // Navigate starts from this point, so a gap or the finish keeps its exact distance.
     if (informCore)
-      BookmarkManager.INSTANCE.setElevationActivePoint(mTrack.getTrackId(), distance);
+      BookmarkManager.INSTANCE.setElevationActivePoint(
+          mTrack.getTrackId(), ElevationChartUtils.toDistance(distance, Double.NaN, mDistances));
   }
 
   @Override

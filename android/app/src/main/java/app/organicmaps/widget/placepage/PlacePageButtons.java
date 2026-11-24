@@ -77,14 +77,15 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   private @NonNull List<PlacePageButton> collectButtons(List<PlacePageButtons.ButtonType> items)
   {
     List<PlacePageButton> res = new ArrayList<>();
+    final int maxButtons = getMaxButtons(items, mMaxButtons);
     int count = items.size();
-    if (items.size() > mMaxButtons)
-      count = mMaxButtons - 1;
+    if (items.size() > maxButtons)
+      count = maxButtons - 1;
 
     for (int i = 0; i < count; i++)
       res.add(PlacePageButtonFactory.createButton(items.get(i), requireContext()));
 
-    if (items.size() > mMaxButtons)
+    if (items.size() > maxButtons)
       res.add(PlacePageButtonFactory.createButton(ButtonType.MORE, requireContext()));
     return res;
   }
@@ -99,17 +100,46 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   {
     if (buttons == null)
       return;
-    final RoutingController routing = RoutingController.get();
-    final boolean needsStart = routing.isPlanning() && routing.getStartPoint() == null;
+    final boolean needsStart = needsStart(RoutingController.get());
     List<PlacePageButton> shownButtons = collectButtons(buttons);
     mButtonsContainer.removeAllViews();
     for (PlacePageButton button : shownButtons)
       mButtonsContainer.addView(createButton(button, isPrimary(button.getType(), buttons, needsStart)));
   }
 
+  // A followed track has no route marks: its missing start point is not a step left to plan.
+  @VisibleForTesting
+  static boolean needsStart(@NonNull RoutingController routing)
+  {
+    return routing.isPlanning() && !routing.isFollowingTrack() && routing.getStartPoint() == null;
+  }
+
+  // A track page fits five actions like the iOS bar: Navigate joins the routing and track actions.
+  static int getMaxButtons(@NonNull List<ButtonType> buttons, int defaultMax)
+  {
+    return buttons.contains(ButtonType.TRACK_NAVIGATE) ? defaultMax + 1 : defaultMax;
+  }
+
+  // The track actions in the iOS bar order. Navigate never falls into More: with it the bar fits
+  // defaultMax + 1 actions (see getMaxButtons()), so index defaultMax - 1 is its last slot ahead of More.
+  static void addTrackButtons(@NonNull List<ButtonType> buttons, int defaultMax, boolean stopAllowed,
+                              boolean canNavigate)
+  {
+    buttons.add(ButtonType.ROUTE_FROM);
+    if (stopAllowed)
+      buttons.add(ButtonType.ROUTE_ADD);
+    buttons.add(ButtonType.BOOKMARK_SAVE);
+    buttons.add(ButtonType.ROUTE_TO);
+    if (canNavigate)
+      buttons.add(Math.min(buttons.size(), defaultMax - 1), ButtonType.TRACK_NAVIGATE);
+    buttons.add(ButtonType.TRACK_DELETE);
+  }
+
   @VisibleForTesting
   static boolean isPrimary(@NonNull ButtonType type, @NonNull List<ButtonType> buttons, boolean needsStart)
   {
+    if (buttons.contains(ButtonType.TRACK_NAVIGATE))
+      return type == ButtonType.TRACK_NAVIGATE;
     return switch (type)
     {
       case ROUTE_ADD, ROUTE_APPEND, ROUTE_REPLACE -> true;
@@ -160,6 +190,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     BACK,
     BOOKMARK_SAVE,
     BOOKMARK_DELETE,
+    TRACK_NAVIGATE,
     TRACK_DELETE,
     ROUTE_FROM,
     ROUTE_TO,

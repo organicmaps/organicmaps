@@ -712,6 +712,8 @@
     <string name="moreyear_ago_sorttype">Fa més d’un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">La planificació de la ruta ha fallat</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Ara és tancat</string>
     <string name="opens_tomorrow_at">Obre demà a les %s</string>
@@ -967,4 +969,12 @@
     <string name="error_enter_correct_level">Introduïu un número de planta vàlid</string>
     <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
     <string name="editor_level">Planta (la planta baixa és 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navega</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Inici del recorregut</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Final del recorregut</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">No queda recorregut en aquest sentit. Trieu un altre punt.</string>
 </resources>

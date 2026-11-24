@@ -711,6 +711,8 @@
     <string name="moreyear_ago_sorttype">Aktar minn sena ilu</string>
     <string name="near_me_sorttype">Ħdejja</string>
     <string name="others_sorttype">Oħrajn</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">L-Ippjanar tar-rotta ma rnexxiex</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Magħluq issa</string>
     <string name="opens_tomorrow_at">Jiftaħ għada fil-%s</string>
@@ -954,4 +956,12 @@
     <string name="error_enter_correct_level">Daħħal numru ta’ sular validu</string>
     <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
     <string name="editor_level">Sular (il-pjan terran huwa 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Innaviga</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Bidu tat-traċċa</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Tmiem tat-traċċa</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Ma fadal l-ebda traċċa f\'din id-direzzjoni. Agħżel punt ieħor.</string>
 </resources>
