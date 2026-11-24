@@ -348,13 +348,13 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlingCarriesReleaseSpeedAndSettlesGently
     std::chrono::milliseconds m_duration;
     double m_travelPixels;
   };
-  // At zoom 11 and visual scale 1, the fling speed cap is 3000 px/s.
+  // Two 600 px viewport widths in a 1.2 s cubic ease-out give a release speed cap of 3000 px/s.
   Swipe constexpr kSwipes[] = {{500, 500, 950ms, 158.33}, {1000, 1000, 1000ms, 333.33}, {4000, 3000, 1200ms, 1200}};
   for (auto const & swipe : kSwipes)
   {
     df::KineticScroller scroller;
     ScreenBase screen = m_stream.GetCurrentScreen();
-    screen.SetScale(df::GetScreenScale(11));
+    screen.OnSize(0, 0, 600, 800);
     double const scale = screen.GetScale();
     auto const start = df::AnimationClock::now();
     auto const release = start + 20ms;
@@ -382,6 +382,37 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlingCarriesReleaseSpeedAndSettlesGently
     TEST_ALMOST_EQUAL_ABS(halfway / distance, 0.875, 0.001, ());
     TEST_GREATER(distance, nearEnd, ());
     TEST_LESS(distance - nearEnd, 0.1, ());
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FastFlingReachesTwoViewportsAlongItsDirection)
+{
+  for (bool perspective : {false, true})
+  {
+    ScreenBase screen = m_stream.GetCurrentScreen();
+    screen.OnSize(0, 0, perspective ? 800 : 360, perspective ? 480 : 800);
+    screen.SetFromParams(m2::PointD::Zero(), 0.7, df::GetScreenScale(perspective ? 18 : 11));
+    screen.SetAutoPerspective(perspective);
+    TEST_EQUAL(screen.isPerspective(), perspective, ());
+    auto const & viewport = screen.PixelRectIn3d();
+    for (m2::PointD const edge : {m2::PointD(1, 0), {0, -1}, {-1, 1}, {0.5, 1}})
+    {
+      m2::PointD const expected(2.0 * edge.x * viewport.SizeX(), 2.0 * edge.y * viewport.SizeY());
+      df::KineticScroller scroller;
+      auto const start = df::AnimationClock::now();
+      auto const release = start + 20ms;
+      scroller.Init(screen, start);
+      ScreenBase released = screen;
+      released.Move(-0.1 * expected.x, -0.1 * expected.y);
+      scroller.Update(released, release);
+      auto fling = scroller.CreateKineticAnimation(released, release);
+      TEST(fling.has_value(), (edge, perspective));
+      ScreenBase end = released;
+      fling->Advance(release + 1200ms);
+      fling->Apply(end);
+      auto const travel = released.GtoP(end.GetOrg()) - released.GtoP(released.GetOrg());
+      TEST(travel.EqualDxDy(expected, 1e-6), (travel, expected, perspective));
+    }
   }
 }
 

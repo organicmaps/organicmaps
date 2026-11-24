@@ -4,24 +4,32 @@
 #include "visual_params.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace df
+{
+namespace
 {
 // Time window to store move points for better (smooth) _instant_ velocity calculation.
 double constexpr kTimeWindowSec = 0.05;
 double constexpr kMinDragTimeSec = 0.01;
 
-/// @name Generic pixels per second. Should multiply on visual scale.
-/// @{
-double constexpr kKineticMaxSpeedStart = 1000.0;
-double constexpr kKineticMaxSpeedEnd = 5000.0;
+// Minimum fling speed in pixels per second at visual scale 1.
 double constexpr kInstantVelocityThreshold = 200.0;
-/// @}
 
-double CalculateKineticMaxSpeed(ScreenBase const & screen)
+// Cubic ease-out starts at three times the average speed.
+double constexpr kFlingInitialToAverageSpeedRatio = 3.0;
+
+double CalculateMaxFlingSpeed(ScreenBase const & screen, m2::PointD const & direction)
 {
-  return InterpolateDouble(kKineticMaxSpeedStart, kKineticMaxSpeedEnd, GetNormalizedZoomLevel(screen.GetScale()));
+  double constexpr kMaxFlingViewports = 2.0;
+  auto const screenDirection = m2::Rotate(direction, -screen.GetAngle());
+  auto const & viewport = screen.PixelRectIn3d();
+  double const viewportsPerPixel =
+      std::max(std::abs(screenDirection.x) / viewport.SizeX(), std::abs(screenDirection.y) / viewport.SizeY());
+  return kMaxFlingViewports * kFlingInitialToAverageSpeedRatio / (kMaxFlingDurationSec * viewportsPerPixel);
 }
+}  // namespace
 
 void KineticScroller::Init(ScreenBase const & modelView, AnimationClock::time_point now)
 {
@@ -89,12 +97,11 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
   if (releaseSpeed == 0.0)
     return {};
 
-  double const maxSpeed = CalculateKineticMaxSpeed(modelView) * VisualParams::Instance().GetVisualScale();
+  double const maxSpeed = CalculateMaxFlingSpeed(modelView, direction);
   double const speed = std::min(releaseSpeed, maxSpeed);
   double const duration = InterpolateDouble(kMinFlingDurationSec, kMaxFlingDurationSec, speed / maxSpeed);
-  // With cubic ease-out, the average speed is one third of the release speed.
   auto const & center = modelView.GetOrg();
-  auto const target = center + direction * (speed * modelView.GetScale() * duration / 3.0);
+  auto const target = center + direction * (speed * modelView.GetScale() * duration / kFlingInitialToAverageSpeedRatio);
   auto const & world = GetWorldRect();
   if (target.y < world.minY() || target.y > world.maxY())
     return {};
