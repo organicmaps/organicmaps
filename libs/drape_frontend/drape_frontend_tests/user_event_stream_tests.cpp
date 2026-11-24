@@ -464,6 +464,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FastFlingReachesTwoViewportsAlongItsDire
       TEST(fling.has_value(), (edge, perspective));
       ScreenBase end = released;
       fling->Advance(release + 1200ms);
+      TEST(fling->IsFinished(), (edge, perspective));
       fling->Apply(end);
       auto const travel = released.GtoP(end.GetOrg()) - released.GtoP(released.GetOrg());
       TEST(travel.EqualDxDy(expected, 1e-6), (travel, expected, perspective));
