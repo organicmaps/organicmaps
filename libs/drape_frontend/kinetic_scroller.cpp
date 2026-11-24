@@ -99,14 +99,21 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
       std::max(std::abs(screenDirection.x) / viewport.SizeX(), std::abs(screenDirection.y) / viewport.SizeY());
   double const distancePixels =
       std::min(releaseSpeed * duration / kFlingInitialToAverageSpeedRatio, kMaxFlingViewports / viewportsPerPixel);
-  auto const & center = modelView.GetOrg();
-  auto const target = center + direction * (distancePixels * modelView.GetScale());
-  auto const & world = GetWorldRect();
-  if (target.y < world.minY() || target.y > world.maxY())
-    return {};
+  auto const delta = direction * (distancePixels * modelView.GetScale());
+  double fraction = 1.0;
+  if (delta.y != 0.0)
+  {
+    auto const & clip = modelView.ClipRect();
+    auto const & world = GetWorldRect();
+    double const room = delta.y > 0.0 ? world.maxY() - clip.maxY() : clip.minY() - world.minY();
+    if (room <= 0.0)
+      return {};
+    fraction = std::min(1.0, room / std::abs(delta.y));
+  }
 
+  // Shorten both travel and time at a pole to keep the release velocity and heading.
   ScreenBase end = modelView;
-  end.SetOrg(target);
-  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, duration);
+  end.SetOrg(modelView.GetOrg() + delta * fraction);
+  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, duration * fraction);
 }
 }  // namespace df

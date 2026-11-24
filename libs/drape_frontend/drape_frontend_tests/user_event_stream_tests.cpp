@@ -407,6 +407,38 @@ UNIT_CLASS_TEST(CameraAnimationFixture, UncappedFlingHasTheSameGlideInEveryDirec
   }
 }
 
+UNIT_CLASS_TEST(CameraAnimationFixture, FlingReachesPoleWithoutChangingHeadingOrZoom)
+{
+  auto const & world = df::GetWorldRect();
+  for (double const sign : {-1.0, 1.0})
+  {
+    ScreenBase released = m_stream.GetCurrentScreen();
+    double const scale = df::GetScreenScale(11);
+    released.SetFromParams({world.maxX(), 0}, 0.4, scale);
+    double const pole = sign > 0 ? world.maxY() : world.minY();
+    released.SetOrg({world.maxX(), pole - sign * (released.ClipRect().SizeY() * 0.5 + 80 * scale)});
+    ScreenBase start = released;
+    start.SetOrg(released.GetOrg() - m2::PointD(120, sign * 160) * scale);
+
+    df::KineticScroller scroller;
+    auto const release = df::AnimationClock::now();
+    scroller.Init(start, release - 20ms);
+    scroller.Update(released, release);
+    auto fling = scroller.CreateKineticAnimation(released, release);
+    TEST(fling.has_value(), (sign));
+    TEST_LESS(fling->GetRemainingTime(release), 0.3, (sign));
+
+    ScreenBase end = released;
+    fling->ApplyTarget(end);
+    auto const travel = (end.GetOrg() - released.GetOrg()) / scale;
+    TEST(travel.EqualDxDy({60, sign * 80}, 1e-6), (sign, travel));
+    TEST_ALMOST_EQUAL_ABS(sign > 0 ? end.ClipRect().maxY() : end.ClipRect().minY(), pole, 1e-9, ());
+    df::Navigator navigator;
+    navigator.SetFromScreen(end);
+    TEST_ALMOST_EQUAL_ABS(navigator.Screen().GetScale(), scale, 1e-12, ());
+  }
+}
+
 UNIT_CLASS_TEST(CameraAnimationFixture, FastFlingReachesTwoViewportsAlongItsDirection)
 {
   for (bool perspective : {false, true})
