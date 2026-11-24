@@ -2,18 +2,28 @@ package app.organicmaps.routing;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.SystemClock;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.permission.PermissionRequester;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.maplayer.MapButtonsController;
+import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
@@ -328,6 +338,42 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
+  public void deletingTheTrackEndsItsNavigation() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack(); ActivityScenario<MwmActivity> ignored = launchMap())
+    {
+      startTrackNavigation(track);
+      onMain(() -> BookmarkManager.INSTANCE.deleteTrack(track.id));
+      await("Deleting the track did not end its navigation", () -> !mController.isNavigating());
+      onMain(() -> {
+        assertFalse(mController.isPlanning());
+        assertFalse(mController.isFollowingTrack());
+        assertFalse(Framework.nativeIsRoutingFollowing());
+      });
+    }
+  }
+
+  @Test
+  public void deletingTheTrackListWhileTheMapIsStoppedEndsItsNavigation() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack(); ActivityScenario<MwmActivity> scenario = launchMap())
+    {
+      startTrackNavigation(track);
+      scenario.moveToState(Lifecycle.State.CREATED);
+      onMain(track::deleteCategory);
+      await("Deleting the track list did not end its navigation", () -> !mController.isNavigating());
+      onMain(() -> assertFalse(Framework.nativeIsRoutingFollowing()));
+
+      scenario.moveToState(Lifecycle.State.RESUMED);
+      scenario.onActivity(activity -> {
+        final MapButtonsViewModel buttons = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
+        assertEquals(MapButtonsController.LayoutMode.regular, buttons.getLayoutMode().getValue());
+        assertNull(activity.getSupportFragmentManager().findFragmentByTag(RoutingPlanFragment.TAG));
+      });
+    }
+  }
+
+  @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
     // A location permission dialog would pause the Activity during recreation. Below API 23 the permissions are
@@ -335,12 +381,7 @@ public class RoutingControllerRecoveryTest
     final PermissionRequester permissions = new PermissionRequester();
     permissions.addPermissions(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION);
     permissions.requestPermissions();
-    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
-    onMain(() -> {
-      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
-      mController = RoutingController.get();
-      mController.initialize(mApplication.getLocationHelper());
-    });
+    useTheAppController();
     try (ActivityScenario<MwmActivity> scenario = ActivityScenario.launch(MwmActivity.class))
     {
       final AtomicReference<MwmActivity> original = new AtomicReference<>();
@@ -375,6 +416,52 @@ public class RoutingControllerRecoveryTest
   private static MapObject point(String name, double coordinate)
   {
     return MapObject.createMapObject(MapObject.API_POINT, name, "", coordinate, coordinate);
+  }
+
+  // The map activity attaches to the app's controller.
+  private void useTheAppController() throws Exception
+  {
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
+    onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
+      mController = RoutingController.get();
+      mController.initialize(mApplication.getLocationHelper());
+    });
+  }
+
+  // Following a route needs the map engine and, without a permission dialog, keeps the activity resumed.
+  private ActivityScenario<MwmActivity> launchMap() throws Exception
+  {
+    final PermissionRequester permissions = new PermissionRequester();
+    permissions.addPermissions(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+      permissions.addPermissions(POST_NOTIFICATIONS);
+    permissions.requestPermissions();
+    useTheAppController();
+    final ActivityScenario<MwmActivity> scenario = ActivityScenario.launch(MwmActivity.class);
+    await("The map engine was not created", Map::isEngineCreated);
+    await("Location did not start", () -> mApplication.getLocationHelper().isActive());
+    return scenario;
+  }
+
+  // The core starts following from its latest fix: put it at the track start to follow at once. The track lies on
+  // land, where navigation can read the speed limit signs of a country.
+  private void startTrackNavigation(ImportedTrack track) throws Exception
+  {
+    onMain(() -> {
+      final Location fix = new Location(LocationManager.GPS_PROVIDER);
+      fix.setLatitude(51.47);
+      fix.setLongitude(0);
+      fix.setAccuracy(1);
+      fix.setTime(System.currentTimeMillis());
+      fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+      mApplication.getLocationHelper().onLocationChanged(fix);
+      assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id));
+    });
+    await("Track preview did not finish building", mController::isBuilt);
+    onMain(mController::start);
+    await("Track navigation did not start", mController::isNavigating);
+    onMain(() -> assertTrue(Framework.nativeIsRoutingFollowing()));
   }
 
   private static DataChangedListener getBookmarksListener(RoutingController controller)
@@ -418,12 +505,12 @@ public class RoutingControllerRecoveryTest
         writer.write(String.format("""
             <kml xmlns="http://www.opengis.net/kml/2.2"><Document>
             <name>%s</name><Placemark><name>Trail 🏔</name>
-            <LineString><coordinates>0,0,100 0.01,0,200</coordinates></LineString>
+            <LineString><coordinates>0,51.47,100 0,51.48,200</coordinates></LineString>
             </Placemark></Document></kml>
             """, source.getName()));
       }
       onMain(() -> BookmarkManager.INSTANCE.loadBookmarksFile(source.getAbsolutePath(), false));
-      await("Track was not imported", () -> category() != null);
+      await("Track was not imported", () -> category() != null && category().getTracksCount() == 1);
       final FutureTask<Long> selected = new FutureTask<>(() -> category().getTrackIdByPosition(0));
       mInstrumentation.runOnMainSync(selected);
       id = selected.get();
@@ -434,7 +521,7 @@ public class RoutingControllerRecoveryTest
     {
       return BookmarkManager.INSTANCE.getCategories()
           .stream()
-          .filter(item -> item.getName().equals(source.getName()) && item.getTracksCount() == 1)
+          .filter(item -> item.getName().equals(source.getName()))
           .findFirst()
           .orElse(null);
     }

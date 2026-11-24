@@ -175,8 +175,7 @@ To navigate a saved track, select a point on it and call
 that point without downloaded road maps. Adjust the preview with
 `setFollowTrackProfile(router)` and `updateFollowedTrackEntryAt(distanceMeters)`, then
 call `start()` after the build succeeds. Navigation can begin after the host stops;
-see `Container.onNavigationStartPending()`. Deleting the source track cancels its
-preview, while started navigation continues.
+see `Container.onNavigationStartPending()`. Deleting the source track ends its route.
 
 ## Release consumers
 
