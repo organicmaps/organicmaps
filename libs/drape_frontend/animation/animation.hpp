@@ -16,9 +16,11 @@ public:
   void Advance(AnimationClock::time_point now) { m_timeFraction = std::clamp(Elapsed(now) / m_duration, 0.0, 1.0); }
 
 protected:
-  Animation(AnimationClock::time_point requestedAt, double duration) : m_requestedAt(requestedAt), m_duration(duration)
+  Animation(AnimationClock::time_point requestedAt, double duration, double maxDuration = kMaxAnimationTimeSec)
+    : m_requestedAt(requestedAt)
+    , m_duration(duration)
   {
-    ASSERT(duration > 0.0 && duration <= kMaxAnimationTimeSec, (duration));
+    ASSERT(duration > 0.0 && duration <= maxDuration, (duration, maxDuration));
   }
 
   double GetTimeFraction() const { return m_timeFraction; }

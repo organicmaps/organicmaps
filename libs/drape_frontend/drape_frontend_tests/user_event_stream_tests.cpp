@@ -339,30 +339,75 @@ UNIT_CLASS_TEST(CameraAnimationFixture, QueuedArrowTargetStartsAtThePreviousEndp
   TEST_EQUAL(settled->m_azimuth, nextTarget.m_azimuth, ());
 }
 
-UNIT_CLASS_TEST(CameraAnimationFixture, FlingKeepsReleaseSpeedAndSettlesWithin350Ms)
+UNIT_CLASS_TEST(CameraAnimationFixture, FlingCarriesReleaseSpeedAndSettlesGently)
+{
+  struct Swipe
+  {
+    double m_releaseSpeed;
+    double m_initialFlingSpeed;
+    std::chrono::milliseconds m_duration;
+    double m_travelPixels;
+  };
+  // At zoom 11 and visual scale 1, the fling speed cap is 3000 px/s.
+  Swipe constexpr kSwipes[] = {{500, 500, 950ms, 158.33}, {1000, 1000, 1000ms, 333.33}, {4000, 3000, 1200ms, 1200}};
+  for (auto const & swipe : kSwipes)
+  {
+    df::KineticScroller scroller;
+    ScreenBase screen = m_stream.GetCurrentScreen();
+    screen.SetScale(df::GetScreenScale(11));
+    double const scale = screen.GetScale();
+    auto const start = df::AnimationClock::now();
+    auto const release = start + 20ms;
+    scroller.Init(screen, start);
+    screen.SetOrg(screen.GetOrg() + m2::PointD(swipe.m_releaseSpeed * 0.020 * scale, 0));
+    scroller.Update(screen, release);
+    auto fling = scroller.CreateKineticAnimation(screen, release);
+    TEST(fling.has_value(), (swipe.m_releaseSpeed));
+
+    auto const travelAfter = [&](std::chrono::milliseconds elapsed)
+    {
+      fling->Advance(release + elapsed);
+      ScreenBase sample = screen;
+      fling->Apply(sample);
+      return (sample.GetOrg().x - screen.GetOrg().x) / scale;
+    };
+
+    TEST_ALMOST_EQUAL_ABS(travelAfter(1ms) / 0.001, swipe.m_initialFlingSpeed, 3.0, ());
+    double const halfway = travelAfter(swipe.m_duration / 2);
+    double const nearEnd = travelAfter(swipe.m_duration - 50ms);
+    TEST(!fling->IsFinished(), ());
+    double const distance = travelAfter(swipe.m_duration);
+    TEST(fling->IsFinished(), ());
+    TEST_ALMOST_EQUAL_ABS(distance, swipe.m_travelPixels, 0.01, ());
+    TEST_ALMOST_EQUAL_ABS(halfway / distance, 0.875, 0.001, ());
+    TEST_GREATER(distance, nearEnd, ());
+    TEST_LESS(distance - nearEnd, 0.1, ());
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, PausingBeforeReleaseSuppressesFling)
 {
   df::KineticScroller scroller;
   ScreenBase screen = m_stream.GetCurrentScreen();
   auto const start = df::AnimationClock::now();
   scroller.Init(screen, start);
-  double const scale = screen.GetScale();
-  screen.SetOrg(screen.GetOrg() + m2::PointD(10.0 * scale, 0));
-  auto const release = start + 20ms;
-  scroller.Update(screen, release);
-  auto fling = scroller.CreateKineticAnimation(screen, release);
-  TEST(fling.has_value(), ());
+  screen.SetOrg(screen.GetOrg() + m2::PointD(60.0 * screen.GetScale(), 0));
+  scroller.Update(screen, start + 20ms);
+  TEST(!scroller.CreateKineticAnimation(screen, start + 80ms), ());
+}
 
-  ScreenBase sample = screen;
-  fling->Advance(release + 1ms);
-  fling->Apply(sample);
-  double const initialSpeed = sample.GetOrg().Length(screen.GetOrg()) / scale / 0.001;
-  TEST_ALMOST_EQUAL_ABS(initialSpeed, 500.0, 5.0, ());
-
-  fling->Advance(release + 350ms);
-  TEST(fling->IsFinished(), ());
-  fling->Apply(sample);
-  double const distance = sample.GetOrg().Length(screen.GetOrg()) / scale;
-  TEST_GREATER(distance, 70.0, ());
+UNIT_CLASS_TEST(CameraAnimationFixture, TouchDownStopsFlingAtDisplayedPosition)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  ScreenBase target = start;
+  target.Move(200, 0);
+  auto const release = df::AnimationClock::now() - 600ms;
+  m_animations.StartMapAnimation({df::MapAnimation::Type::Fling, start, target, release, 1.0});
+  ScreenBase const displayed = Process(release + 600ms);
+  TEST(displayed != start && displayed != target, ());
+  Finger(df::TouchEvent::TOUCH_DOWN);
+  TEST(Process(release + 620ms) == displayed, ());
+  TEST(!m_animations.IsCameraMoving(), ());
 }
 
 UNIT_TEST(OverlayFadeReachesEndpointAfterStalledFrame)
