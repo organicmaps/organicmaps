@@ -71,6 +71,20 @@ void QuerySaver::Add(SearchRequest const & localeAndQuery)
   m_topQueries.push_front(localeAndQuery);
   Save();
 }
+bool QuerySaver::Remove(SearchRequest const & query)
+{
+  auto const it = std::find(m_topQueries.begin(), m_topQueries.end(), query);
+  if (it == m_topQueries.end())
+    return false;
+
+  m_topQueries.erase(it);
+  if (m_topQueries.empty())
+    Clear();
+  else
+    Save();
+
+  return true;
+}
 
 void QuerySaver::Clear()
 {
