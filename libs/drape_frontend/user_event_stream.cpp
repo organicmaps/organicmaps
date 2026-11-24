@@ -27,7 +27,7 @@ namespace
 {
 uint64_t constexpr kDoubleTapPauseMs = 250;
 uint64_t constexpr kLongTouchMs = 500;
-uint64_t constexpr kKineticDelayMs = 500;
+std::chrono::milliseconds constexpr kPostPinchFlingDelay{500};
 
 float constexpr kForceTapThreshold = 0.75;
 
@@ -621,6 +621,8 @@ bool UserEventStream::TouchDown(std::array<Touch, 2> const & touches)
 
   if (touchCount == 1)
   {
+    // A fresh contact starts a new gesture. The post-pinch delay applies to the remaining finger.
+    m_flingBlockedUntil = {};
     if (!DetectDoubleTap(touches[0]))
     {
       if (m_state == STATE_EMPTY)
@@ -897,8 +899,7 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
   m_startDragOrg = m2::PointD::Zero();
   m_navigator.StopDrag(m2::PointD(t.m_location));
 
-  if (!cancelled && m_kineticScrollEnabled && m_scroller.IsActive() &&
-      m_kineticTimer.ElapsedMilliseconds() >= kKineticDelayMs)
+  if (!cancelled && m_scroller.IsActive() && m_eventTime >= m_flingBlockedUntil)
   {
     if (auto animation = m_scroller.CreateKineticAnimation(m_navigator.Screen(), m_eventTime))
     {
@@ -972,7 +973,7 @@ void UserEventStream::EndScale(Touch const & t1, Touch const & t2)
 
   m_navigator.StopScale(touch1, touch2);
 
-  m_kineticTimer.Reset();
+  m_flingBlockedUntil = m_eventTime + kPostPinchFlingDelay;
 }
 
 void UserEventStream::BeginTapDetector()
@@ -1136,7 +1137,6 @@ bool UserEventStream::IsWaitingForActionCompletion() const
 void UserEventStream::SetKineticScrollEnabled(bool enabled)
 {
   m_kineticScrollEnabled = enabled;
-  m_kineticTimer.Reset();
   if (!m_kineticScrollEnabled)
   {
     m_scroller.Cancel();

@@ -613,6 +613,45 @@ UNIT_CLASS_TEST(CameraAnimationFixture, TouchDownStopsFlingAtDisplayedPosition)
   TEST(!m_animations.IsCameraMoving(), ());
 }
 
+UNIT_CLASS_TEST(CameraAnimationFixture, FreshSwipeImmediatelyAfterPinchCanFling)
+{
+  auto const pinch = [&](df::TouchEvent::ETouchType type, float secondX)
+  {
+    auto event = make_unique_dp<df::TouchEvent>();
+    event->SetTouchType(type);
+    event->SetFirstTouch({m2::PointF(200, 300), 1});
+    event->SetSecondTouch({m2::PointF(secondX, 300), 2});
+    if (type != df::TouchEvent::TOUCH_MOVE)
+      event->SetFirstMaskedPointer(1);  // Only the second finger is added or lifted.
+    m_stream.AddEvent(std::move(event));
+  };
+
+  for (bool const freshSwipe : {false, true})
+  {
+    double const initialScale = m_stream.GetCurrentScreen().GetScale();
+    Finger(df::TouchEvent::TOUCH_DOWN, 200, 300);
+    pinch(df::TouchEvent::TOUCH_DOWN, 500);
+    pinch(df::TouchEvent::TOUCH_MOVE, 540);
+    pinch(df::TouchEvent::TOUCH_MOVE, 600);
+    pinch(df::TouchEvent::TOUCH_UP, 600);
+    ScreenBase const zoomed = Process(df::AnimationClock::now());
+    TEST_LESS(zoomed.GetScale(), initialScale, ());
+    TEST(!m_animations.IsCameraMoving(), ());
+
+    if (freshSwipe)
+    {
+      Finger(df::TouchEvent::TOUCH_UP, 200, 300);
+      Finger(df::TouchEvent::TOUCH_DOWN, 200, 300);
+    }
+    for (float x : {240.f, 280.f, 360.f, 440.f})
+      Finger(df::TouchEvent::TOUCH_MOVE, x, 300);
+    Finger(df::TouchEvent::TOUCH_UP, 440, 300);
+    auto const & dragged = Process(df::AnimationClock::now());
+    TEST(dragged.GetOrg() != zoomed.GetOrg(), (freshSwipe));
+    TEST_EQUAL(m_animations.HasMapAnimation(df::MapAnimation::Type::Fling), freshSwipe, ());
+  }
+}
+
 UNIT_TEST(OverlayFadeReachesEndpointAfterStalledFrame)
 {
   df::ShowHideAnimation fade(false, df::kOverlayFadeTimeSec);
