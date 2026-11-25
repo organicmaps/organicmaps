@@ -18,10 +18,7 @@ class ChartLineView: UIView {
 
   var chartLine: ChartPresentationLine! {
     didSet {
-      guard let chartLine = chartLine else { return }
-      maxX = chartLine.values.count - 1
-      minY = chartLine.minY
-      maxY = chartLine.maxY
+      guard let chartLine else { return }
       highlightedStroke?.removeFromSuperlayer()
       highlightedStroke = nil
       if chartLine.highlighted != nil, chartLine.type == .line {
@@ -34,7 +31,6 @@ class ChartLineView: UIView {
         highlightedStroke = stroke
       }
       updateLineColors()
-      updateGraph()
     }
   }
 
@@ -80,7 +76,7 @@ class ChartLineView: UIView {
   }
 
   private func updateGraph(animationStyle: ChartAnimation = .none) {
-    // A flat profile gets its Y span from the viewport.
+    // Layout can run before the chart supplies its viewport.
     guard let chartLine, maxX > minX, maxY > minY else { return }
 
     let xScale = bounds.width / CGFloat(maxX - minX)
