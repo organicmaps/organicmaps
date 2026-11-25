@@ -227,6 +227,14 @@
     <string name="pref_bg_tiles_opacity_title">Area objects opacity</string>
     <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
     <string name="pref_bg_tiles_disclaimer">Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</string>
+    <!-- Accessibility action of the navigation voice button when voice instructions are off. -->
+    <string name="navigation_voice_enable">Enable voice instructions</string>
+    <!-- Accessibility action of the navigation voice button when voice instructions are on. -->
+    <string name="navigation_voice_disable">Disable voice instructions</string>
+    <!-- Accessibility action of the navigation voice button when a voice engine or language needs configuring. -->
+    <string name="navigation_voice_settings">Set up voice instructions</string>
+    <!-- Accessibility label of the disabled navigation voice button while speech synthesis initializes. -->
+    <string name="navigation_voice_initializing">Initializing voice instructions…</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Voice Instructions</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
