@@ -3263,6 +3263,52 @@ UNIT_CLASS_TEST(ProcessorTest, JaKanaNormalizationTest)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, CJKVariantsTest)
+{
+  // https://github.com/organicmaps/organicmaps/issues/12839
+  // Each pair is the same name spelled with interchangeable variants: 臺/台, 綫/線, 衞/衛.
+  TestPOI const taipeiVariant({0.0, 0.0}, "臺北車站", "default");
+  TestPOI const taipeiCommon({0.1, 0.1}, "台北車站", "default");
+  TestPOI const wutaiVariant({0.2, 0.2}, "霧臺國小", "default");
+  TestPOI const wutaiCommon({0.3, 0.3}, "霧台國小", "default");
+  TestPOI const kwunTongVariant({0.4, 0.4}, "觀塘綫", "default");
+  TestPOI const kwunTongCommon({0.5, 0.5}, "觀塘線", "default");
+  TestPOI const healthVariant({0.6, 0.6}, "衞生署", "default");
+  TestPOI const healthCommon({0.7, 0.7}, "衛生署", "default");
+
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    for (auto const * poi : {&taipeiVariant, &taipeiCommon, &wutaiVariant, &wutaiCommon, &kwunTongVariant,
+                             &kwunTongCommon, &healthVariant, &healthCommon})
+    {
+      builder.Add(*poi);
+    }
+  });
+
+  SetViewport(m2::RectD(0.0, 0.0, 1.0, 1.0));
+
+  // Both spellings find both POIs, and not as a misprint.
+  auto const checkBoth = [&](string const & query, TestPOI const & variant, TestPOI const & common)
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    TEST(ResultsMatch(results, {ExactMatch(countryId, variant), ExactMatch(countryId, common)}), (query, results));
+    for (auto const & result : results)
+      TEST_EQUAL(result.GetRankingInfo().m_errorsMade, ErrorsMade(0), (query, result));
+  };
+
+  checkBoth("臺北車站", taipeiVariant, taipeiCommon);
+  checkBoth("台北車站", taipeiVariant, taipeiCommon);
+  checkBoth("臺北", taipeiVariant, taipeiCommon);
+  checkBoth("台北", taipeiVariant, taipeiCommon);
+  checkBoth("霧臺國小", wutaiVariant, wutaiCommon);
+  checkBoth("霧台國小", wutaiVariant, wutaiCommon);
+  checkBoth("觀塘綫", kwunTongVariant, kwunTongCommon);
+  checkBoth("觀塘線", kwunTongVariant, kwunTongCommon);
+  checkBoth("衞生署", healthVariant, healthCommon);
+  checkBoth("衛生署", healthVariant, healthCommon);
+}
+
 UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
 {
   StringUtf8Multilang cityName;
