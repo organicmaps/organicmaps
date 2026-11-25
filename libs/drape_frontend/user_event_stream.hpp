@@ -475,7 +475,8 @@ private:
                  MapAnimation::Type type = MapAnimation::Type::Camera, double maxScaleTime = kMaxAnimationTimeSec);
   void SetScreen(ScreenBase const & target, std::optional<MapAnimation> && animation,
                  std::optional<ArrowPose> const & arrowTarget);
-  void AnimateArrow(ArrowPose const & target, std::optional<MapAnimation> const & animation);
+  bool RetargetFlight(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget);
+  void AnimateArrow(ArrowPose const & target, MapAnimation const * animation);
   void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                           int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
                           std::optional<ArrowPose> const & arrowTarget);
