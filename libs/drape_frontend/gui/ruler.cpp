@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/ruler.hpp"
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
@@ -50,7 +51,7 @@ public:
   BaseRulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
     : TBase(id, anchor, pivot)
     , m_isAppearing(isAppearing)
-    , m_animation(false, 0.4)
+    , m_animation(false, df::kRulerFadeTimeSec)
   {}
 
   bool Update(ScreenBase const & screen) override

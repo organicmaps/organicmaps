@@ -1609,7 +1609,7 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     if (gui.GetCopyrightState() == CopyrightState::Pending && m_guiRenderer->HasWidget(gui::WIDGET_COPYRIGHT))
     {
       gui.SetCopyrightState(CopyrightState::Visible);
-      m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(10), false /* repeating */,
+      m_notifier->Notify(ThreadsCommutator::RenderThread, kCopyrightVisibleTime, false /* repeating */,
                          [](uint64_t) { gui::DrapeGui::Instance().SetCopyrightState(CopyrightState::Fading); });
     }
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(), modelView);
