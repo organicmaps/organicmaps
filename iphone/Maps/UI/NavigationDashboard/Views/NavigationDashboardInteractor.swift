@@ -273,6 +273,11 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
     process(.updateState(.prepare))
   }
 
+  func clearRouteElevationPreview() {
+    guard !router.hasTrackNavigationSession() else { return }
+    process(.updateElevationInfo(nil, activePointDistance: nil))
+  }
+
   func statePlanning() {
     process(.updateState(.planning))
     process(.updateRoutePoints)

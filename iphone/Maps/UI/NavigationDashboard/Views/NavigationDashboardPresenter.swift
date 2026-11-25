@@ -45,10 +45,6 @@ extension NavigationDashboard {
         if state == .planning {
           viewModel.progress = 0
         }
-        if viewModel.planningMode == .default, state == .prepare || state == .planning {
-          viewModel.routeElevationPreviewData = nil
-          viewModel.routeElevationActivePointDistance = nil
-        }
 
       case .close:
         viewModel.dashboardState = .closed
