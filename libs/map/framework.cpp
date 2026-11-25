@@ -2594,20 +2594,24 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     return;
   }
 
-  auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId() : kml::kInvalidTrackId;
-  auto const prevCountryId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetCountryId() : storage::CountryId();
+  // For user tracks: tapping the same track at a different point of the same region just moves the selection
+  // circle. Another region changes the map to download and other candidates change the track chooser, so the
+  // PlacePage is updated then. Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
+  auto const newTrackId = placePageInfo.GetTrackId();
+  bool const onlyMovesTrackSelection =
+      newTrackId != kml::kInvalidTrackId && newTrackId != kml::kTempRelationTrackId && m_currentPlacePageInfo &&
+      m_currentPlacePageInfo->GetTrackId() == newTrackId &&
+      m_currentPlacePageInfo->GetCountryId() == placePageInfo.GetCountryId() &&
+      std::ranges::equal(m_currentPlacePageInfo->GetTrackCandidates(), placePageInfo.GetTrackCandidates(),
+                         [](auto const & lhs, auto const & rhs)
+  { return lhs.m_trackId == rhs.m_trackId && lhs.m_relationId == rhs.m_relationId; });
   DeactivateHotelSearchMark();
 
-  m_currentPlacePageInfo = placePageInfo;
+  m_currentPlacePageInfo = std::move(placePageInfo);
 
-  auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
   if (newTrackId != kml::kInvalidTrackId)
   {
-    // For user tracks: tapping the same track at a different point of the same region just moves the selection
-    // circle. Another region changes the map to download, so the PlacePage is updated then.
-    // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
-    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId &&
-        m_currentPlacePageInfo->GetCountryId() == prevCountryId)
+    if (onlyMovesTrackSelection)
     {
       if (m_drapeEngine)
       {
