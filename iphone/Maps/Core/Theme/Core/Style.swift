@@ -48,8 +48,6 @@ class Style: ExpressibleByDictionaryLiteral {
     case exclusions
 
     case gridColor
-    case previewSelectorColor
-    case previewTintColor
     case infoBackground
   }
 
@@ -311,16 +309,6 @@ extension Style {
   var gridColor: UIColor? {
     get { self[.gridColor] as? UIColor }
     set { params[.gridColor] = newValue }
-  }
-
-  var previewSelectorColor: UIColor? {
-    get { self[.previewSelectorColor] as? UIColor }
-    set { params[.previewSelectorColor] = newValue }
-  }
-
-  var previewTintColor: UIColor? {
-    get { self[.previewTintColor] as? UIColor }
-    set { params[.previewTintColor] = newValue }
   }
 
   var infoBackground: UIColor? {

@@ -62,20 +62,6 @@ class ChartLineView: UIView {
     updateGraph(animationStyle: animationStyle)
   }
 
-  func setX(min: Int, max: Int) {
-    guard min < max else { return }
-    minX = min
-    maxX = max
-    updateGraph()
-  }
-
-  func setY(min: CGFloat, max: CGFloat, animationStyle: ChartAnimation = .none) {
-    guard min < max else { return }
-    minY = min
-    maxY = max
-    updateGraph(animationStyle: animationStyle)
-  }
-
   private func updateLineColors() {
     guard let chartLine else { return }
     let resolvedColor = chartLine.color.resolvedColor(with: traitCollection).cgColor
@@ -94,7 +80,7 @@ class ChartLineView: UIView {
   }
 
   private func updateGraph(animationStyle: ChartAnimation = .none) {
-    // A flat profile gets its Y span from the owner's setY() or setViewport().
+    // A flat profile gets its Y span from the viewport.
     guard let chartLine, maxX > minX, maxY > minY else { return }
 
     let xScale = bounds.width / CGFloat(maxX - minX)

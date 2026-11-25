@@ -29,32 +29,31 @@ final class ChartLineViewTests: XCTestCase {
 
   func testZoomedFillReachesBothBottomCorners() throws {
     let chart = makeChart(heights: [-80, -50, -20, -50, -80])
-    chart.chartPreviewView.setX(min: 1, max: 3)
+    chart.setViewport(lower: 1, upper: 3)
     try assertFillBelowLine(chart)
   }
 
   func testZoomingIntoFlatSectionKeepsPathsDrawable() throws {
     let chart = makeChart(heights: [-50, 0, 0, 0, 50])
-    chart.chartPreviewView.setX(min: 1, max: 3)
+    chart.setViewport(lower: 1, upper: 3)
     XCTAssertGreaterThan(chart.yAxisView.upperBound, chart.yAxisView.lowerBound)
     try assertFillBelowLine(chart)
   }
 
-  func testPreviewUsesTheSameFillGeometry() throws {
-    let chart = makeChart(heights: [-80, -50, -20])
-    let preview = chart.chartPreviewView
-    preview.frame = chart.chartsContainerView.bounds
-    preview.layoutIfNeeded()
-    preview.previewViews.forEach { $0.layoutIfNeeded() }
+  func testSelectionFollowsZoomAndRecentersWithoutEchoingExternalChanges() {
+    let chart = makeChart(heights: [100, 150, 200, 150, 100])
+    chart.setSelectedPoint(1)
+    var reportedDistances: [Double] = []
+    chart.onSelectedPointChanged = { reportedDistances.append($0) }
 
-    let fill = try XCTUnwrap(preview.previewViews[1].shapeLayer.path)
-    XCTAssertFalse(fill.isEmpty)
-    XCTAssertEqual(fill.boundingBoxOfPath.minY, 0)
-    for point in points(in: fill) {
-      XCTAssertTrue(point.x.isFinite && point.y.isFinite)
-    }
-    XCTAssertTrue(fill.contains(CGPoint(x: preview.bounds.midX, y: 1)))
-    XCTAssertFalse(fill.contains(CGPoint(x: preview.bounds.midX, y: preview.bounds.maxY - 1)))
+    chart.setViewport(lower: 1, upper: 3)
+    XCTAssertEqual(reportedDistances, [1.5])
+
+    chart.setSelectedPoint(4)
+    XCTAssertEqual(chart.xAxisView.lowerBound, 2)
+    XCTAssertEqual(chart.xAxisView.upperBound, 4)
+    XCTAssertEqual(chart.chartInfoView.infoX, 1)
+    XCTAssertEqual(reportedDistances, [1.5])
   }
 
   func testFillStartsAtTheFirstDistanceAfterTransforming() throws {
@@ -117,21 +116,6 @@ final class ChartLineViewTests: XCTestCase {
     XCTAssertEqual(outside.1.first?.formattedValue, "115.0")
   }
 
-  func testFlatPreviewDrawsStrokeAndFill() throws {
-    let preview = ChartPreviewView(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
-    preview.chartData = ChartPresentationData(TestData(heights: [100, 100, 100]), formatter: TestFormatter())
-    preview.layoutIfNeeded()
-    preview.previewViews.forEach { $0.layoutIfNeeded() }
-
-    let stroke = try XCTUnwrap(preview.previewViews[0].shapeLayer.path)
-    let fill = try XCTUnwrap(preview.previewViews[1].shapeLayer.path)
-    XCTAssertFalse(stroke.isEmpty)
-    XCTAssertFalse(fill.isEmpty)
-    for point in points(in: stroke) + points(in: fill) {
-      XCTAssertTrue(point.x.isFinite && point.y.isFinite)
-    }
-  }
-
   func testViewportEdgeOnSegmentBreakKeepsBothHeights() {
     // 13 samples over 108 m draw at chart X = distance / 9, so both vertices of the break at 63 m are at X 7.
     let distances: [CGFloat] = [0, 9, 18, 27, 36, 45, 54, 63, 63, 81, 90, 99, 108]
@@ -139,7 +123,7 @@ final class ChartLineViewTests: XCTestCase {
     let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 180))
     chart.chartData = ChartPresentationData(TestData(heights: heights, distances: distances), formatter: TestFormatter())
     chart.layoutIfNeeded()
-    chart.chartPreviewView.setX(min: 7, max: 11)
+    chart.setViewport(lower: 7, upper: 11)
     chart.layoutIfNeeded()
 
     XCTAssertEqual(chart.yAxisView.lowerBound, 0)
