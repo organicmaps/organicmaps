@@ -1248,6 +1248,15 @@
 /* Start navigation along the selected track. */
 "navigate_track" = "Navegar";
 
+/* Route planner label for the selected entry point on an unnamed track. */
+"navigate_track_entry" = "Punto seleccionado";
+
+/* Destination when following a track backwards to the start of a section after a gap. */
+"navigate_track_section_start" = "Inicio del tramo";
+
+/* Destination when following a track forwards to the end of a section before a gap. */
+"navigate_track_section_finish" = "Fin del tramo";
+
 /* Track start point label. */
 "navigate_track_start" = "Inicio de la pista";
 

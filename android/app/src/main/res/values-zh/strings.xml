@@ -959,6 +959,12 @@
     <string name="editor_level">楼层（一楼为0）</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">导航</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">所选位置</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">路段起点</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">路段终点</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">轨迹起点</string>
     <!-- Track finish point label. -->

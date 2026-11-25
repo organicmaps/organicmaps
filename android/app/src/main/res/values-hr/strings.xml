@@ -958,6 +958,12 @@
     <string name="editor_level">Kat (prizemlje je 0)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">Navigacija</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">Odabrana točka</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">Početak dionice</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">Kraj dionice</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">Početak staze</string>
     <!-- Track finish point label. -->
