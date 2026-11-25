@@ -987,4 +987,12 @@
     <string name="navigate_track_finish">Конец трека</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
+    <!-- Accessibility description of a color: red, green and blue channel values from 0 to 255 -->
+    <string name="color_picker_rgb_value">Красный %1$d, зелёный %2$d, синий %3$d</string>
+    <!-- Accessibility label for a palette color: one-based position and RGB description -->
+    <string name="color_picker_color_description">Цвет %1$d, %2$s</string>
+    <!-- Accessibility label for the button that saves the current color to the palette -->
+    <string name="color_picker_save_preset">Сохранить текущий цвет</string>
+    <!-- Accessibility action on the spectrum that opens the RGB sliders for precise color adjustment -->
+    <string name="color_picker_edit_rgb">Изменить значения RGB</string>
 </resources>
