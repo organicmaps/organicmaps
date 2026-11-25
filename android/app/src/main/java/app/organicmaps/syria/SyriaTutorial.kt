@@ -29,7 +29,13 @@ import com.google.android.material.button.MaterialButton
  * button above the traffic light opens it any time.
  */
 object SyriaTutorial {
-    private class Step(@IdRes val viewId: Int, @StringRes val title: Int, @StringRes val text: Int)
+    /** One spotlighted button; with [tapTarget], tapping it in the spotlight presses it and goes on. */
+    class Step(
+        @IdRes val viewId: Int,
+        @StringRes val title: Int,
+        @StringRes val text: Int,
+        val tapTarget: Boolean = false,
+    )
 
     private val STEPS = listOf(
         Step(R.id.syria_recording_button, R.string.syria_tutorial_recording_title, R.string.syria_tutorial_recording_text),
@@ -56,19 +62,36 @@ object SyriaTutorial {
 
     @JvmStatic
     fun show(activity: Activity, mapButtons: View) {
+        val targets = STEPS.mapNotNull { step -> mapButtons.findViewById<View>(step.viewId)?.let { step to it } }
+        // Finishing the guide counts as seen; skipping shows it again next time unless the box is ticked.
+        spotlight(activity, targets, showDontShow = true) { finished, dontShow ->
+            if (finished || dontShow) SyriaPrefs.markTutorialDone(activity) else SyriaPrefs.resetTutorial(activity)
+        }
+    }
+
+    /** Spotlights the visible ones of [steps] one after the other over the whole [activity]. */
+    fun spotlight(
+        activity: Activity,
+        steps: List<Pair<Step, View>>,
+        showDontShow: Boolean,
+        onClose: (finished: Boolean, dontShow: Boolean) -> Unit,
+    ) {
         val root = activity.window.decorView as ViewGroup
         if (root.findViewWithTag<View>(TAG) != null) return
-        val targets = STEPS.mapNotNull { step ->
-            mapButtons.findViewById<View>(step.viewId)?.takeIf { it.isShown && it.width > 0 }?.let { step to it }
-        }
+        val targets = steps.filter { (_, view) -> view.isShown && view.width > 0 }
         if (targets.isEmpty()) return
-        val overlay = Overlay(activity, targets)
+        val overlay = Overlay(activity, targets, showDontShow, onClose)
         overlay.tag = TAG
         root.addView(overlay, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
     }
 
     @SuppressLint("ViewConstructor")
-    private class Overlay(context: Context, private val targets: List<Pair<Step, View>>) : FrameLayout(context) {
+    private class Overlay(
+        context: Context,
+        private val targets: List<Pair<Step, View>>,
+        showDontShow: Boolean,
+        private val onClose: (finished: Boolean, dontShow: Boolean) -> Unit,
+    ) : FrameLayout(context) {
         private val dimPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = DIM_COLOR }
         private val ringPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
@@ -91,6 +114,7 @@ object SyriaTutorial {
                 if (index == targets.lastIndex) close(finished = true) else go(index + 1)
             }
             dontShow.isChecked = SyriaPrefs.isTutorialDone(context)
+            dontShow.visibility = if (showDontShow) VISIBLE else GONE
             go(0)
         }
 
@@ -101,6 +125,7 @@ object SyriaTutorial {
                 context.getString(R.string.syria_tutorial_step, index + 1, targets.size)
             card.findViewById<TextView>(R.id.tutorial_title).setText(step.title)
             card.findViewById<TextView>(R.id.tutorial_text).setText(step.text)
+            card.findViewById<View>(R.id.tutorial_hint).visibility = if (step.tapTarget) VISIBLE else GONE
             card.findViewById<View>(R.id.tutorial_back).visibility = if (index > 0) VISIBLE else INVISIBLE
             card.findViewById<MaterialButton>(R.id.tutorial_next)
                 .setText(if (index == targets.lastIndex) R.string.syria_tutorial_done else R.string.syria_tutorial_next)
@@ -109,9 +134,8 @@ object SyriaTutorial {
         }
 
         private fun close(finished: Boolean) {
-            // Finishing the guide counts as seen; skipping shows it again next time unless the box is ticked.
-            if (finished || dontShow.isChecked) SyriaPrefs.markTutorialDone(context) else SyriaPrefs.resetTutorial(context)
             (parent as? ViewGroup)?.removeView(this)
+            onClose(finished, dontShow.isChecked)
         }
 
         private fun targetRect(): RectF {
@@ -160,9 +184,16 @@ object SyriaTutorial {
             canvas.drawRoundRect(hole, radius, radius, ringPaint)
         }
 
-        // The map underneath must not react while the guide is open.
+        // The screen underneath must not react while the guide is open, except the button to tap.
         @SuppressLint("ClickableViewAccessibility")
-        override fun onTouchEvent(event: MotionEvent): Boolean = true
+        override fun onTouchEvent(event: MotionEvent): Boolean {
+            val (step, view) = targets[index]
+            if (step.tapTarget && event.action == MotionEvent.ACTION_UP && hole.contains(event.x, event.y)) {
+                if (index == targets.lastIndex) close(finished = true) else go(index + 1)
+                view.performClick()
+            }
+            return true
+        }
 
         private fun dp(value: Float): Float = value * resources.displayMetrics.density
     }

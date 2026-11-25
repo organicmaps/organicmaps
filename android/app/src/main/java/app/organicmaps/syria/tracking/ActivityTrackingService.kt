@@ -112,6 +112,7 @@ class ActivityTrackingService : Service(), LocationListener {
         logEvent("tracking_start", BackgroundMode.payload(this, backgroundMode!!))
         mirrorMapLine(true)
         SyncWorker.schedulePeriodic(this)
+        DrivingReminder.cancel(this)
         Logger.i(TAG, "Session $sessionId started")
     }
 

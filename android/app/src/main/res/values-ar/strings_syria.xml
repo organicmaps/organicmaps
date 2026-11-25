@@ -195,4 +195,12 @@
   <string name="syria_update_downloaded_title">تم تنزيل التحديث</string>
   <string name="syria_update_downloaded_message">أعد تشغيل التطبيق لإكمال تثبيت الإصدار الجديد.</string>
   <string name="syria_update_restart">إعادة التشغيل</string>
+  <string name="syria_driving_channel">تذكير القيادة</string>
+  <string name="syria_driving_title">هل تقود؟</string>
+  <string name="syria_driving_text">ساعدنا على فهم حركة المرور بتشغيل التسجيل.</string>
+  <string name="syria_guide_start_title">ابدأ التسجيل</string>
+  <string name="syria_guide_start_text">سجّل رحلتك: هذا يساعدنا على فهم حركة المرور في سوريا.</string>
+  <string name="syria_guide_live_title">إرسال الموقع مباشرة</string>
+  <string name="syria_guide_live_text">شارك موقعك مباشرة أيضاً أثناء القيادة، لتظهر حركة المرور في هذه اللحظة.</string>
+  <string name="syria_guide_tap_hint">اضغط على الزر المحدَّد</string>
 </resources>

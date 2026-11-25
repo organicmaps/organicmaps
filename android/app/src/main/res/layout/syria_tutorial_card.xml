@@ -33,6 +33,16 @@
       android:lineSpacingMultiplier="1.15"
       android:textAppearance="?android:textAppearanceSmall"
       android:textColor="?android:textColorPrimary" />
+    <TextView
+      android:id="@+id/tutorial_hint"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_half"
+      android:text="@string/syria_guide_tap_hint"
+      android:textAppearance="?android:textAppearanceSmall"
+      android:textColor="@color/syria_btn_sync"
+      android:textStyle="bold"
+      android:visibility="gone" />
     <CheckBox
       android:id="@+id/tutorial_dont_show"
       android:layout_width="wrap_content"

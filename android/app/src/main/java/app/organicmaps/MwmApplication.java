@@ -36,6 +36,7 @@ import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaServer;
 import app.organicmaps.syria.SyriaStatus;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
+import app.organicmaps.syria.tracking.DrivingReminder;
 import app.organicmaps.syria.tracking.LiveLocationService;
 import app.organicmaps.syria.tracking.MapUpdateLogger;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
@@ -149,6 +150,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     getMapsReadiness().runWhenReady(() -> {
       // Before the first-launch screen downloads the country map.
       MapUpdateLogger.init(this);
+      DrivingReminder.init(this);
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
     });

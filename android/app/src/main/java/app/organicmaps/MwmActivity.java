@@ -1033,6 +1033,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     makeNavigationBarTransparentInLightMode();
     SyriaLocale.checkChanged(this);
     AppUpdates.onResume(this);
+    // Syria: the "Are you driving?" reminder is a notification. Asked once, after the location permission
+    // request is over, as Android handles one permission request at a time.
+    if (LocationUtils.checkFineLocationPermission(this) && !SyriaPrefs.isNotificationPermissionAsked(this))
+    {
+      SyriaPrefs.markNotificationPermissionAsked(this);
+      requestPostNotificationsPermission();
+    }
     // The pick lives in RoutingController, which clears it without touching the chooser, and can do so while
     // this Activity is stopped and detached from it. Only the mode survives, so re-check it on the way in.
     ChoosePositionMode mode = ChoosePositionMode.get();

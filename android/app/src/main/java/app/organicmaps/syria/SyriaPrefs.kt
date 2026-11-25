@@ -36,6 +36,7 @@ object SyriaPrefs {
     private const val KEY_ROUTE_OPTIMIZATION_DEFAULT = "route_optimization_default_applied"
     private const val KEY_NOTIFICATION_PERMISSION_ASKED = "notification_permission_asked"
     private const val KEY_TUTORIAL_DONE = "tutorial_done"
+    private const val KEY_DRIVING_REMINDER_AT = "driving_reminder_at"
     private const val KEY_LIVE = "live_location"
     private const val KEY_LARGE_FONTS_DEFAULT = "large_fonts_default_applied"
     private const val KEY_KEEP_SCREEN_ON_DEFAULT = "keep_screen_on_default_applied"
@@ -258,6 +259,15 @@ object SyriaPrefs {
     @JvmStatic
     fun resetTutorial(context: Context) {
         prefs(context).edit().putBoolean(KEY_TUTORIAL_DONE, false).apply()
+    }
+
+    /** When the "Are you driving?" reminder was last shown (DrivingReminder), 0 if never. */
+    @JvmStatic
+    fun drivingReminderAt(context: Context): Long = prefs(context).getLong(KEY_DRIVING_REMINDER_AT, 0L)
+
+    @JvmStatic
+    fun setDrivingReminderAt(context: Context, timeMs: Long) {
+        prefs(context).edit().putLong(KEY_DRIVING_REMINDER_AT, timeMs).apply()
     }
 
     @JvmStatic
