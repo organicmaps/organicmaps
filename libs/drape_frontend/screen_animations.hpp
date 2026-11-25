@@ -4,6 +4,8 @@
 
 #include "geometry/screenbase.hpp"
 
+#include "base/buffer_vector.hpp"
+
 #include <optional>
 
 namespace df
@@ -19,14 +21,6 @@ public:
     Fling
   };
 
-  MapAnimation(Type type, ScreenBase const & start, ScreenBase const & end, AnimationClock::time_point requestedAt,
-               double duration, std::optional<m2::PointD> pixelAnchor = std::nullopt);
-
-  Type GetType() const { return m_type; }
-  void Apply(ScreenBase & screen) const;
-  void ApplyTarget(ScreenBase & screen) const { Apply(screen, 1.0); }
-
-private:
   struct Pose
   {
     m2::PointD m_position;
@@ -34,14 +28,68 @@ private:
     double m_angle;
   };
 
-  static Pose GetPose(ScreenBase const & screen, std::optional<m2::PointD> const & pixelAnchor);
-  void Apply(ScreenBase & screen, double progress) const;
+  // Position, scale and angle change linearly, each during its own part of the stage.
+  struct Stage
+  {
+    enum class Path
+    {
+      // The screen center moves along a line.
+      Line,
+      // The screen center slows down exponentially along a line.
+      Fling,
+      // The position under m_pixel moves along a line on the map from the start position to the end one, as the arrow
+      // moves, while the map scales and rotates around it.
+      Follow
+    };
 
-  Type const m_type;
-  std::optional<m2::PointD> const m_pixelAnchor;
-  Pose const m_start;
-  Pose const m_end;
+    double GetDuration() const { return std::max({m_moveDuration, m_scaleDuration, m_rotateDuration}); }
+
+    Path m_path = Path::Line;
+    Pose m_start;
+    Pose m_end;
+    m2::PointD m_pixel{};
+    double m_moveDuration = 0.0;
+    double m_scaleDuration = 0.0;
+    double m_rotateDuration = 0.0;
+  };
+
+  using Stages = buffer_vector<Stage, 3>;
+
+  // A syncArrow animation carries the arrow at m_pixel of a single Follow stage.
+  MapAnimation(Type type, Stages && stages, AnimationClock::time_point requestedAt, bool syncArrow = false);
+
+  Type GetType() const { return m_type; }
+  void Apply(ScreenBase & screen) const;
+  void ApplyTarget(ScreenBase & screen) const;
+  void SyncArrow(double & moveDuration, double & rotateDuration) const;
+  double GetRemainingScaleTime(AnimationClock::time_point now) const;
+
+private:
+  static void Apply(Stage const & stage, double elapsed, ScreenBase & screen);
+
+  Type m_type;
+  Stages m_stages;
+  bool m_syncArrow;
 };
 
-bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to);
+bool IsAnimationAllowed(double duration);
+double GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, double scale);
+double GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & screen);
+double GetScaleDuration(double startScale, double endScale, bool isAutoZoom);
+double GetRotateDuration(double startAngle, double endAngle);
+
+// Moves the camera together within the time limit, or zooms out, moves and zooms in to a distant screen. The scale
+// of a move changes within maxScaleDuration.
+std::optional<MapAnimation> GetScreenAnimation(MapAnimation::Type type, ScreenBase const & startScreen,
+                                               ScreenBase const & endScreen, AnimationClock::time_point requestedAt,
+                                               double maxScaleDuration = kMaxAnimationTimeSec);
+// Brings userPos to endPixelPos of endScreen, zooming out and in on the way to a distant position. The scale of a
+// follow changes within maxScaleDuration.
+std::optional<MapAnimation> GetFollowAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen,
+                                               m2::PointD const & userPos, m2::PointD const & endPixelPos,
+                                               bool isAutoZoom, AnimationClock::time_point requestedAt,
+                                               double maxScaleDuration = kMaxAnimationTimeSec);
+// Scales the map to endScreen around pxScaleCenter.
+MapAnimation GetScaleAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen,
+                               m2::PointD const & pxScaleCenter, AnimationClock::time_point requestedAt);
 }  // namespace df

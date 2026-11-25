@@ -778,7 +778,9 @@ void MyPositionController::AnimateArrow(ArrowPose const & oldPose, ScreenBase co
 {
   ArrowPose const target{AdjustPointForViewport(m_position, screen), m_drawDirection};
   m2::PointD const start(mercator::NearestWrapX(oldPose.m_position.x, target.m_position.x), oldPose.m_position.y);
-  if (!IsWithinAnimationDistance(screen, start, target.m_position))
+  double const moveDuration = GetMoveDuration(start, target.m_position, screen);
+  double const rotateDuration = GetRotateDuration(oldPose.m_azimuth, target.m_azimuth);
+  if (!IsAnimationAllowed(std::max(moveDuration, rotateDuration)))
   {
     m_arrowTarget.reset();
     m_animationSystem.CancelArrowAnimation();
@@ -793,7 +795,7 @@ void MyPositionController::AnimateArrow(ArrowPose const & oldPose, ScreenBase co
   }
 
   m_arrowTarget.reset();
-  m_animationSystem.AnimateArrowTo(target, AnimationClock::now(), kCameraAnimationTimeSec);
+  m_animationSystem.AnimateArrowTo(target, AnimationClock::now(), moveDuration, rotateDuration);
 }
 
 void MyPositionController::EnablePerspectiveInRouting(bool enablePerspective)

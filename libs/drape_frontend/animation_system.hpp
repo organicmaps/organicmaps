@@ -19,7 +19,10 @@ public:
   bool HasAnimations() const { return m_map.has_value() || m_arrow.has_value(); }
   bool IsCameraMoving() const { return m_map && !m_map->IsFinished(); }
   bool HasMapAnimation(MapAnimation::Type type) const { return m_map && m_map->GetType() == type; }
-  double GetRemainingCameraTime(AnimationClock::time_point now) const;
+  double GetRemainingScaleTime(AnimationClock::time_point now) const
+  {
+    return m_map ? m_map->GetRemainingScaleTime(now) : 0.0;
+  }
 
   std::optional<ScreenBase> GetScreen(ScreenBase const & currentScreen) const;
   ScreenBase GetTargetScreen(ScreenBase const & currentScreen) const;
@@ -28,7 +31,8 @@ public:
   void StartMapAnimation(MapAnimation && animation) { m_map.emplace(std::move(animation)); }
   void HoldArrowPose(ArrowPose const & pose) { m_heldArrowPose = pose; }
   void ReleaseArrowHold() { m_heldArrowPose.reset(); }
-  void AnimateArrowTo(ArrowPose const & target, AnimationClock::time_point requestedAt, double duration);
+  void AnimateArrowTo(ArrowPose const & target, AnimationClock::time_point requestedAt, double moveDuration,
+                      double rotateDuration);
   void CancelMapAnimation() { m_map.reset(); }
   void CancelArrowAnimation();
   void Advance(AnimationClock::time_point now);

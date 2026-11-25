@@ -2,8 +2,6 @@
 
 #include "geometry/angles.hpp"
 
-#include <cmath>
-
 namespace df
 {
 
@@ -19,13 +17,6 @@ m2::PointD InterpolatePoint(m2::PointD const & startPt, m2::PointD const & endPt
   if (t == 1.0)
     return endPt;
   return startPt + (endPt - startPt) * t;
-}
-
-double InterpolateScale(double startScale, double endScale, double t)
-{
-  if (t == 1.0 || startScale == endScale)
-    return endScale;
-  return startScale * std::pow(endScale / startScale, t);
 }
 
 double InterpolateAngle(double startAngle, double endAngle, double t)
