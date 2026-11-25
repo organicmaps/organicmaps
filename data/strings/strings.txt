@@ -7424,6 +7424,30 @@ vi = Nguồn ô tùy chỉnh do bạn cung cấp. Chỉ sử dụng các dịch 
 zh-Hans = 自定义瓦片源由您自行提供。请仅使用您有权访问的服务。署名、许可条款、API 密钥、配额和使用限制由您自行负责。
 zh-Hant = 自訂圖磚來源由您自行提供。請僅使用您有權存取的服務。出處標示、授權條款、API 金鑰、配額與使用限制由您自行負責。
 
+[navigation_voice_enable]
+  comment = Accessibility action of the navigation voice button when voice instructions are off.
+  tags = android-app
+  en = Enable voice instructions
+  ru = Включить голосовые подсказки
+
+[navigation_voice_disable]
+  comment = Accessibility action of the navigation voice button when voice instructions are on.
+  tags = android-app
+  en = Disable voice instructions
+  ru = Выключить голосовые подсказки
+
+[navigation_voice_settings]
+  comment = Accessibility action of the navigation voice button when a voice engine or language needs configuring.
+  tags = android-app
+  en = Set up voice instructions
+  ru = Настроить голосовые подсказки
+
+[navigation_voice_initializing]
+  comment = Accessibility label of the disabled navigation voice button while speech synthesis initializes.
+  tags = android-app
+  en = Initializing voice instructions…
+  ru = Подготовка голосовых подсказок…
+
 [pref_tts_enable_title]
 comment = Settings «Route» category: «Tts enabled» title
 tags = android-app,apple-maps

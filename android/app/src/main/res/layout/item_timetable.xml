@@ -167,6 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/editor_time_allday"
+        android:importantForAccessibility="no"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
       <androidx.appcompat.widget.SwitchCompat

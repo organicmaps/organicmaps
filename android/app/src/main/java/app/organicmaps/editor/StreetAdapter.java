@@ -1,6 +1,7 @@
 package app.organicmaps.editor;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +96,10 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
       streetDef = itemView.findViewById(R.id.street_default);
       streetLoc = itemView.findViewById(R.id.street_localized);
       selected = itemView.findViewById(R.id.selected);
+      itemView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+      itemView.setFocusable(false);
+      streetDef.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+      streetLoc.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
       itemView.setOnClickListener(this);
       selected.setOnClickListener(v -> {
         selected.toggle();
@@ -109,6 +114,12 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
       selected.setChecked(mSelectedStreet.defaultName.equals(street.defaultName));
       streetDef.setText(street.defaultName);
       UiUtils.setTextAndHideIfEmpty(streetLoc, street.localizedName);
+      String description = street.defaultName;
+      if (TextUtils.isEmpty(description))
+        description = street.localizedName;
+      else if (!TextUtils.isEmpty(street.localizedName) && !description.equals(street.localizedName))
+        description += ", " + street.localizedName;
+      selected.setContentDescription(description);
     }
 
     @Override

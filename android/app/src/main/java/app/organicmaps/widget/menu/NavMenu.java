@@ -116,6 +116,7 @@ public class NavMenu implements DefaultLifecycleObserver
     mSettings.setOnClickListener(v -> onSettingsClicked());
     mTts = bottomFrame.findViewById(R.id.tts_volume);
     mTts.setOnClickListener(v -> onTtsClicked());
+    refreshTts();
     Button stop = bottomFrame.findViewById(R.id.stop);
     stop.setOnClickListener(v -> onStopClicked());
     UiUtils.updateRedButton(stop);
@@ -190,7 +191,8 @@ public class NavMenu implements DefaultLifecycleObserver
   public void refreshTts()
   {
     final Drawable icon;
-    switch (TtsPlayer.getState())
+    final TtsPlayer.State state = TtsPlayer.getState();
+    switch (state)
     {
     case READY_ON:
       icon = Graphics.tint(mActivity, R.drawable.ic_voice_on, androidx.appcompat.R.attr.colorAccent);
@@ -202,6 +204,14 @@ public class NavMenu implements DefaultLifecycleObserver
     default: icon = Graphics.tint(mActivity, R.drawable.ic_voice_off, R.attr.iconTintDisabled); break;
     }
     mTts.setImageDrawable(icon);
+    mTts.setEnabled(state != TtsPlayer.State.INITIALIZING);
+    mTts.setContentDescription(mActivity.getString(switch (state)
+    {
+      case READY_ON -> R.string.navigation_voice_disable;
+      case READY_OFF -> R.string.navigation_voice_enable;
+      case INITIALIZING -> R.string.navigation_voice_initializing;
+      case UNAVAILABLE, NEEDS_LANGUAGE -> R.string.navigation_voice_settings;
+    }));
   }
 
   private void updateTime(int seconds)

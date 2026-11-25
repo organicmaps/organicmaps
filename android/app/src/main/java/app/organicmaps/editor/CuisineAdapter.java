@@ -108,12 +108,16 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
       selected = itemView.findViewById(R.id.selected);
       selected.setOnCheckedChangeListener(this);
       itemView.setOnClickListener(v -> selected.toggle());
+      itemView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+      itemView.setFocusable(false);
+      cuisine.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
     }
 
     public void bind(int position)
     {
       final String text = mItems.get(position).cuisineTranslated;
       cuisine.setText(text);
+      selected.setContentDescription(text);
       selected.setOnCheckedChangeListener(null);
       selected.setChecked(mSelectedKeys.contains(mItems.get(position).cuisineKey));
       selected.setOnCheckedChangeListener(this);
@@ -122,7 +126,10 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
-      final String key = mItems.get(getBindingAdapterPosition()).cuisineKey;
+      final int position = getBindingAdapterPosition();
+      if (position == RecyclerView.NO_POSITION)
+        return;
+      final String key = mItems.get(position).cuisineKey;
       if (isChecked)
         mSelectedKeys.add(key);
       else
