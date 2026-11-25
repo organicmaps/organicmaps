@@ -7,8 +7,8 @@
 
 namespace df
 {
-double constexpr kMinFlingDuration = 0.20;
-double constexpr kMaxFlingDuration = 0.35;
+double constexpr kKineticDuration = 1.5;
+double constexpr kKineticAcceleration = 0.4;
 
 // Time window to store move points for better (smooth) _instant_ velocity calculation.
 double constexpr kTimeWindowSec = 0.05;
@@ -66,17 +66,21 @@ std::pair<m2::PointD, double> KineticScroller::GetDirectionAndVelocity(ScreenBas
   ASSERT(m_isActive, ());
   ASSERT(!m_points.empty(), ());
 
+  // A finger that stopped before the release doesn't fling: the points come only with its moves.
   if (GetDurationSeconds(now, m_points.back().second) > kTimeWindowSec)
     return {{}, 0};
 
-  auto const delta = modelView.GetOrg() - m_points.front().first;
-  double const distance = delta.Length();
-  double const elapsed = std::max(kMinDragTimeSec, GetDurationSeconds(now, m_points.front().second));
-  double const velocity = distance / (modelView.GetScale() * elapsed);
-  if (velocity < kInstantVelocityThreshold * VisualParams::Instance().GetVisualScale())
-    return {{}, 0.0};
+  m2::PointD const delta = modelView.GetOrg() - m_points.front().first;
+  double const length = delta.Length();
+  double const elapsedSec = std::max(kMinDragTimeSec, GetDurationSeconds(now, m_points.front().second));
+  double const vs = VisualParams::Instance().GetVisualScale();
 
-  return {delta / distance, velocity};
+  // Most touch filtrations happen here.
+  double const velocity = length / modelView.GetScale() / elapsedSec;
+  if (velocity < kInstantVelocityThreshold * vs)
+    return {{}, 0};
+
+  return {delta / length, std::min(velocity, CalculateKineticMaxSpeed(modelView) * vs)};
 }
 
 void KineticScroller::Cancel()
@@ -87,23 +91,25 @@ void KineticScroller::Cancel()
 std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView,
                                                                     AnimationClock::time_point now)
 {
-  auto const [direction, releaseSpeed] = GetDirectionAndVelocity(modelView, now);
+  auto const [dir, velocity] = GetDirectionAndVelocity(modelView, now);
+  // Cancel current animation in any case.
   Cancel();
-  if (releaseSpeed == 0.0)
+  if (velocity < 1E-6)
     return {};
 
-  double const maxSpeed = CalculateKineticMaxSpeed(modelView) * VisualParams::Instance().GetVisualScale();
-  double const speed = std::min(releaseSpeed, maxSpeed);
-  double const duration = InterpolateDouble(kMinFlingDuration, kMaxFlingDuration, speed / maxSpeed);
-  // Speed falls from the release speed to zero as 1 - t², so its average is two thirds of the release speed.
-  auto const & center = modelView.GetOrg();
-  auto const target = center + direction * (speed * modelView.GetScale() * duration * (2.0 / 3.0));
-  auto const & world = GetWorldRect();
-  if (target.y < world.minY() || target.y > world.maxY())
+  // The velocity is in pixels, the travel is in mercator.
+  m2::PointD const center = modelView.GetOrg();
+  double const glbLength = kKineticAcceleration * velocity * modelView.GetScale();
+  m2::PointD const target = center + dir * glbLength;
+  m2::RectD const & worldR = df::GetWorldRect();
+  if (target.y < worldR.minY() || target.y > worldR.maxY())
     return {};
 
-  ScreenBase end = modelView;
-  end.SetOrg(target);
-  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, duration);
+  MapAnimation::Stage stage;
+  stage.m_path = MapAnimation::Stage::Path::Fling;
+  stage.m_start = {center, modelView.GetScale(), modelView.GetAngle()};
+  stage.m_end = {target, modelView.GetScale(), modelView.GetAngle()};
+  stage.m_moveDuration = kKineticDuration;
+  return MapAnimation(MapAnimation::Type::Fling, {stage}, now);
 }
 }  // namespace df

@@ -5,16 +5,17 @@
 namespace df
 {
 ArrowAnimation::ArrowAnimation(ArrowPose const & start, ArrowPose const & end, AnimationClock::time_point requestedAt,
-                               double duration)
-  : Animation(requestedAt, duration)
+                               double moveDuration, double rotateDuration)
+  : Animation(requestedAt, std::max(moveDuration, rotateDuration))
   , m_start(start)
   , m_end(end)
+  , m_moveDuration(moveDuration)
+  , m_rotateDuration(rotateDuration)
 {}
 
 ArrowPose ArrowAnimation::GetPose() const
 {
-  double const progress = GetProgress();
-  return {InterpolatePoint(m_start.m_position, m_end.m_position, progress),
-          InterpolateAngle(m_start.m_azimuth, m_end.m_azimuth, progress)};
+  return {InterpolatePoint(m_start.m_position, m_end.m_position, GetTimeFraction(m_moveDuration)),
+          InterpolateAngle(m_start.m_azimuth, m_end.m_azimuth, GetTimeFraction(m_rotateDuration))};
 }
 }  // namespace df

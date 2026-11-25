@@ -16,12 +16,14 @@ class ArrowAnimation : public Animation
 {
 public:
   ArrowAnimation(ArrowPose const & start, ArrowPose const & end, AnimationClock::time_point requestedAt,
-                 double duration);
+                 double moveDuration, double rotateDuration);
   ArrowPose GetPose() const;
 
 private:
   ArrowPose const m_start;
   ArrowPose const m_end;
+  double const m_moveDuration;
+  double const m_rotateDuration;
 };
 
 }  // namespace df

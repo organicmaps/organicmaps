@@ -28,11 +28,6 @@ void AnimationSystem::Advance(AnimationClock::time_point now)
   AdvanceAnimation(m_arrow, now);
 }
 
-double AnimationSystem::GetRemainingCameraTime(AnimationClock::time_point now) const
-{
-  return m_map ? m_map->GetRemainingTime(now) : 0.0;
-}
-
 std::optional<ScreenBase> AnimationSystem::GetScreen(ScreenBase const & currentScreen) const
 {
   if (!m_map)
@@ -59,21 +54,21 @@ std::optional<ArrowPose> AnimationSystem::GetArrowPose() const
   return m_heldArrowPose;
 }
 
-void AnimationSystem::AnimateArrowTo(ArrowPose const & target, AnimationClock::time_point requestedAt, double duration)
+void AnimationSystem::AnimateArrowTo(ArrowPose const & target, AnimationClock::time_point requestedAt,
+                                     double moveDuration, double rotateDuration)
 {
-  if (duration == 0.0)
+  if (moveDuration == 0.0 && rotateDuration == 0.0)
   {
     CancelArrowAnimation();
     return;
   }
 
+  // The arrow animates from the pose that its owner held or from the running animation.
   auto start = GetArrowPose();
+  ASSERT(start, ());
   ReleaseArrowHold();
-  if (start)
-  {
-    start->m_position.x = mercator::NearestWrapX(start->m_position.x, target.m_position.x);
-    m_arrow.emplace(*start, target, requestedAt, duration);
-  }
+  start->m_position.x = mercator::NearestWrapX(start->m_position.x, target.m_position.x);
+  m_arrow.emplace(*start, target, requestedAt, moveDuration, rotateDuration);
 }
 
 void AnimationSystem::CancelArrowAnimation()

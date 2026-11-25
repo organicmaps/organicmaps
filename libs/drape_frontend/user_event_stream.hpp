@@ -470,13 +470,18 @@ private:
   void SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
                std::optional<ArrowPose> const & arrowTarget = std::nullopt);
 
-  void SetScreen(ScreenBase const & screen, double duration = 0.0,
+  void SetScreen(ScreenBase const & target, bool isAnim = false,
                  std::optional<ArrowPose> const & arrowTarget = std::nullopt,
-                 MapAnimation::Type type = MapAnimation::Type::Camera, std::optional<m2::PointD> anchor = std::nullopt);
+                 MapAnimation::Type type = MapAnimation::Type::Camera, double maxScaleTime = kMaxAnimationTimeSec);
+  void SetScreen(ScreenBase const & target, std::optional<MapAnimation> && animation,
+                 std::optional<ArrowPose> const & arrowTarget);
+  void AnimateArrow(ArrowPose const & target, std::optional<MapAnimation> const & animation);
   void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                           int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
                           std::optional<ArrowPose> const & arrowTarget);
   void SetAutoPerspective(bool isAutoPerspective);
+  // The time left for the scale of a running animation that a request keeping the zoom changes to targetScale.
+  double GetInheritedScaleTime(double targetScale) const;
 
   void ProcessTouch(TouchEvent const & touch);
 
@@ -514,8 +519,6 @@ private:
   bool TryBeginFilter(Touch const & t);
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
-
-  double KeepZoomDuration(double duration, double targetScale) const;
 
   bool CheckDrag(std::array<Touch, 2> const & touches, double threshold) const;
 

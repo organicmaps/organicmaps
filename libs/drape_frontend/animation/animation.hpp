@@ -11,31 +11,36 @@ namespace df
 class Animation
 {
 public:
-  double GetRemainingTime(AnimationClock::time_point now) const { return std::max(0.0, m_duration - Elapsed(now)); }
-  bool IsFinished() const { return m_timeFraction == 1.0; }
-  void Advance(AnimationClock::time_point now) { m_timeFraction = std::clamp(Elapsed(now) / m_duration, 0.0, 1.0); }
+  bool IsFinished() const { return m_elapsed == m_duration; }
+  double GetRemainingTime(AnimationClock::time_point now) const { return GetRemainingTime(now, m_duration); }
+  void Advance(AnimationClock::time_point now)
+  {
+    m_elapsed = std::clamp(std::chrono::duration<double>(now - m_requestedAt).count(), 0.0, m_duration);
+  }
 
 protected:
   Animation(AnimationClock::time_point requestedAt, double duration) : m_requestedAt(requestedAt), m_duration(duration)
   {
-    ASSERT(duration > 0.0 && duration <= kMaxAnimationTimeSec, (duration));
+    ASSERT_GREATER(duration, 0.0, ());
   }
 
-  double GetTimeFraction() const { return m_timeFraction; }
-  double GetProgress() const
+  // Linear progress of a value that changes during the first duration seconds of the animation.
+  static double GetTimeFraction(double elapsed, double duration)
   {
-    double const remaining = 1.0 - m_timeFraction;
-    return 1.0 - remaining * remaining * remaining;
+    return elapsed < duration ? elapsed / duration : 1.0;
+  }
+  double GetTimeFraction(double duration) const { return GetTimeFraction(m_elapsed, duration); }
+  double GetTimeFraction() const { return GetTimeFraction(m_duration); }
+  double GetElapsed() const { return m_elapsed; }
+  // The time left for a value that changes during the first duration seconds of the animation.
+  double GetRemainingTime(AnimationClock::time_point now, double duration) const
+  {
+    return std::max(0.0, duration - std::chrono::duration<double>(now - m_requestedAt).count());
   }
 
 private:
-  double Elapsed(AnimationClock::time_point now) const
-  {
-    return std::chrono::duration<double>(now - m_requestedAt).count();
-  }
-
   AnimationClock::time_point const m_requestedAt;
   double const m_duration;
-  double m_timeFraction = 0.0;
+  double m_elapsed = 0.0;
 };
 }  // namespace df
