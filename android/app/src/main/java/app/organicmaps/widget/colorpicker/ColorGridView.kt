@@ -5,12 +5,20 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.Rect
 import android.graphics.RectF
+import android.os.Bundle
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.accessibility.AccessibilityEvent
+import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.core.graphics.withSave
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.customview.widget.ExploreByTouchHelper
 import app.organicmaps.R
 import app.organicmaps.util.ThemeUtils
 
@@ -41,23 +49,94 @@ class ColorGridView @JvmOverloads constructor(context: Context, attrs: Attribute
     private inline val rows get() = colors.size
     private inline val cols get() = colors[0].size
 
+    private val accessibilityHelper = GridAccessibilityHelper()
+
+    init {
+        ViewCompat.setAccessibilityDelegate(this, accessibilityHelper)
+    }
+
     fun setColor(@ColorInt color: Int) {
         if (isTracking) return
         for (r in colors.indices) {
             for (c in colors[r].indices) {
                 if (colors[r][c] == color) {
-                    if (selectedRow == r && selectedCol == c) return
-                    selectedRow = r
-                    selectedCol = c
-                    invalidate()
+                    updateSelection(r, c)
                     return
                 }
             }
         }
-        if (selectedRow == -1 && selectedCol == -1) return
-        selectedRow = -1
-        selectedCol = -1
+        updateSelection(-1, -1)
+    }
+
+    private fun updateSelection(row: Int, col: Int) {
+        if (row == selectedRow && col == selectedCol) return
+        val oldId = selectedRow * cols + selectedCol
+        selectedRow = row
+        selectedCol = col
+        if (oldId >= 0) accessibilityHelper.invalidateVirtualView(oldId)
+        if (row >= 0) accessibilityHelper.invalidateVirtualView(row * cols + col)
         invalidate()
+    }
+
+    override fun dispatchHoverEvent(event: MotionEvent): Boolean =
+        accessibilityHelper.dispatchHoverEvent(event) || super.dispatchHoverEvent(event)
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean =
+        accessibilityHelper.dispatchKeyEvent(event) || super.dispatchKeyEvent(event)
+
+    override fun onFocusChanged(gainFocus: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
+        super.onFocusChanged(gainFocus, direction, previouslyFocusedRect)
+        accessibilityHelper.onFocusChanged(gainFocus, direction, previouslyFocusedRect)
+    }
+
+    private inner class GridAccessibilityHelper : ExploreByTouchHelper(this@ColorGridView) {
+        override fun getVirtualViewAt(x: Float, y: Float): Int {
+            val w = width - paddingLeft - paddingRight
+            val h = height - paddingTop - paddingBottom
+            if (w <= 0 || h <= 0 || x < paddingLeft || y < paddingTop ||
+                x >= width - paddingRight || y >= height - paddingBottom
+            ) {
+                return INVALID_ID
+            }
+            return ((y - paddingTop) / h * rows).toInt() * cols + ((x - paddingLeft) / w * cols).toInt()
+        }
+
+        override fun getVisibleVirtualViews(virtualViewIds: MutableList<Int>) {
+            virtualViewIds.addAll(0 until rows * cols)
+        }
+
+        override fun onPopulateNodeForVirtualView(id: Int, node: AccessibilityNodeInfoCompat) {
+            val row = id / cols
+            val col = id % cols
+            val w = (width - paddingLeft - paddingRight).coerceAtLeast(0)
+            val h = (height - paddingTop - paddingBottom).coerceAtLeast(0)
+            node.className = Button::class.java.name
+            node.contentDescription = context.describeColor(colors[row][col], id)
+            node.isSelected = row == selectedRow && col == selectedCol
+            node.isEnabled = isEnabled
+            node.isClickable = isEnabled
+            if (isEnabled) node.addAction(AccessibilityNodeInfoCompat.ACTION_CLICK)
+            node.setBoundsInParent(
+                Rect(
+                    paddingLeft + col * w / cols,
+                    paddingTop + row * h / rows,
+                    paddingLeft + (col + 1) * w / cols,
+                    paddingTop + (row + 1) * h / rows,
+                ),
+            )
+        }
+
+        override fun onPerformActionForVirtualView(id: Int, action: Int, arguments: Bundle?): Boolean {
+            if (!isEnabled || id !in 0 until rows * cols || action != AccessibilityNodeInfoCompat.ACTION_CLICK) {
+                return false
+            }
+            val row = id / cols
+            val col = id % cols
+            updateSelection(row, col)
+            onColorChangedListener?.onColorChanged(colors[row][col])
+            sendEventForVirtualView(id, AccessibilityEvent.TYPE_VIEW_CLICKED)
+            return true
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -119,33 +198,39 @@ class ColorGridView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean = when (event.actionMasked) {
-        MotionEvent.ACTION_DOWN -> {
-            isTracking = true
-            parent?.requestDisallowInterceptTouchEvent(true)
-            selectFromTouch(event.x, event.y)
-            true
-        }
+    override fun onTouchEvent(event: MotionEvent): Boolean = if (!isEnabled) {
+        isTracking = false
+        parent?.requestDisallowInterceptTouchEvent(false)
+        super.onTouchEvent(event)
+    } else {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                isTracking = true
+                parent?.requestDisallowInterceptTouchEvent(true)
+                selectFromTouch(event.x, event.y)
+                true
+            }
 
-        MotionEvent.ACTION_MOVE -> {
-            selectFromTouch(event.x, event.y)
-            true
-        }
+            MotionEvent.ACTION_MOVE -> {
+                selectFromTouch(event.x, event.y)
+                true
+            }
 
-        MotionEvent.ACTION_UP -> {
-            isTracking = false
-            performClick()
-            parent?.requestDisallowInterceptTouchEvent(false)
-            true
-        }
+            MotionEvent.ACTION_UP -> {
+                isTracking = false
+                performClick()
+                parent?.requestDisallowInterceptTouchEvent(false)
+                true
+            }
 
-        MotionEvent.ACTION_CANCEL -> {
-            isTracking = false
-            parent?.requestDisallowInterceptTouchEvent(false)
-            true
-        }
+            MotionEvent.ACTION_CANCEL -> {
+                isTracking = false
+                parent?.requestDisallowInterceptTouchEvent(false)
+                true
+            }
 
-        else -> super.onTouchEvent(event)
+            else -> super.onTouchEvent(event)
+        }
     }
 
     private fun selectFromTouch(x: Float, y: Float) {
@@ -157,9 +242,7 @@ class ColorGridView @JvmOverloads constructor(context: Context, attrs: Attribute
         val row = ((y - paddingTop) / h * rows).toInt().coerceIn(0, rows - 1)
 
         if (row == selectedRow && col == selectedCol) return
-        selectedRow = row
-        selectedCol = col
-        invalidate()
+        updateSelection(row, col)
         onColorChangedListener?.onColorChanged(colors[row][col])
     }
 

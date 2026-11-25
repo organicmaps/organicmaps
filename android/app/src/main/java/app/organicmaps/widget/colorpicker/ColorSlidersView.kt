@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -79,6 +80,7 @@ class ColorSlidersView @JvmOverloads constructor(
         redSlider.onValueChangedListener = sliderListener
         greenSlider.onValueChangedListener = sliderListener
         blueSlider.onValueChangedListener = sliderListener
+        updateUI(updateSliders = true)
     }
 
     private fun isUserAdjusting() =
@@ -160,12 +162,15 @@ class ColorSlidersView @JvmOverloads constructor(
         }
 
         val slider = RoundSlider(context)
+        slider.id = View.generateViewId()
+        labelView.labelFor = slider.id
         val thumbDiameter = resources.getDimensionPixelSize(R.dimen.color_preset_circle_size)
         val stroke = resources.getDimensionPixelSize(R.dimen.color_picker_selector_stroke)
         val sliderHeight = thumbDiameter + stroke * 2 + resources.getDimensionPixelSize(R.dimen.margin_quarter)
         row.addView(slider, LayoutParams(0, sliderHeight, 1f))
 
         val valueText = TextView(context).apply {
+            importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
             setTextColor(ThemeUtils.getColor(context, android.R.attr.textColorPrimary))
             gravity = Gravity.CENTER
@@ -217,6 +222,7 @@ class ColorSlidersView @JvmOverloads constructor(
         row.addView(label)
 
         val input = EditText(context).apply {
+            id = View.generateViewId()
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
             setTextColor(ThemeUtils.getColor(context, android.R.attr.textColorPrimary))
             filters = arrayOf(
@@ -237,6 +243,7 @@ class ColorSlidersView @JvmOverloads constructor(
             val pad = marginHalf
             setPadding(pad, pad, pad, pad)
         }
+        label.labelFor = input.id
         row.addView(
             input,
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
@@ -268,6 +275,11 @@ class ColorSlidersView @JvmOverloads constructor(
         } finally {
             isEditingHex = false
         }
+    }
+
+    fun focusFirstSlider() {
+        redSlider.requestFocus()
+        redSlider.performAccessibilityAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS, null)
     }
 
     private enum class Channel(@StringRes val labelRes: Int) {
