@@ -53,7 +53,6 @@ UNIT_CLASS_TEST(VisualParamsFixture, StopFollowModesAndFirstFix)
 
 UNIT_CLASS_TEST(VisualParamsFixture, ArrowAnimatesWithinTheTimeLimit)
 {
-  using namespace std::chrono_literals;
   ScreenBase screen;
   screen.OnSize(0, 0, 800, 600);
   screen.SetFromRect(m2::AnyRectD(m2::RectD(-2.0, -2.0, 2.0, 2.0)));
@@ -67,19 +66,21 @@ UNIT_CLASS_TEST(VisualParamsFixture, ArrowAnimatesWithinTheTimeLimit)
   controller.OnLocationUpdate(fix, false, screen);
   auto const start = controller.Position();
 
-  // A short move starts at the displayed pose and takes 0.2 seconds. The controller reads the clock itself, so the
-  // test checks only the ends of the move.
+  // A short move starts at the displayed pose and takes kShortMoveTimeSec. The controller reads the clock itself, so
+  // the test checks only the ends of the move.
+  auto const duration =
+      std::chrono::duration_cast<df::AnimationClock::duration>(std::chrono::duration<double>(df::kShortMoveTimeSec));
   fix.m_longitude = mercator::XToLon(start.x + 0.3);
   fix.m_timestamp += 1.0;
   controller.OnLocationUpdate(fix, false, screen);
   auto const moving = animations.GetArrowPose();
   TEST(moving.has_value(), ());
   TEST_EQUAL(moving->m_position, start, ());
-  animations.Advance(df::AnimationClock::now() + 200ms);
+  animations.Advance(df::AnimationClock::now() + duration);
   TEST(controller.GetDrawablePosition().EqualDxDy(controller.Position(), 1e-9), ());
 
-  // A move that needs more than 1.5 seconds snaps the arrow.
-  fix.m_longitude = mercator::XToLon(start.x + 60.0);
+  // A move that needs more than kMaxAnimationTimeSec snaps the arrow.
+  fix.m_longitude = mercator::XToLon(start.x + 150.0);
   fix.m_timestamp += 1.0;
   controller.OnLocationUpdate(fix, false, screen);
   TEST(!animations.GetArrowPose().has_value(), ());

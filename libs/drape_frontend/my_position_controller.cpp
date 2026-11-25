@@ -780,7 +780,8 @@ void MyPositionController::AnimateArrow(ArrowPose const & oldPose, ScreenBase co
   m2::PointD const start(mercator::NearestWrapX(oldPose.m_position.x, target.m_position.x), oldPose.m_position.y);
   double const moveDuration = GetMoveDuration(start, target.m_position, screen);
   double const rotateDuration = GetRotateDuration(oldPose.m_azimuth, target.m_azimuth);
-  if (!IsAnimationAllowed(std::max(moveDuration, rotateDuration)))
+  double const duration = std::max(moveDuration, rotateDuration);
+  if (duration == 0.0 || duration > kMaxAnimationTimeSec)
   {
     m_arrowTarget.reset();
     m_animationSystem.CancelArrowAnimation();

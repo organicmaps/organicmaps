@@ -372,7 +372,6 @@ void UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 {
   m2::PointD center = centerEvent->GetCenter();
   auto const zoom = centerEvent->GetZoom();
-  auto const scaleFactor = centerEvent->GetScaleFactor();
 
   center.x = mercator::NearestWrapX(center.x, GetCurrentScreen().GetOrg().x);
 
@@ -382,28 +381,19 @@ void UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
     m_trackedCenter = center;
   }
 
-  ScreenBase screen = GetCurrentScreen();
-
   if (zoom != kDoNotChangeZoom)
   {
+    ScreenBase screen = GetCurrentScreen();
     screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
     screen.MatchGandP3d(center, m_visibleViewport.Center());
-  }
-  else if (scaleFactor > 0.0)
-  {
-    screen.SetOrg(center);
-    ApplyScale(m_visibleViewport.Center(), scaleFactor, screen);
-  }
-  else
-  {
-    screen = GetTargetScreen();
-    screen.MatchGandP3d(center, m_visibleViewport.Center());
-    SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetArrowTarget(), MapAnimation::Type::Camera,
-              GetInheritedScaleTime(screen.GetScale()));
+    SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetArrowTarget());
     return;
   }
 
-  SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetArrowTarget());
+  ScreenBase screen = GetTargetScreen();
+  screen.MatchGandP3d(center, m_visibleViewport.Center());
+  SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetArrowTarget(), MapAnimation::Type::Camera,
+            GetInheritedScaleTime(screen.GetScale()));
 }
 
 void UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
@@ -496,11 +486,18 @@ void UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitIn
 void UserEventStream::SetScreen(ScreenBase const & target, bool isAnim, std::optional<ArrowPose> const & arrowTarget,
                                 MapAnimation::Type type, double maxScaleTime)
 {
-  if (isAnim && RetargetFlight(target, arrowTarget))
+  if (isAnim && RetargetMove(target, arrowTarget, type))
     return;
-  SetScreen(target,
-            isAnim ? GetScreenAnimation(type, GetCurrentScreen(), target, m_eventTime, maxScaleTime) : std::nullopt,
-            arrowTarget);
+  // The camera keeps up with the arrow it carries, as in the follow-and-rotate mode. A request that inherits a running
+  // zoom follows its target center the same way, so the zoom ends on its deadline.
+  auto const & current = GetCurrentScreen();
+  bool const follow = arrowTarget || maxScaleTime < kMaxAnimationTimeSec;
+  m2::PointD const position = arrowTarget ? arrowTarget->m_position : target.GetOrg();
+  auto animation = !isAnim ? std::optional<MapAnimation>()
+                 : follow  ? GetFollowAnimation(current, target, position, target.PtoP3d(target.GtoP(position)),
+                                                false /* isAutoZoom */, m_eventTime, maxScaleTime)
+                           : GetScreenAnimation(type, current, target, m_eventTime);
+  SetScreen(target, std::move(animation), arrowTarget);
 }
 
 void UserEventStream::SetScreen(ScreenBase const & target, std::optional<MapAnimation> && animation,
@@ -518,10 +515,11 @@ void UserEventStream::SetScreen(ScreenBase const & target, std::optional<MapAnim
   m_navigator.SetFromScreen(target);
 }
 
-bool UserEventStream::RetargetFlight(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget)
+bool UserEventStream::RetargetMove(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget,
+                                   MapAnimation::Type type)
 {
-  // Place page layouts, selection outlines and position updates bend a flight instead of starting a new move.
-  if (!m_animationSystem.RetargetFlight(target, m_eventTime))
+  // Place page layouts, selection outlines and position updates bend a move or a flight instead of starting anew.
+  if (!m_animationSystem.HasMapAnimation(type) || !m_animationSystem.RetargetMove(target, m_eventTime))
     return false;
   if (arrowTarget)
     AnimateArrow(*arrowTarget, m_animationSystem.GetMapAnimation());
@@ -557,7 +555,7 @@ void UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   target.SetFromParams(position, -azimuth, scale);
   target.MatchGandP3d(position, pixelPos);
 
-  if (isAnim && RetargetFlight(target, arrowTarget))
+  if (isAnim && RetargetMove(target, arrowTarget, MapAnimation::Type::Camera))
     return;
   SetScreen(target,
             isAnim ? GetFollowAnimation(current, target, position, pixelPos, autoScale.has_value(), m_eventTime,
