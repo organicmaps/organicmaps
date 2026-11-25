@@ -972,4 +972,16 @@
     <string name="navigate_track_finish">Track Finish</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">No track remains in this direction. Select another point.</string>
+    <!-- Button to collapse an expanded bookmark or track description -->
+    <string name="description_less">Less</string>
+    <!-- Accessibility state of an expanded bookmark or track description -->
+    <string name="description_expanded">Expanded</string>
+    <!-- Accessibility state of a collapsed bookmark or track description -->
+    <string name="description_collapsed">Collapsed</string>
+    <!-- Accessibility label of the adjustable selected point on an elevation profile -->
+    <string name="elevation_profile_selection">Point on elevation profile</string>
+    <!-- Accessibility state: selected distance along the track or route, and total length, both with units -->
+    <string name="elevation_profile_selected_distance">%1$s of %2$s</string>
+    <!-- Accessibility state of an elevation profile without a selected point; parameter is total length with units -->
+    <string name="elevation_profile_no_selection">No point selected. Length: %s</string>
 </resources>
