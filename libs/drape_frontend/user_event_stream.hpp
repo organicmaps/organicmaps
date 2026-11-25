@@ -166,17 +166,6 @@ public:
                  std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_center(center)
     , m_zoom(zoom)
-    , m_scaleFactor(0.0)
-    , m_isAnim(isAnim)
-    , m_trackVisibleViewport(trackVisibleViewport)
-    , m_arrowTarget(arrowTarget)
-  {}
-
-  SetCenterEvent(double scaleFactor, m2::PointD const & center, bool isAnim, bool trackVisibleViewport,
-                 std::optional<ArrowPose> const & arrowTarget = std::nullopt)
-    : m_center(center)
-    , m_zoom(-1)
-    , m_scaleFactor(scaleFactor)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
     , m_arrowTarget(arrowTarget)
@@ -186,16 +175,13 @@ public:
 
   m2::PointD const & GetCenter() const { return m_center; }
   int GetZoom() const { return m_zoom; }
-  double GetScaleFactor() const { return m_scaleFactor; }
   bool IsAnim() const { return m_isAnim; }
   bool TrackVisibleViewport() const { return m_trackVisibleViewport; }
   std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
-  m2::PointD m_center;   // center point in mercator
-  int m_zoom;            // if zoom == -1, then zoom level will not change
-  double m_scaleFactor;  // this parameter is used when zoom == -1,
-                         // if scaleFactor <= 0.0, then scale will not change
+  m2::PointD m_center;  // center point in mercator
+  int m_zoom;           // if zoom == -1, then zoom level will not change
   bool m_isAnim;
   bool m_trackVisibleViewport;
   std::optional<ArrowPose> m_arrowTarget;
@@ -475,7 +461,7 @@ private:
                  MapAnimation::Type type = MapAnimation::Type::Camera, double maxScaleTime = kMaxAnimationTimeSec);
   void SetScreen(ScreenBase const & target, std::optional<MapAnimation> && animation,
                  std::optional<ArrowPose> const & arrowTarget);
-  bool RetargetFlight(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget);
+  bool RetargetMove(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type);
   void AnimateArrow(ArrowPose const & target, MapAnimation const * animation);
   void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                           int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,

@@ -206,12 +206,6 @@ void DrapeEngine::MakeFrameActive()
   AddUserEvent(make_unique_dp<ActiveFrameEvent>());
 }
 
-void DrapeEngine::ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
-                                    bool trackVisibleViewport)
-{
-  PostUserEvent(make_unique_dp<SetCenterEvent>(scaleFactor, centerPt, isAnim, trackVisibleViewport));
-}
-
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim, bool trackVisibleViewport)
 {
   PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport));

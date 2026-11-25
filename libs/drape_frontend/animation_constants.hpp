@@ -8,7 +8,8 @@ namespace df
 {
 using AnimationClock = std::chrono::steady_clock;
 
-/// @name Camera. A move, a zoom and a rotation change linearly, each for its own time up to kMaxAnimationTimeSec.
+/// @name Camera. A follow, a zoom and a rotation change the position, the scale and the angle linearly, each for its
+/// own time up to kMaxAnimationTimeSec.
 /// @{
 double constexpr kMaxAnimationTimeSec = 1.5;
 // A move covers kMoveViewportsPerSec lengths of the shorter viewport side per second and takes at least
@@ -22,7 +23,19 @@ double constexpr kAutoZoomTimeSecPerScaleRatio = 0.6;
 double constexpr kHalfTurnTimeSec = 0.75;
 /// @}
 
-/// @name Flight to a target that a linear move reaches later than kMaxAnimationTimeSec.
+/// @name Move to a screen whose center is within kFlyViewports.
+/// @{
+// The move takes the longest of the pan (see kMoveViewportsPerSec), the rotation and kMoveTimeSecPerZoomLevel per zoom
+// level, up to kMaxMoveTimeSec.
+double constexpr kMoveTimeSecPerZoomLevel = 0.3;
+double constexpr kMaxMoveTimeSec = 1.0;
+// The destination moves to its place on the screen with kMovePanEasing while the scale changes to the end scale with
+// kMoveZoomEasing, see kFlyPanEasing.
+std::array<double, 4> constexpr kMovePanEasing = {0.25, 1.0, 0.5, 1.0};
+std::array<double, 4> constexpr kMoveZoomEasing = {0.0, 0.0, 0.2, 1.0};
+/// @}
+
+/// @name Flight to a more distant screen.
 /// @{
 // The map zooms out in kFlyZoomOutTimeSec to show the distance as kFlyViewports lengths of the shorter viewport
 // side, unless it already shows more.
@@ -84,6 +97,7 @@ bool constexpr IsEasing(std::array<double, 4> const & curve)
 {
   return curve[0] >= 0.0 && curve[0] <= 1.0 && curve[2] >= 0.0 && curve[2] <= 1.0;
 }
+static_assert(IsEasing(kMovePanEasing) && IsEasing(kMoveZoomEasing));
 static_assert(IsEasing(kFlyPanEasing) && IsEasing(kFlyZoomEasing));
 static_assert(0.0 < kPopUpOvershootTime && kPopUpOvershootTime < kPopUpUndershootTime && kPopUpUndershootTime < 1.0);
 /// @}
