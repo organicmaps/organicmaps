@@ -4,7 +4,12 @@ extension NavigationDashboard {
     private let router: MWMRouter.Type
     private let mapViewController: MapViewController
     private let searchManager: SearchOnMapManager
-    private var routeElevationActivePointDistance: Double?
+    // Track previews use the core entry unless a chart gesture is in progress.
+    private var chartSelectionDistance: Double?
+    private var displayedElevationDistance: Double? {
+      chartSelectionDistance ?? router.routeElevationActivePointDistance()?.doubleValue
+    }
+
     private var presentationStep: NavigationDashboardModalPresentationStep = .hidden
     private var isValid = true
 
@@ -145,7 +150,7 @@ extension NavigationDashboard {
           let result = router.reverseFollowedTrack()
           if result == .ok {
             // At a loop trailhead the new preview selects the other end of the chart.
-            routeElevationActivePointDistance = nil
+            chartSelectionDistance = nil
           } else {
             showTrackError(result)
           }
@@ -182,8 +187,9 @@ extension NavigationDashboard {
     }
 
     private func restoreAcceptedTrackEntry() {
-      routeElevationActivePointDistance = router.routeElevationActivePointDistance()?.doubleValue
-      buildElevationInfoIfNeeded()
+      chartSelectionDistance = nil
+      presenter.process(.updateElevationActivePoint(displayedElevationDistance))
+      restoreRouteElevationActivePoint()
     }
 
     private func showTrackError(_ result: MWMFollowTrackResult) {
@@ -193,13 +199,13 @@ extension NavigationDashboard {
 
     fileprivate func clearRouteElevationActivePoint() {
       guard isValid else { return }
-      routeElevationActivePointDistance = nil
+      chartSelectionDistance = nil
       router.resetRouteElevationActivePoint()
     }
 
     fileprivate func restoreRouteElevationActivePoint() {
-      guard isValid, let routeElevationActivePointDistance else { return }
-      router.setRouteElevationActivePointDistance(routeElevationActivePointDistance)
+      guard isValid, let distance = displayedElevationDistance else { return }
+      router.setRouteElevationActivePointDistance(distance)
     }
   }
 }
@@ -209,14 +215,16 @@ extension NavigationDashboard {
 extension NavigationDashboard.Interactor: ElevationProfileViewControllerDelegate {
   func updateMapPoint(distance: Double) {
     guard isValid else { return }
-    routeElevationActivePointDistance = distance
+    chartSelectionDistance = distance
+    presenter.recordElevationActivePoint(distance)
     router.setRouteElevationActivePointDistance(distance)
   }
 
   func didFinishSelectingPoint(distance: Double) {
-    guard isValid, router.hasTrackNavigationSession(), !router.isOnRoute(), router.routeElevationActivePointDistance()?.doubleValue != distance else { return }
+    guard isValid, router.hasTrackNavigationSession(), !router.isOnRoute() else { return }
+    chartSelectionDistance = nil
+    guard router.routeElevationActivePointDistance()?.doubleValue != distance else { return }
     let result = router.updateFollowedTrackEntry(atDistance: distance)
-    guard result != .ok else { return }
     restoreAcceptedTrackEntry()
     showTrackError(result)
   }
@@ -307,20 +315,23 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
 
   private func buildElevationInfoIfNeeded() {
     guard isValid else { return }
+    // Place Page deselects its marker after the route-ready callback, even without elevation data.
+    defer {
+      DispatchQueue.main.async { [weak self] in self?.restoreRouteElevationActivePoint() }
+    }
     guard let elevationInfo = router.routeElevationProfileData() else {
-      clearRouteElevationActivePoint()
+      if !router.hasTrackNavigationSession() {
+        clearRouteElevationActivePoint()
+      }
       process(.updateElevationInfo(nil, activePointDistance: nil))
       return
     }
 
     let maxDistance = elevationInfo.elevationProfileData?.points.last?.distance ?? 0
-    let selectedDistance = routeElevationActivePointDistance ?? router.routeElevationActivePointDistance()?.doubleValue
-    let activePointDistance = selectedDistance.map { min(max(0, $0), maxDistance) }
-    routeElevationActivePointDistance = activePointDistance
-    process(.updateElevationInfo(elevationInfo, activePointDistance: activePointDistance))
-    // Restore on the next run loop because Place Page finishes deselecting its map marker after the route-ready callback.
-    DispatchQueue.main.async { [weak self] in
-      self?.restoreRouteElevationActivePoint()
+    let activePointDistance = displayedElevationDistance.map { min(max(0, $0), maxDistance) }
+    if chartSelectionDistance != nil {
+      chartSelectionDistance = activePointDistance
     }
+    process(.updateElevationInfo(elevationInfo, activePointDistance: activePointDistance))
   }
 }

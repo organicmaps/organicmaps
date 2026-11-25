@@ -3,6 +3,66 @@
 import XCTest
 
 final class TrackNavigationFlowTests: XCTestCase {
+  func testReadyUsesTheLatestAcceptedCoreEntry() throws {
+    let renderer = DashboardRendererSpy()
+    let interactor = NavigationDashboard.Interactor(presenter: .init(view: renderer), router: MockRouter.self)
+    MockRouter.trackMode = true
+    MockRouter.acceptedEntryDistance = 100
+    MockRouter.elevationInfo = MockElevationProfileData()
+    MockRouter.mapPointRequests = []
+    MockRouter.entryRequests = []
+    defer {
+      interactor.invalidate()
+      MockRouter.trackMode = false
+      MockRouter.acceptedEntryDistance = nil
+      MockRouter.elevationInfo = nil
+      MockRouter.mapPointRequests = []
+      MockRouter.entryRequests = []
+    }
+    interactor.statePlanning()
+    interactor.updateMapPoint(distance: 250)
+    interactor.didFinishSelectingPoint(distance: 250)
+    interactor.stateReady()
+    MockRouter.acceptedEntryDistance = 400
+    interactor.stateReady()
+    XCTAssertEqual(try XCTUnwrap(renderer.model).routeElevationActivePointDistance, 400)
+
+    MockRouter.elevationInfo = nil
+    interactor.stateReady()
+    let restored = expectation(description: "Accepted entry restored without elevation data")
+    DispatchQueue.main.async { restored.fulfill() }
+    wait(for: [restored], timeout: 1)
+    XCTAssertEqual(MockRouter.mapPointRequests.last, 400)
+  }
+
+  func testReadyKeepsPendingSelectionUntilCancelled() throws {
+    let renderer = DashboardRendererSpy()
+    let interactor = NavigationDashboard.Interactor(presenter: .init(view: renderer), router: MockRouter.self)
+    MockRouter.trackMode = true
+    MockRouter.acceptedEntryDistance = 100
+    MockRouter.elevationInfo = MockElevationProfileData()
+    MockRouter.mapPointRequests = []
+    defer {
+      interactor.invalidate()
+      MockRouter.trackMode = false
+      MockRouter.acceptedEntryDistance = nil
+      MockRouter.elevationInfo = nil
+      MockRouter.mapPointRequests = []
+    }
+    interactor.statePlanning()
+    interactor.updateMapPoint(distance: 250)
+    interactor.stateReady()
+    let ready = expectation(description: "Pending selection survives ready")
+    DispatchQueue.main.async { ready.fulfill() }
+    wait(for: [ready], timeout: 1)
+    XCTAssertEqual(try XCTUnwrap(renderer.model).routeElevationActivePointDistance, 250)
+    XCTAssertEqual(MockRouter.acceptedEntryDistance, 100)
+
+    interactor.didCancelSelectingPoint()
+    XCTAssertEqual(try XCTUnwrap(renderer.model).routeElevationActivePointDistance, 100)
+    XCTAssertEqual(MockRouter.mapPointRequests.last, 100)
+  }
+
   func testTrackAndOrdinaryRoutesUseTheirPlanningModels() throws {
     let renderer = DashboardRendererSpy()
     let presenter = NavigationDashboard.Presenter(view: renderer)
@@ -541,6 +601,10 @@ final class TrackNavigationFlowTests: XCTestCase {
 
     func render(_ viewModel: NavigationDashboard.ViewModel) {
       model = viewModel
+    }
+
+    func updateElevationActivePoint(_ distance: Double?) {
+      model?.routeElevationActivePointDistance = distance
     }
   }
 
