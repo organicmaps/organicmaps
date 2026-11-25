@@ -1316,6 +1316,49 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TrackCandidateSwitchUpdatesCountr
   TEST_EQUAL(info.GetCountryId(), "Poland_Lodz Voivodeship", ());
 }
 
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TrackRetapWithOtherCandidatesUpdatesPlacePage)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+
+  auto & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  size_t openCount = 0;
+  fm.SetPlacePageListeners([&]() { ++openCount; }, {} /* onClose */, {} /* onUpdate */, {} /* onSwitchFullScreen */);
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  auto const trackId = CreateLineTrack(bmManager, catId);
+  {
+    auto es = bmManager.GetEditSession();
+    es.AttachTrack(es.CreateTrack(MakeTrackData({0.0, 0.0}, {0.0, 1.0}))->GetId(), catId);
+  }
+
+  fm.ShowTrack(trackId);
+  TEST_EQUAL(openCount, 1, ());
+  auto const countryId = fm.GetCurrentPlacePageInfo().GetCountryId();
+
+  auto candidates = bmManager.FindTracksInRect(mercator::RectByCenterXYAndSizeInMeters({0.0, 0.0}, 20.0));
+  TEST_EQUAL(candidates.size(), 2, ());
+  fm.GetCurrentPlacePageInfo().SetTrackCandidates(std::move(candidates));
+
+  m2::PointD const retapPoint(0.5, 0.0);
+  bmManager.SetTrackSelectionInfo({trackId, retapPoint, mercator::DistanceOnEarth({0.0, 0.0}, retapPoint)},
+                                  false /* notifyListeners */);
+  place_page::BuildInfo buildInfo;
+  buildInfo.m_source = place_page::BuildInfo::Source::User;
+  buildInfo.m_mercator = retapPoint;
+  buildInfo.m_trackId = trackId;
+  buildInfo.m_match = place_page::BuildInfo::Match::TrackOnly;
+  fm.BuildAndSetPlacePageInfo(buildInfo);
+
+  auto const & info = fm.GetCurrentPlacePageInfo();
+  TEST_EQUAL(info.GetTrackId(), trackId, ());
+  TEST_EQUAL(info.GetCountryId(), countryId, ());
+  TEST(info.GetTrackCandidates().empty(), ());
+  TEST_EQUAL(openCount, 2, ("The track chooser must not keep the candidates of the previous tap"));
+}
+
 // A cycling route tapped on the map is built from its relation and offers the map of the tapped point.
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_RouteRelationPlacePageHasCountryOfTappedPoint)
 {
