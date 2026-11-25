@@ -111,7 +111,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
             return;
           }
 
-          if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
+          // A sheet hidden by the place page must not override the viewport the place page reports.
+          if (!mViewModel.isHiddenByPlacePage() && !RoutingController.get().isNavigating()
+              && !RoutingController.get().isPlanning())
             PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
           if (PlacePageUtils.isHiddenState(newState))
