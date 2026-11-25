@@ -42902,6 +42902,36 @@ vi = GB
 zh-Hans = GB
 zh-Hant = GB
 
+[my_position_state_pending]
+  comment = Accessibility state of the My Position button while waiting for a location fix.
+  tags = android-app
+  en = Finding location…
+  ru = Определение местоположения…
+
+[my_position_state_off]
+  comment = Accessibility state of the My Position button when location tracking is off. Does not mean device GPS is disabled.
+  tags = android-app
+  en = Location tracking off
+  ru = Отслеживание местоположения выключено
+
+[my_position_state_not_following]
+  comment = Accessibility state: location is shown, but the map does not follow it.
+  tags = android-app
+  en = Map not following location
+  ru = Карта не следует за местоположением
+
+[my_position_state_following]
+  comment = Accessibility state: the map follows the user's location without following their heading.
+  tags = android-app
+  en = Map following location
+  ru = Карта следует за местоположением
+
+[my_position_state_following_heading]
+  comment = Accessibility state: the map follows the user's location and rotates with their heading.
+  tags = android-app
+  en = Map following location and heading
+  ru = Карта следует за местоположением и направлением движения
+
 [core_my_position]
 comment = A text for current gps location point/arrow selected on the map
 tags = android-sdk,apple-maps,qt
