@@ -308,8 +308,10 @@ final class NavigationDashboardViewController: UIViewController {
 
   private func updateElevationProfile(with routeElevationPreviewData: RouteElevationPreviewData?,
                                       activePointDistance: Double?) {
-    guard routeElevationPreviewData !== currentRouteElevationPreviewData ||
-      activePointDistance != currentRouteElevationActivePointDistance else {
+    if routeElevationPreviewData === currentRouteElevationPreviewData {
+      if activePointDistance != currentRouteElevationActivePointDistance {
+        updateElevationActivePoint(activePointDistance)
+      }
       elevationProfileContainerView.isHidden = routeElevationPreviewData == nil
       return
     }
@@ -581,6 +583,11 @@ extension NavigationDashboardViewController: UIScrollViewDelegate {
 // MARK: - Public Methods
 
 extension NavigationDashboardViewController: NavigationDashboard.Rendering {
+  func updateElevationActivePoint(_ distance: Double?) {
+    currentRouteElevationActivePointDistance = distance
+    elevationProfileViewController?.presenter?.updateActivePointDistance(distance ?? 0)
+  }
+
   func render(_ viewModel: NavigationDashboard.ViewModel) {
     let isFollowTrackPlanning = viewModel.planningMode == .navigateTrack
     settingsButton.isHidden = isFollowTrackPlanning
