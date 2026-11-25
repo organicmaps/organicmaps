@@ -47,6 +47,8 @@ final class ChartLineViewTests: XCTestCase {
     chart.onSelectedPointChanged = { reportedDistances.append($0) }
 
     chart.setViewport(lower: 1, upper: 3)
+    // Consecutive gesture updates can round to the same sample bounds.
+    chart.setViewport(lower: 1, upper: 3)
     XCTAssertEqual(reportedDistances, [1.5])
 
     chart.setSelectedPoint(4)
@@ -94,6 +96,18 @@ final class ChartLineViewTests: XCTestCase {
       XCTAssertEqual(rendered[1].x, values[finish].x, accuracy: 0.001)
       XCTAssertEqual(path.boundingBoxOfPath.width, abs(expectedX - values[finish].x), accuracy: 0.001)
     }
+  }
+
+  func testFollowedSectionKeepsTheFullProfileStrokeWidth() throws {
+    let heights: [CGFloat] = [100, 150, 200, 150, 100]
+    let chart = makeChart(heights: heights)
+    let fullWidth = chart.lineViews[0].shapeLayer.lineWidth
+    chart.chartData = ChartPresentationData(TestData(heights: heights, highlightedSection: (1, 3)), formatter: TestFormatter())
+    let profile = chart.lineViews[0].shapeLayer
+    let followed = try XCTUnwrap(profile.sublayers?.first as? CAShapeLayer)
+    XCTAssertEqual(followed.lineWidth, fullWidth)
+    XCTAssertGreaterThan(followed.lineWidth, profile.lineWidth)
+    XCTAssertFalse(try XCTUnwrap(followed.path).isEmpty)
   }
 
   func testEntryAfterGapUsesItsOwnHeightAndKeepsOtherPointsSelectable() throws {

@@ -93,7 +93,6 @@ public class ChartView: UIView {
         let v = ChartLineView()
         v.clipsToBounds = true
         v.chartLine = line
-        v.lineWidth = 3
         v.frame = chartsContainerView.bounds
         v.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         chartsContainerView.insertSubview(v, belowSubview: segmentLinesView)
@@ -175,10 +174,8 @@ public class ChartView: UIView {
     let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
     var upper = chartData.xAxisValueAt(CGFloat(xAxisView.upperBound))
     var lower = chartData.xAxisValueAt(CGFloat(xAxisView.lowerBound))
-    let rangeLength = upper - lower
     if x < lower || x > upper, routeLength > 0 {
-      let current = Double(chartInfoView.infoX) * rangeLength + lower
-      let currentChartX = chartData.chartX(forDistance: current)
+      let currentChartX = chartX(atFraction: chartInfoView.infoX)
       let targetChartX = chartData.chartX(forDistance: x)
       let dIdx = Int(round(targetChartX - currentChartX))
       var lowerIdx = xAxisView.lowerBound + dIdx
@@ -208,7 +205,7 @@ public class ChartView: UIView {
   }
 
   func setViewport(lower: Int, upper: Int, notifySelection: Bool = true) {
-    guard lower < upper else { return }
+    guard lower < upper, lower != xAxisView.lowerBound || upper != xAxisView.upperBound else { return }
     xAxisView.setBounds(lower: lower, upper: upper)
     updateCharts()
     chartInfoView.update()

@@ -10,26 +10,23 @@ class ChartLineView: UIView {
 
   private var highlightedStroke: CAShapeLayer?
 
-  var lineWidth: CGFloat = 1 {
-    didSet {
-      updateLineColors()
-    }
-  }
-
   var chartLine: ChartPresentationLine! {
     didSet {
       guard let chartLine else { return }
+      let lineWidth: CGFloat = 3
       highlightedStroke?.removeFromSuperlayer()
       highlightedStroke = nil
       if chartLine.highlighted != nil, chartLine.type == .line {
         let stroke = CAShapeLayer()
         stroke.actions = ["path": NSNull(), "bounds": NSNull(), "position": NSNull()]
         stroke.fillColor = nil
+        stroke.lineWidth = lineWidth
         stroke.lineJoin = .round
         stroke.lineCap = .round
         shapeLayer.addSublayer(stroke)
         highlightedStroke = stroke
       }
+      shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
       updateLineColors()
     }
   }
@@ -64,9 +61,7 @@ class ChartLineView: UIView {
     switch chartLine.type {
     case .line:
       shapeLayer.strokeColor = highlightedStroke == nil ? resolvedColor : UIColor.secondaryLabel.resolvedColor(with: traitCollection).cgColor
-      shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
       highlightedStroke?.strokeColor = resolvedColor
-      highlightedStroke?.lineWidth = lineWidth
       shapeLayer.fillColor = UIColor.clear.cgColor
       shapeLayer.lineJoin = .round
     case .lineArea:
