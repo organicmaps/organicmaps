@@ -496,6 +496,8 @@ void UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitIn
 void UserEventStream::SetScreen(ScreenBase const & target, bool isAnim, std::optional<ArrowPose> const & arrowTarget,
                                 MapAnimation::Type type, double maxScaleTime)
 {
+  if (isAnim && RetargetFlight(target, arrowTarget))
+    return;
   SetScreen(target,
             isAnim ? GetScreenAnimation(type, GetCurrentScreen(), target, m_eventTime, maxScaleTime) : std::nullopt,
             arrowTarget);
@@ -505,7 +507,7 @@ void UserEventStream::SetScreen(ScreenBase const & target, std::optional<MapAnim
                                 std::optional<ArrowPose> const & arrowTarget)
 {
   if (arrowTarget)
-    AnimateArrow(*arrowTarget, animation);
+    AnimateArrow(*arrowTarget, animation ? &*animation : nullptr);
   if (animation)
   {
     m_animationSystem.StartMapAnimation(std::move(*animation));
@@ -516,7 +518,17 @@ void UserEventStream::SetScreen(ScreenBase const & target, std::optional<MapAnim
   m_navigator.SetFromScreen(target);
 }
 
-void UserEventStream::AnimateArrow(ArrowPose const & target, std::optional<MapAnimation> const & animation)
+bool UserEventStream::RetargetFlight(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget)
+{
+  // Place page layouts, selection outlines and position updates bend a flight instead of starting a new move.
+  if (!m_animationSystem.RetargetFlight(target, m_eventTime))
+    return false;
+  if (arrowTarget)
+    AnimateArrow(*arrowTarget, m_animationSystem.GetMapAnimation());
+  return true;
+}
+
+void UserEventStream::AnimateArrow(ArrowPose const & target, MapAnimation const * animation)
 {
   double moveDuration = 0.0;
   double rotateDuration = 0.0;
@@ -545,6 +557,8 @@ void UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   target.SetFromParams(position, -azimuth, scale);
   target.MatchGandP3d(position, pixelPos);
 
+  if (isAnim && RetargetFlight(target, arrowTarget))
+    return;
   SetScreen(target,
             isAnim ? GetFollowAnimation(current, target, position, pixelPos, autoScale.has_value(), m_eventTime,
                                         keepZoom ? GetInheritedScaleTime(scale) : kMaxAnimationTimeSec)

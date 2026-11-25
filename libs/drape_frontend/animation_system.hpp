@@ -23,12 +23,17 @@ public:
   {
     return m_map ? m_map->GetRemainingScaleTime(now) : 0.0;
   }
+  MapAnimation const * GetMapAnimation() const { return m_map ? &*m_map : nullptr; }
 
   std::optional<ScreenBase> GetScreen(ScreenBase const & currentScreen) const;
   ScreenBase GetTargetScreen(ScreenBase const & currentScreen) const;
   std::optional<ArrowPose> GetArrowPose() const;
 
   void StartMapAnimation(MapAnimation && animation) { m_map.emplace(std::move(animation)); }
+  bool RetargetFlight(ScreenBase const & endScreen, AnimationClock::time_point now)
+  {
+    return m_map && m_map->Retarget(endScreen, now);
+  }
   void HoldArrowPose(ArrowPose const & pose) { m_heldArrowPose = pose; }
   void ReleaseArrowHold() { m_heldArrowPose.reset(); }
   void AnimateArrowTo(ArrowPose const & target, AnimationClock::time_point requestedAt, double moveDuration,

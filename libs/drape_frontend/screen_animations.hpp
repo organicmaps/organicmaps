@@ -63,6 +63,9 @@ public:
   void ApplyTarget(ScreenBase & screen) const;
   void SyncArrow(double & moveDuration, double & rotateDuration) const;
   double GetRemainingScaleTime(AnimationClock::time_point now) const;
+  // Moves the end of a flight to a nearby endScreen that the rest of it reaches in time after the request at now. The
+  // flight keeps its timing and the current screen.
+  bool Retarget(ScreenBase const & endScreen, AnimationClock::time_point now);
 
 private:
   static void Apply(Stage const & stage, double elapsed, ScreenBase & screen);

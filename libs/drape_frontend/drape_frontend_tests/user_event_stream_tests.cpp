@@ -66,7 +66,6 @@ public:
     return time + std::chrono::duration_cast<df::AnimationClock::duration>(std::chrono::duration<double>(seconds));
   }
 
-protected:
   df::AnimationSystem m_animations;
   df::UserEventStream m_stream{m_animations};
 };
@@ -386,6 +385,67 @@ UNIT_CLASS_TEST(CameraAnimationFixture, DistantCenterFliesAndZoomsInTogether)
   TEST(!m_animations.IsCameraMoving(), ());
 }
 
+namespace
+{
+// Checks that a flight to destination at zoom continues after a change at 0.2 s and lands at the place given by the
+// change, at the scale endScale, on the original deadline.
+template <typename Change>
+void CheckFlightKeepsGoing(CameraAnimationFixture & fixture, Change && change, double scaleFactor)
+{
+  ScreenBase const start = fixture.m_stream.GetCurrentScreen();
+  auto const destination = start.PtoG(start.PixelRect().Center() + m2::PointD(8000.0, 0.0));
+  int const zoom = static_cast<int>(df::GetZoomLevel(start.GetScale())) + 6;
+  double const flightScale = start.GetScale() * 8000.0 / (5.0 * 600.0);
+  double const duration = std::min(1.1 + 0.15 * std::log2(flightScale / df::GetScreenScale(zoom)), 2.0);
+  auto const time = fixture.AddEvent<df::SetCenterEvent>(destination, zoom, true, true /* trackVisibleViewport */);
+  ScreenBase const before = fixture.Process(CameraAnimationFixture::At(time, 0.2));
+
+  change(destination, df::GetScreenScale(zoom) * scaleFactor);
+  auto const & after = fixture.Process(CameraAnimationFixture::At(time, 0.2));
+  TEST(after.GetOrg().EqualDxDy(before.GetOrg(), 1e-9), (after.GetOrg(), before.GetOrg()));
+  TEST_ALMOST_EQUAL_ABS(after.GetScale(), before.GetScale(), 1e-12, ());
+
+  TEST_ALMOST_EQUAL_ABS(fixture.Process(CameraAnimationFixture::At(time, duration * 0.25)).GetScale(), flightScale,
+                        1e-12, ());
+  double previousScale = flightScale;
+  for (double t = duration * 0.3 + 0.05; t < duration; t += 0.05)
+  {
+    double const scale = fixture.Process(CameraAnimationFixture::At(time, t)).GetScale();
+    TEST_LESS(scale, previousScale, (t));
+    previousScale = scale;
+  }
+  auto const & settled = fixture.Process(CameraAnimationFixture::At(time, duration + 0.001));
+  TEST(!fixture.m_animations.IsCameraMoving(), ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetScale(), df::GetScreenScale(zoom) * scaleFactor, 1e-12, ());
+}
+}  // namespace
+
+UNIT_CLASS_TEST(CameraAnimationFixture, PlacePageDuringAFlightKeepsFlying)
+{
+  m2::RectD const viewport(0.0, 0.0, 800.0, 420.0);
+  m2::PointD destination;
+  CheckFlightKeepsGoing(*this, [&](m2::PointD const & point, double)
+  {
+    destination = point;
+    AddEvent<df::SetVisibleViewportEvent>(viewport);
+  }, 1.0);
+  TEST(m_stream.GetCurrentScreen().GtoP(destination).EqualDxDy(viewport.Center(), 1e-6), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, SelectionOutlineDuringAFlightKeepsFlying)
+{
+  m2::PointD destination;
+  CheckFlightKeepsGoing(*this, [&](m2::PointD const & point, double scale)
+  {
+    destination = point;
+    m2::RectD rect(point, point);
+    rect.Inflate(400.0 * scale, 300.0 * scale);
+    AddEvent<df::SetRectEvent>(rect, false /* rotate */, df::kDoNotChangeZoom, true /* isAnim */,
+                               false /* useVisibleViewport */);
+  }, 0.5);
+  TEST(m_stream.GetCurrentScreen().GetOrg().EqualDxDy(destination, 1e-9), ());
+}
+
 UNIT_CLASS_TEST(CameraAnimationFixture, DeepZoomWithAShortMoveFlies)
 {
   ScreenBase const start = m_stream.GetCurrentScreen();
@@ -417,6 +477,22 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlightStartsFromTheDisplayedMap)
   auto const & first = Process(At(time, 0.016));
   TEST(m_animations.IsCameraMoving(), ());
   TEST_LESS(first.GtoP(start.GetOrg()).Length(first.PixelRect().Center()), 300.0, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FlightTurnsTheShortestWay)
+{
+  // The heading 5.5 gives the screen angle -5.5: a quarter turn from the start angle 5.5 by the shortest way.
+  Process(AddEvent<df::RotateEvent>(5.5, false));
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  auto const anchor = start.PixelRect().Center();
+  auto const position = start.PtoG(anchor + m2::PointD(8000.0, 0.0));
+  auto const time = AddEvent<df::FollowAndRotateEvent>(position, anchor, 5.5, df::kDoNotChangeZoom);
+  double const turn = ang::GetShortestDistance(ang::AngleIn2PI(5.5), ang::AngleIn2PI(-5.5));
+  for (double t = 0.05; t < 1.1; t += 0.05)
+  {
+    double const turned = Process(At(time, t)).GetAngle() - 5.5;
+    TEST(turned > 0.0 && turned < turn, (t, turned, turn));
+  }
 }
 
 UNIT_CLASS_TEST(CameraAnimationFixture, FollowFliesToADistantPosition)
