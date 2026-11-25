@@ -123,6 +123,7 @@ private:
 
   std::vector<PreRankerResult> m_preRankerResults;
   std::vector<RankerResult> m_tentativeResults;
+  bool m_hasExactVillage = false;
   bool m_noSuggests = false;
 };
 }  // namespace search

@@ -3423,6 +3423,50 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
   TEST(OrderedResultsMatch("улица Толстого Молодечно", rules), ());
 }
 
+UNIT_CLASS_TEST(ProcessorTest, ExactVillageName_Rank)
+{
+  m2::PointD const center{0, 0};
+  TestVillage village(center, "Binz", "de", 0 /* no population tag */);
+  TestPOI stop(mercator::GetSmPoint(center, 8200, 0), "Binz", "de");
+  stop.SetTypes({{"highway", "bus_stop"}});
+  TestPOI parking(mercator::GetSmPoint(center, -200, 0), "Binz", "de");
+  parking.SetTypes({{"amenity", "parking"}});
+
+  auto const countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(village);
+    builder.Add(stop);
+    builder.Add(parking);
+  });
+
+  auto checkFirst = [&](m2::PointD const & pivot, TestFeature const & expected)
+  {
+    SetViewport(mercator::RectByCenterXYAndSizeInMeters(pivot, 3000));
+    auto const request = MakeRequest("Binz", "de");
+    auto const & results = request->Results();
+    TEST(!results.empty(), (pivot));
+    TEST(IsResultMatches(results.front(), ExactMatch(countryId, expected)), (pivot, results));
+  };
+
+  // From the west, the parking lot is 200 m closer at every distance.
+  for (double distanceM : {2000.0, 5100.0, 109000.0})
+    checkFirst(mercator::GetSmPoint(center, -distanceM, 0), village);
+  checkFirst(stop.GetCenter(), stop);
+}
+
+UNIT_CLASS_TEST(ProcessorTest, VillagePrefixVsExactPoiName)
+{
+  TestVillage village({0.1, 0}, "Sternenberg", "de", feature::PopulationToRank(350));
+  TestCafe cafe({0, 0}, "Sternen", "de");
+  auto const countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(village);
+    builder.Add(cafe);
+  });
+  SetViewport(mercator::RectByCenterXYAndSizeInMeters(cafe.GetCenter(), 3000));
+  TEST(OrderedResultsMatch("Sternen", {ExactMatch(countryId, cafe), ExactMatch(countryId, village)}, "de"), ());
+}
+
 UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Rank)
 {
   TestBuilding landuse({-1, -1, 1, 1}, "Telekom", "5", "xxx", "de");

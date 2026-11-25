@@ -192,7 +192,8 @@ public:
     , m_isViewportMode(m_params.m_mode == Mode::Viewport)
   {}
 
-  NameScores GetNameScores(FeatureType & ft, TokenRange const & range, Model::Type type) const
+  NameScores GetNameScores(FeatureType & ft, TokenRange const & range, Model::Type type,
+                           bool * exactNameMatch = nullptr) const
   {
     NameScores bestScores;
 
@@ -212,7 +213,11 @@ public:
         if (vec.Size() == 0)
           return;
 
-        UpdateNameScores(vec, lang, slice, bestScores);
+        auto const scores = search::GetNameScores(vec, lang, slice);
+        if (exactNameMatch && scores.m_nameScore == NameScore::FULL_MATCH && scores.m_errorsMade.IsZero() &&
+            !scores.m_isAltOrOldName)
+          *exactNameMatch = true;
+        bestScores.UpdateIfBetter(scores);
         UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
 
         /// @todo
@@ -347,8 +352,7 @@ public:
       }
     }
 
-    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country, m_ranker.m_typeResolver.m_isCapital(*ft),
-                                !info.m_allTokensUsed);
+    info.m_rank = NormalizeRank(info, center, country, m_ranker.m_typeResolver.m_isCapital(*ft));
 
     if (preResult.GetInfo().m_isCommonMatchOnly)
     {
@@ -500,7 +504,9 @@ private:
     }
     else
     {
-      auto const scores = GetNameScores(ft, preInfo.InnermostTokenRange(), info.m_type);
+      auto const & range = preInfo.InnermostTokenRange();
+      bool const wholeQuery = m_params.m_mode == Mode::Everywhere && range.Size() == info.m_numTokens;
+      auto const scores = GetNameScores(ft, range, info.m_type, wholeQuery ? &info.m_exactNameMatch : nullptr);
 
       auto nameScore = scores.m_nameScore;
       auto errorsMade = scores.m_errorsMade;
@@ -618,6 +624,7 @@ private:
     info.m_pureCats = categoriesInfo.IsPureCategories();
     if (info.m_pureCats)
     {
+      info.m_exactNameMatch = false;
       // Compare with previous values, in case if was assigned by street or locality.
 
       info.m_nameScore = NameScore::SUBSTRING;
@@ -633,17 +640,18 @@ private:
     info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 
-  uint16_t NormalizeRank(uint16_t rank, Model::Type type, m2::PointD const & center, std::string const & country,
-                         bool isCapital, bool isRelaxed)
+  uint16_t NormalizeRank(RankingInfo const & info, m2::PointD const & center, std::string const & country,
+                         bool isCapital)
   {
-    // Do not prioritize objects with population < 800. Same as RankToPopulation(rank) < 800, but faster.
-    if (rank <= 70)
+    // Keep small population ranks (below 800 people) only for villages and hamlets matched by their full name.
+    auto rank = info.m_rank;
+    if (rank <= 70 && !(info.m_type == Model::TYPE_VILLAGE && info.m_exactNameMatch))
       return 0;
 
-    if (isRelaxed)
+    if (!info.m_allTokensUsed)
       rank /= 5.0;
 
-    switch (type)
+    switch (info.m_type)
     {
     case Model::TYPE_VILLAGE: return rank / 2.5;
     case Model::TYPE_CITY:
@@ -701,6 +709,7 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_geocoderParams = geocoderParams;
   m_preRankerResults.clear();
   m_tentativeResults.clear();
+  m_hasExactVillage = false;
   m_noSuggests = false;
 }
 
@@ -921,6 +930,8 @@ void Ranker::MakeRankerResults()
 {
   LOG(LDEBUG, ("PreRankerResults number =", m_preRankerResults.size()));
 
+  // A village can arrive from a later MWM. Include earlier pending results when it first matches.
+  size_t const firstToAdjust = m_hasExactVillage ? m_tentativeResults.size() : 0;
   RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, m_geocoderParams);
   for (auto const & r : m_preRankerResults)
   {
@@ -930,11 +941,19 @@ void Ranker::MakeRankerResults()
 
     ASSERT(m_geocoderParams.m_mode != Mode::Viewport || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
 
+    auto const & info = p->GetRankingInfo();
+    if (info.m_type == Model::TYPE_VILLAGE && info.m_exactNameMatch)
+      m_hasExactVillage = true;
+
     // Do not filter any _duplicates_ here. Leave it for high level Results class.
     m_tentativeResults.push_back(std::move(*p));
-  };
+  }
 
   m_preRankerResults.clear();
+
+  if (m_hasExactVillage)
+    for (size_t i = firstToAdjust; i < m_tentativeResults.size(); ++i)
+      m_tentativeResults[i].ApplyExactNameProximity();
 }
 
 void Ranker::GetBestMatchName(FeatureType & f, std::string & name) const
