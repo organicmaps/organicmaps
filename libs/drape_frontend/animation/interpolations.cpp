@@ -27,8 +27,6 @@ double InterpolateAngle(double startAngle, double endAngle, double t)
     return endAngle;
   if (t == 0.0)
     return startAngle;
-  startAngle = ang::AngleIn2PI(startAngle);
-  endAngle = ang::AngleIn2PI(endAngle);
   return startAngle + ang::GetShortestDistance(startAngle, endAngle) * t;
 }
 

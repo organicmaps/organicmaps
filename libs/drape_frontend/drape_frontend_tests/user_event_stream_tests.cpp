@@ -580,7 +580,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlightTurnsTheShortestWay)
   auto const anchor = start.PixelRect().Center();
   auto const position = start.PtoG(anchor + m2::PointD(8000.0, 0.0));
   auto const time = AddEvent<df::FollowAndRotateEvent>(position, anchor, 5.5, df::kDoNotChangeZoom);
-  double const turn = ang::GetShortestDistance(ang::AngleIn2PI(5.5), ang::AngleIn2PI(-5.5));
+  double const turn = ang::GetShortestDistance(5.5, -5.5);
   for (double t = 0.05; t < df::kMinFlyTimeSec; t += 0.05)
   {
     double const turned = Process(At(time, t)).GetAngle() - 5.5;
@@ -899,6 +899,76 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlingGlidesWithADecayingSpeed)
   fling->Apply(sample);
   double const distance = sample.GetOrg().Length(screen.GetOrg()) / scale;
   TEST_ALMOST_EQUAL_ABS(distance, fullDistance, 1e-6, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FlingStopsAtThePole)
+{
+  // The top of the screen is 75 px from the north pole.
+  auto const & world = df::GetWorldRect();
+  ScreenBase screen = m_stream.GetCurrentScreen();
+  double const scale = screen.GetScale();
+  screen.SetOrg({0.0, world.maxY() - (screen.PixelRect().SizeY() / 2.0 + 75.0) * scale});
+  double const room = world.maxY() - screen.ClipRect().maxY();
+  TEST_GREATER(room, 0.0, ());
+
+  // A fast diagonal swipe to the north-east.
+  df::KineticScroller scroller;
+  auto const start = df::AnimationClock::now();
+  scroller.Init(screen, start);
+  ScreenBase released = screen;
+  released.SetOrg(screen.GetOrg() + m2::PointD(30.0, 30.0) * scale);
+  auto const release = start + 10ms;
+  scroller.Update(released, release);
+  auto fling = scroller.CreateKineticAnimation(released, release);
+  TEST(fling.has_value(), ());
+
+  fling->Advance(At(release, df::kKineticDuration + 0.001));
+  ScreenBase settled = released;
+  fling->Apply(settled);
+  TEST_LESS_OR_EQUAL(settled.ClipRect().maxY(), world.maxY(), ());
+  TEST_GREATER(settled.GetOrg().y, released.GetOrg().y, ());
+  // The horizontal travel isn't cut by the pole.
+  TEST_GREATER(settled.GetOrg().x - released.GetOrg().x, 2.0 * (settled.GetOrg().y - released.GetOrg().y), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FreshSwipeImmediatelyAfterPinchCanFling)
+{
+  auto const pinch = [&](df::TouchEvent::ETouchType type, float secondX)
+  {
+    auto event = make_unique_dp<df::TouchEvent>();
+    event->SetTouchType(type);
+    event->SetFirstTouch({m2::PointF(200, 300), 1});
+    event->SetSecondTouch({m2::PointF(secondX, 300), 2});
+    if (type != df::TouchEvent::TOUCH_MOVE)
+      event->SetFirstMaskedPointer(1);  // Only the second finger is added or lifted.
+    m_stream.AddEvent(std::move(event));
+  };
+
+  for (bool const freshSwipe : {false, true})
+  {
+    double const initialScale = m_stream.GetCurrentScreen().GetScale();
+    Finger(df::TouchEvent::TOUCH_DOWN, 200, 300);
+    pinch(df::TouchEvent::TOUCH_DOWN, 500);
+    pinch(df::TouchEvent::TOUCH_MOVE, 540);
+    pinch(df::TouchEvent::TOUCH_MOVE, 600);
+    pinch(df::TouchEvent::TOUCH_UP, 600);
+    ScreenBase const zoomed = Process(df::AnimationClock::now());
+    TEST_LESS(zoomed.GetScale(), initialScale, ());
+
+    // The finger left from the pinch doesn't fling, a new one does.
+    if (freshSwipe)
+    {
+      Finger(df::TouchEvent::TOUCH_UP, 200, 300);
+      Finger(df::TouchEvent::TOUCH_DOWN, 200, 300);
+    }
+    for (float x : {240.f, 280.f, 360.f, 440.f})
+      Finger(df::TouchEvent::TOUCH_MOVE, x, 300);
+    Finger(df::TouchEvent::TOUCH_UP, 440, 300);
+    auto const & dragged = Process(df::AnimationClock::now());
+    TEST(dragged.GetOrg() != zoomed.GetOrg(), (freshSwipe));
+    TEST_EQUAL(m_animations.HasMapAnimation(df::MapAnimation::Type::Fling), freshSwipe, ());
+    m_animations.CancelMapAnimation();
+  }
 }
 
 UNIT_TEST(MoveDurationGrowsWithTheDistance)

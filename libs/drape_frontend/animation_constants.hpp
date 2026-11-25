@@ -69,8 +69,8 @@ double constexpr kKineticMaxSpeedEnd = 5000.0;
 // The release speed comes from the last kKineticTimeWindowSec of the drag, but at least kMinDragTimeSec.
 double constexpr kKineticTimeWindowSec = 0.05;
 double constexpr kMinDragTimeSec = 0.01;
-// No fling for this time after a pinch.
-uint64_t constexpr kKineticDelayMs = 500;
+// No fling for this time after a pinch with the finger left on the screen.
+auto constexpr kKineticDelay = std::chrono::milliseconds(500);
 /// @}
 
 /// @name Overlays and markers.
