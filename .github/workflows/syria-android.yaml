@@ -1,0 +1,77 @@
+# The only build check of Syria Organic Maps: the Organic Maps workflows (iOS, desktop, Sailfish, store releases,
+# code style gates) were removed, as this fork ships only the Android app.
+name: Syria Android
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+    paths: &android-paths
+      - .gitmodules
+      - '*.h'
+      - '*.hpp'
+      - 3party/**
+      - data/**
+      - libs/**
+      - android/**
+      - CMakeLists.txt
+      - cmake/**
+      - tools/unix/version.sh  # Required by Gradle version generation
+      - .github/actions/setup-gradle/**
+      - .github/workflows/syria-android.yaml
+      - '!**/*.md'
+      - '!**/*_tests/**'
+  pull_request:
+    paths: *android-paths
+
+jobs:
+  build:
+    name: Build and test (Google debug)
+    runs-on: ubuntu-latest
+    # A newer push to the same PR cancels the older run; master runs finish to fill the ccache.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - name: Install build tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 200 # The version script counts today's commits
+
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+
+      - name: Checkout submodules
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2.24
+        with:
+          key: ${{ github.workflow }}
+          save: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Compile
+        working-directory: android
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        run: ./gradlew -Parm64 assembleGoogleDebug
+
+      - name: Unit tests
+        working-directory: android
+        run: ./gradlew -Parm64 app:testGoogleDebugUnitTest
+
+      - name: Upload apk
+        uses: actions/upload-artifact@v7
+        with:
+          name: SyriaOrganicMaps-google-debug
+          path: android/app/build/outputs/apk/google/debug/SyriaOrganicMaps-*.apk
+          if-no-files-found: error
+          retention-days: 14

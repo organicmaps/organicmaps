@@ -121,3 +121,31 @@ plans
 # `git config submodule.<name>.ignore all` (set for every 3party submodule on this machine).
 /3party/
 tools/kothic
+
+# Organic Maps CI workflows: kept on disk for reference, but not run by GitHub in this fork (they need Organic Maps'
+# store keys or cover iOS/desktop). Our Android check is .github/workflows/syria-android.yaml.
+/.github/workflows/android-beta.yaml
+/.github/workflows/android-check-metadata.yaml
+/.github/workflows/android-check.yaml
+/.github/workflows/android-monkey.yaml
+/.github/workflows/android-release-metadata.yaml
+/.github/workflows/android-release.yaml
+/.github/workflows/android-sdk-check.yaml
+/.github/workflows/android-sdk.yaml
+/.github/workflows/appstream-check.yaml
+/.github/workflows/borders-check.yaml
+/.github/workflows/build-cmake-mac.yaml
+/.github/workflows/build-cmake.yaml
+/.github/workflows/build-sailfish.yaml
+/.github/workflows/code-style-check-kotlin.yaml
+/.github/workflows/code-style-check-swift.yaml
+/.github/workflows/code-style-check.yaml
+/.github/workflows/desktop-file-check.yaml
+/.github/workflows/detekt-check.yaml
+/.github/workflows/drape-queue-stress-check.yaml
+/.github/workflows/ios-beta.yaml
+/.github/workflows/ios-check-metadata.yaml
+/.github/workflows/ios-check.yaml
+/.github/workflows/ios-release.yaml
+/.github/workflows/strings-check.yaml
+/.github/workflows/timezone-check.yaml
