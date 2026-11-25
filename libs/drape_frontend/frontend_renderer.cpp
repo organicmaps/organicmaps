@@ -300,6 +300,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     UpdateCanBeDeletedStatus();
 
+    m_firstTilesReady = true;
+    CenterFirstLaunchViewportIfReady();
     break;
   }
 
@@ -1480,7 +1482,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
   }
 }
 
-bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame, AnimationClock::time_point now)
+bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
 {
   TRACE_SECTION("[drape] RenderScene");
   CHECK(m_context != nullptr, ());
@@ -1596,8 +1598,8 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       clearBits |= dp::ClearBits::StencilBit;
     m_context->Clear(clearBits, dp::kClearBitsStoreAll);
 
-    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues,
-                                   now);
+    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
+                                   m_frameValues);
   }
 
   if (m_guiRenderer && !m_screenshotMode)
@@ -1933,9 +1935,9 @@ void FrontendRenderer::RenderFrame()
     m_overlayTree->InvalidateOnNextFrame();
     m_searchMarkTextOverlayTree->InvalidateOnNextFrame();
   }
-  bool const sceneRendered = RenderScene(modelView, isActiveFrameForScene || readyRequest != nullptr, now);
+  bool const sceneRendered = RenderScene(modelView, isActiveFrameForScene || readyRequest != nullptr);
 #else
-  RenderScene(modelView, isActiveFrameForScene, now);
+  RenderScene(modelView, isActiveFrameForScene);
 #endif
 
   if (m_renderInjectionHandler)
@@ -2292,7 +2294,7 @@ bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::
 void FrontendRenderer::OnDragStarted()
 {
   m_firstLaunchViewport = FirstLaunchViewport::Done;
-  m_myPositionController->DragStarted(m_userEventStream.GetCurrentScreen());
+  m_myPositionController->DragStarted();
 }
 
 void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
@@ -2549,6 +2551,7 @@ void FrontendRenderer::OnContextDestroy()
   m_context = nullptr;
 
   m_needRestoreSize = true;
+  m_firstTilesReady = false;
 
   m_finishTexturesInitialization = false;
 }
@@ -2899,7 +2902,9 @@ void FrontendRenderer::CollectShowOverlaysEvents()
 
 void FrontendRenderer::CenterFirstLaunchViewportIfReady()
 {
-  if (m_firstLaunchViewport != FirstLaunchViewport::WaitingForPosition || !m_myPositionController->IsModeHasPosition())
+  // Center once, when the first tiles are shown and the position is known, unless the user moved the map before.
+  if (m_firstLaunchViewport != FirstLaunchViewport::WaitingForPosition || !m_firstTilesReady ||
+      !m_myPositionController->IsModeHasPosition())
     return;
   m_firstLaunchViewport = FirstLaunchViewport::Done;
 
