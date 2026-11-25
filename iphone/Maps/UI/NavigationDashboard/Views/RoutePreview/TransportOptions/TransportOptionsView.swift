@@ -36,10 +36,6 @@ final class TransportOptionsView: UIView {
     }
   }
 
-  func setSelectionEnabled(_ enabled: Bool) {
-    segmentedControl.isEnabled = enabled
-  }
-
   private func setupSegmentedControlView() {
     segmentedControl.translatesAutoresizingMaskIntoConstraints = false
     segmentedControl.addTarget(self, action: #selector(didChangeSegment(_:)), for: .valueChanged)

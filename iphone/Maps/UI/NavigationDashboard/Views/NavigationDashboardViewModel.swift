@@ -57,11 +57,6 @@ extension NavigationDashboard.ViewModel {
 
   var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
 
-  var isTransportSelectionEnabled: Bool {
-    guard planningMode == .navigateTrack, dashboardState == .planning else { return true }
-    return progress >= 1
-  }
-
   var supportsElevationProfile: Bool {
     planningMode == .navigateTrack || routerType == .pedestrian || routerType == .bicycle
   }
