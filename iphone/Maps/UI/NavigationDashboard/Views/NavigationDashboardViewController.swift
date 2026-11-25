@@ -70,6 +70,7 @@ final class NavigationDashboardViewController: UIViewController {
   private var navigationControlView: NavigationControlView!
   private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
   private var internalScrollViewContentOffset: CGFloat = .zero
+  private var sheetPanStartY: CGFloat?
 
   var interactor: NavigationDashboard.Interactor?
   private var presentationStepStrategy = NavigationDashboardModalPresentationStepStrategy()
@@ -120,6 +121,10 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func updateBottomActionsMenuShadow() {
+    if let sheetPanStartY, availableAreaView.frame.minY != sheetPanStartY {
+      bottomActionsMenu.setShadowVisible(false)
+      return
+    }
     let routePointsBottomPoint = routePointsView.convert(CGPoint(x: 0, y: routePointsView.contentHeight), to: view)
     bottomActionsMenu.setShadowVisible(routePointsBottomPoint.y + Constants.startButtonSpacing > bottomActionsMenu.origin.y)
   }
@@ -204,11 +209,24 @@ final class NavigationDashboardViewController: UIViewController {
 
   @objc
   private func handlePan(_ gesture: UIPanGestureRecognizer) {
+    let wasPanningSheet = sheetPanStartY != nil
+    switch gesture.state {
+    case .began:
+      sheetPanStartY = availableAreaView.frame.minY
+    case .ended, .cancelled, .failed:
+      sheetPanStartY = nil
+    default:
+      break
+    }
+
     let didMeaningfullyDrag = abs(gesture.translation(in: availableAreaView).y) > Constants.meaningfulDragThreshold
     if didMeaningfullyDrag, presentationStepStrategy.shouldUseCompactDiscoverabilityOffset {
       presentationStepStrategy.shouldUseCompactDiscoverabilityOffset = false
     }
     presentationStepsController.handlePan(gesture)
+    if wasPanningSheet, sheetPanStartY == nil {
+      updateBottomActionsMenuShadow()
+    }
   }
 
   private func setupAvailableView() {
