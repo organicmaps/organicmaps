@@ -1175,17 +1175,48 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
   distanceM = std::clamp(distanceM, 0.0, session.m_source->GetLengthMeters());
   auto const entry = distanceM == session.m_info.m_entryDistanceM ? session.m_entry
                                                                   : ResolveTrackEntryAt(*session.m_source, distanceM);
+  return UpdateFollowedTrackEntry(entry, distanceM);
+}
+
+bool RoutingManager::TryTapOnFollowedTrack(m2::RectD const & touchRect)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  // Navigation and a pending Start keep their entry, so the tap opens the place page as usual.
+  if (!m_followSession || CheckFollowedTrackEditable() != FollowTrackResult::Ok)
+    return false;
+
+  auto const & session = *m_followSession;
+  auto const & source = *session.m_source;
+  Track::TrackSelectionInfo selection;
+  selection.SetDistanceFilter(touchRect);
+  source.UpdateSelectionInfo(touchRect.Center(), selection);
+  if (!selection.IsValid())
+    return false;
+
+  // Unlike a chart distance, the tapped point identifies its side of a gap.
+  auto const entry = ResolveTrackEntry(source, selection.m_trackPoint, selection.m_distFromBegM);
+  // The selection comes from the same source, so only a bug can leave it unresolved.
+  CHECK(entry, (selection.m_trackPoint, selection.m_distFromBegM));
+  // A repeat tap keeps the current preview. Both sides of a gap share the distance, so the position is compared too.
+  if (*entry == session.m_entry && selection.m_distFromBegM == session.m_info.m_entryDistanceM)
+    return true;
+  return UpdateFollowedTrackEntry(*entry, selection.m_distFromBegM) == FollowTrackResult::Ok;
+}
+
+FollowTrackResult RoutingManager::UpdateFollowedTrackEntry(TrackSourcePosition const & entry, double entryDistanceM)
+{
+  auto const & session = *m_followSession;
   if (entry == session.m_entry)
   {
     auto updated = session;
-    updated.m_info.m_entryDistanceM = distanceM;
+    updated.m_info.m_entryDistanceM = entryDistanceM;
     InstallFollowedTrack(std::move(updated), true /* keepViewport */);
     return FollowTrackResult::Ok;
   }
   bool reverse = session.m_info.m_reversed;
   if (!HasRemainingTrackGeometry(session.m_source->GetData().m_geometry, entry, reverse))
     reverse = !reverse;
-  return BuildFollowedTrack(session.m_source, entry, distanceM, reverse, session.m_info.m_profile,
+  return BuildFollowedTrack(session.m_source, entry, entryDistanceM, reverse, session.m_info.m_profile,
                             true /* keepViewport */);
 }
 

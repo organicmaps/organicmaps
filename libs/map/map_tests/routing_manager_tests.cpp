@@ -5,6 +5,9 @@
 #include "map/routing_mark.hpp"
 #include "map/track.hpp"
 
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+
 #include "drape_frontend/visual_params.hpp"
 
 #include "routing/router.hpp"
@@ -17,7 +20,9 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/settings.hpp"
 
+#include "geometry/any_rect2d.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/screenbase.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -309,6 +314,13 @@ double GetFollowedTrackLengthMeters(RoutingManager const & manager)
   return route->GetTotalDistanceMeters() - *route->GetTrackStartDistanceMeters();
 }
 
+// A touch rect that hits lines within 20 meters of |point|.
+m2::RectD TapRect(m2::PointD const & point)
+{
+  double const radius = mercator::MetersToMercator(20.0);
+  return {point.x - radius, point.y - radius, point.x + radius, point.y + radius};
+}
+
 void AssignRouteGeometry(RoutingManager & manager, kml::TrackGeometry const & points)
 {
   auto const & start = points.front();
@@ -380,6 +392,8 @@ struct AsyncBuildFixture
   {
   public:
     using Framework::Framework;
+
+    void SetViewport(ScreenBase const & screen) { OnViewportChanged(screen); }
 
     std::vector<routing::RouterType> m_followProfiles;
 
@@ -2312,6 +2326,155 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceUsesChartGapBoundary)
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(500, 0), ());
 }
 
+UNIT_TEST(RoutingManager_TrackPreviewTapMovesEntryOnTheSource)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  fixture.SetGpsPosition(MeterPoint(0, 0));
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+
+  auto const * route = manager.RoutingSession().GetRoute();
+  TEST(!manager.TryTapOnFollowedTrack(TapRect(MeterPoint(400, 100))), ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ("A tap away from the track keeps the preview"));
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, 0.0, ());
+
+  TEST(manager.TryTapOnFollowedTrack(TapRect(MeterPoint(400, 10))), ());
+  double const entryDistance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0));
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance, 0.01, ());
+  fixture.WaitForBuildResult();
+  TEST(!manager.GetFollowedTrackInfo()->m_reversed, ());
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian, ());
+  auto const & points = manager.RoutingSession().GetRoute()->GetPoly();
+  TEST(points.GetPoint(1).EqualDxDy(MeterPoint(400, 0), mercator::kPointEqualityEps), ());
+  double const legLength = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(1000, 0));
+  TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), legLength - entryDistance, 0.01, ());
+  TEST_EQUAL(bookmarks.GetTrackSelectionInfo(id).m_trackPoint, MeterPoint(0, 0), ("Taps keep the map selection"));
+
+  auto const * builtRoute = manager.RoutingSession().GetRoute();
+  TEST(manager.TryTapOnFollowedTrack(TapRect(MeterPoint(400, 10))), ());
+  TEST(manager.IsRouteBuilt(), ("A repeat tap keeps the current preview"));
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), builtRoute, ());
+
+  fixture.SetGpsPosition(MeterPoint(900, 0));
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(900, 0), true);
+  manager.FollowRoute();
+  TEST(manager.IsStartingFollowedTrack(), ());
+  TEST(!manager.TryTapOnFollowedTrack(TapRect(MeterPoint(800, 0))), ("Start keeps its entry"));
+  TEST(fixture.m_guiLoop.m_loop->PumpUntil([&] { return manager.IsRoutingFollowing(); }, kAsyncBuildTimeout), ());
+  TEST(!manager.TryTapOnFollowedTrack(TapRect(MeterPoint(800, 0))), ("Navigation keeps its entry"));
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance, 0.01, ());
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewTapUsesTheTappedGapSide)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  kml::TrackData source;
+  source.m_layers.emplace_back();
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({{MeterPoint(500, 0), 100}, {MeterPoint(600, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+
+  // Both sides of the gap share the chart distance that the chart resolves to the preceding section.
+  double const boundary = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
+  TEST(manager.TryTapOnFollowedTrack(TapRect(MeterPoint(490, 0))), ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, boundary, ());
+  TEST(!manager.GetFollowedTrackInfo()->m_reversed, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(600, 0), ());
+
+  TEST(manager.TryTapOnFollowedTrack(TapRect(MeterPoint(110, 0))), ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, boundary, ());
+  TEST(manager.GetFollowedTrackInfo()->m_reversed, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(0, 0), ());
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewMapTapKeepsOtherSelections)
+{
+  df::VisualParams::Init(1.0, 1024);
+  AsyncBuildFixture fixture;
+  auto & framework = fixture.m_framework;
+  auto & manager = framework.GetRoutingManager();
+  auto & bookmarks = framework.GetBookmarkManager();
+  // Keep tap rects near the tapped points, as on a phone screen.
+  ScreenBase screen;
+  screen.SetFromRect(m2::AnyRectD(m2::RectD(MeterPoint(-100, -500), MeterPoint(1100, 500))));
+  framework.SetViewport(screen);
+  auto const id = CreateTestTrack(bookmarks, {}, {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  kml::BookmarkData bookmark;
+  bookmark.m_point = MeterPoint(400, 0);
+  auto const category = bookmarks.CreateBookmarkCategory("Marks", false /* autoSave */);
+  auto const bookmarkId = bookmarks.GetEditSession().CreateBookmark(std::move(bookmark), category)->GetId();
+  platform::LocalCountryFile country(GetPlatform().SettingsDir(), platform::CountryFile("TrackTapPoi"), 0);
+  {
+    generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
+    generator::tests_support::TestPOI poi(MeterPoint(500, 0), "Kiosk", "en");
+    builder.Add(poi);
+  }
+  TEST_EQUAL(framework.RegisterMap(country).second, MwmSet::RegResult::Success, ());
+  auto const poiId = framework.GetFeatureAtPoint(MeterPoint(500, 0));
+  TEST(poiId.IsValid(), ());
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  fixture.SetGpsPosition(MeterPoint(0, 0));
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const * route = manager.RoutingSession().GetRoute();
+
+  auto const tapOnTrack = [](double x)
+  {
+    place_page::BuildInfo info;
+    info.m_source = place_page::BuildInfo::Source::User;
+    info.m_mercator = MeterPoint(x, 0);
+    return info;
+  };
+  auto const testOpensPlacePage = [&](place_page::BuildInfo const & info, std::string const & selection)
+  {
+    framework.BuildAndSetPlacePageInfo(info);
+    TEST(framework.HasPlacePageInfo(), (selection));
+    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, 0.0, (selection));
+    TEST_EQUAL(manager.RoutingSession().GetRoute(), route, (selection));
+  };
+
+  auto bookmarkTap = tapOnTrack(400);
+  bookmarkTap.m_userMarkId = bookmarkId;
+  testOpensPlacePage(bookmarkTap, "Bookmark");
+  TEST(framework.GetCurrentPlacePageInfo().IsBookmark(), ());
+
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(300, 0), true);
+  auto positionTap = tapOnTrack(300);
+  positionTap.m_isMyPosition = true;
+  testOpensPlacePage(positionTap, "My position");
+  TEST(framework.GetCurrentPlacePageInfo().IsMyPosition(), ());
+
+  auto poiTap = tapOnTrack(500);
+  poiTap.m_featureId = poiId;
+  testOpensPlacePage(poiTap, "POI");
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetID(), poiId, ());
+
+  // A single-point map link opens its place page with the default source.
+  place_page::BuildInfo linkTap;
+  linkTap.m_mercator = MeterPoint(600, 0);
+  testOpensPlacePage(linkTap, "Map link");
+
+  framework.BuildAndSetPlacePageInfo(tapOnTrack(700));
+  TEST(!framework.HasPlacePageInfo(), ("A track tap closes the open place page"));
+  double const entryDistance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(700, 0));
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance, 0.01, ());
+  fixture.WaitForBuildResult();
+}
+
 UNIT_TEST(RoutingManager_TrackPreviewEntryDistancePreservesDirection)
 {
   AsyncBuildFixture fixture;
@@ -2901,6 +3064,7 @@ UNIT_TEST(RoutingManager_TrackCommandsRequireRoutingAndCapturedSession)
   TestAssertion([&] { manager.UpdateFollowedTrackEntryAt(0.0); });
   TestAssertion([&] { manager.ReverseFollowedTrack(); });
   TestAssertion([&] { manager.SetFollowTrackProfile(routing::RouterType::Pedestrian); });
+  TEST(!manager.TryTapOnFollowedTrack(TapRect(MeterPoint(0, 0))), ("No track session to tap"));
   TEST(!manager.IsFollowingTrack(), ());
   TEST_EQUAL(manager.GetRoutePointsCount(), 0, ());
 }
