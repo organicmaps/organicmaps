@@ -8,9 +8,16 @@ OMIM_PATH="${OMIM_PATH:-$(dirname "$0")/../..}"
 OMIM_PATH=$(realpath $OMIM_PATH)
 DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 
+UI_STRINGS=$(mktemp)
+trap 'rm -f "$UI_STRINGS"' EXIT
+python3 "$OMIM_PATH/tools/python/merge_ui_strings.py" "$DATA_PATH/strings" "$UI_STRINGS"
 
 function GenerateStringResource() {
   strings_file=$1
+  strings_path="$OMIM_PATH/data/strings/$strings_file"
+  if [[ $strings_file == strings.txt ]]; then
+    strings_path="$UI_STRINGS"
+  fi
   output_prefix=$2
   format=$3
   tags=$4
@@ -47,7 +54,7 @@ function GenerateStringResource() {
 
   # Run script to build string resource
   python3 "$OMIM_PATH/tools/python/twine/python_twine/twine_cli.py" generate-all-localization-files \
-    $OMIM_PATH/data/strings/$strings_file \
+    "$strings_path" \
     $OMIM_PATH/$output_prefix \
     -f $format --include $include \
     $filename $tags \

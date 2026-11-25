@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check that data/strings/strings.txt and the source code agree on translation keys.
+"""Check that the UI translation catalogs and source code agree on translation keys.
 
 A definition nothing references is dead weight, its tags must include every OS
 that references it, and a key the code asks for but no definition provides is
@@ -15,14 +15,16 @@ check because application resources may intentionally come from Gradle dependenc
 
 types_strings.txt and sound.txt primarily serve runtime-built feature-type and
 turn-direction keys. Their catalogs are covered by format and regeneration checks;
-this usage scan covers only strings.txt.
+this usage scan covers strings.txt and accessibility.txt.
 """
 
 import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 from dataclasses import dataclass
+from merge_ui_strings import merge_ui_strings
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -166,8 +168,8 @@ _APPLE_TARGET_ROOTS = (
     ("apple-infoplist", "iphone/Maps", _IOS_INFOPLIST_SCANNERS),
 )
 
-# Reference forms whose literal is always a strings.txt key. The scanners above cannot
-# answer the opposite question because they deliberately match more than strings.txt:
+# Reference forms whose literal is always a UI catalog key. The scanners above cannot
+# answer the opposite question because they deliberately match more than UI catalogs:
 # Android resources also come from donottranslate.xml and the framework; Info.plist
 # usage descriptions can be provided inline without a translation definition.
 # Over-matching only keeps a dead string alive, but here it would demand definitions
@@ -306,7 +308,15 @@ def main():
         )
 
     twine_file = TwineFile()
-    twine_file.read(_REPO_ROOT / "data" / "strings" / "strings.txt")
+    try:
+        merged = merge_ui_strings(_REPO_ROOT / "data" / "strings")
+    except ValueError as error:
+        print(error)
+        return 1
+    with tempfile.TemporaryDirectory() as directory:
+        catalog = Path(directory) / "ui_strings.txt"
+        catalog.write_text(merged, encoding="utf-8")
+        twine_file.read(catalog)
     tags_by_key = {
         key: set(definition.tags or ())
         for key, definition in twine_file.definitions_by_key.items()
@@ -346,7 +356,7 @@ def main():
     )
     strict = strict_referenced["ios"] | strict_referenced["core"] | strict_referenced["qt"]
     failures += report_references(
-        "referenced in code but missing from strings.txt",
+        "referenced in code but missing from UI catalogs",
         sorted(strict.keys() - set(tags_by_key)),
         strict,
     )

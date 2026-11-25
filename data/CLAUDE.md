@@ -49,6 +49,7 @@ Validated against `config.xsd` schema. See the XSD for field definitions.
 
 ## Translation files (data/strings/)
 - `strings.txt` -- app UI strings
+- `accessibility.txt` -- accessibility-only UI labels, states and actions; shares the UI key namespace and consumer tags with `strings.txt`
 - `types_strings.txt` -- map feature type names
 - `sound.txt` -- TTS voice direction strings
 

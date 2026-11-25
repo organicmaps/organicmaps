@@ -31,6 +31,7 @@ on:
       - '!data/sound-strings/**'
       - '!data/strings/sound.txt'
       - '!data/strings/strings.txt'
+      - '!data/strings/accessibility.txt'
       - '!docs/**'
       - '!packaging/**'
       - '!tools/**'
