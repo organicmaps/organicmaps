@@ -99,6 +99,8 @@
       android:scaleType="fitCenter"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@string/reverse_route"
+      android:padding="0dp"
+      android:scaleType="fitCenter"
       app:srcCompat="@drawable/ic_swap_vert"
       app:tint="?iconTint" />
 
@@ -107,11 +109,14 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content">
 
-      <ImageView
+      <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/driving_options_btn_img"
         android:layout_width="@dimen/margin_double"
         android:layout_height="@dimen/margin_double"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/driving_options_title"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_menu_settings"
         app:tint="?iconTint" />
 
