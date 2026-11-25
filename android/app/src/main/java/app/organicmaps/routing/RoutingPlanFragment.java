@@ -63,6 +63,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private BottomSheetBehavior<View> mSheetBehavior;
   private int mBottomButtonsMaxHeight;
   private int mPeekHeightMargins;
+  private int mSheetInsetBottom;
   private View mButtonsLayout;
   private int mTopInset;
   private boolean mRoutingContentActive = true;
@@ -263,9 +264,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         if (getView() == null || !Boolean.TRUE.equals(mSheetVisible.getValue()))
           return;
         mSheetBehavior.setHideable(false);
-        final int state = mViewModel.getBottomSheetState();
-        mSheetBehavior.setState(state == BottomSheetBehavior.STATE_HIDDEN ? BottomSheetBehavior.STATE_COLLAPSED
-                                                                          : state);
+        mSheetBehavior.setState(mViewModel.getBottomSheetState());
         mRoutingBottomMenuController.restoreElevationActivePoint();
       });
     }
@@ -293,6 +292,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (mFrame.getTop() == 0)
       return;
     updateSheetHeights();
+    resettleOnInsetChange();
     final int newDistanceTop = mFrame.getTop();
     mViewModel.setRoutingBottomDistanceToTop(newDistanceTop);
   }
@@ -310,6 +310,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final int peekHeight =
         mRoutingTypesContainer.getHeight() + chartHeader + mBottomButtonsMaxHeight + mPeekHeightMargins;
     mSheetBehavior.setPeekHeight(peekHeight);
+  }
+
+  // The behavior starts listening for insets on the sheet's first layout, so the first slide-in starts before the
+  // bottom inset pads the sheet and raises its target. A settle keeps its old target: redirect it to the new one.
+  private void resettleOnInsetChange()
+  {
+    final int insetBottom = mFrame.getPaddingBottom();
+    if (insetBottom == mSheetInsetBottom)
+      return;
+    mSheetInsetBottom = insetBottom;
+    if (mSheetBehavior.getState() == BottomSheetBehavior.STATE_SETTLING
+        && Boolean.TRUE.equals(mSheetVisible.getValue()))
+      mSheetBehavior.setState(mViewModel.getBottomSheetState());
   }
 
   // The steps are nested in the transit summary tile, so their top is relative to it, not to the chart panel.
