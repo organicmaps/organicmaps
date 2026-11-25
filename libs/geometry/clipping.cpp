@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cfloat>
 #include <cmath>
+#include <sstream>
 #include <utility>
 
 namespace m2
@@ -92,6 +93,14 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
   for (size_t i = 2; i < pts.size(); ++i)
     if (robust::OrientedS(pts[0], pts[i - 1], pts[i]) < 0)
       resultIterator(pts[0], pts[i - 1], pts[i]);
+}
+
+std::string DebugPrint(SplineClipInfo const & info)
+{
+  std::ostringstream out;
+  out << "offset=" << info.m_offset << " trim=(" << info.m_startTrim << ", " << info.m_endTrim
+      << ") start=" << info.m_hasStart << " end=" << info.m_hasEnd << " endJoin=" << info.m_hasEndJoin;
+  return out.str();
 }
 
 void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out,

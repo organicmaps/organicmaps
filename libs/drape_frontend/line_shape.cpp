@@ -225,8 +225,6 @@ public:
 
   void SubmitCap(glsl::vec2 const & pos, bool hasEndJoin = false)
   {
-    // Caps of their own program would be drawn out of the paint order.
-    ASSERT(m_params.m_cap == dp::ButtCap || !m_params.m_blendInPaintOrder, ());
     if (m_params.m_cap == dp::RoundCap || (hasEndJoin && m_params.m_join == dp::RoundJoin))
       CreateRoundCap(pos);
   }
@@ -257,6 +255,7 @@ private:
 
   void CreateRoundCap(glsl::vec2 const & pos)
   {
+    ASSERT(!m_params.m_blendInPaintOrder, ("Round disks use a separate program"));
     // Here we use an equilateral triangle to render circle (incircle of a triangle).
     static float const kSqrt3 = sqrt(3.0f);
     float const radius = GetHalfWidth();
@@ -425,7 +424,8 @@ private:
 };
 
 template <typename Builder, typename... Args>
-void SubmitEdge(Builder & builder, glsl::vec3 const & pivot, glsl::vec2 const & tangent, int extension, Args... args)
+void SubmitExtendedEdge(Builder & builder, glsl::vec3 const & pivot, glsl::vec2 const & tangent, int extension,
+                        Args... args)
 {
   glsl::vec2 const left(-tangent.y, tangent.x);
   glsl::vec2 const offset = static_cast<float>(extension) * tangent;
@@ -459,13 +459,15 @@ void LineShape::ForEachSplineSection(FnT && fn) const
   std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT(!path.empty(), ());
   size_t const sz = path.size() - 1;
+  bool const square = m_params.m_cap == dp::SquareCap;
+  // Replacing a run with its chord changes the distances used to place square dashes.
+  bool const canMerge = !m_params.m_blendInPaintOrder && !(square && m_params.m_pattern.size() == 2);
 
   for (size_t i = 0, j = 1; j <= sz; ++j)
   {
-    /// @todo Make this kind of filtration in Spline?
-    // Area outlines are simplified by zoom, while this accuracy merges vertices of small rings at high zooms.
-    if (m_params.m_cap != dp::SquareCap && !m_params.m_blendInPaintOrder &&
-        path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
+    // A solid square cap follows the original end tangent, even at a short turn near the endpoint.
+    bool const keepTangent = square && (i == 0 || j + 1 == sz);
+    if (canMerge && !keepTangent && j < sz && path[i].EqualDxDy(path[j], kMwmPointAccuracy))
       continue;
 
     std::pair<m2::PointD, double> tanlen;
@@ -488,7 +490,6 @@ void LineShape::ForEachSplineSection(FnT && fn) const
 
     bool const first = i == 0;
     bool const last = j == sz;
-    bool const square = m_params.m_cap == dp::SquareCap;
     fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]), tangent, tanlen.second, first, last,
        square && first && m_clip.m_hasStart ? -1 : 0, square && last && m_clip.m_hasEnd ? 1 : 0);
 
@@ -536,8 +537,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
         toDraw -= len;
       }
 
-      SubmitEdge(builder, {currPivot, m_params.m_depth}, tangent, startExtension, offset);
-      SubmitEdge(builder, {nextPivot, m_params.m_depth}, tangent, toDraw == 0 ? endExtension : 0, nextOffset);
+      SubmitExtendedEdge(builder, {currPivot, m_params.m_depth}, tangent, startExtension, offset);
+      SubmitExtendedEdge(builder, {nextPivot, m_params.m_depth}, tangent, toDraw == 0 ? endExtension : 0, nextOffset);
       startExtension = 0;
 
       currPivot = nextPivot;
@@ -560,8 +561,8 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double, bool first,
                            bool last, int startExtension, int endExtension)
   {
-    SubmitEdge(builder, {p1, m_params.m_depth}, tangent, startExtension);
-    SubmitEdge(builder, {p2, m_params.m_depth}, tangent, endExtension);
+    SubmitExtendedEdge(builder, {p1, m_params.m_depth}, tangent, startExtension);
+    SubmitExtendedEdge(builder, {p2, m_params.m_depth}, tangent, endExtension);
 
     // Generate joins.
     if (first)

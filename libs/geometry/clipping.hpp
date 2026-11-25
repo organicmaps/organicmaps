@@ -6,6 +6,7 @@
 #include "geometry/spline.hpp"
 
 #include <functional>
+#include <string>
 #include <vector>
 
 namespace m2
@@ -25,6 +26,8 @@ struct SplineClipInfo
     return {.m_hasStart = open, .m_hasEnd = open, .m_hasEndJoin = !open};
   }
 
+  bool operator==(SplineClipInfo const &) const = default;
+
   double m_offset = 0;
   // Length removed from the first and last segments by the clip, for dashes spanning tile edges.
   double m_startTrim = 0, m_endTrim = 0;
@@ -34,6 +37,8 @@ struct SplineClipInfo
   // The incoming segment owns the join at a source vertex on a tile edge or at ring closure.
   bool m_hasEndJoin = false;
 };
+
+std::string DebugPrint(SplineClipInfo const & info);
 
 /// Clips |path| against |rect| and back-inserts the resulting sub-splines into |out|.
 /// When requested, append matching source distances and endpoint information to |info|.

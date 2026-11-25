@@ -93,7 +93,7 @@ struct LineViewParams : CommonViewParams
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
   // Round joins are line triangles too, and thin lines aren't GL lines, so that translucent lines of one bucket
-  // blend in their paint order. Caps must be butt ones. The Less depth test keeps a line from blending twice where
+  // blend in their paint order. Round disks need a separate program. The Less depth test prevents double blending where
   // its segments and joins overlap.
   bool m_blendInPaintOrder = false;
 

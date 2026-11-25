@@ -61,6 +61,20 @@ UNIT_TEST(SquareLine_Segments)
     }
 }
 
+UNIT_TEST(SquareLine_EndTangents)
+{
+  ShapeTestFixture f;
+  f.SetWorldToPixelScale(1e6);
+  f.Render("Square caps at short turns", 64, 64, [&](ShapeTestFixture & scene)
+  {
+    Path const path{{-16e-6, -6e-6}, {-16e-6, 0}, {16e-6, 0}, {16e-6, 6e-6}};
+    scene.AddShape(make_unique_dp<df::LineShape>(m2::SharedSpline(path), SquareLine(8)));
+  });
+  // The two vertical sections are below kMwmPointAccuracy. Each contributes its own square cap.
+  TEST_EQUAL(qRed(f.GetLastImage().pixel(13, 41)), 0, ());
+  TEST_EQUAL(qRed(f.GetLastImage().pixel(51, 22)), 0, ());
+}
+
 UNIT_TEST(SquareLine_DashesAcrossTiles)
 {
   // Compare an open feature with a tile fragment 40 million base-scale pixels from its start.
@@ -131,8 +145,11 @@ UNIT_TEST(SquareLine_TranslucentCasing)
     m2::SharedSpline const line(Path{{-20, 0}, {20, 0}});
     auto casing = SquareLine(12);
     casing.m_color = dp::Color(0, 0, 0, 128);
+    casing.m_blendInPaintOrder = true;
     scene.AddShape(make_unique_dp<df::LineShape>(line, casing));
-    scene.AddShape(make_unique_dp<df::LineShape>(line, SquareLine(4)));
+    auto stroke = SquareLine(4);
+    stroke.m_blendInPaintOrder = true;
+    scene.AddShape(make_unique_dp<df::LineShape>(line, stroke));
   });
   auto const & image = f.GetLastImage();
   for (int x = 6; x < 58; ++x)
