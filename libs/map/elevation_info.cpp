@@ -6,6 +6,9 @@
 #include "geometry/mercator.hpp"
 #include "geometry/simplification.hpp"
 
+#include <optional>
+#include <span>
+
 ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)
 {
   for (auto const & line : lines)
@@ -177,27 +180,84 @@ void ElevationInfo::Simplify(double altitudeDeviation)
   }
 }
 
-ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude threshold) const
+namespace
+{
+struct EntryPosition
+{
+  size_t m_upper;
+  double m_fraction;  // From the preceding sample to m_upper; 1 at an exact sample.
+};
+
+EntryPosition LocateEntry(std::span<ElevationInfo::Point const> points, double distance)
+{
+  distance = std::clamp(distance, 0.0, points.back().m_distance);
+  auto const next = std::ranges::lower_bound(points, distance, {}, &ElevationInfo::Point::m_distance);
+  size_t const index = next - points.begin();
+  if (next->m_distance == distance)
+    return {index, 1.0};
+
+  auto const start = points[index - 1].m_distance;
+  return {index, (distance - start) / (next->m_distance - start)};
+}
+}  // namespace
+
+ElevationInfo::ChartSection ElevationInfo::GetChartSection(Section const & section) const
+{
+  auto const offset = [this](size_t line)
+  {
+    size_t count = 0;
+    for (size_t i = 0; i < line; ++i)
+      count += m_lines[i].size();
+    return count;
+  };
+  auto const [upper, fraction] = LocateEntry(m_lines[section.m_entryLine], section.m_distanceOnLine);
+  return {static_cast<double>(offset(section.m_entryLine) + upper) - (1.0 - fraction),
+          offset(section.m_endLine) + (section.m_reverse ? 0 : m_lines[section.m_endLine].size() - 1)};
+}
+
+ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude threshold, Section const * section) const
 {
   ASSERT(threshold >= 0, ());
-
+  size_t const firstLine = section ? std::min(section->m_entryLine, section->m_endLine) : 0;
+  size_t const endLine = section ? std::max(section->m_entryLine, section->m_endLine) + 1 : m_lines.size();
+  ASSERT_LESS_OR_EQUAL(endLine, m_lines.size(), ());
   AltitudesInfo info;
-  for (auto const & line : m_lines)
+  for (size_t i = firstLine; i < endLine; ++i)
   {
-    ASSERT(!line.empty(), ());
-
-    Altitude refAlt = line[0].m_altitude;
-    info.m_minAltitude = std::min(info.m_minAltitude, refAlt);
-    info.m_maxAltitude = std::max(info.m_maxAltitude, refAlt);
-
-    for (size_t i = 1; i < line.size(); ++i)
+    auto points = std::span(m_lines[i]);
+    ASSERT(!points.empty(), ());
+    auto start = points.front().m_altitude;
+    std::optional<Altitude> reverseEntry;
+    if (section && i == section->m_entryLine)
     {
-      auto const alt = line[i].m_altitude;
+      // Chart smoothing and simplification can put the entry between two displayed heights.
+      auto const [index, fraction] = LocateEntry(points, section->m_distanceOnLine);
+      auto entry = points[index].m_altitude;
+      if (fraction < 1.0)
+        entry = static_cast<Altitude>(std::lround(std::lerp(points[index - 1].m_altitude, entry, fraction)));
+      if (section->m_reverse)
+      {
+        reverseEntry = entry;
+        points = points.first(index);
+      }
+      else
+      {
+        start = entry;
+        points = points.subspan(index);
+      }
+    }
+
+    Altitude previous = start;
+    Altitude refAlt = start;
+    info.m_minAltitude = std::min(info.m_minAltitude, start);
+    info.m_maxAltitude = std::max(info.m_maxAltitude, start);
+
+    auto const add = [&](Altitude alt)
+    {
       info.m_minAltitude = std::min(info.m_minAltitude, alt);
       info.m_maxAltitude = std::max(info.m_maxAltitude, alt);
-
-      // Raw: sum all deltas.
-      auto const rawDelta = alt - line[i - 1].m_altitude;
+      auto const rawDelta = alt - previous;
+      previous = alt;
       if (rawDelta > 0)
         info.m_totalAscentRaw += rawDelta;
       else
@@ -215,7 +275,17 @@ ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude thre
         info.m_totalDescentFiltered += -filteredDelta;
         refAlt = alt;
       }
-    }
+    };
+    for (auto const & point : points)
+      add(point.m_altitude);
+    if (reverseEntry)
+      add(*reverseEntry);
+  }
+  // Apply the threshold in source order so reversing exchanges ascent and descent exactly.
+  if (section && section->m_reverse)
+  {
+    std::swap(info.m_totalAscentRaw, info.m_totalDescentRaw);
+    std::swap(info.m_totalAscentFiltered, info.m_totalDescentFiltered);
   }
   return info;
 }

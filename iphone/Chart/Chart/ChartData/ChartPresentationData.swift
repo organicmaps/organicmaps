@@ -14,7 +14,7 @@ public class ChartPresentationData {
   public init(_ chartData: ChartData, formatter: ChartFormatter) {
     self.chartData = chartData
     self.formatter = formatter
-    presentationLines = chartData.lines.map { ChartPresentationLine($0) }
+    presentationLines = chartData.lines.map { ChartPresentationLine($0, section: chartData.highlightedSection) }
     recalculateBounds()
   }
 

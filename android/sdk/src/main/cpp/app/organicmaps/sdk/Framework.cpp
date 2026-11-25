@@ -1411,7 +1411,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   auto const & statistics = data->m_statistics;
 
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
-  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIDI)V");
 
   jsize const size = static_cast<jsize>(ei.GetSize());
 
@@ -1434,9 +1434,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   env->ReleaseDoubleArrayElements(jDistances, distances, 0);
   env->ReleaseIntArrayElements(jElevs, elevations, 0);
 
+  auto const & section = data->m_followedSection;
   return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(statistics.m_ascent),
-                        static_cast<jint>(statistics.m_descent), static_cast<jint>(statistics.m_minElevation),
-                        static_cast<jint>(statistics.m_maxElevation));
+                        static_cast<jint>(statistics.m_descent), section ? section->m_entryPoint : 0.0,
+                        section ? static_cast<jint>(section->m_finishPoint) : -1);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,

@@ -200,6 +200,7 @@ struct ElevationProfileChartData {
     var type: ChartLineType
   }
 
+  var highlightedSection: (entry: Double, finish: Int)?
   let chartValues: [ChartValue]
   let chartLines: [Line]
   let distances: [Double]

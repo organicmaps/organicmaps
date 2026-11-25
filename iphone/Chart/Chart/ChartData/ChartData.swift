@@ -15,12 +15,15 @@ public protocol ChartFormatter {
 }
 
 public protocol ChartData {
+  /// Sample indexes in travel order. The entry may be between two samples.
+  var highlightedSection: (entry: Double, finish: Int)? { get }
   var xAxisValues: [Double] { get }
   var lines: [ChartLine] { get }
   var segmentDistances: [Double] { get }
 }
 
 public extension ChartData {
+  var highlightedSection: (entry: Double, finish: Int)? { nil }
   var segmentDistances: [Double] { [] }
 }
 

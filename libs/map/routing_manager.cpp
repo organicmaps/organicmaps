@@ -1103,7 +1103,7 @@ FollowTrackResult RoutingManager::BuildFollowedTrack(std::shared_ptr<Track const
   info.m_canReverse = reverseEntry.has_value();
   info.m_profile = profile;
 
-  InstallFollowedTrack({std::move(info), std::move(source), entry, reverseEntry,
+  InstallFollowedTrack({std::move(info), std::move(source), entry, destination.m_line, reverseEntry,
                         std::make_shared<routing::TrackFollowingData const>(std::move(*prepared))},
                        keepViewport);
   return FollowTrackResult::Ok;
@@ -1850,10 +1850,16 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
   RouteElevationData data;
   if (IsPreviewingTrack())
   {
-    auto const & source = *m_followSession->m_source;
-    auto const [statistics, elevationInfo] = source.GetStatisticsAndElevationInfo();
+    auto const & session = *m_followSession;
+    auto const & source = *session.m_source;
+    auto const entryLine = session.m_entry.m_line;
+    bool const reverse = session.m_info.m_reversed;
+    double const distanceOnLine = session.m_info.m_entryDistanceM - source.GetCumulativeLengths()[entryLine].front();
+    ElevationInfo::Section const section{entryLine, distanceOnLine, session.m_destinationLine, reverse};
+    auto const [statistics, elevationInfo] = source.GetStatisticsAndElevationInfo(&section);
     if (!elevationInfo)
       return std::nullopt;
+    data.m_followedSection = elevationInfo->GetChartSection(section);
     data.m_elevationInfo = *elevationInfo;
     data.m_statistics = statistics;
     return data;

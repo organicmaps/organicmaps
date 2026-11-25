@@ -27,8 +27,11 @@ class ElevationProfileBuilder {
 
   static func makeRoutePreviewState(routeElevationPreviewData: RouteElevationPreviewData,
                                     activePointDistance: Double = 0) -> ElevationProfileState? {
-    guard let chartData = makeChartData(elevationProfileData: routeElevationPreviewData.elevationProfileData) else {
+    guard var chartData = makeChartData(elevationProfileData: routeElevationPreviewData.elevationProfileData) else {
       return nil
+    }
+    if routeElevationPreviewData.finishPointIndex >= 0 {
+      chartData.highlightedSection = (routeElevationPreviewData.entryPointIndex, routeElevationPreviewData.finishPointIndex)
     }
     let data = ElevationProfileDisplayData(trackInfo: routeElevationPreviewData.trackInfo,
                                            chartData: chartData,

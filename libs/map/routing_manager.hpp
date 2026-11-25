@@ -100,6 +100,7 @@ std::string DebugPrint(FollowTrackResult result);
 struct RouteElevationData
 {
   ElevationInfo m_elevationInfo;
+  std::optional<ElevationInfo::ChartSection> m_followedSection;
   TrackStatistics m_statistics;
 };
 
@@ -342,7 +343,8 @@ public:
   }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
 
-  // Preview charts use the captured full track; navigation charts use the active route.
+  // Preview charts show the full source profile with elevation totals for the followed section.
+  // Navigation charts use the active route.
   // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
   std::optional<RouteElevationData> GetRouteElevationData() const;
 
@@ -461,6 +463,7 @@ private:
     FollowedTrackInfo m_info;
     std::shared_ptr<Track const> m_source;
     TrackSourcePosition m_entry;
+    size_t m_destinationLine;
     // Reverse starts at m_entry or at the other endpoint of a loop. Empty when neither gives a route.
     std::optional<TrackSourcePosition> m_reverseEntry;
     std::shared_ptr<routing::TrackFollowingData const> m_data;

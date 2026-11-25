@@ -272,7 +272,8 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
-std::pair<TrackStatistics, ElevationInfo const *> Track::GetStatisticsAndElevationInfo() const
+std::pair<TrackStatistics, ElevationInfo const *> Track::GetStatisticsAndElevationInfo(
+    ElevationInfo::Section const * elevationSection) const
 {
   TrackStatistics ts;
   ts.m_length = GetLengthMeters();
@@ -284,7 +285,7 @@ std::pair<TrackStatistics, ElevationInfo const *> Track::GetStatisticsAndElevati
     // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
     auto const threshold =
         (m_data.m_id == kml::kTempRelationTrackId) ? ElevationInfo::kDefThresholdMWM : ElevationInfo::kDefThresholdGPS;
-    auto const altInfo = ei->CalculateAltitudesInfo(threshold);
+    auto const altInfo = ei->CalculateAltitudesInfo(threshold, elevationSection);
     ts.m_ascent = altInfo.GetTotalAscent();
     ts.m_descent = altInfo.GetTotalDescent();
     ts.m_minElevation = altInfo.m_minAltitude;

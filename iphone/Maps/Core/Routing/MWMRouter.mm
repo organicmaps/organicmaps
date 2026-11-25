@@ -89,7 +89,12 @@ using namespace routing;
   TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:statistics hasElevationInfo:YES];
   ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
                                                                        elevationInfo:data->m_elevationInfo];
-  return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
+  auto const & section = data->m_followedSection;
+  return [[RouteElevationPreviewData alloc]
+      initWithTrackInfo:trackInfo
+          elevationInfo:profileData
+        entryPointIndex:section ? section->m_entryPoint : 0
+       finishPointIndex:section ? static_cast<NSInteger>(section->m_finishPoint) : -1];
 }
 
 + (NSNumber *)routeElevationActivePointDistance
