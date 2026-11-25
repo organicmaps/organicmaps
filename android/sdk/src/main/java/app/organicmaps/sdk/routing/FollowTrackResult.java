@@ -12,11 +12,11 @@ public enum FollowTrackResult
   Ok,
   /** The requested source track does not exist. */
   NoTrack,
-  /** Active navigation or a pending Start prevents this operation. */
+  /** The current build or navigation state prevents this operation. */
   Busy,
   /** The selected source geometry is unavailable or has changed. */
   InvalidSelection,
-  /** No connected track geometry remains after the selected entry. */
+  /** No connected track geometry remains in this direction. */
   NoRemainingGeometry;
 
   public static FollowTrackResult valueOf(int result)

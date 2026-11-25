@@ -23,6 +23,7 @@ import android.widget.TextView;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.util.ThemeUtils;
@@ -49,6 +50,14 @@ public class ManageRouteAdapterTest
     return new ManageRouteAdapter.ManageRouteViewHolder(row);
   }
 
+  private static FollowedTrackInfo track(String name, boolean reversed)
+  {
+    final FollowedTrackInfo track = mock(FollowedTrackInfo.class);
+    when(track.getName()).thenReturn(name);
+    when(track.isReversed()).thenReturn(reversed);
+    return track;
+  }
+
   private static Context trackContext()
   {
     final Context context = mock(Context.class);
@@ -57,7 +66,9 @@ public class ManageRouteAdapterTest
     when(context.getResources()).thenReturn(resources);
     when(resources.obtainTypedArray(R.array.route_stop_icons)).thenReturn(icons);
     when(icons.length()).thenReturn(20);
+    when(context.getString(R.string.navigate_track_entry)).thenReturn("Selected point");
     when(context.getString(R.string.navigate_track_start)).thenReturn("Track start");
+    when(context.getString(R.string.navigate_track_section_start)).thenReturn("Section start");
     when(context.getString(R.string.navigate_track_finish)).thenReturn("Track finish");
     return context;
   }
@@ -73,7 +84,7 @@ public class ManageRouteAdapterTest
   public void trackPlanHasThreeFixedRows()
   {
     final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
-    adapter.setTrackPoints("Ridge");
+    adapter.setTrackPoints(track("Ridge", false));
 
     assertEquals(3, adapter.getItemCount());
     final List<RouteMarkData> rows = adapter.getRoutePoints();
@@ -85,11 +96,13 @@ public class ManageRouteAdapterTest
   }
 
   @Test
-  public void unnamedTrackFallsBackToTrackStart()
+  public void unnamedReversedTrackDistinguishesEntryAndDestination()
   {
     final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
-    adapter.setTrackPoints("");
-    assertEquals(List.of("Track start", "Track finish"),
+    final FollowedTrackInfo secondSection = track("", true);
+    when(secondSection.endsAtGap()).thenReturn(true);
+    adapter.setTrackPoints(secondSection);
+    assertEquals(List.of("Selected point", "Section start"),
                  adapter.getRoutePoints().subList(1, 3).stream().map(p -> p.mTitle).toList());
   }
 
@@ -98,7 +111,7 @@ public class ManageRouteAdapterTest
   {
     final ManageRouteAdapter.ManageRouteListener listener = mock(ManageRouteAdapter.ManageRouteListener.class);
     final ManageRouteAdapter adapter = adapter(trackContext(), listener);
-    adapter.setTrackPoints("Ridge");
+    adapter.setTrackPoints(track("Ridge", false));
     try (MockedStatic<ThemeUtils> theme = mockStatic(ThemeUtils.class);
          MockedStatic<AppCompatResources> drawables = mockStatic(AppCompatResources.class))
     {
@@ -123,7 +136,7 @@ public class ManageRouteAdapterTest
   public void routePointsLeaveTheTrackMode()
   {
     final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
-    adapter.setTrackPoints("Ridge");
+    adapter.setTrackPoints(track("Ridge", false));
     adapter.setRoutePoints(
         new RouteMarkData[] {point("Start", RouteMarkType.Start, 0), point("Finish", RouteMarkType.Finish, 0)});
     assertEquals(3, adapter.getItemCount());

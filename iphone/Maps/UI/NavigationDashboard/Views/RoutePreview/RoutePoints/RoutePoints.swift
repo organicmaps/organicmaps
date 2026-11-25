@@ -15,8 +15,14 @@ extension NavigationDashboard {
     let finish: MWMRoutePoint?
     let intermediate: [MWMRoutePoint]
     let points: [MWMRoutePoint]
-    var planningMode: PlanningMode { trackName == nil ? .default : .navigateTrack }
-    private var trackName: String?
+    struct TrackPreview: Equatable {
+      let name: String
+      let destination: String
+      let canReverse: Bool
+    }
+
+    private(set) var track: TrackPreview?
+    var planningMode: PlanningMode { track == nil ? .default : .navigateTrack }
 
     init(points: [MWMRoutePoint]) {
       start = points.first { $0.type == .start }
@@ -25,9 +31,16 @@ extension NavigationDashboard {
       self.points = points
     }
 
-    init(trackName: String) {
+    init(track info: MWMFollowedTrackInfo) {
       self.init(points: [])
-      self.trackName = trackName
+      let destination = if info.endsAtGap {
+        info.isReversed ? L("navigate_track_section_start") : L("navigate_track_section_finish")
+      } else {
+        info.isReversed ? L("navigate_track_start") : L("navigate_track_finish")
+      }
+      track = TrackPreview(name: info.name.isEmpty ? L("navigate_track_entry") : info.name,
+                           destination: destination,
+                           canReverse: info.canReverse)
     }
   }
 }
@@ -35,11 +48,11 @@ extension NavigationDashboard {
 extension NavigationDashboard.RoutePoints {
   static let empty = NavigationDashboard.RoutePoints(points: [])
 
-  var count: Int { trackName != nil ? 3 : 2 + intermediate.count }
-  var hasStartAndFinish: Bool { trackName != nil || (start != nil && finish != nil) }
+  var count: Int { track != nil ? 3 : 2 + intermediate.count }
+  var hasStartAndFinish: Bool { track != nil || (start != nil && finish != nil) }
 
   subscript(index: Int) -> MWMRoutePoint? {
-    guard trackName == nil else { return nil }
+    guard track == nil else { return nil }
     switch index {
     case 0: return start
     case count - 1: return finish
@@ -48,11 +61,11 @@ extension NavigationDashboard.RoutePoints {
   }
 
   func title(for index: Int) -> String {
-    if let trackName {
+    if let track {
       switch index {
       case 0: return L("p2p_your_location")
-      case 1: return trackName.isEmpty ? L("navigate_track_start") : trackName
-      default: return L("navigate_track_finish")
+      case 1: return track.name
+      default: return track.destination
       }
     }
     switch index {

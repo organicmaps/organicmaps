@@ -97,7 +97,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     if (track == null)
       mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
     else
-      mManageRouteAdapter.setTrackPoints(track.getName());
+      mManageRouteAdapter.setTrackPoints(track);
   }
 
   @Override

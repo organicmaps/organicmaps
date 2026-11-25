@@ -29,6 +29,9 @@ double constexpr kDistinctStopVisitM = 1.0;
 double constexpr kStopProjectionToleranceM = 0.5;
 // Stops farther from the source line cannot be visited by geometric navigation.
 double constexpr kMaxStopDistanceM = 5.0;
+// GPS fixes at the same trailhead can differ by metres. A short open section must still have distinct ends.
+double constexpr kMaxLoopGapM = 10.0;
+double constexpr kMaxLoopGapFraction = 0.1;
 
 bool SamePosition(m2::PointD const & a, m2::PointD const & b)
 {
@@ -72,7 +75,8 @@ PWA PointAtPosition(kml::MultiGeometry const & geometry, SourcePosition const & 
 
 // In a GPX route every intermediate point is a stop. Consecutive stops may share a compacted point.
 std::optional<routing::TrackFollowingData> PrepareWaypointRoute(kml::TrackData const & source,
-                                                                SourcePosition const & entry)
+                                                                SourcePosition const & start,
+                                                                SourcePosition const & end)
 {
   auto const & geometry = source.m_geometry;
   auto const & line = geometry.m_lines.front();
@@ -81,8 +85,8 @@ std::optional<routing::TrackFollowingData> PrepareWaypointRoute(kml::TrackData c
     return std::nullopt;
 
   routing::TrackFollowingData result;
-  result.m_points.reserve(line.size() - entry.m_segment);
-  result.m_points.push_back(PointAtPosition(geometry, entry));
+  result.m_points.reserve(end.m_segment - start.m_segment + 2);
+  result.m_points.push_back(PointAtPosition(geometry, start));
   auto stop = stops.begin();
   for (size_t i = 0; i < line.size(); ++i)
   {
@@ -92,7 +96,8 @@ std::optional<routing::TrackFollowingData> PrepareWaypointRoute(kml::TrackData c
     auto const first = stop;
     while (stop != stops.end() && kml::IsSameTrackPoint(stop->m_point, line[i].GetPoint()))
       ++stop;
-    if (VertexPosition(geometry, 0, i) < entry)
+    auto const position = VertexPosition(geometry, 0, i);
+    if (position < start || position > end)
       continue;
     if (result.m_points.back() != line[i])
       result.m_points.push_back(line[i]);
@@ -100,6 +105,9 @@ std::optional<routing::TrackFollowingData> PrepareWaypointRoute(kml::TrackData c
   }
   if (stop != stops.end())
     return std::nullopt;
+  auto const finish = PointAtPosition(geometry, end);
+  if (result.m_points.back() != finish)
+    result.m_points.push_back(finish);
   return result;
 }
 
@@ -160,6 +168,12 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
 }
 }  // namespace
 
+double TrackSourcePosition::GetDistanceMeters(Track const & track) const
+{
+  auto const & lengths = track.GetCumulativeLengths()[m_line];
+  return std::lerp(lengths[m_segment], lengths[m_segment + 1], m_fraction);
+}
+
 TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFromBeginningM)
 {
   auto const & lengths = track.GetCumulativeLengths();
@@ -214,49 +228,60 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::Po
   return std::nullopt;
 }
 
-bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourcePosition const & entry)
+bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourcePosition const & entry, bool reverse)
 {
   ASSERT_LESS(entry.m_line, geometry.m_lines.size(), ());
   ASSERT_GREATER(geometry.m_lines[entry.m_line].size(), 1, ());
   ASSERT_LESS(entry.m_segment, geometry.m_lines[entry.m_line].size() - 1, ());
   ASSERT(entry.m_fraction >= 0.0 && entry.m_fraction <= 1.0, (entry.m_fraction));
   auto const origin = PointAtPosition(geometry, entry).GetPoint();
-  for (size_t line = entry.m_line;; ++line)
+  for (size_t line = entry.m_line;;)
   {
-    size_t const first = line == entry.m_line ? entry.m_segment + 1 : 0;
-    for (size_t i = first; i < geometry.m_lines[line].size(); ++i)
-      if (!SamePosition(geometry.m_lines[line][i].GetPoint(), origin))
+    auto const & points = geometry.m_lines[line];
+    size_t const first = !reverse && line == entry.m_line ? entry.m_segment + 1 : 0;
+    size_t const end = reverse && line == entry.m_line ? entry.m_segment + 1 : points.size();
+    for (size_t i = first; i < end; ++i)
+      if (!SamePosition(points[i].GetPoint(), origin))
         return true;
-    if (!IsJoinedToNext(geometry, line))
-      return false;
+    if (reverse)
+    {
+      if (line == 0 || !IsJoinedToNext(geometry, line - 1))
+        return false;
+      --line;
+    }
+    else
+    {
+      if (!IsJoinedToNext(geometry, line))
+        return false;
+      ++line;
+    }
   }
 }
 
-std::optional<routing::TrackFollowingData> BuildTrackFollowingData(kml::TrackData const & source,
-                                                                   TrackSourcePosition const & entry)
+namespace
 {
+// Resolve stops in source order so repeated visits keep the same identity in either direction.
+routing::TrackFollowingData PrepareTrackRange(kml::TrackData const & source, SourcePosition const & start,
+                                              SourcePosition const & end)
+{
+  if (auto route = PrepareWaypointRoute(source, start, end))
+    return std::move(*route);
+
   auto const & geometry = source.m_geometry;
-  if (!HasRemainingTrackGeometry(geometry, entry))
-    return std::nullopt;
-
-  if (auto route = PrepareWaypointRoute(source, entry))
-    return route;
-
   routing::TrackFollowingData result;
-  size_t lastLine = entry.m_line;
-  size_t vertices = geometry.m_lines[lastLine].size() - entry.m_segment;
-  while (IsJoinedToNext(geometry, lastLine))
-    vertices += geometry.m_lines[++lastLine].size();
-  result.m_points.reserve(vertices);
+  size_t vertices = end.m_segment + 2;
+  for (size_t line = start.m_line; line < end.m_line; ++line)
+    vertices += geometry.m_lines[line].size();
+  result.m_points.reserve(vertices - start.m_segment);
 
   auto const append = [&](PWA const & point)
   {
     if (result.m_points.empty() || result.m_points.back() != point)
       result.m_points.push_back(point);
   };
-  size_t lineIndex = entry.m_line;
-  size_t vertex = entry.m_segment + 1;
-  append(PointAtPosition(geometry, entry));
+  size_t lineIndex = start.m_line;
+  size_t vertex = start.m_segment + 1;
+  append(PointAtPosition(geometry, start));
   auto const appendThrough = [&](size_t lastLineIndex, size_t lastVertex)
   {
     for (; lineIndex < lastLineIndex; ++lineIndex)
@@ -280,7 +305,7 @@ std::optional<routing::TrackFollowingData> BuildTrackFollowingData(kml::TrackDat
           it->second = true;
 
   SourcePosition previousStop;
-  std::optional<m2::PointD> previousStopPoint;
+  m2::PointD const * previousStopPoint = nullptr;
   for (auto const & stop : source.m_stops)
   {
     bool const isSourceVertex = stopsAtVertices.at(stop.m_point);
@@ -298,14 +323,72 @@ std::optional<routing::TrackFollowingData> BuildTrackFollowingData(kml::TrackDat
         projected = later;
     }
     auto const position = projected->m_position;
+    if (position > end)
+      break;
     previousStop = position;
-    previousStopPoint = stop.m_point;
-    if (position < entry || position.m_line > lastLine)
+    previousStopPoint = &stop.m_point;
+    if (position < start)
       continue;
     appendThrough(position.m_line, position.m_fraction == 1.0 ? position.m_segment + 1 : position.m_segment);
     append(PointAtPosition(geometry, position));
     result.m_stopPointIndexes.push_back(result.m_points.size() - 1);
   }
-  appendThrough(lastLine, geometry.m_lines[lastLine].size() - 1);
+  appendThrough(end.m_line, end.m_segment);
+  append(PointAtPosition(geometry, end));
+  return result;
+}
+
+TrackSourcePosition GetTrackSectionEnd(kml::MultiGeometry const & geometry, size_t line, bool reverse)
+{
+  if (reverse)
+  {
+    while (line > 0 && IsJoinedToNext(geometry, line - 1))
+      --line;
+    return {line, 0, 0.0};
+  }
+  while (IsJoinedToNext(geometry, line))
+    ++line;
+  return {line, geometry.m_lines[line].size() - 2, 1.0};
+}
+}  // namespace
+
+std::optional<TrackSourcePosition> GetReverseTrackEntry(Track const & track, TrackSourcePosition const & entry,
+                                                        TrackSourcePosition const & destination)
+{
+  auto const & geometry = track.GetData().m_geometry;
+  bool const currentlyReversed = destination < entry;
+  auto const origin = GetTrackSectionEnd(geometry, entry.m_line, !currentlyReversed);
+  double const gapM = mercator::DistanceOnEarth(PointAtPosition(geometry, origin).GetPoint(),
+                                                PointAtPosition(geometry, destination).GetPoint());
+  double const originM = origin.GetDistanceMeters(track);
+  double const sectionLengthM = std::abs(destination.GetDistanceMeters(track) - originM);
+  double const toleranceM = std::min(kMaxLoopGapM, kMaxLoopGapFraction * sectionLengthM);
+  // Distance along the section distinguishes the trailhead from a later visit to the same place.
+  if (gapM <= toleranceM && std::abs(entry.GetDistanceMeters(track) - originM) <= toleranceM)
+    return destination;
+  if (HasRemainingTrackGeometry(geometry, entry, !currentlyReversed))
+    return entry;
+  return std::nullopt;
+}
+
+std::optional<routing::TrackFollowingData> BuildTrackFollowingData(kml::TrackData const & source,
+                                                                   TrackSourcePosition const & entry, bool reverse,
+                                                                   TrackSourcePosition * destination)
+{
+  auto const & geometry = source.m_geometry;
+  if (!HasRemainingTrackGeometry(geometry, entry, reverse))
+    return std::nullopt;
+
+  auto const finish = GetTrackSectionEnd(geometry, entry.m_line, reverse);
+  if (destination)
+    *destination = finish;
+  if (!reverse)
+    return PrepareTrackRange(source, entry, finish);
+
+  auto result = PrepareTrackRange(source, finish, entry);
+  std::ranges::reverse(result.m_points);
+  std::ranges::reverse(result.m_stopPointIndexes);
+  for (auto & index : result.m_stopPointIndexes)
+    index = result.m_points.size() - 1 - index;
   return result;
 }

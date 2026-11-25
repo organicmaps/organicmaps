@@ -13,6 +13,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.SystemClock;
+import android.view.View;
+import androidx.core.view.ViewCompat;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.test.core.app.ActivityScenario;
@@ -20,6 +22,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.permission.PermissionRequester;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
@@ -35,6 +38,7 @@ import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingListener;
+import app.organicmaps.widget.placepage.ElevationProfileChart;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -268,7 +272,7 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
-  public void inspectedAndRefusedSelectionsPreserveTheCapturedEntry() throws Exception
+  public void movingTheEntryToEitherEndpointUsesItsOnlyDirection() throws Exception
   {
     try (ImportedTrack track = new ImportedTrack())
     {
@@ -278,15 +282,23 @@ public class RoutingControllerRecoveryTest
       await("Entry update did not finish building", mController::isBuilt);
       onMain(() -> {
         BookmarkManager.INSTANCE.setElevationActivePoint(track.id, 800.0);
-        assertEquals(FollowTrackResult.NoRemainingGeometry, mController.updateFollowedTrackEntryAt(2000.0));
-        assertEquals(400.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
-        assertTrue(mController.isBuilt());
         assertEquals(FollowTrackResult.Ok, mController.setFollowTrackProfile(Router.Vehicle));
       });
       await("Profile update did not finish building", mController::isBuilt);
       onMain(() -> {
         assertEquals(400.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
-        assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(-100.0));
+        assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(2000.0));
+        assertTrue(mController.isBuilding());
+      });
+      await("Backward preview did not finish building", mController::isBuilt);
+      onMain(() -> {
+        assertTrue(mController.getFollowedTrackInfo().isReversed());
+        assertFalse(mController.getFollowedTrackInfo().canReverse());
+        assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(0.0));
+      });
+      await("Forward preview did not finish building", mController::isBuilt);
+      onMain(() -> {
+        assertFalse(mController.getFollowedTrackInfo().isReversed());
         assertEquals(0.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
       });
     }
@@ -321,6 +333,88 @@ public class RoutingControllerRecoveryTest
         mController.attach(mContainer);
         assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id));
         assertEquals(List.of("plan true", "progress 0", "planning started"), events);
+      });
+    }
+  }
+
+  @Test
+  public void plannerReversesOrdinaryRoutePoints() throws Exception
+  {
+    try (ActivityScenario<MwmActivity> scenario = launchMap())
+    {
+      onMain(() -> mController.prepare(point("Start", 1), point("Finish", 2), Router.Ruler));
+      await("Route did not finish building", mController::isBuilt);
+      scenario.onActivity(activity -> {
+        final View reverse = activity.findViewById(R.id.reverse_route_btn);
+        assertTrue(reverse.isShown());
+        assertTrue(reverse.isEnabled());
+        assertTrue(reverse.performClick());
+        final RouteMarkData[] points = Framework.nativeGetRoutePoints();
+        assertEquals("Finish", points[0].mTitle);
+        assertEquals("Start", points[1].mTitle);
+      });
+    }
+  }
+
+  @Test
+  public void plannerReversesAReadyTrackAtItsSelectedEntry() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack(); ActivityScenario<MwmActivity> scenario = launchMap())
+    {
+      onMain(() -> assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id)));
+      await("Track preview did not finish building", mController::isBuilt);
+      scenario.onActivity(activity -> {
+        final View reverse = activity.findViewById(R.id.reverse_route_btn);
+        assertTrue(reverse.isShown());
+        assertFalse(reverse.isEnabled());
+        assertEquals(activity.getString(R.string.navigate_track_finish), ViewCompat.getStateDescription(reverse));
+        assertEquals(FollowTrackResult.NoRemainingGeometry, mController.reverseFollowedTrack());
+        assertTrue(mController.isPlanning());
+        assertTrue(mController.isBuilt());
+        assertFalse(mController.getFollowedTrackInfo().isReversed());
+        assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(400.0));
+      });
+      await("Entry update did not finish building", mController::isBuilt);
+      scenario.onActivity(activity -> {
+        final View reverse = activity.findViewById(R.id.reverse_route_btn);
+        assertTrue(reverse.isShown());
+        assertTrue(reverse.isEnabled());
+        assertTrue(reverse.performClick());
+        assertTrue(mController.isBuilding());
+        assertFalse(reverse.isEnabled());
+        assertEquals(FollowTrackResult.Busy, mController.reverseFollowedTrack());
+      });
+      await("Reversed preview did not finish building", mController::isBuilt);
+      scenario.onActivity(activity -> {
+        final View reverse = activity.findViewById(R.id.reverse_route_btn);
+        assertTrue(reverse.isEnabled());
+        assertEquals(activity.getString(R.string.navigate_track_start), ViewCompat.getStateDescription(reverse));
+        assertEquals(400.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
+      });
+    }
+  }
+
+  @Test
+  public void reversingAClosedTrackMovesTheChartMarkerToItsFinish() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack("0,51.47,100 0,51.48,120 0.01,51.48,150 0,51.470049,100");
+         ActivityScenario<MwmActivity> scenario = launchMap())
+    {
+      onMain(() -> {
+        BookmarkManager.INSTANCE.setElevationActivePoint(track.id, 3.0);
+        assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id));
+      });
+      await("Loop preview did not finish building", mController::isBuilt);
+      scenario.onActivity(activity -> {
+        final View reverse = activity.findViewById(R.id.reverse_route_btn);
+        assertTrue(reverse.isEnabled());
+        assertTrue(reverse.performClick());
+      });
+      await("Reversed loop did not finish building", mController::isBuilt);
+      scenario.onActivity(activity -> {
+        final ElevationProfileChart chart = activity.findViewById(R.id.elevation_profile_chart);
+        assertTrue(mController.getFollowedTrackInfo().isReversed());
+        assertEquals(chart.getXChartMax(), chart.getHighlightX(), 0f);
       });
     }
   }
@@ -500,14 +594,19 @@ public class RoutingControllerRecoveryTest
 
     ImportedTrack() throws Exception
     {
+      this("0,51.47,100 0,51.48,200");
+    }
+
+    ImportedTrack(String coordinates) throws Exception
+    {
       try (FileWriter writer = new FileWriter(source))
       {
         writer.write(String.format("""
             <kml xmlns="http://www.opengis.net/kml/2.2"><Document>
             <name>%s</name><Placemark><name>Trail 🏔</name>
-            <LineString><coordinates>0,51.47,100 0,51.48,200</coordinates></LineString>
+            <LineString><coordinates>%s</coordinates></LineString>
             </Placemark></Document></kml>
-            """, source.getName()));
+            """, source.getName(), coordinates));
       }
       onMain(() -> BookmarkManager.INSTANCE.loadBookmarksFile(source.getAbsolutePath(), false));
       await("Track was not imported", () -> category() != null && category().getTracksCount() == 1);

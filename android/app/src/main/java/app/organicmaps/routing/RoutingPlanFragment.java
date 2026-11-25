@@ -130,7 +130,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mDrivingOptionsContainer = mChartPanel.findViewById(R.id.driving_options_btn_container);
     mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
-    mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
+    mReverseRouteBtn.setOnClickListener(v -> onReverseClicked());
 
     mTransitButton = mRouterTypes.findViewById(R.id.transit);
     mRulerButton = mRouterTypes.findViewById(R.id.ruler);
@@ -231,16 +231,17 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     if (controller.isPlanning())
     {
-      setRoutingContentActive(isTrackRebuilding(controller));
+      setRoutingContentActive(controller.isBuilt() || isTrackRebuilding(controller));
       updateTrackFollowMode();
       mRoutingBottomMenuController.refreshManageRoute();
       mViewModel.setShowRoutingBottomSheet(true);
     }
     else
+    {
       mShownTrackPreviewId = null;
-
-    if (controller.isBuilt())
-      setRoutingContentActive(true);
+      if (controller.isBuilt())
+        setRoutingContentActive(true);
+    }
   }
 
   private void updateSheetVisible()
@@ -283,8 +284,15 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private void setRoutingContentActive(boolean active)
   {
     mRoutingContentActive = active;
-    updateRoutingOptions(RoutingController.get().getLastRouterType());
-    mReverseRouteBtn.setEnabled(active);
+    final RoutingController controller = RoutingController.get();
+    updateRoutingOptions(controller.getLastRouterType());
+    final FollowedTrackInfo track = controller.getFollowedTrackInfo();
+    final boolean canReverse =
+        active && (track == null || (controller.isPlanning() && controller.isBuilt() && track.canReverse()));
+    mReverseRouteBtn.setEnabled(canReverse);
+    mReverseRouteBtn.setAlpha(active && !canReverse ? 0.38f : 1.0f);
+    ViewCompat.setStateDescription(mReverseRouteBtn,
+                                   track == null ? null : getString(RoutePointLabels.trackDestination(track)));
     mChartPanel.setAlpha(active ? 1.0f : 0.2f);
   }
 
@@ -334,8 +342,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   {
     final RoutingController controller = RoutingController.get();
     final boolean followsTrack = controller.isFollowingTrack();
-    UiUtils.showIf(!followsTrack, mTransitButton, mRulerButton, mDrivingOptionsContainer, mReverseRouteBtn, mSearchBtn,
-                   mBookmarkBtn);
+    UiUtils.showIf(!followsTrack, mTransitButton, mRulerButton, mDrivingOptionsContainer, mSearchBtn, mBookmarkBtn);
     // Check the follow profile: the user's own Transit or Ruler pick may still be checked, and its radio is hidden now.
     if (followsTrack)
       mRouterTypes.check(routerToButtonId(controller.getLastRouterType()));
@@ -364,6 +371,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     // The tap has already checked the radio: re-sync with the profile actually in effect, so a
     // refused switch snaps the picker back (a successful one is a no-op here).
     updateTrackFollowMode();
+  }
+
+  private void onReverseClicked()
+  {
+    final RoutingController controller = RoutingController.get();
+    if (!controller.isFollowingTrack())
+    {
+      controller.reverseRoute();
+      return;
+    }
+    final FollowTrackResult result = controller.reverseFollowedTrack();
+    if (result != FollowTrackResult.Ok)
+      Utils.showFollowTrackError(requireContext(), result);
   }
 
   @IdRes

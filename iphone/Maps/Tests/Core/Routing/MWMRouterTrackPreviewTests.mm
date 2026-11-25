@@ -186,7 +186,7 @@
   XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateNavigation);
 }
 
-- (void)testChartEntryUpdateKeepsTheChosenProfileAndPreservesRefusals
+- (void)testChartEntryAtTheFinishTurnsBackAndKeepsTheChosenProfile
 {
   auto const id = [self createPreview];
   [self waitForPreview];
@@ -208,21 +208,16 @@
   XCTAssertEqual(bookmarks.GetElevationActivePoint(id), mapSelection);
   XCTAssertEqual([MWMRouter followedTrackInfo].entryDistanceMeters, distance);
 
-  bookmarks.SetElevationActivePoint(id, track->GetLengthMeters() * 0.8);
-
+  double const finishDistance = track->GetLengthMeters();
+  bookmarks.SetElevationActivePoint(id, finishDistance * 0.8);
   XCTAssertEqual([MWMRouter routeElevationActivePointDistance].doubleValue, distance);
-  auto const selectionBeforeRefusal = bookmarks.GetTrackSelectionInfo(id);
-  auto const * route = GetFramework().GetRoutingManager().RoutingSession().GetRoute();
-  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:bookmarks.GetTrack(id)->GetLengthMeters()],
-                 MWMFollowTrackResultNoRemainingGeometry);
-  XCTAssertEqual(GetFramework().GetRoutingManager().RoutingSession().GetRoute(), route);
-  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateReady);
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:finishDistance], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  XCTAssertTrue([MWMRouter followedTrackInfo].isReversed);
+  XCTAssertFalse([MWMRouter followedTrackInfo].canReverse);
+  XCTAssertEqual([MWMRouter routeElevationActivePointDistance].doubleValue, finishDistance);
   XCTAssertEqual([MWMRouter renderType], MWMRouterTypeVehicle);
-  XCTAssertEqual([MWMRouter followedTrackInfo].entryDistanceMeters, distance);
-  auto const selectionAfterRefusal = bookmarks.GetTrackSelectionInfo(id);
-  XCTAssertTrue(
-      selectionAfterRefusal.m_trackPoint.EqualDxDy(selectionBeforeRefusal.m_trackPoint, mercator::kPointEqualityEps));
-  XCTAssertEqual(selectionAfterRefusal.m_distFromBegM, selectionBeforeRefusal.m_distFromBegM);
+  XCTAssertEqual(bookmarks.GetElevationActivePoint(id), finishDistance * 0.8);
 }
 
 - (void)testDeletionCancelsPreviewWhileItsBuildIsPending
