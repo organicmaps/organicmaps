@@ -33,13 +33,16 @@
     app:layout_constraintTop_toTopOf="parent"
     tools:text="Title" />
 
-  <ImageView
+  <androidx.appcompat.widget.AppCompatImageButton
     android:id="@+id/delete_icon"
     android:layout_width="24dp"
     android:layout_height="24dp"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:contentDescription="@string/delete"
     style="@style/MwmWidget.Editor.MetadataIcon"
+    android:padding="0dp"
+    android:scaleType="fitCenter"
+    app:tint="?iconTint"
     app:layout_constraintEnd_toStartOf="@+id/drag_icon"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
