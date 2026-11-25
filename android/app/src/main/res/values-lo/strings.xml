@@ -100,6 +100,8 @@
     <string name="measurement_units">ຫົວໜ່ວຍວັດແທກ</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">ເລືອກລະຫວ່າງໄມລ໌ ແລະ ກິໂລແມັດ</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">ຍົກເລີກການດາວໂຫຼດ</string>
 
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->

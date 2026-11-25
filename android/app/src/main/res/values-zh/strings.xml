@@ -100,6 +100,8 @@
     <string name="measurement_units">测量单位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">选择公里或英里</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">取消下载</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->

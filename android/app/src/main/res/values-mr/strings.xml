@@ -100,6 +100,8 @@
     <string name="measurement_units">मापन एकके</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">मैल की किलोमीटर ह्यामध्ये निवडा</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">डाउनलोड रद्द करा</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->

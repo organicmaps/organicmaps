@@ -100,6 +100,8 @@
     <string name="measurement_units">Одиниці виміру</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Використовувати милі чи кілометри</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Відмінити завантаження</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->

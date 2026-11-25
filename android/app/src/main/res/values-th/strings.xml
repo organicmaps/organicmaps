@@ -100,6 +100,8 @@
     <string name="measurement_units">หน่วยการวัด</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">เลือกระหว่างไมล์และกิโลเมตร</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">ยกเลิกการดาวน์โหลด</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
