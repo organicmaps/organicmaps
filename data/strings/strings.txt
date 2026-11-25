@@ -47207,3 +47207,39 @@ uk = У цьому напрямку треку більше немає. Вибе
 vi = Không còn hành trình theo hướng này. Hãy chọn điểm khác.
 zh-Hans = 此方向上已没有剩余轨迹。请选择其他点。
 zh-Hant = 此方向上已無剩餘軌跡。請選擇其他點。
+
+[description_less]
+comment = Button to collapse an expanded bookmark or track description
+tags = android-app
+en = Less
+ru = Свернуть
+
+[description_expanded]
+comment = Accessibility state of an expanded bookmark or track description
+tags = android-app
+en = Expanded
+ru = Развёрнуто
+
+[description_collapsed]
+comment = Accessibility state of a collapsed bookmark or track description
+tags = android-app
+en = Collapsed
+ru = Свёрнуто
+
+[elevation_profile_selection]
+comment = Accessibility label of the adjustable selected point on an elevation profile
+tags = android-app
+en = Point on elevation profile
+ru = Точка на профиле высот
+
+[elevation_profile_selected_distance]
+comment = Accessibility state: selected distance along the track or route, and total length, both with units
+tags = android-app
+en = %1$s of %2$s
+ru = %1$s из %2$s
+
+[elevation_profile_no_selection]
+comment = Accessibility state of an elevation profile without a selected point; parameter is total length with units
+tags = android-app
+en = No point selected. Length: %s
+ru = Точка не выбрана. Длина: %s

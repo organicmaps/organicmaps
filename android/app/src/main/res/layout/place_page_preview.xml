@@ -231,8 +231,14 @@
       android:background="?ppBackground"
       android:orientation="horizontal">
 
-      <ImageView
+      <ImageButton
         android:id="@+id/item_icon"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:scaleType="fitCenter"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:contentDescription="@string/choose_color"
         android:layout_width="@dimen/place_page_icon_background_size"
         android:layout_height="@dimen/place_page_icon_background_size"
         android:layout_gravity="center"
@@ -256,8 +262,14 @@
         android:textAllCaps="false"
         tools:text="@string/categories" />
 
-      <ImageView
+      <ImageButton
         android:id="@+id/edit_Bookmark"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:scaleType="fitCenter"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:contentDescription="@string/edit"
         app:tint="?colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
