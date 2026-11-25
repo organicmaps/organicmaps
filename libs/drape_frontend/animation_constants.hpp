@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <chrono>
 #include <cstdint>
 
@@ -19,9 +20,25 @@ double constexpr kZoomTimeSecPerScaleRatio = 0.1;
 double constexpr kAutoZoomTimeSecPerScaleRatio = 0.6;
 // Time to turn by 180 degrees.
 double constexpr kHalfTurnTimeSec = 0.75;
-// A move that takes longer than kMaxAnimationTimeSec zooms out by twice its ratio to the limit for at most
-// kPrettyZoomTimeSec, moves for kMaxAnimationTimeSec and zooms in for at most kPrettyZoomTimeSec.
-double constexpr kPrettyZoomTimeSec = kMaxAnimationTimeSec * 0.5;
+/// @}
+
+/// @name Flight to a target that a linear move reaches later than kMaxAnimationTimeSec.
+/// @{
+// The map zooms out in kFlyZoomOutTimeSec to show the distance as kFlyViewports lengths of the shorter viewport
+// side, unless it already shows more.
+double constexpr kFlyZoomOutTimeSec = 0.1;
+double constexpr kFlyViewports = 5.0;
+// The flight takes kMinFlyTimeSec and kFlyTimeSecPerZoomLevel more per zoom level from the flight scale to the end
+// scale, up to kMaxFlyTimeSec.
+double constexpr kMinFlyTimeSec = 1.1;
+double constexpr kFlyTimeSecPerZoomLevel = 0.15;
+double constexpr kMaxFlyTimeSec = 2.0;
+// The destination moves to its place on the screen with kFlyPanEasing. From kFlyZoomStart of the flight, the scale
+// changes to the end scale with kFlyZoomEasing, so the zoom level changes faster towards the end. The easings are the
+// x1, y1, x2, y2 control points of cubic bezier curves, as in CSS.
+std::array<double, 4> constexpr kFlyPanEasing = {0.25, 1.0, 0.5, 1.0};
+double constexpr kFlyZoomStart = 0.3;
+std::array<double, 4> constexpr kFlyZoomEasing = {0.0, 0.0, 0.2, 1.0};
 /// @}
 
 /// @name Fling.
@@ -59,6 +76,15 @@ double constexpr kPopUpUndershootTime = 0.85;
 
 /// @name Relations between the constants that the animations rely on.
 /// @{
+// The arrival zoom of a flight starts after the zoom-out.
+static_assert(kFlyZoomStart < 1.0 && kFlyZoomOutTimeSec <= kFlyZoomStart * kMinFlyTimeSec);
+static_assert(kMinFlyTimeSec <= kMaxFlyTimeSec);
+// An easing has one value at any time when the x of its control points is within [0, 1].
+bool constexpr IsEasing(std::array<double, 4> const & curve)
+{
+  return curve[0] >= 0.0 && curve[0] <= 1.0 && curve[2] >= 0.0 && curve[2] <= 1.0;
+}
+static_assert(IsEasing(kFlyPanEasing) && IsEasing(kFlyZoomEasing));
 static_assert(0.0 < kPopUpOvershootTime && kPopUpOvershootTime < kPopUpUndershootTime && kPopUpUndershootTime < 1.0);
 /// @}
 }  // namespace df

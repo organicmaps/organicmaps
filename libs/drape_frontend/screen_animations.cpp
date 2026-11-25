@@ -20,27 +20,49 @@ Pose GetPose(ScreenBase const & screen)
   return {screen.GetOrg(), screen.GetScale(), screen.GetAngle()};
 }
 
-double GetDuration(MapAnimation::Stages const & stages)
+// The cubic bezier easing from (0, 0) to (1, 1) through the x1, y1, x2, y2 control points.
+double GetEasing(std::array<double, 4> const & curve, double x)
 {
-  double duration = 0.0;
-  for (auto const & stage : stages)
-    duration += stage.GetDuration();
-  return duration;
+  if (x <= 0.0 || x >= 1.0)
+    return x <= 0.0 ? 0.0 : 1.0;
+
+  auto const bezier = [](double t, double p1, double p2)
+  { return (((1.0 + 3.0 * (p1 - p2)) * t + 3.0 * (p2 - 2.0 * p1)) * t + 3.0 * p1) * t; };
+  // The bezier x grows monotonically with its parameter for control points between 0 and 1.
+  double lo = 0.0;
+  double hi = 1.0;
+  for (int i = 0; i < 32; ++i)
+  {
+    double const t = (lo + hi) / 2.0;
+    (bezier(t, curve[0], curve[2]) < x ? lo : hi) = t;
+  }
+  return bezier((lo + hi) / 2.0, curve[1], curve[3]);
 }
 
-Stage GetZoomStage(Pose const & start, double endScale)
+Stage GetFlyStage(ScreenBase const & startScreen, ScreenBase const & endScreen)
 {
+  auto const & rect = startScreen.PixelRectIn3d();
+  double const distance = startScreen.GetOrg().Length(endScreen.GetOrg());
+
   Stage stage;
-  stage.m_start = start;
-  stage.m_end = {start.m_position, endScale, start.m_angle};
-  if (start.m_scale != endScale)
-    stage.m_scaleDuration =
-        std::min(GetScaleDuration(start.m_scale, endScale, false /* isAutoZoom */), kPrettyZoomTimeSec);
+  stage.m_path = Stage::Path::Fly;
+  stage.m_start = GetPose(startScreen);
+  stage.m_end = GetPose(endScreen);
+  stage.m_flightScale =
+      std::max(startScreen.GetScale(), distance / (kFlyViewports * std::min(rect.SizeX(), rect.SizeY())));
+  double const zoomLevels = std::fabs(std::log2(endScreen.GetScale() / stage.m_flightScale));
+  stage.m_moveDuration = std::min(kMinFlyTimeSec + kFlyTimeSecPerZoomLevel * zoomLevels, kMaxFlyTimeSec);
   return stage;
 }
 
+// The scale of a flight at the zoomOut time fraction of its zoom-out.
+double GetZoomOutScale(Stage const & stage, double zoomOut)
+{
+  return stage.m_start.m_scale * std::pow(stage.m_flightScale / stage.m_start.m_scale, zoomOut);
+}
+
 Stage GetFollowStage(ScreenBase const & screen, m2::PointD const & userPos, m2::PointD const & endPixelPos,
-                     double endScale, double endAngle, bool isAutoZoom, double maxDuration, double maxScaleDuration)
+                     double endScale, double endAngle, bool isAutoZoom, double maxScaleDuration)
 {
   Stage stage;
   stage.m_path = Stage::Path::Follow;
@@ -55,43 +77,38 @@ Stage GetFollowStage(ScreenBase const & screen, m2::PointD const & userPos, m2::
   double const rotate = GetRotateDuration(screen.GetAngle(), endAngle);
   // The angle and the scale change until the end of the follow. An auto-zoom may take longer.
   double const duration = std::max({move, rotate, isAutoZoom ? 0.0 : scale});
-  stage.m_moveDuration = std::min(move, maxDuration);
+  stage.m_moveDuration = std::min(move, kMaxAnimationTimeSec);
   if (rotate > 0.0)
-    stage.m_rotateDuration = std::min(std::max(rotate, duration), maxDuration);
+    stage.m_rotateDuration = std::min(std::max(rotate, duration), kMaxAnimationTimeSec);
   if (startScale != endScale)
-    stage.m_scaleDuration = std::min({std::max(scale, duration), maxDuration, maxScaleDuration});
+    stage.m_scaleDuration = std::min(std::max(scale, duration), maxScaleDuration);
   return stage;
 }
 }  // namespace
 
-MapAnimation::MapAnimation(Type type, Stages && stages, AnimationClock::time_point requestedAt, bool syncArrow)
-  : Animation(requestedAt, GetDuration(stages))
+MapAnimation::MapAnimation(Type type, Stage const & stage, AnimationClock::time_point requestedAt, bool syncArrow)
+  : Animation(requestedAt, stage.GetDuration())
   , m_type(type)
-  , m_stages(std::move(stages))
+  , m_stage(stage)
   , m_syncArrow(syncArrow)
 {
-  ASSERT(!syncArrow || (m_stages.size() == 1 && m_stages.front().m_path == Stage::Path::Follow), ());
+  ASSERT(!syncArrow || stage.m_path == Stage::Path::Follow, ());
 }
 
 void MapAnimation::Apply(ScreenBase & screen) const
 {
-  double elapsed = GetElapsed();
-  size_t i = 0;
-  for (; i + 1 < m_stages.size() && elapsed >= m_stages[i].GetDuration(); ++i)
-    elapsed -= m_stages[i].GetDuration();
-  Apply(m_stages[i], elapsed, screen);
+  Apply(m_stage, GetElapsed(), screen);
 }
 
 void MapAnimation::ApplyTarget(ScreenBase & screen) const
 {
-  auto const & stage = m_stages.back();
-  Apply(stage, stage.GetDuration(), screen);
+  Apply(m_stage, m_stage.GetDuration(), screen);
 }
 
 double MapAnimation::GetRemainingScaleTime(AnimationClock::time_point now) const
 {
-  // A single stage zooms for its own time, a distant move zooms in at its end.
-  return m_stages.size() == 1 ? GetRemainingTime(now, m_stages.front().m_scaleDuration) : GetRemainingTime(now);
+  // A flight zooms for its whole time, the other paths for their own scale time.
+  return GetRemainingTime(now, m_stage.m_path == Stage::Path::Fly ? m_stage.m_moveDuration : m_stage.m_scaleDuration);
 }
 
 void MapAnimation::SyncArrow(double & moveDuration, double & rotateDuration) const
@@ -100,10 +117,9 @@ void MapAnimation::SyncArrow(double & moveDuration, double & rotateDuration) con
     return;
 
   // The arrow moves with the position under m_pixel and turns with the map.
-  auto const & stage = m_stages.front();
-  moveDuration = stage.m_moveDuration;
-  if (stage.m_rotateDuration > 0.0)
-    rotateDuration = stage.m_rotateDuration;
+  moveDuration = m_stage.m_moveDuration;
+  if (m_stage.m_rotateDuration > 0.0)
+    rotateDuration = m_stage.m_rotateDuration;
 }
 
 // static
@@ -131,6 +147,23 @@ void MapAnimation::Apply(Stage const & stage, double elapsed, ScreenBase & scree
     auto const position = InterpolatePoint(stage.m_start.m_position, stage.m_end.m_position, move);
     screen.SetFromParams(position, angle, scale);
     screen.MatchGandP3d(position, stage.m_pixel);
+    break;
+  }
+  case Stage::Path::Fly:
+  {
+    double const arrival = GetEasing(kFlyZoomEasing, (move - kFlyZoomStart) / (1.0 - kFlyZoomStart));
+    double const flightScale = stage.m_flightScale;
+    double const arrivalScale = InterpolateDouble(flightScale, stage.m_end.m_scale, arrival);
+    double const zoomOut = GetTimeFraction(elapsed, kFlyZoomOutTimeSec);
+    double const scale = zoomOut < 1.0 ? GetZoomOutScale(stage, zoomOut) : arrivalScale;
+    // The pan gains its speed with the zoom-out, so the start position doesn't leave the screen in the first frame.
+    double pan = GetEasing(kFlyPanEasing, move);
+    if (zoomOut < 1.0)
+      pan *= (scale - stage.m_start.m_scale) / (flightScale - stage.m_start.m_scale);
+    // The offset to the end position shrinks on the screen with the pan, and the map zooms around the center.
+    auto const position = stage.m_end.m_position - (stage.m_end.m_position - stage.m_start.m_position) *
+                                                       ((1.0 - pan) * arrivalScale / flightScale);
+    screen.SetFromParams(position, InterpolateAngle(stage.m_start.m_angle, stage.m_end.m_angle, pan), scale);
     break;
   }
   }
@@ -188,21 +221,11 @@ std::optional<MapAnimation> GetScreenAnimation(MapAnimation::Type type, ScreenBa
   if (startScale != endScale)
     stage.m_scaleDuration = std::min(GetScaleDuration(startScale, endScale, false /* isAutoZoom */), maxScaleDuration);
   stage.m_rotateDuration = GetRotateDuration(startScreen.GetAngle(), endScreen.GetAngle());
-  if (IsAnimationAllowed(stage.GetDuration()))
-    return MapAnimation(type, {stage}, requestedAt);
-
-  double const moveDuration = GetMoveDuration(startScreen.GetOrg(), endScreen.GetOrg(), startScreen);
-  if (moveDuration <= kMaxAnimationTimeSec)
+  if (stage.GetDuration() == 0.0)
     return {};
-
-  // Zoom out, move and zoom in without rotation.
-  double const zoomOutScale = startScale * moveDuration / kMaxAnimationTimeSec * 2.0;
-  Stage const zoomOut = GetZoomStage(stage.m_start, zoomOutScale);
-  Stage move;
-  move.m_start = zoomOut.m_end;
-  move.m_end = {endScreen.GetOrg(), zoomOutScale, zoomOut.m_end.m_angle};
-  move.m_moveDuration = std::min(moveDuration, kMaxAnimationTimeSec);
-  return MapAnimation(type, {zoomOut, move, GetZoomStage(move.m_end, endScale)}, requestedAt);
+  if (IsAnimationAllowed(stage.GetDuration()))
+    return MapAnimation(type, stage, requestedAt);
+  return MapAnimation(type, GetFlyStage(startScreen, endScreen), requestedAt);
 }
 
 std::optional<MapAnimation> GetFollowAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen,
@@ -217,39 +240,14 @@ std::optional<MapAnimation> GetFollowAnimation(ScreenBase const & startScreen, S
                                               (startScreen.GetScale() + endScale) / 2.0);
   if (moveDuration <= kMaxAnimationTimeSec)
   {
-    auto const stage = GetFollowStage(startScreen, userPos, endPixelPos, endScale, endAngle, isAutoZoom,
-                                      kMaxAnimationTimeSec, maxScaleDuration);
+    auto const stage =
+        GetFollowStage(startScreen, userPos, endPixelPos, endScale, endAngle, isAutoZoom, maxScaleDuration);
     if (stage.GetDuration() == 0.0)
       return {};
-    return MapAnimation(MapAnimation::Type::Camera, {stage}, requestedAt, true /* syncArrow */);
+    return MapAnimation(MapAnimation::Type::Camera, stage, requestedAt, true /* syncArrow */);
   }
 
-  // Zoom out and move to the user position in the viewport center, then follow it.
-  ScreenBase screen = startScreen;
-  screen.SetAngle(endAngle);
-  screen.MatchGandP3d(userPos, viewportRect.Center());
-  double const prettyMoveDuration = GetMoveDuration(startScreen.GetOrg(), screen.GetOrg(), startScreen);
-
-  MapAnimation::Stages stages;
-  screen = startScreen;
-  if (prettyMoveDuration > 0.0)
-  {
-    double const zoomOutScale = startScreen.GetScale() * prettyMoveDuration / kMaxAnimationTimeSec * 2.0;
-    stages.push_back(GetZoomStage(GetPose(startScreen), zoomOutScale));
-    screen.SetScale(zoomOutScale);
-    screen.MatchGandP3d(userPos, viewportRect.Center());
-
-    Stage move;
-    move.m_start = stages.back().m_end;
-    move.m_end = GetPose(screen);
-    move.m_moveDuration =
-        std::min(GetMoveDuration(startScreen.GetOrg().Length(screen.GetOrg()), viewportRect, zoomOutScale),
-                 kMaxAnimationTimeSec);
-    stages.push_back(move);
-  }
-  stages.push_back(GetFollowStage(screen, userPos, endPixelPos, endScale, endAngle, false /* isAutoZoom */,
-                                  kPrettyZoomTimeSec, kPrettyZoomTimeSec));
-  return MapAnimation(MapAnimation::Type::Camera, std::move(stages), requestedAt);
+  return MapAnimation(MapAnimation::Type::Camera, GetFlyStage(startScreen, endScreen), requestedAt);
 }
 
 MapAnimation GetScaleAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen,
@@ -264,6 +262,6 @@ MapAnimation GetScaleAnimation(ScreenBase const & startScreen, ScreenBase const 
   stage.m_scaleDuration = std::min(
       GetScaleDuration(startScreen.GetScale(), endScreen.GetScale(), false /* isAutoZoom */), kMaxAnimationTimeSec);
   stage.m_moveDuration = stage.m_scaleDuration;
-  return MapAnimation(MapAnimation::Type::Zoom, {stage}, requestedAt);
+  return MapAnimation(MapAnimation::Type::Zoom, stage, requestedAt);
 }
 }  // namespace df

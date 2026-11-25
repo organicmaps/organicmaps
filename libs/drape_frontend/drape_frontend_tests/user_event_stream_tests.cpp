@@ -326,34 +326,117 @@ UNIT_CLASS_TEST(CameraAnimationFixture, CenterMovesLinearlyWithinTheTimeLimit)
   TEST(!m_animations.IsCameraMoving(), ());
 }
 
-UNIT_CLASS_TEST(CameraAnimationFixture, DistantCenterZoomsOutMovesAndZoomsIn)
+UNIT_CLASS_TEST(CameraAnimationFixture, DistantCenterFliesAtTheFlightZoom)
 {
   ScreenBase const start = m_stream.GetCurrentScreen();
   auto const destination = start.PtoG(start.PixelRect().Center() + m2::PointD(8000.0, 0.0));
-  // The direct move would take 8000 / 4200 seconds, so the map zooms out by twice its ratio to the time limit.
-  double const moveDuration = 8000.0 / 4200.0;
-  double const zoomOutScale = start.GetScale() * moveDuration / 1.5 * 2.0;
-  double const zoomDuration = moveDuration / 1.5 * 2.0 / 10.0;
+  // The map zooms out in 0.1 s to show the distance as 5 lengths of the shorter viewport side.
+  double const flightScale = start.GetScale() * 8000.0 / (5.0 * 600.0);
+  // The flight takes 1.1 s and 0.15 s more per zoom level back from the flight scale.
+  double const duration = 1.1 + 0.15 * std::log2(flightScale / start.GetScale());
   auto const time = AddEvent<df::SetCenterEvent>(destination, df::kDoNotChangeZoom, true, false);
 
-  auto const & zoomingOut = Process(time + 100ms);
-  TEST(zoomingOut.GetOrg().EqualDxDy(start.GetOrg(), 1e-9), ());
-  TEST_GREATER(zoomingOut.GetScale(), start.GetScale(), ());
-  TEST_LESS(zoomingOut.GetScale(), zoomOutScale, ());
+  double previousOffset = 8000.0;
+  for (double t = 0.001; t < duration; t += 0.05)
+  {
+    auto const & screen = Process(At(time, t));
+    if (t >= 0.1 && t < duration * 0.3)
+      TEST_ALMOST_EQUAL_ABS(screen.GetScale(), flightScale, 1e-12, (t));
+    TEST_LESS_OR_EQUAL(screen.GetScale(), flightScale * (1.0 + 1e-12), (t));
+    TEST_GREATER_OR_EQUAL(screen.GetScale(), start.GetScale(), (t));
+    double const offset = (destination.x - screen.GetOrg().x) / screen.GetScale();
+    TEST_LESS(offset, previousOffset, (t));
+    previousOffset = offset;
+  }
 
-  auto const & moving = Process(At(time, zoomDuration + 0.75));
-  TEST(moving.GetOrg().EqualDxDy((start.GetOrg() + destination) * 0.5, 1e-6), (moving.GetOrg()));
-  TEST_ALMOST_EQUAL_ABS(moving.GetScale(), zoomOutScale, 1e-12, ());
-
-  auto const & zoomingIn = Process(At(time, zoomDuration + 1.5 + zoomDuration * 0.5));
-  TEST(zoomingIn.GetOrg().EqualDxDy(destination, 1e-9), ());
-  TEST_GREATER(zoomingIn.GetScale(), start.GetScale(), ());
-  TEST(m_animations.IsCameraMoving(), ());
-
-  auto const & settled = Process(At(time, zoomDuration * 2.0 + 1.5 + 0.001));
+  auto const & settled = Process(At(time, duration + 0.001));
   TEST(settled.GetOrg().EqualDxDy(destination, 1e-9), ());
-  TEST_ALMOST_EQUAL_ABS(settled.GetScale(), start.GetScale(), 1e-12, ());
+  TEST_EQUAL(settled.GetScale(), start.GetScale(), ());
   TEST(!m_animations.IsCameraMoving(), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, DistantCenterFliesAndZoomsInTogether)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  auto const destination = start.PtoG(start.PixelRect().Center() + m2::PointD(8000.0, 0.0));
+  int const zoom = static_cast<int>(df::GetZoomLevel(start.GetScale())) + 6;
+  double const flightScale = start.GetScale() * 8000.0 / (5.0 * 600.0);
+  double const endScale = df::GetScreenScale(zoom);
+  double const duration = std::min(1.1 + 0.15 * std::log2(flightScale / endScale), 2.0);
+  auto const time = AddEvent<df::SetCenterEvent>(destination, zoom, true, false);
+
+  // On arrival, the map zooms in while the destination keeps coming closer.
+  double previousScale = flightScale;
+  double previousOffset = 5.0 * 600.0;
+  for (double t = duration * 0.3 + 0.05; t < duration; t += 0.05)
+  {
+    auto const & screen = Process(At(time, t));
+    TEST(m_animations.IsCameraMoving(), (t));
+    TEST_LESS(screen.GetScale(), previousScale, (t));
+    TEST_GREATER(screen.GetScale(), endScale, (t));
+    double const offset = (destination.x - screen.GetOrg().x) / screen.GetScale();
+    TEST_LESS(offset, previousOffset, (t));
+    previousScale = screen.GetScale();
+    previousOffset = offset;
+  }
+
+  auto const & settled = Process(At(time, duration + 0.001));
+  TEST(settled.GetOrg().EqualDxDy(destination, 1e-9), ());
+  TEST_EQUAL(settled.GetScale(), endScale, ());
+  TEST(!m_animations.IsCameraMoving(), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, DeepZoomWithAShortMoveFlies)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  // The move is short at the start scale, but too long at the average scale of a linear animation.
+  auto const destination = start.PtoG(start.PixelRect().Center() + m2::PointD(4000.0, 0.0));
+  int const zoom = static_cast<int>(df::GetZoomLevel(start.GetScale())) + 9;
+  auto const time = AddEvent<df::SetCenterEvent>(destination, zoom, true, false);
+
+  // After the zoom-out, the map shows the distance as 5 lengths of the shorter viewport side.
+  double const flightScale = start.GetScale() * 4000.0 / (5.0 * 600.0);
+  double const duration = std::min(1.1 + 0.15 * std::log2(flightScale / df::GetScreenScale(zoom)), 2.0);
+  auto const & flying = Process(At(time, (0.1 + duration * 0.3) / 2.0));
+  TEST_ALMOST_EQUAL_ABS(flying.GetScale(), flightScale, 1e-12, ());
+  TEST_GREATER(flying.GetScale(), start.GetScale(), ());
+  auto const & settled = Process(At(time, 2.001));
+  TEST(settled.GetOrg().EqualDxDy(destination, 1e-9), ());
+  TEST_EQUAL(settled.GetScale(), df::GetScreenScale(zoom), ());
+  TEST(!m_animations.IsCameraMoving(), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FlightStartsFromTheDisplayedMap)
+{
+  // A quarter of the world away at a street zoom.
+  Process(AddEvent<df::SetCenterEvent>(m2::PointD::Zero(), 17, false, false));
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  auto const time = AddEvent<df::SetCenterEvent>(m2::PointD(90.0, 0.0), 17, true, false);
+
+  // The first frame still shows the start of the flight.
+  auto const & first = Process(At(time, 0.016));
+  TEST(m_animations.IsCameraMoving(), ());
+  TEST_LESS(first.GtoP(start.GetOrg()).Length(first.PixelRect().Center()), 300.0, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FollowFliesToADistantPosition)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  auto const anchor = start.PixelRect().Center();
+  auto const position = start.PtoG(anchor + m2::PointD(8000.0, 0.0));
+  int const zoom = static_cast<int>(df::GetZoomLevel(start.GetScale())) + 1;
+  auto const time = AddEvent<df::FollowAndRotateEvent>(position, anchor, 0.3, zoom);
+  // After the zoom-out, the map shows the distance as 5 lengths of the shorter viewport side.
+  double const flightScale = start.GetScale() * 8000.0 / (5.0 * 600.0);
+  auto const & flying = Process(At(time, 0.2));
+  TEST_ALMOST_EQUAL_ABS(flying.GetScale(), flightScale, 1e-12, ());
+  TEST_GREATER(flying.GetScale(), start.GetScale(), ());
+
+  auto const & settled = Process(At(time, 2.001));
+  TEST(!m_animations.IsCameraMoving(), ());
+  TEST(settled.GtoP(position).EqualDxDy(anchor, 1e-6), (settled.GtoP(position), anchor));
+  TEST_EQUAL(settled.GetScale(), df::GetScreenScale(zoom), ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetAngle(), -0.3, 1e-10, ());
 }
 
 UNIT_CLASS_TEST(CameraAnimationFixture, DeepZoomAnimatesWithinTheTimeLimit)
