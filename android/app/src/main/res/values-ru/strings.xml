@@ -902,6 +902,16 @@
     <string name="show_track">Показать трек</string>
 
     <!-- SECTION: Uncategorized -->
+    <!-- Accessibility state of the My Position button while waiting for a location fix. -->
+    <string name="my_position_state_pending">Определение местоположения…</string>
+    <!-- Accessibility state of the My Position button when location tracking is off. Does not mean device GPS is disabled. -->
+    <string name="my_position_state_off">Отслеживание местоположения выключено</string>
+    <!-- Accessibility state: location is shown, but the map does not follow it. -->
+    <string name="my_position_state_not_following">Карта не следует за местоположением</string>
+    <!-- Accessibility state: the map follows the user's location without following their heading. -->
+    <string name="my_position_state_following">Карта следует за местоположением</string>
+    <!-- Accessibility state: the map follows the user's location and rotates with their heading. -->
+    <string name="my_position_state_following_heading">Карта следует за местоположением и направлением движения</string>
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
     <string name="you">Вы</string>
 
