@@ -36,6 +36,7 @@ import app.organicmaps.syria.SyriaFormat
 import app.organicmaps.syria.SyriaMapButtons
 import app.organicmaps.syria.SyriaPrefs
 import app.organicmaps.syria.SyriaStatus
+import app.organicmaps.syria.SyriaTutorial
 import app.organicmaps.syria.account.LoginActivity
 import app.organicmaps.util.UiUtils
 import app.organicmaps.util.Utils
@@ -114,8 +115,10 @@ class TrackingActivity : BaseMwmFragmentActivity() {
 
     override fun onSafeCreate(savedInstanceState: Bundle?) {
         super.onSafeCreate(savedInstanceState)
+        val drivingGuide = intent.getBooleanExtra(EXTRA_DRIVING_GUIDE, false)
         if (!SyriaPrefs.isLoggedIn(this)) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            // The login screen comes back here, with the guide when the driving reminder was tapped.
+            startActivity(Intent(this, LoginActivity::class.java).putExtra(EXTRA_DRIVING_GUIDE, drivingGuide))
             finish()
             return
         }
@@ -123,8 +126,8 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         toolbar.setTitle(R.string.syria_tracking_title)
         UiUtils.showHomeUpButton(toolbar)
         toolbar.setNavigationOnClickListener { finish() }
-        // Instructions: by themselves on the first visit, then with the "?" icon.
-        NarrationDialog.attach(this, toolbar, NarrationDialog.RECORDING, savedInstanceState == null)
+        // Instructions: by themselves on the first visit, then with the "?" icon. Not over the driving guide.
+        NarrationDialog.attach(this, toolbar, NarrationDialog.RECORDING, savedInstanceState == null && !drivingGuide)
         // Like BaseToolbarActivity: keeps the toolbar (and its back arrow) below the status bar.
         ViewCompat.setOnApplyWindowInsetsListener(toolbar, WindowInsetUtils.PaddingInsetsListener.excludeBottom())
         ViewCompat.setOnApplyWindowInsetsListener(
@@ -209,6 +212,33 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         render()
         SyriaStatus.refresh(this)
         ActivityTrackingService.resumeIfNeeded(this)
+        // Once, not again after a rotation.
+        if (drivingGuide && savedInstanceState == null) root.post { showDrivingGuide() }
+    }
+
+    /** From the "Are you driving?" reminder: spotlights Start, then live location, skipping what is already on. */
+    private fun showDrivingGuide() {
+        if (isFinishing) return
+        val steps = ArrayList<Pair<SyriaTutorial.Step, View>>()
+        if ((snapshot?.status ?: TrackingEngine.Status.IDLE) == TrackingEngine.Status.IDLE) {
+            val step = SyriaTutorial.Step(
+                startButton.id,
+                R.string.syria_guide_start_title,
+                R.string.syria_guide_start_text,
+                tapTarget = true,
+            )
+            steps.add(step to startButton)
+        }
+        if (!SyriaPrefs.isLiveEnabled(this)) {
+            val step = SyriaTutorial.Step(
+                liveButton.id,
+                R.string.syria_guide_live_title,
+                R.string.syria_guide_live_text,
+                tapTarget = true,
+            )
+            steps.add(step to liveButton)
+        }
+        SyriaTutorial.spotlight(this, steps, showDontShow = false) { _, _ -> }
     }
 
     override fun onResume() {
@@ -656,11 +686,13 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         val stateIcon: ImageView = view.findViewById(R.id.session_state_icon)
     }
 
-    private companion object {
-        const val PAGE_SIZE = 10
-        const val CARD_ALPHA = 0x33
-        const val SCREEN_ALPHA = 0x1F
-        const val DISABLED_ALPHA = 0.3f
-        const val SPIN_MS = 1000L
+    companion object {
+        /** Opened from the driving reminder: highlight the start and live location buttons. */
+        const val EXTRA_DRIVING_GUIDE = "driving_guide"
+        private const val PAGE_SIZE = 10
+        private const val CARD_ALPHA = 0x33
+        private const val SCREEN_ALPHA = 0x1F
+        private const val DISABLED_ALPHA = 0.3f
+        private const val SPIN_MS = 1000L
     }
 }

@@ -218,4 +218,13 @@ Remember that road conditions, traffic laws and road signs always take priority 
   <string name="syria_update_downloaded_title">Update downloaded</string>
   <string name="syria_update_downloaded_message">Restart the app to finish installing the new version.</string>
   <string name="syria_update_restart">Restart</string>
+  <!-- "Are you driving?" reminder (DrivingReminder) and the guide it opens on the recording screen. -->
+  <string name="syria_driving_channel">Driving reminder</string>
+  <string name="syria_driving_title">Are you driving?</string>
+  <string name="syria_driving_text">Help us understand traffic by starting a recording.</string>
+  <string name="syria_guide_start_title">Start recording</string>
+  <string name="syria_guide_start_text">Record your trip: it helps us understand traffic in Syria.</string>
+  <string name="syria_guide_live_title">Send live location</string>
+  <string name="syria_guide_live_text">Also share your position live while you drive, to show the traffic right now.</string>
+  <string name="syria_guide_tap_hint">Tap the highlighted button</string>
 </resources>

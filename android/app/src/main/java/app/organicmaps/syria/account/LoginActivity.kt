@@ -294,7 +294,9 @@ class LoginActivity : BaseMwmFragmentActivity() {
     private fun finishSignedIn() {
         if (isFinishing) return
         if (intent.getBooleanExtra(EXTRA_OPEN_TRACKING, true)) {
-            startActivity(Intent(this, TrackingActivity::class.java))
+            val guide = intent.getBooleanExtra(TrackingActivity.EXTRA_DRIVING_GUIDE, false)
+            val tracking = Intent(this, TrackingActivity::class.java)
+            startActivity(tracking.putExtra(TrackingActivity.EXTRA_DRIVING_GUIDE, guide))
         }
         finish()
     }
