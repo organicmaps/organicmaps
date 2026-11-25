@@ -8,9 +8,11 @@ class ChartLineView: UIView {
   private var minY: CGFloat = 0
   private var maxY: CGFloat = 0
 
+  private var highlightedStroke: CAShapeLayer?
+
   var lineWidth: CGFloat = 1 {
     didSet {
-      shapeLayer.lineWidth = lineWidth
+      updateLineColors()
     }
   }
 
@@ -20,8 +22,18 @@ class ChartLineView: UIView {
       maxX = chartLine.values.count - 1
       minY = chartLine.minY
       maxY = chartLine.maxY
+      highlightedStroke?.removeFromSuperlayer()
+      highlightedStroke = nil
+      if chartLine.highlighted != nil, chartLine.type == .line {
+        let stroke = CAShapeLayer()
+        stroke.actions = ["path": NSNull(), "bounds": NSNull(), "position": NSNull()]
+        stroke.fillColor = nil
+        stroke.lineJoin = .round
+        stroke.lineCap = .round
+        shapeLayer.addSublayer(stroke)
+        highlightedStroke = stroke
+      }
       updateLineColors()
-      shapeLayer.lineWidth = lineWidth
       updateGraph()
     }
   }
@@ -69,7 +81,10 @@ class ChartLineView: UIView {
     let resolvedColor = chartLine.color.resolvedColor(with: traitCollection).cgColor
     switch chartLine.type {
     case .line:
-      shapeLayer.strokeColor = resolvedColor
+      shapeLayer.strokeColor = highlightedStroke == nil ? resolvedColor : UIColor.secondaryLabel.resolvedColor(with: traitCollection).cgColor
+      shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
+      highlightedStroke?.strokeColor = resolvedColor
+      highlightedStroke?.lineWidth = lineWidth
       shapeLayer.fillColor = UIColor.clear.cgColor
       shapeLayer.lineJoin = .round
     case .lineArea:
@@ -90,11 +105,31 @@ class ChartLineView: UIView {
     let translate = CGAffineTransform.identity.translatedBy(x: xTranslate, y: yTranslate)
     let transform = scale.concatenating(translate)
     let realPath = CGMutablePath()
+    let section = chartLine.highlighted
     realPath.addPath(chartLine.path, transform: transform)
+
+    if let section, let highlightedStroke {
+      let stroke = CGMutablePath()
+      stroke.addPath(section.path, transform: transform)
+      let entryX = section.entry.x * xScale + xTranslate
+      let delta = stroke.currentPoint.x - entryX
+      let sign: CGFloat = delta < 0 ? -1 : 1
+      let length = min(18, abs(delta))
+      let tipX = entryX + sign * length
+      let head = min(4, length / 2)
+      let y = bounds.height - 8
+      stroke.move(to: CGPoint(x: entryX, y: y))
+      stroke.addLine(to: CGPoint(x: tipX, y: y))
+      stroke.move(to: CGPoint(x: tipX - sign * head, y: y - head))
+      stroke.addLine(to: CGPoint(x: tipX, y: y))
+      stroke.addLine(to: CGPoint(x: tipX - sign * head, y: y + head))
+      highlightedStroke.frame = bounds
+      highlightedStroke.path = stroke
+    }
 
     if chartLine.type == .lineArea, !realPath.isEmpty {
       // Close area fills at the viewport bottom, regardless of sea level.
-      let startX = chartLine.pathStartX * xScale + xTranslate
+      let startX = (section?.entry.x ?? chartLine.pathStartX) * xScale + xTranslate
       realPath.addLine(to: CGPoint(x: realPath.currentPoint.x, y: 0))
       realPath.addLine(to: CGPoint(x: startX, y: 0))
       realPath.closeSubpath()

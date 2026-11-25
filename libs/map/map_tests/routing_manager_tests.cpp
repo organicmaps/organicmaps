@@ -1332,7 +1332,14 @@ UNIT_TEST(RoutingManager_TrackChartUsesCapturedSourceUntilNavigation)
   {
     auto const data = manager.GetRouteElevationData();
     TEST(data, ());
-    TEST_EQUAL(data->m_statistics.m_maxElevation, 180, ());
+    TEST(data->m_followedSection, ());
+    TEST_ALMOST_EQUAL_ABS(data->m_followedSection->m_entryPoint, 1.0 + 1.0 / 3.0, 1e-6, ());
+    TEST_EQUAL(data->m_followedSection->m_finishPoint, 2, ());
+    TEST_EQUAL(data->m_statistics.m_ascent, 0, ());
+    TEST_EQUAL(data->m_statistics.m_descent, 40, ());
+    TEST_EQUAL(data->m_statistics.m_maxElevation, 160, ());
+    TEST_EQUAL(data->m_statistics.m_minElevation, 120, ());
+    TEST_EQUAL(data->m_elevationInfo.GetLines().front()[1].m_altitude, 180, ("Keep the full source hill on the chart"));
     TEST_EQUAL(data->m_statistics.m_length, length, ());
     TEST_EQUAL(manager.GetRoutePointAtDistance(-1.0), std::optional(MeterPoint(0, 0)), ());
     TEST_EQUAL(manager.GetRoutePointAtDistance(length + 1.0), std::optional(MeterPoint(1000, 0)), ());
@@ -1343,12 +1350,65 @@ UNIT_TEST(RoutingManager_TrackChartUsesCapturedSourceUntilNavigation)
   TEST(manager.IsRoutingFollowing(), ());
   auto const data = manager.GetRouteElevationData();
   TEST(data, ());
+  TEST(!data->m_followedSection, ());
   TEST_LESS(data->m_statistics.m_maxElevation, 180, ("The earlier hill is outside the followed remainder"));
   TEST_EQUAL(manager.GetRoutePointAtDistance(0.0), std::optional(MeterPoint(500, 0)), ());
 
   TEST_EQUAL(manager.ResetFollowedTrackToPlanning(), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   checkPreview();
+
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  auto const reversed = manager.GetRouteElevationData();
+  TEST(reversed, ());
+  TEST_ALMOST_EQUAL_ABS(reversed->m_followedSection->m_entryPoint, 1.0 + 1.0 / 3.0, 1e-6, ());
+  TEST_EQUAL(reversed->m_followedSection->m_finishPoint, 0, ());
+  TEST_EQUAL(reversed->m_statistics.m_ascent, 20, ());
+  TEST_EQUAL(reversed->m_statistics.m_descent, 80, ());
+  TEST_EQUAL(reversed->m_statistics.m_minElevation, 100, ());
+  TEST_EQUAL(reversed->m_statistics.m_maxElevation, 180, ());
+  fixture.WaitForBuildResult();
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewTotalsSpanJoinedLines)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  kml::TrackData source;
+  source.m_layers.emplace_back();
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 150}});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({{MeterPoint(100, 0), 170}, {MeterPoint(200, 0), 140}});
+  source.m_geometry.AddTimestamps({});
+  auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
+
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const full = bookmarks.GetTrack(id)->GetStatisticsAndElevationInfo().first;
+  auto const checkTotals = [&](double ascent, double descent, int lowest, int highest)
+  {
+    auto const chart = manager.GetRouteElevationData();
+    TEST(chart, ());
+    TEST_EQUAL(chart->m_statistics.m_ascent, ascent, ());
+    TEST_EQUAL(chart->m_statistics.m_descent, descent, ());
+    TEST_EQUAL(chart->m_statistics.m_minElevation, lowest, ());
+    TEST_EQUAL(chart->m_statistics.m_maxElevation, highest, ());
+  };
+  checkTotals(full.m_ascent, full.m_descent, full.m_minElevation, full.m_maxElevation);
+
+  double const leg = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(0.5 * leg), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  // The two height samples at the joint describe the same location.
+  checkTotals(25, 30, 125, 170);
+
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(1.5 * leg), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  checkTotals(15, 50, 100, 170);
 }
 
 UNIT_TEST(RoutingManager_TrackChartKeepsMapEntryOnSparseSegment)
@@ -2067,25 +2127,36 @@ UNIT_TEST(RoutingManager_NavigateTrackDistinguishesGapSides)
   auto & bookmarks = fixture.m_framework.GetBookmarkManager();
   kml::TrackData source;
   source.m_layers.emplace_back();
-  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 100}});
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 130}});
   source.m_geometry.AddTimestamps({});
-  source.m_geometry.AddLine({{MeterPoint(500, 0), 100}, {MeterPoint(600, 0), 100}});
+  source.m_geometry.AddLine({{MeterPoint(500, 0), 210}, {MeterPoint(600, 0), 190}});
   source.m_geometry.AddTimestamps({});
   auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
   bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
   TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   TEST(manager.GetFollowedTrackInfo()->m_endsAtGap, ());
+  TEST_EQUAL(manager.GetRouteElevationData()->m_statistics.m_ascent, 30, ());
+  TEST_EQUAL(manager.GetRouteElevationData()->m_statistics.m_maxElevation, 130, ());
   double const boundary = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
   bookmarks.SetTrackSelectionInfo({id, MeterPoint(100, 0), boundary}, false);
   TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(0, 0), ());
   TEST(!manager.GetFollowedTrackInfo()->m_endsAtGap, ());
+  auto const beforeGap = manager.GetRouteElevationData();
+  TEST_EQUAL(beforeGap->m_followedSection->m_entryPoint, 1.0, ());
+  TEST_EQUAL(beforeGap->m_followedSection->m_finishPoint, 0, ());
+  TEST_EQUAL(beforeGap->m_statistics.m_descent, 30, ());
   bookmarks.SetTrackSelectionInfo({id, MeterPoint(500, 0), boundary}, false);
   TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   TEST(!manager.GetFollowedTrackInfo()->m_endsAtGap, ());
+  auto const afterGap = manager.GetRouteElevationData();
+  TEST_EQUAL(afterGap->m_followedSection->m_entryPoint, 2.0, ());
+  TEST_EQUAL(afterGap->m_followedSection->m_finishPoint, 3, ());
+  TEST_EQUAL(afterGap->m_statistics.m_descent, 20, ());
+  TEST_EQUAL(afterGap->m_statistics.m_minElevation, 190, ());
   auto const * route = manager.RoutingSession().GetRoute();
   TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
   TEST_EQUAL(route->GetPoly().Back(), MeterPoint(600, 0), ());

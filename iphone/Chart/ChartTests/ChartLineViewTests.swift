@@ -79,6 +79,44 @@ final class ChartLineViewTests: XCTestCase {
     XCTAssertEqual(points(in: line.path), originalPoints)
   }
 
+  func testFollowedFillUsesTheConnectedSectionInRecordedCoordinates() throws {
+    let values = zip([0, 100, 100, 300], [100, 130, 210, 190]).map {
+      ChartValue(xValues: CGFloat($0.0), y: CGFloat($0.1))
+    }
+    let view = ChartLineView(frame: CGRect(x: 0, y: 0, width: 300, height: 150))
+    let line = TestLine(values: values, type: .lineArea)
+    for (entry, finish, expectedX, expectedHeight) in [(2.5, 2, 200.0, 200.0), (2.0, 3, 100.0, 210.0), (1.0, 0, 100.0, 130.0)] {
+      view.chartLine = ChartPresentationLine(line, section: (entry, finish))
+      view.setViewport(minX: 0, maxX: 3, minY: 50, maxY: 250)
+      let path = try XCTUnwrap(view.shapeLayer.path)
+      let rendered = points(in: path)
+      XCTAssertEqual(rendered[0].x, expectedX, accuracy: 0.001)
+      XCTAssertEqual(rendered[0].y, (expectedHeight - 50) / 200 * 149 + 0.5, accuracy: 0.001)
+      XCTAssertEqual(rendered[1].x, values[finish].x, accuracy: 0.001)
+      XCTAssertEqual(path.boundingBoxOfPath.width, abs(expectedX - values[finish].x), accuracy: 0.001)
+    }
+  }
+
+  func testEntryAfterGapUsesItsOwnHeightAndKeepsOtherPointsSelectable() throws {
+    // UIKit can round the selection overlay and its parent to different widths.
+    let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 370.5, height: 180))
+    let data = TestData(heights: [100, 130, 210, 190], distances: [0, 1000, 1000, 5000], highlightedSection: (2, 3))
+    chart.chartData = ChartPresentationData(data, formatter: TestFormatter())
+    chart.setNeedsLayout()
+    chart.layoutIfNeeded()
+    let overlay = chart.chartInfoView
+    chart.setSelectedPoint(1000)
+    let entryX = overlay.infoX * overlay.bounds.width
+    let entry = try XCTUnwrap(chart.chartInfoView(overlay, infoAtPointX: entryX))
+    XCTAssertEqual(entry.1.first?.formattedValue, "210.0")
+    var mapDistance: Double?
+    chart.onSelectedPointChanged = { mapDistance = $0 }
+    chart.chartInfoView(overlay, didMoveToPoint: entryX)
+    XCTAssertEqual(try XCTUnwrap(mapDistance), 1000, accuracy: 1e-9)
+    let outside = try XCTUnwrap(chart.chartInfoView(overlay, infoAtPointX: entryX / 2))
+    XCTAssertEqual(outside.1.first?.formattedValue, "115.0")
+  }
+
   func testFlatPreviewDrawsStrokeAndFill() throws {
     let preview = ChartPreviewView(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
     preview.chartData = ChartPresentationData(TestData(heights: [100, 100, 100]), formatter: TestFormatter())
@@ -165,6 +203,7 @@ private struct TestLine: ChartLine {
 private struct TestData: ChartData {
   let heights: [CGFloat]
   var distances: [CGFloat]?
+  var highlightedSection: (entry: Double, finish: Int)?
   var xAxisValues: [Double] { (distances ?? heights.indices.map { CGFloat($0) }).map(Double.init) }
   var lines: [ChartLine] {
     let values = zip(xAxisValues, heights).map { ChartValue(xValues: CGFloat($0), y: $1) }

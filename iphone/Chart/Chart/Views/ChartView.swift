@@ -379,22 +379,24 @@ public class ChartView: UIView {
     return abs(clampedPointX - selectedPointX) <= Self.selectedPointCaptureRadius
   }
 
+  private func chartX(atFraction fraction: CGFloat) -> CGFloat {
+    fraction * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+  }
+
   private func notifySelectedPointChanged(at chartX: CGFloat) {
     onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
 
   private func notifySelectionFinished() {
     guard let chartData else { return }
-    let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    onSelectionFinished?(chartData.distance(forChartX: chartX))
+    onSelectionFinished?(chartData.distance(forChartX: chartX(atFraction: chartInfoView.infoX)))
   }
 }
 
 extension ChartView: ChartPreviewViewDelegate {
   func chartPreviewView(_: ChartPreviewView, didChangeMinX _: Int, maxX _: Int) {
     updateViewport()
-    let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    notifySelectedPointChanged(at: chartX)
+    notifySelectedPointChanged(at: chartX(atFraction: chartInfoView.infoX))
   }
 }
 
@@ -408,10 +410,8 @@ extension ChartView: ChartInfoViewDelegate {
   }
 
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
-    guard bounds.width > 0 else { return }
-    let p = convert(CGPoint(x: pointX, y: 0), from: view)
-    let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    notifySelectedPointChanged(at: chartX)
+    guard view.bounds.width > 0 else { return }
+    notifySelectedPointChanged(at: chartX(atFraction: pointX / view.bounds.width))
   }
 
   func chartInfoView(_: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool {
@@ -419,9 +419,8 @@ extension ChartView: ChartInfoViewDelegate {
   }
 
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])? {
-    guard let chartData, bounds.width > 0 else { return nil }
-    let p = convert(CGPoint(x: pointX, y: .zero), from: view)
-    let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    guard let chartData, view.bounds.width > 0 else { return nil }
+    let chartX = chartX(atFraction: pointX / view.bounds.width)
     guard chartX >= 0,
           chartX <= CGFloat(chartData.pointsCount - 1) else { return nil }
     let distance = CGFloat(chartData.distance(forChartX: chartX))
@@ -431,11 +430,18 @@ extension ChartView: ChartInfoViewDelegate {
     for i in 0 ..< chartData.linesCount {
       let line = chartData.lineAt(i)
       guard line.type != .lineArea else { continue }
-      let y = line.values.interpolatedAltitude(at: distance)
+      let y: CGFloat
+      if let section = line.highlighted, abs(section.entry.x - chartX) <= 4 * max(chartX.ulp, section.entry.x.ulp) {
+        // Two gap endpoints can share an X coordinate but have different heights.
+        y = section.entry.y + line.minY
+      } else {
+        y = line.values.interpolatedAltitude(at: distance)
+      }
       let py = round(chartsContainerView.bounds.height * CGFloat(y - yAxisView.lowerBound) /
         CGFloat(yAxisView.upperBound - yAxisView.lowerBound))
+      let markerY = chartsContainerView.convert(CGPoint(x: 0, y: py), to: view).y
       result.append(ChartLineInfo(color: line.color,
-                                  point: chartsContainerView.convert(CGPoint(x: p.x, y: py), to: view),
+                                  point: CGPoint(x: pointX, y: markerY),
                                   formattedValue: chartData.formatter.yAxisString(from: Double(y))))
     }
 
