@@ -879,6 +879,12 @@
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
     <string name="you">Anda</string>
 
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Transportasi umum</string>
+    <!-- Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label. -->
+    <string name="ruler">Penggaris</string>
+
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Baru-baru ini digunakan</string>

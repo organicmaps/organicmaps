@@ -908,6 +908,7 @@
     <!-- SECTION: Qt UI strings -->
     <!-- Public transport routing profile, including subway and trains. -->
     <string name="public_transport">Общественный транспорт</string>
+    <!-- Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label. -->
     <string name="ruler">Линейка</string>
 
     <!-- SECTION: gps strings -->

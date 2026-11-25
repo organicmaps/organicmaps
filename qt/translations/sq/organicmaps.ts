@@ -878,7 +878,7 @@
 <message id="public_transport">
 <extracomment>Public transport routing profile, including subway and trains.</extracomment>
 <source>Public transport</source>
-<translation>Public transport</translation>
+<translation>Transport Publik</translation>
 </message>
 <message id="bookmarks_mouse_shortcuts_tooltip">
 <source>Show bookmarks and tracks; use ALT + RMB to add a bookmark</source>
@@ -941,8 +941,9 @@
 <translation>Select mode and use RMB to define selection box</translation>
 </message>
 <message id="ruler">
+<extracomment>Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label.</extracomment>
 <source>Ruler</source>
-<translation>Ruler</translation>
+<translation>Vizore</translation>
 </message>
 <message id="ruler_mouse_shortcuts_tooltip">
 <source>Check this button and use ALT + LMB to set points</source>

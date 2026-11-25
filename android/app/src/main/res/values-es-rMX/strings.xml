@@ -467,6 +467,12 @@
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Compartir pista</string>
 
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Transporte público</string>
+    <!-- Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label. -->
+    <string name="ruler">Regla</string>
+
     <!-- SECTION: gps strings -->
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>

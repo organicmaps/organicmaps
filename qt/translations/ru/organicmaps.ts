@@ -941,6 +941,7 @@
 <translation>Select mode and use RMB to define selection box</translation>
 </message>
 <message id="ruler">
+<extracomment>Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label.</extracomment>
 <source>Ruler</source>
 <translation>Линейка</translation>
 </message>
