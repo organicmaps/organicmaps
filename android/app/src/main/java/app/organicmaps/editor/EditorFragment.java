@@ -1,5 +1,6 @@
 package app.organicmaps.editor;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
