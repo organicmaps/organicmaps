@@ -24,7 +24,7 @@ Pose GetPose(ScreenBase const & screen)
 // The angle of the endAngle direction that is the shortest turn away from startAngle.
 double GetNearestAngle(double startAngle, double endAngle)
 {
-  return startAngle + ang::GetShortestDistance(ang::AngleIn2PI(startAngle), ang::AngleIn2PI(endAngle));
+  return startAngle + ang::GetShortestDistance(startAngle, endAngle);
 }
 
 // The cubic bezier easing from (0, 0) to (1, 1) through the x1, y1, x2, y2 control points.
@@ -285,8 +285,6 @@ double GetScaleDuration(double startScale, double endScale, bool isAutoZoom)
 
 double GetRotateDuration(double startAngle, double endAngle)
 {
-  startAngle = ang::AngleIn2PI(startAngle);
-  endAngle = ang::AngleIn2PI(endAngle);
   return kHalfTurnTimeSec * std::fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;
 }
 

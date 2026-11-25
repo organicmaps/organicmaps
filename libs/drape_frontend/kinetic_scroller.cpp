@@ -86,15 +86,18 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
   // The velocity is in pixels, the travel is in mercator.
   m2::PointD const center = modelView.GetOrg();
   double const glbLength = kKineticAcceleration * velocity * modelView.GetScale();
-  m2::PointD const target = center + dir * glbLength;
-  m2::RectD const & worldR = df::GetWorldRect();
-  if (target.y < worldR.minY() || target.y > worldR.maxY())
+  // The visible map stops at a pole and keeps its horizontal travel.
+  m2::PointD travel = dir * glbLength;
+  auto const & clip = modelView.ClipRect();
+  auto const & world = df::GetWorldRect();
+  travel.y = std::clamp(travel.y, std::min(0.0, world.minY() - clip.minY()), std::max(0.0, world.maxY() - clip.maxY()));
+  if (travel.IsAlmostZero())
     return {};
 
   MapAnimation::Stage stage;
   stage.m_path = MapAnimation::Stage::Path::Fling;
   stage.m_start = {center, modelView.GetScale(), modelView.GetAngle()};
-  stage.m_end = {target, modelView.GetScale(), modelView.GetAngle()};
+  stage.m_end = {center + travel, modelView.GetScale(), modelView.GetAngle()};
   stage.m_moveDuration = kKineticDuration;
   return MapAnimation(MapAnimation::Type::Fling, stage, now);
 }

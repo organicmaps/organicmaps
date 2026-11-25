@@ -547,7 +547,7 @@ private:
   m2::PointD m_startDoubleTapAndHold;
 
   KineticScroller m_scroller;
-  base::Timer m_kineticTimer;
+  AnimationClock::time_point m_flingBlockedUntil{};
   bool m_kineticScrollEnabled = true;
 };
 }  // namespace df

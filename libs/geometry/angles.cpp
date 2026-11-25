@@ -18,10 +18,7 @@ double AngleIn2PI(double ang)
 double GetShortestDistance(double rad1, double rad2)
 {
   double constexpr period = 2.0 * math::pi;
-  rad1 = fmod(rad1, period);
-  rad2 = fmod(rad2, period);
-
-  double res = rad2 - rad1;
+  double res = AngleIn2PI(rad2) - AngleIn2PI(rad1);
   if (fabs(res) > math::pi)
   {
     if (res < 0.0)
