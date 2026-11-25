@@ -21,7 +21,6 @@ final class NavigationDashboardViewController: UIViewController {
 
     static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
     static let routeStatusStackSpacing: CGFloat = 4
-    static let startButtonSpacing: CGFloat = 4
     static let actionButtonWidthMultiplier: CGFloat = 1.5
 
     static let routePointsDiscoverabilityPadding: CGFloat = 20
@@ -121,7 +120,7 @@ final class NavigationDashboardViewController: UIViewController {
 
   private func updateBottomActionsMenuShadow() {
     let routePointsBottomPoint = routePointsView.convert(CGPoint(x: 0, y: routePointsView.contentHeight), to: view)
-    bottomActionsMenu.setShadowVisible(routePointsBottomPoint.y + Constants.startButtonSpacing > bottomActionsMenu.origin.y)
+    bottomActionsMenu.setShadowVisible(routePointsBottomPoint.y > bottomActionsMenu.origin.y)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -459,7 +458,7 @@ final class NavigationDashboardViewController: UIViewController {
       contentScrollView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.routeStatusInsets.left),
       contentScrollView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routeStatusInsets.right),
       contentScrollView.topAnchor.constraint(equalTo: transportOptionsView.bottomAnchor, constant: Constants.routeStatusInsets.top),
-      contentScrollView.bottomAnchor.constraint(equalTo: bottomActionsMenu.topAnchor, constant: -Constants.startButtonSpacing)
+      contentScrollView.bottomAnchor.constraint(equalTo: bottomActionsMenu.topAnchor)
         .withPriority(UILayoutPriority(999)),
       contentScrollView.heightAnchor.constraint(greaterThanOrEqualToConstant: 0),
 
@@ -496,16 +495,13 @@ final class NavigationDashboardViewController: UIViewController {
     let contentTop = contentScrollView.frame.minY
     let regularHeight = contentTop + contentStackView.bounds.height
       + bottomActionsMenu.frame.height
-      + Constants.startButtonSpacing
 
     let compactBaseHeight = contentTop + routePointsView.origin.y
       + bottomActionsMenu.frame.height
 
     let estimatesBottom = contentTop + estimatesStackView.convert(CGPoint(x: .zero, y: estimatesStackView.bounds.maxY),
                                                                   to: contentStackView).y
-    let estimatesHeight = estimatesBottom
-      + bottomActionsMenu.frame.height
-      + Constants.startButtonSpacing
+    let estimatesHeight = estimatesBottom + bottomActionsMenu.frame.height
 
     let containerHeight = view.bounds.height
     let shouldShowEstimatesStep = !elevationProfileContainerView.isHidden && estimatesHeight < compactBaseHeight
