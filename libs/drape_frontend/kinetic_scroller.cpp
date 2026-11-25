@@ -96,6 +96,6 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
   stage.m_start = {center, modelView.GetScale(), modelView.GetAngle()};
   stage.m_end = {target, modelView.GetScale(), modelView.GetAngle()};
   stage.m_moveDuration = kKineticDuration;
-  return MapAnimation(MapAnimation::Type::Fling, {stage}, now);
+  return MapAnimation(MapAnimation::Type::Fling, stage, now);
 }
 }  // namespace df
