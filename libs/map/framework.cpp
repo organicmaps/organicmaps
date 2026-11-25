@@ -1643,7 +1643,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   using namespace search;
   place_page::BuildInfo info;
   info.m_source = place_page::BuildInfo::Source::Search;
-  info.m_animateSelection = animation;
+  info.m_animateSelection = false;
   int scale = -1;
   switch (result.GetResultType())
   {

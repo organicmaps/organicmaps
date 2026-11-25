@@ -1,4 +1,5 @@
 #include "drape_frontend/selection_shape.hpp"
+#include "drape_frontend/animation/interpolations.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/selection_shape_generator.hpp"
@@ -16,7 +17,7 @@ namespace df
 {
 namespace
 {
-double constexpr kSelectionAnimationTimeSec = 0.18;
+double constexpr kSelectionAnimationTimeSec = 0.25;
 
 // clang-format off
 std::array<float, 20> const kHalfLineWidthInPixel = {
@@ -96,9 +97,7 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     float accuracy = m_selectedObject == OBJECT_TRACK ? 1.0f : static_cast<float>(m_radius);
     if (m_scaleAnimation)
     {
-      double const t = m_scaleAnimation->GetOpacity();
-      // Ease in and out so the ring lands smoothly at its resting size.
-      accuracy *= static_cast<float>(0.75 + 0.25 * t * t * (3.0 - 2.0 * t));
+      accuracy *= static_cast<float>(GetPopUpScale(m_scaleAnimation->GetOpacity()));
       if (m_scaleAnimation->IsFinished())
         m_scaleAnimation.reset();
     }
