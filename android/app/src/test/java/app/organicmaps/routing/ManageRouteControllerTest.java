@@ -1,6 +1,7 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -104,6 +105,45 @@ public class ManageRouteControllerTest
       assertTrue(drag.onMove(recycler, source, pointHolder(1)));
       doReturn(1).when(source).getBindingAdapterPosition();
       return source;
+    }
+  }
+
+  @Test
+  public void accessibilityMoveCommitsTheReorderedPoints() throws ReflectiveOperationException
+  {
+    final DragFixture fixture = new DragFixture();
+    try (MockedStatic<RoutingController> singleton = mockStatic(RoutingController.class))
+    {
+      singleton.when(RoutingController::get).thenReturn(fixture.routing);
+      assertTrue(fixture.controller.onRoutePointMove(holder(0), 1));
+      assertEquals(List.of("Intermediate", "Start", "Finish"),
+                   fixture.adapter.getRoutePoints().stream().map(p -> p.mTitle).toList());
+      assertEquals(RouteMarkType.Start, fixture.adapter.getRoutePoints().get(0).mPointType);
+      assertEquals(RouteMarkType.Intermediate, fixture.adapter.getRoutePoints().get(1).mPointType);
+      assertEquals(0, fixture.adapter.getRoutePoints().get(1).mIntermediateIndex);
+      verify(fixture.controller).onRouteOrderChanged(fixture.adapter.getRoutePoints());
+    }
+  }
+
+  @Test
+  public void inaccessibleMovesDoNotCommitOrChangeTheRoute() throws ReflectiveOperationException
+  {
+    final DragFixture fixture = new DragFixture();
+    try (MockedStatic<RoutingController> singleton = mockStatic(RoutingController.class))
+    {
+      singleton.when(RoutingController::get).thenReturn(fixture.routing);
+      assertFalse(fixture.controller.onRoutePointMove(holder(RecyclerView.NO_POSITION), 1));
+      assertFalse(fixture.controller.onRoutePointMove(holder(0), -1));
+      assertFalse(fixture.controller.onRoutePointMove(holder(2), 1));
+      assertFalse(fixture.controller.onRoutePointMove(holder(0), 2));
+      when(fixture.routing.isPlanning()).thenReturn(false);
+      assertFalse(fixture.controller.onRoutePointMove(holder(0), 1));
+      when(fixture.routing.isPlanning()).thenReturn(true);
+      fixture.drag.onSelectedChanged(fixture.pointHolder(0), ItemTouchHelper.ACTION_STATE_DRAG);
+      assertFalse(fixture.controller.onRoutePointMove(holder(0), 1));
+      assertEquals(List.of("Start", "Intermediate", "Finish"),
+                   fixture.adapter.getRoutePoints().stream().map(p -> p.mTitle).toList());
+      verify(fixture.controller, never()).onRouteOrderChanged(any());
     }
   }
 

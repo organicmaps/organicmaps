@@ -23649,6 +23649,18 @@ vi = Thêm điểm dừng
 zh-Hans = 添加途经点
 zh-Hant = 新增途經點
 
+[move_route_point_up]
+comment = Accessibility action to move a route point one position earlier in the route.
+tags = android-app
+en = Move up
+ru = Переместить выше
+
+[move_route_point_down]
+comment = Accessibility action to move a route point one position later in the route.
+tags = android-app
+en = Move down
+ru = Переместить ниже
+
 [drag_to_reorder]
 tags = android-app
 en = Reorder
