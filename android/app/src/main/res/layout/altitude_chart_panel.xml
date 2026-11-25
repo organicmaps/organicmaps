@@ -91,12 +91,12 @@
 
     </LinearLayout>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageButton
       android:id="@+id/reverse_route_btn"
-      android:layout_width="@dimen/margin_double"
-      android:layout_height="@dimen/margin_double"
-      android:layout_marginStart="@dimen/margin_half"
-      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_width="@dimen/height_block_base"
+      android:layout_height="@dimen/height_block_base"
+      android:padding="@dimen/margin_half"
+      android:scaleType="fitCenter"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@string/reverse_route"
       app:srcCompat="@drawable/ic_swap_vert"

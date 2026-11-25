@@ -1083,33 +1083,12 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
   }
 }
 
-std::expected<RoutingManager::SelectedTrack, FollowTrackResult> RoutingManager::CheckTrackFollowable(
-    kml::TrackId trackId) const
-{
-  auto const * track = m_bmManager->GetTrack(trackId);
-  if (!track)
-    return std::unexpected(FollowTrackResult::NoTrack);
-  auto const selection = m_bmManager->GetTrackSelectionInfo(trackId);
-  if (!selection.IsValid())
-    return std::unexpected(FollowTrackResult::InvalidSelection);
-  auto const entry = ResolveTrackEntry(*track, selection.m_trackPoint, selection.m_distFromBegM);
-  if (!entry)
-    return std::unexpected(FollowTrackResult::InvalidSelection);
-  return SelectedTrack{track, *entry, selection.m_distFromBegM};
-}
-
-bool RoutingManager::HasNavigableTrackSelection(kml::TrackId trackId) const
-{
-  if (!m_numMwmIDs)
-    return false;
-  auto const selected = CheckTrackFollowable(trackId);
-  return selected && HasRemainingTrackGeometry(selected->m_track->GetData().m_geometry, selected->m_entry);
-}
-
 FollowTrackResult RoutingManager::BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
-                                                     double entryDistanceM, RouterType profile, bool keepViewport)
+                                                     double entryDistanceM, bool reverse, RouterType profile,
+                                                     bool keepViewport)
 {
-  auto prepared = BuildTrackFollowingData(source->GetData(), entry);
+  TrackSourcePosition destination;
+  auto prepared = BuildTrackFollowingData(source->GetData(), entry, reverse, &destination);
   if (!prepared)
     return FollowTrackResult::NoRemainingGeometry;
 
@@ -1117,9 +1096,14 @@ FollowTrackResult RoutingManager::BuildFollowedTrack(std::shared_ptr<Track const
   info.m_id = source->GetId();
   info.m_name = source->GetName();
   info.m_entryDistanceM = entryDistanceM;
+  info.m_reversed = reverse;
+  info.m_endsAtGap =
+      reverse ? destination.m_line != 0 : destination.m_line + 1 < source->GetData().m_geometry.m_lines.size();
+  auto const reverseEntry = GetReverseTrackEntry(*source, entry, destination);
+  info.m_canReverse = reverseEntry.has_value();
   info.m_profile = profile;
 
-  InstallFollowedTrack({std::move(info), std::move(source), entry,
+  InstallFollowedTrack({std::move(info), std::move(source), entry, reverseEntry,
                         std::make_shared<routing::TrackFollowingData const>(std::move(*prepared))},
                        keepViewport);
   return FollowTrackResult::Ok;
@@ -1127,6 +1111,12 @@ FollowTrackResult RoutingManager::BuildFollowedTrack(std::shared_ptr<Track const
 
 void RoutingManager::InstallFollowedTrack(FollowSession session, bool keepViewport)
 {
+#ifdef DEBUG
+  // Map selection allows 1 cm of rounding before the source position is normalized to a vertex.
+  double const sourceDistanceM = session.m_entry.GetDistanceMeters(*session.m_source);
+  ASSERT(AlmostEqualAbs(sourceDistanceM, session.m_info.m_entryDistanceM, 0.011),
+         (sourceDistanceM, session.m_info.m_entryDistanceM));
+#endif
   auto const vehicleType = RoutingOptions::GetVehicleType(session.m_info.m_profile).value();
   auto router = std::make_unique<TrackRouter>(vehicleType, session.m_data);
 
@@ -1192,7 +1182,29 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
     InstallFollowedTrack(std::move(updated), true /* keepViewport */);
     return FollowTrackResult::Ok;
   }
-  return BuildFollowedTrack(session.m_source, entry, distanceM, session.m_info.m_profile, true /* keepViewport */);
+  bool reverse = session.m_info.m_reversed;
+  if (!HasRemainingTrackGeometry(session.m_source->GetData().m_geometry, entry, reverse))
+    reverse = !reverse;
+  return BuildFollowedTrack(session.m_source, entry, distanceM, reverse, session.m_info.m_profile,
+                            true /* keepViewport */);
+}
+
+FollowTrackResult RoutingManager::ReverseFollowedTrack()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (auto const result = CheckFollowedTrackEditable(); result != FollowTrackResult::Ok)
+    return result;
+  if (!IsRouteBuilt())
+    return FollowTrackResult::Busy;
+
+  auto const & session = *m_followSession;
+  if (!session.m_reverseEntry)
+    return FollowTrackResult::NoRemainingGeometry;
+
+  auto const & entry = *session.m_reverseEntry;
+  double const distance =
+      entry == session.m_entry ? session.m_info.m_entryDistanceM : entry.GetDistanceMeters(*session.m_source);
+  return BuildFollowedTrack(session.m_source, entry, distance, !session.m_info.m_reversed, session.m_info.m_profile);
 }
 
 FollowTrackResult RoutingManager::SetFollowTrackProfile(RouterType type)
@@ -1214,14 +1226,23 @@ FollowTrackResult RoutingManager::NavigateTrack(kml::TrackId trackId)
   CHECK(m_numMwmIDs, ("Initialize routing before navigating a track", trackId));
   if (IsRoutingFollowing() || IsStartingFollowedTrack())
     return FollowTrackResult::Busy;
-  auto const selected = CheckTrackFollowable(trackId);
-  if (!selected)
-    return selected.error();
-  auto const & source = selected->m_track->GetData();
+  auto const * track = m_bmManager->GetTrack(trackId);
+  if (!track)
+    return FollowTrackResult::NoTrack;
+  auto const selection = m_bmManager->GetTrackSelectionInfo(trackId);
+  if (!selection.IsValid())
+    return FollowTrackResult::InvalidSelection;
+  auto const entry = ResolveTrackEntry(*track, selection.m_trackPoint, selection.m_distFromBegM);
+  if (!entry)
+    return FollowTrackResult::InvalidSelection;
+
+  auto const & source = track->GetData();
+  bool const reverse = !HasRemainingTrackGeometry(source.m_geometry, *entry);
+
   auto const fallback = m_lastTrackProfile.value_or(m_currentRouterType);
   auto const profile = GetFollowTrackRouterType(FromString(source.m_routerType, fallback));
-  return BuildFollowedTrack(std::make_shared<Track const>(kml::TrackData(source)), selected->m_entry,
-                            selected->m_distanceM, profile);
+  return BuildFollowedTrack(std::make_shared<Track const>(kml::TrackData(source)), *entry, selection.m_distFromBegM,
+                            reverse, profile);
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)

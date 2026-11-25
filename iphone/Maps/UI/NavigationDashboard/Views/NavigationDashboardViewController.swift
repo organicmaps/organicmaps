@@ -587,8 +587,6 @@ extension NavigationDashboardViewController: UIScrollViewDelegate {
 extension NavigationDashboardViewController: NavigationDashboard.Rendering {
   func render(_ viewModel: NavigationDashboard.ViewModel) {
     let isFollowTrackPlanning = viewModel.planningMode == .navigateTrack
-    // TODO(KK) - Show when the revert track feature will be implemented
-    reverseRoutePointsButton.isHidden = isFollowTrackPlanning
     settingsButton.isHidden = isFollowTrackPlanning
     searchButton.isHidden = isFollowTrackPlanning
     bookmarksButton.isHidden = isFollowTrackPlanning
@@ -649,6 +647,7 @@ extension NavigationDashboardViewController: NavigationDashboard.Rendering {
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
     startRouteButton.setState(viewModel.startButtonState)
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
+    reverseRoutePointsButton.accessibilityValue = viewModel.routePoints.track?.destination
     transportOptionsView.setSelectionEnabled(viewModel.isTransportSelectionEnabled)
 
     presentationStep = viewModel.presentationStep

@@ -141,7 +141,17 @@ extension NavigationDashboard {
         return showRoutePoints()
 
       case .reverseRoutePoints:
-        router.reverseRoute()
+        if router.hasTrackNavigationSession() {
+          let result = router.reverseFollowedTrack()
+          if result == .ok {
+            // At a loop trailhead the new preview selects the other end of the chart.
+            routeElevationActivePointDistance = nil
+          } else {
+            showTrackError(result)
+          }
+        } else {
+          router.reverseRoute()
+        }
         return showRoutePoints()
 
       case .updateVisibleAreaInsets(let insets):
@@ -166,7 +176,7 @@ extension NavigationDashboard {
     }
 
     private func showRoutePoints() -> Response {
-      let points = router.followedTrackInfo().map { RoutePoints(trackName: $0.name) }
+      let points = router.followedTrackInfo().map(RoutePoints.init(track:))
         ?? RoutePoints(points: router.points())
       return .show(points: points, routerType: router.renderType())
     }

@@ -719,6 +719,20 @@ public class RoutingController
     return result;
   }
 
+  /**
+   * Reverses a completed preview at the selected location. A closed trailhead switches chart endpoints.
+   * Requires {@link #isFollowingTrack()}.
+   * Returns {@link FollowTrackResult#Busy} while building or navigating.
+   */
+  @NonNull
+  public FollowTrackResult reverseFollowedTrack()
+  {
+    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeReverseFollowedTrack());
+    if (result == FollowTrackResult.Ok)
+      onCoreStartedTrackBuild();
+    return result;
+  }
+
   public boolean isFollowingTrack()
   {
     return Framework.nativeIsFollowingTrack();
@@ -747,8 +761,9 @@ public class RoutingController
   }
 
   /**
-   * Rebuilds from a finite distance along the full track, preserving profile and viewport; requires
-   * {@link #isFollowingTrack()}. Refusals leave the preview and selection unchanged.
+   * Rebuilds from a finite distance along the full track, preserving profile and viewport.
+   * Keeps the chosen direction unless only the opposite side of the entry has geometry.
+   * Requires {@link #isFollowingTrack()}. Refusals leave the preview and selection unchanged.
    */
   @NonNull
   public FollowTrackResult updateFollowedTrackEntryAt(double distanceMeters)

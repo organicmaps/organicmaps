@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.util.Assert;
@@ -241,14 +242,16 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     notifyDataSetChanged();
   }
 
-  public void setTrackPoints(@NonNull String trackName)
+  public void setTrackPoints(@NonNull FollowedTrackInfo track)
   {
     mTrackRoute = true;
     mRoutePoints.clear();
     mRoutePoints.add(trackRow(null, RouteMarkType.Start, true));
-    mRoutePoints.add(trackRow(trackName.isEmpty() ? mContext.getString(R.string.navigate_track_start) : trackName,
+    final String trackName = track.getName();
+    mRoutePoints.add(trackRow(trackName.isEmpty() ? mContext.getString(R.string.navigate_track_entry) : trackName,
                               RouteMarkType.Intermediate, false));
-    mRoutePoints.add(trackRow(mContext.getString(R.string.navigate_track_finish), RouteMarkType.Finish, false));
+    mRoutePoints.add(
+        trackRow(mContext.getString(RoutePointLabels.trackDestination(track)), RouteMarkType.Finish, false));
     notifyDataSetChanged();
   }
 

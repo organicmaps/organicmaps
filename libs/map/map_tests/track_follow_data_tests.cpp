@@ -46,6 +46,11 @@ UNIT_TEST(TrackFollowData_TrackEntryResolvesBothSidesOfGap)
   auto const forward = BuildTrackFollowingData(source, *after);
   TEST_EQUAL(forward->m_points.front().GetPoint(), MeterPoint(500, 0), ());
   TEST_EQUAL(forward->m_points.back().GetPoint(), MeterPoint(600, 0), ());
+  TEST(!BuildTrackFollowingData(source, *after, true), ("Never connect across the preceding gap"));
+  auto const backward = BuildTrackFollowingData(source, *before, true);
+  TEST(backward, ());
+  TEST_EQUAL(backward->m_points.front().GetPoint(), MeterPoint(100, 0), ());
+  TEST_EQUAL(backward->m_points.back().GetPoint(), MeterPoint(0, 0), ());
   TEST(!ResolveTrackEntry(track, MeterPoint(500, 0), 0.0), ("A stale distance must not select a new occurrence"));
 }
 
@@ -113,6 +118,12 @@ UNIT_TEST(TrackFollowData_TrackPreparationKeepsSelectedStopAndHill)
   TEST_EQUAL(data->m_points[0].GetAltitude(), 250, ());
   TEST_EQUAL(data->m_points[1].GetPoint(), MeterPoint(600, 0), ());
   TEST_EQUAL(data->m_stopPointIndexes, std::vector<size_t>({0, 1}), ());
+  auto const reverse = BuildTrackFollowingData(source, *entry, true);
+  TEST_EQUAL(reverse->m_points.front().GetPoint(), MeterPoint(400, 0), ());
+  TEST_EQUAL(reverse->m_points.back().GetPoint(), MeterPoint(0, 0), ());
+  TEST_EQUAL(reverse->m_points.size(), 3, ());
+  TEST_EQUAL(reverse->m_stopPointIndexes, std::vector<size_t>({0, 1}), ());
+  TEST_EQUAL(reverse->m_points[1].GetPoint(), MeterPoint(100, 0), ());
   TEST_EQUAL(source, original, ());
 }
 
@@ -134,24 +145,29 @@ UNIT_TEST(TrackFollowData_FractionalTrackEntryPreservesAltitudesAndStops)
     source.m_geometry.AddTimestamps({});
     source.m_stops = {{MeterPoint(25, 0), "Before"}, {MeterPoint(75, 0), "After"}};
     auto const distance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0)) * 0.5;
-    auto prepared = BuildTrackFollowingData(source, ResolveTrackEntryAt(MakeSourceTrack(source), distance));
-    TEST(prepared, ());
-    auto const data = std::make_shared<routing::TrackFollowingData const>(std::move(*prepared));
-    TEST(data->m_points.front().GetPoint().EqualDxDy(MeterPoint(50, 0), mercator::kPointEqualityEps), ());
-    TEST_EQUAL(data->m_points.front().GetAltitude(), test.m_entry, (test.m_from, test.m_to));
-    TEST_EQUAL(data->m_stopPointIndexes, std::vector<size_t>({1}), ());
-    TEST(data->m_points[1].GetPoint().EqualDxDy(MeterPoint(75, 0), mercator::kPointEqualityEps), ());
+    auto const entry = ResolveTrackEntryAt(MakeSourceTrack(source), distance);
+    for (bool const reverse : {false, true})
+    {
+      auto prepared = BuildTrackFollowingData(source, entry, reverse);
+      TEST(prepared, ());
+      auto const data = std::make_shared<routing::TrackFollowingData const>(std::move(*prepared));
+      TEST(data->m_points.front().GetPoint().EqualDxDy(MeterPoint(50, 0), mercator::kPointEqualityEps), (reverse));
+      TEST_EQUAL(data->m_points.front().GetAltitude(), test.m_entry, (test.m_from, test.m_to, reverse));
+      TEST_EQUAL(data->m_stopPointIndexes, std::vector<size_t>({1}), (reverse));
+      TEST(data->m_points[1].GetPoint().EqualDxDy(MeterPoint(reverse ? 25 : 75, 0), mercator::kPointEqualityEps),
+           (reverse));
 
-    auto const start = MeterPoint(150, 10);
-    routing::TrackRouter router(routing::VehicleType::Pedestrian, data);
-    routing::RouterDelegate delegate;
-    routing::RoutesResult result;
-    routing::Checkpoints checkpoints({start, data->m_points[1].GetPoint(), data->m_points.back().GetPoint()});
-    TEST_EQUAL(router.CalculateRoute(checkpoints, {}, false, false, delegate, result),
-               routing::RouterResultCode::NoError, ());
-    routing::Route const route(result.GetActive());
-    TEST_EQUAL(route.GetPoly().GetPoint(1), data->m_points.front().GetPoint(), ());
-    TEST_EQUAL(route.HaveAltitudes(), test.m_entry != kUnknown, (test.m_from, test.m_to));
+      auto const start = MeterPoint(150, 10);
+      routing::TrackRouter router(routing::VehicleType::Pedestrian, data);
+      routing::RouterDelegate delegate;
+      routing::RoutesResult result;
+      routing::Checkpoints checkpoints({start, data->m_points[1].GetPoint(), data->m_points.back().GetPoint()});
+      TEST_EQUAL(router.CalculateRoute(checkpoints, {}, false, false, delegate, result),
+                 routing::RouterResultCode::NoError, (reverse));
+      routing::Route const route(result.GetActive());
+      TEST_EQUAL(route.GetPoly().GetPoint(1), data->m_points.front().GetPoint(), (reverse));
+      TEST_EQUAL(route.HaveAltitudes(), test.m_entry != kUnknown, (test.m_from, test.m_to, reverse));
+    }
   }
 }
 
@@ -168,6 +184,9 @@ UNIT_TEST(TrackFollowData_RepeatedStopsPreferLaterSourceVisit)
   TEST_EQUAL(forward->m_stopPointIndexes.size(), 1, ());
   TEST_EQUAL(forward->m_points[forward->m_stopPointIndexes.front()].GetPoint(), MeterPoint(500, 0), ());
   TEST_GREATER(forward->m_stopPointIndexes.front(), 1, ("Keep the return visit after the turnaround"));
+  auto const backward = BuildTrackFollowingData(source, *entry, true);
+  TEST_EQUAL(backward->m_stopPointIndexes, std::vector<size_t>({1}), ());
+  TEST_EQUAL(backward->m_points[1].GetPoint(), MeterPoint(500, 0), ());
   source.m_geometry.m_lines[0].pop_back();
   auto const earlier = ResolveTrackEntry(MakeSourceTrack(source), MeterPoint(400, 0),
                                          mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0)));
@@ -298,9 +317,95 @@ UNIT_TEST(TrackFollowData_JoinedTrackEntryDoesNotInventAltitudeExcursion)
   source.m_geometry.AddTimestamps({});
   source.m_geometry.AddLine({{MeterPoint(100, 0), 100}, {MeterPoint(200, 0), 200}});
   source.m_geometry.AddTimestamps({});
-  auto const forward = BuildTrackFollowingData(source, {1, 0, 0.0});
+  auto const joint = ResolveTrackEntry(MakeSourceTrack(source), MeterPoint(100, 0),
+                                       mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0)));
+  TEST(joint, ());
+  auto const forward = BuildTrackFollowingData(source, *joint);
   TEST_EQUAL(forward->m_points.size(), 2, ());
   TEST_EQUAL(forward->m_points.front().GetAltitude(), 100, ());
   TEST_EQUAL(forward->m_points.back().GetAltitude(), 200, ());
+  auto const reverse = BuildTrackFollowingData(source, *joint, true);
+  TEST_EQUAL(reverse->m_points.size(), 3, ());
+  TEST_EQUAL(reverse->m_points[0].GetAltitude(), 100, ());
+  TEST_EQUAL(reverse->m_points[1].GetAltitude(), geometry::kInvalidAltitude, ());
+  TEST_EQUAL(reverse->m_points[2].GetAltitude(), 50, ());
+}
+
+UNIT_TEST(TrackFollowData_ReverseHonorsLoopGapAndTrailheadDistance)
+{
+  double const degreesPerMeter = 1.0 / mercator::DistanceOnEarth({0, 0}, {1, 0});
+  for (double const endpointGapM : {9.996, 10.004})
+  {
+    kml::TrackData source;
+    source.m_geometry.AddLine(
+        {{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 110}, {{endpointGapM * degreesPerMeter, 0}, 100}});
+    source.m_geometry.AddTimestamps({});
+    auto const track = MakeSourceTrack(source);
+    // An entry 8 mm from the start has no usable geometry behind it on an open section.
+    auto const entry = ResolveTrackEntryAt(track, 0.008);
+    auto const finish = TrackSourcePosition{0, 1, 1.0};
+    auto const expected = endpointGapM < 10.0 ? std::optional(finish) : std::nullopt;
+    TEST(GetReverseTrackEntry(track, entry, finish) == expected, (endpointGapM));
+
+    TrackSourcePosition const start{0, 0, 0.0};
+    double const lengthM = track.GetLengthMeters();
+    auto const nearFinish = ResolveTrackEntryAt(track, lengthM - 9.99);
+    TEST(GetReverseTrackEntry(track, nearFinish, start) == (endpointGapM < 10.0 ? start : nearFinish), (endpointGapM));
+    auto const interior = ResolveTrackEntryAt(track, lengthM - 10.01);
+    TEST(GetReverseTrackEntry(track, interior, start) == interior, (endpointGapM));
+  }
+}
+
+UNIT_TEST(TrackFollowData_ShortOpenSectionKeepsDistinctEndpoints)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(-1000, 0), 100}, {MeterPoint(-100, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(5.4, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+  TEST(!GetReverseTrackEntry(track, {1, 0, 0.0}, {1, 0, 1.0}), ());
+}
+
+UNIT_TEST(TrackFollowData_ReverseKeepsTheMidpointOfAShortLoop)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100},
+                             {MeterPoint(4, 0), 100},
+                             {MeterPoint(4, 4), 100},
+                             {MeterPoint(0, 4), 100},
+                             {MeterPoint(0, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+  auto const midway = ResolveTrackEntryAt(track, track.GetLengthMeters() / 2);
+  TEST(GetReverseTrackEntry(track, midway, {0, 3, 1.0}) == midway, ());
+}
+
+UNIT_TEST(TrackFollowData_ReverseKeepsAnInteriorVisitToTheTrailhead)
+{
+  auto const trailhead = MeterPoint(0, 0);
+  kml::TrackData source;
+  source.m_geometry.AddLine(
+      {{trailhead, 100}, {MeterPoint(100, 0), 110}, {trailhead, 100}, {MeterPoint(0, 100), 120}, {trailhead, 100}});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+  auto const midway = ResolveTrackEntryAt(track, track.GetCumulativeLengths().front()[2]);
+  TEST(GetReverseTrackEntry(track, midway, {0, 3, 1.0}) == midway, ());
+}
+
+UNIT_TEST(TrackFollowData_ReverseWaypointRouteKeepsCollocatedStops)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine(
+      {{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 110}, {MeterPoint(200, 0), 120}, {MeterPoint(300, 0), 130}});
+  source.m_stops = {{MeterPoint(100, 0), "First"}, {MeterPoint(100, 0), "Second"}, {MeterPoint(200, 0), "Third"}};
+  auto const data = BuildTrackFollowingData(source, {0, 2, 0.5}, true);
+  TEST(data, ());
+  TEST_EQUAL(data->m_points.size(), 4, ());
+  TEST_EQUAL(data->m_points.front().GetAltitude(), 125, ());
+  TEST_EQUAL(data->m_points.back().GetPoint(), MeterPoint(0, 0), ());
+  TEST_EQUAL(data->m_stopPointIndexes, std::vector<size_t>({1, 2, 2}), ());
+  TEST_EQUAL(data->m_points[1].GetPoint(), MeterPoint(200, 0), ());
+  TEST_EQUAL(data->m_points[2].GetPoint(), MeterPoint(100, 0), ());
 }
 }  // namespace track_follow_data_tests

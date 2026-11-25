@@ -13,12 +13,19 @@ public final class FollowedTrackInfo
   @NonNull
   private final String mName;
   private final double mEntryDistanceMeters;
+  private final boolean mReversed;
+  private final boolean mCanReverse;
+  private final boolean mEndsAtGap;
 
-  private FollowedTrackInfo(long trackId, @NonNull String name, double entryDistanceMeters)
+  private FollowedTrackInfo(long trackId, @NonNull String name, double entryDistanceMeters, boolean reversed,
+                            boolean canReverse, boolean endsAtGap)
   {
     mTrackId = trackId;
     mName = name;
     mEntryDistanceMeters = entryDistanceMeters;
+    mReversed = reversed;
+    mCanReverse = canReverse;
+    mEndsAtGap = endsAtGap;
   }
 
   /** The track may have been deleted meanwhile: resolving it needs an existence check. */
@@ -37,5 +44,23 @@ public final class FollowedTrackInfo
   public double getEntryDistanceMeters()
   {
     return mEntryDistanceMeters;
+  }
+
+  /** Whether the selected entry supports travel in the opposite direction. */
+  public boolean canReverse()
+  {
+    return mCanReverse;
+  }
+
+  /** Whether the destination borders a gap inside the recorded track. */
+  public boolean endsAtGap()
+  {
+    return mEndsAtGap;
+  }
+
+  /** Whether travel runs toward the start of the recorded section. */
+  public boolean isReversed()
+  {
+    return mReversed;
   }
 }
