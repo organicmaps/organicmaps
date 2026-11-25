@@ -58,7 +58,7 @@ public enum BookmarksSharingHelper implements BookmarksSharingListener
     long[] categoryIds = new long[categories.size()];
     for (int i = 0; i < categories.size(); i++)
       categoryIds[i] = categories.get(i).getId();
-    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds, FileType.Kml);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds, FileType.Kmz);
   }
 
   private void beginSharing(@NonNull FragmentActivity activity,

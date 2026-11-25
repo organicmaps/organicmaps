@@ -617,6 +617,7 @@
     <string name="category_desc_more">…más</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportar KMZ</string>
+    <string name="export_file_kml">Exportar KML</string>
     <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Exportar GPX</string>
     <!-- Menu title for exporting a file in GeoJSON format -->

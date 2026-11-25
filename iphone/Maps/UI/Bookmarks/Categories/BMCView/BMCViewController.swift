@@ -139,8 +139,11 @@ final class BMCViewController: MWMViewController {
       let sectionIndex = self.viewModel.sectionIndex(section: .categories)
       self.tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
     }))
-    actionSheet.addAction(UIAlertAction(title: L("export_file"), style: .default, handler: { _ in
+    actionSheet.addAction(UIAlertAction(title: L("export_file_kml"), style: .default, handler: { _ in
       self.shareCategoryFile(at: index, fileType: .kml, anchor: anchor)
+    }))
+    actionSheet.addAction(UIAlertAction(title: L("export_file"), style: .default, handler: { _ in
+      self.shareCategoryFile(at: index, fileType: .kmz, anchor: anchor)
     }))
     if category.areaCount == 0 {
       actionSheet.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default, handler: { _ in

@@ -190,6 +190,8 @@ final class BookmarksListPresenter {
       let title: String
       switch fileType {
       case .kml:
+        title = L("export_file_kml")
+      case .kmz:
         title = L("export_file")
       case .gpx:
         title = L("export_file_gpx")
@@ -217,6 +219,7 @@ final class BookmarksListPresenter {
       })
     }
     moreItems.append(exportMenuItem(for: .kml))
+    moreItems.append(exportMenuItem(for: .kmz))
     if bookmarkGroup.areaCount == 0 {
       moreItems.append(exportMenuItem(for: .gpx))
     }

@@ -152,15 +152,15 @@ final class BookmarksListSortingTests: XCTestCase {
     XCTAssertEqual(view.info?.imageUrl, imageUrl)
   }
 
-  func testAreaCategoryOffersKmzAndGeoJsonExport() throws {
+  func testAreaCategoryOffersKmlKmzAndGeoJsonExport() throws {
     interactor.setAreaCount(1)
     presenter.more()
 
     XCTAssertFalse(view.menu.contains { $0.title == L("export_file_gpx") })
-    for title in ["export_file", "export_file_geojson"] {
+    for title in ["export_file_kml", "export_file", "export_file_geojson"] {
       try XCTUnwrap(view.menu.first { $0.title == L(title) }).action()
     }
-    XCTAssertEqual(interactor.exportedTypes, [.kml, .geoJson])
+    XCTAssertEqual(interactor.exportedTypes, [.kml, .kmz, .geoJson])
   }
 
   func testReloadRestoresExportFormatsWhenCategoryHasNoAreas() throws {
@@ -170,10 +170,10 @@ final class BookmarksListSortingTests: XCTestCase {
     interactor.reloadCategory()
     presenter.more()
 
-    for title in ["export_file", "export_file_gpx", "export_file_geojson"] {
+    for title in ["export_file_kml", "export_file", "export_file_gpx", "export_file_geojson"] {
       try XCTUnwrap(view.menu.first { $0.title == L(title) }).action()
     }
-    XCTAssertEqual(interactor.exportedTypes, [.kml, .gpx, .geoJson])
+    XCTAssertEqual(interactor.exportedTypes, [.kml, .kmz, .gpx, .geoJson])
   }
 }
 

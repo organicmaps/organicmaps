@@ -495,14 +495,9 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
   manager.PrepareFileForSharing({group}, [&](BookmarkManager::SharingResult const & result)
   {
     TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
-    SCOPE_GUARD(deleteArchive, [&] { base::DeleteFileX(result.m_sharingPath); });
-    ZipFileReader::FileList files;
-    ZipFileReader::FilesList(result.m_sharingPath, files);
-    TEST_EQUAL(files.size(), 1, ());
-    auto const path = base::JoinPath(GetPlatform().SettingsDir(), "exported-areas.kml");
-    SCOPE_GUARD(deleteFile, [&] { base::DeleteFileX(path); });
-    ZipFileReader::UnzipFile(result.m_sharingPath, files.front().first, path);
-    auto const loaded = LoadKmlFile(path, FileType::Kml);
+    SCOPE_GUARD(deleteFile, [&] { base::DeleteFileX(result.m_sharingPath); });
+    TEST(base::FileNameFromFullPath(result.m_sharingPath).ends_with("Sharing areas.kml"), ());
+    auto const loaded = LoadKmlFile(result.m_sharingPath, FileType::Kml);
     TEST(loaded != nullptr, ());
     TEST_EQUAL(loaded->m_areasData, expectedAreas, ());
     TEST_EQUAL(loaded->m_bookmarksData.size(), 1, ());
@@ -3177,9 +3172,8 @@ UNIT_CLASS_TEST(Runner, ExportAll)
     TEST(base::DeleteFileX(indexPath), ());
     TEST(base::DeleteFileX(tmpPath), ());
   };
-  // We use FileType::Kml for both single and all tracks export. File structure is determined based on categories
-  // size
-  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kml);
+  // Multiple categories are packed into a KMZ backup, regardless of the selected single-category format.
+  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kmz);
 }
 
 UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
@@ -3193,17 +3187,13 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
   auto categories = bmManager.GetUnsortedBmGroupsIdList();
   auto const checker = [](BookmarkManager::SharingResult const & result)
   {
-    auto kmz = result.m_sharingPath;
-    ZipFileReader::FileList files;
-    ZipFileReader::FilesList(kmz, files);
-    TEST_EQUAL(1, files.size(), ());
-    TEST_EQUAL("OrganicMaps.kml", files.at(0).first, ());
-    auto tmpPath = base::JoinPath(GetPlatform().TmpDir(), "tmp.xml");
-    ZipFileReader::UnzipFile(kmz, files.at(0).first, tmpPath);
-    TEST(base::DeleteFileX(kmz), ());
-    TEST(base::DeleteFileX(tmpPath), ());
+    auto const kmlPath = result.m_sharingPath;
+    TEST(kmlPath.ends_with("OrganicMaps.kml"), ());
+    auto const data = LoadKmlFile(kmlPath, FileType::Kml);
+    TEST(data != nullptr, ());
+    TEST(base::DeleteFileX(kmlPath), ());
   };
-  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kml);
+  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kmz);
 }
 
 UNIT_CLASS_TEST(Runner, ExportSingleMultilingualCategoryName)
@@ -3260,7 +3250,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
   {
     auto track = bmManager.GetTrack(trackId);
     if (track->GetName().find("Some random route") != std::string::npos)
-      bmManager.PrepareTrackFileForSharing(track->GetId(), kmzChecker, FileType::Kml);
+      bmManager.PrepareTrackFileForSharing(track->GetId(), kmzChecker, FileType::Kmz);
   }
 }
 

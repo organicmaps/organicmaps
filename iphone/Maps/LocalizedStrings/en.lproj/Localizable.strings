@@ -708,6 +708,7 @@
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Export KMZ";
+"export_file_kml" = "Export KML";
 
 /* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Export GPX";
