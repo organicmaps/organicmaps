@@ -254,7 +254,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       tvClose.setText(data.workingTimespan.end.toString());
       showDays(data.weekdays);
       showSchedule(!data.isFullday);
-      showClosedHours(data.closedTimespans);
+      showClosedHours(data.closedTimespans, TimeFormatUtils.formatWeekdays(data));
     }
 
     @Override
@@ -301,7 +301,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       checkWithoutCallback(swAllday, !show);
     }
 
-    private void showClosedHours(Timespan[] closedSpans)
+    private void showClosedHours(Timespan[] closedSpans, String weekdays)
     {
       int i = 0;
       for (Timespan timespan : closedSpans)
@@ -314,7 +314,11 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
         else
         {
           UiUtils.show(closedHours[i]);
-          ((TextView) closedHours[i].findViewById(R.id.tv__closed)).setText(timespan.toString());
+          final String interval = timespan.toString();
+          ((TextView) closedHours[i].findViewById(R.id.tv__closed)).setText(interval);
+          closedHours[i]
+              .findViewById(R.id.iv__remove_closed)
+              .setContentDescription(mFragment.getString(R.string.editor_remove_break, interval, weekdays));
         }
 
         i++;

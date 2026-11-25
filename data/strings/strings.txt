@@ -47207,3 +47207,9 @@ uk = У цьому напрямку треку більше немає. Вибе
 vi = Không còn hành trình theo hướng này. Hãy chọn điểm khác.
 zh-Hans = 此方向上已没有剩余轨迹。请选择其他点。
 zh-Hant = 此方向上已無剩餘軌跡。請選擇其他點。
+
+[editor_remove_break]
+comment = Accessibility action to remove a break: interval followed by the schedule weekdays
+tags = android-app
+en = Remove break %1$s, %2$s
+ru = Удалить перерыв %1$s, %2$s

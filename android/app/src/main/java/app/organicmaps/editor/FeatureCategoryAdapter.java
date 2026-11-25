@@ -195,6 +195,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       mName.setText(category.getLocalizedTypeName());
       boolean showCondition = mSelectedCategory != null && category.getType().equals(mSelectedCategory.getType());
       UiUtils.showIf(showCondition, mSelected);
+      itemView.setSelected(showCondition);
     }
 
     @Override
