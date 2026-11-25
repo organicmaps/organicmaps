@@ -77,12 +77,14 @@ extension NavigationDashboard.ViewModel {
       MWMRouter.isRouteValid()
   }
 
+  private var showsLoadingState: Bool { planningMode != .navigateTrack && progress < 1 }
+
   var startButtonState: StartRouteButton.State {
     if !routePoints.hasStartAndFinish ||
       dashboardState == .error {
       return .disabled
     }
-    if progress < 1 {
+    if showsLoadingState {
       return .loading(progress: progress)
     }
     let isStartEnabled = routerType != .ruler && routerType != .publicTransport
@@ -93,7 +95,7 @@ extension NavigationDashboard.ViewModel {
     if dashboardState == .error, let errorMessage {
       return .error(errorMessage)
     }
-    if progress < 1 {
+    if showsLoadingState {
       return .loading
     }
     return .estimates(estimates)

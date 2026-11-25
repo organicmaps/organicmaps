@@ -63,6 +63,29 @@ final class TrackNavigationFlowTests: XCTestCase {
     XCTAssertEqual(MockRouter.mapPointRequests.last, 100)
   }
 
+  func testTrackBuildKeepsStartAvailableAndUsesTheLastEstimate() {
+    var model = NavigationDashboard.ViewModel.initial
+    model.dashboardState = .planning
+    model.routerType = .bicycle
+    model.routePoints = .init(track: MockTrackInfo())
+    model.progress = 0
+    let emptyEstimate = NSAttributedString()
+    model.estimates = emptyEstimate
+
+    XCTAssertEqual(model.startButtonState, .enabled)
+    XCTAssertEqual(model.estimatesState, .estimates(emptyEstimate))
+
+    let lastEstimate = NSAttributedString(string: "10 min • 2 km")
+    model.estimates = lastEstimate
+    model.progress = 0.5
+    XCTAssertEqual(model.startButtonState, .enabled)
+    XCTAssertEqual(model.estimatesState, .estimates(lastEstimate))
+
+    model.routePoints = .init(points: suppliedPoints)
+    XCTAssertEqual(model.startButtonState, .loading(progress: 0.5))
+    XCTAssertEqual(model.estimatesState, .loading)
+  }
+
   func testTrackAndOrdinaryRoutesUseTheirPlanningModels() throws {
     let renderer = DashboardRendererSpy()
     let presenter = NavigationDashboard.Presenter(view: renderer)
