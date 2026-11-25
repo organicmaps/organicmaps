@@ -953,6 +953,12 @@
     <string name="editor_level">階（1階は0）</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">ナビゲーション</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">選択した地点</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">区間の始点</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">区間の終点</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">トラックの始点</string>
     <!-- Track finish point label. -->

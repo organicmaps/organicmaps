@@ -971,6 +971,12 @@
     <string name="editor_level">Planta (la planta baixa és 0)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">Navega</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">Punt seleccionat</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">Inici del tram</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">Final del tram</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">Inici del recorregut</string>
     <!-- Track finish point label. -->

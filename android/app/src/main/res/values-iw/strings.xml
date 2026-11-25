@@ -953,6 +953,12 @@
     <string name="editor_level">קומה (קומת הקרקע היא 0)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">ניווט</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">נקודה שנבחרה</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">תחילת המקטע</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">סוף המקטע</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">תחילת המסלול</string>
     <!-- Track finish point label. -->

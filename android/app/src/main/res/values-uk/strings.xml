@@ -975,6 +975,12 @@
     <string name="editor_level">Поверх (перший поверх — 0)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">Навігація</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">Вибрана точка</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">Початок ділянки</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">Кінець ділянки</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">Початок треку</string>
     <!-- Track finish point label. -->

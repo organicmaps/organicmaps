@@ -954,6 +954,12 @@
     <string name="editor_level">Etaj (parterul este 0)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">Navighează</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">Punct selectat</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">Începutul segmentului</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">Sfârșitul segmentului</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">Începutul traseului</string>
     <!-- Track finish point label. -->
