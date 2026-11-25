@@ -416,10 +416,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         }
 
         @Override
-        protected void updateIcon(CountryItem country)
+        protected int getIconAction(CountryItem country)
         {
-          super.updateIcon(country);
-          mIcon.setFocusable(country.isExpandable() && country.status != CountryItem.STATUS_DONE);
+          if (country.isExpandable()
+              && (country.status == CountryItem.STATUS_DOWNLOADABLE || country.status == CountryItem.STATUS_PARTLY))
+            return R.string.downloader_open_group;
+          return super.getIconAction(country);
         }
       }.setOnIconClickListener(v -> processClick(true)).setOnCancelClickListener(v -> {
         MapManager.cancel(mItem.id);

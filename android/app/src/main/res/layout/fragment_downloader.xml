@@ -27,6 +27,7 @@
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fab"
+    android:contentDescription="@string/downloader_show_available_maps"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_above="@id/action"
