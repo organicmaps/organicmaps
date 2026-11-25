@@ -1,5 +1,7 @@
 #include "drape_frontend/animation/interpolations.hpp"
 
+#include "drape_frontend/animation_constants.hpp"
+
 #include "geometry/angles.hpp"
 
 namespace df
@@ -32,11 +34,12 @@ double InterpolateAngle(double startAngle, double endAngle, double t)
 
 double GetPopUpScale(double t)
 {
-  if (t < 0.6)
-    return InterpolateDouble(0.0, 1.3, t / 0.6);
-  if (t < 0.85)
-    return InterpolateDouble(1.3, 0.8, (t - 0.6) / 0.25);
-  return InterpolateDouble(0.8, 1.0, (t - 0.85) / 0.15);
+  if (t < kPopUpOvershootTime)
+    return InterpolateDouble(0.0, kPopUpOvershoot, t / kPopUpOvershootTime);
+  if (t < kPopUpUndershootTime)
+    return InterpolateDouble(kPopUpOvershoot, kPopUpUndershoot,
+                             (t - kPopUpOvershootTime) / (kPopUpUndershootTime - kPopUpOvershootTime));
+  return InterpolateDouble(kPopUpUndershoot, 1.0, (t - kPopUpUndershootTime) / (1.0 - kPopUpUndershootTime));
 }
 
 }  // namespace df

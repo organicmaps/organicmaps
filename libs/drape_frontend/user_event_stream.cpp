@@ -26,7 +26,6 @@ namespace
 {
 uint64_t constexpr kDoubleTapPauseMs = 250;
 uint64_t constexpr kLongTouchMs = 500;
-uint64_t constexpr kKineticDelayMs = 500;
 
 float constexpr kForceTapThreshold = 0.75;
 

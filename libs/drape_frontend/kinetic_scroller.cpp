@@ -7,20 +7,6 @@
 
 namespace df
 {
-double constexpr kKineticDuration = 1.5;
-double constexpr kKineticAcceleration = 0.4;
-
-// Time window to store move points for better (smooth) _instant_ velocity calculation.
-double constexpr kTimeWindowSec = 0.05;
-double constexpr kMinDragTimeSec = 0.01;
-
-/// @name Generic pixels per second. Should multiply on visual scale.
-/// @{
-double constexpr kKineticMaxSpeedStart = 1000.0;
-double constexpr kKineticMaxSpeedEnd = 5000.0;
-double constexpr kInstantVelocityThreshold = 200.0;
-/// @}
-
 double CalculateKineticMaxSpeed(ScreenBase const & screen)
 {
   return InterpolateDouble(kKineticMaxSpeedStart, kKineticMaxSpeedEnd, GetNormalizedZoomLevel(screen.GetScale()));
@@ -41,8 +27,8 @@ void KineticScroller::Update(ScreenBase const & modelView, AnimationClock::time_
 
   if (m_points.size() > 1)
   {
-    auto it = std::find_if(m_points.begin(), m_points.end(),
-                           [&now](auto const & e) { return GetDurationSeconds(now, e.second) <= kTimeWindowSec; });
+    auto it = std::find_if(m_points.begin(), m_points.end(), [&now](auto const & e)
+    { return GetDurationSeconds(now, e.second) <= kKineticTimeWindowSec; });
 
     // Keep last point always.
     if (it == m_points.end())
@@ -67,7 +53,7 @@ std::pair<m2::PointD, double> KineticScroller::GetDirectionAndVelocity(ScreenBas
   ASSERT(!m_points.empty(), ());
 
   // A finger that stopped before the release doesn't fling: the points come only with its moves.
-  if (GetDurationSeconds(now, m_points.back().second) > kTimeWindowSec)
+  if (GetDurationSeconds(now, m_points.back().second) > kKineticTimeWindowSec)
     return {{}, 0};
 
   m2::PointD const delta = modelView.GetOrg() - m_points.front().first;

@@ -17,8 +17,6 @@ namespace df
 {
 namespace
 {
-double constexpr kSelectionAnimationTimeSec = 0.25;
-
 // clang-format off
 std::array<float, 20> const kHalfLineWidthInPixel = {
     // 1   2     3     4     5     6     7     8     9     10
@@ -45,7 +43,7 @@ void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, doub
   m_selectedObject = obj;
   ResetSelectionGeometry();
   if (animateSelection && obj != OBJECT_TRACK)
-    m_scaleAnimation.emplace(kSelectionAnimationTimeSec, 0.0, 1.0);
+    m_scaleAnimation.emplace(kPopUpTimeSec, 0.0, 1.0);
   else
     m_scaleAnimation.reset();
 }

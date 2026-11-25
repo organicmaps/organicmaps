@@ -15,9 +15,6 @@ namespace
 using Pose = MapAnimation::Pose;
 using Stage = MapAnimation::Stage;
 
-double constexpr kKineticFadeoff = 4.0;
-double constexpr kPrettyZoomTimeSec = kMaxAnimationTimeSec * 0.5;
-
 Pose GetPose(ScreenBase const & screen)
 {
   return {screen.GetOrg(), screen.GetScale(), screen.GetAngle()};
@@ -146,8 +143,6 @@ bool IsAnimationAllowed(double duration)
 
 double GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, double scale)
 {
-  double constexpr kMinMoveDuration = 0.2;
-  double constexpr kMaxSpeedScalar = 7.0;
   double constexpr kEps = 1e-5;
 
   ASSERT_GREATER(scale, 0.0, ());
@@ -155,9 +150,9 @@ double GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, do
   if (pixelLength < kEps)
     return 0.0;
 
-  // The time is monotonic: kMinMoveDuration is its lower limit, so a longer move never ends sooner than a shorter one.
+  // The time is monotonic: kShortMoveTimeSec is its lower limit, so a longer move never ends sooner than a shorter one.
   double const minSize = std::min(viewportRect.SizeX(), viewportRect.SizeY());
-  return std::max(kMinMoveDuration, pixelLength / (kMaxSpeedScalar * minSize));
+  return std::max(kShortMoveTimeSec, pixelLength / (kMoveViewportsPerSec * minSize));
 }
 
 double GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & screen)
@@ -167,21 +162,15 @@ double GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endP
 
 double GetScaleDuration(double startScale, double endScale, bool isAutoZoom)
 {
-  // Resize 2.0 times should be done for 1.2 seconds in autozoom or for 0.2 seconds in usual case.
-  double const kPixelSpeed = isAutoZoom ? (2.0 / 1.2) : (2.0 / 0.2);
-
-  if (startScale > endScale)
-    std::swap(startScale, endScale);
-
-  return endScale / startScale / kPixelSpeed;
+  double const ratio = std::max(startScale, endScale) / std::min(startScale, endScale);
+  return ratio * (isAutoZoom ? kAutoZoomTimeSecPerScaleRatio : kZoomTimeSecPerScaleRatio);
 }
 
 double GetRotateDuration(double startAngle, double endAngle)
 {
-  double constexpr kRotateDurationScalar = 0.75;
   startAngle = ang::AngleIn2PI(startAngle);
   endAngle = ang::AngleIn2PI(endAngle);
-  return kRotateDurationScalar * std::fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;
+  return kHalfTurnTimeSec * std::fabs(ang::GetShortestDistance(startAngle, endAngle)) / math::pi;
 }
 
 std::optional<MapAnimation> GetScreenAnimation(MapAnimation::Type type, ScreenBase const & startScreen,
