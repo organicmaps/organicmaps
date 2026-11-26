@@ -13,7 +13,7 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, o
     /// Actually, better to call separate getters instead of ToString processing.
     if (!meta.empty())
     {
-      jni::TScopedLocalRef metaString(env, jni::ToJavaString(env, meta));
+      jni::TScopedLocalRef metaString(env, jni::ToJavaStringWithSupplementalCharsFix(env, meta));
       env->CallVoidMethod(mapObject, addId, static_cast<jint>(id), metaString.get());
     }
   });

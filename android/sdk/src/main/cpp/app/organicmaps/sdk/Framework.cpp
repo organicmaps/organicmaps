@@ -1740,7 +1740,7 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetPoiContactUrl(JNIE
   auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
   std::string_view const value = g_framework->GetPlacePageInfo().GetMetadata(metaID);
   if (osm::isSocialContactTag(metaID))
-    return jni::ToJavaString(env, osm::socialContactToURL(metaID, value));
+    return jni::ToJavaStringWithSupplementalCharsFix(env, osm::socialContactToURL(metaID, value));
   return jni::ToJavaString(env, value);
 }
 

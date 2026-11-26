@@ -103,9 +103,9 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetMetadata(JNIEn
   {
     auto const value = g_editableMapObject.GetMetadata(metaID);
     if (value.find('/') == std::string::npos)  // `value` contains pagename.
-      return jni::ToJavaString(env, value);
+      return jni::ToJavaStringWithSupplementalCharsFix(env, std::string(value));
     // `value` contains URL.
-    return jni::ToJavaString(env, osm::socialContactToURL(metaID, value));
+    return jni::ToJavaStringWithSupplementalCharsFix(env, osm::socialContactToURL(metaID, value));
   }
   return jni::ToJavaString(env, g_editableMapObject.GetMetadata(metaID));
 }
