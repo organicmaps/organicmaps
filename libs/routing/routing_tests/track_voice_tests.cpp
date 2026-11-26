@@ -630,6 +630,40 @@ UNIT_CLASS_TEST(TrackVoiceTest, JoinsDownstreamWithoutReachingSelectedEntry)
   });
 }
 
+UNIT_CLASS_TEST(TrackVoiceTest, FigureEightKeepsTheCurrentVisit)
+{
+  std::vector<m2::PointD> const path = {{-200, 0}, {0, 0},      {200, 200}, {0, 400},     {-200, 200},
+                                        {0, 0},    {200, -200}, {0, -400},  {-200, -200}, {0, 0}};
+  m_track.clear();
+  for (auto const & position : path)
+    m_track.emplace_back(Point(position.x, position.y), 100);
+  for (bool const withBearing : {false, true})
+  {
+    Build(path.front().x, path.front().y);
+    Start();
+    RunOnGui([&]
+    {
+      double remaining = m_session->GetRoute()->GetTotalDistanceMeters();
+      for (size_t i = 1; i < path.size(); ++i)
+      {
+        auto const & from = path[i - 1];
+        auto const & to = path[i];
+        auto const length = mercator::DistanceOnEarth(Point(from.x, from.y), Point(to.x, to.y));
+        size_t const samples = static_cast<size_t>(std::ceil(length / 20.0));
+        for (size_t step = 1; step <= samples; ++step)
+        {
+          auto const fix = from + (to - from) * (static_cast<double>(step) / samples);
+          Feed(fix.x, fix.y, 5.0, withBearing);
+          TEST(m_session->IsOnRoute() || m_session->IsFinished(), (withBearing, i, step));
+        }
+        remaining -= length;
+        TEST_ALMOST_EQUAL_ABS(m_session->GetRoute()->GetCurrentDistanceToEndMeters(), remaining, 2.0, (withBearing, i));
+        TEST_EQUAL(m_session->IsFinished(), i + 1 == path.size(), (withBearing, i));
+      }
+    });
+  }
+}
+
 UNIT_CLASS_TEST(TrackVoiceTest, CoarseLoopFixesCannotInventACompletedLap)
 {
   m_track = {{Point(0, 0), 100}, {Point(20, 0), 100}, {Point(20, 20), 100}, {Point(0, 20), 100}, {Point(0, 0), 100}};
