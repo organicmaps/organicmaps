@@ -324,7 +324,6 @@
 		ED82C5C92F90180300FA103D /* MWMCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43C2F90180300FA103D /* MWMCircularProgressView.m */; };
 		ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43F2F90180300FA103D /* MWMAlertViewController.mm */; };
 		ED82C5CB2F90180300FA103D /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4442F90180300FA103D /* MWMAlert.mm */; };
-		ED82C5CC2F90180300FA103D /* BCCreateCategoryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4472F90180300FA103D /* BCCreateCategoryAlert.swift */; };
 		ED82C5CD2F90180300FA103D /* MWMDefaultAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C44B2F90180300FA103D /* MWMDefaultAlert.mm */; };
 		ED82C5CE2F90180300FA103D /* MWMDownloaderDialogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4502F90180300FA103D /* MWMDownloaderDialogCell.m */; };
 		ED82C5CF2F90180300FA103D /* MWMDownloaderDialogHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4532F90180300FA103D /* MWMDownloaderDialogHeader.mm */; };
@@ -449,7 +448,6 @@
 		ED82C6582F90180300FA103D /* PlacePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C42D2F90180300FA103D /* PlacePage.storyboard */; };
 		ED82C65A2F90180300FA103D /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4392F90180300FA103D /* MWMCircularProgress.xib */; };
 		ED82C65B2F90180300FA103D /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4402F90180300FA103D /* MWMAlertViewController.xib */; };
-		ED82C65C2F90180300FA103D /* MWMBCCreateCategoryAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4482F90180300FA103D /* MWMBCCreateCategoryAlert.xib */; };
 		ED82C65D2F90180300FA103D /* MWMDefaultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C44C2F90180300FA103D /* MWMDefaultAlert.xib */; };
 		ED82C65E2F90180300FA103D /* MWMDownloaderDialogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4512F90180300FA103D /* MWMDownloaderDialogCell.xib */; };
 		ED82C65F2F90180300FA103D /* MWMDownloaderDialogHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4542F90180300FA103D /* MWMDownloaderDialogHeader.xib */; };
@@ -1341,8 +1339,6 @@
 		ED82C4432F90180300FA103D /* MWMAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAlert.h; sourceTree = "<group>"; };
 		ED82C4442F90180300FA103D /* MWMAlert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlert.mm; sourceTree = "<group>"; };
 		ED82C4452F90180300FA103D /* MWMAlert+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlert+CPP.h"; sourceTree = "<group>"; };
-		ED82C4472F90180300FA103D /* BCCreateCategoryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCreateCategoryAlert.swift; sourceTree = "<group>"; };
-		ED82C4482F90180300FA103D /* MWMBCCreateCategoryAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBCCreateCategoryAlert.xib; sourceTree = "<group>"; };
 		ED82C44A2F90180300FA103D /* MWMDefaultAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert.h; sourceTree = "<group>"; };
 		ED82C44B2F90180300FA103D /* MWMDefaultAlert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDefaultAlert.mm; sourceTree = "<group>"; };
 		ED82C44C2F90180300FA103D /* MWMDefaultAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMDefaultAlert.xib; sourceTree = "<group>"; };
@@ -3203,15 +3199,6 @@
 			path = BaseAlert;
 			sourceTree = "<group>";
 		};
-		ED82C4492F90180300FA103D /* CreateBookmarkCategory */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C4472F90180300FA103D /* BCCreateCategoryAlert.swift */,
-				ED82C4482F90180300FA103D /* MWMBCCreateCategoryAlert.xib */,
-			);
-			path = CreateBookmarkCategory;
-			sourceTree = "<group>";
-		};
 		ED82C44E2F90180300FA103D /* DefaultAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3323,7 +3310,6 @@
 			children = (
 				ED82C4422F90180300FA103D /* AlertController */,
 				ED82C4462F90180300FA103D /* BaseAlert */,
-				ED82C4492F90180300FA103D /* CreateBookmarkCategory */,
 				ED82C44E2F90180300FA103D /* DefaultAlert */,
 				ED82C4582F90180300FA103D /* DownloadTransitMapsAlert */,
 				ED82C45E2F90180300FA103D /* LocationAlert */,
@@ -4556,7 +4542,6 @@
 				ED82C6582F90180300FA103D /* PlacePage.storyboard in Resources */,
 				ED82C65A2F90180300FA103D /* MWMCircularProgress.xib in Resources */,
 				ED82C65B2F90180300FA103D /* MWMAlertViewController.xib in Resources */,
-				ED82C65C2F90180300FA103D /* MWMBCCreateCategoryAlert.xib in Resources */,
 				ED82C65D2F90180300FA103D /* MWMDefaultAlert.xib in Resources */,
 				ED82C65E2F90180300FA103D /* MWMDownloaderDialogCell.xib in Resources */,
 				ED82C65F2F90180300FA103D /* MWMDownloaderDialogHeader.xib in Resources */,
@@ -4958,7 +4943,6 @@
 				ED82C5C92F90180300FA103D /* MWMCircularProgressView.m in Sources */,
 				ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */,
 				ED82C5CB2F90180300FA103D /* MWMAlert.mm in Sources */,
-				ED82C5CC2F90180300FA103D /* BCCreateCategoryAlert.swift in Sources */,
 				ED82C5CD2F90180300FA103D /* MWMDefaultAlert.mm in Sources */,
 				ED82C5CE2F90180300FA103D /* MWMDownloaderDialogCell.m in Sources */,
 				ED82C5CF2F90180300FA103D /* MWMDownloaderDialogHeader.mm in Sources */,

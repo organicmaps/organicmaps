@@ -27,9 +27,6 @@
 + (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
 + (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text;
-+ (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
-                                             minCharacterNum:(NSUInteger)min
-                                                    callback:(MWMCheckStringBlock)callback;
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
 + (MWMAlert *)bookmarkConversionErrorAlert;
 + (MWMAlert *)tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock;

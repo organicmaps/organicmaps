@@ -6,11 +6,14 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
+#import <CoreApi/MWMBookmarksManager.h>
+
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
-@interface MWMAlertViewController () <UIGestureRecognizerDelegate>
+@interface MWMAlertViewController () <UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 @property(weak, nonatomic, readwrite) UIViewController * ownerViewController;
+@property(weak, nonatomic) UIAlertAction * createCategoryAction;
 
 @end
 
@@ -215,12 +218,39 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                                               minCharacterNum:(NSUInteger)min
                                                      callback:(nonnull MWMCheckStringBlock)callback
 {
-  auto alert =
-      static_cast<MWMBCCreateCategoryAlert *>([MWMAlert createBookmarkCategoryAlertWithMaxCharacterNum:max
-                                                                                       minCharacterNum:min
-                                                                                              callback:callback]);
-  [self displayAlert:alert];
-  dispatch_async(dispatch_get_main_queue(), ^{ [alert.textField becomeFirstResponder]; });
+  UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"bookmarks_create_new_group")
+                                                                  message:nil
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil]];
+  __weak auto weakAlert = alert;
+  UIAlertAction * createAction =
+      [UIAlertAction actionWithTitle:L(@"create").capitalizedString
+                               style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action) { callback(weakAlert.textFields.firstObject.text); }];
+  createAction.enabled = NO;
+  [alert addAction:createAction];
+  alert.preferredAction = createAction;
+  self.createCategoryAction = createAction;
+
+  // UIAlertController closes on any button tap, so the name is validated while typing.
+  UIAction * validateName = [UIAction actionWithHandler:^(UIAction * action) {
+    NSString * name = weakAlert.textFields.firstObject.text;
+    NSString * error = nil;
+    if (name.length > max)
+      error = L(@"bookmarks_error_title_list_name_too_long");
+    else if (![[MWMBookmarksManager sharedManager] checkCategoryName:name])
+      error = L(@"bookmarks_error_title_list_name_already_taken");
+    weakAlert.message = error;
+    self.createCategoryAction.enabled = name.length > min && error == nil;
+  }];
+  [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
+    textField.placeholder = L(@"bookmark_set_name");
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.returnKeyType = UIReturnKeyDone;
+    textField.delegate = self;
+    [textField addAction:validateName forControlEvents:UIControlEventEditingChanged];
+  }];
+  [self.ownerViewController presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel
@@ -327,6 +357,14 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (BOOL)isAlertDisplayed
 {
   return self.view.superview != nil;
+}
+
+#pragma mark - UITextFieldDelegate
+
+// Return triggers the alert's preferred action even when that action is disabled.
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  return self.createCategoryAction.enabled;
 }
 
 @end

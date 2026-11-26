@@ -164,13 +164,6 @@
   return [MWMDefaultAlert infoAlert:title text:text];
 }
 
-+ (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
-                                             minCharacterNum:(NSUInteger)min
-                                                    callback:(MWMCheckStringBlock)callback
-{
-  return [MWMBCCreateCategoryAlert alertWithMaxCharachersNum:max minCharactersNum:min callback:callback];
-}
-
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel
 {
   return [MWMSpinnerAlert alertWithTitle:title cancel:cancel];
