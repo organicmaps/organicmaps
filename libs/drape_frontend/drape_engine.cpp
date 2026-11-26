@@ -574,6 +574,24 @@ void DrapeEngine::SetTapEventInfoListener(TapEventInfoHandler && fn)
   m_tapEventInfoHandler = std::move(fn);
 }
 
+void DrapeEngine::RequestVisibleAccessibilityObjects(AccessibilityObjectsCallback callback)
+{
+  auto request = [this, callback = std::move(callback)](uint64_t)
+  { callback(m_frontend->GetVisibleAccessibilityObjects()); };
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<NotifyRenderThreadMessage>(std::move(request), 0),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::SetAccessibilityObjectsChangedListener(std::function<void()> listener)
+{
+  auto request = [this, listener = std::move(listener)](uint64_t) mutable
+  { m_frontend->SetAccessibilityObjectsChangedListener(std::move(listener)); };
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<NotifyRenderThreadMessage>(std::move(request), 0),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::SetUserPositionListener(UserPositionChangedHandler && fn)
 {
   m_userPositionChangedHandler = std::move(fn);
@@ -979,6 +997,7 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_isMarkAboveText = mark->IsMarkAboveText();
   renderInfo->m_symbolOpacity = mark->GetSymbolOpacity();
   renderInfo->m_isSymbolSelectable = mark->IsSymbolSelectable();
+  renderInfo->m_hasAccessibilitySymbolBounds = mark->HasAccessibilitySymbolBounds();
   return renderInfo;
 }
 

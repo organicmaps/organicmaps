@@ -62,6 +62,7 @@ public:
   df::DepthLayer GetDepthLayerEx(settings::Placement p) const override;
 
   dp::Anchor GetAnchor() const override;
+  bool HasAccessibilitySymbolBounds() const override { return true; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
   df::ColorConstant GetColorConstant() const override;

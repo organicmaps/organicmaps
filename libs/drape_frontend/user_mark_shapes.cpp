@@ -664,21 +664,33 @@ bool IsInside(std::vector<m2::SharedSpline> const & rings, m2::PointD const & p)
   }
   return inside;
 }
+
+// Keep the sprite indices in the static buffer, exactly as for a sprite with no overlay.
+class UserMarkBoundsHandle final : public dp::SquareHandle
+{
+public:
+  using SquareHandle::SquareHandle;
+  bool IndexesRequired() const override { return false; }
+};
 }  // namespace
 
 drape_ptr<dp::OverlayHandle> CreateUserMarkOverlayHandle(UserMarkRenderParams const & renderInfo,
                                                          TileKey const & tileKey, m2::RectD const & pixelRect)
 {
-  if (!renderInfo.m_isSymbolSelectable)
+  if (!renderInfo.m_isSymbolSelectable && !renderInfo.m_hasAccessibilitySymbolBounds)
     return nullptr;
 
   dp::OverlayID overlayId(renderInfo.m_featureId, renderInfo.m_markId, tileKey.GetTileCoords(),
                           kStartUserMarkOverlayIndex + renderInfo.m_index);
   m2::PointD const pivot(renderInfo.m_pivot.x + tileKey.GetTileXOffset(), renderInfo.m_pivot.y);
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
-      overlayId, renderInfo.m_anchor, pivot, pixelRect.RightTop() - pixelRect.LeftBottom(), renderInfo.m_pixelOffset,
-      0 /*priority*/, true /* isBound */, renderInfo.m_minZoom, true /* isBillboard */);
-  return handle;
+  auto const size = pixelRect.RightTop() - pixelRect.LeftBottom();
+  if (!renderInfo.m_isSymbolSelectable)
+    return make_unique_dp<UserMarkBoundsHandle>(overlayId, renderInfo.m_anchor, pivot, size, renderInfo.m_pixelOffset,
+                                                0 /* priority */, true /* isBound */, renderInfo.m_minZoom,
+                                                true /* isBillboard */);
+  return make_unique_dp<dp::SquareHandle>(overlayId, renderInfo.m_anchor, pivot, size, renderInfo.m_pixelOffset,
+                                          0 /* priority */, true /* isBound */, renderInfo.m_minZoom,
+                                          true /* isBillboard */);
 }
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
@@ -789,6 +801,11 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     if (renderInfo.m_titleDecl != nullptr)
       GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
   });
+}
+
+float GetUserLineWidth(double width, int zoomLevel)
+{
+  return static_cast<float>(width * VisualParams::Instance().GetVisualScale() * kLineWidthZoomFactor.at(zoomLevel - 1));
 }
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
@@ -921,7 +938,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
           params.m_depthTestEnabled = true;
           params.m_depth = layer.m_depth;
           params.m_depthLayer = renderInfo.m_depthLayer;
-          params.m_width = static_cast<float>(layer.m_width * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+          params.m_width = GetUserLineWidth(layer.m_width, tileKey.m_zoomLevel);
           params.m_minVisibleScale = 1;
           params.m_rank = 0;
 

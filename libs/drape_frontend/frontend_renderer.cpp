@@ -42,6 +42,7 @@
 #include <cmath>
 #include <functional>
 #include <limits>
+#include <map>
 #include <memory>
 #include <thread>
 
@@ -299,6 +300,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
     }
     UpdateCanBeDeletedStatus();
+    NotifyAccessibilityObjectsChanged();
 
     break;
   }
@@ -321,6 +323,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     if (changed || m_notFinishedTiles.empty())
       UpdateCanBeDeletedStatus();
+    if (changed && m_notFinishedTiles.empty())
+      NotifyAccessibilityObjectsChanged();
 
     if (m_notFinishedTiles.empty())
     {
@@ -356,6 +360,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         AddToRenderGroup(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
       }
     }
+    NotifyAccessibilityObjectsChanged();
     break;
   }
 
@@ -918,6 +923,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::InvalidateUserMarks:
   {
     m_forceUpdateUserMarks = true;
+    NotifyAccessibilityObjectsChanged();
     break;
   }
 
@@ -1240,6 +1246,7 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
                           ResolveTileKeys(screen));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
+    NotifyAccessibilityObjectsChanged();
   }
 }
 
@@ -1342,6 +1349,69 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::PointD con
   m2::PointD sizePoint(halfSize, halfSize);
   m2::RectD selectRect(pixelPoint - sizePoint, pixelPoint + sizePoint);
   return GetVisiblePOI(selectRect);
+}
+
+AccessibleMapSnapshot FrontendRenderer::GetVisibleAccessibilityObjects()
+{
+  auto const & screen = m_userEventStream.GetCurrentScreen();
+  if (m_overlayTree->IsNeedUpdate())
+    BuildOverlayTree(screen);
+  if (m_searchMarkTextOverlayTree->IsNeedUpdate())
+    UpdateSearchMarkTextOverlay(screen);
+
+  AccessibleMapSnapshot snapshot{screen, screen.PixelRectIn3d(), GetCurrentZoom(), {}};
+  auto const & visibleViewport = m_userEventStream.GetVisibleViewport();
+  if (visibleViewport.IsValid() && !snapshot.m_pixelViewport.Intersect(visibleViewport))
+    snapshot.m_pixelViewport = {};
+  if (!snapshot.m_pixelViewport.IsValid() || snapshot.m_pixelViewport.IsEmptyInterior())
+    return snapshot;
+
+  std::map<std::pair<FeatureID, kml::MarkId>, size_t> indices;
+  auto collect = [&](ref_ptr<dp::OverlayHandle> const & handle, bool isSprite)
+  {
+    if ((!isSprite && !handle->IsVisible()) || handle->HasLinearFeatureShape() ||
+        handle->GetMinVisibleScale() > snapshot.m_zoom)
+      return;
+
+    auto const & id = handle->GetOverlayID();
+    if (!id.IsValid())
+      return;
+
+    auto rect = handle->GetPixelRect(screen, screen.isPerspective());
+    if (!rect.Intersect(snapshot.m_pixelViewport) || rect.IsEmptyInterior())
+      return;
+
+    // A bookmark's pin and caption may come from different render layers.
+    auto const featureId = id.m_markId == kml::kInvalidMarkId ? id.m_featureId : FeatureID{};
+    auto const [it, inserted] = indices.try_emplace({featureId, id.m_markId}, snapshot.m_objects.size());
+    if (inserted)
+    {
+      auto & object = snapshot.m_objects.emplace_back();
+      object.m_featureId = featureId;
+      object.m_markId = id.m_markId;
+      object.m_mercator = PtoGWrap(screen.P3dtoP(rect.Center()), screen);
+    }
+    auto & object = snapshot.m_objects[it->second];
+    object.m_pixelRect.Add(rect);
+    object.m_pixelRects.push_back(rect);
+  };
+
+  for (auto const & handle : m_overlayTree->GetHandlesCache())
+    collect(handle, false);
+  for (auto const & handle : m_searchMarkTextOverlayTree->GetHandlesCache())
+    collect(handle, false);
+  for (auto const & group : m_layers[static_cast<size_t>(DepthLayer::UserMarkLayer)].m_renderGroups)
+  {
+    if (group->CanBeDeleted())
+      continue;
+    group->ForEachOverlay([&](ref_ptr<dp::OverlayHandle> const & handle)
+    {
+      if (!handle->IndexesRequired())
+        collect(handle, true);
+    });
+  }
+
+  return snapshot;
 }
 
 std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
@@ -2852,6 +2922,18 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 {
   m_modelViewChangedHandler(modelView);
+  NotifyAccessibilityObjectsChanged();
+}
+
+void FrontendRenderer::SetAccessibilityObjectsChangedListener(std::function<void()> listener)
+{
+  m_accessibilityObjectsChanged = std::move(listener);
+}
+
+void FrontendRenderer::NotifyAccessibilityObjectsChanged() const
+{
+  if (m_accessibilityObjectsChanged)
+    m_accessibilityObjectsChanged();
 }
 
 #if defined(OMIM_OS_DESKTOP)

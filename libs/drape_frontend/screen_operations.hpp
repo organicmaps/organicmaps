@@ -2,6 +2,8 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <vector>
+
 namespace df
 {
 
@@ -39,6 +41,17 @@ m2::PointD AdjustPointForViewport(m2::PointD const & pt, ScreenBase const & scre
 
 m2::PointD GtoPWrap(m2::PointD const & pt, ScreenBase const & screen);
 m2::PointD PtoGWrap(m2::PointD const & pt, ScreenBase const & screen);
+
+struct ProjectedPolyline
+{
+  double m_worldOffsetX;
+  std::vector<m2::PointD> m_pixels;
+};
+
+/// Clips each visible world copy of a line and projects it into the screen's viewport.
+std::vector<ProjectedPolyline> ProjectVisiblePolyline(ScreenBase const & screen, m2::RectD const & pixelViewport,
+                                                      m2::RectD const & bounds, std::vector<m2::PointD> const & line);
+bool IsPolylineInViewport(ScreenBase const & screen, m2::RectD const & bounds);
 
 class AdjustedScreen
 {

@@ -104,6 +104,8 @@ public:
   /// Non-POI sprites need an overlay handle to participate in hit testing.
   virtual bool IsSymbolSelectable() const = 0;
 
+  virtual bool HasAccessibilitySymbolBounds() const { return false; }
+
 private:
   kml::MarkId m_id;
 };

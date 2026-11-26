@@ -19,6 +19,81 @@ namespace screen_operations_tests
 {
 using df::test_support::VisualParamsFixture;
 
+UNIT_TEST(ProjectVisiblePolyline_WrappedAndClipped)
+{
+  ScreenBase screen;
+  screen.OnSize(0, 0, 400, 400);
+  screen.SetFromRects(m2::AnyRectD({181.0, 0.0}, ang::AngleD(0.0), {-2.0, -2.0, 2.0, 2.0}), {0.0, 0.0, 400.0, 400.0});
+  std::vector<m2::PointD> const line{{-180.0, 0.0}, {-175.0, 0.0}};
+  m2::RectD const bounds(line.front(), line.back());
+  m2::RectD const viewport(40.0, 50.0, 360.0, 350.0);
+  TEST(df::IsPolylineInViewport(screen, bounds), ());
+  auto const paths = df::ProjectVisiblePolyline(screen, viewport, bounds, line);
+  TEST_EQUAL(paths.size(), 1, ());
+  TEST_EQUAL(paths.front().m_worldOffsetX, 360.0, ());
+  auto const & points = paths.front().m_pixels;
+  TEST_ALMOST_EQUAL_ABS(points.front().x, 100.0, 1e-7, ());
+  TEST_ALMOST_EQUAL_ABS(points.back().x, viewport.maxX(), 1e-7, ());
+  auto selection = screen.PtoG(screen.P3dtoP((points.front() + points.back()) / 2.0));
+  selection.x -= paths.front().m_worldOffsetX;
+  TEST_GREATER(selection.x, -180.0, ());
+  TEST_LESS(selection.x, -177.0, ());
+  TEST_ALMOST_EQUAL_ABS(selection.y, 0.0, 1e-7, ());
+}
+
+UNIT_TEST(ProjectVisiblePolyline_OutsideViewport)
+{
+  ScreenBase screen;
+  screen.OnSize(0, 0, 400, 400);
+  screen.SetFromRects(m2::AnyRectD({0.0, 0.0}, ang::AngleD(0.0), {-2.0, -2.0, 2.0, 2.0}), {0.0, 0.0, 400.0, 400.0});
+  std::vector<m2::PointD> const line{{-1.0, 1.5}, {1.0, 1.5}};
+  m2::RectD const bounds(line.front(), line.back());
+  TEST(df::IsPolylineInViewport(screen, bounds), ());
+  TEST(df::ProjectVisiblePolyline(screen, {0.0, 100.0, 400.0, 400.0}, bounds, line).empty(), ());
+}
+
+UNIT_TEST(ProjectVisiblePolyline_PerspectiveUsesVisiblePixelBounds)
+{
+  ScreenBase screen;
+  screen.OnSize(0, 0, 400, 400);
+  screen.SetFromParams({0.0, 0.0}, 0.0, 0.001);
+  screen.ApplyPerspective(0.3, 0.3, 0.7);
+  auto const & viewport = screen.PixelRectIn3d();
+  auto const a = screen.PtoG(screen.P3dtoP({-30.0, 220.0}));
+  auto const b = screen.PtoG(screen.P3dtoP({460.0, 220.0}));
+  auto const paths = df::ProjectVisiblePolyline(screen, viewport, {a, b}, {a, b});
+  TEST_EQUAL(paths.size(), 1, ());
+  auto const & pixels = paths.front().m_pixels;
+  TEST_ALMOST_EQUAL_ABS(pixels.front().x, viewport.minX(), 1e-6, ());
+  TEST_ALMOST_EQUAL_ABS(pixels.back().x, viewport.maxX(), 1e-6, ());
+  TEST_ALMOST_EQUAL_ABS(pixels.front().y, 220.0, 1e-3, ());
+}
+
+UNIT_TEST(ProjectVisiblePolyline_RetainsEndpointsAndVisibleBend)
+{
+  ScreenBase screen;
+  screen.OnSize(0, 0, 400, 400);
+  screen.SetFromParams({0.0, 0.0}, 0.0, 0.01);
+  std::vector<m2::PointD> line;
+  m2::RectD bounds;
+  for (int i = 0; i <= 1000; ++i)
+  {
+    double const x = i * 0.002 - 1.0;
+    line.emplace_back(x, 0.2 * (1.0 - std::abs(x)));
+    bounds.Add(line.back());
+  }
+
+  auto const paths = df::ProjectVisiblePolyline(screen, screen.PixelRectIn3d(), bounds, line);
+  TEST_EQUAL(paths.size(), 1, ());
+  auto const & pixels = paths.front().m_pixels;
+  TEST_LESS(pixels.size(), line.size() / 10, ());
+  TEST_EQUAL(pixels.front(), screen.GtoP(line.front()), ());
+  TEST_EQUAL(pixels.back(), screen.GtoP(line.back()), ());
+  auto const top =
+      std::min_element(pixels.begin(), pixels.end(), [](auto const & lhs, auto const & rhs) { return lhs.y < rhs.y; });
+  TEST_ALMOST_EQUAL_ABS(top->y, screen.GtoP(line[500]).y, 1.0, ());
+}
+
 // -- WrapTileX ----------------------------------------------------------------
 
 UNIT_TEST(WrapTileX_Zoom1)

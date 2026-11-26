@@ -14,6 +14,7 @@
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/search_mark_overlay_filter.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_background_renderer.hpp"
@@ -71,6 +72,26 @@ struct TapInfo
   static m2::AnyRectD GetRoutingPointTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetGuideTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double eps);
+};
+
+struct AccessibleMapObject
+{
+  FeatureID m_featureId;
+  kml::MarkId m_markId = kml::kInvalidMarkId;
+  m2::RectD m_pixelRect;
+  m2::PointD m_mercator;
+  kml::TrackId m_trackId = kml::kInvalidTrackId;
+  std::vector<m2::RectD> m_pixelRects;
+  std::vector<ProjectedPolyline> m_pixelPaths;
+  double m_lineWidth = 0.0;
+};
+
+struct AccessibleMapSnapshot
+{
+  ScreenBase m_screen;
+  m2::RectD m_pixelViewport;
+  int m_zoom;
+  std::vector<AccessibleMapObject> m_objects;
 };
 
 /*
@@ -164,6 +185,9 @@ public:
 
   void OnEnterBackground();
 
+  AccessibleMapSnapshot GetVisibleAccessibilityObjects();
+  void SetAccessibilityObjectsChangedListener(std::function<void()> listener);
+
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
   std::unique_ptr<threads::IRoutine> CreateRoutine() override;
@@ -219,6 +243,7 @@ private:
   ref_ptr<dp::OverlayTree> GetOverlayTree(DepthLayer layerId) const;
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
+  void NotifyAccessibilityObjectsChanged() const;
 #ifdef SCENARIO_ENABLE
   void CompleteScenarioViewport(bool ready);
 #endif
@@ -366,6 +391,7 @@ private:
   UserEventStream m_userEventStream;
   ModelViewChangedHandler m_modelViewChangedHandler;
   TapEventInfoHandler m_tapEventInfoHandler;
+  std::function<void()> m_accessibilityObjectsChanged;
   UserPositionChangedHandler m_userPositionChangedHandler;
 
   ScreenBase m_lastReadedModelView;
