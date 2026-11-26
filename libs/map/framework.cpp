@@ -2882,6 +2882,23 @@ void Framework::UpdatePlacePageInfoForCurrentSelection(std::optional<place_page:
     m_onPlacePageUpdate();
 }
 
+void Framework::UpdatePlacePageInfoAfterBookmarkDeletion()
+{
+  if (!m_currentPlacePageInfo)
+    return;
+
+  auto buildInfo = m_currentPlacePageInfo->GetBuildInfo();
+  buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
+  buildInfo.m_userMarkId = kml::kInvalidMarkId;
+  buildInfo.m_source = place_page::BuildInfo::Source::Other;
+  // A tap on a bookmark carries only its id. Without the POI the bookmark was matched to, the rebuild falls
+  // back to the tap rect, which skips POIs and selects a nearby building or area instead. Lines and areas
+  // keep that fallback: a reused id would move the selection from the bookmark to the feature's center.
+  if (!buildInfo.m_featureId.IsValid() && m_currentPlacePageInfo->GetGeomType() == feature::GeomType::Point)
+    buildInfo.m_featureId = m_currentPlacePageInfo->GetID();
+  UpdatePlacePageInfoForCurrentSelection(buildInfo);
+}
+
 std::vector<Track::TrackSelectionInfo> Framework::FindTracksInTapPosition(place_page::BuildInfo const & buildInfo) const
 {
   auto const & bm = GetBookmarkManager();

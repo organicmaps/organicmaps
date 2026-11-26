@@ -16,6 +16,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/scales.hpp"
 
 #include "kml/serdes_common.hpp"
 
@@ -1933,6 +1934,86 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TransitCustomNames)
       TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetTitle(), name[0] != '\0' ? name : defaultTitle, (url));
     }
   }
+}
+
+// Removing a bookmark from its Place Page must keep the POI it was put on selected (issue #13206).
+// A tap on the bookmark carries only its id, so the rebuild after the deletion has to use the POI the
+// bookmark was matched to; the tap rect alone never selects POIs, only a building, line or area there.
+// A bookmark on a building must stay where it was, not jump to the building's center.
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_DeleteKeepsPoiSelected)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams, false /* loadMaps */);
+  platform::LocalCountryFile country(GetPlatform().SettingsDir(), platform::CountryFile("BookmarkDeletedPoi"), 0);
+  auto const poiPoint = mercator::FromLatLon(1, 1);
+  {
+    generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
+    builder.SetMwmLanguages({"en"});
+    generator::tests_support::TestPOI shop(poiPoint, "Shop", "en");
+    shop.SetTypes({{"shop", "books"}});
+    builder.Add(shop);
+    m2::RectD const mallRect(poiPoint - m2::PointD(0.0002, 0.0002), poiPoint + m2::PointD(0.0002, 0.0002));
+    generator::tests_support::TestBuilding mall(mallRect, "Mall", "" /* houseNumber */, "" /* street */, "en");
+    builder.Add(mall);
+  }
+  auto const registered = fm.RegisterMap(country);
+  TEST_EQUAL(registered.second, MwmSet::RegResult::Success, ());
+  fm.OnSize(800, 600);
+  auto & manager = fm.GetBookmarkManager();
+  manager.EnableTestMode(true);
+  auto const category = manager.CreateBookmarkCategory("Places", false /* autoSave */);
+
+  // A tap on a feature label: Drape reports the feature. Bookmarks it at |point|.
+  auto const bookmarkFeature = [&](std::string const & name, m2::PointD const & point)
+  {
+    place_page::BuildInfo tap;
+    tap.m_source = place_page::BuildInfo::Source::User;
+    tap.m_mercator = point;
+    std::vector<FeatureID> ids;
+    fm.GetDataSource().ForEachFeatureIDInRect([&ids](FeatureID const & id)
+    { ids.push_back(id); }, mercator::RectByCenterXYAndSizeInMeters(point, 100.0 /* size */), scales::GetUpperScale());
+    for (auto const & id : ids)
+    {
+      tap.m_featureId = id;
+      fm.BuildAndSetPlacePageInfo(tap);
+      if (fm.GetCurrentPlacePageInfo().GetTitle() == name)
+        break;
+    }
+    auto const & info = fm.GetCurrentPlacePageInfo();
+    TEST_EQUAL(info.GetTitle(), name, ());
+    auto data = info.MakeBookmarkData();
+    data.m_point = point;
+    auto const bookmarkId = manager.GetEditSession().CreateBookmark(std::move(data), category)->GetId();
+    return std::pair{info.GetID(), bookmarkId};
+  };
+
+  // Close the Place Page, tap the bookmark (Drape reports the user mark id only) and delete it.
+  auto const tapAndDelete = [&](kml::MarkId bookmarkId, m2::PointD const & point, FeatureID const & featureId)
+  {
+    fm.DeactivateMapSelection();
+    place_page::BuildInfo bookmarkTap;
+    bookmarkTap.m_source = place_page::BuildInfo::Source::User;
+    bookmarkTap.m_mercator = point;
+    bookmarkTap.m_userMarkId = bookmarkId;
+    fm.BuildAndSetPlacePageInfo(bookmarkTap);
+    TEST(fm.GetCurrentPlacePageInfo().IsBookmark(), ());
+    TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetID(), featureId, ("The bookmark is matched to the feature under it"));
+
+    manager.GetEditSession().DeleteBookmark(bookmarkId);
+    fm.UpdatePlacePageInfoAfterBookmarkDeletion();
+    TEST(!fm.GetCurrentPlacePageInfo().IsBookmark(), ());
+    return fm.GetCurrentPlacePageInfo();
+  };
+
+  auto const [poiId, poiBookmark] = bookmarkFeature("Shop", poiPoint);
+  auto const poiInfo = tapAndDelete(poiBookmark, poiPoint, poiId);
+  TEST_EQUAL(poiInfo.GetID(), poiId, (poiInfo.GetTitle()));
+  TEST_EQUAL(poiInfo.GetTitle(), "Shop", ());
+
+  auto const inMall = poiPoint + m2::PointD(0.00015, 0.00015);
+  auto const [mallId, mallBookmark] = bookmarkFeature("Mall", inMall);
+  auto const mallInfo = tapAndDelete(mallBookmark, inMall, mallId);
+  TEST(mallInfo.GetMercator().EqualDxDy(inMall, 1e-9), (mallInfo.GetMercator(), inMall));
 }
 
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_MyPositionName)

@@ -1726,11 +1726,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeDeleteBookmarkFromMap
   auto const bookmarkId = info.GetBookmarkId();
   frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
 
-  auto buildInfo = info.GetBuildInfo();
-  buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
-  buildInfo.m_userMarkId = kml::kInvalidMarkId;
-  buildInfo.m_source = place_page::BuildInfo::Source::Other;
-  frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
+  frm()->UpdatePlacePageInfoAfterBookmarkDeletion();
 
   return CreateMapObject(env, g_framework->GetPlacePageInfo());
 }

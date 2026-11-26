@@ -363,6 +363,8 @@ public:
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection(std::optional<place_page::BuildInfo> const & overrideInfo = {});
+  /// Rebuilds the Place Page of a just deleted bookmark for the object it was placed on.
+  void UpdatePlacePageInfoAfterBookmarkDeletion();
 
   struct PlacePageEvent
   {

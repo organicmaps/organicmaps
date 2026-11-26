@@ -276,16 +276,8 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (void)updateAfterDeleteBookmark
 {
-  auto & frm = GetFramework();
-  // A batch deletion may already have closed the Place Page.
-  if (!frm.HasPlacePageInfo())
-    return;
-
-  auto buildInfo = frm.GetCurrentPlacePageInfo().GetBuildInfo();
-  buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
-  buildInfo.m_userMarkId = kml::kInvalidMarkId;
-  buildInfo.m_source = place_page::BuildInfo::Source::Other;
-  frm.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+  // A batch deletion may already have closed the Place Page, then this is a no-op.
+  GetFramework().UpdatePlacePageInfoAfterBookmarkDeletion();
 }
 
 + (int)currentZoomLevel
