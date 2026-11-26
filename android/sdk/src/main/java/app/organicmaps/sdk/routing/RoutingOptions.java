@@ -43,6 +43,37 @@ public final class RoutingOptions
     nativeSetBicycleSurfacePreference(preference.nativeValue);
   }
 
+  // Keep the bits in sync with routing::transit::Mode in transit/transit_mode.hpp.
+  public enum TransitMode
+  {
+    Bus(1 << 0),
+    Tram(1 << 1),
+    Subway(1 << 2),
+    Rail(1 << 3),
+    Ferry(1 << 4),
+    Trolleybus(1 << 5),
+    Monorail(1 << 6),
+    Cable(1 << 7),
+    Air(1 << 8);
+
+    public final int bit;
+
+    TransitMode(int bit)
+    {
+      this.bit = bit;
+    }
+  }
+
+  public static int getTransitModes()
+  {
+    return nativeGetTransitModes();
+  }
+
+  public static void setTransitModes(int modes)
+  {
+    nativeSetTransitModes(modes);
+  }
+
   public static void addOption(@NonNull Router router, @NonNull RoadType roadType)
   {
     nativeAddOption(router.getType(), roadType.nativeValue);
@@ -108,6 +139,10 @@ public final class RoutingOptions
   private static native int nativeGetBicycleSurfacePreference();
 
   private static native void nativeSetBicycleSurfacePreference(int preference);
+
+  private static native int nativeGetTransitModes();
+
+  private static native void nativeSetTransitModes(int modes);
 
   private static native boolean nativeIsRouteOptimizationEnabled();
 

@@ -64,6 +64,7 @@ public:
   double CalculateETAWithoutPenalty(Segment const & segment) override;
 
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
+  bool IsRoutingOptionsGood(Segment const & segment) override;
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_indexLoader->GetIndexGraph(numMwmId); }
 
@@ -73,7 +74,7 @@ public:
 
 private:
   // WorldGraph overrides:
-  void GetTwinsInner(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins) override;
+  void GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins) override;
 
   static double MaxPedestrianTimeSec(double startToFinishDistanceM)
   {

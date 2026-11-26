@@ -760,6 +760,36 @@
 /* Walking profile in routing options settings; also the label of a walking leg in transit route details. */
 "routing_options_walking" = "Pe jos";
 
+/* Heading for the types of public transport that routing may use. */
+"transit_mode_options" = "Allowed transport";
+
+/* Public transport routing switch that allows buses. */
+"transit_mode_bus" = "Buses";
+
+/* Public transport routing switch that allows trams (streetcars). */
+"transit_mode_tram" = "Trams";
+
+/* Public transport routing switch that allows subways (metro systems). */
+"transit_mode_subway" = "Subways";
+
+/* Public transport routing switch that allows trains and light rail. */
+"transit_mode_rail" = "Trains and light rail";
+
+/* Public transport routing switch that allows ferries and other public water services. */
+"transit_mode_ferry" = "Ferries";
+
+/* Public transport routing switch that allows trolleybuses. */
+"transit_mode_trolleybus" = "Trolleybuses";
+
+/* Public transport routing switch that allows monorails. */
+"transit_mode_monorail" = "Monorails";
+
+/* Public transport routing switch that allows funiculars, cable trams and aerial lifts. */
+"transit_mode_cable" = "Funiculars and cable transport";
+
+/* Public transport routing switch that allows air services. */
+"transit_mode_air" = "Air services";
+
 /* Section heading for routing settings shared by every routing mode. */
 "routing_options_all_modes" = "Toate modurile de deplasare";
 "driving_options_title" = "Opțiuni de ocolire";
@@ -1201,6 +1231,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Regiuni descărcate violete";
+
+
+/********** Qt UI strings **********/
+
+
+/* Public transport routing profile, including subway and trains. */
+"public_transport" = "Public transport";
 
 
 /********** gps strings **********/

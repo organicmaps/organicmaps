@@ -10,35 +10,16 @@
 
 #include "routing/route.hpp"
 
+#include "transit/transit_mode.hpp"
+
 #include <functional>
 #include <map>
 #include <string>
 #include <vector>
 
-enum class TransitType : uint32_t
-{
-  // Do not change the order!
-  IntermediatePoint,
-  Pedestrian,
-  Subway,
-  Train,
-  LightRail,
-  Monorail,
-
-  Tram,
-  Bus,
-  Ferry,
-  CableTram,
-  AerialLift,
-  Funicular,
-  Trolleybus,
-  AirService,
-  WaterService
-};
+using routing::transit::TransitType;
 
 extern std::map<TransitType, std::string> const kTransitSymbols;
-
-std::string DebugPrint(TransitType type);
 
 struct TransitStepInfo
 {

@@ -71,6 +71,11 @@ public:
   bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
   RoadGeometry const & GetRoadGeometry(uint32_t featureId) const { return m_geometry->GetRoad(featureId); }
+  bool IsRoutingOptionsGood(uint32_t featureId) const
+  {
+    return m_avoidRoutingOptions.GetOptions() == 0 ||
+           GetRoadGeometry(featureId).SuitableForOptions(m_avoidRoutingOptions);
+  }
 
   Geometry & GetGeometry() const { return *m_geometry; }
 

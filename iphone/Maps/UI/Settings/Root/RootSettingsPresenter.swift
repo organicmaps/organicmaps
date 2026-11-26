@@ -21,7 +21,7 @@ final class RootSettingsPresenter {
 
   func presentRoutingProfiles() {
     let alert = UIAlertController(title: L("driving_options_title"), message: nil, preferredStyle: .alert)
-    for type in MWMRouterType.allCases where !RoutingOptions(routerType: type).supportedOptions.isEmpty {
+    for type in MWMRouterType.allCases where type.hasRoutingSettings {
       alert.addAction(UIAlertAction(title: type.routingOptionsTitle, style: .default) { [weak self] _ in
         let controller = SettingsBuilder.buildRoutingOptions(routerType: type)
         self?.viewController?.navigationController?.pushViewController(controller, animated: true)

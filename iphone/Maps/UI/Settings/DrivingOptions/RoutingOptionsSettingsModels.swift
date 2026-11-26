@@ -1,8 +1,11 @@
 enum RoutingOptionsSettingsSection: String {
   case options
   case bicycleSurface
+  case transitModes
   case optimization
 }
+
+extension TransitModes: Hashable {}
 
 enum RoutingOption: Hashable {
   case routeOptimization
@@ -13,6 +16,7 @@ enum RoutingOption: Hashable {
   case steps
   case difficultTrails
   case bicycleSurface(BicycleSurfacePreference)
+  case transitMode(TransitModes)
 }
 
 extension RoutingOption {
@@ -28,6 +32,7 @@ extension RoutingOption {
     case .steps: return options.supportedOptions.contains(.steps)
     case .difficultTrails: return options.supportedOptions.contains(.difficultTrail)
     case .bicycleSurface: return options.routerType == .bicycle
+    case .transitMode: return options.routerType == .publicTransport
     }
   }
 
@@ -47,6 +52,19 @@ extension RoutingOption {
       case .preferUnpaved: return L("bicycle_surface_prefer_unpaved")
       case .avoidUnpaved: return L("avoid_unpaved")
       @unknown default: preconditionFailure("Unknown bicycle surface preference")
+      }
+    case .transitMode(let mode):
+      switch mode {
+      case .bus: return L("transit_mode_bus")
+      case .tram: return L("transit_mode_tram")
+      case .subway: return L("transit_mode_subway")
+      case .rail: return L("transit_mode_rail")
+      case .ferry: return L("transit_mode_ferry")
+      case .trolleybus: return L("transit_mode_trolleybus")
+      case .monorail: return L("transit_mode_monorail")
+      case .cable: return L("transit_mode_cable")
+      case .air: return L("transit_mode_air")
+      default: preconditionFailure("Expected one transit mode")
       }
     }
   }
@@ -69,6 +87,7 @@ extension RoutingOption {
     case .steps: return \.avoidSteps
     case .difficultTrails: return \.avoidDifficultTrails
     case .bicycleSurface: preconditionFailure("Surface preference uses a selection")
+    case .transitMode: preconditionFailure("Transit modes use the transit mode mask")
     }
   }
 }
@@ -77,6 +96,7 @@ struct RoutingOptionsSettingsState {
   let options: RoutingOptions
   let canChangeOptimization: Bool
   let bicycleSurface: BicycleSurfacePreference
+  let transitModes: TransitModes
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>
@@ -85,7 +105,6 @@ typealias RoutingOptionsSettingsItemViewModel = SettingsItemViewModel<RoutingOpt
 
 extension MWMRouterType {
   var hasRoutingSettings: Bool {
-    // Transit exposes global optimization without introducing road avoidances.
     self != .ruler
   }
 
@@ -94,6 +113,7 @@ extension MWMRouterType {
     case .vehicle: return L("routing_options_driving")
     case .bicycle: return L("routing_options_cycling")
     case .pedestrian: return L("routing_options_walking")
+    case .publicTransport: return L("public_transport")
     default: return L("driving_options_title")
     }
   }

@@ -3,10 +3,17 @@
 #include "generator/altitude_generator.hpp"
 #include "generator/generator_tests_support/test_generator.hpp"
 
+#include "routing/cross_mwm_connector_serialization.hpp"
+#include "routing/cross_mwm_graph.hpp"
+#include "routing/data_source.hpp"
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_options.hpp"
+#include "routing/transit_graph.hpp"
+#include "routing/transit_world_graph.hpp"
 #include "routing/world_graph.hpp"
+
+#include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
@@ -14,6 +21,12 @@
 #include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
+
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
+
+#include "base/file_name_utils.hpp"
 
 #include "traffic/traffic_cache.hpp"
 
@@ -493,6 +506,150 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)
   TEST(UsesRoadType(result.GetActive(), RoutingOptions::Ferry), ());
   auto graph = router->MakeSingleMwmWorldGraph();
   TEST(!graph->IsRoutingOptionsGood(Segment(0, m_ferryFeature, 0, true)), ());
+}
+
+UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitModeFilterAlsoExcludesRoadFerries)
+{
+  auto router = Router(VehicleType::Transit);
+  auto const usesFerry = [this](RouteBase const & route)
+  {
+    return std::ranges::any_of(route.GetRouteSegments(), [this](RouteSegment const & segment)
+    { return segment.GetSegment().GetFeatureId() == m_ferryFeature; });
+  };
+
+  // Try crossing the ferry and starting on a partial ferry segment away from either pier.
+  struct
+  {
+    double m_start;
+    double m_finish;
+    RouterResultCode m_restrictedResult;
+  } const endpoints[] = {
+      {1.0995, 1.4005, RouterResultCode::TransitRouteNotFoundNoNetwork},
+      {1.25, 1.0995, RouterResultCode::StartPointNotFound},
+  };
+  for (auto const & [start, finish, restrictedResult] : endpoints)
+  {
+    Checkpoints const checkpoints(mercator::FromLatLon(1, start), mercator::FromLatLon(1, finish));
+    RoutesResult allowed;
+    TEST_EQUAL(router->CalculateRoute(checkpoints, {}, false, false, RouterDelegate(RoutePlanningOptions{}), allowed),
+               RouterResultCode::NoError, (start, finish));
+    TEST(usesFerry(allowed.GetActive()), (start, finish));
+
+    RoutePlanningOptions options;
+    options.m_transitModes = static_cast<transit::ModeMask>(transit::Mode::Bus);
+    RoutesResult restricted;
+    TEST_EQUAL(router->CalculateRoute(checkpoints, {}, false, false, RouterDelegate(options), restricted),
+               restrictedResult, (start, finish));
+    TEST(restricted.m_routes.empty(), (start, finish));
+  }
+}
+
+UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitGateEndingsHonorRoadFerryExclusion)
+{
+  transit::Gate gate(1, 0, true, true, 0, {1}, mercator::FromLatLon(1, 1.2));
+  gate.SetBestPedestrianSegment({m_ferryFeature, 0, true});
+  auto router = Router(VehicleType::Pedestrian);
+  for (bool const avoid : {false, true})
+  {
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(avoid ? RoutingOptions::Ferry : 0));
+    auto graph = router->MakeSingleMwmWorldGraph();
+    TransitGraph::Endings endings;
+    MakeGateEndings({gate}, 0, graph->GetIndexGraph(0), endings);
+    TEST_EQUAL(endings.contains(gate.GetOsmId()), !avoid, (avoid));
+  }
+}
+
+UNIT_TEST(TransitModeFilterKeepsRoadSnapsLocalNearExcludedFerries)
+{
+  RoutingPreferenceFixture fixture("routing_ferry_snapping.osm");
+  auto router = fixture.Router(VehicleType::Transit);
+  auto const onLand = mercator::FromLatLon(1, 1.0009);
+  auto const onFerry = mercator::FromLatLon(1, 1.0025);
+  auto const nearPier = mercator::FromLatLon(1, 1.0012);
+  auto const calculate =
+      [&](m2::PointD const & start, m2::PointD const & finish, transit::ModeMask modes, RoutesResult & routes)
+  {
+    RoutePlanningOptions options;
+    options.m_transitModes = modes;
+    return router->CalculateRoute(Checkpoints(start, finish), {}, false, false, RouterDelegate(options), routes);
+  };
+
+  RoutesResult allowed;
+  TEST_EQUAL(calculate(onFerry, onLand, transit::kAllModes, allowed), RouterResultCode::NoError, ());
+  auto const buses = static_cast<transit::ModeMask>(transit::Mode::Bus);
+  RoutesResult restricted;
+  TEST_EQUAL(calculate(onFerry, onLand, buses, restricted), RouterResultCode::StartPointNotFound, ());
+  TEST_EQUAL(calculate(onLand, onFerry, buses, restricted), RouterResultCode::EndPointNotFound, ());
+
+  TEST_EQUAL(calculate(nearPier, onLand, buses, restricted), RouterResultCode::NoError, ());
+  auto const & route = restricted.GetActive();
+  TEST_LESS(route.GetRouteSegments().back().GetDistFromBeginningMeters(), 40.0, ());
+  TEST(std::ranges::none_of(route.GetRouteSegments(), [&](RouteSegment const & segment)
+  { return segment.GetSegment().GetFeatureId() == fixture.m_ferryFeature; }),
+       ());
+}
+
+UNIT_TEST(TransitModeFilterChecksTheRoadTwinInItsOwnMap)
+{
+  generator::tests_support::TestRawGenerator generator;
+  auto const original = GetPlatform().ReadPathForFile("test_data/osm/routing_options.osm");
+  std::string xml;
+  FileReader(original).ReadAsString(xml);
+  std::string_view constexpr ferryTag = R"(<tag k="route" v="ferry" />)";
+  xml.replace(xml.find(ferryTag), ferryTag.size(), R"(<tag k="highway" v="residential" />)");
+  auto const oldInput = base::JoinPath(generator.GetGenInfo().m_cacheDir, "road-before-ferry.osm");
+  FileWriter(oldInput).Write(xml.data(), xml.size());
+
+  FrozenDataSource data;
+  auto ids = std::make_shared<NumMwmIds>();
+  auto tree = std::make_shared<m4::Tree<NumMwmId>>();
+  auto const osmWay = base::MakeOsmWay(11);
+  m2::RectD bounds;
+  auto const makeMap = [&](std::string const & name, std::string const & input, bool forwardIsEnter)
+  {
+    generator.BuildFB(input, name);
+    generator.BuildFeatures(name);
+    generator.BuildRouting(name, name);
+    auto const features = generator.LoadFID2OsmID(name);
+    auto const feature = std::ranges::find_if(features, [&](auto const & entry) { return entry.second == osmWay; });
+    TEST(feature != features.end(), (name));
+    auto const path = generator.GetMwmPath(name);
+    {
+      CrossMwmConnectorBuilderEx<base::GeoObjectId> transitions;
+      transitions.AddTransition(osmWay, feature->first, 0, kPedestrianMask, 0, forwardIsEnter);
+      FilesContainerW map(path, FileWriter::OP_WRITE_EXISTING);
+      transitions.Serialize(*map.GetWriter(CROSS_MWM_FILE_TAG));
+    }
+    auto const file = platform::LocalCountryFile::MakeTemporary(path);
+    auto const [id, status] = data.RegisterMap(file);
+    TEST_EQUAL(status, MwmSet::RegResult::Success, (name));
+    ids->RegisterFile(file.GetCountryFile());
+    auto const mwmId = ids->GetId(file.GetCountryFile());
+    bounds = data.GetMwmHandleById(id).GetValue()->GetHeader().GetBounds();
+    tree->Add(mwmId, bounds);
+    return Segment(mwmId, feature->first, 0, true);
+  };
+  auto const before = makeMap("Germany", oldInput, false);
+  auto const after = makeMap("Austria", original, true);
+
+  MwmDataSource source(data, ids);
+  CountryRectFn const countryRect = [&](std::string const &) { return bounds; };
+  auto crossMwm = std::make_unique<CrossMwmGraph>(ids, tree, VehicleType::Pedestrian, countryRect, source);
+  auto estimator = EdgeEstimator::Create(VehicleType::Pedestrian, 60, SpeedKMpH(3), nullptr, nullptr, nullptr);
+  auto index = IndexGraphLoader::Create(VehicleType::Pedestrian, false, std::make_shared<PedestrianModelFactory>(),
+                                        estimator, source, RoutingOptions(RoutingOptions::Ferry));
+  auto transit = TransitGraphLoader::Create(source, estimator, static_cast<transit::ModeMask>(transit::Mode::Bus));
+  TransitWorldGraph graph(std::move(crossMwm), std::move(index), std::move(transit), estimator);
+  TEST(graph.IsRoutingOptionsGood(before), ());
+  TEST(!graph.IsRoutingOptionsGood(after), ());
+  for (bool const filter : {false, true})
+  {
+    WorldGraph::SegmentEdgeListT edges;
+    graph.GetEdgeList(before, true /* isOutgoing */, filter, edges);
+    TEST_EQUAL(
+        std::ranges::any_of(edges, [&](auto const & edge) { return edge.GetTarget().GetMwmId() == after.GetMwmId(); }),
+        !filter, (filter));
+  }
 }
 
 class StepsRoutingFixture : public RoutingPreferenceFixture

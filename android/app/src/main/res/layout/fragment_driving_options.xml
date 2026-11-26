@@ -62,8 +62,14 @@
           style="@style/MwmWidget.RoutingToolbarCell"
           android:button="@drawable/ic_bike"
           android:contentDescription="@string/routing_options_cycling"/>
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/transit"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_transit"
+          android:contentDescription="@string/public_transport"/>
       </RadioGroup>
       <com.google.android.material.card.MaterialCardView
+        android:id="@+id/road_avoidance_options"
         style="@style/MwmWidget.RoutingOptions.Card"
         android:layout_marginTop="@dimen/margin_base">
         <LinearLayout style="@style/MwmWidget.RoutingOptions.Rows">
@@ -120,6 +126,20 @@
               style="@style/MwmWidget.RoutingOptions.Row.Choice"
               android:text="@string/avoid_unpaved"/>
           </RadioGroup>
+        </com.google.android.material.card.MaterialCardView>
+      </LinearLayout>
+      <LinearLayout
+        android:id="@+id/transit_mode_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+          style="@style/MwmWidget.RoutingOptions.Header"
+          android:text="@string/transit_mode_options"/>
+        <com.google.android.material.card.MaterialCardView style="@style/MwmWidget.RoutingOptions.Card">
+          <LinearLayout
+            android:id="@+id/transit_mode_rows"
+            style="@style/MwmWidget.RoutingOptions.Rows"/>
         </com.google.android.material.card.MaterialCardView>
       </LinearLayout>
     </LinearLayout>

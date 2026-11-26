@@ -201,7 +201,7 @@ private:
 
     bool FindBestEdges(m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
                        double closestEdgesRadiusM, std::vector<Edge> & bestEdges,
-                       bool & bestSegmentIsAlmostCodirectional);
+                       bool & bestSegmentIsAlmostCodirectional, bool & nearbyExcludedFerry);
   };
 
   using RoutingResultT = RoutingResult<Segment, RouteWeight>;

@@ -225,6 +225,12 @@ void TransitWorldGraph::GetGatesNear(NumMwmId mwmId, m2::PointD const & point, d
   GetTransitGraph(mwmId).GetGatesNear(point, radiusM, isEnter, out);
 }
 
+bool TransitWorldGraph::IsRoutingOptionsGood(Segment const & segment)
+{
+  ASSERT(!TransitGraph::IsTransitSegment(segment), (segment));
+  return GetIndexGraph(segment.GetMwmId()).IsRoutingOptionsGood(segment.GetFeatureId());
+}
+
 void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
 {
   if (m_mode == WorldGraphMode::SingleMwm || !m_crossMwmGraph || !m_crossMwmGraph->IsTransition(segment, isOutgoing))

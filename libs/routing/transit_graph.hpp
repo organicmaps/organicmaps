@@ -59,7 +59,8 @@ public:
   // |isEnter|.
   void GetGatesNear(m2::PointD const & point, double radiusM, bool isEnter, GateAccessesT & out) const;
 
-  void Fill(transit::GraphData const & transitData, Endings const & gateEndings);
+  void Fill(transit::GraphData const & transitData, Endings const & gateEndings,
+            transit::ModeMask modes = transit::kAllModes);
 
   // Return nullptr if |segment| is not a gate/edge.
   GateInfo const * FindGate(Segment const & segment) const;
@@ -77,10 +78,7 @@ private:
                std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
 
-  // Adds transit edge to fake graph, returns corresponding transit segment. Also adds gate to
-  // temporary stopToBack, stopToFront maps used while TransitGraph::Fill.
-  Segment AddEdge(transit::Edge const & edge, std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-                  StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+  Segment AddEdge(transit::Edge const & edge, std::map<transit::StopId, LatLonWithAltitude> const & stopCoords);
 
   // Adds connections to fake graph.
   void AddConnections(StopToSegmentsMap const & connections, StopToSegmentsMap const & stopToBack,

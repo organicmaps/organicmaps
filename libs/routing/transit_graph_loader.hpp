@@ -21,6 +21,6 @@ public:
   virtual void Clear() = 0;
 
   static std::unique_ptr<TransitGraphLoader> Create(MwmDataSource & dataSource,
-                                                    std::shared_ptr<EdgeEstimator> estimator);
+                                                    std::shared_ptr<EdgeEstimator> estimator, transit::ModeMask modes);
 };
 }  // namespace routing

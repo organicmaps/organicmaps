@@ -1,5 +1,7 @@
 #include "transit/transit_types.hpp"
 
+#include "transit/transit_mode.hpp"
+
 namespace
 {
 double constexpr kPointsEqualEpsilon = 1e-6;
@@ -9,6 +11,92 @@ namespace routing
 {
 namespace transit
 {
+std::optional<TransitType> TryGetTransitType(std::string_view type)
+{
+  if (type == "subway")
+    return TransitType::Subway;
+  if (type == "train" || type == "rail")
+    return TransitType::Train;
+  if (type == "light_rail")
+    return TransitType::LightRail;
+  if (type == "monorail")
+    return TransitType::Monorail;
+  if (type == "tram")
+    return TransitType::Tram;
+  if (type == "bus")
+    return TransitType::Bus;
+  if (type == "ferry")
+    return TransitType::Ferry;
+  if (type == "cabletram")
+    return TransitType::CableTram;
+  if (type == "aerial_lift")
+    return TransitType::AerialLift;
+  if (type == "funicular")
+    return TransitType::Funicular;
+  if (type == "trolleybus")
+    return TransitType::Trolleybus;
+  if (type == "air_service")
+    return TransitType::AirService;
+  if (type == "water_service")
+    return TransitType::WaterService;
+  return {};
+}
+
+TransitType GetTransitType(std::string_view type)
+{
+  auto const parsed = TryGetTransitType(type);
+  CHECK(parsed, ("Unknown transit line type", type));
+  return *parsed;
+}
+
+Mode GetMode(TransitType type)
+{
+  switch (type)
+  {
+    using enum TransitType;
+  case Bus: return Mode::Bus;
+  case Tram: return Mode::Tram;
+  case Subway: return Mode::Subway;
+  case Train:
+  case LightRail: return Mode::Rail;
+  case Ferry:
+  case WaterService: return Mode::Ferry;
+  case Trolleybus: return Mode::Trolleybus;
+  case Monorail: return Mode::Monorail;
+  case CableTram:
+  case AerialLift:
+  case Funicular: return Mode::Cable;
+  case AirService: return Mode::Air;
+  case IntermediatePoint:
+  case Pedestrian: break;
+  }
+  UNREACHABLE();
+}
+
+std::string DebugPrint(TransitType type)
+{
+  switch (type)
+  {
+    using enum TransitType;
+  case IntermediatePoint: return "IntermediatePoint";
+  case Pedestrian: return "Pedestrian";
+  case Subway: return "Subway";
+  case Train: return "Train";
+  case LightRail: return "LightRail";
+  case Monorail: return "Monorail";
+  case Tram: return "Tram";
+  case Bus: return "Bus";
+  case Ferry: return "Ferry";
+  case CableTram: return "CableTram";
+  case AerialLift: return "AerialLift";
+  case Funicular: return "Funicular";
+  case Trolleybus: return "Trolleybus";
+  case AirService: return "AirService";
+  case WaterService: return "WaterService";
+  }
+  UNREACHABLE();
+}
+
 // TransitHeader ----------------------------------------------------------------------------------
 TransitHeader::TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t gatesOffset, uint32_t edgesOffset,
                              uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,

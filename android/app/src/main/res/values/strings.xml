@@ -650,6 +650,26 @@
     <string name="routing_options_cycling">Cycling</string>
     <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Walking</string>
+    <!-- Heading for the types of public transport that routing may use. -->
+    <string name="transit_mode_options">Allowed transport</string>
+    <!-- Public transport routing switch that allows buses. -->
+    <string name="transit_mode_bus">Buses</string>
+    <!-- Public transport routing switch that allows trams (streetcars). -->
+    <string name="transit_mode_tram">Trams</string>
+    <!-- Public transport routing switch that allows subways (metro systems). -->
+    <string name="transit_mode_subway">Subways</string>
+    <!-- Public transport routing switch that allows trains and light rail. -->
+    <string name="transit_mode_rail">Trains and light rail</string>
+    <!-- Public transport routing switch that allows ferries and other public water services. -->
+    <string name="transit_mode_ferry">Ferries</string>
+    <!-- Public transport routing switch that allows trolleybuses. -->
+    <string name="transit_mode_trolleybus">Trolleybuses</string>
+    <!-- Public transport routing switch that allows monorails. -->
+    <string name="transit_mode_monorail">Monorails</string>
+    <!-- Public transport routing switch that allows funiculars, cable trams and aerial lifts. -->
+    <string name="transit_mode_cable">Funiculars and cable transport</string>
+    <!-- Public transport routing switch that allows air services. -->
+    <string name="transit_mode_air">Air services</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">All routing modes</string>
     <string name="driving_options_title">Routing options</string>
@@ -899,6 +919,10 @@
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
     <string name="you">You</string>
+
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Public transport</string>
 
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->

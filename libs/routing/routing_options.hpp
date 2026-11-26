@@ -2,6 +2,8 @@
 
 #include "routing/vehicle_mask.hpp"
 
+#include "transit/transit_mode.hpp"
+
 #include "base/small_map.hpp"
 
 #include <optional>
@@ -74,10 +76,14 @@ struct RoutePlanningOptions
 {
   RoutingOptions m_avoid;
   BicycleSurfaceBias m_bicycleSurfaceBias = BicycleSurfaceBias::Any;
+  transit::ModeMask m_transitModes = transit::kAllModes;
 
   static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
   static BicycleSurfacePreference LoadBicycleSurfacePreference();
   static void SaveBicycleSurfacePreference(BicycleSurfacePreference preference);
+  static transit::ModeMask LoadTransitModes();
+  // Preserve all platform bits until validation.
+  static void SaveTransitModes(uint64_t modes);
   bool operator==(RoutePlanningOptions const &) const = default;
 };
 

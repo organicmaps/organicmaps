@@ -288,4 +288,29 @@ UNIT_CLASS_TEST(RoutingOptionsTests, ConcurrentCyclingSurfaceChangesKeepTheReque
   while (!finished);
   TEST_EQUAL(invalidReads, 0, ());
 }
+
+UNIT_TEST(TransitModeSettingsDefaultAndIgnoreUnsupportedBits)
+{
+  std::string_view constexpr key = "TransitAllowedModes";
+  std::string saved;
+  bool const existed = settings::Get(key, saved);
+  SCOPE_GUARD(restore, [&]
+  {
+    if (existed)
+      settings::Set(key, saved);
+    else
+      settings::Delete(key);
+  });
+
+  settings::Delete(key);
+  TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), transit::kAllModes, ());
+  auto const bus = static_cast<transit::ModeMask>(transit::Mode::Bus);
+  RoutePlanningOptions::SaveTransitModes(bus);
+  TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Transit).m_transitModes, bus, ());
+  TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Pedestrian).m_transitModes, transit::kAllModes, ());
+  settings::Set(key, 0x10000u | bus);
+  TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), bus, ());
+  settings::Set(key, 0x10000u);
+  TEST_EQUAL(RoutePlanningOptions::LoadTransitModes(), transit::kAllModes, ());
+}
 }  // namespace

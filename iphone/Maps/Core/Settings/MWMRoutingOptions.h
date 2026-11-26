@@ -20,12 +20,28 @@ typedef NS_ENUM(NSInteger, MWMBicycleSurfacePreference) {
   MWMBicycleSurfacePreferenceAvoidUnpaved = 3
 } NS_SWIFT_NAME(BicycleSurfacePreference);
 
+typedef NS_OPTIONS(NSUInteger, MWMTransitModes) {
+  MWMTransitModesBus = 1u << 0,
+  MWMTransitModesTram = 1u << 1,
+  MWMTransitModesSubway = 1u << 2,
+  MWMTransitModesRail = 1u << 3,
+  MWMTransitModesFerry = 1u << 4,
+  MWMTransitModesTrolleybus = 1u << 5,
+  MWMTransitModesMonorail = 1u << 6,
+  MWMTransitModesCable = 1u << 7,
+  MWMTransitModesAir = 1u << 8,
+  MWMTransitModesAll = MWMTransitModesBus | MWMTransitModesTram | MWMTransitModesSubway | MWMTransitModesRail |
+      MWMTransitModesFerry | MWMTransitModesTrolleybus | MWMTransitModesMonorail | MWMTransitModesCable |
+      MWMTransitModesAir
+} NS_SWIFT_NAME(TransitModes);
+
 NS_SWIFT_NAME(RoutingOptions)
 @interface MWMRoutingOptions : NSObject
 
 @property(nonatomic, readonly) MWMRouterType routerType;
 @property(nonatomic, readonly) MWMRoutingAvoidance supportedOptions;
 @property(class, nonatomic) MWMBicycleSurfacePreference bicycleSurfacePreference;
+@property(class, nonatomic) MWMTransitModes transitModes;
 
 - (instancetype)initWithRouterType:(MWMRouterType)routerType NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;

@@ -29,6 +29,17 @@ final class RoutingOptionsSettingsPresenter {
       }
       sections.append(SettingsSectionViewModel(section: .bicycleSurface, header: L("bicycle_surface"), items: items))
     }
+    if state.options.routerType == .publicTransport {
+      let selected = state.transitModes
+      let modes: [TransitModes] = [.bus, .tram, .subway, .rail, .ferry, .trolleybus, .monorail, .cable, .air]
+      let items = modes.map { mode in
+        let option = RoutingOption.transitMode(mode)
+        return RoutingOptionsSettingsItemViewModel(item: option,
+                                                   title: option.title,
+                                                   kind: .switcher(isOn: selected.contains(mode), isEnabled: selected != mode))
+      }
+      sections.append(SettingsSectionViewModel(section: .transitModes, header: L("transit_mode_options"), items: items))
+    }
     sections.append(SettingsSectionViewModel(section: .optimization,
                                              header: L("routing_options_all_modes"),
                                              footer: L("route_optimization_description"),
