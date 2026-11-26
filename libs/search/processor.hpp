@@ -59,7 +59,7 @@ public:
   void SetViewport(m2::RectD const & viewport);
   void SetPreferredLocale(std::string const & locale);
   void SetInputLocale(std::string const & locale);
-  void SetQuery(std::string const & query, bool categorialRequest = false);
+  void SetQuery(std::string const & query, bool categorialRequest = false, bool buildingSearch = false);
 
   void Search(SearchParams params);
 

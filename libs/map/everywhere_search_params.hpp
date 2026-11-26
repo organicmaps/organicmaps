@@ -19,5 +19,9 @@ struct EverywhereSearchParams
   bool m_isCategory = false;
 
   OnResults m_onResults;
+
+  // Enables nearby-number retrieval and callback ordering of alternate mapped addresses.
+  // Recognized ordinary address queries already use shared core address ranking on all platforms.
+  bool m_prioritizeAddressMatches = false;
 };
 }  // namespace search
