@@ -94,10 +94,9 @@ bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, do
 
 // The route to follow is built with one strategy and its alternative with the other one. More
 // alternatives would need a list of strategies here and an adjust-cache per route in IndexRouter.
-EdgeEstimator::Strategy OtherStrategy(EdgeEstimator::Strategy strategy)
+RoadRoutingStrategy OtherStrategy(RoadRoutingStrategy strategy)
 {
-  return strategy == EdgeEstimator::Strategy::Normal ? EdgeEstimator::Strategy::DistanceBiased
-                                                     : EdgeEstimator::Strategy::Normal;
+  return strategy == RoadRoutingStrategy::Normal ? RoadRoutingStrategy::DistanceBiased : RoadRoutingStrategy::Normal;
 }
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
@@ -392,7 +391,7 @@ void IndexRouter::ClearState()
   m_lastAltRoute.reset();
   m_lastAltFakeEdges.reset();
   // A new route starts from the default variant again.
-  m_activeStrategy = EdgeEstimator::Strategy::Normal;
+  m_activeStrategy = RoadRoutingStrategy::Normal;
 }
 
 void IndexRouter::SwapAltRouteToActive()
@@ -524,7 +523,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         auto savedLastFakeEdges = std::move(m_lastFakeEdges);
         SCOPE_GUARD(restoreActive, [&]
         {
-          m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
+          m_estimator->SetStrategy(RoadRoutingStrategy::Normal);
           m_estimator->SetTransitAltFactors(1.0, 0.0);
           // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
@@ -2022,6 +2021,11 @@ RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments
   route.SetMwmsPartlyProhibitedForSpeedCams(std::move(speedCamProhibited));
 
   route.SetWarnings(CollectRouteWarnings(segments, junctions, m_dataSource));
+  if (m_vehicleType != VehicleType::Transit)
+  {
+    ASSERT(m_requestRoutingOptions, ());
+    route.SetRoadRoutingPreferences({m_vehicleType, *m_requestRoutingOptions, m_estimator->GetStrategy()});
+  }
 
   return RouterResultCode::NoError;
 }

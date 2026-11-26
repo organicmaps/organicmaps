@@ -130,7 +130,7 @@ UNIT_TEST(DistanceBiasedStrategy_CapsFastRoadsKeepsSlowRoads)
     double const normalSlow = calc(roadSlow, EdgeEstimator::Purpose::Weight);
     TEST_NOT_EQUAL(normalFast1, normalFast2, (c.m_type));
 
-    estimator->SetStrategy(EdgeEstimator::Strategy::DistanceBiased);
+    estimator->SetStrategy(RoadRoutingStrategy::DistanceBiased);
     double const distanceBiasedFast1 = calc(roadFast1, EdgeEstimator::Purpose::Weight);
     double const distanceBiasedFast2 = calc(roadFast2, EdgeEstimator::Purpose::Weight);
     double const distanceBiasedSlow = calc(roadSlow, EdgeEstimator::Purpose::Weight);
@@ -157,11 +157,11 @@ UNIT_TEST(DistanceBiasedStrategy_CapsFastRoadsKeepsSlowRoads)
     TEST_ALMOST_EQUAL_ABS(tightHeuristic, distanceBiasedFast1, kAccuracyEps, (c.m_type));
 
     // Guides gate: tightHeuristicAllowed == false keeps the loose bound even under DistanceBiased.
-    estimator->SetStrategy(EdgeEstimator::Strategy::DistanceBiased, false /* tightHeuristicAllowed */);
+    estimator->SetStrategy(RoadRoutingStrategy::DistanceBiased, false /* tightHeuristicAllowed */);
     TEST_ALMOST_EQUAL_ABS(estimator->CalcHeuristic(fromLL, toLL, true /* tightAllowed */), looseHeuristic, kAccuracyEps,
                           (c.m_type));
 
-    estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
+    estimator->SetStrategy(RoadRoutingStrategy::Normal);
     TEST_ALMOST_EQUAL_ABS(estimator->CalcHeuristic(fromLL, toLL, true /* tightAllowed */), looseHeuristic, kAccuracyEps,
                           (c.m_type));
   }

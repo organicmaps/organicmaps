@@ -1203,7 +1203,8 @@ std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, st
 }
 
 kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to,
-                                        std::vector<kml::TrackStopData> stops, std::string routerType)
+                                        std::vector<kml::TrackStopData> stops, std::string routerType,
+                                        kml::Properties properties)
 {
   CHECK_GREATER(points.size(), 1, ());
 
@@ -1212,6 +1213,7 @@ kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string c
   trackData.m_geometry.m_timestamps.emplace_back();
   trackData.m_stops = std::move(stops);
   trackData.m_routerType = std::move(routerType);
+  trackData.m_properties = std::move(properties);
 
   kml::SetDefaultStr(trackData.m_name, GenerateSavedRouteName(from, to));
 

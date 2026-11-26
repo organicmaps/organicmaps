@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/test_generator.hpp"
+
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
@@ -2709,10 +2711,106 @@ UNIT_TEST(RoutingManager_SaveRouteKeepsStopNames)
     // The from/to names keep the subtitle guard: the start placeholder is filtered out.
     TEST_EQUAL(track->GetName(), "Paris", ());
     TEST_EQUAL(track->GetData().m_routerType, "ruler", ());
+    TEST(track->GetData().m_properties.empty(), ());
     TEST_EQUAL(track->GetData().m_stops, expectedStops, ());
     for (auto const & point : track->GetGeometry())
       TEST_EQUAL(point.GetAltitude(), geometry::kInvalidAltitude, ());
   });
+}
+
+UNIT_TEST(RoutingManager_SaveSelectedRoadRoutePreferences)
+{
+  generator::tests_support::TestRawGenerator generator;
+  std::string const mwmName = "Switzerland_Zurich";
+  generator.BuildFB(GetPlatform().ReadPathForFile("test_data/osm/saved_route_preferences.osm"), mwmName);
+  generator.BuildFeatures(mwmName);
+  generator.BuildRouting(mwmName, "Switzerland");
+  generator.BuildCrossMwm(mwmName, "Switzerland");
+
+  AsyncBuildFixture fixture;
+  auto & framework = fixture.m_framework;
+  framework.DeregisterAllMaps();
+  auto const file = platform::LocalCountryFile::MakeTemporary(generator.GetMwmPath(mwmName));
+  TEST_EQUAL(framework.RegisterMap(file).second, MwmSet::RegResult::Success, ());
+  auto & manager = framework.GetRoutingManager();
+  auto & bookmarks = framework.GetBookmarkManager();
+  bookmarks.EnableTestMode(true);
+  SCOPE_GUARD(restoreTestMode, [&] { bookmarks.EnableTestMode(false); });
+  routing::RoutingOptionSetter carOptions(0);
+  manager.SetRouter(routing::RouterType::Vehicle);
+
+  RouteMarkData start;
+  start.m_pointType = RouteMarkType::Start;
+  start.m_position = mercator::FromLatLon(47.35, 8.52);
+  TEST(manager.AddRoutePoint(std::move(start), false), ());
+  RouteMarkData finish;
+  finish.m_pointType = RouteMarkType::Finish;
+  finish.m_position = mercator::FromLatLon(47.35, 8.62);
+  TEST(manager.AddRoutePoint(std::move(finish), false), ());
+
+  auto const save = [&]
+  {
+    auto const * track = bookmarks.GetTrack(manager.SaveRoute());
+    TEST(track, ());
+    return track;
+  };
+
+  manager.BuildRoute();
+  fixture.WaitForBuildResult();
+  auto const * primary = save();
+  TEST_EQUAL(primary->GetData().m_properties.at("routing.road.strategy"), "normal", ());
+  double const primaryLength = primary->GetLengthMeters();
+  bookmarks.GetEditSession().DeleteTrack(primary->GetId());
+
+  TEST(manager.SwapActiveAlternative(1), ());
+  fixture.WaitForBuildResult();
+  double const selectedLength = manager.RoutingSession().GetRoute()->GetTotalDistanceMeters();
+  TEST_LESS(selectedLength, primaryLength, ());
+  // Change the global default after selecting the shorter road: the route used no avoidances.
+  routing::RoutingOptions::SaveToSettings(routing::VehicleType::Car,
+                                          routing::RoutingOptions(routing::RoutingOptions::Motorway));
+  auto const * alternate = save();
+  auto const checkSelectedFile = [&](std::string const & path)
+  {
+    auto const file = LoadKmlFile(path, FileType::Kml);
+    TEST(file, (path));
+    TEST_EQUAL(file->m_tracksData.size(), 1, (path));
+    Track const track(std::move(file->m_tracksData.front()));
+    TEST_EQUAL(track.GetData().m_routerType, "vehicle", (path));
+    TEST_EQUAL(track.GetData().m_properties.at("routing.road.strategy"), "distance_biased", (path));
+    TEST_EQUAL(track.GetData().m_properties.at("routing.avoid.motorway"), "false", (path));
+    TEST_ALMOST_EQUAL_ABS(track.GetLengthMeters(), selectedLength, 2.0, (path));
+  };
+  checkSelectedFile(bookmarks.GetCategoryFileName(alternate->GetGroupId()));
+
+  std::string archive;
+  bookmarks.PrepareTrackFileForSharing(alternate->GetId(), [&](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    archive = result.m_sharingPath;
+  }, FileType::Kml);
+  fixture.m_guiLoop.m_loop->RunUntil([&] { return !archive.empty(); });
+  TEST(GetFileType(archive) == FileType::Kmz, (archive));
+  SCOPE_GUARD(removeArchive, [&] { base::DeleteFileX(archive); });
+  auto const paths = GetKMLOrGPXFilesPathsToLoad(archive);
+  TEST_EQUAL(paths.size(), 1, ());
+  checkSelectedFile(paths.front());
+
+  // Rebuilding from further along the road now puts the distance-biased route first.
+  auto const advanced = mercator::FromLatLon(47.35, 8.525);
+  auto const ready = [&](routing::RoutesResult const & result, routing::RouterResultCode code)
+  {
+    TEST_EQUAL(result.m_routes.size(), 2, ());
+    fixture.m_buildCode = code;
+  };
+  manager.RoutingSession().RebuildRoute(advanced, ready, nullptr, nullptr, routing::RouterDelegate::kNoTimeout,
+                                        routing::SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
+  fixture.WaitForBuildResult();
+  auto const * rebuilt = save();
+  TEST_EQUAL(rebuilt->GetData().m_properties.at("routing.road.strategy"), "distance_biased", ());
+  TEST_EQUAL(rebuilt->GetData().m_properties.at("routing.avoid.motorway"), "false", ());
+  TEST_ALMOST_EQUAL_ABS(rebuilt->GetLengthMeters(), mercator::DistanceOnEarth(advanced, manager.GetRouteEndPoint()),
+                        2.0, ());
 }
 
 UNIT_TEST(RoutingManager_RecoveryOperationsCompleteBeforeReturning)
@@ -2964,6 +3062,7 @@ UNIT_TEST(RoutingManager_SaveRoutePreservesSingleSegmentGeometry)
     TEST_EQUAL(track->GetData().m_geometry.m_lines.size(), 1, ());
     TEST_EQUAL(track->GetGeometry(), (kml::TrackGeometry{start, finish}), ());
     TEST_EQUAL(track->GetData().m_routerType, "ruler", ());
+    TEST(track->GetData().m_properties.empty(), ());
   });
 }
 

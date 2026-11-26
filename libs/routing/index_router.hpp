@@ -305,7 +305,7 @@ private:
   std::unique_ptr<FakeEdgesContainer> m_lastAltFakeEdges;
   // Strategy of the route variant the user follows, flipped by SwapAltRouteToActive and reset by
   // ClearState. Adjustments and full rebuilds use it, see issue #13205.
-  EdgeEstimator::Strategy m_activeStrategy = EdgeEstimator::Strategy::Normal;
+  RoadRoutingStrategy m_activeStrategy = RoadRoutingStrategy::Normal;
 
   // If a ckeckpoint is near to the guide track we need to build route through this track.
   GuidesConnections m_guides;

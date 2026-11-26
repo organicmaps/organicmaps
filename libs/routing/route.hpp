@@ -293,6 +293,9 @@ public:
 
   RouteBase() = default;
 
+  void SetRoadRoutingPreferences(RoadRoutingPreferences const & preferences) { m_roadRoutingPreferences = preferences; }
+  std::optional<RoadRoutingPreferences> const & GetRoadRoutingPreferences() const { return m_roadRoutingPreferences; }
+
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
   std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
 
@@ -407,6 +410,7 @@ protected:
   // True if every segment's end junction has a valid altitude.
   bool m_haveSegmentAltitudes = false;
   std::optional<double> m_trackStartDistanceM;
+  std::optional<RoadRoutingPreferences> m_roadRoutingPreferences;
 
   // Subroute
   size_t m_currentSubrouteIdx = 0;
