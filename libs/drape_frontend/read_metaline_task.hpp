@@ -9,11 +9,16 @@
 
 namespace df
 {
-uint8_t constexpr kMetaLinesSectionVersion = 1;
-
 class MapDataProvider;
 
-using MetalineCache = std::map<FeatureID, m2::SharedSpline>;
+struct MetalineInfo
+{
+  m2::SharedSpline m_spline;
+  double m_dashPhaseOffset = 0.0;
+  bool m_dashPhaseReversed = false;
+};
+
+using MetalineCache = std::map<FeatureID, MetalineInfo>;
 
 class ReadMetalineTask
 {

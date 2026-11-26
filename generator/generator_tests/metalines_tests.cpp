@@ -159,10 +159,9 @@ UNIT_TEST(MetalinesTest_Case5)
   });
   auto const outputData = LineStringMerger::Merge(inputData);
 
-  auto const key = MakeKey(w1);
-  TEST_EQUAL(outputData.size(), 1 /* unique names roads count */, ());
-  TEST_EQUAL(outputData.at(key).size(), 1 /* ways count */, ());
-  TEST(IsEqual(outputData.at(key)[0], {1, 2}) /* merged way */, ());
+  // Node 3 has three incident ways with the same name. Do not choose an
+  // arbitrary continuation through the branch.
+  TEST_EQUAL(outputData.size(), 0 /* unique names roads count */, ());
 }
 
 UNIT_TEST(MetalinesTest_Case6)
