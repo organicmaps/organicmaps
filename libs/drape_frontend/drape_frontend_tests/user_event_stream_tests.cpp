@@ -322,6 +322,17 @@ UNIT_CLASS_TEST(CameraAnimationFixture, VisibleViewportOffsetAnimatesWhileIdle)
   m_stream.SetListener(nullptr);
 }
 
+UNIT_CLASS_TEST(CameraAnimationFixture, UnchangedVisibleViewportMovesANewSelectionIntoView)
+{
+  // A new selection sends the same visible viewport again to move the selection into it.
+  SelectionOffsetListener listener;
+  m_stream.SetListener(make_ref(&listener));
+  auto const start = m_stream.GetCurrentScreen().GetOrg();
+  auto const time = AddEvent<df::SetVisibleViewportEvent>(m_stream.GetVisibleViewport());
+  TEST(Process(At(time, df::kShortMoveTimeSec + 0.001)).GetOrg().EqualDxDy(start - listener.m_offset, 1e-9), ());
+  m_stream.SetListener(nullptr);
+}
+
 UNIT_CLASS_TEST(CameraAnimationFixture, SelectionOffsetMovesTheCameraDestination)
 {
   SelectionOffsetListener listener;
