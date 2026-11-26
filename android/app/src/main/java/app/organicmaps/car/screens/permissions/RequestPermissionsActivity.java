@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -66,8 +67,14 @@ public class RequestPermissionsActivity extends BaseMwmFragmentActivity
 
   private void closeIfPermissionsGranted()
   {
-    if (!LocationUtils.checkLocationPermission(this))
+    if (!LocationUtils.checkFineLocationPermission(this))
+    {
+      final TextView hint = findViewById(R.id.permission_hint);
+      hint.setText(LocationUtils.checkLocationPermission(this)
+                       ? R.string.precise_location_is_disabled_long_text
+                       : app.organicmaps.car.R.string.aa_request_permission_activity_text);
       return;
+    }
 
     NotificationManagerCompat.from(this).cancel(RequestPermissionsScreenWithNotification.NOTIFICATION_ID);
     finish();

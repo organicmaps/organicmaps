@@ -8,6 +8,8 @@
     <string name="search">Søg</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Du har deaktiveret alle placeringstjenester for denne enhed eller applikation. Slå dem venligst til i Indstillinger.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">For at sikre nøjagtig navigation skal du aktivere præcis placering i indstillinger.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Hentning mislykket</string>
     <string name="close">Luk</string>

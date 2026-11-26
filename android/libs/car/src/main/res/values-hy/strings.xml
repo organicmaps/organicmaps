@@ -8,6 +8,8 @@
     <string name="search">Որոնում</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Ձեր սարքում կամ հավելվածում անջատված են տեղորոշման բոլոր ծառայությունները: Խնդրում ենք միացնել դրանք Կարգավորումներում:</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Ճշգրիտ նավիգացիայի համար միացրեք «Ճշգրիտ տեղորոշումը» կարգավորումներում:</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Ներբեռնումը ձախողվեց</string>
     <string name="close">Փակել</string>

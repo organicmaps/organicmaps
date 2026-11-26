@@ -8,6 +8,8 @@
     <string name="search">Hledat</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Chcete-li zajistit přesnou navigaci, povolte v nastavení možnost Přesná poloha.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Stahování selhalo</string>
     <string name="close">Zavřít</string>

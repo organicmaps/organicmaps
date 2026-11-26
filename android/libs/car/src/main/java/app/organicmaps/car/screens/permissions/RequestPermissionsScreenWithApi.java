@@ -12,29 +12,26 @@ import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.ParkedOnlyOnClickListener;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.util.Colors;
-import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.car.screens.BaseScreen;
 import app.organicmaps.sdk.location.LocationUtils;
 import java.util.Arrays;
 import java.util.List;
 
-public class RequestPermissionsScreenWithApi extends BaseScreen implements UserActionRequired
+public class RequestPermissionsScreenWithApi extends RequestPermissionsScreen
 {
   private static final List<String> LOCATION_PERMISSIONS = Arrays.asList(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION);
 
-  @NonNull
-  private final Runnable mPermissionsGrantedCallback;
+  private boolean mPermissionResultPending;
 
   public RequestPermissionsScreenWithApi(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
                                          @NonNull Runnable permissionsGrantedCallback)
   {
-    super(carContext, organicMapsContext);
-    mPermissionsGrantedCallback = permissionsGrantedCallback;
+    super(carContext, organicMapsContext, permissionsGrantedCallback);
   }
 
   @NonNull
@@ -59,6 +56,7 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
     builder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_location_off)).build());
     builder.addAction(grantPermissions);
+    builder.addAction(closeAction());
     return builder.build();
   }
 
@@ -66,28 +64,31 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
-    // Let's review the permissions once more, as we might enter this function following an ErrorScreen situation
-    // where the user manually enabled location permissions.
-    if (LocationUtils.checkFineLocationPermission(getCarContext()))
-    {
-      mPermissionsGrantedCallback.run();
-      finish();
-    }
+    completePermissionRequest();
   }
 
   private void onRequestPermissionsResult(@NonNull List<String> grantedPermissions,
                                           @NonNull List<String> rejectedPermissions)
   {
-    if (grantedPermissions.isEmpty())
-    {
-      getScreenManager().push(new ErrorScreen.Builder(getCarContext(), getOrganicMapsContext())
-                                  .setErrorMessage(R.string.location_is_disabled_long_text)
-                                  .setNegativeButton(R.string.close, null)
-                                  .build());
+    if (getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED)
       return;
-    }
+    mPermissionResultPending = true;
+    // Automotive can return the result before its permission activity uncovers the car screen.
+    if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED))
+      completePermissionRequest();
+  }
 
-    mPermissionsGrantedCallback.run();
-    finish();
+  private void completePermissionRequest()
+  {
+    if (finishIfGranted() || !mPermissionResultPending)
+      return;
+    mPermissionResultPending = false;
+    final int message = LocationUtils.checkLocationPermission(getCarContext())
+                          ? R.string.precise_location_is_disabled_long_text
+                          : R.string.location_is_disabled_long_text;
+    getScreenManager().push(new ErrorScreen.Builder(getCarContext(), getOrganicMapsContext())
+                                .setErrorMessage(message)
+                                .setNegativeButton(R.string.close, null)
+                                .build());
   }
 }

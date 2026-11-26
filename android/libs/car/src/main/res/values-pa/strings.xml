@@ -8,6 +8,8 @@
     <string name="search">ਲੱਭੋ</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">ਤੁਸੀਂ ਇਸ ਵੇਲੇ ਇਸ ਡੀਵਾਈਸ ਜਾਂ ਐਪਲੀਕੇਸ਼ਨ ਲਈ ਸਾਰੀਆਂ ਲੋਕੇਸ਼ਨ ਸੇਵਾਵਾਂ ਨੂੰ ਅਯੋਗ ਬਣਾਇਆ ਹੋਇਆ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਉਹਨਾਂ ਨੂੰ ਯੋਗ ਬਣਾਓ।</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">ਸਟੀਕ ਨੈਵੀਗੇਸ਼ਨ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਸਟੀਕ ਲੋਕੇਸ਼ਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ।</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">ਡਾਊਨਲੋਡ ਅਸਫਲ</string>
     <string name="close">ਬੰਦ ਕਰੋ</string>

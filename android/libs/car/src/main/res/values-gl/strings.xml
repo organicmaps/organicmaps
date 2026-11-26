@@ -8,6 +8,8 @@
     <string name="search">Buscar</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Non se pode acceder aos servizos de localización neste dispositivo ou aplicación. Actíveos na configuración.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Para garantir unha navegación máis exacta, active a Precisión da localización nos axustes.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Erro durante a descarga</string>
     <string name="close">Pechar</string>

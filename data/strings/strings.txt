@@ -779,7 +779,7 @@ zh-Hant = 精度有限
 
 [precise_location_is_disabled_long_text]
 comment = A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on
-tags = android-app
+tags = android-app,android-libs-car
 en = To ensure accurate navigation enable Precise Location in settings.
 af = Om 'n akkurate navigasie te verseker, maak dit 'n presiese ligging in instellings moontlik.
 ar = لضمان التنقل الدقيق، قم بتمكين الموقع الدقيق في الإعدادات.

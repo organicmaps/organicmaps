@@ -8,6 +8,8 @@
     <string name="search">Chwilio</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Ar hyn o bryd, mae\'r holl wasanaethau lleoliad ar gyfer y ddyfais neu\'r ap hwn wedi\'u hanalluogi. Galluogwch nhw yn y Gosodiadau.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">I sicrhau llywio cywir, galluogwch leoliad manwl gywir yn y gosodiadau.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Methodd y lawrlwythiad</string>
     <string name="close">Cau</string>

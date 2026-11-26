@@ -8,6 +8,8 @@
     <string name="search">Pretraživaj</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Vi trenutno imate sve lokacijske servise za ovaj uređaj ili aplikaciju isključene. Molim vas uključite ih u postavkama.</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Za točnu navigaciju omogućite Preciznu lokaciju u postavkama.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Preuzimanje nije uspjelo</string>
     <string name="close">Zatvori</string>
