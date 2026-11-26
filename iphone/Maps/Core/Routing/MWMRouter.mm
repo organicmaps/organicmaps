@@ -307,8 +307,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   dispatch_async(dispatch_get_main_queue(), ^{
     auto const info = [MWMRouter followedTrackInfo];
     // Closing a relation place page clears its temporary track; routing owns the selected geometry.
-    if (info && info.trackId != kml::kTempRelationTrackId && ![MWMRouter isOnRoute] &&
-        ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
+    if (info && info.trackId != kml::kTempRelationTrackId && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
       [MWMRouter stopRouting];
   });
 }
