@@ -24,6 +24,7 @@
 - (void)awakeFromNib
 {
   [super awakeFromNib];
+  self.title.accessibilityTraits |= UIAccessibilityTraitHeader;
   if (!IPAD)
   {
     self.containerWidth.active = NO;

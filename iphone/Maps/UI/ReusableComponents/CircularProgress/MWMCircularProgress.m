@@ -121,6 +121,36 @@
   self.rootView.buttonView.hidden = YES;
 }
 
+- (void)setButtonAccessibilityLabel:(NSString *)buttonAccessibilityLabel
+{
+  self.rootView.buttonView.accessibilityLabel = buttonAccessibilityLabel;
+}
+
+- (NSString *)buttonAccessibilityLabel
+{
+  return self.rootView.buttonView.accessibilityLabel;
+}
+
+- (void)setButtonAccessibilityValue:(NSString *)buttonAccessibilityValue
+{
+  self.rootView.buttonView.accessibilityValue = buttonAccessibilityValue;
+}
+
+- (NSString *)buttonAccessibilityValue
+{
+  return self.rootView.buttonView.accessibilityValue;
+}
+
+- (void)setButtonIsAccessibilityElement:(BOOL)buttonIsAccessibilityElement
+{
+  self.rootView.buttonView.isAccessibilityElement = buttonIsAccessibilityElement;
+}
+
+- (BOOL)buttonIsAccessibilityElement
+{
+  return self.rootView.buttonView.isAccessibilityElement;
+}
+
 - (IBAction)buttonTouchUpInside:(UIButton *)sender
 {
   [self.delegate progressButtonPressed:self];

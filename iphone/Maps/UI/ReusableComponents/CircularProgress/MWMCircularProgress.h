@@ -21,6 +21,9 @@ typedef NSArray<NSNumber *> * MWMCircularProgressStateVec;
 @property(nonatomic) CGFloat progress;
 @property(nonatomic) MWMCircularProgressState state;
 @property(weak, nonatomic, nullable) id<MWMCircularProgressProtocol> delegate;
+@property(copy, nonatomic, nullable) NSString * buttonAccessibilityLabel;
+@property(copy, nonatomic, nullable) NSString * buttonAccessibilityValue;
+@property(nonatomic) BOOL buttonIsAccessibilityElement;
 
 - (void)setSpinnerColoring:(MWMImageColoring)coloring;
 - (void)setSpinnerBackgroundColor:(UIColor *)backgroundColor;
