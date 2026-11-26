@@ -40,6 +40,8 @@ UNIT_TEST(Translations_PreferenceOrderAndLocaleVariants)
                                              {{"pt-Latn-BR-u-hc-h12"}, "pt-BR"},
                                              {{"fr-Latn-CA"}, "fr-CA"},
                                              {{"en_GB.UTF-8"}, "en-GB"},
+                                             {{"en-GB-oxendict"}, "en-GB"},
+                                             {{"ca-ES-valencia"}, "ca"},
                                              {{"fr_CA.UTF-8"}, "fr-CA"},
                                              {{"eo", "fr"}, "fr"},
                                              {{"zha"}, "en"},
