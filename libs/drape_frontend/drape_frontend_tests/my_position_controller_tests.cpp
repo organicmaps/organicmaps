@@ -117,8 +117,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, FollowSnapsAndAnimatesArrowWithCamera)
 
   auto const follow = [&](std::chrono::milliseconds elapsed) -> ScreenBase const &
   {
-    auto event = make_unique_dp<df::SetCenterEvent>(controller.Position(), df::kDoNotChangeZoom, true, false,
-                                                    listener.m_arrowTarget);
+    auto event =
+        make_unique_dp<df::SetCenterEvent>(controller.Position(), df::kDoNotChangeZoom, listener.m_arrowTarget);
     auto const time = event->GetRequestTime();
     stream.AddEvent(std::move(event));
     return stream.ProcessEvents(changed, resized, active, time + elapsed);
@@ -129,7 +129,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, FollowSnapsAndAnimatesArrowWithCamera)
   TEST(controller.GetDrawablePosition().EqualDxDy(controller.Position(), 1e-6), ());
 
   auto const & viewport = settled.PixelRect();
-  auto const destination = settled.PtoG(viewport.Center() + m2::PointD(1.5 * viewport.SizeX(), 0.0));
+  auto const destination = settled.PtoG(viewport.Center() + m2::PointD(2.5 * viewport.SizeX(), 0.0));
   fix.m_longitude = mercator::XToLon(destination.x);
   fix.m_timestamp += 1.0;
   controller.OnLocationUpdate(fix, false, settled);

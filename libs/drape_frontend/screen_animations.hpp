@@ -14,6 +14,7 @@ public:
   enum class Type
   {
     Camera,
+    Follow,
     Pan,
     Zoom,
     Fling
@@ -23,7 +24,7 @@ public:
                double duration, std::optional<m2::PointD> pixelAnchor = std::nullopt);
 
   Type GetType() const { return m_type; }
-  void Apply(ScreenBase & screen) const;
+  void Apply(ScreenBase & screen) const { Apply(screen, GetProgress()); }
   void ApplyTarget(ScreenBase & screen) const { Apply(screen, 1.0); }
 
 private:

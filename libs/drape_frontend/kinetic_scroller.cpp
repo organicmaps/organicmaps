@@ -4,27 +4,23 @@
 #include "visual_params.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace df
 {
-double constexpr kMinFlingDuration = 0.20;
-double constexpr kMaxFlingDuration = 0.35;
-
+namespace
+{
 // Time window to store move points for better (smooth) _instant_ velocity calculation.
 double constexpr kTimeWindowSec = 0.05;
 double constexpr kMinDragTimeSec = 0.01;
 
-/// @name Generic pixels per second. Should multiply on visual scale.
-/// @{
-double constexpr kKineticMaxSpeedStart = 1000.0;
-double constexpr kKineticMaxSpeedEnd = 5000.0;
+// Minimum fling speed in pixels per second at visual scale 1.
 double constexpr kInstantVelocityThreshold = 200.0;
-/// @}
 
-double CalculateKineticMaxSpeed(ScreenBase const & screen)
-{
-  return InterpolateDouble(kKineticMaxSpeedStart, kKineticMaxSpeedEnd, GetNormalizedZoomLevel(screen.GetScale()));
-}
+// Cubic ease-out starts at three times the average speed.
+double constexpr kFlingInitialToAverageSpeedRatio = 3.0;
+
+}  // namespace
 
 void KineticScroller::Init(ScreenBase const & modelView, AnimationClock::time_point now)
 {
@@ -92,18 +88,32 @@ std::optional<MapAnimation> KineticScroller::CreateKineticAnimation(ScreenBase c
   if (releaseSpeed == 0.0)
     return {};
 
-  double const maxSpeed = CalculateKineticMaxSpeed(modelView) * VisualParams::Instance().GetVisualScale();
-  double const speed = std::min(releaseSpeed, maxSpeed);
-  double const duration = InterpolateDouble(kMinFlingDuration, kMaxFlingDuration, speed / maxSpeed);
-  // Speed falls from the release speed to zero as 1 - t², so its average is two thirds of the release speed.
-  auto const & center = modelView.GetOrg();
-  auto const target = center + direction * (speed * modelView.GetScale() * duration * (2.0 / 3.0));
-  auto const & world = GetWorldRect();
-  if (target.y < world.minY() || target.y > world.maxY())
-    return {};
+  auto const viewport = ViewportFootprint(modelView, modelView.PixelRectIn3d()).m_bounds;
+  // Use the shorter viewport dimension to set the duration for a given release speed in any direction.
+  double const speedForFullDuration = std::min(viewport.SizeX(), viewport.SizeY()) * kMaxFlingViewports *
+                                      kFlingInitialToAverageSpeedRatio / kMaxFlingDurationSec;
+  double const duration =
+      InterpolateDouble(kMinFlingDurationSec, kMaxFlingDurationSec, std::min(releaseSpeed / speedForFullDuration, 1.0));
+  auto const screenDirection = m2::Rotate(direction, -modelView.GetAngle());
+  double const viewportsPerPixel =
+      std::max(std::abs(screenDirection.x) / viewport.SizeX(), std::abs(screenDirection.y) / viewport.SizeY());
+  double const distancePixels =
+      std::min(releaseSpeed * duration / kFlingInitialToAverageSpeedRatio, kMaxFlingViewports / viewportsPerPixel);
+  auto const delta = direction * (distancePixels * modelView.GetScale());
+  double fraction = 1.0;
+  if (delta.y != 0.0)
+  {
+    auto const & clip = modelView.ClipRect();
+    auto const & world = GetWorldRect();
+    double const room = delta.y > 0.0 ? world.maxY() - clip.maxY() : clip.minY() - world.minY();
+    if (room <= 0.0)
+      return {};
+    fraction = std::min(1.0, room / std::abs(delta.y));
+  }
 
+  // Shorten both travel and time at a pole to keep the release velocity and heading.
   ScreenBase end = modelView;
-  end.SetOrg(target);
-  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, duration);
+  end.SetOrg(modelView.GetOrg() + delta * fraction);
+  return MapAnimation(MapAnimation::Type::Fling, modelView, end, now, duration * fraction);
 }
 }  // namespace df

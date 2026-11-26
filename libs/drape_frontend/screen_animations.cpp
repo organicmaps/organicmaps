@@ -9,7 +9,7 @@ namespace df
 MapAnimation::MapAnimation(Type type, ScreenBase const & start, ScreenBase const & end,
                            AnimationClock::time_point requestedAt, double duration,
                            std::optional<m2::PointD> pixelAnchor)
-  : Animation(requestedAt, duration)
+  : Animation(requestedAt, duration, type == Type::Fling ? kMaxFlingDurationSec : kMaxAnimationTimeSec)
   , m_type(type)
   , m_pixelAnchor(pixelAnchor)
   , m_start(GetPose(start, pixelAnchor))
@@ -20,13 +20,6 @@ MapAnimation::Pose MapAnimation::GetPose(ScreenBase const & screen, std::optiona
 {
   auto const position = pixelAnchor ? screen.PtoG(screen.P3dtoP(*pixelAnchor)) : screen.GetOrg();
   return {position, screen.GetScale(), screen.GetAngle()};
-}
-
-void MapAnimation::Apply(ScreenBase & screen) const
-{
-  double const t = GetTimeFraction();
-  // The fling's speed falls as 1 - t². The position curve is its normalized integral.
-  Apply(screen, m_type == Type::Fling ? t * (3.0 - t * t) * 0.5 : GetProgress());
 }
 
 void MapAnimation::Apply(ScreenBase & screen, double progress) const

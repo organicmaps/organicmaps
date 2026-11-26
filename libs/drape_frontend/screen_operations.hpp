@@ -2,8 +2,19 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <array>
+
 namespace df
 {
+
+// Viewport corners and their bounds in map-plane pixels, before perspective projection.
+struct ViewportFootprint
+{
+  ViewportFootprint(ScreenBase const & screen, m2::RectD const & viewport);
+
+  std::array<m2::PointD, 4> m_corners;
+  m2::RectD m_bounds;
+};
 
 bool CheckMinScale(ScreenBase const & screen);
 bool CheckMaxScale(ScreenBase const & screen);

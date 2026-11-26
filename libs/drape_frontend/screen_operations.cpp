@@ -15,6 +15,14 @@
 namespace df
 {
 
+ViewportFootprint::ViewportFootprint(ScreenBase const & screen, m2::RectD const & viewport)
+  : m_corners{screen.P3dtoP(viewport.LeftTop()), screen.P3dtoP(viewport.RightTop()),
+              screen.P3dtoP(viewport.RightBottom()), screen.P3dtoP(viewport.LeftBottom())}
+{
+  for (auto const & corner : m_corners)
+    m_bounds.Add(corner);
+}
+
 bool IsScaleAllowableIn3d(int scale)
 {
   int minScale = scales::GetMinAllowableIn3dScale();
