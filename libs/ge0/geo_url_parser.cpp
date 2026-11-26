@@ -41,7 +41,7 @@ bool MatchLatLonZoom(std::string const & s, std::regex const & re, size_t lati, 
     return true;
   }
 
-  LOG(LWARNING, ("Bad coordinates url:", s));
+  LOG(LWARNING, ("Bad coordinates in a URL"));
   return false;
 }
 
@@ -213,7 +213,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
       coordinates = url::UrlDecode(coordinates);
       if (!std::regex_match(coordinates, m, m_latlonRe) || m.size() < 3)
       {
-        LOG(LWARNING, ("Missing coordinates in", raw));
+        LOG(LWARNING, ("Missing coordinates in a geo URI"));
         return false;
       }
     }
@@ -223,7 +223,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
     VERIFY(strings::to_double(ToView(m[2]), lon), ());
     if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
     {
-      LOG(LWARNING, ("Invalid lat,lon in", raw));
+      LOG(LWARNING, ("Invalid lat,lon in a geo URI"));
       return false;
     }
     info.m_lat = lat;
@@ -245,7 +245,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
       VERIFY(strings::to_double(ToView(m[2]), lon), ());
       if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
       {
-        LOG(LWARNING, ("Invalid lat,lon after q=", raw));
+        LOG(LWARNING, ("Invalid lat,lon after q= in a geo URI"));
         info.m_query = *q;
       }
       else
@@ -265,7 +265,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
 
   if (!info.IsLatLonValid() && info.m_query.empty())
   {
-    LOG(LWARNING, ("Missing coordinates and q=", raw));
+    LOG(LWARNING, ("Missing coordinates and q= in a geo URI"));
     return false;
   }
 
