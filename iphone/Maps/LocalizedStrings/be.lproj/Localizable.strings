@@ -742,6 +742,18 @@
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Аўтамабілем";
 
+/* Heading for the surface choices in cycling routing settings. */
+"bicycle_surface" = "Road surface";
+
+/* Cycle with no preference for paved or unpaved surfaces. */
+"bicycle_surface_any" = "Any surface";
+
+/* Prefer paved surfaces for cycling. Unpaved roads are still allowed. */
+"bicycle_surface_prefer_paved" = "Prefer paved";
+
+/* Prefer unpaved surfaces for cycling. Paved roads are still allowed. */
+"bicycle_surface_prefer_unpaved" = "Prefer unpaved";
+
 /* Cycling profile in routing options settings. */
 "routing_options_cycling" = "Веласіпедам";
 

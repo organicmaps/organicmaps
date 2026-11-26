@@ -314,7 +314,7 @@ private:
 
   TimeGetterT m_currentTimeGetter;
 
-  std::optional<RoutingOptions> m_requestRoutingOptions;
-  RoutingOptions::RoadType m_previousRoutingOptions = 0;
+  std::optional<RoutePlanningOptions> m_requestRoutingOptions;
+  RoutePlanningOptions m_previousRoutingOptions;
 };
 }  // namespace routing

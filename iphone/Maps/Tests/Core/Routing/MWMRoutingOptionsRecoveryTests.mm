@@ -55,9 +55,9 @@ private:
       if (!gate->m_mayRead.try_acquire_for(5s))
         return routing::RouterResultCode::InternalError;
     }
-    auto const options = delegate.GetRoutingOptions();
+    auto const options = delegate.GetRoutePlanningOptions();
     CHECK(options, ("Missing routing options in the submitted request"));
-    bool const avoid = options->Has(m_road);
+    bool const avoid = options->m_avoid.Has(m_road);
     if (gate)
     {
       gate->m_didRead.release();

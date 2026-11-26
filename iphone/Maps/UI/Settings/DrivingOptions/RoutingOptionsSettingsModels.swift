@@ -1,9 +1,10 @@
 enum RoutingOptionsSettingsSection: String {
   case options
+  case bicycleSurface
   case optimization
 }
 
-enum RoutingOption: String {
+enum RoutingOption: Hashable {
   case routeOptimization
   case tollRoads
   case unpavedRoads
@@ -11,6 +12,7 @@ enum RoutingOption: String {
   case motorways
   case steps
   case difficultTrails
+  case bicycleSurface(BicycleSurfacePreference)
 }
 
 extension RoutingOption {
@@ -20,11 +22,12 @@ extension RoutingOption {
     switch self {
     case .routeOptimization: return true
     case .tollRoads: return options.supportedOptions.contains(.toll)
-    case .unpavedRoads: return options.supportedOptions.contains(.dirty)
+    case .unpavedRoads: return options.routerType != .bicycle && options.supportedOptions.contains(.dirty)
     case .ferryCrossings: return options.supportedOptions.contains(.ferry)
     case .motorways: return options.supportedOptions.contains(.motorway)
     case .steps: return options.supportedOptions.contains(.steps)
     case .difficultTrails: return options.supportedOptions.contains(.difficultTrail)
+    case .bicycleSurface: return options.routerType == .bicycle
     }
   }
 
@@ -37,6 +40,14 @@ extension RoutingOption {
     case .motorways: return L("avoid_motorways")
     case .steps: return L("avoid_steps")
     case .difficultTrails: return L("avoid_difficult_trails")
+    case .bicycleSurface(let preference):
+      switch preference {
+      case .any: return L("bicycle_surface_any")
+      case .preferPaved: return L("bicycle_surface_prefer_paved")
+      case .preferUnpaved: return L("bicycle_surface_prefer_unpaved")
+      case .avoidUnpaved: return L("avoid_unpaved")
+      @unknown default: preconditionFailure("Unknown bicycle surface preference")
+      }
     }
   }
 
@@ -57,6 +68,7 @@ extension RoutingOption {
     case .motorways: return \.avoidMotorway
     case .steps: return \.avoidSteps
     case .difficultTrails: return \.avoidDifficultTrails
+    case .bicycleSurface: preconditionFailure("Surface preference uses a selection")
     }
   }
 }
@@ -64,6 +76,7 @@ extension RoutingOption {
 struct RoutingOptionsSettingsState {
   let options: RoutingOptions
   let canChangeOptimization: Bool
+  let bicycleSurface: BicycleSurfacePreference
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>

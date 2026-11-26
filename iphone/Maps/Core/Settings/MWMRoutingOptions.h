@@ -13,11 +13,19 @@ typedef NS_OPTIONS(NSUInteger, MWMRoutingAvoidance) {
   MWMRoutingAvoidanceDifficultTrail = 1u << 6
 } NS_SWIFT_NAME(RoutingAvoidance);
 
+typedef NS_ENUM(NSInteger, MWMBicycleSurfacePreference) {
+  MWMBicycleSurfacePreferenceAny = 0,
+  MWMBicycleSurfacePreferencePreferPaved = 1,
+  MWMBicycleSurfacePreferencePreferUnpaved = 2,
+  MWMBicycleSurfacePreferenceAvoidUnpaved = 3
+} NS_SWIFT_NAME(BicycleSurfacePreference);
+
 NS_SWIFT_NAME(RoutingOptions)
 @interface MWMRoutingOptions : NSObject
 
 @property(nonatomic, readonly) MWMRouterType routerType;
 @property(nonatomic, readonly) MWMRoutingAvoidance supportedOptions;
+@property(class, nonatomic) MWMBicycleSurfacePreference bicycleSurfacePreference;
 
 - (instancetype)initWithRouterType:(MWMRouterType)routerType NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;

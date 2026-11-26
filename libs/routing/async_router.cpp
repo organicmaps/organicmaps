@@ -19,7 +19,7 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership con
                                                       RemoveRouteCallback const & onRemoveRoute,
                                                       PointCheckCallback const & onPointCheck,
                                                       ProgressCallback const & onProgress, uint32_t timeoutSec,
-                                                      std::optional<RoutingOptions> routingOptions)
+                                                      std::optional<RoutePlanningOptions> routingOptions)
   : m_onReadyOwnership(onReady)
   , m_onNeedMoreMaps(onNeedMoreMaps)
   , m_onRemoveRoute(onRemoveRoute)
@@ -170,7 +170,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
                                  ProgressCallback const & progressCallback, uint32_t timeoutSec,
-                                 std::optional<RoutingOptions> routingOptions)
+                                 std::optional<RoutePlanningOptions> routingOptions)
 {
   lock_guard ul(m_guard);
 

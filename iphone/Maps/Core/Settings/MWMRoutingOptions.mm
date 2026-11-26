@@ -22,6 +22,17 @@ static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routi
 
 @implementation MWMRoutingOptions
 
++ (MWMBicycleSurfacePreference)bicycleSurfacePreference
+{
+  return static_cast<MWMBicycleSurfacePreference>(routing::RoutePlanningOptions::LoadBicycleSurfacePreference());
+}
+
++ (void)setBicycleSurfacePreference:(MWMBicycleSurfacePreference)preference
+{
+  routing::RoutePlanningOptions::SaveBicycleSurfacePreference(
+      static_cast<routing::BicycleSurfacePreference>(preference));
+}
+
 - (instancetype)initWithRouterType:(MWMRouterType)routerType
 {
   self = [super init];

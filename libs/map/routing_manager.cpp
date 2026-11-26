@@ -1601,17 +1601,17 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
 
 namespace
 {
-RoutingOptions LoadRoutePlanningOptions(RouterType router)
+RoutePlanningOptions LoadRoutePlanningOptions(RouterType router)
 {
   auto const vehicle = RoutingOptions::GetVehicleType(router);
-  return vehicle ? RoutingOptions::LoadFromSettings(*vehicle) : RoutingOptions{};
+  return vehicle ? RoutePlanningOptions::LoadFromSettings(*vehicle) : RoutePlanningOptions{};
 }
 }  // namespace
 
 bool RoutingManager::HaveRoutePlanningOptionsChanged() const
 {
   auto const options = m_routingSession.GetRoutePlanningOptions();
-  return options && options->GetOptions() != LoadRoutePlanningOptions(m_currentRouterType).GetOptions();
+  return options && *options != LoadRoutePlanningOptions(m_currentRouterType);
 }
 
 void RoutingManager::BuildRoute(uint32_t timeoutSec)

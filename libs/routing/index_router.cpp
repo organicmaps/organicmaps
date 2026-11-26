@@ -463,21 +463,25 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    m_requestRoutingOptions = delegate.GetRoutingOptions();
-    if (!m_requestRoutingOptions)
-      m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
-    if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
+    auto const submittedOptions = delegate.GetRoutePlanningOptions();
+    auto const options = submittedOptions ? *submittedOptions : RoutePlanningOptions::LoadFromSettings(m_vehicleType);
+    ASSERT(m_vehicleType == VehicleType::Bicycle || options.m_bicycleSurfaceBias == BicycleSurfaceBias::Any,
+           (m_vehicleType, options.m_bicycleSurfaceBias));
+    m_requestRoutingOptions = options;
+    if (m_previousRoutingOptions != options)
     {
       m_lastRoute.reset();
       m_lastFakeEdges.reset();
       m_lastAltRoute.reset();
       m_lastAltFakeEdges.reset();
     }
-    m_previousRoutingOptions = m_requestRoutingOptions->GetOptions();
+    m_previousRoutingOptions = options;
+    m_estimator->SetBicycleSurfaceBias(options.m_bicycleSurfaceBias);
     SCOPE_GUARD(featureRoadGraphClear, [this]
     {
       ClearRouteCalculationState();
       m_requestRoutingOptions.reset();
+      m_estimator->SetBicycleSurfaceBias(BicycleSurfaceBias::Any);
     });
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.
@@ -1358,7 +1362,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   auto graphAvoids =
-      m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
+      m_requestRoutingOptions ? m_requestRoutingOptions->m_avoid : RoutingOptions::LoadFromSettings(m_vehicleType);
   /// @DebugNote
   // graphAvoids.Add(RoutingOptions::Motorway);
 

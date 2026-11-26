@@ -10,9 +10,11 @@
 
 #include "base/scope_guard.hpp"
 
+#include <atomic>
 #include <cstdint>
 #include <string>
 #include <string_view>
+#include <thread>
 #include <vector>
 
 using namespace routing;
@@ -224,5 +226,66 @@ UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)
     RoutingOptions::SaveRouteOptimizationToSettings(enabled);
     TEST_EQUAL(RoutingOptions::LoadRouteOptimizationFromSettings(), enabled, ());
   }
+}
+
+UNIT_CLASS_TEST(RoutingOptionsTests, BicycleSurfaceChoicePreservesTheSavedHardAvoid)
+{
+  using enum BicycleSurfacePreference;
+  std::string_view constexpr key = "BicycleSurfacePreference";
+  auto const bicycle = VehicleType::Bicycle;
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), Any, ());
+  settings::Set(key, 256u);
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), Any, ());
+  RoutePlanningOptions::SaveBicycleSurfacePreference(PreferUnpaved);
+  TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(bicycle).m_bicycleSurfaceBias, BicycleSurfaceBias::PreferUnpaved,
+             ());
+  TEST_EQUAL(RoutePlanningOptions::LoadFromSettings(VehicleType::Car).m_bicycleSurfaceBias, BicycleSurfaceBias::Any,
+             ());
+
+  // A hard avoid from the place page takes priority over a saved preference.
+  RoutingOptions const ferry(RoutingOptions::Ferry);
+  RoutingOptions::SaveToSettings(bicycle, RoutingOptions(RoutingOptions::Dirty | RoutingOptions::Ferry));
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), AvoidUnpaved, ());
+  auto const hardOptions = RoutePlanningOptions::LoadFromSettings(bicycle);
+  TEST(hardOptions.m_avoid.Has(RoutingOptions::Dirty), ());
+  TEST_EQUAL(hardOptions.m_bicycleSurfaceBias, BicycleSurfaceBias::Any, ());
+  RoutingOptions::SaveToSettings(bicycle, ferry);
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), PreferUnpaved, ());
+
+  RoutePlanningOptions::SaveBicycleSurfacePreference(AvoidUnpaved);
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), AvoidUnpaved, ());
+  RoutingOptions::SaveToSettings(bicycle, ferry);
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), Any, ());
+
+  RoutePlanningOptions::SaveBicycleSurfacePreference(AvoidUnpaved);
+  RoutePlanningOptions::SaveBicycleSurfacePreference(PreferPaved);
+  TEST_EQUAL(RoutePlanningOptions::LoadBicycleSurfacePreference(), PreferPaved, ());
+  TEST_EQUAL(RoutingOptions::LoadFromSettings(bicycle), ferry, ());
+}
+
+UNIT_CLASS_TEST(RoutingOptionsTests, ConcurrentCyclingSurfaceChangesKeepTheRequestCoherent)
+{
+  using enum BicycleSurfacePreference;
+  RoutePlanningOptions::SaveBicycleSurfacePreference(PreferPaved);
+  std::atomic<bool> finished = false;
+  std::jthread writer([&finished]
+  {
+    for (int i = 0; i < 500; ++i)
+    {
+      RoutePlanningOptions::SaveBicycleSurfacePreference(AvoidUnpaved);
+      RoutePlanningOptions::SaveBicycleSurfacePreference(PreferPaved);
+    }
+    finished = true;
+  });
+
+  int invalidReads = 0;
+  do
+  {
+    auto const preference = RoutePlanningOptions::LoadBicycleSurfacePreference();
+    if (preference != PreferPaved && preference != AvoidUnpaved)
+      ++invalidReads;
+  }
+  while (!finished);
+  TEST_EQUAL(invalidReads, 0, ());
 }
 }  // namespace

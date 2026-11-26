@@ -119,6 +119,14 @@ public:
                                  true, {}, result);
   }
 
+  static RouterResultCode CalculateSurfaceChoice(IndexRouter & router, RoutesResult & result, double latitude,
+                                                 bool alternatives = false)
+  {
+    return router.CalculateRoute(
+        Checkpoints(mercator::FromLatLon(latitude, 1.01), mercator::FromLatLon(latitude, 1.14)), {}, true, alternatives,
+        {}, result);
+  }
+
 private:
   std::map<std::string, uint32_t> m_features;
 };
@@ -252,6 +260,121 @@ UNIT_CLASS_TEST(SurfaceRoutingFixture, CarDirtyMatchesRoadClassesAndSurfaces)
     TEST_EQUAL(graph->GetRoutingOptions(segment).Has(RoutingOptions::Dirty), dirty, (name));
     TEST_EQUAL(graph->IsRoutingOptionsGood(segment), !dirty, (name));
   }
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, BicyclePreferencePricesMappedSurfacesWithoutChangingEta)
+{
+  using enum BicycleSurfaceBias;
+  using enum EdgeEstimator::Purpose;
+  struct SurfaceCase
+  {
+    char const * m_name;
+    bool m_penalizedWhenPaved;
+    bool m_penalizedWhenUnpaved;
+    double m_baselineWeight = 0.0;
+    double m_baselineEta = 0.0;
+  };
+  SurfaceCase cases[] = {{"Paved track", false, true},
+                         {"Rough paved track", false, true},
+                         {"Unpaved cycleway", true, false},
+                         {"Bad unpaved cycleway", true, false},
+                         {"Unknown track", false, false}};
+  auto router = Router(VehicleType::Bicycle);
+  for (auto const preference : {Any, PreferPaved, PreferUnpaved})
+  {
+    bool checked = false;
+    m_onCountryLookup = [&]
+    {
+      if (checked)
+        return;
+      checked = true;
+      auto graph = router->MakeSingleMwmWorldGraph();
+      for (auto & test : cases)
+      {
+        auto const segment = NamedSegment(test.m_name);
+        auto const weight = graph->CalcSegmentWeight(segment, Weight).GetWeight();
+        auto const eta = graph->CalcSegmentWeight(segment, ETA).GetWeight();
+        if (preference == Any)
+        {
+          test.m_baselineWeight = weight;
+          test.m_baselineEta = eta;
+        }
+        else
+        {
+          bool const penalized = preference == PreferPaved ? test.m_penalizedWhenPaved : test.m_penalizedWhenUnpaved;
+          if (penalized)
+            TEST_GREATER(weight, test.m_baselineWeight, (test.m_name, preference));
+          else
+            TEST_EQUAL(weight, test.m_baselineWeight, (test.m_name, preference));
+          TEST_EQUAL(eta, test.m_baselineEta, (test.m_name, preference));
+        }
+      }
+    };
+    RouterDelegate const delegate{RoutePlanningOptions{{}, preference}};
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, delegate), RouterResultCode::NoError, (preference));
+    TEST(checked, (preference));
+  }
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleSurfaceChoiceChangesTheRouteAndKeepsRequiredConnectors)
+{
+  using enum BicycleSurfacePreference;
+  auto router = Router(VehicleType::Bicycle);
+
+  for (auto const preference : {Any, PreferPaved, PreferUnpaved, AvoidUnpaved})
+  {
+    RoutePlanningOptions::SaveBicycleSurfacePreference(preference);
+    RoutesResult result;
+    TEST_EQUAL(CalculateSurfaceChoice(*router, result, 4, true /* alternatives */), RouterResultCode::NoError,
+               (preference));
+    TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Dirty),
+               preference == Any || preference == PreferUnpaved, (preference));
+    if (preference == AvoidUnpaved)
+      for (auto const & route : result.m_routes)
+        TEST(!UsesRoadType(route, RoutingOptions::Dirty), ());
+  }
+  RoutePlanningOptions::SaveBicycleSurfacePreference(PreferPaved);
+  RoutesResult required;
+  TEST_EQUAL(CalculateRequiredRoad(*router, required), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(required.GetActive(), RoutingOptions::Dirty), ());
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, BicyclePreferUnpavedCanChooseALongerGravelRoute)
+{
+  auto router = Router(VehicleType::Bicycle);
+  RoutesResult any;
+  TEST_EQUAL(CalculateSurfaceChoice(*router, any, 5), RouterResultCode::NoError, ());
+  TEST(!UsesRoadType(any.GetActive(), RoutingOptions::Dirty), ());
+
+  RoutePlanningOptions::SaveBicycleSurfacePreference(BicycleSurfacePreference::PreferUnpaved);
+  RoutesResult preferUnpaved;
+  TEST_EQUAL(CalculateSurfaceChoice(*router, preferUnpaved, 5), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(preferUnpaved.GetActive(), RoutingOptions::Dirty), ());
+  TEST_GREATER(preferUnpaved.GetActive().GetRouteSegments().back().GetDistFromBeginningMeters(),
+               any.GetActive().GetRouteSegments().back().GetDistFromBeginningMeters(), ());
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleSurfaceChoiceKeepsTheSelectedVariant)
+{
+  auto router = Router(VehicleType::Bicycle);
+  RoutesResult initial;
+  TEST_EQUAL(CalculateSurfaceChoice(*router, initial, 6, true /* alternatives */), RouterResultCode::NoError, ());
+  TEST_EQUAL(initial.m_routes.size(), 2, ());
+  TEST(!UsesRoadType(initial.GetActive(), RoutingOptions::Dirty), ());
+  TEST(UsesRoadType(initial.m_routes[1], RoutingOptions::Dirty), ());
+  router->SwapAltRouteToActive();
+
+  RoutePlanningOptions::SaveBicycleSurfacePreference(BicycleSurfacePreference::PreferUnpaved);
+  RoutesResult rebuilt;
+  TEST_EQUAL(CalculateSurfaceChoice(*router, rebuilt, 6), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(rebuilt.GetActive(), RoutingOptions::Dirty), ());
+
+  // With Prefer unpaved still saved, the Normal variant takes the paved route.
+  router->ClearState();
+  RoutesResult normal;
+  TEST_EQUAL(CalculateSurfaceChoice(*router, normal, 6), RouterResultCode::NoError, ());
+  TEST(!UsesRoadType(normal.GetActive(), RoutingOptions::Dirty), ());
 }
 
 UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleUnpavedAvoidanceIsIndependentAndReversible)
@@ -405,7 +528,7 @@ UNIT_CLASS_TEST(StepsRoutingFixture, SubmittedOptionsOverrideSettingsForTheWhole
   for (bool const avoid : {false, true, false})
   {
     RoutingOptions::SaveToSettings(vehicle, RoutingOptions(avoid ? 0 : RoutingOptions::Steps));
-    RouterDelegate const delegate{RoutingOptions(avoid ? RoutingOptions::Steps : 0)};
+    RouterDelegate const delegate{RoutePlanningOptions{RoutingOptions(avoid ? RoutingOptions::Steps : 0)}};
     RoutesResult result;
     TEST_EQUAL(Calculate(*router, result, delegate, true, true), RouterResultCode::NoError, (avoid));
     TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Steps), !avoid, (avoid));

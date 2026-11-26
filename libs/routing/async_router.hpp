@@ -45,7 +45,7 @@ public:
   /// @param readyCallback function to return routing result
   /// @param progressCallback function to update the router progress
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
-  /// @param routingOptions avoidance options for this request. If unset, IndexRouter loads the saved settings.
+  /// @param routingOptions options for this request. If unset, IndexRouter loads the saved settings.
   // @TODO(bykoianko) Gather |readyCallback|, |needMoreMapsCallback| and |removeRouteCallback|
   // to one delegate. No need to add |progressCallback| to the delegate.
   void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
@@ -53,7 +53,7 @@ public:
                       NeedMoreMapsCallback const & needMoreMapsCallback,
                       RemoveRouteCallback const & removeRouteCallback, ProgressCallback const & progressCallback,
                       uint32_t timeoutSec = RouterDelegate::kNoTimeout,
-                      std::optional<RoutingOptions> routingOptions = std::nullopt);
+                      std::optional<RoutePlanningOptions> routingOptions = std::nullopt);
 
   void SetGuidesTracks(GuidesTracks && guides);
   /// Interrupt routing and clear buffers
@@ -81,7 +81,7 @@ private:
     RouterDelegateProxy(ReadyCallbackOwnership const & onReady, NeedMoreMapsCallback const & onNeedMoreMaps,
                         RemoveRouteCallback const & onRemoveRoute, PointCheckCallback const & onPointCheck,
                         ProgressCallback const & onProgress, uint32_t timeoutSec,
-                        std::optional<RoutingOptions> routingOptions);
+                        std::optional<RoutePlanningOptions> routingOptions);
 
     void OnReady(std::shared_ptr<RoutesResult> result, RouterResultCode resultCode);
     void OnNeedMoreMaps(uint64_t routeId, std::set<std::string> const & absentCounties);

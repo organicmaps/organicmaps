@@ -419,6 +419,18 @@ JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOptio
   RoutingOptions::SaveToSettings(*vehicle, options);
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetBicycleSurfacePreference(JNIEnv *, jclass)
+{
+  return static_cast<jint>(routing::RoutePlanningOptions::LoadBicycleSurfacePreference());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetBicycleSurfacePreference(JNIEnv *, jclass,
+                                                                                                 jint preference)
+{
+  routing::RoutePlanningOptions::SaveBicycleSurfacePreference(
+      static_cast<routing::BicycleSurfacePreference>(preference));
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(routing::RoutingOptions::LoadRouteOptimizationFromSettings());

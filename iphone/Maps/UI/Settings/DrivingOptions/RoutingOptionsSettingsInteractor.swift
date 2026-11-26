@@ -14,9 +14,15 @@ final class RoutingOptionsSettingsInteractor {
     !MWMRouter.isOnRoute() && (!MWMRouter.isRoutingActive() || MWMRouter.type() != .ruler)
   }
 
+  private func makeState(options: RoutingOptions) -> RoutingOptionsSettingsState {
+    let bicycleSurface = options.routerType == .bicycle ? RoutingOptions.bicycleSurfacePreference : .any
+    return RoutingOptionsSettingsState(options: options,
+                                       canChangeOptimization: canChangeOptimization,
+                                       bicycleSurface: bicycleSurface)
+  }
+
   func loadSettings() {
-    let state = RoutingOptionsSettingsState(options: routingOptionsProvider(),
-                                            canChangeOptimization: canChangeOptimization)
+    let state = makeState(options: routingOptionsProvider())
     optimizationEnabledOnLoad = state.options.routeOptimizationEnabled
     self.state = state
     present(state, animatingDifferences: false)
@@ -27,7 +33,7 @@ final class RoutingOptionsSettingsInteractor {
     // CarPlay can change avoidance options while this screen is open. Preserve those changes when saving.
     let options = routingOptionsProvider()
     // Navigation can start while the screen is open (e.g. from CarPlay): recheck it and refresh the switch.
-    let state = RoutingOptionsSettingsState(options: options, canChangeOptimization: canChangeOptimization)
+    let state = makeState(options: options)
     if option != .routeOptimization || state.canChangeOptimization {
       option.setEnabled(enabled, in: options)
       // Optimization persists in its setter; only avoidance options need saving.
@@ -60,6 +66,13 @@ extension RoutingOptionsSettingsInteractor: SettingsViewControllerInteractor {
       loadSettings()
     case .didChangeSwitch(let item, isOn: let isOn):
       set(item, enabled: isOn)
+    case .didSelect(.bicycleSurface(let preference)):
+      guard let state else { return }
+      precondition(state.options.routerType == .bicycle)
+      RoutingOptions.bicycleSurfacePreference = preference
+      let updated = makeState(options: routingOptionsProvider())
+      self.state = updated
+      present(updated, animatingDifferences: false)
     case .didDisappear:
       applyOptimization()
     default:

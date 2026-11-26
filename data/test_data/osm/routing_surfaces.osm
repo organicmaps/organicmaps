@@ -21,6 +21,24 @@
   <node id="58" lat="3" lon="1.08" />
   <node id="59" lat="3" lon="1.09" />
   <node id="60" lat="3" lon="1.1" />
+  <node id="100" lat="4" lon="1" />
+  <node id="101" lat="4" lon="1.02" />
+  <node id="102" lat="4" lon="1.08" />
+  <node id="103" lat="4" lon="1.15" />
+  <node id="104" lat="4.004" lon="1.02" />
+  <node id="105" lat="4.004" lon="1.08" />
+  <node id="110" lat="5" lon="1" />
+  <node id="111" lat="5" lon="1.02" />
+  <node id="112" lat="5" lon="1.08" />
+  <node id="113" lat="5" lon="1.15" />
+  <node id="114" lat="5.004" lon="1.02" />
+  <node id="115" lat="5.004" lon="1.08" />
+  <node id="120" lat="6" lon="1" />
+  <node id="121" lat="6" lon="1.02" />
+  <node id="122" lat="6" lon="1.08" />
+  <node id="123" lat="6" lon="1.15" />
+  <node id="124" lat="6.008" lon="1.02" />
+  <node id="125" lat="6.008" lon="1.08" />
   <way id="10">
     <nd ref="1" /><nd ref="2" />
     <tag k="highway" v="residential" /><tag k="surface" v="asphalt" />
@@ -104,5 +122,55 @@
     <nd ref="59" /><nd ref="60" />
     <tag k="highway" v="track" /><tag k="surface" v="asphalt" />
     <tag k="smoothness" v="bad" /><tag k="name" v="Rough paved track" />
+  </way>
+  <way id="100">
+    <nd ref="100" /><nd ref="101" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="101">
+    <nd ref="101" /><nd ref="102" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="gravel" />
+  </way>
+  <way id="102">
+    <nd ref="102" /><nd ref="103" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="103">
+    <nd ref="101" /><nd ref="104" /><nd ref="105" /><nd ref="102" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <!-- Prefer unpaved can make the longer parallel cycleway cheaper. -->
+  <way id="110">
+    <nd ref="110" /><nd ref="111" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="111">
+    <nd ref="111" /><nd ref="112" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="112">
+    <nd ref="112" /><nd ref="113" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="113">
+    <nd ref="111" /><nd ref="114" /><nd ref="115" /><nd ref="112" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="gravel" />
+  </way>
+  <!-- The shorter residential road keeps the distance-biased variant distinct. -->
+  <way id="120">
+    <nd ref="120" /><nd ref="121" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="121">
+    <nd ref="121" /><nd ref="122" />
+    <tag k="highway" v="residential" /><tag k="surface" v="gravel" />
+  </way>
+  <way id="122">
+    <nd ref="122" /><nd ref="123" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
+  </way>
+  <way id="123">
+    <nd ref="121" /><nd ref="124" /><nd ref="125" /><nd ref="122" />
+    <tag k="highway" v="cycleway" /><tag k="surface" v="asphalt" />
   </way>
 </osm>

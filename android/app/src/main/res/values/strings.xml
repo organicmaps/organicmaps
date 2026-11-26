@@ -638,6 +638,14 @@
     <string name="enable_logging_warning_message">Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.</string>
     <!-- Driving profile in routing options settings. -->
     <string name="routing_options_driving">Driving</string>
+    <!-- Heading for the surface choices in cycling routing settings. -->
+    <string name="bicycle_surface">Road surface</string>
+    <!-- Cycle with no preference for paved or unpaved surfaces. -->
+    <string name="bicycle_surface_any">Any surface</string>
+    <!-- Prefer paved surfaces for cycling. Unpaved roads are still allowed. -->
+    <string name="bicycle_surface_prefer_paved">Prefer paved</string>
+    <!-- Prefer unpaved surfaces for cycling. Paved roads are still allowed. -->
+    <string name="bicycle_surface_prefer_unpaved">Prefer unpaved</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Cycling</string>
     <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->

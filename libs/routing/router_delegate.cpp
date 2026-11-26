@@ -12,7 +12,7 @@ void DefaultPointFn(ms::LatLon const & /* point */) {}
 
 RouterDelegate::RouterDelegate() : RouterDelegate(std::nullopt) {}
 
-RouterDelegate::RouterDelegate(std::optional<RoutingOptions> routingOptions)
+RouterDelegate::RouterDelegate(std::optional<RoutePlanningOptions> routingOptions)
   : m_progressCallback(DefaultProgressFn)
   , m_pointCallback(DefaultPointFn)
   , m_routingOptions(routingOptions)

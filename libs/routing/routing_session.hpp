@@ -48,8 +48,8 @@ public:
   void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder);
 
   // Capture for the entire preview, including planning attempts that fail before enqueuing.
-  void SetRoutePlanningOptions(RoutingOptions options) { m_routePlanningOptions = options; }
-  std::optional<RoutingOptions> GetRoutePlanningOptions() const { return m_routePlanningOptions; }
+  void SetRoutePlanningOptions(RoutePlanningOptions options) { m_routePlanningOptions = options; }
+  std::optional<RoutePlanningOptions> GetRoutePlanningOptions() const { return m_routePlanningOptions; }
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
@@ -190,7 +190,7 @@ private:
   SessionState m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
-  std::optional<RoutingOptions> m_routePlanningOptions;
+  std::optional<RoutePlanningOptions> m_routePlanningOptions;
 
   EdgeProj m_proj;
   bool m_projectedToRoadGraph = false;
