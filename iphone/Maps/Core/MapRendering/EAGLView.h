@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL graphicContextInitialized;
 /// A one-shot callback reserved for a deferred CarPlay visual-scale update.
 @property(nonatomic, copy, nullable) void (^graphicContextDidInitializeHandler)(void);
+@property(nonatomic, copy, nullable) id _Nullable (^accessibilityHitTestHandler)(CGPoint point);
 
 - (void)createDrapeEngine;
 - (void)deallocateNative;
