@@ -30,6 +30,49 @@ import org.robolectric.shadows.ShadowLooper;
 public class MultiTouchDelegateTest
 {
   @Test
+  public void previewButtonsHaveDisjoint48PixelTargetsInBothHostDirections()
+  {
+    for (int direction : new int[] {View.LAYOUT_DIRECTION_LTR, View.LAYOUT_DIRECTION_RTL})
+    {
+      Fixture fixture = new Fixture();
+      fixture.host.setLayoutDirection(direction);
+      fixture.first.setLayoutParams(Fixture.params(40, 40, 100, 20));
+      fixture.nested.setLayoutParams(Fixture.params(40, 40, 144, 20));
+      fixture.second.setLayoutParams(new FrameLayout.LayoutParams(40, 40, Gravity.TOP | Gravity.LEFT));
+      fixture.first.layout(100, 20, 140, 60);
+      fixture.nested.layout(144, 20, 184, 60);
+      fixture.second.layout(0, 0, 40, 40);
+      boolean rtl = direction == View.LAYOUT_DIRECTION_RTL;
+      MultiTouchDelegate.expand(fixture.host, fixture.first, 8, rtl ? 0 : 8, 0, rtl ? 8 : 0);
+      MultiTouchDelegate.expand(fixture.host, fixture.second, 8, rtl ? 8 : 0, 0, rtl ? 0 : 8);
+      var info = fixture.host.getTouchDelegate().getTouchDelegateInfo();
+      assertEquals(Set.of(new Rect(92, 12, 140, 60), new Rect(144, 12, 192, 60)),
+                   Set.of(info.getRegionAt(0).getBounds(), info.getRegionAt(1).getBounds()));
+      fixture.tap(94, 14);
+      fixture.tap(190, 14);
+      assertEquals(1, fixture.firstClicks.get());
+      assertEquals(1, fixture.secondClicks.get());
+    }
+  }
+
+  @Test
+  public void routingCellsExpandVerticallyWithoutCrossingTheirHorizontalBoundary()
+  {
+    Fixture fixture = new Fixture();
+    fixture.first.layout(100, 20, 140, 60);
+    fixture.nested.layout(140, 20, 180, 60);
+    fixture.second.layout(0, 0, 40, 40);
+    MultiTouchDelegate.expand(fixture.host, fixture.first, 4, 0, 4, 0);
+    MultiTouchDelegate.expand(fixture.host, fixture.second, 4, 0, 4, 0);
+    var info = fixture.host.getTouchDelegate().getTouchDelegateInfo();
+    assertEquals(Set.of(new Rect(100, 16, 140, 64), new Rect(140, 16, 180, 64)),
+                 Set.of(info.getRegionAt(0).getBounds(), info.getRegionAt(1).getBounds()));
+    fixture.tap(140, 18);
+    assertEquals(0, fixture.firstClicks.get());
+    assertEquals(1, fixture.secondClicks.get());
+  }
+
+  @Test
   @Config(sdk = {23, 35})
   public void registrationCreatesAndSharesADelegate()
   {

@@ -42,6 +42,11 @@ public final class MultiTouchDelegate extends TouchDelegate
 
   public static void expand(@NonNull ViewGroup host, @NonNull View target, int padding)
   {
+    expand(host, target, padding, padding, padding, padding);
+  }
+
+  public static void expand(@NonNull ViewGroup host, @NonNull View target, int top, int start, int bottom, int end)
+  {
     MultiTouchDelegate delegate;
     if (host.getTouchDelegate() instanceof MultiTouchDelegate existing)
       delegate = existing;
@@ -50,7 +55,7 @@ public final class MultiTouchDelegate extends TouchDelegate
       delegate = new MultiTouchDelegate(host);
       host.setTouchDelegate(delegate);
     }
-    delegate.addTarget(target, padding, padding, padding, padding);
+    delegate.addTarget(target, top, start, bottom, end);
   }
 
   private Rect getBounds(Target target)

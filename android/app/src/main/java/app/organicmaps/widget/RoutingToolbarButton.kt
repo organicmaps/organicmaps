@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.core.content.ContextCompat
 import androidx.core.widget.CompoundButtonCompat
 import app.organicmaps.R
+import app.organicmaps.util.MultiTouchDelegate
 
 class RoutingToolbarButton @JvmOverloads constructor(
     context: Context,
@@ -20,6 +22,13 @@ class RoutingToolbarButton @JvmOverloads constructor(
         setPadding(0, 0, 0, 0)
         compoundDrawablePadding = 0
         gravity = Gravity.CENTER
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        val host = parent as? ViewGroup ?: return
+        val padding = resources.getDimensionPixelSize(R.dimen.margin_quarter)
+        MultiTouchDelegate.expand(host, this, padding, 0, padding, 0)
     }
 
     // RadioButton draws the button drawable at the start edge; on a stretched (weight=1) cell

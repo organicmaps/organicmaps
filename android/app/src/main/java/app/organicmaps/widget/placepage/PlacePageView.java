@@ -294,6 +294,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     mToolbar = mFrame.findViewById(R.id.toolbar);
     mTvSubtitle = mPreview.findViewById(R.id.tv__subtitle);
 
+    int previewPadding = getResources().getDimensionPixelSize(R.dimen.margin_half);
+    // The preview button row stays LTR even when its host uses RTL.
+    boolean previewRtl = mPreview.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    MultiTouchDelegate.expand(mPreview, mPreview.findViewById(R.id.share_button), previewPadding,
+                              previewRtl ? 0 : previewPadding, 0, previewRtl ? previewPadding : 0);
+    MultiTouchDelegate.expand(mPreview, mPreview.findViewById(R.id.close_button), previewPadding,
+                              previewRtl ? previewPadding : 0, 0, previewRtl ? 0 : previewPadding);
+
     View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = mPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = mPreview.findViewById(R.id.av__direction);
