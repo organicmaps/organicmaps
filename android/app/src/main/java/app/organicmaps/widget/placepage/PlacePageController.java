@@ -831,6 +831,9 @@ public class PlacePageController
     if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN
         && (mMapObject == null || !mMapObject.isTrackRecording()) && !Framework.nativeHasPlacePageInfo())
       mViewModel.setMapObject(null);
+    else if (mMapObject == null && !Framework.nativeHasPlacePageInfo()
+             && getChildFragmentManager().findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) != null)
+      removePlacePageFragments();
   }
 
   @Override
