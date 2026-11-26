@@ -403,10 +403,9 @@ void UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
 
 void UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent)
 {
+  // A new selection sends the same viewport again to move the selection into it.
   auto const previousViewport = m_visibleViewport;
   m_visibleViewport = viewportEvent->GetRect();
-  if (m_visibleViewport == previousViewport)
-    return;
 
   m2::PointD offset;
   bool const hasOffset =

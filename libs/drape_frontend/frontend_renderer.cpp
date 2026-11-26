@@ -1019,7 +1019,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ++m_scenarioViewportRevision;
       m_scenarioViewportStage = ScenarioViewportStage::WaitViewport;
       AddUserEvent(make_unique_dp<SetCenterEvent>(request->m_center, request->m_zoom, false /* isAnim */,
-                                                  false /* trackVisibleViewport */, nullptr));
+                                                  false /* trackVisibleViewport */));
     }
     break;
   }
