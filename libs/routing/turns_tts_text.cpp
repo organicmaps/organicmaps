@@ -288,6 +288,11 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   return out;
 }
 
+std::string GetTtsText::GetUpcomingDestinationNotification() const
+{
+  return GetTextByIdTrimmed("destination");
+}
+
 std::string GetTtsText::GetRecalculatingNotification() const
 {
   return GetTextById("route_recalculating");

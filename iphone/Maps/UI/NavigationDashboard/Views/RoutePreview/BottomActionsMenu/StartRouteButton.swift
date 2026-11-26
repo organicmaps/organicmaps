@@ -91,6 +91,14 @@ final class StartRouteButton: UIView {
 
   func setState(_ newState: State) {
     guard state != newState else { return }
+    switch newState {
+    case .enabled, .disabled:
+      button.accessibilityValue = nil
+    case .loading(let progress):
+      let boundedProgress = min(max(progress, 0), 1)
+      let percent = NumberFormatter.localizedString(from: NSNumber(value: Double(boundedProgress)), number: .percent)
+      button.accessibilityValue = String(format: L("routing_accessibility_calculating_progress"), percent)
+    }
     let oldState = state
     switch (oldState, newState) {
     case (.loading, .loading(let progress)): // progress update

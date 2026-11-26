@@ -47207,6 +47207,7 @@ uk = У цьому напрямку треку більше немає. Вибе
 vi = Không còn hành trình theo hướng này. Hãy chọn điểm khác.
 zh-Hans = 此方向上已没有剩余轨迹。请选择其他点。
 zh-Hant = 此方向上已無剩餘軌跡。請選擇其他點。
+
 [map_location_searching]
 comment = VoiceOver value of the location button while the iOS map is determining the user's position.
 tags = apple-maps
@@ -47374,6 +47375,286 @@ en = Distance %@, elevation %@
 pl = Odległość %@, wysokość %@
 ru = Расстояние %@, высота %@
 uk = Відстань %@, висота %@
+
+[routing_accessibility_car]
+comment = VoiceOver name of the car mode in the iOS route planning transport selector.
+tags = apple-maps
+en = Car
+pl = Samochodem
+ru = На автомобиле
+uk = Автомобілем
+
+[routing_accessibility_walking]
+comment = VoiceOver name of the walking mode and walking steps in iOS route planning.
+tags = apple-maps
+en = Walking
+pl = Pieszo
+ru = Пешком
+uk = Пішки
+
+[routing_accessibility_public_transport]
+comment = VoiceOver name of the public transport mode in the iOS route planning selector.
+tags = apple-maps
+en = Public transport
+pl = Transport publiczny
+ru = Общественный транспорт
+uk = Громадський транспорт
+
+[routing_accessibility_cycling]
+comment = VoiceOver name of the bicycle mode in the iOS route planning selector.
+tags = apple-maps
+en = Cycling
+pl = Rowerem
+ru = На велосипеде
+uk = Велосипедом
+
+[routing_accessibility_measure_distance]
+comment = VoiceOver name of the straight-line distance mode in the iOS route planning selector.
+tags = apple-maps
+en = Measure distance
+pl = Zmierz odległość
+ru = Измерить расстояние
+uk = Виміряти відстань
+
+[routing_accessibility_save_as_track]
+comment = VoiceOver label for the icon button that saves a planned route as a track on iOS.
+tags = apple-maps
+en = Save route as track
+pl = Zapisz trasę jako ślad
+ru = Сохранить маршрут как трек
+uk = Зберегти маршрут як трек
+
+[routing_accessibility_options_count]
+comment = VoiceOver value of the routing options button on iOS. %d is the number of enabled routing options.
+tags = apple-maps
+en = Enabled options: %d
+pl = Włączone opcje: %d
+ru = Включено опций: %d
+uk = Увімкнено параметрів: %d
+
+[routing_accessibility_calculating]
+comment = VoiceOver label for the route estimate while iOS calculates a route.
+tags = apple-maps
+en = Calculating route
+pl = Wyznaczanie trasy
+ru = Построение маршрута
+uk = Побудова маршруту
+
+[routing_accessibility_calculating_progress]
+comment = VoiceOver value of the disabled Start button while iOS calculates a route. %@ is a locale-formatted percentage.
+tags = apple-maps
+en = Calculating route: %@
+pl = Wyznaczanie trasy: %@
+ru = Построение маршрута: %@
+uk = Побудова маршруту: %@
+
+[routing_accessibility_stop_number]
+comment = VoiceOver name of a numbered intermediate route point on iOS. %d is its one-based number.
+tags = apple-maps
+en = Stop %d
+pl = Punkt pośredni %d
+ru = Промежуточная точка %d
+uk = Проміжна точка %d
+
+[routing_accessibility_move_point_up]
+comment = VoiceOver action for moving a route point toward the start of the route on iOS.
+tags = apple-maps
+en = Move point earlier
+pl = Przesuń punkt wcześniej
+ru = Переместить точку раньше
+uk = Перемістити точку раніше
+
+[routing_accessibility_move_point_down]
+comment = VoiceOver action for moving a route point toward the destination on iOS.
+tags = apple-maps
+en = Move point later
+pl = Przesuń punkt później
+ru = Переместить точку позже
+uk = Перемістити точку пізніше
+
+[routing_accessibility_train]
+comment = VoiceOver name of a train step in an iOS public transport route preview.
+tags = apple-maps
+en = Train
+pl = Pociąg
+ru = Поезд
+uk = Поїзд
+
+[routing_accessibility_light_rail]
+comment = VoiceOver name of a light rail step in an iOS public transport route preview.
+tags = apple-maps
+en = Light rail
+pl = Kolej lekka
+ru = Легкорельсовый транспорт
+uk = Легкорейковий транспорт
+
+[routing_accessibility_monorail]
+comment = VoiceOver name of a monorail step in an iOS public transport route preview.
+tags = apple-maps
+en = Monorail
+pl = Kolej jednoszynowa
+ru = Монорельс
+uk = Монорейка
+
+[routing_accessibility_tram]
+comment = VoiceOver name of a tram step in an iOS public transport route preview.
+tags = apple-maps
+en = Tram
+pl = Tramwaj
+ru = Трамвай
+uk = Трамвай
+
+[routing_accessibility_bus]
+comment = VoiceOver name of a bus step in an iOS public transport route preview.
+tags = apple-maps
+en = Bus
+pl = Autobus
+ru = Автобус
+uk = Автобус
+
+[routing_accessibility_ferry]
+comment = VoiceOver name of a ferry step in an iOS public transport route preview.
+tags = apple-maps
+en = Ferry
+pl = Prom
+ru = Паром
+uk = Пором
+
+[routing_accessibility_cable_tram]
+comment = VoiceOver name of a cable tram step in an iOS public transport route preview.
+tags = apple-maps
+en = Cable tram
+pl = Tramwaj linowy
+ru = Канатный трамвай
+uk = Канатний трамвай
+
+[routing_accessibility_aerial_lift]
+comment = VoiceOver name of an aerial lift step in an iOS public transport route preview.
+tags = apple-maps
+en = Aerial lift
+pl = Kolej linowa
+ru = Канатная дорога
+uk = Канатна дорога
+
+[routing_accessibility_funicular]
+comment = VoiceOver name of a funicular step in an iOS public transport route preview.
+tags = apple-maps
+en = Funicular
+pl = Kolej linowo-terenowa
+ru = Фуникулёр
+uk = Фунікулер
+
+[routing_accessibility_air_service]
+comment = VoiceOver name of an air service step in an iOS public transport route preview.
+tags = apple-maps
+en = Air service
+pl = Transport lotniczy
+ru = Авиасообщение
+uk = Авіасполучення
+
+[routing_accessibility_water_service]
+comment = VoiceOver name of a water service step in an iOS public transport route preview.
+tags = apple-maps
+en = Water service
+pl = Transport wodny
+ru = Водный транспорт
+uk = Водний транспорт
+
+[navigation_accessibility_more_controls]
+comment = VoiceOver name of the collapsed controls button during iOS navigation.
+tags = apple-maps
+en = More navigation controls
+pl = Więcej elementów nawigacji
+ru = Больше элементов навигации
+uk = Більше елементів навігації
+
+[navigation_accessibility_hide_controls]
+comment = VoiceOver name of the expanded controls button during iOS navigation.
+tags = apple-maps
+en = Hide navigation controls
+pl = Ukryj elementy nawigacji
+ru = Скрыть элементы навигации
+uk = Сховати елементи навігації
+
+[navigation_accessibility_distance_remaining]
+comment = VoiceOver label for the remaining route distance during iOS navigation.
+tags = apple-maps
+en = Distance remaining
+pl = Pozostała odległość
+ru = Оставшееся расстояние
+uk = Відстань, що залишилася
+
+[navigation_accessibility_current_speed]
+comment = VoiceOver label for current speed during iOS navigation.
+tags = apple-maps
+en = Current speed
+pl = Aktualna prędkość
+ru = Текущая скорость
+uk = Поточна швидкість
+
+[navigation_accessibility_time_remaining]
+comment = VoiceOver label for the remaining route time during iOS navigation.
+tags = apple-maps
+en = Time remaining
+pl = Pozostały czas
+ru = Оставшееся время
+uk = Час, що залишився
+
+[navigation_accessibility_arrival_time]
+comment = VoiceOver label for the estimated arrival time during iOS navigation.
+tags = apple-maps
+en = Arrival time
+pl = Czas przyjazdu
+ru = Время прибытия
+uk = Час прибуття
+
+[navigation_accessibility_show_arrival_time]
+comment = VoiceOver hint for the time button when it shows remaining time during iOS navigation.
+tags = apple-maps
+en = Shows the arrival time
+pl = Pokazuje czas przyjazdu
+ru = Показывает время прибытия
+uk = Показує час прибуття
+
+[navigation_accessibility_show_time_remaining]
+comment = VoiceOver hint for the time button when it shows arrival time during iOS navigation.
+tags = apple-maps
+en = Shows the time remaining
+pl = Pokazuje pozostały czas
+ru = Показывает оставшееся время
+uk = Показує час, що залишився
+
+[navigation_accessibility_speed_limit]
+comment = VoiceOver value for the route speed limit on iOS. %@ is a localized speed or the unlimited-speed label.
+tags = apple-maps
+en = Speed limit: %@
+pl = Ograniczenie prędkości: %@
+ru = Ограничение скорости: %@
+uk = Обмеження швидкості: %@
+
+[navigation_accessibility_unlimited_speed]
+comment = VoiceOver value for a road without a speed limit during iOS navigation.
+tags = apple-maps
+en = Unlimited
+pl = Bez ograniczenia
+ru = Без ограничения
+uk = Без обмеження
+
+[navigation_accessibility_exit_highway_left]
+comment = VoiceOver instruction for a left highway exit during iOS navigation.
+tags = apple-maps
+en = Exit the highway to the left
+pl = Zjedź z autostrady w lewo
+ru = Съезд с автомагистрали налево
+uk = З’їзд з автомагістралі ліворуч
+
+[navigation_accessibility_exit_highway_right]
+comment = VoiceOver instruction for a right highway exit during iOS navigation.
+tags = apple-maps
+en = Exit the highway to the right
+pl = Zjedź z autostrady w prawo
+ru = Съезд с автомагистрали направо
+uk = З’їзд з автомагістралі праворуч
 
 [downloader_applying_status]
 comment = VoiceOver status of a map that is being applied after downloading on iOS.
