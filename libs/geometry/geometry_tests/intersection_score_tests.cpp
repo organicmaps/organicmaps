@@ -91,3 +91,23 @@ UNIT_TEST(IntersectionScore_TrianglesToPolygon)
     TEST(AlmostEqualAbs(score, 0.0, 1e-10), ());
   }
 }
+
+UNIT_TEST(IntersectionScore_TrianglesToPolygon_DegenerateTriangles)
+{
+  // Feature triangulation can contain zero-area triangles (collinear or repeated points, #9412).
+  // They add no area and must not make the whole geometry invalid.
+  std::vector<m2::PointD> const triangulated1 = {{0.0, 0.0},   {0.0, 10.0},  {10.0, 0.0}, {10.0, 0.0},
+                                                 {0.0, 10.0},  {10.0, 10.0}, {0.0, 0.0},  {5.0, 5.0},
+                                                 {10.0, 10.0}, {0.0, 10.0},  {0.0, 10.0}, {10.0, 10.0}};
+  std::vector<m2::PointD> const triangulated2 = {{0.0, 0.0},  {0.0, 9.0}, {10.0, 0.0},
+                                                 {10.0, 0.0}, {0.0, 9.0}, {10.0, 9.0}};
+
+  double score = 0.0;
+  TEST_NO_THROW(score = geometry::GetIntersectionScoreForTriangulated(triangulated1, triangulated2), ());
+  TEST(AlmostEqualAbs(score, 0.9, 1e-10), (score));
+
+  // Only degenerate triangles: there is no area to compare.
+  std::vector<m2::PointD> const degenerate = {{0.0, 0.0}, {5.0, 5.0}, {10.0, 10.0}};
+  TEST_NO_THROW(score = geometry::GetIntersectionScoreForTriangulated(degenerate, triangulated2), ());
+  TEST_EQUAL(score, geometry::kPenaltyScore, ());
+}
