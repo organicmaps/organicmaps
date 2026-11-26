@@ -490,6 +490,25 @@ std::string SerializeKmlText(kml::FileData & data)
 }
 }  // namespace
 
+UNIT_TEST(Kml_CategoryImageUrlRoundTrip)
+{
+  auto data = ParseKmlText(WrapKmlDoc(R"(<ExtendedData xmlns:mwm="https://omaps.app">
+    <mwm:imageUrl>https://example.com/image?a=1&amp;b=2</mwm:imageUrl>
+  </ExtendedData>)"));
+  auto const saved = ParseKmlText(SerializeKmlText(data));
+  TEST_EQUAL(saved.m_categoryData.m_imageUrl, "https://example.com/image?a=1&b=2", ());
+}
+
+UNIT_TEST(Kml_CategoryAuthorIdRoundTrip)
+{
+  auto data = ParseKmlText(WrapKmlDoc(R"(<ExtendedData xmlns:mwm="https://omaps.app">
+    <mwm:author id="a&amp;&lt;&quot;&#9;b">Survey team</mwm:author>
+  </ExtendedData>)"));
+  auto const saved = ParseKmlText(SerializeKmlText(data));
+  TEST_EQUAL(saved.m_categoryData.m_authorId, "a&<\"\tb", ());
+  TEST_EQUAL(saved.m_categoryData.m_authorName, "Survey team", ());
+}
+
 // Route stops and the router type stored in a track survive the KML text round-trip. The '&' in
 // the values (cannot come from routing::ToString, but KML files are edited by hand) checks that
 // both fields are escaped on write, so the KML stays well-formed.

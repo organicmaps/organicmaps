@@ -13,6 +13,8 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "kml/serdes_common.hpp"
+
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -24,6 +26,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/serdes_json.hpp"
+#include "coding/url.hpp"
 #include "coding/zip_creator.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -155,9 +158,11 @@ std::string BuildIndexFile(std::vector<std::string> const & filesForIndex)
   for (auto const & fileName : filesForIndex)
   {
     content.append("<NetworkLink><name>");
-    content.append(base::GetNameFromFullPathWithoutExt(fileName));
+    content.append(kml::EscapeXml(base::GetNameFromFullPathWithoutExt(fileName)));
     content.append("</name><Link><href>");
-    content.append(fileName);
+    // The archive path is files/<filename>. Only the filename needs URI encoding.
+    auto const nameStart = fileName.rfind('/') + 1;
+    content.append(fileName, 0, nameStart).append(url::UrlEncode(std::string_view{fileName}.substr(nameStart)));
     content.append("</href></Link></NetworkLink>\n");
   }
   content.append(
@@ -185,11 +190,16 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
   });
 
   int suffix = 1;
+  // The index shares the temporary directory; names must also be distinct on case-insensitive filesystems.
+  std::unordered_set<std::string> reservedNames{"doc"};
   for (auto const & kmlToExport : *collection)
   {
-    std::string fileName = base::FilenameWithoutExt(GetFileNameForExport(kmlToExport));
+    std::string fileName = GetFileNameForExport(kmlToExport);
     if (!strings::IsASCIIString(fileName))
       fileName = "OrganicMaps_" + std::to_string(suffix++);
+    auto const stem = fileName;
+    for (size_t counter = 1; !reservedNames.insert(strings::MakeLowerCase(fileName)).second; ++counter)
+      fileName = stem + std::to_string(counter);
     auto const kmlPath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
     auto const filePathInArchive = filesDir + fileName + std::string{kKmlExtension};
     if (!SaveKmlFileSafe(*kmlToExport.second, kmlPath, FileType::Kml))
@@ -612,6 +622,14 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
     return;
   }
 
+  // Imports accept persisted changes with autosave disabled, then enable it for later edits.
+  if (saveChangesOnDisk)
+  {
+    for (auto groupId : m_changesTracker.GetUpdatedGroupIds())
+      if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
+        m_pendingSaveGroups.insert(groupId);
+  }
+
   if (m_changesTracker.HasBookmarksChanges())
     NotifyBookmarksChanged();
 
@@ -619,22 +637,14 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
   m_drapeChangesTracker.AddChanges(m_changesTracker);
   m_changesTracker.ResetChanges();
 
+  // Keep save requests queued until deferred notifications are delivered.
   if (!m_notificationsEnabled)
     return;
 
   if (m_bookmarksChangesTracker.HasBookmarksChanges())
   {
-    // During the category reloading/updating the file saving should be skipped
-    // because of the file is already up to date.
-    if (saveChangesOnDisk)
-    {
-      kml::GroupIdCollection categoriesToSave;
-      for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
-        if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
-          categoriesToSave.push_back(groupId);
-
-      SaveBookmarks(categoriesToSave);
-    }
+    SaveBookmarks(kml::GroupIdCollection(m_pendingSaveGroups.begin(), m_pendingSaveGroups.end()));
+    m_pendingSaveGroups.clear();
 
     SendBookmarksChanges(m_bookmarksChangesTracker);
   }
@@ -2655,6 +2665,7 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
       LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
   }
 
+  m_pendingSaveGroups.erase(groupId);
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
@@ -2780,6 +2791,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       groupId = CreateBookmarkCategory(std::move(categoryData), false /* autoSave */);
     loadedGroups.insert(groupId);
     auto * group = GetBmCategory(groupId);
+    // Loading replaces the group snapshot, including any pending local changes to it.
+    m_pendingSaveGroups.erase(groupId);
     group->SetFileName(fileName);
 
     for (auto & bmData : fileData.m_bookmarksData)

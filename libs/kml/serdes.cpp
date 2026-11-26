@@ -243,7 +243,7 @@ void SaveStringsMap(Writer & writer, std::map<std::string, std::string> const & 
   writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & p : stringsMap)
   {
-    writer << indent << kIndent2 << "<mwm:value key=\"" << p.first << "\">";
+    writer << indent << kIndent2 << "<mwm:value key=\"" << EscapeXml(p.first) << "\">";
     SaveStringWithCDATA(writer, p.second);
     writer << "</mwm:value>\n";
   }
@@ -259,11 +259,11 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
   SaveLocalizableString(writer, categoryData.m_description, "description", kIndent4);
 
   if (!categoryData.m_imageUrl.empty())
-    writer << kIndent4 << "<mwm:imageUrl>" << categoryData.m_imageUrl << "</mwm:imageUrl>\n";
+    writer << kIndent4 << "<mwm:imageUrl>" << EscapeXml(categoryData.m_imageUrl) << "</mwm:imageUrl>\n";
 
   if (!categoryData.m_authorId.empty() || !categoryData.m_authorName.empty())
   {
-    writer << kIndent4 << "<mwm:author id=\"" << categoryData.m_authorId << "\">";
+    writer << kIndent4 << "<mwm:author id=\"" << EscapeXml(categoryData.m_authorId) << "\">";
     SaveStringWithCDATA(writer, categoryData.m_authorName);
     writer << "</mwm:author>\n";
   }
@@ -1287,7 +1287,7 @@ void KmlParser::CharData(std::string & value)
       else if (currTag == "description")
         m_data.m_categoryData.m_description[kDefaultLang] = value;
       else if (currTag == "visibility")
-        m_data.m_categoryData.m_visible = value != "0";
+        m_data.m_categoryData.m_visible = value != "0" && value != "false";
     }
     else if (prevTag == kExtendedData && ppTag == kDocument)
     {
@@ -1389,7 +1389,7 @@ void KmlParser::CharData(std::string & value)
       else if (currTag == "visibility")
       {
         // Placemark visibility is retained independently of category visibility for all saved geometry kinds.
-        m_visible = value != "0";
+        m_visible = value != "0" && value != "false";
       }
       else if (currTag == kStyleUrl)
       {
