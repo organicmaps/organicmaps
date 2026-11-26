@@ -36,6 +36,11 @@
 <source>Search</source>
 <translation>Chwilio</translation>
 </message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>Ar hyn o bryd, mae&#x27;r holl wasanaethau lleoliad ar gyfer y ddyfais neu&#x27;r ap hwn wedi&#x27;u hanalluogi. Galluogwch nhw yn y Gosodiadau.</translation>
+</message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
 <source>Show on the map</source>
@@ -49,6 +54,31 @@
 <message id="about_menu_title">
 <source>About Organic Maps</source>
 <translation>Ynglŷn ag Organic Maps</translation>
+</message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>Am ddim i bawb, wedi&#x27;i wneud gyda chariad</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• Dim hysbysebion, dim olrhain, dim casglu data</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• Dim draenio batri, yn gweithio all-lein</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• Cyflym, minimalaidd, wedi&#x27;i ddatblygu gan y gymuned</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>Rhaglen cod agored wedi&#x27;i chreu gan selogion a gwirfoddolwyr.</translation>
 </message>
 <message id="close">
 <source>Close</source>
@@ -82,6 +112,11 @@
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>Unedau mesur</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>Dewiswch rhwng milltiroedd a chilomedrau</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +228,11 @@
 <source>RV Facilities</source>
 <translation>Carafanio</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>Nid yw eich lleoliad wedi&#x27;i bennu eto</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +273,42 @@
 <source>Email</source>
 <translation>E-bost</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>Wedi&#x27;i gopïo i&#x27;r clipfwrdd: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Traciau</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>Rhannu fy lleoliad</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>Gosodiadau cyffredinol</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>Gwybodaeth</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>Llywio</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>Botymau “+” a “-” ar y map</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>Arddangos ar y map</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +325,16 @@
 <source>On</source>
 <translation>Ymlaen</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>Adeiladau 3D</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>Mae adeiladau 3D wedi&#x27;u hanalluogi yn y modd arbed pŵer</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +344,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>URL y Gweinydd</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>Rhowch URL dilys sy&#x27;n cynnwys {z}/{x}/{y}</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,15 +365,60 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>Chi sy&#x27;n darparu ffynonellau teils personol. Defnyddiwch y gwasanaethau y caniateir i chi eu cyrchu yn unig. Rydych chi&#x27;n gyfrifol am briodoli, telerau trwydded, allweddi API, cwotâu, a therfynau defnydd.</translation>
 </message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>Dewislen</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>Gwefan</translation>
 </message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>Newyddion</translation>
+</message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>Cymorth</translation>
+</message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>Cwestiynau Cyffredin</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>Cyfrannu</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>Cefnogi&#x27;r prosiect</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>Hawlfraint</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>Rhoi gwybod am fyg</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>Gwellwch gyfeiriad y saeth trwy symud y ffôn mewn ffigur wyth i galibro&#x27;r cwmpawd.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>Symudwch y ffôn mewn ffigur wyth i galibro&#x27;r cwmpawd a thrwsio cyfeiriad y saeth ar y map.</translation>
 </message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
@@ -306,6 +434,21 @@
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Fersiwn Organic Maps: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>Ymddangosiad</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>Golau</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>Tywyll</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
@@ -384,6 +527,11 @@
 <source>Category</source>
 <translation>Categori</translation>
 </message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>Data OpenStreetMap a grëwyd gan y gymuned, fel yr oedd ar %1. Dysgwch fwy am sut i olygu a diweddaru&#x27;r map yn OpenStreetMap.org</translation>
+</message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
@@ -449,6 +597,10 @@
 <source>Increase size for map labels</source>
 <translation>Cynyddu maint labeli&#x27;r map</translation>
 </message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>Galluogi logio</translation>
+</message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
 <translation>Trosi i&#x27;r wyddor Ladin</translation>
@@ -467,6 +619,14 @@
 <source>Please wait…</source>
 <translation>Arhoswch…</translation>
 </message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>Polisi preifatrwydd</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>Telerau defnydd</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>Traffig</translation>
@@ -481,10 +641,19 @@
 <source>Cycling</source>
 <translation>Beicio</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>Lloeren</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>Trên tanddaearol</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>Arddulliau a haenau map</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +670,26 @@
 <source>Export GeoJSON</source>
 <translation>Allforio GeoJSON</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>Modd arbed pŵer</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>Ceisio lleihau&#x27;r defnydd o bŵer ar draul rhai nodweddion.</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>Byth</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>Pan fydd y batri&#x27;n isel</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>Bob amser</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +702,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>Dangos ar y gwaelod</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>Galluogwch yr opsiwn hwn dros dro i gofnodi ac anfon logiau diagnostig manwl am eich problem atom ni â llaw gan ddefnyddio &quot;Rhoi gwybod am fyg&quot; yn y blwch deialog Cymorth. Gall logiau gynnwys gwybodaeth am leoliad.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -610,6 +803,10 @@
 <source>Update</source>
 <translation>Diweddaru</translation>
 </message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>Maint ffeil log: %1</translation>
+</message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
 <translation>Wrthi&#x27;n lawrlwytho %1…</translation>
@@ -683,15 +880,47 @@
 <source>3D Terrain</source>
 <translation>Tirwedd 3D</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>Diweddarwch y rhanbarth hwn i weld llinellau cyfuchlin</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>Chwyddwch i mewn i archwilio&#x27;r llinellau cyfuchlin</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>Cadwch y sgrin ymlaen</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>Pan fydd wedi&#x27;i alluogi, bydd y sgrin bob amser ymlaen wrth arddangos y map.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>Iaith y map</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/cy/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -745,6 +974,15 @@
 <source>Add Place</source>
 <translation>Ychwanegu lle</translation>
 </message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
+</message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
 <source>My Position</source>
@@ -789,6 +1027,11 @@
 <source>ft</source>
 <translation>tr</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>I arddangos llwybrau, rhaid diweddaru mapiau.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1040,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>Mynedfa</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>Dangos rhanbarthau sydd wedi&#x27;u lawrlwytho mewn porffor</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>

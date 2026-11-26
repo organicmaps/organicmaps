@@ -36,6 +36,11 @@
 <source>Search</source>
 <translation>검색하기</translation>
 </message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.</translation>
+</message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
 <source>Show on the map</source>
@@ -49,6 +54,31 @@
 <message id="about_menu_title">
 <source>About Organic Maps</source>
 <translation>Organic Maps 정보</translation>
+</message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>사랑으로 만든 모든 사람에게 무료</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• 광고 없음, 추적 없음, 데이터 수집 없음</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• 배터리 소모 없음, 오프라인에서 작동</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• 빠르고 미니멀한, 커뮤니티가 개발한</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.</translation>
 </message>
 <message id="close">
 <source>Close</source>
@@ -82,6 +112,11 @@
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>측정 단위</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>마일과 킬로미터 중에서 선택하십시오</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +228,11 @@
 <source>RV Facilities</source>
 <translation>RV용</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>귀하의 위치를 아직 알아내지 못 했습니다</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +273,42 @@
 <source>Email</source>
 <translation>이메일</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>클립보드에 복사됨: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>트랙</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>내 위치 공유</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>일반 설정</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>정보</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>내비게이션</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>지도에서 + 및 - 버튼</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>화면에 표시</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +325,16 @@
 <source>On</source>
 <translation>켜기</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>주변 건물 3D</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>3D 빌딩은 절전 모드에서 꺼집니다.</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +344,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>서버 URL</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>{z}/{x}/{y}가 포함된 유효한 URL을 입력하세요</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,15 +365,60 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>사용자 지정 타일 소스는 사용자가 제공합니다. 접근 권한이 있는 서비스만 사용하세요. 출처 표시, 라이선스 약관, API 키, 할당량 및 사용 한도는 사용자 책임입니다.</translation>
 </message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>메뉴</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>웹사이트</translation>
 </message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>소식</translation>
+</message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>도움말</translation>
+</message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>질문과 답변</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>기부</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>프로젝트 지원</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>저작권</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>오류 신고</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>나침반을 보정하기 위해 휴대폰을 8자 모양으로 움직여 화살표 방향을 개선하세요.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>휴대폰을 8자 모양으로 움직여 나침반을 보정하고 지도에서 화살표 방향을 수정합니다.</translation>
 </message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
@@ -306,6 +434,21 @@
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Organic Maps 버전: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>모양</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>라이트</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>다크</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
@@ -384,6 +527,11 @@
 <source>Category</source>
 <translation>범주</translation>
 </message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>커뮤니티에서 만든 오픈스트리트맵 데이터(%1 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.</translation>
+</message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
@@ -449,6 +597,10 @@
 <source>Increase size for map labels</source>
 <translation>지도에서 글꼴 크기 늘리기</translation>
 </message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>로깅 사용</translation>
+</message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
 <translation>라틴어로 음역</translation>
@@ -467,6 +619,14 @@
 <source>Please wait…</source>
 <translation>잠시만 기다려주십시오…</translation>
 </message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>개인정보 보호 방침</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>사용 약관</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>트래픽</translation>
@@ -481,10 +641,19 @@
 <source>Cycling</source>
 <translation>사이클링</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>위성</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>지하철</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>맵 스타일 및 레이어</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +670,26 @@
 <source>Export GeoJSON</source>
 <translation>GeoJSON 내보내기</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>전력 절약 모드</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>자동 모드가 선택되면 어플리케이션은 현재 배터리 충전 정도에 따라 배터리를 많이 쓰는 기능이 불가하게 됩니다</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>안함</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>자동</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>최대 전력 절약</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +702,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>하단에 표시</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -610,6 +803,10 @@
 <source>Update</source>
 <translation>최신 정보</translation>
 </message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>로그 파일 크기: %1</translation>
+</message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
 <translation>%1 다운로드 중…</translation>
@@ -683,15 +880,47 @@
 <source>3D Terrain</source>
 <translation>3D 지형</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>이 지역을 업데이트하면 등고선을 볼 수 있습니다</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>등치선 탐색을 위한 확대</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>화면 켜짐 유지</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>활성화하면 지도를 표시할 때 화면이 항상 켜져 있습니다.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>지도 언어</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -745,6 +974,15 @@
 <source>Add Place</source>
 <translation>장소 추가</translation>
 </message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
+</message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
 <source>My Position</source>
@@ -789,6 +1027,11 @@
 <source>ft</source>
 <translation>ft</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>경로를 표시하려면 지도를 업데이트해야 합니다.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1040,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>입구</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>보라색 다운로드 지역</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>

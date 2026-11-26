@@ -663,7 +663,7 @@ zh-Hant = 搜尋地圖
 
 [location_is_disabled_long_text]
 comment = Location services are disabled by user alert - message
-tags = android-app,android-libs-car
+tags = android-app,android-libs-car,qt
 en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
 af = Alle liggingsdienste vir hierdie toestel of toepassing is tans gedeaktiveer. Aktiveer dit asb. in Instellings.
 ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
@@ -1073,7 +1073,7 @@ zh-Hant = 關於 Organic Maps
 
 [about_headline]
 comment = Text in About screen
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Free for everyone, made with love
 af = Gratis vir almal, gemaak met liefde
 ar = مجاني للجميع ، مصنوع من الحب
@@ -1131,7 +1131,7 @@ zh-Hant = 對每個人都免費，用愛製成
 
 [about_proposition_1]
 comment = Text in About screen
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = • No ads, no tracking, no data collection
 af = • Geen advertensies, geen nasporing, geen dataversameling
 ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
@@ -1190,7 +1190,7 @@ zh-Hant = • 沒有廣告，不會跟蹤您，更不會收集您的數據
 
 [about_proposition_2]
 comment = Text in About screen
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = • No battery drain, works offline
 af = • Geen battery dreineer, werk vanlyn
 ar = • لا يوجد استنزاف للبطارية، يعمل دون اتصال بالإنترنت
@@ -1249,7 +1249,7 @@ zh-Hant = • 無需耗費太多電量，可離線工作
 
 [about_proposition_3]
 comment = Text in About screen
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = • Fast, minimalist, developed by the community
 af = • Vinnig, minimalisties, ontwikkel deur die gemeenskap
 ar = • سريع وبسيط، تم تطويره بواسطة المجتمع
@@ -1306,7 +1306,7 @@ zh-Hant = • 快速且簡約，由社群開發
 
 [about_developed_by_enthusiasts]
 comment = Text in About screen
-tags = android-app
+tags = android-app,qt
 en = Open-source application created by enthusiasts and volunteers.
 af = Oopbrontoepassing geskep deur entoesiaste en vrywilligers.
 ar = تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.
@@ -3114,7 +3114,7 @@ zh-Hant = 測量單位
 
 [measurement_units_summary]
 comment = Detailed description of Measurement Units settings button
-tags = android-app
+tags = android-app,qt
 en = Choose between miles and kilometers
 af = Kies tussen myle en kilometers
 ar = اختر من بين الأميال و الكيلومترات
@@ -5222,7 +5222,7 @@ zh-Hant = 編輯
 
 [unknown_current_position]
 comment = Warning message when doing search around current position
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Your location hasn't been determined yet
 af = U ligging is nog nie vasgestel nie
 ar = لم يتم تحديد موقعك بعد
@@ -5867,7 +5867,7 @@ zh-Hant = 電子郵件
 
 [copied_to_clipboard]
 comment = Text for message when used successfully copied something
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Copied to clipboard: %@
 af = Na knipbord gekopieer: %@
 ar = تم النسخ الى الحافظة: %@
@@ -6211,7 +6211,7 @@ zh-Hans = 长度
 zh-Hant = 長度
 
 [share_my_location]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Share My Location
 af = Deel my ligging
 ar = مشاركة موقعي
@@ -6269,7 +6269,7 @@ zh-Hant = 分享我的位置
 
 [prefs_group_general]
 comment = Settings general group in settings screen
-tags = android-app
+tags = android-app,qt
 en = General settings
 af = Algemene instellings
 ar = الإعدادات العامة
@@ -6325,7 +6325,7 @@ zh-Hant = 一般設定
 
 [prefs_group_information]
 comment = Settings information group in settings screen
-tags = android-app
+tags = android-app,qt
 en = Information
 af = Inligting
 ar = معلومات
@@ -6494,7 +6494,7 @@ zh-Hant = 導航
 
 [pref_zoom_title]
 comment = Setting name which enables or disables zoom buttons on the map screen.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = “+” and “-” buttons on the map
 af = Knoppies + en - op die kaart
 ar = أزرار + و- على الخريطة
@@ -6550,7 +6550,7 @@ zh-Hans = 地图上的“+”和“-”按钮
 zh-Hant = 地圖上的「+」和「-」按鈕
 
 [pref_zoom_summary]
-tags = android-app
+tags = android-app,qt
 en = Display on the map
 af = Vertoon op die kaart
 ar = عرض على الشاشة
@@ -6952,7 +6952,7 @@ zh-Hant = 透視圖
 
 [pref_map_3d_buildings_title]
 comment = Settings «Map» category: «3D buildings» title
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = 3D buildings
 af = 3D-geboue
 ar = مباني ثلاثية الأبعاد
@@ -7011,7 +7011,7 @@ zh-Hant = 3D 建築
 
 [pref_map_3d_buildings_disabled_summary]
 comment = A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = 3D buildings are disabled in power saving mode
 af = 3D-geboue is gedeaktiveer in batterybesparingsmodus
 ar = يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة
@@ -7193,7 +7193,7 @@ zh-Hant = 伺服器 URL
 
 [pref_bg_tiles_url_error]
 comment = Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Enter a valid URL with {z}/{x}/{y}
 af = Voer 'n geldige URL met {z}/{x}/{y} in
 ar = أدخل رابطًا صالحًا يحتوي على {z}/{x}/{y}
@@ -8079,7 +8079,7 @@ zh-Hant = 在地圖上查看
 
 [menu]
 comment = Menu button
-tags = android-app
+tags = android-app,qt
 en = Menu
 af = Kieslys
 ar = القائمة
@@ -8194,7 +8194,7 @@ zh-Hant = 網站
 
 [news]
 comment = Text in About menu, opens Organic Maps news website
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = News
 af = Nuus
 ar = أخبار
@@ -8423,7 +8423,7 @@ zh-Hant = 幫助
 
 [faq]
 comment = Button in the main Help dialog
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Frequently Asked Questions
 af = Gereelde vrae
 ar = اسئلة مكررة
@@ -8481,7 +8481,7 @@ zh-Hant = 問題和解答
 
 [donate]
 comment = Button in the main menu
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Donate
 af = Skenk
 ar = تبرع
@@ -8707,7 +8707,7 @@ zh-Hant = 支援 Organic Maps
 
 [how_to_support_us]
 comment = Button in the main Help dialog
-tags = android-app
+tags = android-app,qt
 en = Support the project
 af = Ondersteun die projek
 ar = دعم المشروع
@@ -8765,7 +8765,7 @@ zh-Hant = 支持本項目
 
 [copyright]
 comment = Button in the main Help dialog
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Copyright
 af = Kopiereg
 ar = حقوق النشر
@@ -8822,7 +8822,7 @@ zh-Hant = 版權
 
 [report_a_bug]
 comment = Text in menu + Button in the main Help dialog. Used in home screen quick actions.
-tags = android-app,apple-infoplist,apple-maps
+tags = android-app,apple-infoplist,apple-maps,qt
 en = Report a bug
 af = Rapporteer ’n fout
 ar = الإبلاغ عن خطأ
@@ -8880,7 +8880,7 @@ zh-Hant = 報告問題
 
 [compass_calibration_recommended]
 comment = Toast text when compass calibration may improve the correctness of the current position arrow
-tags = android-app
+tags = android-app,qt
 en = Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.
 af = Verbeter die pylrigting deur die selfoon in ’n agtbeweging te beweeg om die kompas te kalibreer.
 ar = قم بتحسين اتجاه السهم عن طريق تحريك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة.
@@ -8939,7 +8939,7 @@ zh-Hant = 以 8 字形移動手機來改善箭頭方向，以校準羅盤。
 
 [compass_calibration_required]
 comment = Toast text when compass calibration may improve the correctness of the current position arrow
-tags = android-app
+tags = android-app,qt
 en = Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.
 af = Beweeg die selfoon in ’n agtvormige beweging om die kompas te kalibreer en die rigting van die pyl op die kaart vas te maak.
 ar = حرك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة وإصلاح اتجاه السهم على الخريطة.
@@ -11290,7 +11290,7 @@ zh-Hant = Organic Maps 版本：%@
 
 [pref_appearance_title]
 comment = Settings «Map» category: «Appearance» title
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Appearance
 af = Uitsien
 ar = المظهر
@@ -11349,7 +11349,7 @@ zh-Hant = 外觀
 
 [pref_appearance_light]
 comment = Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Light
 af = Lig
 ar = فاتح
@@ -11408,7 +11408,7 @@ zh-Hant = 淺色
 
 [pref_appearance_dark]
 comment = Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Dark
 af = Donker
 ar = داكن
@@ -19111,7 +19111,7 @@ zh-Hant = 地點無法放置在這裡
 
 [osm_presentation]
 comment = Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Community-created OpenStreetMap data as of %@. Learn more about how to edit and update the map at OpenStreetMap.org
 af = Gemeenskap-geskepte OpenStreetMap-data vanaf %@. Kom meer te wete oor hoe om die kaart te redigeer en op te dateer by OpenStreetMap.org
 ar = بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %@. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org
@@ -23062,7 +23062,7 @@ zh-Hans = 交通数据不可用
 zh-Hant = 交通資訊不可用
 
 [enable_logging]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Enable logging
 af = Staan logboekinskrywing toe
 ar = تفعيل التسجيل
@@ -25644,7 +25644,7 @@ zh-Hans = 隐私
 zh-Hant = 隱私
 
 [privacy_policy]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Privacy policy
 af = Privaatheidsbeleid
 ar = سياسة الخصوصية
@@ -25700,7 +25700,7 @@ zh-Hans = 隐私政策
 zh-Hant = 隱私政策
 
 [terms_of_use]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Terms of use
 af = Gebruiksvoorwaardes
 ar = شروط الاستخدام
@@ -25929,7 +25929,7 @@ zh-Hant = 單車
 
 [button_layer_satellite]
 comment = Map layers menu: toggle button for the satellite imagery layer
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Satellite
 af = Satelliet
 ar = قمر صناعي
@@ -26049,7 +26049,7 @@ zh-Hans = 地铁
 zh-Hant = 捷運
 
 [layers_title]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Map Styles and Layers
 af = Kaartstyle en -lae
 ar = أنماط الخريطة وطبقاتها
@@ -26966,7 +26966,7 @@ zh-Hans = 永远不会对摄像头发出警告
 zh-Hant = 永遠不會對測速照相機發出警告
 
 [power_managment_title]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Power saving mode
 af = Energiebesparende modus
 ar = وضع توفير الطاقة
@@ -27022,7 +27022,7 @@ zh-Hans = 省电模式
 zh-Hant = 省電模式
 
 [power_managment_description]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Try to reduce power usage at the expense of some functionality.
 af = Probeer batterygebruik verminder ten koste van sekere funksionaliteit.
 ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي.
@@ -27079,7 +27079,7 @@ zh-Hans = 如果开启省电模式，本应用将根据手机的当前电量关�
 zh-Hant = 如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能。
 
 [power_managment_setting_never]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Never
 af = Nooit
 ar = أبدًا
@@ -27135,7 +27135,7 @@ zh-Hans = 从不
 zh-Hant = 從不
 
 [power_managment_setting_auto]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = When battery is low
 af = Wanneer battery laag as
 ar = تلقائي
@@ -27192,7 +27192,7 @@ zh-Hans = 当电量低时
 zh-Hant = 當電量低時
 
 [power_managment_setting_manual_max]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Always
 af = Altyd
 ar = توفير الطاقة الأقصى
@@ -27472,7 +27472,7 @@ zh-Hans = 底部显示
 zh-Hant = 顯示在底部
 
 [enable_logging_warning_message]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using "Report a bug" in the Help dialog. Logs may include location info.
 af = Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.
 ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
@@ -32647,7 +32647,7 @@ zh-Hans = 若要显示交通数据，必须更新应用。
 zh-Hant = 諾要顯示交通資訊，必須更新應用。
 
 [log_file_size]
-tags = apple-maps
+tags = apple-maps,qt
 en = Log file size: %@
 af = Loglêergrootte: %@
 ar = حجم ملف السجل: %@
@@ -36393,7 +36393,7 @@ zh-Hans = 3D 地形
 zh-Hant = 3D 地形
 
 [isolines_location_error_dialog]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Update this region to see contour lines
 af = Werk hierdie area by om kontoerlyne te sien
 ar = حدِّث هذه المنطقة لرؤية خطوط الكفاف
@@ -36736,7 +36736,7 @@ zh-Hans = 难度
 zh-Hant = 難度
 
 [isolines_toast_zooms_1_10]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Zoom in to explore isolines
 af = Zoem in om isolyne te bekyk
 ar = قم بالتقريب لتكتشف خطوط الكنتور
@@ -37140,7 +37140,7 @@ zh-Hans = 断开 USB 线缆
 zh-Hant = 斷開 USB 線路
 
 [enable_keep_screen_on]
-tags = android-app
+tags = android-app,qt
 en = Keep the screen on
 af = Hou die skerm aan
 ar = إبقاء الشاشة قيد التشغيل
@@ -37198,7 +37198,7 @@ zh-Hant = 保持螢幕開啟
 
 [enable_keep_screen_on_description]
 comment = Description in preferences
-tags = android-app
+tags = android-app,qt
 en = When enabled, the screen will always be on when displaying the map.
 af = Wanneer dit geaktiveer is, sal die skerm altyd aan wees wanneer die kaart vertoon word.
 ar = عند التمكين، ستكون الشاشة قيد التشغيل دائمًا عند عرض الخريطة.
@@ -37487,7 +37487,7 @@ zh-Hant = 地圖數據來自 OpenStreetMap
 
 [telegram_url]
 comment = Telegram group url for the "?" About page
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = https://t.me/OrganicMapsApp
 ar = https://t.me/OrganicMapsAR
 az = https://t.me/OrganicMapsTR
@@ -37530,7 +37530,7 @@ zh-Hant = https://t.me/OrganicMapsZH
 
 [instagram_url]
 comment = Instagram account url for the "?" About page
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = https://www.instagram.com/organicmaps.app
 ar = https://www.instagram.com/organicmaps.app
 be = https://www.instagram.com/organicmaps.app
@@ -37655,7 +37655,7 @@ zh-Hant = https://organicmaps.app/zh-Hans/
 
 [osm_wiki_about_url]
 comment = Link to OSM wiki for Editor, Profile and About pages
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = https://wiki.openstreetmap.org/wiki/About_OpenStreetMap
 ar = https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap
 az = https://wiki.openstreetmap.org/wiki/Tr:About
@@ -42787,7 +42787,7 @@ zh-Hant = 您需要先將 %@ 地圖更新至最新版本，才能貢獻 OpenStre
 
 [mb]
 comment = Settings/Downloader - size string, only strings different from English should be translated
-tags = android-sdk
+tags = android-sdk,qt
 en = MB
 af = MB
 ar = ميغابايت
@@ -42845,7 +42845,7 @@ zh-Hans = MB
 zh-Hant = MB
 
 [gb]
-tags = android-sdk
+tags = android-sdk,qt
 en = GB
 af = GB
 ar = غيغابايت
@@ -43650,7 +43650,7 @@ zh-Hant = 英尺
 
 [routes_update_maps_text]
 comment = Toast text when the maps version should be updated to display the OSM hiking and cycling routes
-tags = android-sdk,apple-maps
+tags = android-sdk,apple-maps,qt
 en = To display routes, maps must be updated.
 af = Om roetes te vertoon, moet die kaarte opgedateer word.
 ar = لعرض المسارات، يجب تحديث الخرائط.
@@ -43939,7 +43939,7 @@ zh-Hant = 我的位置
 
 [show_downloaded_regions]
 comment = Settings/Highlight downloaded regions on the map
-tags = android-sdk,apple-maps
+tags = android-sdk,apple-maps,qt
 en = Purple downloaded regions
 af = Pers afgelaaide streke
 ar = المناطق المُنزّلة باللون الأرجواني

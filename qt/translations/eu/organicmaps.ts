@@ -36,6 +36,11 @@
 <source>Search</source>
 <translation>Bilatu</translation>
 </message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.</translation>
+</message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
 <source>Show on the map</source>
@@ -49,6 +54,31 @@
 <message id="about_menu_title">
 <source>About Organic Maps</source>
 <translation>Organic Maps-i buruz</translation>
+</message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>Denontzat doan, maitasunez egina</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• Azkarra, minimalista, komunitateak garatua</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>Zale eta bolondresek sortutako kode irekiko aplikazioa.</translation>
 </message>
 <message id="close">
 <source>Close</source>
@@ -82,6 +112,11 @@
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>Neurketa unitateak</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>Aukeratu miliak edo kilometroak</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +228,11 @@
 <source>RV Facilities</source>
 <translation>Karabanak</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>Zure kokapena ez da oraindik zehaztu</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +273,42 @@
 <source>Email</source>
 <translation>Posta elektronikoa</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>Arbelean kopiatu da: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Arrastoak</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>Partekatu nire kokapena</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>Ezarpen orokorrak</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>Informazioa</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>Nabigazioa</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>Mapako “+” eta “-” botoiak</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>Erakutsi mapan</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +325,16 @@
 <source>On</source>
 <translation>Aktibatuta</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>3D eraikinak</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>3D eraikinak desgaituta daude energia aurrezteko moduan</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +344,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>Zerbitzariaren URLa</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>Sartu {z}/{x}/{y} duen baliozko URL bat</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,15 +365,60 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>Lauza-iturri pertsonalizatuak zuk hornitzen dituzu. Erabili soilik sarbidea baimenduta duzun zerbitzuak. Zu zara egiletza-aitortzaren, lizentzia-baldintzen, API gakoen, kuoten eta erabilera-mugen arduraduna.</translation>
 </message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>Menua</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>Webgunea</translation>
 </message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>Albisteak</translation>
+</message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>Laguntza</translation>
+</message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>Ohiko galderak</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>Dohaintza eman</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>Proiektuari laguntza eman</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>Egile eskubideak</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>Errore baten berri eman</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>Hobetu geziaren norabidea telefonoa zortzi irudiko mugimenduan mugituz iparrorratza kalibratzeko.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>Mugitu telefonoa zortzi irudiko mugimenduan iparrorratza kalibratzeko eta geziaren norabidea mapan finkatzeko.</translation>
 </message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
@@ -306,6 +434,21 @@
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Organic Maps bertsioa: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>Itxura</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>Argi</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>Iluna</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
@@ -384,6 +527,11 @@
 <source>Category</source>
 <translation>Kategoria</translation>
 </message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>Komunitateak sortutako OpenStreetMap datuak %1-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean</translation>
+</message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
@@ -449,6 +597,10 @@
 <source>Increase size for map labels</source>
 <translation>Handitu letra tamaina mapan</translation>
 </message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>Historia gaitu</translation>
+</message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
 <translation>Latinezko transliterazioa</translation>
@@ -467,6 +619,14 @@
 <source>Please wait…</source>
 <translation>Itxaron mesedez…</translation>
 </message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>Pribatutasun politika</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>Erabilera baldintzak</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>Trafikoa</translation>
@@ -481,10 +641,19 @@
 <source>Cycling</source>
 <translation>Txirrindularitza</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>Satelitea</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>Metroa</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>Maparen estiloak eta geruzak</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +670,26 @@
 <source>Export GeoJSON</source>
 <translation>Esportatu GeoJSON</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>Energia aurrezteko modua</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>Energia aurrezteko modua aktibatuta badago, aplikazioak energia kontsumitzen duten funtzioak itzaliko ditu, telefonoaren uneko kargaren arabera.</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>Inoiz ez</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>Automatikoa</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>Energia aurrezpen handiena</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +702,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>Erakutsi behean</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -610,6 +803,10 @@
 <source>Update</source>
 <translation>Eguneratu</translation>
 </message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>Erregistro fitxategiaren tamaina: %1</translation>
+</message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
 <translation>%1 deskargatzen…</translation>
@@ -683,15 +880,47 @@
 <source>3D Terrain</source>
 <translation>3D erliebea</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>Eguneratu eskualde hau sestra-kurbak ikusteko</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>Handitu mapa sestra kurbak ikusteko</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>Mantendu pantaila piztuta</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>Gaituta dagoenean, pantaila beti egongo da piztuta mapa bistaratzen denean.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>Maparen hizkuntza</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/eu/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -745,6 +974,15 @@
 <source>Add Place</source>
 <translation>Gehitu lekua</translation>
 </message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
+</message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
 <source>My Position</source>
@@ -789,6 +1027,11 @@
 <source>ft</source>
 <translation>oin</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>Arrastoak ikusteko mapak eguneratu behar dira.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1040,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>Sarrera</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>Deskargatutako eskualde moreak</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>

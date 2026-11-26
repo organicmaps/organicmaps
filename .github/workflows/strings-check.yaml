@@ -15,6 +15,7 @@ on:
       - qt/**
       - android/**
       - iphone/**
+      - sailfish/**
       - tools/python/validate_translation_keys*.py
       - tools/unix/strings_validate_*.sh
       - tools/unix/generate_localizations.sh

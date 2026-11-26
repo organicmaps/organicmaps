@@ -6,7 +6,10 @@
 #include "base/logging.hpp"
 
 #include <QtGui/QGuiApplication>
+#include <QtQml/QQmlComponent>
+#include <QtQml/QQmlEngine>
 
+#include <memory>
 #include <string>
 
 // Qt 5 builds have no tests yet, so this checks the shared catalogs there.
@@ -34,6 +37,16 @@ int main(int argc, char ** argv)
     auto const direction = test.m_catalog == "ar" ? Qt::RightToLeft : Qt::LeftToRight;
     CHECK(app.layoutDirection() == direction, (test.m_catalog));
   }
+
+  // The Sailfish OS app looks the keys up in QML.
+  std::string const french = "fr";
+  auto const translator = qt::InstallTranslator(app, {&french, 1});
+  QQmlEngine engine;
+  QQmlComponent component(&engine);
+  component.setData("import QtQml 2.0\nQtObject { property string text: qsTrId(\"layers_title\") }", QUrl());
+  std::unique_ptr<QObject> const object(component.create());
+  CHECK(object, (component.errorString().toStdString()));
+  CHECK_EQUAL(object->property("text").toString().toStdString(), "Styles et couches de cartes", ());
   LOG(LINFO, ("Qt translations OK"));
   return 0;
 }

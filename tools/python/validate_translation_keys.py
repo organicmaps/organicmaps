@@ -59,6 +59,9 @@ _IOS_PLIST_TITLE_RE = re.compile(
     r"<key>UIApplicationShortcutItemTitle</key>\s*<string>(\w+)</string>"
 )
 _XML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+# qsTrId() in Sailfish OS QML may receive a ternary expression, so every literal in the call is a key.
+_SAILFISH_CALL_RE = re.compile(r"\bqsTrId\s*\(([^)]*)\)")
+_SAILFISH_LITERAL_RE = re.compile(r"[\"'](\w+)[\"']")
 
 
 @dataclass
@@ -121,6 +124,10 @@ def _category_source_matcher(text) -> dict[str, int]:
     return _match_references(text, _CATEGORY_LIST_RE, _CORE_LITERAL_RE)
 
 
+def _sailfish_qml_matcher(text) -> dict[str, int]:
+    return _match_references(text, _SAILFISH_CALL_RE, _SAILFISH_LITERAL_RE)
+
+
 def _ios_source_matcher(text) -> dict[str, int]:
     references = _match_references(text, _IOS_L_CALL_RE, _IOS_LITERAL_RE)
     references.update(_match_references(text, _IOS_NS_RE))
@@ -134,7 +141,10 @@ def _raise_os_error(error):
 
 
 # Per source root: (filename extensions, text -> {key: zero-based line} matcher).
-_QT_SOURCE_SCANNERS = [((".cpp", ".hpp", ".h", ".mm"), _regex_matcher(_QT_RE))]
+_QT_SOURCE_SCANNERS = [
+    ((".cpp", ".hpp", ".h", ".mm"), _regex_matcher(_QT_RE)),
+    ((".qml", ".js"), _sailfish_qml_matcher),
+]
 _IOS_RESOURCE_SCANNERS = [
     ((".swift", ".m", ".mm", ".h"), _ios_source_matcher),
     ((".xib", ".storyboard"), _xml_matcher(_IOS_XML_RE)),
@@ -154,7 +164,7 @@ _SCANNERS = {
 
 # Which source tree each scanner reads.
 # Qt references have their own consumer tag and do not require mobile tags.
-_ROOTS = (("core", "libs"), ("core", "qt"), ("qt", "qt"), ("android", "android"), ("ios", "iphone"))
+_ROOTS = (("core", "libs"), ("core", "qt"), ("qt", "qt"), ("qt", "sailfish"), ("android", "android"), ("ios", "iphone"))
 
 # Apple code and resources have unambiguous generated localization targets. Core
 # references belong to the Maps app. Chart has no localization lookups or resources,

@@ -118,7 +118,7 @@ class QtValidationTest(unittest.TestCase):
     def _validate(definitions, sources):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for name in ("data/strings", "libs", "qt", "android", "iphone/Maps", "iphone/CoreApi"):
+            for name in ("data/strings", "libs", "qt", "android", "iphone/Maps", "iphone/CoreApi", "sailfish"):
                 (root / name).mkdir(parents=True, exist_ok=True)
             strings = "[[Strings]]\n\n" + "\n".join(
                 f"[{key}]\ntags = {tags}\nen = Message\n" for key, tags in definitions.items()
@@ -200,6 +200,26 @@ class QtValidationTest(unittest.TestCase):
         self.assertEqual(result, 1, output)
         self.assertIn("no longer used in the codebase", output)
 
+    def test_missing_sailfish_definition_reports_source_line(self):
+        result, output = self._validate(
+            {"live": "qt"},
+            {
+                "sailfish/qml/Page.qml": 'qsTrId("live")\nqsTrId("missing_qml")\nqsTrId ("missing_spaced")',
+                "sailfish/app.cpp": 'qt::Tr("missing_cpp")',
+            },
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("referenced in code but missing from strings.txt", output)
+        self.assertIn("sailfish/qml/Page.qml:2", output)
+        self.assertIn("sailfish/qml/Page.qml:3", output)
+        self.assertIn("sailfish/app.cpp:1", output)
+        self.assertNotIn("no longer used", output)
+
+    def test_sailfish_reference_requires_qt_tag(self):
+        result, output = self._validate({"shared": "android-app"}, {"sailfish/qml/Page.qml": 'qsTrId("shared")'})
+        self.assertEqual(result, 1, output)
+        self.assertIn("- shared (qt)", output)
+
 
 class IosMatcherTest(unittest.TestCase):
     def test_swift_and_objc_literal(self):
@@ -280,6 +300,16 @@ class AndroidMatcherTest(unittest.TestCase):
             '<TextView android:text="@string/real"/>\n'
         )
         self.assertEqual(match(source), {"real": 3})
+
+
+class SailfishMatcherTest(unittest.TestCase):
+    def test_qml_literals(self):
+        self.assertEqual(v._sailfish_qml_matcher('qsTrId("a")'), {"a": 0})
+        self.assertEqual(v._sailfish_qml_matcher("qsTrId('b').arg(count)"), {"b": 0})
+
+    def test_qml_ternary(self):
+        line = 'qsTrId(model.isVisible ? "hide_track" : "show_track")'
+        self.assertEqual(v._sailfish_qml_matcher(line), {"hide_track": 0, "show_track": 0})
 
 
 class PlistAndXibMatcherTest(unittest.TestCase):

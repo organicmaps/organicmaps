@@ -36,6 +36,11 @@
 <source>Search</source>
 <translation>Αναζήτηση</translation>
 </message>
+<message id="location_is_disabled_long_text">
+<extracomment>Location services are disabled by user alert - message</extracomment>
+<source>You currently have all Location Services for this device or application disabled. Please enable them in Settings.</source>
+<translation>Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τες από τις Ρυθμίσεις.</translation>
+</message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
 <source>Show on the map</source>
@@ -49,6 +54,31 @@
 <message id="about_menu_title">
 <source>About Organic Maps</source>
 <translation>Σχετικά με το Organic Maps</translation>
+</message>
+<message id="about_headline">
+<extracomment>Text in About screen</extracomment>
+<source>Free for everyone, made with love</source>
+<translation>Δωρεάν για όλους, φτιαγμένα με αγάπη</translation>
+</message>
+<message id="about_proposition_1">
+<extracomment>Text in About screen</extracomment>
+<source>• No ads, no tracking, no data collection</source>
+<translation>• Χωρίς διαφημίσεις, χωρίς tracking, χωρίς συλλογή δεδομένων</translation>
+</message>
+<message id="about_proposition_2">
+<extracomment>Text in About screen</extracomment>
+<source>• No battery drain, works offline</source>
+<translation>• Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης</translation>
+</message>
+<message id="about_proposition_3">
+<extracomment>Text in About screen</extracomment>
+<source>• Fast, minimalist, developed by the community</source>
+<translation>• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</translation>
+</message>
+<message id="about_developed_by_enthusiasts">
+<extracomment>Text in About screen</extracomment>
+<source>Open-source application created by enthusiasts and volunteers.</source>
+<translation>Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.</translation>
 </message>
 <message id="close">
 <source>Close</source>
@@ -82,6 +112,11 @@
 <extracomment>Measurement units title in settings activity</extracomment>
 <source>Measurement units</source>
 <translation>Μονάδες μέτρησης</translation>
+</message>
+<message id="measurement_units_summary">
+<extracomment>Detailed description of Measurement Units settings button</extracomment>
+<source>Choose between miles and kilometers</source>
+<translation>Επιλέξτε ανάμεσα σε μίλια και χιλιόμετρα</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -193,6 +228,11 @@
 <source>RV Facilities</source>
 <translation>Για RV</translation>
 </message>
+<message id="unknown_current_position">
+<extracomment>Warning message when doing search around current position</extracomment>
+<source>Your location hasn&#x27;t been determined yet</source>
+<translation>Η τοποθεσία σας δεν έχει προσδιοριστεί ακόμη</translation>
+</message>
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
@@ -233,14 +273,42 @@
 <source>Email</source>
 <translation>Ηλεκτρονικό ταχυδρομείο</translation>
 </message>
+<message id="copied_to_clipboard">
+<extracomment>Text for message when used successfully copied something</extracomment>
+<source>Copied to clipboard: %1</source>
+<translation>Αντιγράφηκε στο Πρόχειρο: %1</translation>
+</message>
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Διαδρομές</translation>
 </message>
+<message id="share_my_location">
+<source>Share My Location</source>
+<translation>Κοινοποίηση της τοποθεσίας μου</translation>
+</message>
+<message id="prefs_group_general">
+<extracomment>Settings general group in settings screen</extracomment>
+<source>General settings</source>
+<translation>Γενικές Ρυθμίσεις</translation>
+</message>
+<message id="prefs_group_information">
+<extracomment>Settings information group in settings screen</extracomment>
+<source>Information</source>
+<translation>Πληροφορίες</translation>
+</message>
 <message id="prefs_group_route">
 <source>Navigation</source>
 <translation>Πλοήγηση</translation>
+</message>
+<message id="pref_zoom_title">
+<extracomment>Setting name which enables or disables zoom buttons on the map screen.</extracomment>
+<source>“+” and “-” buttons on the map</source>
+<translation>Πλήκτρα «+» και «-» στον χάρτη</translation>
+</message>
+<message id="pref_zoom_summary">
+<source>Display on the map</source>
+<translation>Εμφάνιση στο χάρτη</translation>
 </message>
 <message id="pref_map_style_title">
 <extracomment>Settings «Map» category: «Night style» title</extracomment>
@@ -257,6 +325,16 @@
 <source>On</source>
 <translation>Ενεργ.</translation>
 </message>
+<message id="pref_map_3d_buildings_title">
+<extracomment>Settings «Map» category: «3D buildings» title</extracomment>
+<source>3D buildings</source>
+<translation>Τρισδιάστατα κτίρια</translation>
+</message>
+<message id="pref_map_3d_buildings_disabled_summary">
+<extracomment>A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled</extracomment>
+<source>3D buildings are disabled in power saving mode</source>
+<translation>Τα τρισδιάστατα κτίρια είναι απενεργοποιημένα σε λειτουργία εξοικονόμησης ενέργειας</translation>
+</message>
 <message id="pref_bg_tiles_title">
 <extracomment>Settings: title of the satellite imagery (custom raster tiles) screen</extracomment>
 <source>Satellite Imagery</source>
@@ -266,6 +344,11 @@
 <extracomment>Settings «Satellite Imagery»: title of the tile server URL input field</extracomment>
 <source>Server URL</source>
 <translation>URL διακομιστή</translation>
+</message>
+<message id="pref_bg_tiles_url_error">
+<extracomment>Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders)</extracomment>
+<source>Enter a valid URL with {z}/{x}/{y}</source>
+<translation>Εισαγάγετε έγκυρη διεύθυνση URL με {z}/{x}/{y}</translation>
 </message>
 <message id="pref_bg_tiles_size_title">
 <extracomment>Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes)</extracomment>
@@ -282,15 +365,60 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>Οι πηγές προσαρμοσμένων πλακιδίων παρέχονται από εσάς. Χρησιμοποιείτε μόνο υπηρεσίες στις οποίες επιτρέπεται να έχετε πρόσβαση. Είστε υπεύθυνοι για την αναφορά προέλευσης, τους όρους άδειας, τα κλειδιά API, τις ποσοστώσεις και τα όρια χρήσης.</translation>
 </message>
+<message id="menu">
+<extracomment>Menu button</extracomment>
+<source>Menu</source>
+<translation>Μενού</translation>
+</message>
 <message id="website">
 <extracomment>Text in menu</extracomment>
 <source>Website</source>
 <translation>Ιστότοπος</translation>
 </message>
+<message id="news">
+<extracomment>Text in About menu, opens Organic Maps news website</extracomment>
+<source>News</source>
+<translation>Νέα</translation>
+</message>
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
 <translation>Βοήθεια</translation>
+</message>
+<message id="faq">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Frequently Asked Questions</source>
+<translation>Συχνές ερωτήσεις</translation>
+</message>
+<message id="donate">
+<extracomment>Button in the main menu</extracomment>
+<source>Donate</source>
+<translation>Δωρεά</translation>
+</message>
+<message id="how_to_support_us">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Support the project</source>
+<translation>Στηρίξτε αυτό το πρότζεκτ</translation>
+</message>
+<message id="copyright">
+<extracomment>Button in the main Help dialog</extracomment>
+<source>Copyright</source>
+<translation>Πνευματικά δικαιώματα</translation>
+</message>
+<message id="report_a_bug">
+<extracomment>Text in menu + Button in the main Help dialog. Used in home screen quick actions.</extracomment>
+<source>Report a bug</source>
+<translation>Αναφορά σφάλματος</translation>
+</message>
+<message id="compass_calibration_recommended">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</source>
+<translation>Βελτιώστε την κατεύθυνση των βελών μετακινώντας το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα.</translation>
+</message>
+<message id="compass_calibration_required">
+<extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
+<source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
+<translation>Μετακινήστε το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα και να καθορίσετε την κατεύθυνση του βέλους στο χάρτη.</translation>
 </message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
@@ -306,6 +434,21 @@
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
 <translation>Έκδοση Organic Maps: %1</translation>
+</message>
+<message id="pref_appearance_title">
+<extracomment>Settings «Map» category: «Appearance» title</extracomment>
+<source>Appearance</source>
+<translation>Εμφάνιση</translation>
+</message>
+<message id="pref_appearance_light">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Light&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Light</source>
+<translation>Ανοιχτόχρωμη</translation>
+</message>
+<message id="pref_appearance_dark">
+<extracomment>Settings &quot;Appearance&quot; category: &quot;Dark&quot; title, should be consistent with the pref_appearance_title translation.</extracomment>
+<source>Dark</source>
+<translation>Σκουρόχρωμη</translation>
 </message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
@@ -384,6 +527,11 @@
 <source>Category</source>
 <translation>Κατηγορία</translation>
 </message>
+<message id="osm_presentation">
+<extracomment>Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.</extracomment>
+<source>Community-created OpenStreetMap data as of %1. Learn more about how to edit and update the map at OpenStreetMap.org</source>
+<translation>Δεδομένα OpenStreetMap που δημιουργήθηκαν από την κοινότητα στις %1. Μάθετε περισσότερα για τον τρόπο επεξεργασίας και ενημέρωσης του χάρτη στο OpenStreetMap.org</translation>
+</message>
 <message id="downloader_of">
 <extracomment>Downloaded 10 **of** 20 &lt;- it is that &quot;of&quot;</extracomment>
 <source>%1 of %2</source>
@@ -449,6 +597,10 @@
 <source>Increase size for map labels</source>
 <translation>Αύξηση μεγέθους γραμματοσειράς στο χάρτη</translation>
 </message>
+<message id="enable_logging">
+<source>Enable logging</source>
+<translation>Ενεργοποίηση δυνατότητας καταγραφής</translation>
+</message>
 <message id="transliteration_title">
 <source>Transliterate into Latin alphabet</source>
 <translation>Μεταγραφή στο λατινικό αλφάβητο</translation>
@@ -467,6 +619,14 @@
 <source>Please wait…</source>
 <translation>Παρακαλώ περιμένετε…</translation>
 </message>
+<message id="privacy_policy">
+<source>Privacy policy</source>
+<translation>Πολιτική απορρήτου</translation>
+</message>
+<message id="terms_of_use">
+<source>Terms of use</source>
+<translation>Όροι χρήσης</translation>
+</message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
 <translation>Κίνηση</translation>
@@ -481,10 +641,19 @@
 <source>Cycling</source>
 <translation>Ποδηλασία</translation>
 </message>
+<message id="button_layer_satellite">
+<extracomment>Map layers menu: toggle button for the satellite imagery layer</extracomment>
+<source>Satellite</source>
+<translation>Δορυφόρος</translation>
+</message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>Μετρό</translation>
+</message>
+<message id="layers_title">
+<source>Map Styles and Layers</source>
+<translation>Στυλ χάρτη και επίπεδα</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -501,6 +670,26 @@
 <source>Export GeoJSON</source>
 <translation>Εξαγωγή GeoJSON</translation>
 </message>
+<message id="power_managment_title">
+<source>Power saving mode</source>
+<translation>Λειτουργία εξοικονόμησης ενέργειας</translation>
+</message>
+<message id="power_managment_description">
+<source>Try to reduce power usage at the expense of some functionality.</source>
+<translation>Θα γίνεται προσπάθεια εξοικονόμησης ενέργειας εις βάρος κάποιον λειτουργιών.</translation>
+</message>
+<message id="power_managment_setting_never">
+<source>Never</source>
+<translation>Ποτέ</translation>
+</message>
+<message id="power_managment_setting_auto">
+<source>When battery is low</source>
+<translation>Αυτόματα</translation>
+</message>
+<message id="power_managment_setting_manual_max">
+<source>Always</source>
+<translation>Πάντα</translation>
+</message>
 <message id="bookmarks_text_placement_title">
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
@@ -513,6 +702,10 @@
 <message id="show_at_the_bottom">
 <source>Show at the bottom</source>
 <translation>Εμφάνισε στο κάτω μέρος</translation>
+</message>
+<message id="enable_logging_warning_message">
+<source>Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using &quot;Report a bug&quot; in the Help dialog. Logs may include location info.</source>
+<translation>Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</translation>
 </message>
 <message id="routing_options_driving">
 <extracomment>Driving profile in routing options settings.</extracomment>
@@ -610,6 +803,10 @@
 <source>Update</source>
 <translation>Ενημέρωση</translation>
 </message>
+<message id="log_file_size">
+<source>Log file size: %1</source>
+<translation>Μέγεθος αρχείου καταγραφής: %1</translation>
+</message>
 <message id="downloader_process">
 <source>Downloading %1…</source>
 <translation>Λήψη %1…</translation>
@@ -683,15 +880,47 @@
 <source>3D Terrain</source>
 <translation>3D ανάγλυφο</translation>
 </message>
+<message id="isolines_location_error_dialog">
+<source>Update this region to see contour lines</source>
+<translation>Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</translation>
+</message>
+<message id="isolines_toast_zooms_1_10">
+<source>Zoom in to explore isolines</source>
+<translation>Μεγεθύνετε για να δείτε περιγράμματα</translation>
+</message>
+<message id="enable_keep_screen_on">
+<source>Keep the screen on</source>
+<translation>Να παραμένει η οθόνη ανοιχτή</translation>
+</message>
+<message id="enable_keep_screen_on_description">
+<extracomment>Description in preferences</extracomment>
+<source>When enabled, the screen will always be on when displaying the map.</source>
+<translation>Αν ενεργοποιηθεί, η οθόνη θα είναι πάντα αναμμένη όσο εμφανίζεται ο χάρτης.</translation>
+</message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
 <source>Map language</source>
 <translation>Γλώσσα χάρτη</translation>
 </message>
+<message id="telegram_url">
+<extracomment>Telegram group url for the &quot;?&quot; About page</extracomment>
+<source>https://t.me/OrganicMapsApp</source>
+<translation>https://t.me/OrganicMapsApp</translation>
+</message>
+<message id="instagram_url">
+<extracomment>Instagram account url for the &quot;?&quot; About page</extracomment>
+<source>https://www.instagram.com/organicmaps.app</source>
+<translation>https://www.instagram.com/organicmaps.app</translation>
+</message>
 <message id="translated_om_site_url">
 <extracomment>Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content</extracomment>
 <source>https://organicmaps.app/</source>
 <translation>https://organicmaps.app/el/</translation>
+</message>
+<message id="osm_wiki_about_url">
+<extracomment>Link to OSM wiki for Editor, Profile and About pages</extracomment>
+<source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
+<translation>https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap</translation>
 </message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
@@ -745,6 +974,15 @@
 <source>Add Place</source>
 <translation>Προσθήκη τοποθεσίας</translation>
 </message>
+<message id="mb">
+<extracomment>Settings/Downloader - size string, only strings different from English should be translated</extracomment>
+<source>MB</source>
+<translation>MB</translation>
+</message>
+<message id="gb">
+<source>GB</source>
+<translation>GB</translation>
+</message>
 <message id="core_my_position">
 <extracomment>A text for current gps location point/arrow selected on the map</extracomment>
 <source>My Position</source>
@@ -789,6 +1027,11 @@
 <source>ft</source>
 <translation>πδ</translation>
 </message>
+<message id="routes_update_maps_text">
+<extracomment>Toast text when the maps version should be updated to display the OSM hiking and cycling routes</extracomment>
+<source>To display routes, maps must be updated.</source>
+<translation>Για την προβολή των διαδρομών, οι χάρτες πρέπει να είναι ενημερωμένοι.</translation>
+</message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>
 <source>Exit</source>
@@ -797,6 +1040,11 @@
 <message id="core_entrance">
 <source>Entrance</source>
 <translation>Είσοδος</translation>
+</message>
+<message id="show_downloaded_regions">
+<extracomment>Settings/Highlight downloaded regions on the map</extracomment>
+<source>Purple downloaded regions</source>
+<translation>Μωβ ληφθείσες περιοχές</translation>
 </message>
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
