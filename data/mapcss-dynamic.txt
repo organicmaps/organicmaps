@@ -1,4 +1,5 @@
 population
 name
 bbox_area
+extra_tag
 rating

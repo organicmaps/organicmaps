@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
@@ -9,7 +8,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
 
-#include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include <sstream>
@@ -22,7 +20,7 @@ using generator::tests_support::TestWithClassificator;
 using namespace drule;
 using namespace std;
 
-UNIT_CLASS_TEST(TestWithClassificator, ExtraTag_RulesUseTheirOwnClassifier)
+UNIT_TEST(ExtraTag_RulesUseTheirOwnClassifier)
 {
   Classificator tree;
   istringstream input(
@@ -254,8 +252,7 @@ UNIT_TEST(NameSelector_Smoke)
 
 UNIT_TEST(InvalidSelector_Smoke)
 {
-  TEST(!ParseSelector(vector<string>{""}, classif()), ());
-  TEST(!ParseSelector(vector<string>({""}), classif()), ());
+  TEST(!ParseSelector({""}, classif()), ());
   TEST(!ParseSelector(vector<string>({"population>=1000", "population<=1000000", ""}), classif()), ());
 }
 
