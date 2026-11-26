@@ -18,18 +18,21 @@ public:
   explicit constexpr RouteWeight(double weight) : m_weight(weight) {}
 
   constexpr RouteWeight(double weight, int8_t numAccessChanges, int8_t numAccessConditionalPenalties,
-                        double transitTime)
+                        double transitTime, double walkingTime = 0.0)
     : m_weight(weight)
     , m_numAccessChanges(numAccessChanges)
     , m_numAccessConditionalPenalties(numAccessConditionalPenalties)
+    , m_walkingTime(static_cast<float>(walkingTime))
     , m_transitTime(transitTime)
   {}
 
   static RouteWeight FromCrossMwmWeight(double weight) { return RouteWeight(weight); }
+  static RouteWeight TransitWalk(double weight, double seconds) { return RouteWeight(weight, 0, 0, 0.0, seconds); }
 
   double ToCrossMwmWeight() const;
   double GetWeight() const { return m_weight; }
   double GetTransitTime() const { return m_transitTime; }
+  double GetWalkingTime() const { return m_walkingTime; }
 
   double GetIntegratedWeight() const;
   bool operator<(RouteWeight const & rhs) const;
@@ -40,7 +43,7 @@ public:
   {
     return (m_weight == rhs.m_weight && m_numAccessChanges == rhs.m_numAccessChanges &&
             m_numAccessConditionalPenalties == rhs.m_numAccessConditionalPenalties &&
-            m_transitTime == rhs.m_transitTime);
+            m_transitTime == rhs.m_transitTime && m_walkingTime == rhs.m_walkingTime);
   }
 
   bool operator>(RouteWeight const & rhs) const { return rhs < (*this); }
@@ -57,14 +60,17 @@ public:
   {
     ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int8_t>::min(), ());
     ASSERT_NOT_EQUAL(m_numAccessConditionalPenalties, std::numeric_limits<int8_t>::min(), ());
-    return RouteWeight(-m_weight, -m_numAccessChanges, -m_numAccessConditionalPenalties, -m_transitTime);
+    return RouteWeight(-m_weight, -m_numAccessChanges, -m_numAccessConditionalPenalties, -m_transitTime,
+                       -m_walkingTime);
   }
 
   bool IsAlmostEqualForTests(RouteWeight const & rhs, double epsilon) const
   {
     return m_numAccessChanges == rhs.m_numAccessChanges &&
            m_numAccessConditionalPenalties == rhs.m_numAccessConditionalPenalties &&
-           AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) && AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
+           AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
+           AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon) &&
+           AlmostEqualAbs(GetWalkingTime(), rhs.GetWalkingTime(), epsilon);
   }
 
   friend std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight);
@@ -86,9 +92,13 @@ private:
   // Number of access:conditional dangerous zones (when RoadAccess::GetAccess() return
   // |Confidence::Maybe|).
   int8_t m_numAccessConditionalPenalties = 0;
+  // Physical walking seconds for the transit budget. Fits between the access penalties and transit time.
+  float m_walkingTime = 0.0f;
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
   double m_transitTime = 0.0;
 };
+
+static_assert(sizeof(RouteWeight) <= 24, "Keep A* route weights compact");
 
 template <>
 constexpr RouteWeight GetAStarWeightMax<RouteWeight>()

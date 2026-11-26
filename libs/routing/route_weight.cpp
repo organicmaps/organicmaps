@@ -41,7 +41,7 @@ RouteWeight RouteWeight::operator+(RouteWeight const & rhs) const
 
   return RouteWeight(m_weight + rhs.m_weight, m_numAccessChanges + rhs.m_numAccessChanges,
                      m_numAccessConditionalPenalties + rhs.m_numAccessConditionalPenalties,
-                     m_transitTime + rhs.m_transitTime);
+                     m_transitTime + rhs.m_transitTime, GetWalkingTime() + rhs.GetWalkingTime());
 }
 
 RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
@@ -54,7 +54,7 @@ RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
 
   return RouteWeight(m_weight - rhs.m_weight, m_numAccessChanges - rhs.m_numAccessChanges,
                      m_numAccessConditionalPenalties - rhs.m_numAccessConditionalPenalties,
-                     m_transitTime - rhs.m_transitTime);
+                     m_transitTime - rhs.m_transitTime, GetWalkingTime() - rhs.GetWalkingTime());
 }
 
 RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
@@ -66,6 +66,7 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
   m_numAccessChanges += rhs.m_numAccessChanges;
   m_numAccessConditionalPenalties += rhs.m_numAccessConditionalPenalties;
   m_transitTime += rhs.m_transitTime;
+  m_walkingTime += rhs.m_walkingTime;
   return *this;
 }
 
@@ -98,13 +99,13 @@ std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight)
 {
   os << "(" << static_cast<int32_t>(routeWeight.m_numAccessChanges) << ", "
      << static_cast<int32_t>(routeWeight.m_numAccessConditionalPenalties) << ", " << routeWeight.GetWeight() << ", "
-     << routeWeight.GetTransitTime() << ")";
+     << routeWeight.GetTransitTime() << ", " << routeWeight.GetWalkingTime() << ")";
   return os;
 }
 
 RouteWeight operator*(double lhs, RouteWeight const & rhs)
 {
   return RouteWeight(lhs * rhs.GetWeight(), rhs.m_numAccessChanges, rhs.m_numAccessConditionalPenalties,
-                     lhs * rhs.GetTransitTime());
+                     lhs * rhs.GetTransitTime(), lhs * rhs.GetWalkingTime());
 }
 }  // namespace routing

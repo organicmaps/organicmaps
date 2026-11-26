@@ -652,6 +652,84 @@ UNIT_TEST(TransitModeFilterChecksTheRoadTwinInItsOwnMap)
   }
 }
 
+UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitRoadFerryKeepsItsWeightOutsideTheWalkingBudget)
+{
+  using enum EdgeEstimator::Purpose;
+  auto router = Router(VehicleType::Transit);
+  auto graph = router->MakeSingleMwmWorldGraph();
+  Segment const ferry(0, m_ferryFeature, 0, true);
+  auto const & road = graph->GetIndexGraph(ferry.GetMwmId()).GetRoadGeometry(ferry.GetFeatureId());
+  TEST(road.GetRoutingOptions().Has(RoutingOptions::Ferry), ());
+  auto estimator = EdgeEstimator::Create(VehicleType::Transit, 60, SpeedKMpH(3), nullptr, nullptr, nullptr);
+  auto const eta = estimator->CalcRoadSegmentWeight(ferry, road, ETA);
+  TEST_GREATER(eta.GetWeight(), 50 * 60, ());
+
+  estimator->SetTransitPreference(TransitPreference::LessWalking);
+  auto const weight = estimator->CalcRoadSegmentWeight(ferry, road, Weight);
+  TEST_EQUAL(weight.GetWeight(), eta.GetWeight(), ());
+  TEST_EQUAL(weight.GetWalkingTime(), 0.0, ());
+  TEST_EQUAL(weight.GetTransitTime(), 0.0, ());
+  TEST(graph->CheckLength(weight, 0), ());
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, TransitWalkingBudgetUsesPhysicalRoadTime)
+{
+  using enum EdgeEstimator::Purpose;
+  auto router = Router(VehicleType::Transit);
+  auto graph = router->MakeSingleMwmWorldGraph();
+  auto const segment = NamedSegment("Paved connection");
+  auto const & road = graph->GetIndexGraph(segment.GetMwmId()).GetRoadGeometry(segment.GetFeatureId());
+  auto estimator = EdgeEstimator::Create(VehicleType::Transit, 60, SpeedKMpH(3), nullptr, nullptr, nullptr);
+  auto const eta = estimator->CalcRoadSegmentWeight(segment, road, ETA).GetWeight();
+  auto const recommended = estimator->CalcRoadSegmentWeight(segment, road, Weight);
+  TEST_NOT_EQUAL(recommended.GetWeight(), eta, ());
+
+  estimator->SetTransitPreference(TransitPreference::LessWalking);
+  auto const lessWalking = estimator->CalcRoadSegmentWeight(segment, road, Weight);
+  TEST_GREATER(lessWalking.GetWeight(), recommended.GetWeight(), ());
+  TEST_ALMOST_EQUAL_ABS(recommended.GetWalkingTime(), eta, 1e-4, ());
+  TEST_EQUAL(lessWalking.GetWalkingTime(), recommended.GetWalkingTime(), ());
+}
+
+class TransitPreferenceFixture : public RoutingPreferenceFixture
+{
+public:
+  TransitPreferenceFixture() : RoutingPreferenceFixture("routing_transit_preferences.osm") {}
+};
+
+UNIT_CLASS_TEST(TransitPreferenceFixture, SelectedTransitVariantSurvivesRebuild)
+{
+  auto router = Router(VehicleType::Transit);
+  Checkpoints const checkpoints(mercator::FromLatLon(1, 1.0005), mercator::FromLatLon(1, 1.0105));
+  auto const takesFerry = [this](RouteBase const & route)
+  {
+    return std::ranges::any_of(route.GetRouteSegments(), [this](RouteSegment const & segment)
+    { return segment.GetSegment().GetFeatureId() == m_ferryFeature; });
+  };
+  auto const calculate = [&](TransitPreference preference, bool alternatives)
+  {
+    RoutePlanningOptions options;
+    options.m_transitPreference = preference;
+    RoutesResult result;
+    TEST_EQUAL(router->CalculateRoute(checkpoints, {}, false, alternatives, RouterDelegate(options), result),
+               RouterResultCode::NoError, ());
+    return result;
+  };
+
+  using enum TransitPreference;
+  auto const initial = calculate(LessWalking, true);
+  TEST_EQUAL(initial.m_routes.size(), 2, ());
+  TEST(takesFerry(initial.GetActive()), ());
+  TEST(!takesFerry(initial.m_routes[1]), ());
+  router->SwapAltRouteToActive();
+  TEST(!takesFerry(calculate(LessWalking, false).GetActive()), ());
+
+  router->ClearState();
+  TEST(takesFerry(calculate(LessWalking, true).GetActive()), ());
+  router->SwapAltRouteToActive();
+  TEST(!takesFerry(calculate(Recommended, false).GetActive()), ());
+}
+
 class StepsRoutingFixture : public RoutingPreferenceFixture
 {
 public:

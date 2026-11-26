@@ -15,6 +15,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
 import app.organicmaps.sdk.routing.RoutingOptions.TransitMode;
+import app.organicmaps.sdk.routing.RoutingOptions.TransitPreference;
 import app.organicmaps.sdk.settings.RoadType;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -70,9 +71,24 @@ public class DrivingOptionsFragmentTest
   @Test
   public void transitModeChangesRebuildOnlyTransit() throws ReflectiveOperationException
   {
-    verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.Any, TransitMode.Bus.bit), never())
+    verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.Any, TransitMode.Bus.bit,
+                TransitPreference.Recommended),
+           never())
         .onRoutingOptionsChanged();
-    verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, TransitMode.Bus.bit))
+    verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, TransitMode.Bus.bit,
+                TransitPreference.Recommended))
+        .onRoutingOptionsChanged();
+  }
+
+  @Test
+  public void transitPreferenceChangesRebuildOnlyTransit() throws ReflectiveOperationException
+  {
+    verify(stop(Map.of(), Router.Pedestrian, Map.of(), BicycleSurfacePreference.Any, ALL_TRANSIT_MODES,
+                TransitPreference.LessWalking),
+           never())
+        .onRoutingOptionsChanged();
+    verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, ALL_TRANSIT_MODES,
+                TransitPreference.LessWalking))
         .onRoutingOptionsChanged();
   }
 
@@ -99,18 +115,20 @@ public class DrivingOptionsFragmentTest
                                         Map<Router, Set<RoadType>> current, BicycleSurfacePreference surface)
       throws ReflectiveOperationException
   {
-    return stop(loaded, route, current, surface, ALL_TRANSIT_MODES);
+    return stop(loaded, route, current, surface, ALL_TRANSIT_MODES, TransitPreference.Recommended);
   }
 
   private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
                                         Map<Router, Set<RoadType>> current, BicycleSurfacePreference surface,
-                                        int transitModes) throws ReflectiveOperationException
+                                        int transitModes, TransitPreference preference)
+      throws ReflectiveOperationException
   {
     DrivingOptionsFragment fragment = mock(DrivingOptionsFragment.class, CALLS_REAL_METHODS);
     doReturn(mock(FragmentActivity.class)).when(fragment).requireActivity();
     setField(fragment, "mRoadTypes", withAllModes(loaded));
     setField(fragment, "mBicycleSurfaceOnLoad", BicycleSurfacePreference.Any);
     setField(fragment, "mTransitModesOnLoad", ALL_TRANSIT_MODES);
+    setField(fragment, "mTransitPreferenceOnLoad", TransitPreference.Recommended);
     RoutingController controller = mock(RoutingController.class);
     when(controller.getLastRouterType()).thenReturn(route);
 
@@ -120,6 +138,7 @@ public class DrivingOptionsFragmentTest
       routing.when(RoutingController::get).thenReturn(controller);
       options.when(RoutingOptions::getBicycleSurfacePreference).thenReturn(surface);
       options.when(RoutingOptions::getTransitModes).thenReturn(transitModes);
+      options.when(RoutingOptions::getTransitPreference).thenReturn(preference);
       for (Map.Entry<Router, Set<RoadType>> each : withAllModes(current).entrySet())
         options.when(() -> RoutingOptions.getActiveRoadTypes(each.getKey())).thenReturn(each.getValue());
       fragment.onStop();

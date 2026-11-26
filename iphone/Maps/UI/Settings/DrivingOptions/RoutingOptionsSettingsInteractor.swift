@@ -16,11 +16,14 @@ final class RoutingOptionsSettingsInteractor {
 
   private func makeState(options: RoutingOptions) -> RoutingOptionsSettingsState {
     let bicycleSurface = options.routerType == .bicycle ? RoutingOptions.bicycleSurfacePreference : .any
-    let transitModes = options.routerType == .publicTransport ? RoutingOptions.transitModes : .all
+    let isTransit = options.routerType == .publicTransport
+    let transitModes = isTransit ? RoutingOptions.transitModes : .all
+    let transitPreference = isTransit ? RoutingOptions.transitPreference : .recommended
     return RoutingOptionsSettingsState(options: options,
                                        canChangeOptimization: canChangeOptimization,
                                        bicycleSurface: bicycleSurface,
-                                       transitModes: transitModes)
+                                       transitModes: transitModes,
+                                       transitPreference: transitPreference)
   }
 
   func loadSettings() {
@@ -78,10 +81,19 @@ extension RoutingOptionsSettingsInteractor: SettingsViewControllerInteractor {
       loadSettings()
     case .didChangeSwitch(let item, isOn: let isOn):
       set(item, enabled: isOn)
-    case .didSelect(.bicycleSurface(let preference)):
+    case .didSelect(let option):
       guard let state else { return }
-      precondition(state.options.routerType == .bicycle)
-      RoutingOptions.bicycleSurfacePreference = preference
+      switch option {
+      case .bicycleSurface(let preference):
+        precondition(state.options.routerType == .bicycle)
+        RoutingOptions.bicycleSurfacePreference = preference
+      case .transitPreference(let preference):
+        precondition(state.options.routerType == .publicTransport)
+        RoutingOptions.transitPreference = preference
+      default:
+        // The table also reports taps on switch rows.
+        return
+      }
       let updated = makeState(options: routingOptionsProvider())
       self.state = updated
       present(updated, animatingDifferences: false)

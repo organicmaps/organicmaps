@@ -173,11 +173,12 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose, double, geometry::Altitude)
 
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, double distanceBiasCapSpeedKMpH,
-                             SpeedKMpH const & offroadSpeedKMpH, DataSource * /*dataSourcePtr*/,
+                             SpeedKMpH const & offroadSpeedKMpH, bool isTransit, DataSource * /*dataSourcePtr*/,
                              std::shared_ptr<NumMwmIds> /*numMwmIds*/)
   : m_maxWeightSpeedMpS(KmphToMps(maxWeightSpeedKMpH))
   , m_distanceBiasSecPerM(1.0 / KmphToMps(distanceBiasCapSpeedKMpH))
   , m_offroadSpeedKMpH(offroadSpeedKMpH)
+  , m_isTransit(isTransit)
 //, m_dataSourcePtr(dataSourcePtr)
 //, m_numMwmIds(numMwmIds)
 {
@@ -291,12 +292,40 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
   return purpose == Purpose::Weight ? time * m_transitWalkWeightFactor : time;
 }
 
+void EdgeEstimator::SetTransitPreference(TransitPreference preference)
+{
+  double constexpr kWalkingMultiplier = 3.0;
+  // A fixed cost per boarding favors fewer transfers without penalizing low-frequency lines.
+  // Counting the first boarding also lets a short walk win over a direct ride.
+  double constexpr kBoardingPenaltyS = 5 * 60.0;
+  switch (preference)
+  {
+    using enum TransitPreference;
+  case Recommended: SetTransitFactors(1.0, 0.0); return;
+  case LessWalking: SetTransitFactors(kWalkingMultiplier, 0.0); return;
+  case FewerTransfers: SetTransitFactors(1.0, kBoardingPenaltyS); return;
+  case LessWalkingAndFewerTransfers: SetTransitFactors(kWalkingMultiplier, kBoardingPenaltyS); return;
+  }
+  UNREACHABLE();
+}
+
+RouteWeight EdgeEstimator::CalcRoadSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                                                 time_t arrivalTime) const
+{
+  auto const weight = CalcSegmentWeight(segment, road, purpose, arrivalTime);
+  // A road ferry crossing consumes neither walking time nor a scheduled transit boarding.
+  if (!m_isTransit || purpose == Purpose::ETA || road.GetRoutingOptions().Has(RoutingOptions::Ferry))
+    return RouteWeight(weight);
+
+  return RouteWeight::TransitWalk(weight, CalcSegmentWeight(segment, road, Purpose::ETA, arrivalTime));
+}
+
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
 public:
-  PedestrianEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH)
-    : EdgeEstimator(maxWeightSpeedKMpH, kDistanceBiasCapSpeedKMpH, offroadSpeedKMpH)
+  PedestrianEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH, bool isTransit)
+    : EdgeEstimator(maxWeightSpeedKMpH, kDistanceBiasCapSpeedKMpH, offroadSpeedKMpH, isTransit)
   {}
 
   // EdgeEstimator overrides:
@@ -319,9 +348,7 @@ public:
                                      [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
     { return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude); });
 
-    // Bias the transit alternative away from walking (see SetTransitAltFactors). No-op (factor 1.0)
-    // for standalone pedestrian routing and for the primary transit route.
-    if (purpose == Purpose::Weight)
+    if (purpose == Purpose::Weight && !road.GetRoutingOptions().Has(RoutingOptions::Ferry))
       weight *= GetTransitWalkWeightFactor();
 
     return ApplyStrategy(purpose, weight, distanceM);
@@ -434,7 +461,8 @@ public:
   CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
                std::shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
                SpeedKMpH const & offroadSpeedKMpH)
-    : EdgeEstimator(maxWeightSpeedKMpH, kDistanceBiasCapSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
+    : EdgeEstimator(maxWeightSpeedKMpH, kDistanceBiasCapSpeedKMpH, offroadSpeedKMpH, false /* isTransit */,
+                    dataSourcePtr, numMwmIds)
     , m_trafficStash(std::move(trafficStash))
   {}
 
@@ -523,7 +551,9 @@ std::shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, do
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return std::make_shared<PedestrianEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
+  case VehicleType::Transit:
+    return std::make_shared<PedestrianEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH,
+                                                 vehicleType == VehicleType::Transit);
   case VehicleType::Bicycle: return std::make_shared<BicycleEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
   case VehicleType::Car:
     return std::make_shared<CarEstimator>(dataSourcePtr, numMwmIds, trafficStash, maxWeighSpeedKMpH, offroadSpeedKMpH);

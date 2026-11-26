@@ -72,11 +72,20 @@ enum class BicycleSurfacePreference : int64_t
   AvoidUnpaved = 3
 };
 
+enum class TransitPreference : uint8_t
+{
+  Recommended = 0,
+  LessWalking = 1,
+  FewerTransfers = 2,
+  LessWalkingAndFewerTransfers  // Offered as an alternative, never stored in settings.
+};
+
 struct RoutePlanningOptions
 {
   RoutingOptions m_avoid;
   BicycleSurfaceBias m_bicycleSurfaceBias = BicycleSurfaceBias::Any;
   transit::ModeMask m_transitModes = transit::kAllModes;
+  TransitPreference m_transitPreference = TransitPreference::Recommended;
 
   static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
   static BicycleSurfacePreference LoadBicycleSurfacePreference();
@@ -84,6 +93,8 @@ struct RoutePlanningOptions
   static transit::ModeMask LoadTransitModes();
   // Preserve all platform bits until validation.
   static void SaveTransitModes(uint64_t modes);
+  static TransitPreference LoadTransitPreference();
+  static void SaveTransitPreference(int64_t preference);
   bool operator==(RoutePlanningOptions const &) const = default;
 };
 
@@ -103,6 +114,7 @@ std::string DebugPrint(RoutingOptions const & routingOptions);
 std::string DebugPrint(RoutingOptions::Road type);
 std::string DebugPrint(BicycleSurfaceBias bias);
 std::string DebugPrint(BicycleSurfacePreference preference);
+std::string DebugPrint(TransitPreference preference);
 
 /// Options guard for debugging/tests.
 class RoutingOptionSetter

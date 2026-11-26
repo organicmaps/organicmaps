@@ -760,6 +760,18 @@
 /* Walking profile in routing options settings; also the label of a walking leg in transit route details. */
 "routing_options_walking" = "المشي";
 
+/* Heading for route preferences in public transport settings. */
+"transit_preference" = "Route preference";
+
+/* Default public transport routing preference. */
+"transit_preference_recommended" = "Recommended";
+
+/* Public transport routing preference favoring shorter walks. */
+"transit_preference_less_walking" = "Less walking";
+
+/* Public transport routing preference favoring fewer changes between vehicles. */
+"transit_preference_fewer_transfers" = "Fewer transfers";
+
 /* Heading for the types of public transport that routing may use. */
 "transit_mode_options" = "Allowed transport";
 

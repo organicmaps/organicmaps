@@ -650,6 +650,14 @@
     <string name="routing_options_cycling">Cycling</string>
     <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Walking</string>
+    <!-- Heading for route preferences in public transport settings. -->
+    <string name="transit_preference">Route preference</string>
+    <!-- Default public transport routing preference. -->
+    <string name="transit_preference_recommended">Recommended</string>
+    <!-- Public transport routing preference favoring shorter walks. -->
+    <string name="transit_preference_less_walking">Less walking</string>
+    <!-- Public transport routing preference favoring fewer changes between vehicles. -->
+    <string name="transit_preference_fewer_transfers">Fewer transfers</string>
     <!-- Heading for the types of public transport that routing may use. -->
     <string name="transit_mode_options">Allowed transport</string>
     <!-- Public transport routing switch that allows buses. -->

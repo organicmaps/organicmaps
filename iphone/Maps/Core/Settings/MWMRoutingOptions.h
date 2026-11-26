@@ -35,6 +35,12 @@ typedef NS_OPTIONS(NSUInteger, MWMTransitModes) {
       MWMTransitModesAir
 } NS_SWIFT_NAME(TransitModes);
 
+typedef NS_ENUM(NSInteger, MWMTransitPreference) {
+  MWMTransitPreferenceRecommended = 0,
+  MWMTransitPreferenceLessWalking = 1,
+  MWMTransitPreferenceFewerTransfers = 2
+} NS_SWIFT_NAME(TransitPreference);
+
 NS_SWIFT_NAME(RoutingOptions)
 @interface MWMRoutingOptions : NSObject
 
@@ -42,6 +48,7 @@ NS_SWIFT_NAME(RoutingOptions)
 @property(nonatomic, readonly) MWMRoutingAvoidance supportedOptions;
 @property(class, nonatomic) MWMBicycleSurfacePreference bicycleSurfacePreference;
 @property(class, nonatomic) MWMTransitModes transitModes;
+@property(class, nonatomic) MWMTransitPreference transitPreference;
 
 - (instancetype)initWithRouterType:(MWMRouterType)routerType NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;

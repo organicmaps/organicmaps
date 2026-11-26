@@ -129,6 +129,31 @@
         </com.google.android.material.card.MaterialCardView>
       </LinearLayout>
       <LinearLayout
+        android:id="@+id/transit_preference_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+          style="@style/MwmWidget.RoutingOptions.Header"
+          android:text="@string/transit_preference"/>
+        <com.google.android.material.card.MaterialCardView style="@style/MwmWidget.RoutingOptions.Card">
+          <RadioGroup style="@style/MwmWidget.RoutingOptions.Rows">
+            <RadioButton
+              android:id="@+id/transit_preference_recommended"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/transit_preference_recommended"/>
+            <RadioButton
+              android:id="@+id/transit_preference_less_walking"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/transit_preference_less_walking"/>
+            <RadioButton
+              android:id="@+id/transit_preference_fewer_transfers"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/transit_preference_fewer_transfers"/>
+          </RadioGroup>
+        </com.google.android.material.card.MaterialCardView>
+      </LinearLayout>
+      <LinearLayout
         android:id="@+id/transit_mode_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

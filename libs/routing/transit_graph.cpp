@@ -69,7 +69,7 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
 
   double const weight =
       purpose == EdgeEstimator::Purpose::Weight ? time * m_estimator->GetTransitWalkWeightFactor() : time;
-  return RouteWeight(weight);
+  return RouteWeight::TransitWalk(weight, time);
 }
 
 transit::LineId TransitGraph::GetRideLineId(Segment const & segment) const
@@ -91,9 +91,8 @@ RouteWeight TransitGraph::GetTransferPenalty(transit::LineId fromLineId, Segment
   // Boarding after a walking connection or a line change incurs the line's mean wait.
   auto const it = m_transferPenaltiesSubway.find(lineIdTo);
   CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-  // The alternative route adds a fixed penalty per boarding to the routing weight only (not to
-  // transitTime); it is zero for the primary route.
-  double const penalty = it->second + m_estimator->GetTransitAltBoardingPenaltyS();
+  // The preference adds a fixed search cost per boarding. Only the mean wait belongs in ETA.
+  double const penalty = it->second + m_estimator->GetTransitBoardingPenaltyS();
   return RouteWeight(penalty /* weight */, 0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
                      it->second /* transitTime */);
 }

@@ -27722,6 +27722,26 @@ vi = Đi bộ
 zh-Hans = 步行
 zh-Hant = 步行
 
+[transit_preference]
+comment = Heading for route preferences in public transport settings.
+tags = android-app,apple-maps
+en = Route preference
+
+[transit_preference_recommended]
+comment = Default public transport routing preference.
+tags = android-app,apple-maps
+en = Recommended
+
+[transit_preference_less_walking]
+comment = Public transport routing preference favoring shorter walks.
+tags = android-app,apple-maps
+en = Less walking
+
+[transit_preference_fewer_transfers]
+comment = Public transport routing preference favoring fewer changes between vehicles.
+tags = android-app,apple-maps
+en = Fewer transfers
+
 [transit_mode_options]
 comment = Heading for the types of public transport that routing may use.
 tags = android-app,apple-maps
