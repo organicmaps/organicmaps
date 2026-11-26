@@ -29,7 +29,8 @@ class VulkanBaseContext : public dp::GraphicsContext
 public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
-                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates);
+                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
+                    bool supportsImageAcquireTimeout);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
@@ -167,6 +168,7 @@ protected:
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
   bool const m_hasPartialTextureUpdates;
+  bool const m_supportsImageAcquireTimeout;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
