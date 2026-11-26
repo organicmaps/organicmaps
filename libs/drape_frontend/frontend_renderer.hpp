@@ -200,6 +200,7 @@ private:
   void Render3dLayer(ScreenBase const & modelView);
   void RenderMwmBorderLayer(ScreenBase const & modelView);
   void RenderOverlayLayer(ScreenBase const & modelView);
+  void UpdateTrackArrows(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);

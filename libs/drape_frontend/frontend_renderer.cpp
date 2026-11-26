@@ -6,6 +6,7 @@
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
@@ -1514,6 +1515,7 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserAreaLayer);
+    UpdateTrackArrows(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
     RenderUserMarksLayer(modelView, DepthLayer::SelectedUserLineLayer);
 
@@ -1790,6 +1792,16 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
+}
+
+void FrontendRenderer::UpdateTrackArrows(ScreenBase const & modelView)
+{
+  std::vector<ref_ptr<dp::OverlayHandle>> trackArrows;
+  for (auto layer : {DepthLayer::UserLineLayer, DepthLayer::SelectedUserLineLayer})
+    for (auto const & group : m_layers[static_cast<size_t>(layer)].m_renderGroups)
+      if (group->GetState().GetProgram<gpu::Program>() == gpu::Program::PathSymbol)
+        group->ForEachOverlay([&](auto h) { trackArrows.push_back(h); });
+  PlaceTrackArrows(modelView, trackArrows);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)

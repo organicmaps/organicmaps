@@ -71,7 +71,7 @@ public:
   /// Sets the scale from world coordinates to pixels. Must be called before Render().
   void SetWorldToPixelScale(float scale) { m_worldToPixelScale = scale; }
   void SetBackgroundColor(dp::Color color) { m_backgroundColor = color; }
-  /// Sets the world point in the image center for tiles of user areas, the center of the first one by default.
+  /// Sets the world point in the image center for tiles, the center of the first one by default.
   void SetViewCenter(m2::PointD const & center) { m_viewCenter = center; }
 
   /// The last rendered frame; valid after Render() returns.
@@ -82,6 +82,7 @@ public:
 
 private:
   void Init(uint32_t width, uint32_t height);
+  void AddTile(TileKey const & tileKey, std::function<void(dp::Batcher &)> const & cache);
   void Flush();
   void Render();
   void ReleaseGLResources();
