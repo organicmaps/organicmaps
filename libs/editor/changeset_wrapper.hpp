@@ -37,7 +37,9 @@ public:
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
   /// OsmObjectWasDeletedException means that node was deleted from OSM server by someone else.
   editor::XMLFeature GetMatchingNodeFeatureFromOSM(m2::PointD const & center);
-  editor::XMLFeature GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geomerty);
+  /// |feature| tells apart OSM areas with the same geometry, see matcher::GetBestOsmWayOrRelation.
+  editor::XMLFeature GetMatchingAreaFeatureFromOSM(std::vector<m2::PointD> const & geomerty,
+                                                   editor::XMLFeature const & feature);
 
   /// Throws exceptions from above list.
   void Create(editor::XMLFeature node);

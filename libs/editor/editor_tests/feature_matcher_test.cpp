@@ -317,6 +317,52 @@ UNIT_TEST(GetBestOsmWay_Test)
   }
 }
 
+// A building and its building:part often share all nodes (issue #9405). Both match the geometry
+// equally well, so the edit must go to the area whose tags match the edited feature, not to the
+// first one in the OSM response.
+UNIT_TEST(GetBestOsmWay_SameNodesPreferMatchingTags)
+{
+  std::string response = osmRawResponseWay;
+  // The same nodes as the building, starting at another one, listed before the building.
+  std::string const buildingPart = R"(<way id="1" visible="true" version="1">
+    <nd ref="277171986"/>
+    <nd ref="277171984"/>
+    <nd ref="2673014345"/>
+    <nd ref="277172019"/>
+    <nd ref="420748956"/>
+    <nd ref="277172022"/>
+    <nd ref="277171999"/>
+    <nd ref="277171986"/>
+    <tag k="building:levels" v="2"/>
+    <tag k="building:part" v="yes"/>
+  </way>
+  )";
+  auto const buildingPos = response.find(R"(<way id="25432677")");
+  TEST_NOT_EQUAL(buildingPos, std::string::npos, ());
+  response.insert(buildingPos, buildingPart);
+
+  pugi::xml_document osmResponse;
+  TEST(osmResponse.load_buffer(response.data(), response.size()), ());
+  std::vector<m2::PointD> const geometry = {
+      {27.557515856307106, 64.236609073256034}, {27.55784576801841, 64.236820967769773},
+      {27.557352241556003, 64.236863883114324}, {27.55784576801841, 64.236820967769773},
+      {27.557352241556003, 64.236863883114324}, {27.557765301747366, 64.236963124848614},
+      {27.557352241556003, 64.236863883114324}, {27.557765301747366, 64.236963124848614},
+      {27.55768215326728, 64.237078459837136}};
+
+  // Tags as editor::ToXML writes them: it doesn't serialize the building types themselves.
+  editor::XMLFeature building(editor::XMLFeature::Type::Way);
+  building.SetName("Беллесбумпром");
+  building.SetHouse("16");
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry, &building);
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("25432677"), ());
+
+  editor::XMLFeature part(editor::XMLFeature::Type::Way);
+  part.SetTagValue("building:levels", "2");
+  auto const bestPart = matcher::GetBestOsmWayOrRelation(osmResponse, geometry, &part);
+  TEST_EQUAL(bestPart.attribute("id").value(), std::string("1"), ());
+}
+
 UNIT_TEST(GetBestOsmRealtion_Test)
 {
   pugi::xml_document osmResponse;

@@ -11,9 +11,11 @@ namespace matcher
 /// Returns a node from OSM closest to the latLon, or an empty node if none is close enough.
 pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon const & latLon);
 /// Returns a way from osm with similar geometry or empty node if can't find such way.
+/// Ways and relations that match the geometry equally well (e.g. a building and its building:part
+/// sharing the same nodes) are told apart by the number of tags they share with |feature|.
 /// Throws NotAPolygon exception when |geometry| is not convertible to a polygon.
-pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
-                                       std::vector<m2::PointD> const & geometry);
+pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse, std::vector<m2::PointD> const & geometry,
+                                       editor::XMLFeature const * feature = nullptr);
 /// Returns value form [-1, 1]. Negative values are used as penalty, positive as score.
 /// |lhs| and |rhs| - triangulated polygons.
 /// Throws NotAPolygon exception when either lhs or rhs is not convertible to a polygon.

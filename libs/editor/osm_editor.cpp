@@ -98,7 +98,9 @@ bool NeedsUpload(string const & uploadStatus)
   return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer && uploadStatus != kMatchedFeatureIsEmpty;
 }
 
-XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject const & o)
+/// |original| is the unedited object: OSM still holds its tags, not the ones from the user's edit.
+XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject const & o,
+                                     osm::EditableMapObject const * original = nullptr)
 {
   ASSERT_NOT_EQUAL(o.GetGeomType(), feature::GeomType::Line, ("Line features are not supported yet."));
   if (o.GetGeomType() == feature::GeomType::Point)
@@ -108,7 +110,8 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMa
 
   ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
 
-  return cw.GetMatchingAreaFeatureFromOSM(geometry);
+  // A building and its building:part often share all nodes; the tags tell which one was edited.
+  return cw.GetMatchingAreaFeatureFromOSM(geometry, editor::ToXML(original ? *original : o, true /* serializeType */));
 }
 
 uint64_t GetMwmCreationTimeByMwmId(MwmSet::MwmId const & mwmId)
@@ -707,7 +710,8 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
               case EditingLifecycle::MODIFIED:
               {
                 // Load existing OSM object (Throws, see catch below)
-                XMLFeature feature = GetMatchingFeatureFromOSM(changeset, fti.m_object);
+                auto const original = GetOriginalMapObject(fti.m_object.GetID());
+                XMLFeature feature = GetMatchingFeatureFromOSM(changeset, fti.m_object, original.get());
 
                 // Update tags of XMLFeature
                 UpdateXMLFeatureTags(feature, journal);
