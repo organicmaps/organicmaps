@@ -193,3 +193,38 @@
   en = Distance remaining: %s
   ru = До конца маршрута: %s
 
+[bookmark_actions_named]
+  comment = Accessibility action; %s is the full name of the list, bookmark or track.
+  tags = android-app
+  en = Actions for %s
+  ru = Действия для «%s»
+
+[bookmark_change_color_named]
+  comment = Accessibility action; %s is the full name of the list, bookmark or track.
+  tags = android-app
+  en = Change color of %s
+  ru = Изменить цвет «%s»
+
+[bookmark_hide_list_named]
+  comment = Accessibility action; %s is the full name of the list, bookmark or track.
+  tags = android-app
+  en = Hide list %s
+  ru = Скрыть список «%s»
+
+[bookmark_show_list_named]
+  comment = Accessibility action; %s is the full name of the list, bookmark or track.
+  tags = android-app
+  en = Show list %s
+  ru = Показать список «%s»
+
+[bookmark_hide_track_named]
+  comment = Accessibility action; %s is the full name of the list, bookmark or track.
+  tags = android-app
+  en = Hide track %s
+  ru = Скрыть трек «%s»
+
+[bookmark_show_track_named]
+  comment = Accessibility action; %s is the full name of the list, bookmark or track.
+  tags = android-app
+  en = Show track %s
+  ru = Показать трек «%s»

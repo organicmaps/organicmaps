@@ -275,8 +275,9 @@ public class Holders
     void setVisibilityState(boolean visible)
     {
       mVisibilityMarker.setSelected(visible);
-      mVisibilityMarker.setContentDescription(
-          mVisibilityMarker.getContext().getString(visible ? R.string.hide : R.string.show));
+      BookmarkActionAccessibility.bind(mVisibilityMarker,
+                                       visible ? R.string.bookmark_hide_list_named : R.string.bookmark_show_list_named,
+                                       mName.getText());
     }
 
     void setVisibilityListener(@Nullable View.OnClickListener listener)
@@ -292,6 +293,7 @@ public class Holders
     void setName(@NonNull String name)
     {
       mName.setText(name);
+      BookmarkActionAccessibility.bind(mMoreButton, R.string.bookmark_actions_named, name);
     }
   }
 
@@ -415,6 +417,8 @@ public class Holders
       final long bookmarkId = sectionsDataSource.getBookmarkId(position);
       BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
       mName.setText(bookmark.getName());
+      BookmarkActionAccessibility.bind(mMoreButton, R.string.bookmark_actions_named, bookmark.getName());
+      BookmarkActionAccessibility.bind(mIcon, R.string.bookmark_change_color_named, bookmark.getName());
       final Location loc = MwmApplication.from(mIcon.getContext()).getLocationHelper().getSavedLocation();
 
       String distanceValue =
@@ -487,6 +491,8 @@ public class Holders
       final long trackId = sectionsDataSource.getTrackId(position);
       Track track = BookmarkManager.INSTANCE.getTrack(trackId);
       mName.setText(track.getName());
+      BookmarkActionAccessibility.bind(mMoreButton, R.string.bookmark_actions_named, track.getName());
+      BookmarkActionAccessibility.bind(mIcon, R.string.bookmark_change_color_named, track.getName());
       mDistance.setText(new StringBuilder()
                             .append(mDistance.getContext().getString(R.string.length))
                             .append(" ")
@@ -501,8 +507,9 @@ public class Holders
     private void updateEyeIcon(@NonNull Track track)
     {
       mEyeIcon.setImageResource(track.isVisible() ? R.drawable.ic_show : R.drawable.ic_hide);
-      mEyeIcon.setContentDescription(
-          mEyeIcon.getContext().getString(track.isVisible() ? R.string.hide_track : R.string.show_track));
+      BookmarkActionAccessibility.bind(
+          mEyeIcon, track.isVisible() ? R.string.bookmark_hide_track_named : R.string.bookmark_show_track_named,
+          track.getName());
     }
 
     public void setMoreButtonClickListener(@Nullable RecyclerClickListener listener)

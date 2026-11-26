@@ -38,6 +38,18 @@ public final class AccessibilityTestContext
               return "Arrival: %s";
             if (id == R.string.navigation_distance_remaining)
               return "Distance remaining: %s";
+            if (id == R.string.bookmark_actions_named)
+              return "Actions for %s";
+            if (id == R.string.bookmark_change_color_named)
+              return "Change color of %s";
+            if (id == R.string.bookmark_hide_list_named)
+              return "Hide list %s";
+            if (id == R.string.bookmark_show_list_named)
+              return "Show list %s";
+            if (id == R.string.bookmark_hide_track_named)
+              return "Hide track %s";
+            if (id == R.string.bookmark_show_track_named)
+              return "Show track %s";
             return super.getString(id);
           }
           @Override
