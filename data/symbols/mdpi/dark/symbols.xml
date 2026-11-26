@@ -860,11 +860,11 @@
   <symbol maxX="975" maxY="477" minX="965" minY="467" name="power-tower-s"/>
   <symbol maxX="995" maxY="477" minX="975" minY="467" name="arrow-m"/>
   <symbol maxX="1004" maxY="476" minX="995" minY="467" name="zero-icon"/>
-  <symbol maxX="1015" maxY="475" minX="1004" minY="467" name="track-direction-arrow-white"/>
-  <symbol maxX="11" maxY="490" minX="0" minY="482" name="track-direction-arrow-black"/>
-  <symbol maxX="19" maxY="490" minX="11" minY="482" name="mast-s"/>
-  <symbol maxX="27" maxY="490" minX="19" minY="482" name="dot-m"/>
-  <symbol maxX="42" maxY="490" minX="27" minY="482" name="arrow-s"/>
-  <symbol maxX="53" maxY="488" minX="42" minY="482" name="arrow-xs"/>
+  <symbol maxX="1012" maxY="475" minX="1004" minY="467" name="track-direction-arrow-white"/>
+  <symbol maxX="1020" maxY="475" minX="1012" minY="467" name="track-direction-arrow-black"/>
+  <symbol maxX="8" maxY="490" minX="0" minY="482" name="mast-s"/>
+  <symbol maxX="16" maxY="490" minX="8" minY="482" name="dot-m"/>
+  <symbol maxX="31" maxY="490" minX="16" minY="482" name="arrow-s"/>
+  <symbol maxX="42" maxY="488" minX="31" minY="482" name="arrow-xs"/>
  </file>
 </root>
