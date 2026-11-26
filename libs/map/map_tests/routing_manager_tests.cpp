@@ -2312,6 +2312,70 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceUsesChartGapBoundary)
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(500, 0), ());
 }
 
+namespace
+{
+void CheckTrackPreviewMatchesCommit(AsyncBuildFixture & fixture, double distance)
+{
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto const preview = manager.GetTrackPreviewSectionAt(distance);
+  TEST(preview, ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(distance), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const committed = manager.GetRouteElevationData();
+  TEST(committed && committed->m_followedSection, ());
+  TEST_ALMOST_EQUAL_ABS(preview->m_entryPoint, committed->m_followedSection->m_entryPoint, 1e-9, ());
+  TEST_EQUAL(preview->m_finishPoint, committed->m_followedSection->m_finishPoint, ());
+}
+}  // namespace
+
+UNIT_TEST(RoutingManager_TrackChartPreviewMatchesCommit)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  TEST(!manager.GetTrackPreviewSectionAt(0.0), ());
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  double const length = bookmarks.GetTrack(id)->GetLengthMeters();
+  CheckTrackPreviewMatchesCommit(fixture, length * 0.25);
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  CheckTrackPreviewMatchesCommit(fixture, length * 0.5);
+  CheckTrackPreviewMatchesCommit(fixture, 0.0);
+  CheckTrackPreviewMatchesCommit(fixture, length);
+}
+
+UNIT_TEST(RoutingManager_TrackChartPreviewMatchesCommitAcrossGaps)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  kml::TrackData data;
+  data.m_layers.emplace_back();
+  for (auto const [start, finish] : {std::pair{0, 100}, {100, 200}, {500, 600}})
+  {
+    data.m_geometry.AddLine({{MeterPoint(start, 0), 100}, {MeterPoint(finish, 0), 100}});
+    data.m_geometry.AddTimestamps({});
+  }
+  auto const id = bookmarks.GetEditSession().CreateTrack(std::move(data))->GetId();
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  double const leg = bookmarks.GetTrack(id)->GetCumulativeLengths().front().back();
+  CheckTrackPreviewMatchesCommit(fixture, leg * 0.5);
+  CheckTrackPreviewMatchesCommit(fixture, leg * 2.5);
+
+  double const boundary = bookmarks.GetTrack(id)->GetCumulativeLengths()[2].front();
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(500, 0), boundary}, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  CheckTrackPreviewMatchesCommit(fixture, boundary);
+  CheckTrackPreviewMatchesCommit(fixture, boundary - 0.001);
+  CheckTrackPreviewMatchesCommit(fixture, boundary);
+}
+
 UNIT_TEST(RoutingManager_TrackPreviewEntryDistancePreservesDirection)
 {
   AsyncBuildFixture fixture;

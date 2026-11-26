@@ -30,6 +30,9 @@ TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFrom
 bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourcePosition const & entry,
                                bool reverse = false);
 
+// The connected source endpoint in the requested direction, stopping at a gap.
+TrackSourcePosition GetTrackSectionEnd(kml::MultiGeometry const & geometry, size_t line, bool reverse);
+
 // Reverse from the same entry when usable. Near a loop trailhead start a full lap at the current destination.
 std::optional<TrackSourcePosition> GetReverseTrackEntry(Track const & track, TrackSourcePosition const & entry,
                                                         TrackSourcePosition const & destination);

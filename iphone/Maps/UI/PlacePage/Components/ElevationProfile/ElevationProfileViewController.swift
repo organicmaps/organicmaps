@@ -9,6 +9,7 @@ protocol ElevationProfileViewProtocol: AnyObject {
   var canReceiveUpdates: Bool { get }
 
   func setChartData(_ data: ChartPresentationData)
+  func setHighlightedSection(entry: Double, finish: Int)
   func setActivePointDistance(_ distance: Double)
   func setMyPositionDistance(_ distance: Double)
   func reloadDescription()
@@ -275,6 +276,10 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
 
   func setChartData(_ data: ChartPresentationData) {
     chartView.chartData = data
+  }
+
+  func setHighlightedSection(entry: Double, finish: Int) {
+    chartView.setHighlightedSection(entry: entry, finish: finish)
   }
 
   func setActivePointDistance(_ distance: Double) {

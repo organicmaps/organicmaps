@@ -337,6 +337,7 @@ routing::TrackFollowingData PrepareTrackRange(kml::TrackData const & source, Sou
   append(PointAtPosition(geometry, end));
   return result;
 }
+}  // namespace
 
 TrackSourcePosition GetTrackSectionEnd(kml::MultiGeometry const & geometry, size_t line, bool reverse)
 {
@@ -350,7 +351,6 @@ TrackSourcePosition GetTrackSectionEnd(kml::MultiGeometry const & geometry, size
     ++line;
   return {line, geometry.m_lines[line].size() - 2, 1.0};
 }
-}  // namespace
 
 std::optional<TrackSourcePosition> GetReverseTrackEntry(Track const & track, TrackSourcePosition const & entry,
                                                         TrackSourcePosition const & destination)

@@ -1165,6 +1165,25 @@ FollowTrackResult RoutingManager::ResetFollowedTrackToPlanning()
   return FollowTrackResult::Ok;
 }
 
+std::pair<TrackSourcePosition, ElevationInfo::Section> RoutingManager::ResolveFollowedTrackEntryAt(
+    double distanceM) const
+{
+  auto const & session = *m_followSession;
+  auto const & source = *session.m_source;
+  auto const entry =
+      distanceM == session.m_info.m_entryDistanceM ? session.m_entry : ResolveTrackEntryAt(source, distanceM);
+  bool reverse = session.m_info.m_reversed;
+  size_t destinationLine = session.m_destinationLine;
+  if (entry != session.m_entry)
+  {
+    if (!HasRemainingTrackGeometry(source.GetData().m_geometry, entry, reverse))
+      reverse = !reverse;
+    destinationLine = GetTrackSectionEnd(source.GetData().m_geometry, entry.m_line, reverse).m_line;
+  }
+  double const distanceOnLine = distanceM - source.GetCumulativeLengths()[entry.m_line].front();
+  return {entry, {entry.m_line, distanceOnLine, destinationLine, reverse}};
+}
+
 FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1173,8 +1192,7 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
 
   auto const & session = *m_followSession;
   distanceM = std::clamp(distanceM, 0.0, session.m_source->GetLengthMeters());
-  auto const entry = distanceM == session.m_info.m_entryDistanceM ? session.m_entry
-                                                                  : ResolveTrackEntryAt(*session.m_source, distanceM);
+  auto const [entry, section] = ResolveFollowedTrackEntryAt(distanceM);
   if (entry == session.m_entry)
   {
     auto updated = session;
@@ -1182,10 +1200,7 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
     InstallFollowedTrack(std::move(updated), true /* keepViewport */);
     return FollowTrackResult::Ok;
   }
-  bool reverse = session.m_info.m_reversed;
-  if (!HasRemainingTrackGeometry(session.m_source->GetData().m_geometry, entry, reverse))
-    reverse = !reverse;
-  return BuildFollowedTrack(session.m_source, entry, distanceM, reverse, session.m_info.m_profile,
+  return BuildFollowedTrack(session.m_source, entry, distanceM, section.m_reverse, session.m_info.m_profile,
                             true /* keepViewport */);
 }
 
@@ -1852,10 +1867,7 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
   {
     auto const & session = *m_followSession;
     auto const & source = *session.m_source;
-    auto const entryLine = session.m_entry.m_line;
-    bool const reverse = session.m_info.m_reversed;
-    double const distanceOnLine = session.m_info.m_entryDistanceM - source.GetCumulativeLengths()[entryLine].front();
-    ElevationInfo::Section const section{entryLine, distanceOnLine, session.m_destinationLine, reverse};
+    auto const section = ResolveFollowedTrackEntryAt(session.m_info.m_entryDistanceM).second;
     auto const [statistics, elevationInfo] = source.GetStatisticsAndElevationInfo(&section);
     if (!elevationInfo)
       return std::nullopt;
@@ -1885,6 +1897,20 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
   data.m_statistics.m_minElevation = info.m_minAltitude;
   data.m_statistics.m_maxElevation = info.m_maxAltitude;
   return data;
+}
+
+std::optional<ElevationInfo::ChartSection> RoutingManager::GetTrackPreviewSectionAt(double distanceMeters) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!IsPreviewingTrack())
+    return std::nullopt;
+  auto const & session = *m_followSession;
+  auto const & source = *session.m_source;
+  auto const * elevation = source.GetElevationInfo();
+  if (!elevation)
+    return std::nullopt;
+  distanceMeters = std::clamp(distanceMeters, 0.0, source.GetLengthMeters());
+  return elevation->GetChartSection(ResolveFollowedTrackEntryAt(distanceMeters).second);
 }
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const

@@ -70,7 +70,7 @@ class ChartLineView: UIView {
     }
   }
 
-  private func updateGraph(animationStyle: ChartAnimation = .none) {
+  func updateGraph(animationStyle: ChartAnimation = .none) {
     // Layout can run before the chart supplies its viewport.
     guard let chartLine, maxX > minX, maxY > minY else { return }
 

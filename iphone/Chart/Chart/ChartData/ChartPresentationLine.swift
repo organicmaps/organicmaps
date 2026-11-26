@@ -9,8 +9,8 @@ final class ChartPresentationLine {
   private let chartLine: ChartLine
 
   let minY: CGFloat
-  let path: CGPath
-  let highlighted: HighlightedPath?
+  private(set) var path: CGPath = CGMutablePath()
+  private(set) var highlighted: HighlightedPath?
   let pathStartX: CGFloat
   /// Maps a value's distance to the X coordinate of `path`.
   let xScale: CGFloat
@@ -35,26 +35,10 @@ final class ChartPresentationLine {
     self.xScale = xScale
     pathStartX = (values.first?.x ?? 0) * xScale
     if let section {
-      let lower = Int(section.entry.rounded(.down))
-      let upper = Int(section.entry.rounded(.up))
-      let fraction = CGFloat(section.entry) - CGFloat(lower)
-      let a = values[lower], b = values[upper]
-      let entry = CGPoint(x: (a.x + (b.x - a.x) * fraction) * xScale,
-                          y: a.y + (b.y - a.y) * fraction - minY)
-      let selected = CGMutablePath()
-      selected.move(to: entry)
-      let step = Double(section.finish) > section.entry ? 1 : -1
-      let first = step > 0 ? lower + 1 : upper - 1
-      for i in stride(from: first, through: section.finish, by: step) {
-        selected.addLine(to: CGPoint(x: values[i].x * xScale, y: values[i].y - minY))
-      }
-      highlighted = HighlightedPath(path: selected, entry: entry)
+      setHighlightedSection(entry: section.entry, finish: section.finish)
       if chartLine.type == .lineArea {
-        path = selected
         return
       }
-    } else {
-      highlighted = nil
     }
 
     let path = CGMutablePath()
@@ -67,5 +51,26 @@ final class ChartPresentationLine {
       }
     }
     self.path = path
+  }
+
+  func setHighlightedSection(entry: Double, finish: Int) {
+    let values = chartLine.values
+    let lower = Int(entry.rounded(.down))
+    let upper = Int(entry.rounded(.up))
+    let fraction = CGFloat(entry) - CGFloat(lower)
+    let a = values[lower], b = values[upper]
+    let point = CGPoint(x: (a.x + (b.x - a.x) * fraction) * xScale,
+                        y: a.y + (b.y - a.y) * fraction - minY)
+    let selected = CGMutablePath()
+    selected.move(to: point)
+    let step = Double(finish) > entry ? 1 : -1
+    let first = step > 0 ? lower + 1 : upper - 1
+    for i in stride(from: first, through: finish, by: step) {
+      selected.addLine(to: CGPoint(x: values[i].x * xScale, y: values[i].y - minY))
+    }
+    highlighted = HighlightedPath(path: selected, entry: point)
+    if chartLine.type == .lineArea {
+      path = selected
+    }
   }
 }

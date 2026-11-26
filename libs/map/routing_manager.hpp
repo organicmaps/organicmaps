@@ -348,6 +348,10 @@ public:
   // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
   std::optional<RouteElevationData> GetRouteElevationData() const;
 
+  // Read-only prospective chart section. Preserves the accepted entry, route and profile.
+  // Uses the preview's direction, or its opposite at an endpoint with no remaining geometry.
+  std::optional<ElevationInfo::ChartSection> GetTrackPreviewSectionAt(double distanceMeters) const;
+
   // Resolve a finite chart distance on the same geometry as GetRouteElevationData().
   // The accepted preview entry identifies its section at a shared boundary distance.
   std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
@@ -376,6 +380,8 @@ private:
   void SetRouterImpl(routing::RouterType type);
 
   FollowTrackResult CheckFollowedTrackEditable(bool allowFollowing = false) const;
+  // Resolve a clamped distance for entry commits, chart previews and elevation statistics.
+  std::pair<TrackSourcePosition, ElevationInfo::Section> ResolveFollowedTrackEntryAt(double distanceM) const;
   bool IsPreviewingTrack() const { return m_followSession && !IsRoutingFollowing(); }
 
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
