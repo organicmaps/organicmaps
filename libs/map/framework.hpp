@@ -402,7 +402,9 @@ private:
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
   place_page::Info BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
-  place_page::Info BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo);
+  place_page::Info BuildPlacePageInfo(place_page::BuildInfo const & buildInfo, UserMark const * mark);
+  place_page::Info BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo, UserMark const * mark);
+  UserMark const * MatchPlacePageUserMark(place_page::BuildInfo const & buildInfo) const;
   std::optional<kml::TrackData> TryBuildRelationTrack(Track::TrackSelectionInfo const & candidateInfo);
   bool BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
   std::vector<Track::TrackSelectionInfo> FindTracksInTapPosition(place_page::BuildInfo const & buildInfo) const;

@@ -129,11 +129,11 @@ void NotifyObservers(Observers * observers, TLoopBlock block)
         [observer speedCameraLeftVisibleArea];
     });
   });
-  rm.SetTrackEntryTapListener([observers]()
+  rm.SetTrackPreviewBuildStartedListener([observers]()
   {
     NotifyObservers(observers, ^(TRouteBuildingObserver observer) {
-      if ([observer respondsToSelector:@selector(processTrackEntryTapRebuild)])
-        [observer processTrackEntryTapRebuild];
+      if ([observer respondsToSelector:@selector(processTrackPreviewBuildStarted)])
+        [observer processTrackPreviewBuildStarted];
     });
   });
 }

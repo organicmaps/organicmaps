@@ -9,9 +9,23 @@
 
 #include "geometry/any_rect2d.hpp"
 
+#include <compare>
 #include <optional>
 #include <string>
 #include <utility>
+
+class Track;
+
+struct TrackSourcePosition
+{
+  size_t m_line = 0;
+  size_t m_segment = 0;
+  double m_fraction = 0.0;
+
+  auto operator<=>(TrackSourcePosition const &) const = default;
+  m2::PointD GetPoint(Track const & track) const;
+  double GetDistanceMeters(Track const & track) const;
+};
 
 class Track : public df::UserLineMark
 {
@@ -47,6 +61,12 @@ public:
 
   std::pair<m2::PointD, double> GetCenterPoint() const;
 
+  /// For a square touch area, the squared radius is one eighth of the squared diagonal.
+  static double GetSquaredTapRadius(m2::RectD const & rect)
+  {
+    return rect.LeftBottom().SquaredLength(rect.RightTop()) / 8.0;
+  }
+
   struct TrackSelectionInfo
   {
     TrackSelectionInfo() = default;
@@ -56,17 +76,7 @@ public:
       , m_distFromBegM(distFromBegM)
     {}
 
-    /// @name Use diagonal distance threshold since we are in anisotropic mercator.
-    /// Square diagonal = 2 * sqrt(2) * radius => radius^2 = diagonal^2 / 8.
-    /// @{
-    void SetDistanceFilter(m2::RectD const & r) { m_squareDist = r.LeftBottom().SquaredLength(r.RightTop()) / 8.0; }
-    // void SetDistanceFilter(m2::AnyRectD const & r)
-    // {
-    //   m2::AnyRectD::Corners pts;
-    //   r.GetGlobalPoints(pts);
-    //   m_squareDist = pts[0].SquaredLength(pts[2]) / 8.0;
-    // }
-    /// @}
+    void SetDistanceFilter(m2::RectD const & r) { m_squareDist = GetSquaredTapRadius(r); }
 
     /// @return true  Data is initialized and correct (after UpdateSelectionInfo call).
     /// Can be false if input m_squareDist filtered all track's segments.
@@ -87,6 +97,9 @@ public:
     // Mercator square distance, used to select nearest track.
     double m_squareDist = std::numeric_limits<double>::max();
   };
+
+  // Returns the first strictly closest real segment and reduces the Mercator distance bound when found.
+  std::optional<TrackSourcePosition> FindClosestSegment(m2::PointD const & point, double & squareDistance) const;
 
   // Caller must pre-set info.m_squareDist to the max allowed squared mercator distance to
   // accept a segment. The default (std::numeric_limits<double>::max()) means no threshold.

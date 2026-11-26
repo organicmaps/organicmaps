@@ -22,8 +22,8 @@ using namespace storage;
 - (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation;
 - (void)speedCameraShowedUpOnRoute:(double)speedLimitKMph;
 - (void)speedCameraLeftVisibleArea;
-// A map tap moved the followed track entry and started its rebuild inside the core.
-- (void)processTrackEntryTapRebuild;
+// A map tap or location update started a new track preview in the core.
+- (void)processTrackPreviewBuildStarted;
 
 @end
 

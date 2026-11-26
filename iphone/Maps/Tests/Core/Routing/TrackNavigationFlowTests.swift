@@ -264,11 +264,9 @@ final class TrackNavigationFlowTests: XCTestCase {
   }
 
   func testCancelledTrackSelectionRestoresAcceptedEntryWithoutRebuilding() throws {
-    let view = NavigationDashboardViewController()
-    let presenter = NavigationDashboard.Presenter(view: view)
+    let renderer = DashboardRendererSpy()
+    let presenter = NavigationDashboard.Presenter(view: renderer)
     let interactor = NavigationDashboard.Interactor(presenter: presenter, router: MockRouter.self)
-    view.interactor = interactor
-    view.loadViewIfNeeded()
     MockRouter.trackMode = true
     MockRouter.acceptedEntryDistance = 250
     MockRouter.elevationInfo = MockElevationProfileData()
@@ -287,9 +285,7 @@ final class TrackNavigationFlowTests: XCTestCase {
     interactor.stateReady()
     interactor.updateMapPoint(distance: 700)
     interactor.didCancelSelectingPoint()
-    let model = try XCTUnwrap(Mirror(reflecting: presenter).children
-      .first { $0.label == "viewModel" }?.value as? NavigationDashboard.ViewModel)
-    XCTAssertEqual(model.routeElevationActivePointDistance, 250)
+    XCTAssertEqual(try XCTUnwrap(renderer.model).routeElevationActivePointDistance, 250)
     XCTAssertTrue(MockRouter.entryRequests.isEmpty)
     XCTAssertEqual(MockRouter.profile, .bicycle)
 
@@ -297,6 +293,36 @@ final class TrackNavigationFlowTests: XCTestCase {
     DispatchQueue.main.async { restored.fulfill() }
     wait(for: [restored], timeout: 1)
     XCTAssertEqual(MockRouter.mapPointRequests.last, 250)
+  }
+
+  func testNearbyChartInspectionKeepsTheSelectedElevationUntilThePreviewChanges() throws {
+    let renderer = DashboardRendererSpy()
+    let interactor = NavigationDashboard.Interactor(presenter: .init(view: renderer), router: MockRouter.self)
+    MockRouter.trackMode = true
+    MockRouter.acceptedEntryDistance = 800
+    MockRouter.inspectionOnly = true
+    MockRouter.elevationInfo = MockElevationProfileData()
+    defer {
+      interactor.invalidate()
+      MockRouter.trackMode = false
+      MockRouter.acceptedEntryDistance = nil
+      MockRouter.inspectionOnly = false
+      MockRouter.elevationInfo = nil
+      MockRouter.mapPointRequests = []
+      MockRouter.entryRequests = []
+    }
+    interactor.stateReady()
+    interactor.updateMapPoint(distance: 200)
+    interactor.didFinishSelectingPoint(distance: 200)
+    XCTAssertEqual(MockRouter.acceptedEntryDistance, 800)
+    XCTAssertEqual(MockRouter.mapPointRequests.last, 200)
+    interactor.process(.updateSearchState(.searching))
+    XCTAssertEqual(try XCTUnwrap(renderer.model).routeElevationActivePointDistance, 200)
+
+    MockRouter.acceptedEntryDistance = 850
+    interactor.statePlanning()
+    interactor.stateReady()
+    XCTAssertEqual(try XCTUnwrap(renderer.model).routeElevationActivePointDistance, 850)
   }
 
   func testStateClosedClearsSelectionBeforeInvalidatingAndCancelsDeferredRestore() throws {
@@ -624,6 +650,7 @@ final class TrackNavigationFlowTests: XCTestCase {
   private final class MockRouter: MWMRouter {
     static var profile: MWMRouterType = .bicycle
     static var result: MWMFollowTrackResult = .ok
+    static var inspectionOnly = false
     static var profileRequests: [MWMRouterType] = []
     static var globalTypeChanges = 0
     static var ordinaryRebuilds = 0
@@ -635,7 +662,7 @@ final class TrackNavigationFlowTests: XCTestCase {
     static var onRoute = false
     override class func updateFollowedTrackEntry(atDistance distance: Double) -> MWMFollowTrackResult {
       entryRequests.append(distance)
-      if result == .ok, acceptedEntryDistance != nil {
+      if result == .ok, !inspectionOnly, acceptedEntryDistance != nil {
         acceptedEntryDistance = distance
       }
       return result

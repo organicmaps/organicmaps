@@ -776,6 +776,19 @@ void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info 
   });
 }
 
+namespace
+{
+kml::TrackId GetMarkedTrackId(UserMark const & mark)
+{
+  switch (mark.GetMarkType())
+  {
+  case UserMark::Type::TRACK_INFO: return static_cast<TrackInfoMark const &>(mark).GetTrackId();
+  case UserMark::Type::TRACK_SELECTION: return static_cast<TrackSelectionMark const &>(mark).GetTrackId();
+  default: return kml::kInvalidTrackId;
+  }
+}
+}  // namespace
+
 bool Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo)
 {
   outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
@@ -788,15 +801,8 @@ bool Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   case UserMark::Type::ROUTING: FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo); break;
   case UserMark::Type::ROAD_WARNING: FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo); break;
   case UserMark::Type::TRACK_INFO:
-  {
-    auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
-    return BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()), outInfo);
-  }
   case UserMark::Type::TRACK_SELECTION:
-  {
-    auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
-    return BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()), outInfo);
-  }
+    return BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(GetMarkedTrackId(*mark)), outInfo);
   case UserMark::Type::TRANSIT:
   {
     FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
@@ -2559,10 +2565,13 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   else if (m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
     return;
 
-  // A map tap moves a track preview's entry to the tapped track point, like its chart. Marks, POIs and the position
-  // keep their place pages, as do points opened from map links.
-  if (buildInfo.m_source == place_page::BuildInfo::Source::User && umID == kml::kInvalidMarkId &&
-      !buildInfo.m_featureId.IsValid() && !buildInfo.m_isMyPosition)
+  auto const * mark = MatchPlacePageUserMark(buildInfo);
+  auto const * track = m_routingManager.GetFollowedTrackInfo();
+  // A spatial hit on the preview's own marker can be a tap on its source. Explicitly tapped overlays
+  // and other matched marks keep their place pages, including bookmarks found without an overlay ID.
+  if (track && buildInfo.m_source == place_page::BuildInfo::Source::User && umID == kml::kInvalidMarkId &&
+      !buildInfo.m_featureId.IsValid() && !buildInfo.m_isMyPosition &&
+      (!mark || GetMarkedTrackId(*mark) == track->m_id))
   {
     auto const touchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
     if (m_routingManager.TryTapOnFollowedTrack(touchRect))
@@ -2573,7 +2582,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     }
   }
 
-  auto placePageInfo = BuildPlacePageInfo(buildInfo);
+  auto placePageInfo = BuildPlacePageInfo(buildInfo, mark);
 
   if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
       !placePageInfo.IsRoutePoint())
@@ -2719,41 +2728,47 @@ bool NeedsTerrainElevation(place_page::Info const & info)
 
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
 {
-  auto info = BuildPlacePageInfoImpl(buildInfo);
+  return BuildPlacePageInfo(buildInfo, MatchPlacePageUserMark(buildInfo));
+}
+
+UserMark const * Framework::MatchPlacePageUserMark(place_page::BuildInfo const & buildInfo) const
+{
+  if (!buildInfo.IsUserMarkMatchingEnabled())
+    return nullptr;
+  if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
+  {
+    auto const & bm = GetBookmarkManager();
+    UserMark const * mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId)
+                                                                  : bm.GetUserMark(buildInfo.m_userMarkId);
+    ASSERT(mark, ("There is no user mark with id", buildInfo.m_userMarkId));
+    if (mark)
+      return mark;
+  }
+  return FindUserMarkInTapPosition(buildInfo);
+}
+
+place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo, UserMark const * mark)
+{
+  auto info = BuildPlacePageInfoImpl(buildInfo, mark);
   if (NeedsTerrainElevation(info))
     info.SetTerrainElevation(m_terrainProvider.GetElevation(info.GetMercator()));
   return info;
 }
 
-place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo)
+place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo, UserMark const * mark)
 {
   place_page::Info outInfo;
   outInfo.SetBuildInfo(buildInfo);
 
   // 1. User Bookmarks.
-  if (buildInfo.IsUserMarkMatchingEnabled())
+  if (mark)
   {
-    UserMark const * mark = nullptr;
-    if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
-    {
-      auto const & bm = GetBookmarkManager();
-      mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId)
-                                                   : bm.GetUserMark(buildInfo.m_userMarkId);
-      ASSERT(mark, ("There is no user mark with id", buildInfo.m_userMarkId));
-    }
+    if (FillUserMarkInfo(mark, outInfo))
+      return outInfo;
 
-    if (!mark)
-      mark = FindUserMarkInTapPosition(buildInfo);
-
-    if (mark)
-    {
-      if (FillUserMarkInfo(mark, outInfo))
-        return outInfo;
-
-      // Stale track mark: drop the partially filled info and continue with the regular matching.
-      outInfo = {};
-      outInfo.SetBuildInfo(buildInfo);
-    }
+    // Stale track mark: drop the partially filled info and continue with the regular matching.
+    outInfo = {};
+    outInfo.SetBuildInfo(buildInfo);
   }
 
   auto const & sp = GetSelectionProcessor();

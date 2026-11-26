@@ -45,6 +45,7 @@ public class RoutingControllerTrackPreviewTest
   private static class FollowController extends RoutingController
   {
     boolean following = true;
+    FollowTrackResult resetResult = FollowTrackResult.Ok;
     int cancels;
 
     FollowController()
@@ -61,7 +62,7 @@ public class RoutingControllerTrackPreviewTest
     @Override
     FollowTrackResult resetFollowedTrackToPlanning()
     {
-      return FollowTrackResult.Ok;
+      return resetResult;
     }
 
     @Override
@@ -205,6 +206,16 @@ public class RoutingControllerTrackPreviewTest
     assertTrue(controller.isPlanning());
     assertTrue(controller.isBuilding());
     assertEquals(0, controller.cancels);
+  }
+
+  @Test
+  public void backAtTheExactTrackFinishEndsNavigation() throws ReflectiveOperationException
+  {
+    final FollowController controller = new FollowController();
+    setState(controller, "NAVIGATION");
+    controller.resetResult = FollowTrackResult.NoRemainingGeometry;
+    assertTrue(controller.resetToPlanningStateIfNavigating());
+    assertEquals(1, controller.cancels);
   }
 
   @Test

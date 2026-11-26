@@ -14,8 +14,7 @@ typedef NS_ENUM(NSInteger, MWMRoadType) {
   MWMRoadTypeDifficultTrail
 };
 
-/// Why a follow-track request was refused; mirrors the core FollowTrackResult. Everything but
-/// Ok leaves the routing session exactly as it was.
+/// Ok means the request was accepted. Other values explain why the request was refused.
 typedef NS_ENUM(NSInteger, MWMFollowTrackResult) {
   MWMFollowTrackResultOk,
   /// The track does not exist (anymore).
@@ -81,7 +80,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Captures the selected point and previews the remaining connected track section.
 /// Refusals preserve the current session; accepted builds report through normal routing events.
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
-/// Rebuilds from a finite distance along the full track, preserving profile and viewport.
+/// Selects an entry by distance along the full track. Near the track, inspection away from the
+/// current join succeeds without starting a build. At the join a pick can select another visit.
 /// Keeps the chosen direction unless only the opposite side of the entry has geometry.
 /// Refusals leave the preview and selection unchanged.
 + (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance

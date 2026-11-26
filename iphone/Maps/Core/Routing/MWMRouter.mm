@@ -131,24 +131,21 @@ using namespace routing;
 
 #pragma mark - Track navigation
 
-static MWMFollowTrackResult ToMWMFollowTrackResult(FollowTrackResult result)
+static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 {
   switch (result)
   {
-  case FollowTrackResult::Ok: return MWMFollowTrackResultOk;
+  case FollowTrackResult::Ok:
+  {
+    [[MWMMapViewControlsManager manager] onRouteRebuild];
+    return MWMFollowTrackResultOk;
+  }
+  case FollowTrackResult::Unchanged: return MWMFollowTrackResultOk;
   case FollowTrackResult::NoTrack: return MWMFollowTrackResultNoTrack;
   case FollowTrackResult::Busy: return MWMFollowTrackResultBusy;
   case FollowTrackResult::InvalidSelection: return MWMFollowTrackResultInvalidSelection;
   case FollowTrackResult::NoRemainingGeometry: return MWMFollowTrackResultNoRemainingGeometry;
   }
-}
-
-// The accepted core build reports ready/error/progress through the regular routing callbacks.
-static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
-{
-  if (result == FollowTrackResult::Ok)
-    [[MWMMapViewControlsManager manager] onRouteRebuild];
-  return ToMWMFollowTrackResult(result);
 }
 
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId
@@ -739,7 +736,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   }
 }
 
-- (void)processTrackEntryTapRebuild
+- (void)processTrackPreviewBuildStarted
 {
   [[MWMMapViewControlsManager manager] onRouteRebuild];
 }

@@ -8,6 +8,18 @@
 #include <algorithm>
 #include <cmath>
 
+m2::PointD TrackSourcePosition::GetPoint(Track const & track) const
+{
+  auto const & line = track.GetData().m_geometry.m_lines[m_line];
+  return mercator::Interpolate(line[m_segment].GetPoint(), line[m_segment + 1].GetPoint(), m_fraction);
+}
+
+double TrackSourcePosition::GetDistanceMeters(Track const & track) const
+{
+  auto const & lengths = track.GetCumulativeLengths()[m_line];
+  return std::lerp(lengths[m_segment], lengths[m_segment + 1], m_fraction);
+}
+
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
@@ -118,17 +130,16 @@ std::vector<Track::Lengths> const & Track::GetCumulativeLengths() const
   return m_interactionData->m_lengths;
 }
 
-void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
+std::optional<TrackSourcePosition> Track::FindClosestSegment(m2::PointD const & tapPoint, double & squareDistance) const
 {
-  // Caller sets info.m_squareDist to the max allowed squared distance (mercator). Any segment
-  // whose closest point is strictly closer replaces the current best.
   if (m_interactionData)
   {
     auto const & rect = m_interactionData->m_limitRect;
-    if (rect.SquaredDistance(mercator::NearestWorldCopy(tapPoint, rect.Center().x)) >= info.m_squareDist)
-      return;
+    if (rect.SquaredDistance(mercator::NearestWorldCopy(tapPoint, rect.Center().x)) >= squareDistance)
+      return std::nullopt;
   }
 
+  std::optional<TrackSourcePosition> result;
   for (size_t lineIndex = 0; lineIndex < m_data.m_geometry.m_lines.size(); ++lineIndex)
   {
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
@@ -139,19 +150,25 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       double const fraction = mercator::SegmentProjectionFraction(from, to, tapPoint);
       auto const closestPoint = mercator::Interpolate(from, to, fraction);
       auto const squaredDist = mercator::NearestWorldCopy(closestPoint, tapPoint.x).SquaredLength(tapPoint);
-      if (squaredDist >= info.m_squareDist)
+      if (squaredDist >= squareDistance)
         continue;
 
-      info.m_title = GetName();
-      info.m_color = GetColor(0);
-      info.m_squareDist = squaredDist;
-      info.m_trackId = m_data.m_id;
-      info.m_trackPoint = closestPoint;
-
-      // Interpolate cumulative chart distance with the same segment fraction as GetPoint().
-      auto const & lengths = GetCumulativeLengths()[lineIndex];
-      info.m_distFromBegM = std::lerp(lengths[ptIndex], lengths[ptIndex + 1], fraction);
+      squareDistance = squaredDist;
+      result = TrackSourcePosition{lineIndex, ptIndex, fraction};
     }
+  }
+  return result;
+}
+
+void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
+{
+  if (auto const position = FindClosestSegment(tapPoint, info.m_squareDist))
+  {
+    info.m_title = GetName();
+    info.m_color = GetColor(0);
+    info.m_trackId = m_data.m_id;
+    info.m_trackPoint = position->GetPoint(*this);
+    info.m_distFromBegM = position->GetDistanceMeters(*this);
   }
 }
 

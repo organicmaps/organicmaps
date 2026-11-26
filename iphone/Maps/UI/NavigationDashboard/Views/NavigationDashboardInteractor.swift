@@ -225,6 +225,8 @@ extension NavigationDashboard.Interactor: ElevationProfileViewControllerDelegate
     chartSelectionDistance = nil
     guard router.routeElevationActivePointDistance()?.doubleValue != distance else { return }
     let result = router.updateFollowedTrackEntry(atDistance: distance)
+    // An accepted edit shows its entry when the build finishes. An inspection keeps the chart cursor.
+    guard result != .ok else { return }
     restoreAcceptedTrackEntry()
     showTrackError(result)
   }
