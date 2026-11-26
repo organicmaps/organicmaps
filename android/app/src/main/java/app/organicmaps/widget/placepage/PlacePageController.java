@@ -107,6 +107,7 @@ public class PlacePageController
             return;
 
           PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
+          updateAccessibilityPaneTitle(newState);
 
           if (PlacePageUtils.isExpandedState(newState))
             mEasyDismissEnabled = false;
@@ -139,6 +140,15 @@ public class PlacePageController
                            @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.place_page_container_fragment, container, false);
+  }
+
+  private void updateAccessibilityPaneTitle(int state)
+  {
+    String title = null;
+    if (!PlacePageUtils.isHiddenState(state) && mMapObject != null)
+      title = TextUtils.isEmpty(mMapObject.getTitle()) ? getString(R.string.map_place_details) : mMapObject.getTitle();
+    if (!TextUtils.equals(ViewCompat.getAccessibilityPaneTitle(mPlacePage), title))
+      ViewCompat.setAccessibilityPaneTitle(mPlacePage, title);
   }
 
   @Override
@@ -791,16 +801,17 @@ public class PlacePageController
         (intent != null
          && (Factory.isStartedForApiResult(intent) || !TextUtils.isEmpty(Framework.nativeGetParsedBackUrl())));
     mMapObject = mapObject;
+    updateAccessibilityPaneTitle(mPlacePageBehavior.getState());
     if (mapObject != null)
     {
       setPlacePageInteractions(true);
 
-      // Notify the host that the place page is now active so it can hide overlays (e.g. routing sheet).
-      mPlacePageListener.onPlacePageActiveChanged(true);
-
       // Only collapse the place page if the data is different from the one already available
       mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState())
                      || !MapObject.same(mPreviousMapObject, mMapObject);
+      // Notify for a new selection, not for location updates to the same card.
+      if (mShouldCollapse)
+        mPlacePageListener.onPlacePageActiveChanged(true);
       mPreviousMapObject = mMapObject;
       // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();

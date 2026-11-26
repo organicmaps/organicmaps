@@ -570,6 +570,18 @@ public:
   m2::PointD P3dtoG(m2::PointD const & p) const;
   /// @}
 
+  struct VisibleRoutePoint
+  {
+    kml::MarkId m_id;
+    RouteMarkData m_data;
+    m2::PointD m_pixel;
+  };
+
+  /// Main-thread snapshot in route order, projected into the visible map surface.
+  std::vector<VisibleRoutePoint> GetVisibleRoutePoints() const;
+  /// A cached accessibility node may outlive its route mark; never select a replacement by position.
+  bool SelectRoutePoint(kml::MarkId id);
+
   /// Show all model by it's world rect.
   void ShowAll();
 

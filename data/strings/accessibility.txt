@@ -1,5 +1,35 @@
 [[Accessibility]]
 
+[map_accessibility_label]
+  comment = Accessibility name of the map surface containing selectable virtual objects.
+  tags = android-app
+  en = Map
+  ru = Карта
+
+[map_route_start]
+  comment = Accessibility role of the route start marker on the map.
+  tags = android-app
+  en = Start of route
+  ru = Начало маршрута
+
+[map_route_stop]
+  comment = Accessibility role of an intermediate route marker. %d is its one-based route order.
+  tags = android-app
+  en = Intermediate point %d
+  ru = Промежуточная точка %d
+
+[map_route_finish]
+  comment = Accessibility role of the route destination marker on the map.
+  tags = android-app
+  en = End of route
+  ru = Конец маршрута
+
+[map_point_coordinates]
+  comment = Accessibility location of a map object: latitude followed by longitude, both in degrees.
+  tags = android-app
+  en = Latitude %1$.5f, longitude %2$.5f
+  ru = Широта %1$.5f, долгота %2$.5f
+
 [my_position_state_pending]
   comment = Accessibility state of the My Position button while waiting for a location fix.
   tags = android-app
@@ -29,4 +59,65 @@
   tags = android-app
   en = Map following location and heading
   ru = Карта следует за местоположением и направлением движения
+
+
+[map_pan_left]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Look left on the map
+  ru = Посмотреть левее на карте
+
+[map_place_details]
+  comment = Accessibility pane title of an opened place card when the place has no title.
+  tags = android-app
+  en = Place details
+  ru = Информация о месте
+
+[map_pan_right]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Look right on the map
+  ru = Посмотреть правее на карте
+
+[map_pan_up]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Look above on the map
+  ru = Посмотреть выше на карте
+
+[map_pan_down]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Look below on the map
+  ru = Посмотреть ниже на карте
+
+[map_read_center]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Read map center coordinates
+  ru = Прочитать координаты центра карты
+
+[direction_relative]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Direction to the selected place
+  ru = Направление к выбранному месту
+
+[direction_read_relative]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Read direction relative to the phone
+  ru = Прочитать направление относительно телефона
+
+[direction_unavailable]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = Direction unavailable
+  ru = Направление недоступно
+
+[direction_relative_degrees]
+  comment = Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north.
+  tags = android-app
+  en = %d degrees clockwise from the top of the phone
+  ru = Угол по часовой стрелке от верхнего края телефона: %d°
 

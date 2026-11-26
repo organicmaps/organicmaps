@@ -376,6 +376,13 @@ public final class Map
     nativeOnTouch(NATIVE_ACTION_UP, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
   }
 
+  /** Returns visible, unpassed route marks in route order. Call on the main thread after engine creation. */
+  @NonNull
+  public static native MapRoutePoint[] getVisibleRoutePoints();
+
+  /** Opens the existing place page by mark id. Returns false if the mark is no longer available. */
+  public static native boolean selectRoutePoint(long id);
+
   /**
    * Returns whether the process-wide native renderer exists; it may outlive a particular activity or surface.
    */

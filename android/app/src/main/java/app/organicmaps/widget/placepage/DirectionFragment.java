@@ -21,6 +21,7 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.ArrowView;
+import app.organicmaps.widget.DirectionAccessibility;
 
 public class DirectionFragment extends BaseMwmDialogFragment implements LocationListener, SensorListener
 {
@@ -31,6 +32,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   private TextView mTvSubtitle;
   private TextView mTvDistance;
   private TextView mTvAzimuth;
+  private double mNorth = Double.NaN;
 
   // It is always non-null, initialized immediately after creating this fragment.
   private MapObject mMapObject;
@@ -67,6 +69,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   private void initViews(View root)
   {
     mAvDirection = root.findViewById(R.id.av__direction);
+    DirectionAccessibility.attach(mAvDirection, this::getRelativeBearing);
     mTvTitle = root.findViewById(R.id.tv__title);
     mTvSubtitle = root.findViewById(R.id.tv__subtitle);
     mTvDistance = root.findViewById(R.id.tv__straight_distance);
@@ -108,6 +111,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   @Override
   public void onPause()
   {
+    mNorth = Double.NaN;
     super.onPause();
     MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
@@ -136,6 +140,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   @Override
   public void onCompassUpdated(double north)
   {
+    mNorth = north;
     final Location last = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     // TODO(AB): Remove unnecessary null check.
     if (last == null || mMapObject == null)
@@ -146,5 +151,18 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
 
     if (da.getAzimuth() >= 0)
       mAvDirection.setAzimuth(da.getAzimuth());
+  }
+
+  private double getRelativeBearing()
+  {
+    if (!isResumed() || !Double.isFinite(mNorth) || mMapObject == null)
+      return Double.NaN;
+    Location location = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
+    if (location == null)
+      return Double.NaN;
+    return Framework
+        .nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(), location.getLatitude(),
+                                               location.getLongitude(), mNorth)
+        .getAzimuth();
   }
 }
