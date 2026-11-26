@@ -40,6 +40,9 @@ UNIT_TEST(TrackFollowData_TrackEntryResolvesBothSidesOfGap)
   auto const before = ResolveTrackEntry(track, MeterPoint(100, 0), boundary);
   auto const after = ResolveTrackEntry(track, MeterPoint(500, 0), boundary);
   TEST(before && after, ());
+  TEST(FindNearbyTrackEntry(track, MeterPoint(100, 3), 20) == before, ());
+  TEST(FindNearbyTrackEntry(track, MeterPoint(500, 3), 20) == after, ());
+  TEST(!FindNearbyTrackEntry(track, MeterPoint(300, 0), 20), ("The gap has no joinable segment"));
   TEST_EQUAL(before->m_line, 0, ());
   TEST_EQUAL(after->m_line, 1, ());
   TEST(ResolveTrackEntryAt(track, boundary) == *before, ("Chart distances select the endpoint preceding a gap"));
@@ -80,6 +83,79 @@ UNIT_TEST(TrackFollowData_ChartGapAfterMultiEdgeSection)
   auto const gap = ResolveTrackEntryAt(track, chart[4]);
   TEST(gap == (TrackSourcePosition{1, 1, 1.0}), (gap.m_line, gap.m_segment, gap.m_fraction));
   TEST(!HasRemainingTrackGeometry(source.m_geometry, gap), ());
+}
+
+UNIT_TEST(TrackFollowData_SelectedVisitSpansAdjacentSamplesAndJoinedLines)
+{
+  kml::TrackData source;
+  auto const point = [](double x, double y) { return geometry::PointWithAltitude(MeterPoint(x, y), 100); };
+  source.m_geometry.AddLine({point(0, 0), point(1006, 0), point(2000, 0), point(1005, 0)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(1005, 0), point(1003, 0), point(1001, 0), point(1000, 0), point(1000, 100)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(1005, 104), point(1005, 110)});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+  auto fix = MeterPoint(1006, 0);
+  auto const join = FindNearbyTrackEntry(track, fix, 20.0);
+  TEST(join, ());
+  TEST(*join == (TrackSourcePosition{0, 1, 0.0}), ("Source order gives the exact outbound vertex"));
+  auto const later = ProjectSelectedTrackVisit(track, {1, 3, 0.0}, *join, &fix, 20.0);
+  TEST(later, ());
+  TEST_EQUAL(later->m_line, 0, ());
+  TEST_EQUAL(later->m_segment, 2, ("The return visit lies before the corner, across three short edges"));
+  TEST(later->GetPoint(track).EqualDxDy(join->GetPoint(track), mercator::kPointEqualityEps), ());
+
+  fix = MeterPoint(1000, 100);
+  auto const beforeGap = FindNearbyTrackEntry(track, fix, 20.0);
+  TEST(beforeGap, ());
+  TEST(!ProjectSelectedTrackVisit(track, {2, 0, 0.0}, *beforeGap, &fix, 20.0),
+       ("The next section's nearby endpoint cannot select a visit across a gap"));
+}
+
+UNIT_TEST(TrackFollowData_ExplicitCoincidentVisitOnAnotherSection)
+{
+  kml::TrackData source;
+  auto const point = [](double x, double y) { return geometry::PointWithAltitude(MeterPoint(x, y), 100); };
+  source.m_geometry.AddLine({point(0, 0), point(1000, 0)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(0, 100), point(0, 0), point(499, 0), point(501, 0), point(1000, 0)});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+  auto const fix = MeterPoint(500, 4);
+  auto const nearest = FindNearbyTrackEntry(track, fix, 20.0);
+  TEST(nearest && nearest->m_line == 0, ());
+  auto const chosen = ProjectSelectedTrackVisit(track, {1, 3, 0}, *nearest, &fix, 20.0);
+  TEST(chosen, ());
+  TEST_EQUAL(chosen->m_line, 1, ());
+  TEST_EQUAL(chosen->m_segment, 2, ());
+  TEST(chosen->GetPoint(track).EqualDxDy(nearest->GetPoint(track), mercator::kPointEqualityEps), ());
+}
+
+UNIT_TEST(TrackFollowData_AdvanceAcrossJoinedLinesAndStopAtGaps)
+{
+  kml::TrackData source;
+  auto const point = [](double x, double y) { return geometry::PointWithAltitude(MeterPoint(x, y), 100); };
+  source.m_geometry.AddLine({point(0, 0), point(100, 0), point(100, 0)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(100, 0), point(200, 0)});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({point(200, 5), point(300, 5)});
+  source.m_geometry.AddTimestamps({});
+  auto const track = MakeSourceTrack(source);
+  double const edge = MeterPoint(0, 0).Length(MeterPoint(100, 0));
+  TrackSourcePosition const left{0, 0, 0.5}, right{1, 0, 0.5};
+  auto const forward = AdvanceTrackEntry(track, left, false, edge);
+  auto const backward = AdvanceTrackEntry(track, right, true, edge);
+  TEST_EQUAL(forward.m_line, right.m_line, ());
+  TEST_EQUAL(forward.m_segment, right.m_segment, ());
+  TEST_ALMOST_EQUAL_ABS(forward.m_fraction, right.m_fraction, 1e-12, ());
+  TEST_EQUAL(backward.m_line, left.m_line, ());
+  TEST_EQUAL(backward.m_segment, left.m_segment, ());
+  TEST_ALMOST_EQUAL_ABS(backward.m_fraction, left.m_fraction, 1e-12, ());
+  TEST(AdvanceTrackEntry(track, left, false, 10 * edge) == (TrackSourcePosition{1, 0, 1.0}), ());
+  TEST(AdvanceTrackEntry(track, right, true, 10 * edge) == (TrackSourcePosition{0, 0, 0.0}), ());
+  TEST(AdvanceTrackEntry(track, {2, 0, 0.5}, true, edge) == (TrackSourcePosition{2, 0, 0.0}), ());
 }
 
 UNIT_TEST(TrackFollowData_InvalidTrackSelectionDistance)
@@ -365,6 +441,7 @@ UNIT_TEST(TrackFollowData_ShortOpenSectionKeepsDistinctEndpoints)
   source.m_geometry.AddTimestamps({});
   auto const track = MakeSourceTrack(source);
   TEST(!GetReverseTrackEntry(track, {1, 0, 0.0}, {1, 0, 1.0}), ());
+  TEST(!GetFreshLoopEntry(track, {1, 0, 0.95}, {1, 0, 0.95}, false, MeterPoint(5, 0), 20), ());
 }
 
 UNIT_TEST(TrackFollowData_ReverseKeepsTheMidpointOfAShortLoop)
@@ -379,6 +456,9 @@ UNIT_TEST(TrackFollowData_ReverseKeepsTheMidpointOfAShortLoop)
   auto const track = MakeSourceTrack(source);
   auto const midway = ResolveTrackEntryAt(track, track.GetLengthMeters() / 2);
   TEST(GetReverseTrackEntry(track, midway, {0, 3, 1.0}) == midway, ());
+  TEST(!GetFreshLoopEntry(track, midway, midway, false, midway.GetPoint(track), 20), ());
+  auto const outgoing = ResolveTrackEntryAt(track, 5.0);
+  TEST(!GetFreshLoopEntry(track, outgoing, outgoing, false, outgoing.GetPoint(track), 20), ());
 }
 
 UNIT_TEST(TrackFollowData_ReverseKeepsAnInteriorVisitToTheTrailhead)
@@ -391,6 +471,9 @@ UNIT_TEST(TrackFollowData_ReverseKeepsAnInteriorVisitToTheTrailhead)
   auto const track = MakeSourceTrack(source);
   auto const midway = ResolveTrackEntryAt(track, track.GetCumulativeLengths().front()[2]);
   TEST(GetReverseTrackEntry(track, midway, {0, 3, 1.0}) == midway, ());
+  TEST(!GetFreshLoopEntry(track, midway, midway, false, midway.GetPoint(track), 20), ());
+  TEST(!GetFreshLoopEntry(track, midway, {0, 3, 0.99}, false, midway.GetPoint(track), 20),
+       ("An interior visit remains selected even when the nearest segment is the arrival tail"));
 }
 
 UNIT_TEST(TrackFollowData_ReverseWaypointRouteKeepsCollocatedStops)

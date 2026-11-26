@@ -795,7 +795,7 @@ void CallRouteRecommendationListener(std::shared_ptr<jobject> listener, RoutingM
   env->CallVoidMethod(*listener, methodId, routing_jni::GetRouteRecommendationType(env, recommendation));
 }
 
-void CallTrackEntryTapListener(std::shared_ptr<jobject> listener)
+void CallTrackPreviewBuildStartedListener(std::shared_ptr<jobject> listener)
 {
   JNIEnv * env = jni::GetEnv();
   env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener, "run", "()V"));
@@ -1483,10 +1483,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendation
       std::bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), std::placeholders::_1));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetTrackEntryTapListener(JNIEnv *, jclass, jobject listener)
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetTrackPreviewBuildStartedListener(JNIEnv *, jclass,
+                                                                                            jobject listener)
 {
-  frm()->GetRoutingManager().SetTrackEntryTapListener(
-      std::bind(&CallTrackEntryTapListener, jni::make_global_ref(listener)));
+  frm()->GetRoutingManager().SetTrackPreviewBuildStartedListener(
+      std::bind(&CallTrackPreviewBuildStartedListener, jni::make_global_ref(listener)));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)

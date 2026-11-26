@@ -220,6 +220,36 @@
   XCTAssertEqual(bookmarks.GetElevationActivePoint(id), finishDistance * 0.8);
 }
 
+- (void)testMapTapMovesRemoteEntryAndNearbyFixKeepsInspectionSeparate
+{
+  auto & manager = GetFramework().GetRoutingManager();
+  SCOPE_GUARD(clearFix, [&] { manager.OnLocationLost(); });
+  manager.OnLocationLost();
+  auto const id = [self createPreview];
+  [self waitForPreview];
+  auto const * track = GetFramework().GetBookmarkManager().GetTrack(id);
+  double const length = track->GetLengthMeters();
+  auto const touch = mercator::RectByCenterXYAndSizeInMeters(track->GetPoint(length * 0.2), 5.0);
+  XCTAssertTrue(manager.TryTapOnFollowedTrack(touch));
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStatePlanning);
+  [self waitForPreview];
+  XCTAssertEqualWithAccuracy([MWMRouter followedTrackInfo].entryDistanceMeters, length * 0.2, 0.1);
+  manager.OnLocationUpdate(
+      {.m_source = location::EUser, .m_latitude = 45.008, .m_longitude = 19.0, .m_horizontalAccuracy = 5.0});
+  XCTAssertTrue(manager.IsRouteBuilding());
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStatePlanning);
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:length * 0.2], MWMFollowTrackResultOk);
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStatePlanning);
+  [self waitForPreview];
+  double const join = [MWMRouter followedTrackInfo].entryDistanceMeters;
+  XCTAssertEqualWithAccuracy(join, length * 0.8, 0.1);
+  XCTAssertTrue(manager.TryTapOnFollowedTrack(touch));
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:length * 0.2], MWMFollowTrackResultOk);
+  XCTAssertTrue([MWMRouter isRouteBuilt]);
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateReady);
+  XCTAssertEqual([MWMRouter routeElevationActivePointDistance].doubleValue, join);
+}
+
 - (void)testDeletionCancelsPreviewWhileItsBuildIsPending
 {
   auto const trackId = [self createPreview];

@@ -435,7 +435,7 @@ final class RoutingBottomMenuController
       UiUtils.hide(mAltitudeChart, mTimeElevationLine);
       return;
     }
-    // Every pick on a track chart rebuilds the route, which resets the zoom, so a track preview offers none.
+    // Changing the track entry rebuilds the route and resets the chart zoom.
     mRouteElevationChartController.setZoomEnabled(!RoutingController.get().isFollowingTrack());
     mRouteElevationChartController.setData(data);
     final int formatResId =
