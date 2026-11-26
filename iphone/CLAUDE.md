@@ -83,14 +83,23 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
 ## Build and validation
 - Scheme: `OMaps`; workspace: `xcode/omim.xcworkspace`
 - List installed iPhone simulators with `xcrun simctl list devices available | rg "iPhone"`
-- Build with an installed iPhone simulator, preferably the latest available iPhone runtime/device:
+- From the repository root on Apple Silicon, build with an installed arm64 iPhone simulator,
+  preferably with the latest available runtime. Debug builds the destination's active architecture.
   ```bash
   xcodebuild -workspace xcode/omim.xcworkspace \
     -scheme OMaps \
     -configuration Debug \
-    -destination 'platform=iOS Simulator,name=<installed iPhone>' \
+    -destination 'platform=iOS Simulator,name=<installed iPhone>,arch=arm64' \
     build
   ```
+- For a generic simulator archive, pass `ARCHS=arm64` to produce an arm64-only archive.
+  Run from the repository root.
+  ```bash
+  xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug \
+    -destination 'generic/platform=iOS Simulator' -scheme OMaps \
+    MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1 ARCHS=arm64
+  ```
+- CI builds iOS. Running the iOS tests in CI is tracked in [#9867](https://github.com/organicmaps/organicmaps/issues/9867)
 - Build settings: iOS 15.0, macOS 10.15, C++23, Swift 5.5
 - App/build constants live in `xcode/common.xcconfig`, `xcode/common-debug.xcconfig`, and
   `xcode/common-release.xcconfig`
@@ -112,4 +121,5 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
   2. Add it to `data/strings/strings.txt` with the `apple-maps` tag, value, and description
   3. Regenerate with `./tools/unix/generate_localizations.sh`
   4. Add translations only when explicitly requested by the user
-- When editing store metadata in `metadata/` or localized strings, follow the translation rules in [data/CLAUDE.md](../data/CLAUDE.md)
+- When editing store metadata in `metadata/` or localized strings, follow the
+  [translation guidelines](../data/CLAUDE.md#when-translating-content-from-english)

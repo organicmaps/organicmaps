@@ -4,7 +4,7 @@ Organic Maps exposes debug commands to help you control the native components (e
 
 Each command is entered in the search input (Android and iOS) and are activated as soon as the full search keyword is entered. Unless specified, the effects triggered are discarded after a restart.
 
-For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../map/framework.cpp).
+For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../libs/map/framework.cpp).
 
 ## Drape
 
@@ -43,7 +43,7 @@ The source code is at [`SearchPanel::Try3dModeCmd`](../qt/search_panel.cpp).
 - `?debug-info`: Show renderer version, zoom scale and FPS counter in the top left corner of the map.
 - `?debug-info-always`: Same as `?debug-info`, but persists across restarts.
 - `?no-debug-info`: Disables the debug info.
-- `?debug-rect`: Shows boxes around icons and labels. When the icon/label is shown, the box is green. When the icon/label cannot be shown, the box is red with a blue arrow indicating which icon/label prevents rendering. When the icon/label is not ready for display, the box is yellow (check the `Update` method of [`dp::OverlayHandle`](../drape/overlay_handle.hpp) and derived classes for more information).
+- `?debug-rect`: Shows boxes around icons and labels. When the icon/label is shown, the box is green. When the icon/label cannot be shown, the box is red with a blue arrow indicating which icon/label prevents rendering. When the icon/label is not ready for display, the box is yellow (check the `Update` method of [`dp::OverlayHandle`](../libs/drape/overlay_handle.hpp) and derived classes for more information).
 - `?no-debug-rect`: Disables the debug boxes.
 
 ### Drape rendering engine
