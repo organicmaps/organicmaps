@@ -4,7 +4,7 @@ Organic Maps exposes debug commands to help you control the native components (e
 
 Each command is entered in the search input (Android and iOS) and are activated as soon as the full search keyword is entered. Unless specified, the effects triggered are discarded after a restart.
 
-For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../map/framework.cpp).
+For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../libs/map/framework.cpp).
 
 ## Drape
 
@@ -28,15 +28,27 @@ For more information, please see the source code at [`Framework::ParseSearchQuer
 - `?no-scheme`: Disable the subway layer.
 - `?isolines`: Enable the isolines layer.
 - `?no-isolines`: Disable the isolines layer.
+- `?show-downloaded`: Highlight downloaded regions on the map.
+- `?no-show-downloaded`: Disable the downloaded regions highlight.
 - `?terrain-blocks`: Highlight the downloaded terrain blocks on the world zooms (z1-7), off by default and not saved.
 - `?no-terrain-blocks`: Disable the terrain blocks highlight.
+- `?satellite`: Enable the satellite tile background.
+- `?no-satellite`: Restore the default map background.
 
 ### 3D mode (for the Qt desktop app only)
+
 - `?3d`: Enable 3D (perspective) mode.
 - `?b3d`: Enable 3D buildings.
 - `?2d`: Disable 3D mode and buildings.
 
 The source code is at [`SearchPanel::Try3dModeCmd`](../qt/search_panel.cpp).
+
+### Traffic colors (for the Qt desktop app only)
+
+- `?tc:simp`: Use the simplified traffic color scheme.
+- `?tc:norm`: Restore the normal traffic color scheme.
+
+The source code is at [`SearchPanel::TryTrafficSimplifiedColorsCmd`](../qt/search_panel.cpp).
 
 ### Information
 
@@ -73,6 +85,19 @@ All the following commands require an app restart:
 ## GPS
 
 - `?gpstrackaccuracy:XXX`: Changes the accuracy of the GPS while recording tracks. Replace `XXX` by the desired horizontal accuracy. Works only on iOS for now.
+- `?nav-other`: Use the iOS `CLActivityTypeOtherNavigation` location activity type.
+- `?no-nav-other`: Disable the iOS `CLActivityTypeOtherNavigation` location activity type.
+
+The iOS source code is at [`HandleIOSDebugCommand`](../iphone/Maps/Core/Search/MWMSearch.mm).
+
+## Search
+
+- `?wiki`: Shows features in the current viewport that have Wikipedia metadata.
+- `?description`: Shows features in the current viewport that have description metadata.
+- `?fid FEATURE_ID`: Shows features that match the numeric feature ID. This command is available only in debug builds.
+- `?euri`: Shows features in the current viewport that have external URI metadata. This command is available only in debug builds.
+
+The source code is at [`Processor::SearchDebug`](../libs/search/processor.cpp).
 
 ## Place Page
 
