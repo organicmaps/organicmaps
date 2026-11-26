@@ -130,7 +130,7 @@ public:
     }
 
     void DeleteUserMark(kml::MarkId markId);
-    void DeleteBookmark(kml::MarkId bmId);
+    void DeleteBookmark(kml::MarkId bmId, bool rememberForUndo = true);
     void DeleteTrack(kml::TrackId trackId);
 
     /// Batch counterparts of the single-item operations above, for a multi-select UI to call.
@@ -292,6 +292,7 @@ public:
   kml::GroupIdCollection const & GetUnsortedBmGroupsIdList() const { return m_unsortedBmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
   size_t GetBmGroupsCount() const { return m_unsortedBmGroupsIdList.size(); }
+  bool IsContactCategory(kml::MarkGroupId groupId) const;
   bool HasBmCategory(kml::MarkGroupId groupId) const;
   bool HasBookmark(kml::MarkId markId) const;
   bool HasTrack(kml::TrackId trackId) const;
@@ -303,10 +304,10 @@ public:
 
   using TTouchRectHolder = std::function<m2::AnyRectD(UserMark::Type)>;
   using TFindOnlyVisibleChecker = std::function<bool(UserMark::Type)>;
-  UserMark const * FindNearestUserMark(TTouchRectHolder const & holder,
-                                       TFindOnlyVisibleChecker const & findOnlyVisible) const;
-  UserMark const * FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, bool findOnlyVisible,
-                                  double & d) const;
+  UserMark const * FindNearestUserMark(TTouchRectHolder const & holder, TFindOnlyVisibleChecker const & findOnlyVisible,
+                                       std::optional<int> zoom = {}) const;
+  UserMark const * FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, bool findOnlyVisible, double & d,
+                                  std::optional<int> zoom) const;
 
   /// Scans and loads all kml files with bookmarks.
   void LoadBookmarks();
@@ -587,7 +588,7 @@ private:
   Bookmark * GetBookmarkForEdit(kml::MarkId markId);
   void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
-  void DeleteBookmark(kml::MarkId bmId);
+  void DeleteBookmark(kml::MarkId bmId, bool rememberForUndo = true);
   void DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId);
 
   Track * CreateTrack(kml::TrackData && trackData);

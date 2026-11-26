@@ -630,7 +630,7 @@ void Processor::Search(SearchParams params)
                       (params.m_requireCompleteResults && cancellationStatus == Cancellable::Status::DeadlineExceeded));
     break;
   }
-  case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;
+  case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId, params.m_maxNumResults); break;
   case Mode::Count: ASSERT(false, ("Invalid mode")); break;
   }
 
@@ -825,11 +825,13 @@ void Processor::SearchPostcode()
   }
 }
 
-void Processor::SearchBookmarks(bookmarks::GroupId const & groupId)
+void Processor::SearchBookmarks(bookmarks::GroupId const & groupId, size_t maxResults)
 {
   bookmarks::Processor::Params params;
   InitParams(params);
   params.m_groupId = groupId;
+  params.m_requireAllTokens = groupId == bookmarks::kInvalidGroupId;
+  params.m_maxNumResults = maxResults;
 
   try
   {

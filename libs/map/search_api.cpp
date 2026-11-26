@@ -331,10 +331,9 @@ void SearchAPI::EnableIndexingOfBookmarksDescriptions(bool enable)
 
 void SearchAPI::EnableIndexingOfBookmarkGroup(kml::MarkGroupId const & groupId, bool enable)
 {
-  if (enable)
-    m_indexableGroups.insert(groupId);
-  else
-    m_indexableGroups.erase(groupId);
+  bool const changed = enable ? m_indexableGroups.insert(groupId).second : m_indexableGroups.erase(groupId) != 0;
+  if (!changed)
+    return;
 
   m_engine.EnableIndexingOfBookmarkGroup(KmlGroupIdToSearchGroupId(groupId), enable);
 }
