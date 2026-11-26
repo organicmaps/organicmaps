@@ -739,6 +739,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   }
 }
 
+- (void)processTrackEntryTapRebuild
+{
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
+}
+
 #pragma mark - Alerts
 
 - (void)presentDownloaderAlert:(routing::RouterResultCode)code countries:(storage::CountriesSet const &)countries

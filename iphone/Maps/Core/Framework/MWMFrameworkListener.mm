@@ -129,6 +129,13 @@ void NotifyObservers(Observers * observers, TLoopBlock block)
         [observer speedCameraLeftVisibleArea];
     });
   });
+  rm.SetTrackEntryTapListener([observers]()
+  {
+    NotifyObservers(observers, ^(TRouteBuildingObserver observer) {
+      if ([observer respondsToSelector:@selector(processTrackEntryTapRebuild)])
+        [observer processTrackEntryTapRebuild];
+    });
+  });
 }
 
 #pragma mark - MWMFrameworkDrapeObserver

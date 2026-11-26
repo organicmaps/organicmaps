@@ -1200,7 +1200,11 @@ bool RoutingManager::TryTapOnFollowedTrack(m2::RectD const & touchRect)
   // A repeat tap keeps the current preview. Both sides of a gap share the distance, so the position is compared too.
   if (*entry == session.m_entry && selection.m_distFromBegM == session.m_info.m_entryDistanceM)
     return true;
-  return UpdateFollowedTrackEntry(*entry, selection.m_distFromBegM) == FollowTrackResult::Ok;
+  if (UpdateFollowedTrackEntry(*entry, selection.m_distFromBegM) != FollowTrackResult::Ok)
+    return false;
+  if (m_trackEntryTapCallback)
+    m_trackEntryTapCallback();
+  return true;
 }
 
 FollowTrackResult RoutingManager::UpdateFollowedTrackEntry(TrackSourcePosition const & entry, double entryDistanceM)
