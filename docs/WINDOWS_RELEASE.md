@@ -26,7 +26,8 @@ catalog version. The resources shared with the macOS bundle are listed in
 `qt/runtime_resources.txt`; the Windows stage also includes bundled ICU data.
 `licenses/` contains the repository's license and notice files.
 Qt's LGPLv3 and GPLv3 texts are staged under `licenses/LICENSES/Windows/` from
-[`LICENSES/Windows`](../LICENSES/Windows).
+[`COPYING.LGPL-3.0-only`](../tools/windows/COPYING.LGPL-3.0-only) and
+[`COPYING.GPL-3.0-only`](../tools/windows/COPYING.GPL-3.0-only) in `tools/windows/`.
 The installer must declare the retail `Microsoft.VCLibs.140.00.UWPDesktop`
 framework dependency matching the toolchain; staging does not install it.
 
