@@ -402,6 +402,7 @@
                     <connections>
                         <outlet property="accountView" destination="qZp-mj-lui" id="Iin-Uf-uWe"/>
                         <outlet property="changesCountLabel" destination="5mN-XO-0Df" id="bcc-Gp-vgH"/>
+                        <outlet property="changesTitleLabel" destination="61G-Rv-3df" id="UQG-xB-A11"/>
                         <outlet property="lastUpdateLabel" destination="2UV-ZB-sPO" id="CCE-Q5-ikN"/>
                         <segue destination="4R7-Vk-fQr" kind="custom" identifier="Authorization2OSMAuthorizationSegue" customClass="MWMSegue" id="nJf-7z-2TX"/>
                     </connections>
