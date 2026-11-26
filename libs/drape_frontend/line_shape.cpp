@@ -209,12 +209,12 @@ public:
                             isLeft ? m_colorCoordLeft : m_colorCoordRight);
   }
 
-  void SubmitJoin(glsl::vec2 const & pos, glsl::vec2 const & tangentIn, glsl::vec2 const & tangentOut)
+  void SubmitJoin(glsl::vec2 const & pos, glsl::vec2 const & tangentIn, glsl::vec2 const & tangentOut, float widthScale)
   {
     if (m_params.m_join != dp::RoundJoin)
       return;
     if (!m_params.m_blendInPaintOrder)
-      return CreateRoundCap(pos);
+      return CreateRoundCap(pos, widthScale);
 
     // Covers the gap that the segments leave outside the turn. The side and the sweep direction take one sign, since
     // a reversal makes cross a zero of either sign, while either side fits it.
@@ -225,12 +225,12 @@ public:
     CreateRoundFan(pos, outer, left ? angle : -angle);
   }
 
-  void SubmitCap(glsl::vec2 const & pos)
+  void SubmitCap(glsl::vec2 const & pos, float widthScale)
   {
     // Caps of their own program would be drawn out of the paint order.
     ASSERT(m_params.m_cap == dp::ButtCap || !m_params.m_blendInPaintOrder, ());
-    if (m_params.m_cap != dp::ButtCap)
-      CreateRoundCap(pos);
+    if (m_params.m_cap != dp::ButtCap && widthScale > 0.0f)
+      CreateRoundCap(pos, widthScale);
   }
 
 private:
@@ -257,11 +257,11 @@ private:
     }
   }
 
-  void CreateRoundCap(glsl::vec2 const & pos)
+  void CreateRoundCap(glsl::vec2 const & pos, float widthScale)
   {
     // Here we use an equilateral triangle to render circle (incircle of a triangle).
     static float const kSqrt3 = sqrt(3.0f);
-    float const radius = GetHalfWidth();
+    float const radius = GetHalfWidth() * widthScale;
 
     m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
                                CapVertex::TNormal(-radius * kSqrt3, -radius, radius),
@@ -374,7 +374,8 @@ void LineShape::ForEachSplineSection(FnT && fn) const
   {
     /// @todo Make this kind of filtration in Spline?
     // Area outlines are simplified by zoom, while this accuracy merges vertices of small rings at high zooms.
-    if (!m_params.m_blendInPaintOrder && path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
+    if (m_params.m_finishTaperLength == 0 && !m_params.m_blendInPaintOrder &&
+        path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
       continue;
 
     std::pair<m2::PointD, double> tanlen;
@@ -463,22 +464,43 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   // Skip joins generation for thin lines, but for paint-order ones, which have butt caps.
   bool const generateJoins = m_params.m_blendInPaintOrder || builder.GetHalfWidth() > 2.5f;
 
+  double distanceToFinish = m_params.m_distanceToFinish;
+  double const taper = m_params.m_finishTaperLength;
   glsl::vec2 prevTangent(0, 0);
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double length,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
   {
-    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
-    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
-    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */);
-    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
+    auto const submitPair = [&](glsl::vec2 const & pos, float widthScale)
+    {
+      builder.SubmitVertex({pos, m_params.m_depth}, rightNormal * widthScale, false /* isLeft */);
+      builder.SubmitVertex({pos, m_params.m_depth}, leftNormal * widthScale, true /* isLeft */);
+    };
 
-    // Generate joins.
-    if (flag & 0x1)  // p1 - first point
-      builder.SubmitCap(p1);
-    else if (generateJoins)  // p1 - middle point
-      builder.SubmitJoin(p1, prevTangent, tangent);
-    if (flag & 0x2)  // p2 - last point
-      builder.SubmitCap(p2);
+    auto const widthScale = [&](double remaining)
+    { return taper > 0 ? static_cast<float>(std::clamp(remaining / taper, 0.0, 1.0)) : 1.0f; };
+    float const startScale = widthScale(distanceToFinish);
+    submitPair(p1, startScale);
+    if (taper > 0)
+    {
+      double const nextDistance = distanceToFinish - length;
+      if (distanceToFinish > taper && nextDistance < taper)
+      {
+        // Split the quad at the base so only the last few stroke widths narrow.
+        auto const base = p1 + (p2 - p1) * static_cast<float>((distanceToFinish - taper) / length);
+        submitPair(base, 1.0f);
+        submitPair(base, 1.0f);
+      }
+      distanceToFinish = nextDistance;
+    }
+    float const endScale = widthScale(distanceToFinish);
+    submitPair(p2, endScale);
+
+    if (flag & 0x1)
+      builder.SubmitCap(p1, startScale);
+    else if (generateJoins)
+      builder.SubmitJoin(p1, prevTangent, tangent, startScale);
+    if (flag & 0x2)
+      builder.SubmitCap(p2, endScale);
     prevTangent = tangent;
   });
 }
@@ -497,6 +519,9 @@ void LineShape::Construct<SimpleSolidLineBuilder>(SimpleSolidLineBuilder & build
 
 bool LineShape::CanBeSimplified(int & lineWidth) const
 {
+  if (!m_params.m_allowNativeLine)
+    return false;
+
   // Disable simplification for world map.
   if (m_params.m_zoomLevel > 0 && m_params.m_zoomLevel <= scales::GetUpperCountryScale())
     return false;

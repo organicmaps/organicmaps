@@ -90,6 +90,11 @@ struct LineViewParams : CommonViewParams
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;
+  // Native line strips cannot represent exact caps or vary the width within a stroke.
+  bool m_allowNativeLine = true;
+  // World units along the spline, relative to the start of this clipped piece.
+  double m_finishTaperLength = 0;
+  double m_distanceToFinish = 0;
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
   // Round joins are line triangles too, and thin lines aren't GL lines, so that translucent lines of one bucket
