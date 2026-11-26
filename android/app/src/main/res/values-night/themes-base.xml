@@ -125,5 +125,6 @@
 
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
     <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
+    <item name="switchPreferenceCompatStyle">@style/App.SwitchPreference</item>
   </style>
 </resources>

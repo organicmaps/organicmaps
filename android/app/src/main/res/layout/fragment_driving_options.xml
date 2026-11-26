@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:background="?attr/cardBackground"
   android:orientation="vertical"
@@ -64,12 +65,14 @@
             android:layout_marginTop="@dimen/margin_quarter"
             android:textColor="?android:attr/textColorSecondary"/>
         </LinearLayout>
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
           android:id="@+id/route_optimization_btn"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
-          android:padding="@dimen/margin_half_double_plus"/>
+          android:padding="@dimen/margin_half_double_plus"
+          app:thumbIcon="@drawable/thumb_icon_selector"
+          app:thumbIconTint="#FFFFFF"/>
       </LinearLayout>
       <View
         android:layout_width="match_parent"
@@ -124,11 +127,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="?android:attr/textColorPrimary"/>
-          <androidx.appcompat.widget.SwitchCompat
+          <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/avoid_tolls_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
+            android:padding="@dimen/margin_half_double_plus"
+            app:thumbIcon="@drawable/thumb_icon_selector"
+            app:thumbIconTint="#FFFFFF"/>
         </LinearLayout>
         <LinearLayout
           android:orientation="horizontal"
@@ -146,11 +151,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="?android:attr/textColorPrimary"/>
-          <androidx.appcompat.widget.SwitchCompat
+          <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/avoid_dirty_roads_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
+            android:padding="@dimen/margin_half_double_plus"
+            app:thumbIcon="@drawable/thumb_icon_selector"
+            app:thumbIconTint="#FFFFFF"/>
         </LinearLayout>
         <LinearLayout
           android:orientation="horizontal"
@@ -168,11 +175,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="?android:attr/textColorPrimary"/>
-          <androidx.appcompat.widget.SwitchCompat
+          <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/avoid_ferries_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
+            android:padding="@dimen/margin_half_double_plus"
+            app:thumbIcon="@drawable/thumb_icon_selector"
+            app:thumbIconTint="#FFFFFF"/>
         </LinearLayout>
         <LinearLayout
           android:orientation="horizontal"
@@ -187,14 +196,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:textColor="?android:attr/textColorPrimary"/>
-          <androidx.appcompat.widget.SwitchCompat
+          <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/avoid_motorways_btn"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:padding="@dimen/margin_half_double_plus"
-            android:layout_height="match_parent"/>
+            app:thumbIcon="@drawable/thumb_icon_selector"
+            app:thumbIconTint="#FFFFFF"/>
         </LinearLayout>
         <LinearLayout
           android:orientation="horizontal"
@@ -212,11 +223,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="?android:attr/textColorPrimary"/>
-          <androidx.appcompat.widget.SwitchCompat
+          <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/avoid_steps_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
+            android:padding="@dimen/margin_half_double_plus"
+            app:thumbIcon="@drawable/thumb_icon_selector"
+            app:thumbIconTint="#FFFFFF"/>
         </LinearLayout>
         <LinearLayout
           android:orientation="horizontal"
@@ -234,11 +247,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="?android:attr/textColorPrimary"/>
-          <androidx.appcompat.widget.SwitchCompat
+          <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/avoid_difficult_trails_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
+            android:padding="@dimen/margin_half_double_plus"
+            app:thumbIcon="@drawable/thumb_icon_selector"
+            app:thumbIconTint="#FFFFFF"/>
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>

@@ -469,4 +469,9 @@
     <item name="textAllCaps">false</item>
     <item name="android:textAllCaps">false</item>
   </style>
+
+    <style name="App.SwitchPreference" parent="Preference.SwitchPreferenceCompat">
+    <item name="android:widgetLayout">@layout/preference_widget_m3_switch</item>
+  </style>
+  
 </resources>

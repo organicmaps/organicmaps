@@ -8,7 +8,7 @@ import android.widget.RadioButton;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
@@ -124,7 +124,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     mContent = root.findViewById(R.id.content);
 
-    SwitchCompat optimizationBtn = root.findViewById(R.id.route_optimization_btn);
+    MaterialSwitch optimizationBtn = root.findViewById(R.id.route_optimization_btn);
     optimizationBtn.setChecked(RoutingOptions.isRouteOptimizationEnabled());
     optimizationBtn.setOnCheckedChangeListener(
         (buttonView, isChecked) -> RoutingOptions.setRouteOptimizationEnabled(isChecked));
@@ -158,7 +158,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private void bindOption(@NonNull View root, @IdRes int buttonId, @NonNull RoadType roadType)
   {
     final Router router = mRouter;
-    SwitchCompat button = root.findViewById(buttonId);
+    MaterialSwitch button = root.findViewById(buttonId);
     UiUtils.showIf(RoutingOptions.supportsOption(router, roadType), (View) button.getParent());
     button.setOnCheckedChangeListener(null);
     button.setChecked(RoutingOptions.hasOption(router, roadType));
