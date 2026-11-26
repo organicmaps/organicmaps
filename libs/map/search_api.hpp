@@ -16,6 +16,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/thread_checker.hpp"
+#include "base/timer.hpp"
+
+#include <deque>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -66,6 +70,17 @@ public:
 
   void OnViewportChanged(m2::RectD const & viewport);
 
+  struct AddressQuery
+  {
+    std::string m_query;
+    // Normalized house-and-street portion, excluding geographical context.
+    std::string m_expectedStreet;
+  };
+  using AddressCallback = std::function<void(std::optional<search::Result>)>;
+  // UI-thread operation, independent of interactive results and search history.
+  void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, AddressCallback callback);
+  void CancelAddressResolution(uint64_t id);
+
   void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
   // Search everywhere.
@@ -90,7 +105,7 @@ public:
 
   void CancelSearch(search::Mode mode);
   void CancelAllSearches();
-  void ClearCaches() { return m_engine.ClearCaches(); }
+  void ClearCaches();
 
   // *SearchCallback::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
@@ -130,7 +145,21 @@ private:
     search::SearchParams m_params;
     std::weak_ptr<search::ProcessorHandle> m_handle;
     bool m_isDelayed = false;
+    bool m_isRunning = false;
+    uint64_t m_generation = 0;
   };
+
+  struct AddressRequest
+  {
+    uint64_t m_id;
+    std::vector<AddressQuery> m_queries;
+    std::string m_locale;
+    AddressCallback m_callback;
+    size_t m_queryIndex = 0;
+    base::Timer m_timer;
+  };
+  void StartAddressResolution();
+  void SuspendAddressResolution();
 
   bool Search(search::SearchParams params, bool forceSearch);
   void Search(SearchIntent & intent);
@@ -152,6 +181,11 @@ private:
   // used for search requests skipping. This field is not guarded
   // because it must be used from the UI thread only.
   SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
+  std::deque<std::shared_ptr<AddressRequest>> m_addressRequests;
+  std::weak_ptr<search::ProcessorHandle> m_addressHandle;
+  bool m_addressRunning = false;
+  uint64_t m_addressGeneration = 0;
+  DECLARE_THREAD_CHECKER(m_threadChecker);
 
   m2::RectD m_viewport;
   bool m_isViewportInitialized = false;

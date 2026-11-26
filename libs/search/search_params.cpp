@@ -13,7 +13,9 @@ namespace search
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
   return m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&
-         static_cast<bool>(m_position) == static_cast<bool>(rhs.m_position) && m_mode == rhs.m_mode;
+         static_cast<bool>(m_position) == static_cast<bool>(rhs.m_position) && m_mode == rhs.m_mode &&
+         m_requireCompleteResults == rhs.m_requireCompleteResults &&
+         m_allowNearbyHouseNumbers == rhs.m_allowNearbyHouseNumbers;
 }
 
 std::string DebugPrint(SearchParams const & params)
