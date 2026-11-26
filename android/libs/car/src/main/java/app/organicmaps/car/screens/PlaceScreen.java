@@ -4,6 +4,7 @@ import static android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -39,6 +40,7 @@ import app.organicmaps.sdk.car.OnBackPressedCallback;
 import app.organicmaps.sdk.car.RoutingHelpers;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
+import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.Config;
@@ -58,6 +60,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   private final OnBackPressedCallback mOnBackPressedCallback;
 
   private final boolean mIsDebug;
+  private final LocationListener mFirstFix = this::onFirstFix;
 
   private PlaceScreen(@NonNull Builder builder)
   {
@@ -129,6 +132,31 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     }
     mRoutingController.attach(this);
     mRoutingController.restore();
+    if (needsOrigin())
+      getLocationHelper().addListener(mFirstFix);
+  }
+
+  private boolean needsOrigin()
+  {
+    return mRoutingController.isPlanning() && mRoutingController.getStartPoint() == null
+ && mRoutingController.getEndPoint() != null;
+  }
+
+  private void onFirstFix(@NonNull Location location)
+  {
+    final MapObject origin = getLocationHelper().getMyPosition();
+    if (origin == null)
+      return;
+    getLocationHelper().removeListener(mFirstFix);
+    if (needsOrigin())
+      mRoutingController.setStartPoint(origin);
+  }
+
+  @Override
+  public void onPause(@NonNull LifecycleOwner owner)
+  {
+    getLocationHelper().removeListener(mFirstFix);
+    super.onPause(owner);
   }
 
   @Override

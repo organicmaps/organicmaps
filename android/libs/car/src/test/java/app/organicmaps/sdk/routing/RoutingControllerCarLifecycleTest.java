@@ -56,6 +56,12 @@ public class RoutingControllerCarLifecycleTest
       }
 
       @Override
+      public MapObject getStartPoint()
+      {
+        return MapObject.createMapObject(MapObject.MY_POSITION, "", "", 3, 4);
+      }
+
+      @Override
       public MapObject getEndPoint()
       {
         return destination;
