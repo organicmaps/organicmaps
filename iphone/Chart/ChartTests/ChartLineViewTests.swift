@@ -58,6 +58,26 @@ final class ChartLineViewTests: XCTestCase {
     XCTAssertEqual(reportedDistances, [1.5])
   }
 
+  func testPanOvershootingEitherEdgeKeepsTheZoomSpan() {
+    let chart = makeChart(heights: Array(repeating: 100, count: 9), width: 320)
+    chart.setViewport(lower: 2, upper: 6)
+    chart.setSelectedPoint(4)
+    var reportedDistances: [Double] = []
+    chart.onSelectedPointChanged = { reportedDistances.append($0) }
+
+    let pan = MockPanGestureRecognizer()
+    pan.state = .began
+    chart.onPan(pan)
+    pan.state = .changed
+    for (translation, lower) in [(80, 1), (320, 0), (640, 0), (-320, 4), (-640, 4)] {
+      pan.translationX = CGFloat(translation)
+      chart.onPan(pan)
+      XCTAssertEqual(chart.xAxisView.lowerBound, lower)
+      XCTAssertEqual(chart.xAxisView.upperBound, lower + 4)
+    }
+    XCTAssertEqual(reportedDistances, [3, 2, 6])
+  }
+
   func testFillStartsAtTheFirstDistanceAfterTransforming() throws {
     let values = [
       ChartValue(xValues: 10, y: -80),
@@ -190,6 +210,17 @@ final class ChartLineViewTests: XCTestCase {
     }
     return result
   }
+}
+
+private final class MockPanGestureRecognizer: UIPanGestureRecognizer {
+  private var gestureState: UIGestureRecognizer.State = .possible
+  var translationX: CGFloat = 0
+  override var state: UIGestureRecognizer.State {
+    get { gestureState }
+    set { gestureState = newValue }
+  }
+
+  override func translation(in _: UIView?) -> CGPoint { CGPoint(x: translationX, y: 0) }
 }
 
 private struct TestLine: ChartLine {

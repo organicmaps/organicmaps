@@ -178,16 +178,7 @@ public class ChartView: UIView {
       let currentChartX = chartX(atFraction: chartInfoView.infoX)
       let targetChartX = chartData.chartX(forDistance: x)
       let dIdx = Int(round(targetChartX - currentChartX))
-      var lowerIdx = xAxisView.lowerBound + dIdx
-      var upperIdx = xAxisView.upperBound + dIdx
-      if lowerIdx < 0 {
-        upperIdx -= lowerIdx
-        lowerIdx = 0
-      } else if upperIdx >= chartData.pointsCount {
-        lowerIdx -= upperIdx - chartData.pointsCount + 1
-        upperIdx = chartData.pointsCount - 1
-      }
-      setViewport(lower: lowerIdx, upper: upperIdx, notifySelection: false)
+      scrollViewport(toLowerBound: xAxisView.lowerBound + dIdx, notifySelection: false)
       lower = chartData.xAxisValueAt(CGFloat(xAxisView.lowerBound))
       upper = chartData.xAxisValueAt(CGFloat(xAxisView.upperBound))
     }
@@ -202,6 +193,13 @@ public class ChartView: UIView {
     let rangeLength = upper - lower
     guard rangeLength > 0 else { return }
     chartInfoView.myPositionX = CGFloat((x - lower) / rangeLength)
+  }
+
+  private var viewportSpan: Int { xAxisView.upperBound - xAxisView.lowerBound }
+
+  private func scrollViewport(toLowerBound proposedLower: Int, notifySelection: Bool = true) {
+    let lower = min(max(0, proposedLower), chartData.pointsCount - 1 - viewportSpan)
+    setViewport(lower: lower, upper: lower + viewportSpan, notifySelection: notifySelection)
   }
 
   func setViewport(lower: Int, upper: Int, notifySelection: Bool = true) {
@@ -264,23 +262,13 @@ public class ChartView: UIView {
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
     guard chartData != nil else { return }
-    let t = sender.translation(in: chartsContainerView)
     if sender.state == .began {
       panStartPoint = xAxisView.lowerBound
     }
-
-    if sender.state != .changed {
-      return
-    }
-
-    let dx = Int(round(t.x / chartsContainerView.bounds.width * CGFloat(xAxisView.upperBound - xAxisView.lowerBound)))
-    let lower = panStartPoint - dx
-    let upper = lower + xAxisView.upperBound - xAxisView.lowerBound
-    if lower < 0 || upper > chartData.pointsCount - 1 {
-      return
-    }
-
-    setViewport(lower: lower, upper: upper)
+    guard sender.state == .changed else { return }
+    let translation = sender.translation(in: chartsContainerView)
+    let dx = Int(round(translation.x / chartsContainerView.bounds.width * CGFloat(viewportSpan)))
+    scrollViewport(toLowerBound: panStartPoint - dx)
   }
 
   func updateCharts(animationStyle: ChartAnimation = .none) {
@@ -350,7 +338,7 @@ public class ChartView: UIView {
   }
 
   private func chartX(atFraction fraction: CGFloat) -> CGFloat {
-    fraction * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    fraction * CGFloat(viewportSpan) + CGFloat(xAxisView.lowerBound)
   }
 
   private var selectedDistance: Double {
