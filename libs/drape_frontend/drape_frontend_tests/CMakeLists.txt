@@ -15,6 +15,7 @@ set(SRC
   shape_batch_tests.cpp
   stylist_tests.cpp
   terrain_shade_tests.cpp
+  track_arrow_placement_tests.cpp
   tile_background_coverage_tests.cpp
   tile_background_renderer_tests.cpp
   user_area_tests.cpp

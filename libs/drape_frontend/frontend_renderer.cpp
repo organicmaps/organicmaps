@@ -6,7 +6,6 @@
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/message_subclasses.hpp"
-#include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
@@ -1796,12 +1795,11 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::UpdateTrackArrows(ScreenBase const & modelView)
 {
-  std::vector<ref_ptr<dp::OverlayHandle>> trackArrows;
   for (auto layer : {DepthLayer::UserLineLayer, DepthLayer::SelectedUserLineLayer})
     for (auto const & group : m_layers[static_cast<size_t>(layer)].m_renderGroups)
       if (group->GetState().GetProgram<gpu::Program>() == gpu::Program::PathSymbol)
-        group->ForEachOverlay([&](auto h) { trackArrows.push_back(h); });
-  PlaceTrackArrows(modelView, trackArrows);
+        group->ForEachOverlay([this](auto h) { m_trackArrowPlacement.Add(h); });
+  m_trackArrowPlacement.Place(modelView);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)

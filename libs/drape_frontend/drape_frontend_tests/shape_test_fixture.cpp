@@ -1,6 +1,5 @@
 #include "drape_frontend/drape_frontend_tests/shape_test_fixture.hpp"
 
-#include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -209,11 +208,11 @@ void ShapeTestFixture::Render()
     screen.OnSize(0, 0, m_width, m_height);
     screen.SetScale(1.0 / m_worldToPixelScale);
     screen.SetOrg(*m_viewCenter);
-    std::vector<ref_ptr<dp::OverlayHandle>> arrows;
+    TrackArrowPlacement arrows;
     for (auto const & entry : m_buckets)
       if (entry.m_state.GetProgram<gpu::Program>() == gpu::Program::PathSymbol)
-        entry.m_bucket->ForEachOverlay([&](auto h) { arrows.push_back(h); });
-    PlaceTrackArrows(screen, arrows);
+        entry.m_bucket->ForEachOverlay([&](auto h) { arrows.Add(h); });
+    arrows.Place(screen);
   }
   std::optional<DepthLayer> layer;
   for (auto & entry : m_buckets)
