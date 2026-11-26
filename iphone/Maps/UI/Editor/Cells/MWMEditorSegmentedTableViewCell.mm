@@ -22,6 +22,8 @@
   self.icon.image = icon;
   self.icon.styleName = @"MWMBlack";
   self.label.text = text;
+  self.label.isAccessibilityElement = NO;
+  self.segmentedControl.accessibilityLabel = text;
   auto const normalAttributes =
       @{NSFontAttributeName: UIFont.regular14.dynamic, NSForegroundColorAttributeName: [UIColor blackPrimaryText]};
   [self.segmentedControl setTitleTextAttributes:normalAttributes forState:UIControlStateNormal];

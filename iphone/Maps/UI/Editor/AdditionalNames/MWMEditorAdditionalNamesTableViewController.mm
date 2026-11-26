@@ -73,6 +73,10 @@
   cell.textLabel.text = ToNSString(lang.m_name);
   cell.detailTextLabel.text = ToNSString(lang.m_code);
   cell.accessoryType = UITableViewCellAccessoryNone;
+  cell.isAccessibilityElement = YES;
+  cell.accessibilityLabel = cell.textLabel.text;
+  cell.accessibilityValue = cell.detailTextLabel.text;
+  cell.accessibilityTraits = UIAccessibilityTraitButton;
   return cell;
 }
 

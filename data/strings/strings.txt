@@ -15650,6 +15650,46 @@ vi = Thêm giờ đóng cửa
 zh-Hans = 添加休息时间
 zh-Hant = 新增休息時間
 
+[editor_time_open_picker]
+comment = VoiceOver label of the opening-time picker in the iOS opening-hours editor.
+tags = apple-maps
+en = Opening time
+pl = Godzina otwarcia
+ru = Время открытия
+uk = Час відкриття
+
+[editor_time_close_picker]
+comment = VoiceOver label of the closing-time picker in the iOS opening-hours editor.
+tags = apple-maps
+en = Closing time
+pl = Godzina zamknięcia
+ru = Время закрытия
+uk = Час закриття
+
+[editor_time_span_accessibility]
+comment = VoiceOver name of an expandable opening-hours interval on iOS. %1$@ is the opening time and %2$@ is the closing time.
+tags = apple-maps
+en = Open from %1$@ to %2$@
+pl = Otwarte od %1$@ do %2$@
+ru = Открыто с %1$@ до %2$@
+uk = Відчинено з %1$@ до %2$@
+
+[editor_time_closed_span_accessibility]
+comment = VoiceOver name of an expandable closed interval in the iOS opening-hours editor. %1$@ and %2$@ are the start and end times.
+tags = apple-maps
+en = Closed from %1$@ to %2$@
+pl = Zamknięte od %1$@ do %2$@
+ru = Закрыто с %1$@ до %2$@
+uk = Зачинено з %1$@ до %2$@
+
+[editor_time_remove_closed_period]
+comment = VoiceOver custom action for removing a closed interval in the iOS opening-hours editor.
+tags = apple-maps
+en = Remove closed period
+pl = Usuń okres zamknięcia
+ru = Удалить период закрытия
+uk = Видалити період закриття
+
 [editor_time_title]
 tags = android-app,apple-maps,qt
 en = Business Hours

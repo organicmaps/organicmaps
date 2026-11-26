@@ -87,6 +87,20 @@ BOOL isCompactForCellWidth(CGFloat width)
   self.timeSpanLabel.text = [NSString stringWithFormat:@"%@-%@", openString, closeString];
 
   BOOL const isRowSelected = [section isRowSelected:row];
+  self.isAccessibilityElement = YES;
+  self.accessibilityLabel =
+      [NSString stringWithFormat:L(@"editor_time_closed_span_accessibility"), openString, closeString];
+  self.accessibilityTraits = UIAccessibilityTraitButton | (isRowSelected ? UIAccessibilityTraitSelected : 0);
+  __weak MWMOpeningHoursClosedSpanTableViewCell * weakSelf = self;
+  self.accessibilityCustomActions =
+      @[[[UIAccessibilityCustomAction alloc] initWithName:L(@"editor_time_remove_closed_period")
+                                            actionHandler:^BOOL(UIAccessibilityCustomAction * _Nonnull action) {
+                                              MWMOpeningHoursClosedSpanTableViewCell * cell = weakSelf;
+                                              if (!cell)
+                                                return NO;
+                                              [cell cancelTap];
+                                              return YES;
+                                            }]];
   self.timeSpanLabel.textColor = isRowSelected ? [UIColor linkBlue] : [UIColor blackSecondaryText];
 }
 
@@ -104,6 +118,14 @@ BOOL isCompactForCellWidth(CGFloat width)
   MWMOpeningHoursSection * section = self.section;
   section.selectedRow = [section isRowSelected:row] ? nil : @(row);
   [section refresh:NO];
+}
+
+- (BOOL)accessibilityActivate
+{
+  if (!self.isVisible)
+    return NO;
+  [self expandTap];
+  return YES;
 }
 
 @end

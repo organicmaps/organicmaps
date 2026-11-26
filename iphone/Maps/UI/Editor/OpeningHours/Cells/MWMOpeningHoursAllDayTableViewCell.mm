@@ -24,6 +24,8 @@
 {
   [super refresh];
   self.switcher.on = self.section.allDay;
+  self.switcher.accessibilityLabel = self.label.text;
+  self.label.isAccessibilityElement = NO;
 }
 
 #pragma mark - Actions

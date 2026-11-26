@@ -49,6 +49,9 @@
   self.icon.hidden = (icon == nil);
 
   self.textField.text = text;
+  self.textField.accessibilityLabel = placeholder;
+  self.icon.isAccessibilityElement = NO;
+  self.errorLabel.isAccessibilityElement = NO;
   [self.textField setStyleNameAndApply:@"regular17:blackPrimaryText"];
   self.textField.attributedPlaceholder =
       [[NSAttributedString alloc] initWithString:placeholder
@@ -68,6 +71,7 @@
 - (void)processValidation
 {
   self.errorLabel.hidden = self.isValid || self.errorLabel.text.length == 0;
+  self.textField.accessibilityHint = self.isValid ? nil : self.errorLabel.text;
   [self.contentView setStyleNameAndApply:self.isValid ? @"Background" : @"ErrorBackground"];
   [self layoutIfNeeded];
 }

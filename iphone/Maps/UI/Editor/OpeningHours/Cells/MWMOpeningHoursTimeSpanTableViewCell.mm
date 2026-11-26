@@ -24,7 +24,13 @@
   self.openTimeLabel.text = [DateTimeFormatter dateStringFrom:openDate dateStyle:dateStyle timeStyle:timeStyle];
   self.closeTimeLabel.text = [DateTimeFormatter dateStringFrom:closeDate dateStyle:dateStyle timeStyle:timeStyle];
 
-  UIColor * clr = [section isRowSelected:row] ? [UIColor linkBlue] : [UIColor blackSecondaryText];
+  BOOL const isRowSelected = [section isRowSelected:row];
+  self.isAccessibilityElement = YES;
+  self.accessibilityLabel = [NSString
+      stringWithFormat:L(@"editor_time_span_accessibility"), self.openTimeLabel.text, self.closeTimeLabel.text];
+  self.accessibilityTraits = UIAccessibilityTraitButton | (isRowSelected ? UIAccessibilityTraitSelected : 0);
+
+  UIColor * clr = isRowSelected ? [UIColor linkBlue] : [UIColor blackSecondaryText];
   self.openTimeLabel.textColor = clr;
   self.closeTimeLabel.textColor = clr;
 }
@@ -40,6 +46,14 @@
     section.selectedRow = [section isRowSelected:row] ? nil : @(row);
     [section refresh:NO];
   }
+}
+
+- (BOOL)accessibilityActivate
+{
+  if (!self.isVisible)
+    return NO;
+  [self expandTap];
+  return YES;
 }
 
 @end

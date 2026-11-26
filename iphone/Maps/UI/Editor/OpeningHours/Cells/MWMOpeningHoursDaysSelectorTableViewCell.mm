@@ -22,13 +22,19 @@ using namespace osmoh;
   cal.locale = NSLocale.currentLocale;
   self.firstWeekday = cal.firstWeekday;
   NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;
+  NSArray<NSString *> * fullWeekdaySymbols = cal.standaloneWeekdaySymbols;
   for (UILabel * label in self.labels)
   {
     label.font = UIFont.regular17.dynamic;
     label.adjustsFontForContentSizeCategory = YES;
     [label configureSingleLineAutoScaling];
     label.text = weekdaySymbols[[self tag2SymbolIndex:label.tag]];
+    label.isAccessibilityElement = NO;
   }
+  for (UIButton * button in self.buttons)
+    button.accessibilityLabel = fullWeekdaySymbols[[self tag2SymbolIndex:button.tag]];
+  for (UIImageView * image in self.images)
+    image.isAccessibilityElement = NO;
 }
 
 - (NSUInteger)tag2SymbolIndex:(NSUInteger)tag
@@ -58,7 +64,10 @@ using namespace osmoh;
   }
   for (UIButton * btn in self.buttons)
     if (btn.tag == tag)
+    {
       btn.selected = selected;
+      btn.accessibilityTraits = UIAccessibilityTraitButton | (selected ? UIAccessibilityTraitSelected : 0);
+    }
   for (UILabel * label in self.labels)
     if (label.tag == tag)
       label.textColor = (selected ? [UIColor blackPrimaryText] : [UIColor blackHintText]);

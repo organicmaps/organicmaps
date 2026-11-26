@@ -79,6 +79,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   self.searchViewController.obscuresBackgroundDuringPresentation = NO;
   self.searchViewController.hidesNavigationBarDuringPresentation = NO;
   self.searchViewController.searchBar.placeholder = L(@"search");
+  self.searchViewController.searchBar.searchTextField.accessibilityLabel = L(@"search");
   self.searchViewController.searchBar.delegate = self;
   [self.searchViewController.searchBar applyTheme];
   self.navigationItem.hidesSearchBarWhenScrolling = YES;
@@ -106,6 +107,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   titleLabel.font = UIFont.bold17.dynamic;
   titleLabel.adjustsFontForContentSizeCategory = YES;
   titleLabel.numberOfLines = 0;
+  titleLabel.accessibilityTraits |= UIAccessibilityTraitHeader;
 
   UITextView * subtitleTextView = [[UITextView alloc] init];
   subtitleTextView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -219,6 +221,9 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
     cell.textLabel.text = [self.dataSource getTranslation:indexPath.row];
     type = [self.dataSource getType:indexPath.row];
   }
+  cell.isAccessibilityElement = YES;
+  cell.accessibilityLabel = cell.textLabel.text;
+  cell.accessibilityTraits = UIAccessibilityTraitButton;
 
   cell.accessoryType =
       [type isEqualToString:self.selectedType] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;

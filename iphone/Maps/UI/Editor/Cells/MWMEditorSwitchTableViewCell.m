@@ -20,6 +20,8 @@
   self.icon.styleName = @"MWMBlack";
   self.label.text = text;
   self.switchControl.on = on;
+  self.label.isAccessibilityElement = NO;
+  self.switchControl.accessibilityLabel = text;
   [self setTextColorWithSwitchValue:on];
 }
 

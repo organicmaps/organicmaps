@@ -31,6 +31,7 @@ static CGFloat const kEstimatedTableViewCellHeight = 100.0;
 @property(weak, nonatomic, readwrite) IBOutlet MWMTextView * editorView;
 @property(weak, nonatomic) IBOutlet UIView * helpView;
 @property(weak, nonatomic) IBOutlet WKWebView * help;
+@property(weak, nonatomic) IBOutlet UIButton * examplesButton;
 @property(weak, nonatomic, readwrite) IBOutlet NSLayoutConstraint * ohTextViewHeight;
 @property(weak, nonatomic) IBOutlet UIView * exampleValuesSeparator;
 @property(weak, nonatomic) IBOutlet UIImageView * exampleValuesExpandView;
@@ -77,6 +78,8 @@ static CGFloat const kEstimatedTableViewCellHeight = 100.0;
 - (void)configAdvancedEditor
 {
   [self.editorView setTextContainerInset:{.top = 12, .left = 10, .bottom = 12, .right = 10}];
+  self.editorView.accessibilityLabel = L(@"editor_time_title");
+  self.examplesButton.accessibilityLabel = L(@"editor_example_values");
   NSString * path = [NSBundle.mainBundle pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
   NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
   NSURL * baseURL = [NSURL fileURLWithPath:path];
@@ -177,6 +180,8 @@ static CGFloat const kEstimatedTableViewCellHeight = 100.0;
   self.exampleValuesSeparator.hidden = !exampleExpanded;
   self.exampleValuesExpandView.image =
       [UIImage imageNamed:exampleExpanded ? @"ic_arrow_gray_up" : @"ic_arrow_gray_down"];
+  self.examplesButton.accessibilityTraits =
+      UIAccessibilityTraitButton | (exampleExpanded ? UIAccessibilityTraitSelected : 0);
   if (exampleExpanded)
     [self.editorView resignFirstResponder];
   else
@@ -186,10 +191,16 @@ static CGFloat const kEstimatedTableViewCellHeight = 100.0;
 - (IBAction)toggleExample
 {
   self.exampleExpanded = !self.exampleExpanded;
+  if (UIAccessibilityIsVoiceOverRunning())
+    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification,
+                                    self.exampleExpanded ? self.help : self.examplesButton);
 }
 - (IBAction)toggleMode
 {
   self.isSimpleMode = !self.isSimpleMode;
+  if (UIAccessibilityIsVoiceOverRunning())
+    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification,
+                                    self.isSimpleMode ? self.tableView : self.editorView);
 }
 #pragma mark - UITextViewDelegate
 
