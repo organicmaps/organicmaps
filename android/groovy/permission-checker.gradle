@@ -36,8 +36,10 @@ abstract class CheckApkPermissions extends DefaultTask {
     }
     def permissions = output.toString('UTF-8')
 
-    def matcher = (permissions =~ /uses-permission: (.+)/)
-    def foundPermissions = matcher.collect { it[1] }
+    // SDK-scoped permissions are separate: allowing an API-23 grant must not also allow
+    // an install-time grant on Android 5.
+    def matcher = (permissions =~ /uses-permission(-sdk-23)?: (.+)/)
+    def foundPermissions = matcher.collect { (it[1] ? "sdk-23:" : "") + it[2] }
 
     // Check for unexpected permissions
     def unexpectedPermissions = foundPermissions.findAll { perm ->
