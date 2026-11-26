@@ -15,6 +15,17 @@ If you skip regeneration, a maintainer should run the script and commit the gene
 
 Please make sure to add a [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to your commit descriptions (`git commit -s ...`).
 
+## Terminology
+
+### Polygon areas
+
+Imported KML, KMZ and GeoJSON areas are polygon geometry with outlines, fills and holes. Always use the target language's established GIS term for "polygon", even when the English text says "area".
+
+- Russian: **полигон**, plural **полигоны**; do not use "зона" or "область" in this context.
+- Ukrainian: **полігон**, plural **полігони**; do not use "зона" or "область" in this context.
+
+Use the corresponding polygon term in every other language, such as German "Polygon", French "polygone" or Polish "poligon". Apply it consistently in UI strings, titles, descriptions, headings, body text and release notes, adjusting case, number and grammatical agreement. Translate ordinary geographic areas, download regions and administrative regions according to their own context.
+
 ## String keys and tags
 
 Name keys after the message's meaning and UI context, for example `app_exit` or `placepage_coordinates`. Reuse an existing key when the message and context match. Avoid device categories such as `desktop_` or `mobile_` in new keys.

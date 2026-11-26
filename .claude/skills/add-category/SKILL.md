@@ -14,6 +14,8 @@ Ask the user for:
 
 ## 2. Ensure Translations Exist in types_strings.txt
 
+Before generating or proofreading translations, read and follow [the translation guide](../../../docs/TRANSLATIONS.md), including its terminology rules.
+
 Convert OSM type dashes to dots: `shop-leather` → `[type.shop.leather]`.
 
 **Check** if the entry exists in `data/strings/types_strings.txt`.

@@ -52,6 +52,8 @@ Validated against `config.xsd` schema. See the XSD for field definitions.
 - `types_strings.txt` -- map feature type names
 - `sound.txt` -- TTS voice direction strings
 
+Read and follow [the translation guide](../docs/TRANSLATIONS.md) for terminology and contribution workflow.
+
 After editing, run `tools/unix/generate_localizations.sh` and commit generated files separately.
 
 ## Style files (data/styles/)
