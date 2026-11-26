@@ -119,8 +119,6 @@ enum TessElementType
 	TESS_CONSTRAINED_DELAUNAY_TRIANGLES
 };
 
-//typedef float TESSreal;
-// Changed to double by AlexZ.
 typedef double TESSreal;
 typedef int TESSindex;
 typedef struct TESStesselator TESStesselator;
@@ -146,6 +144,7 @@ typedef struct TESSalloc TESSalloc;
 // has found intersecting segments and needs to add new vertex. This defency can be cured by
 // allocating some extra vertices beforehand. The 'extraVertices' variable allows to specify
 // number of expected extra vertices.
+// Allocator callbacks and userData must remain valid until tessDeleteTess().
 struct TESSalloc
 {
 	void *(*memalloc)( void *userData, unsigned int size );
@@ -173,16 +172,18 @@ struct TESSalloc
 // Parameters:
 //   alloc - pointer to a filled TESSalloc struct or NULL to use default malloc based allocator.
 // Returns:
-//   new tesselator object.
+//   new tesselator object, or NULL if allocation fails.
 TESStesselator* tessNewTess( TESSalloc* alloc );
 
 // tessDeleteTess() - Deletes a tesselator.
 // Parameters:
-//   tess - pointer to tesselator object to be deleted.
+//   tess - non-NULL pointer to tesselator object to be deleted.
 void tessDeleteTess( TESStesselator *tess );
 
 // tessAddContour() - Adds a contour to be tesselated.
 // The type of the vertex coordinates is assumed to be TESSreal.
+// An allocation failure is remembered and reported by tessTesselate().
+// Further contours are ignored after an allocation failure.
 // Parameters:
 //   tess - pointer to tesselator object.
 //   size - number of coordinates per vertex. Must be 2 or 3.
@@ -192,16 +193,22 @@ void tessDeleteTess( TESStesselator *tess );
 void tessAddContour( TESStesselator *tess, int size, const void* pointer, int stride, int count );
 
 // tessTesselate() - tesselate contours.
+// Mesh updates are not transactional. After an allocation failure, delete the
+// instance and create a new one before retrying tessellation.
 // Parameters:
 //   tess - pointer to tesselator object.
 //   windingRule - winding rules used for tesselation, must be one of TessWindingRule.
 //   elementType - defines the tesselation result element type, must be one of TessElementType.
 //   polySize - defines maximum vertices per polygons if output is polygons. If elementType is TESS_CONSTRAINED_DELAUNAY_TRIANGLES, this parameter is ignored.
 //   vertexSize - defines the number of coordinates in tesselation result vertex, must be 2 or 3.
-//   normal - defines the normal of the input contours, of null the normal is calculated automatically.
+//   normal - optional normal; NULL keeps the configured normal.
+//            A zero normal (the default) is computed from the contours.
 // Returns:
-//   1 if succeed, 0 if failed.
+//   1 if successful, 0 if failed.
 int tessTesselate( TESStesselator *tess, int windingRule, int elementType, int polySize, int vertexSize, const TESSreal* normal );
+
+// Result getters are valid only after successful tessTesselate().
+// Returned arrays remain valid until the next tessTesselate() or tessDeleteTess().
 
 // tessGetVertexCount() - Returns number of vertices in the tesselated output.
 int tessGetVertexCount( TESStesselator *tess );

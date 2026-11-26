@@ -608,6 +608,13 @@ TESSmesh *tessMeshNewMesh( TESSalloc* alloc )
 	mesh->edgeBucket = createBucketAlloc( alloc, "Mesh Edges", sizeof(EdgePair), alloc->meshEdgeBucketSize );
 	mesh->vertexBucket = createBucketAlloc( alloc, "Mesh Vertices", sizeof(TESSvertex), alloc->meshVertexBucketSize );
 	mesh->faceBucket = createBucketAlloc( alloc, "Mesh Faces", sizeof(TESSface), alloc->meshFaceBucketSize );
+	if (!mesh->edgeBucket || !mesh->vertexBucket || !mesh->faceBucket) {
+		deleteBucketAlloc(mesh->edgeBucket);
+		deleteBucketAlloc(mesh->vertexBucket);
+		deleteBucketAlloc(mesh->faceBucket);
+		alloc->memfree(alloc->userData, mesh);
+		return NULL;
+	}
 
 	v = &mesh->vHead;
 	f = &mesh->fHead;
