@@ -13,6 +13,7 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.SearchTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.sdk.OrganicMaps;
@@ -30,9 +31,10 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
   private final int MAX_RESULTS_SIZE;
 
   @NonNull
-  private String mQuery = "";
+  private String mQuery;
   @NonNull
   private String mLocale;
+  private long mSearchTimestamp;
 
   @Nullable
   private ItemList mResults = null;
@@ -44,7 +46,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     MAX_RESULTS_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
 
     mLocale = builder.mLocale;
-    onSearchSubmitted(builder.mQuery);
+    mQuery = builder.mQuery;
   }
 
   @NonNull
@@ -79,14 +81,19 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     mLocale = Language.getKeyboardLocale(getCarContext());
 
     SearchEngine.INSTANCE.cancel();
-
+    mResults = null;
     if (mQuery.isEmpty())
     {
-      mResults = null;
+      mSearchTimestamp = 0;
       invalidate();
       return;
     }
 
+    startSearch();
+  }
+
+  private void startSearch()
+  {
     final MapObject location = getLocationHelper().getMyPosition();
     final boolean hasLocation = location != null;
     final double lat = hasLocation ? location.getLat() : 0;
@@ -94,7 +101,8 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
 
     // Don't push a template on every keystroke: car hosts may close the keyboard and search box, and the first query
     // could replace the list with a loading template. onResultsUpdate() publishes the new results.
-    SearchEngine.INSTANCE.search(getCarContext(), mQuery, false, System.nanoTime(), hasLocation, lat, lon);
+    mSearchTimestamp = System.nanoTime();
+    SearchEngine.INSTANCE.search(getCarContext(), mQuery, false, mSearchTimestamp, hasLocation, lat, lon);
   }
 
   @Override
@@ -112,9 +120,20 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
   }
 
   @Override
+  public void onResume(@NonNull LifecycleOwner owner)
+  {
+    super.onResume(owner);
+    // The outgoing screen cancels its search between this screen’s start and resume.
+    if (!mQuery.isEmpty())
+      startSearch();
+  }
+
+  @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
     super.onStop(owner);
+    mSearchTimestamp = 0;
+    mResults = null;
     SearchEngine.INSTANCE.removeListener(this);
     SearchEngine.INSTANCE.cancel();
   }
@@ -122,18 +141,21 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
   @Override
   public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
   {
+    if (timestamp != mSearchTimestamp)
+      return;
     final ItemList.Builder builder = new ItemList.Builder();
     builder.setNoItemsMessage(getCarContext().getString(R.string.search_not_found));
     final int resultsSize = Math.min(results.length, MAX_RESULTS_SIZE);
     for (int i = 0; i < resultsSize; i++)
-      builder.addItem(createResultItem(results[i], i));
+      builder.addItem(createResultItem(results, i));
     mResults = builder.build();
     invalidate();
   }
 
   @NonNull
-  private Row createResultItem(@NonNull SearchResult result, int resultIndex)
+  private Row createResultItem(@NonNull SearchResult[] results, int resultIndex)
   {
+    final SearchResult result = results[resultIndex];
     final Row.Builder builder = new Row.Builder();
     if (result.type == SearchResult.TYPE_RESULT)
     {
@@ -148,6 +170,15 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
       if (!TextUtils.isEmpty(region))
         builder.addText(region);
       builder.setOnClickListener(() -> {
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED))
+          return;
+        if (SearchEngine.INSTANCE.getCachedResults() != results)
+        {
+          mResults = null;
+          startSearch();
+          invalidate();
+          return;
+        }
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();
         SearchEngine.INSTANCE.selectResult(resultIndex);
