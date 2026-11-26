@@ -5,10 +5,13 @@
 #include "generator/collector_collection.hpp"
 #include "generator/collector_interface.hpp"
 #include "generator/collector_tag.hpp"
+#include "generator/maxspeeds_collector.hpp"
 
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/scope_guard.hpp"
 
 #include <fstream>
 #include <memory>
@@ -22,6 +25,26 @@ using namespace generator_tests;
 namespace
 {
 auto const kEmptyValidator = [](auto const &) { return true; };
+
+size_t g_failedChecks = 0;
+
+bool CountFailedCheck(SrcPoint const &, std::string const &)
+{
+  ++g_failedChecks;
+  return false;
+}
+
+size_t CountFailedChecksOnMergeOfOpenClone(CollectorInterface & finished)
+{
+  auto const open = finished.Clone();
+  finished.Finish();
+
+  g_failedChecks = 0;
+  auto const prevAssertFn = SetAssertFunction(&CountFailedCheck);
+  SCOPE_GUARD(restoreAssertFn, [prevAssertFn] { SetAssertFunction(prevAssertFn); });
+  finished.Merge(*open);
+  return g_failedChecks;
+}
 }  // namespace
 
 UNIT_TEST(MergeCollector_MergeCase1)
@@ -93,4 +116,15 @@ UNIT_TEST(MergeCollector_MergeCase2)
   std::string line;
   while (std::getline(stream, line))
     TEST_EQUAL(line, answers[pos++], ());
+}
+
+UNIT_TEST(MergeCollector_RequiresFinishedStreams)
+{
+  auto const filename = GetFileName();
+
+  MaxspeedsCollector maxspeeds(filename);
+  TEST_EQUAL(CountFailedChecksOnMergeOfOpenClone(maxspeeds), 1, ());
+
+  CollectorTag tag(filename, "admin_level", kEmptyValidator);
+  TEST_EQUAL(CountFailedChecksOnMergeOfOpenClone(tag), 1, ());
 }

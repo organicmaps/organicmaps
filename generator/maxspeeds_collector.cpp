@@ -68,18 +68,23 @@ void MaxspeedsCollector::CollectFeature(feature::FeatureBuilder const & ft, OsmE
   if (isReverse)
     std::swap(maxspeedForward, maxspeedBackward);
 
-  if (!maxspeed.IsValid())
-    maxspeed = maxspeedForward;
+  // Plain maxspeed applies to each direction that has no own maxspeed:forward/backward value.
+  // With maxspeed:forward only, backward stays empty and the forward speed is used in both directions
+  // (behavior since commit 1b00488c3, 2018-10-18, "[routing] Creating maxspeed.csv for generation maxspeed section.").
+  if (!maxspeedForward.IsValid())
+    maxspeedForward = maxspeed;
+  if (!maxspeedBackward.IsValid())
+    maxspeedBackward = maxspeed;
 
   bool recalcIndicator = false;
-  if (!maxspeed.IsValid() && ftypes::IsLinkChecker::Instance()(ft.GetTypes()))
+  if (!maxspeedForward.IsValid() && ftypes::IsLinkChecker::Instance()(ft.GetTypes()))
   {
     if (maxspeedAdvisory.IsValid())
     {
       // Assign maxspeed:advisory for highway:xxx_link types to avoid situation when
       // not defined link speed is predicted bigger than defined parent ingoing highway speed.
       // https://www.openstreetmap.org/way/5511439#map=18/45.55465/-122.67787
-      maxspeed = maxspeedAdvisory;
+      maxspeedForward = maxspeedAdvisory;
     }
     else
     {
@@ -90,37 +95,41 @@ void MaxspeedsCollector::CollectFeature(feature::FeatureBuilder const & ft, OsmE
     }
   }
 
-  // Note. Keeping only maxspeed:forward and maxspeed:backward if they have the same units.
-  // The exception is maxspeed:forward or maxspeed:backward have a special values
+  // Note. Keeping only forward and backward speeds if they have the same units.
+  // The exception is forward or backward speed have a special values
   // like "none" or "walk". In that case units mean nothing and the values should
   // be processed in a special way.
   if (maxspeedBackward.IsValid())
   {
-    if (!maxspeedForward.IsValid() || !HaveSameUnits(maxspeed, maxspeedBackward))
+    if (!maxspeedForward.IsValid() || !HaveSameUnits(maxspeedForward, maxspeedBackward))
       maxspeedBackward = {};
+    else if (!maxspeedForward.IsNumeric())
+      maxspeedForward.SetUnits(maxspeedBackward.GetUnits());  // Dummy units of "none"/"walk" would mislabel backward.
   }
 
   routing::SpeedInUnits maxspeedCond;
   std::string condTime;
   if (ParseMaxspeedConditionalTag(maxspeedConditionalStr, maxspeedCond, condTime))
   {
-    if (maxspeed.IsValid() && !HaveSameUnits(maxspeed, maxspeedCond))
+    if ((maxspeedForward.IsValid() && !HaveSameUnits(maxspeedForward, maxspeedCond)) ||
+        !HaveSameUnits(maxspeedBackward, maxspeedCond))
     {
       maxspeedCond = {};
       condTime.clear();
     }
   }
 
-  if (!maxspeed.IsValid() && !maxspeedCond.IsValid())
+  if (!maxspeedForward.IsValid() && !maxspeedCond.IsValid())
   {
     if (recalcIndicator)
-      maxspeed.SetSpeed(routing::kCommonMaxSpeedValue);
+      maxspeedForward.SetSpeed(routing::kCommonMaxSpeedValue);
     else
       return;
   }
 
-  m_stream << p.m_id << "," << UnitsToString(maxspeed.IsValid() ? maxspeed.GetUnits() : maxspeedCond.GetUnits()) << ","
-           << ToStream(maxspeed) << "," << ToStream(maxspeedBackward) << "," << ToStream(maxspeedCond) << ","
+  m_stream << p.m_id << ","
+           << UnitsToString(maxspeedForward.IsValid() ? maxspeedForward.GetUnits() : maxspeedCond.GetUnits()) << ","
+           << ToStream(maxspeedForward) << "," << ToStream(maxspeedBackward) << "," << ToStream(maxspeedCond) << ","
            << condTime << "\n";
 }
 
@@ -147,7 +156,7 @@ void MaxspeedsCollector::OrderCollectedData()
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {
-  CHECK(!m_stream.is_open() || !collector.m_stream.is_open(), ("Finish() has not been called."));
+  CHECK(!m_stream.is_open() && !collector.m_stream.is_open(), ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator
