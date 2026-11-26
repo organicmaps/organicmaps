@@ -14,6 +14,9 @@ final class SearchCategoryCell: UITableViewCell {
   func configure(with categoryName: String) {
     self.categoryName = categoryName
     textLabel?.text = L(categoryName)
+    isAccessibilityElement = true
+    accessibilityLabel = textLabel?.text
+    accessibilityTraits = .button
     updateIcon()
   }
 

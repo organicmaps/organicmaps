@@ -30,5 +30,8 @@ final class SearchHistoryCell: MWMTableViewCell {
       imageView?.image = Self.placeholderImage
       isSeparatorHidden = true
     }
+    isAccessibilityElement = true
+    accessibilityLabel = textLabel?.text
+    accessibilityTraits = .button
   }
 }

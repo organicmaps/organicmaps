@@ -1,5 +1,6 @@
 protocol SearchOnMapView: AnyObject {
   func render(_ viewModel: SearchOnMap.ViewModel)
+  func announceSearchResults(count: Int)
   func show()
   func close()
   func showMapPointPicker(title: String)
@@ -38,6 +39,7 @@ final class SearchOnMapViewController: UIViewController {
   private var internalScrollViewContentOffset: CGFloat = .zero
   private var presentationStepsController: StepsController!
   private var searchResults = SearchOnMap.SearchResults([])
+  private var isSearchExpanded = false
   private weak var mapPointPickerViewController: MapPointPickerViewController?
 
   // MARK: - Init
@@ -99,6 +101,7 @@ final class SearchOnMapViewController: UIViewController {
     super.traitCollectionDidChange(previousTraitCollection)
     updateFrameOfPresentedViewInContainerView()
     updateDimView(for: availableAreaView.frame)
+    updateAccessibilityModalState()
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -125,6 +128,8 @@ final class SearchOnMapViewController: UIViewController {
     setupSearchResultsView()
     setupResultsTableView()
     setupHistoryAndCategoryTabView()
+    searchingActivityView.isAccessibilityElement = true
+    searchingActivityView.accessibilityLabel = L("search_accessibility_searching")
   }
 
   private func setupDimView() {
@@ -262,6 +267,11 @@ final class SearchOnMapViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
+  private func updateAccessibilityModalState() {
+    (parent as? MapViewController)?.searchContainer.accessibilityViewIsModal =
+      isSearchExpanded && !isiPad && traitCollection.verticalSizeClass == .regular
+  }
+
   @objc
   private func handleTapOutside(_ gesture: UITapGestureRecognizer) {
     let location = gesture.location(in: view)
@@ -379,6 +389,8 @@ final class SearchOnMapViewController: UIViewController {
 
 extension SearchOnMapViewController: SearchOnMapView {
   func render(_ viewModel: ViewModel) {
+    isSearchExpanded = viewModel.presentationStep == .expanded
+    updateAccessibilityModalState()
     headerView.setRoutePointActions(viewModel.routePointActions)
     setContent(viewModel.contentState)
     setIsSearching(viewModel.isTyping)
@@ -388,11 +400,19 @@ extension SearchOnMapViewController: SearchOnMapView {
 
   func show() {
     interactor?.handle(.openSearch)
+    UIAccessibility.post(notification: .screenChanged, argument: headerView.accessibilitySearchField)
+  }
+
+  func announceSearchResults(count: Int) {
+    let announcement = count == 0 ? L("search_not_found") : String(format: L("search_accessibility_results_count"), count)
+    UIAccessibility.post(notification: .announcement, argument: announcement)
   }
 
   func close() {
     mapPointPickerViewController?.close()
     mapPointPickerViewController = nil
+    isSearchExpanded = false
+    updateAccessibilityModalState()
     headerView.setIsSearching(false)
     updateDimView(for: presentationStepsController.hiddenFrame)
     willMove(toParent: nil)
