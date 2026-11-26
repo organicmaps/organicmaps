@@ -255,7 +255,7 @@ final class ElevationXAxisTests: XCTestCase {
     let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 343, height: 200))
     chart.chartData = makeData(distances: stride(from: 0.0, through: 50000, by: 10).map { $0 })
     chart.layoutIfNeeded()
-    chart.chartPreviewView.setX(min: 2050, max: 2551)
+    chart.setViewport(lower: 2050, upper: 2551)
     chart.xAxisView.layoutIfNeeded()
     let tickX = try XCTUnwrap(tickPositions(in: chart.xAxisView).first)
     var selectedDistance: Double?

@@ -10,31 +10,24 @@ class ChartLineView: UIView {
 
   private var highlightedStroke: CAShapeLayer?
 
-  var lineWidth: CGFloat = 1 {
-    didSet {
-      updateLineColors()
-    }
-  }
-
   var chartLine: ChartPresentationLine! {
     didSet {
-      guard let chartLine = chartLine else { return }
-      maxX = chartLine.values.count - 1
-      minY = chartLine.minY
-      maxY = chartLine.maxY
+      guard let chartLine else { return }
+      let lineWidth: CGFloat = 3
       highlightedStroke?.removeFromSuperlayer()
       highlightedStroke = nil
       if chartLine.highlighted != nil, chartLine.type == .line {
         let stroke = CAShapeLayer()
         stroke.actions = ["path": NSNull(), "bounds": NSNull(), "position": NSNull()]
         stroke.fillColor = nil
+        stroke.lineWidth = lineWidth
         stroke.lineJoin = .round
         stroke.lineCap = .round
         shapeLayer.addSublayer(stroke)
         highlightedStroke = stroke
       }
+      shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
       updateLineColors()
-      updateGraph()
     }
   }
 
@@ -62,29 +55,13 @@ class ChartLineView: UIView {
     updateGraph(animationStyle: animationStyle)
   }
 
-  func setX(min: Int, max: Int) {
-    guard min < max else { return }
-    minX = min
-    maxX = max
-    updateGraph()
-  }
-
-  func setY(min: CGFloat, max: CGFloat, animationStyle: ChartAnimation = .none) {
-    guard min < max else { return }
-    minY = min
-    maxY = max
-    updateGraph(animationStyle: animationStyle)
-  }
-
   private func updateLineColors() {
     guard let chartLine else { return }
     let resolvedColor = chartLine.color.resolvedColor(with: traitCollection).cgColor
     switch chartLine.type {
     case .line:
       shapeLayer.strokeColor = highlightedStroke == nil ? resolvedColor : UIColor.secondaryLabel.resolvedColor(with: traitCollection).cgColor
-      shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
       highlightedStroke?.strokeColor = resolvedColor
-      highlightedStroke?.lineWidth = lineWidth
       shapeLayer.fillColor = UIColor.clear.cgColor
       shapeLayer.lineJoin = .round
     case .lineArea:
@@ -94,7 +71,7 @@ class ChartLineView: UIView {
   }
 
   private func updateGraph(animationStyle: ChartAnimation = .none) {
-    // A flat profile gets its Y span from the owner's setY() or setViewport().
+    // Layout can run before the chart supplies its viewport.
     guard let chartLine, maxX > minX, maxY > minY else { return }
 
     let xScale = bounds.width / CGFloat(maxX - minX)
