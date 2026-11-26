@@ -167,7 +167,7 @@ struct BaseSubrouteData
 {
   dp::DrapeID m_subrouteId = 0;
   m2::PointD m_pivot = m2::PointD(0.0, 0.0);
-  int m_recacheId = -1;
+  int m_recacheId = 0;
   RouteRenderProperty m_renderProperty;
 };
 

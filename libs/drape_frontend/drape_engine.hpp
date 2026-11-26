@@ -292,6 +292,8 @@ public:
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); }
 
 private:
+  friend class RouteRenderingTest;
+
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void PostUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);
