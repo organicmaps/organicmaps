@@ -2328,8 +2328,10 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceUsesChartGapBoundary)
 
 UNIT_TEST(RoutingManager_TrackPreviewTapMovesEntryOnTheSource)
 {
+  size_t tapBuilds = 0;
   AsyncBuildFixture fixture;
   auto & manager = fixture.m_framework.GetRoutingManager();
+  manager.SetTrackEntryTapListener([&tapBuilds] { ++tapBuilds; });
   auto & bookmarks = fixture.m_framework.GetBookmarkManager();
   auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
   bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
@@ -2341,8 +2343,10 @@ UNIT_TEST(RoutingManager_TrackPreviewTapMovesEntryOnTheSource)
   TEST(!manager.TryTapOnFollowedTrack(TapRect(MeterPoint(400, 100))), ());
   TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ("A tap away from the track keeps the preview"));
   TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, 0.0, ());
+  TEST_EQUAL(tapBuilds, 0, ());
 
   TEST(manager.TryTapOnFollowedTrack(TapRect(MeterPoint(400, 10))), ());
+  TEST_EQUAL(tapBuilds, 1, ("The platform learns about the build a tap starts"));
   double const entryDistance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0));
   TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance, 0.01, ());
   fixture.WaitForBuildResult();
@@ -2358,6 +2362,7 @@ UNIT_TEST(RoutingManager_TrackPreviewTapMovesEntryOnTheSource)
   TEST(manager.TryTapOnFollowedTrack(TapRect(MeterPoint(400, 10))), ());
   TEST(manager.IsRouteBuilt(), ("A repeat tap keeps the current preview"));
   TEST_EQUAL(manager.RoutingSession().GetRoute(), builtRoute, ());
+  TEST_EQUAL(tapBuilds, 1, ());
 
   fixture.SetGpsPosition(MeterPoint(900, 0));
   bookmarks.MyPositionMark().SetUserPosition(MeterPoint(900, 0), true);
@@ -2367,6 +2372,7 @@ UNIT_TEST(RoutingManager_TrackPreviewTapMovesEntryOnTheSource)
   TEST(fixture.m_guiLoop.m_loop->PumpUntil([&] { return manager.IsRoutingFollowing(); }, kAsyncBuildTimeout), ());
   TEST(!manager.TryTapOnFollowedTrack(TapRect(MeterPoint(800, 0))), ("Navigation keeps its entry"));
   TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance, 0.01, ());
+  TEST_EQUAL(tapBuilds, 1, ());
 }
 
 UNIT_TEST(RoutingManager_TrackPreviewTapUsesTheTappedGapSide)

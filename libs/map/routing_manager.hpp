@@ -145,6 +145,7 @@ public:
   using RouteBuildingCallback = std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
   using RouteSpeedCamShowCallback = std::function<void(m2::PointD const &, double)>;
   using RouteSpeedCamsClearCallback = std::function<void()>;
+  using TrackEntryTapCallback = std::function<void()>;
 
   using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
 
@@ -209,6 +210,8 @@ public:
   {
     m_routeRecommendCallback = recommendCallback;
   }
+  // Platform commands report the track builds they start. A map tap starts one inside the core, so it notifies here.
+  void SetTrackEntryTapListener(TrackEntryTapCallback const & callback) { m_trackEntryTapCallback = callback; }
   // Track navigation requires a current position and completes any approach build before following.
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
@@ -453,6 +456,7 @@ private:
   RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;
   RouteSpeedCamsClearCallback m_routeSpeedCamsClearCallback;
   RouteRecommendCallback m_routeRecommendCallback;
+  TrackEntryTapCallback m_trackEntryTapCallback;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;

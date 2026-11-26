@@ -341,6 +341,9 @@ public class Framework
 
   public static native void nativeSetRoutingRecommendationListener(@NonNull RoutingRecommendationListener listener);
 
+  // Called when a map tap moves the followed track entry and starts its rebuild.
+  public static native void nativeSetTrackEntryTapListener(@NonNull Runnable listener);
+
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
   public static boolean addRoutePoint(RouteMarkData point, boolean allowOptimization)
