@@ -20,15 +20,15 @@ final class ActionBarViewControllerTests: XCTestCase {
       (.POI, fullReplacing, [.routeReplaceStop, .bookmark]),
       (.bookmark, fullReplacing, [.routeReplaceStop, .bookmark]),
       (.track, fullReplacing, [.routeReplaceStop, .bookmark, .routeAlongTrack, .track]),
-      (.relationTrack, fullReplacing, [.routeReplaceStop, .bookmark]),
+      (.relationTrack, fullReplacing, [.routeReplaceStop, .bookmark, .routeAlongTrack]),
       (.track, spareReplacing, [.routeReplaceStop, .bookmark, .routeAlongTrack, .track]),
-      (.relationTrack, spareReplacing, [.routeReplaceStop, .bookmark]),
+      (.relationTrack, spareReplacing, [.routeReplaceStop, .bookmark, .routeAlongTrack]),
       (.POI, spare, [.routeFrom, .routeAddStop, .bookmark, .routeTo]),
       (.track, spareAppending, [.routeAddDestination, .bookmark, .routeAlongTrack, .track]),
       (.POI, full, [.routeFrom, .bookmark, .routeTo]),
       (.track, full, [.routeFrom, .bookmark, .routeTo, .routeAlongTrack, .track]),
       (.bookmark, appendingWithoutRoute, [.routeAddDestination, .bookmark]),
-      (.relationTrack, appendingWithoutRoute, [.routeAddDestination, .bookmark]),
+      (.relationTrack, appendingWithoutRoute, [.routeAddDestination, .bookmark, .routeAlongTrack]),
       (.trackRecording, spareReplacing, [.deleteTrackRecording, .saveTrackRecording]),
     ]
 
@@ -163,11 +163,11 @@ final class ActionBarViewControllerTests: XCTestCase {
     }
   }
 
-  func testRelationTrackKeepsStandardActionsWithoutNavigateTrack() throws {
+  func testRelationTrackOffersNavigateWithoutDelete() throws {
     let actionBar = makeActionBar(data: PlacePageDataStub(objectType: .relationTrack))
     XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type },
-                   [.routeFrom, .bookmark, .routeTo])
-    try assertColors(actionBar, primary: .routeTo)
+                   [.routeFrom, .bookmark, .routeTo, .routeAlongTrack])
+    try assertColors(actionBar, primary: .routeAlongTrack)
   }
 
   func testNavigateTrackIsAlwaysAvailableForTracks() throws {

@@ -1698,7 +1698,7 @@ UNIT_TEST(RoutingManager_TemporaryTrackReplacementKeepsFrozenPreview)
   fixture.WaitForBuildResult();
 
   // Selecting another OSM relation replaces the temporary track under the same ID.
-  replacement.m_geometry.m_lines[0] = {{MeterPoint(0, 0), 500}, {MeterPoint(2000, 0), 700}};
+  replacement.m_geometry.m_lines[0] = {{MeterPoint(500, 0), 500}, {MeterPoint(2000, 0), 700}};
   TEST_EQUAL(bookmarks.SetTempRelationTrack(std::move(replacement)), id, ());
   TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Bicycle), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
@@ -1709,16 +1709,21 @@ UNIT_TEST(RoutingManager_TemporaryTrackReplacementKeepsFrozenPreview)
   TEST_EQUAL(chart->m_statistics.m_maxElevation, 200, ());
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(1000, 0), ());
 
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, 100.0, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(0, 0), ());
+
   bookmarks.ClearTempRelationTrack();
   TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Pedestrian), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(200.0), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
-  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(1000, 0), ());
-  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
-  fixture.WaitForBuildResult();
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(0, 0), ());
   TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 200.0, 0.01, ());
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(1000, 0), ());
   manager.CloseRouting(true);
 }
 

@@ -255,6 +255,23 @@
   XCTAssertEqual(bookmarks.GetElevationActivePoint(id), finishDistance * 0.8);
 }
 
+- (void)testClearingRelationSelectionKeepsPreviewAfterBookmarkChanges
+{
+  auto & bookmarks = GetFramework().GetBookmarkManager();
+  auto const savedId = [self createPreview];
+  auto const * savedTrack = bookmarks.GetTrack(savedId);
+  auto const id = bookmarks.SetTempRelationTrack(kml::TrackData(savedTrack->GetData()));
+  bookmarks.SetTrackSelectionInfo({id, savedTrack->GetData().m_geometry.m_lines.front().front().GetPoint(), 0.0},
+                                  false);
+  XCTAssertEqual([MWMRouter navigateTrack:id], MWMFollowTrackResultOk);
+
+  bookmarks.ClearTempRelationTrack();
+  [MWMBookmarksManager.sharedManager deleteTrack:savedId];
+  [self drainMainQueue];
+  XCTAssertTrue([MWMRouter hasTrackNavigationSession]);
+  XCTAssertEqual([MWMRouter followedTrackInfo].trackId, id);
+}
+
 - (void)testDeletionCancelsPreviewWhileItsBuildIsPending
 {
   auto const trackId = [self createPreview];
