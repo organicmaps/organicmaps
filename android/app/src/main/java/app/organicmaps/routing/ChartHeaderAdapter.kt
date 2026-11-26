@@ -27,13 +27,8 @@ class ChartHeaderAdapter(private val headerView: View) : RecyclerView.Adapter<Ch
         val largeInset = host.resources.getDimensionPixelSize(R.dimen.margin_half_plus)
         // Split the gap between targets; vertical expansion uses the header's surrounding spacing.
         val touchDelegate = MultiTouchDelegate(host)
-        touchDelegate.addTarget(
-            headerView.findViewById(R.id.reverse_route_btn),
-            smallInset,
-            largeInset,
-            largeInset,
-            smallInset,
-        )
+        // Reverse already has a 48 dp target; keep its bounds while expanding route options.
+        touchDelegate.addTarget(headerView.findViewById(R.id.reverse_route_btn), 0, 0, 0, 0)
         touchDelegate.addTarget(
             headerView.findViewById(R.id.driving_options_btn_img),
             smallInset,
