@@ -84,7 +84,8 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     subroutes.emplace_back(ToPointWA(points[i - 1]), ToPointWA(points[i]), i * 2 - 1, i * 2);
   }
 
-  route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
+  // Two subroutes per checkpoint pair, so the next pair starts at twice the passed checkpoint index.
+  route.SetSubroutes(std::move(subroutes), 2 * checkpoints.GetPassedIdx());
 
   std::vector<m2::PointD> routeGeometry;
   for (auto p : points)
