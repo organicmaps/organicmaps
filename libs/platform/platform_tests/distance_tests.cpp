@@ -8,19 +8,26 @@
 
 namespace platform
 {
-std::string MakeDistanceStr(std::string value, Distance::Units unit)
+// Converts a number written in the US locale, like "12,345" or "6.8", to the current locale.
+// Both separators are replaced in one pass: e.g. in German "," becomes "." and "." becomes ",".
+std::string LocalizeNumber(std::string_view usValue)
 {
   static Locale const loc = GetCurrentLocale();
 
-  constexpr char kHardCodedGroupingSeparator = ',';
-  if (auto found = value.find(kHardCodedGroupingSeparator); found != std::string::npos)
-    value.replace(found, 1, loc.m_groupingSeparator);
+  std::string result;
+  for (char const c : usValue)
+    if (c == ',')
+      result += loc.m_groupingSeparator;
+    else if (c == '.')
+      result += loc.m_decimalSeparator;
+    else
+      result += c;
+  return result;
+}
 
-  constexpr char kHardCodedDecimalSeparator = '.';
-  if (auto found = value.find(kHardCodedDecimalSeparator); found != std::string::npos)
-    value.replace(found, 1, loc.m_decimalSeparator);
-
-  return value.append(kNarrowNonBreakingSpace).append(DebugPrint(unit));
+std::string MakeDistanceStr(std::string_view usValue, Distance::Units unit)
+{
+  return LocalizeNumber(usValue).append(kNarrowNonBreakingSpace).append(DebugPrint(unit));
 }
 
 struct ScopedSettings
@@ -214,7 +221,7 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
 
     TEST_EQUAL(newDistance.GetUnits(), Miles, (d.ToString()));
     TEST_ALMOST_EQUAL_ULPS(newDistance.GetDistance(), 6.8, (d.ToString()));
-    TEST_EQUAL(newDistance.GetDistanceString(), "6.8", (d.ToString()));
+    TEST_EQUAL(newDistance.GetDistanceString(), LocalizeNumber("6.8"), (d.ToString()));
     TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("6.8", Miles), (d.ToString()));
   }
 }
