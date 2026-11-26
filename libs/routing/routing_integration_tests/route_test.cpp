@@ -840,17 +840,22 @@ UNIT_TEST(Russia_CrossMwm_Ferry)
   Route const & route = *routeResult.first;
   TestRouteLength(route, 1453);
   // 2 hours duration (https://www.openstreetmap.org/way/426120647) + 20 minutes ferry landing penalty.
-  /// @todo Not working now, @see SingleVehicleWorldGraph::CalculateETA.
   TEST_GREATER(route.GetTotalTimeSec(), 7200 + 20 * 60, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/6035
 UNIT_TEST(Netherlands_CrossMwm_Ferry)
 {
-  /// @todo Should work after reducing ferry landing penalty, but nope ..
-  /// Can't realize what is going on here, maybe penalty is aggregated 2 times?
-  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(52.3855418, 6.12969591), {0., 0.},
-                                   FromLatLon(52.3924362, 6.12166998), 1322);
+  TRouteResult const routeResult =
+      CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(52.3855418, 6.12969591), {0., 0.},
+                     FromLatLon(52.3924362, 6.12166998));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+  TestRouteLength(route, 1322);
+  // 20 minutes ferry landing penalty.
+  TEST_GREATER(route.GetTotalTimeSec(), 20 * 60, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/6278

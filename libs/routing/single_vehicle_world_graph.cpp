@@ -151,9 +151,16 @@ RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(ms::LatLon const & from, 
 
 double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime)
 {
-  /// @todo Crutch, for example we can loose ferry penalty here (no twin segments), @see Russia_CrossMwm_Ferry.
   if (from.GetMwmId() != to.GetMwmId())
+  {
+    // Price the edge in one mwm, like the search does, to keep the transition penalties, e.g. the ferry landing.
+    if (m_crossMwmGraph)
+    {
+      if (auto const edge = m_crossMwmGraph->GetEdgeInOneMwm(from, to))
+        return CalculateETA(edge->first, edge->second, arrivalTime);
+    }
     return CalculateETAWithoutPenalty(to);
+  }
 
   auto & indexGraph = m_loader->GetIndexGraph(from.GetMwmId());
   return indexGraph
