@@ -372,6 +372,7 @@ public class RoutingController
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
         setStartPoint(locationHelper.getMyPosition());
     }));
+    Framework.nativeSetTrackEntryTapListener(() -> UiThread.run(this::onCoreStartedTrackBuild));
     BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mBookmarksListener);
     mInitialized = true;
   }

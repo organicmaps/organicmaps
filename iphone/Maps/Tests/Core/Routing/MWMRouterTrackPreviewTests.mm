@@ -4,6 +4,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMPlacePageManagerHelper.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MapViewController.h"
@@ -13,7 +14,11 @@
 
 #include <CoreApi/ElevationProfileData.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/IOpeningHoursLocalization.h>
 #include <CoreApi/MWMBookmarksManager.h>
+#include <CoreApi/PlacePageData.h>
+#include <CoreApi/PlacePageTrackData.h>
+#include <CoreApi/RecentlyDeletedCategory.h>
 #include <CoreApi/RouteElevationPreviewData.h>
 
 #include "geometry/mercator.hpp"
@@ -21,6 +26,28 @@
 @interface MWMRouter (TrackPreviewTests)
 + (MWMRouter *)router;
 - (void)onRouteReady:(BOOL)hasWarnings;
+@end
+
+@interface TrackPreviewOpeningHoursLocalization : NSObject <IOpeningHoursLocalization>
+@end
+
+@implementation TrackPreviewOpeningHoursLocalization
+- (NSString *)closedString
+{
+  return @"Closed";
+}
+- (NSString *)allDayString
+{
+  return @"All day";
+}
+- (NSString *)noonString
+{
+  return @"Noon";
+}
+- (NSString *)midnightString
+{
+  return @"Midnight";
+}
 @end
 
 @interface MWMRouterTrackPreviewTests : XCTestCase
@@ -62,7 +89,7 @@
   return [self createPreviewWithFinishAltitude:110];
 }
 
-- (kml::TrackId)createPreviewWithFinishAltitude:(geometry::Altitude)finishAltitude
+- (kml::TrackId)createTrackWithFinishAltitude:(geometry::Altitude)finishAltitude
 {
   auto & bookmarks = GetFramework().GetBookmarkManager();
   auto const start = mercator::FromLatLon(45.0, 19.0);
@@ -73,6 +100,14 @@
   data.m_routerType = "pedestrian";
   auto const id = bookmarks.GetEditSession().CreateTrack(std::move(data))->GetId();
   bookmarks.GetEditSession().AttachTrack(id, m_categoryId);
+  return id;
+}
+
+- (kml::TrackId)createPreviewWithFinishAltitude:(geometry::Altitude)finishAltitude
+{
+  auto const id = [self createTrackWithFinishAltitude:finishAltitude];
+  auto & bookmarks = GetFramework().GetBookmarkManager();
+  auto const start = bookmarks.GetTrack(id)->GetPoint(0);
   bookmarks.SetTrackSelectionInfo({id, start, 0.0}, false);
   bookmarks.MyPositionMark().SetUserPosition(start, true);
   XCTAssertEqual([MWMRouter navigateTrack:id], MWMFollowTrackResultOk);
@@ -262,23 +297,116 @@
   XCTAssertEqual([MWMRouter followedTrackInfo].entryDistanceMeters, distance);
 }
 
-- (void)testDeletionKeepsAnActiveJourneyOnItsFrozenGeometry
+- (kml::TrackId)startTrackGuidance
 {
   auto const id = [self createPreview];
   [self waitForPreview];
-  auto & manager = GetFramework().GetRoutingManager();
-  // The test host omits the renderer; this exercises deletion during an active session, not camera startup.
-  XCTAssertTrue(manager.RoutingSession().EnableFollowMode());
+  // The test host has no renderer.
+  XCTAssertTrue(GetFramework().GetRoutingManager().RoutingSession().EnableFollowMode());
   [MWMRouter showNavigationMapControls];
   XCTAssertTrue([MWMRouter isOnRoute]);
-  auto const * route = manager.RoutingSession().GetRoute();
-  double const length = route->GetTotalDistanceMeters();
-  [MWMBookmarksManager.sharedManager deleteTrack:id];
+  return id;
+}
+
+- (void)assertActiveGuidanceStopsAfterDeletion:(void (^)(kml::TrackId))deleteTrack
+{
+  auto const id = [self startTrackGuidance];
+  deleteTrack(id);
   [self drainMainQueue];
-  XCTAssertTrue([MWMRouter hasTrackNavigationSession]);
+  XCTAssertFalse([MWMBookmarksManager.sharedManager hasTrack:id]);
+  XCTAssertFalse([MWMRouter hasTrackNavigationSession]);
+  XCTAssertFalse([MWMRouter isOnRoute]);
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateClosed);
+}
+
+- (void)testSingleDeletionStopsActiveGuidance
+{
+  [self assertActiveGuidanceStopsAfterDeletion:^(kml::TrackId id) {
+    [MWMBookmarksManager.sharedManager deleteTrack:id];
+  }];
+}
+
+- (void)testPlacePageDeletionStopsActiveGuidance
+{
+  [self assertActiveGuidanceStopsAfterDeletion:^(kml::TrackId id) {
+    auto & framework = GetFramework();
+    framework.ShowTrack(id);
+    SCOPE_GUARD(deselect, [&] { framework.DeactivateMapSelection(); });
+    auto data =
+        [[PlacePageData alloc] initWithLocalizationProvider:[[TrackPreviewOpeningHoursLocalization alloc] init]];
+    XCTAssertEqual(data.trackData.trackId, id);
+    [MWMPlacePageManagerHelper removeTrack:data];
+  }];
+}
+
+- (void)testBatchDeletionStopsActiveGuidance
+{
+  [self assertActiveGuidanceStopsAfterDeletion:^(kml::TrackId id) {
+    [MWMBookmarksManager.sharedManager deleteBookmarks:@[] tracks:@[@(id)]];
+  }];
+}
+
+- (void)testDeletingAnotherTrackKeepsActiveGuidance
+{
+  auto const other = [self createTrackWithFinishAltitude:110];
+  auto const followed = [self startTrackGuidance];
+  [MWMBookmarksManager.sharedManager deleteTrack:other];
+  [self drainMainQueue];
+  XCTAssertFalse([MWMBookmarksManager.sharedManager hasTrack:other]);
   XCTAssertTrue([MWMRouter isOnRoute]);
-  XCTAssertEqual(manager.RoutingSession().GetRoute(), route);
-  XCTAssertEqual(route->GetTotalDistanceMeters(), length);
+  XCTAssertEqual([MWMRouter followedTrackInfo].trackId, followed);
+}
+
+- (void)deleteSavedListUsing:(void (^)(NSString *))deleteList
+{
+  auto & bookmarks = GetFramework().GetBookmarkManager();
+  NSString * const name = NSUUID.UUID.UUIDString;
+  bookmarks.GetEditSession().SetCategoryName(m_categoryId, name.UTF8String);
+  if (!bookmarks.SaveBookmarkCategory(m_categoryId))
+  {
+    XCTFail(@"Could not save the list");
+    return;
+  }
+
+  auto const path = bookmarks.GetCategoryFileName(m_categoryId);
+  deleteList(@(path.c_str()));
+
+  auto manager = MWMBookmarksManager.sharedManager;
+  XCTAssertFalse([manager hasCategory:m_categoryId]);
+  for (RecentlyDeletedCategory * category in [manager getRecentlyDeletedCategories])
+    if ([category.fileURL.lastPathComponent hasPrefix:name])
+      [manager deleteRecentlyDeletedCategoryAtURLs:@[category.fileURL]];
+}
+
+- (void)testLocalListDeletionStopsActiveGuidance
+{
+  [self assertActiveGuidanceStopsAfterDeletion:^(kml::TrackId) {
+    [self deleteSavedListUsing:^(NSString *) { [MWMBookmarksManager.sharedManager deleteCategory:m_categoryId]; }];
+  }];
+}
+
+- (void)testSyncedListDeletionStopsActiveGuidance
+{
+  [self assertActiveGuidanceStopsAfterDeletion:^(kml::TrackId) {
+    auto manager = MWMBookmarksManager.sharedManager;
+    [self deleteSavedListUsing:^(NSString * path) { [manager deleteCategoryAtFilePath:path]; }];
+  }];
+}
+
+- (void)testReloadingListWithoutFollowedTrackStopsActiveGuidance
+{
+  auto & bookmarks = GetFramework().GetBookmarkManager();
+  XCTAssertTrue(bookmarks.SaveBookmarkCategory(m_categoryId));
+  auto const path = bookmarks.GetCategoryFileName(m_categoryId);
+
+  [self assertActiveGuidanceStopsAfterDeletion:^(kml::TrackId trackId) {
+    auto manager = MWMBookmarksManager.sharedManager;
+    [manager reloadCategoryAtFilePath:@(path.c_str())];
+    auto reloaded = [NSPredicate predicateWithBlock:^BOOL(id, NSDictionary *) { return ![manager hasTrack:trackId]; }];
+    auto expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:reloaded object:nil];
+    [self waitForExpectations:@[expectation] timeout:5];
+    XCTAssertTrue([manager hasCategory:m_categoryId]);
+  }];
 }
 
 - (void)testDeferredDeletionDoesNotCancelAReplacementPreview
