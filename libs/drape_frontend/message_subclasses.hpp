@@ -775,24 +775,6 @@ private:
   bool m_needRemoveAll = true;
 };
 
-class SetSubrouteVisibilityMessage : public Message
-{
-public:
-  SetSubrouteVisibilityMessage(dp::DrapeID subrouteId, bool isVisible)
-    : m_subrouteId(subrouteId)
-    , m_isVisible(isVisible)
-  {}
-
-  Type GetType() const override { return Type::SetSubrouteVisibility; }
-
-  dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
-  bool IsVisible() const { return m_isVisible; }
-
-private:
-  dp::DrapeID m_subrouteId;
-  bool m_isVisible;
-};
-
 class UpdateMapStyleMessage : public Message
 {
 public:

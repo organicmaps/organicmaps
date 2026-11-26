@@ -93,8 +93,6 @@ double constexpr kRouteScaleMultiplier = 1.5;
 
 std::string const kRoutePointsFile = "route_points.dat";
 
-uint32_t constexpr kInvalidTransactionId = 0;
-
 void FillTurnsDistancesForRendering(std::vector<RouteSegment> const & segments, double baseDistance,
                                     std::vector<double> & turns)
 {
@@ -1121,7 +1119,6 @@ void RoutingManager::InstallFollowedTrack(FollowSession session, bool keepViewpo
   auto router = std::make_unique<TrackRouter>(vehicleType, session.m_data);
 
   m_followSession.reset();
-  m_routePointsTransactions.clear();
   CloseRouting(true /* removeRoutePoints */);
   DeleteSavedRoutePoints();
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
@@ -1437,14 +1434,6 @@ void RoutingManager::RemovePassedRoutePoints()
   }
 }
 
-void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
-                                    RouteMarkType targetType, size_t targetIntermediateIndex)
-{
-  ASSERT(m_bmManager != nullptr, ());
-  RoutePointsLayout routePoints(*m_bmManager);
-  routePoints.MoveRoutePoint(currentType, currentIntermediateIndex, targetType, targetIntermediateIndex);
-}
-
 void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
@@ -1672,15 +1661,6 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   }
 
   ShowPreviewSegments(routePoints);
-
-  // Route points preview.
-  // Disabled preview zoom to fix https://github.com/organicmaps/organicmaps/issues/5409.
-  // Uncomment next lines to enable back zoom on route point add/remove.
-
-  // m2::RectD rect = ShowPreviewSegments(routePoints);
-  // rect.Scale(kRouteScaleMultiplier);
-  // m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, rect, true /* applyRotation */,
-  //                        -1 /* zoom */, true /* isAnim */, true /* useVisibleViewport */);
 
   m_routingSession.ClearPositionAccumulator();
   m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
@@ -1933,63 +1913,6 @@ void RoutingManager::SetRouter(RouterType type)
   SetRouterImpl(type);
 }
 
-// static
-uint32_t RoutingManager::InvalidRoutePointsTransactionId()
-{
-  return kInvalidTransactionId;
-}
-
-uint32_t RoutingManager::GenerateRoutePointsTransactionId() const
-{
-  static uint32_t id = kInvalidTransactionId + 1;
-  return id++;
-}
-
-uint32_t RoutingManager::OpenRoutePointsTransaction()
-{
-  CHECK(!IsFollowingTrack(), ("Route-point transactions require regular route planning"));
-  auto const id = GenerateRoutePointsTransactionId();
-  m_routePointsTransactions[id].m_routeMarks = GetRoutePoints();
-  return id;
-}
-
-void RoutingManager::ApplyRoutePointsTransaction(uint32_t transactionId)
-{
-  if (m_routePointsTransactions.find(transactionId) == m_routePointsTransactions.end())
-    return;
-
-  // If we apply a transaction we can remove all earlier transactions.
-  // Newer transactions remain available to be applied or cancelled.
-  for (auto it = m_routePointsTransactions.begin(); it != m_routePointsTransactions.end();)
-    if (it->first <= transactionId)
-      it = m_routePointsTransactions.erase(it);
-    else
-      ++it;
-}
-
-void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
-{
-  auto const it = m_routePointsTransactions.find(transactionId);
-  if (it == m_routePointsTransactions.end())
-    return;
-  auto routeMarks = it->second.m_routeMarks;
-
-  // If we cancel a transaction we must remove all later transactions.
-  for (auto it = m_routePointsTransactions.begin(); it != m_routePointsTransactions.end();)
-    if (it->first >= transactionId)
-      it = m_routePointsTransactions.erase(it);
-    else
-      ++it;
-
-  // Revert route points.
-  ASSERT(m_bmManager != nullptr, ());
-  auto editSession = m_bmManager->GetEditSession();
-  editSession.ClearGroup(UserMark::Type::ROUTING);
-  RoutePointsLayout routePoints(*m_bmManager);
-  for (auto & markData : routeMarks)
-    routePoints.AddRoutePoint(std::move(markData));
-}
-
 bool RoutingManager::HasSavedRoutePoints() const
 {
   auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
@@ -2124,33 +2047,14 @@ void RoutingManager::DeleteSavedRoutePoints()
   Platform::RemoveFileIfExists(GetPlatform().SettingsPathForFile(kRoutePointsFile));
 }
 
-void RoutingManager::UpdatePreviewMode()
-{
-  SetSubroutesVisibility(false /* visible */);
-  HidePreviewSegments();
-  ShowPreviewSegments(GetRoutePoints());
-}
-
-void RoutingManager::CancelPreviewMode()
-{
-  SetSubroutesVisibility(true /* visible */);
-  HidePreviewSegments();
-}
-
-m2::RectD RoutingManager::ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints)
+void RoutingManager::ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints)
 {
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (!lock)
-    return mercator::Bounds::FullRect();
+    return;
 
-  m2::RectD rect;
   for (size_t pointIndex = 0; pointIndex + 1 < routePoints.size(); pointIndex++)
-  {
-    rect.Add(routePoints[pointIndex].m_position);
-    rect.Add(routePoints[pointIndex + 1].m_position);
     lock.Get()->AddRoutePreviewSegment(routePoints[pointIndex].m_position, routePoints[pointIndex + 1].m_position);
-  }
-  return rect;
 }
 
 void RoutingManager::HidePreviewSegments()
@@ -2168,17 +2072,6 @@ TransitRouteInfo RoutingManager::GetTransitRouteInfo() const
 {
   std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
   return m_transitRouteInfo;
-}
-
-void RoutingManager::SetSubroutesVisibility(bool visible)
-{
-  df::DrapeEngineLockGuard lock(m_drapeEngine);
-  if (!lock)
-    return;
-
-  std::lock_guard<std::mutex> lockSubroutes(m_drapeSubroutesMutex);
-  for (auto const & subrouteId : m_drapeSubroutes)
-    lock.Get()->SetSubrouteVisibility(subrouteId, visible);
 }
 
 bool RoutingManager::IsSpeedCamLimitExceeded() const

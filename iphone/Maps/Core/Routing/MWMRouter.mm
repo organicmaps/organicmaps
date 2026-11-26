@@ -56,7 +56,6 @@ using namespace routing;
 
 @interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver, MWMBookmarksObserver>
 
-@property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
 
@@ -275,7 +274,6 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   self = [super init];
   if (self)
   {
-    self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
     [MWMBookmarksManager.sharedManager addObserver:self];
@@ -411,6 +409,12 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   routingManager.ReplaceRoutePoint(pt.m_pointType, pt.m_intermediateIndex, std::move(newPt));
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
   [self rebuildWithBestRouter:NO];
+}
+
++ (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex
+{
+  NSAssert(index != newIndex, @"Route point indices must differ.");
+  GetFramework().GetRoutingManager().MoveRoutePoint(index, newIndex);
 }
 
 + (void)reverseRoute

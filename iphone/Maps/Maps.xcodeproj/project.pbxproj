@@ -514,7 +514,6 @@
 		ED82C76D2F90186300FA103D /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6CB2F90186300FA103D /* MetalContextFactory.mm */; };
 		ED82C76E2F90186300FA103D /* MWMRoutePoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6CF2F90186300FA103D /* MWMRoutePoint.mm */; };
 		ED82C76F2F90186300FA103D /* MWMRouter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6D22F90186300FA103D /* MWMRouter.mm */; };
-		ED82C7702F90186300FA103D /* MWMRouter+RouteManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6D32F90186300FA103D /* MWMRouter+RouteManager.mm */; };
 		ED82C7712F90186300FA103D /* MWMRouterTransitStepInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6D62F90186300FA103D /* MWMRouterTransitStepInfo.mm */; };
 		ED82C7722F90186300FA103D /* MWMSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6DB2F90186300FA103D /* MWMSearch.mm */; };
 		ED82C7732F90186300FA103D /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6DD2F90186300FA103D /* MWMSearch+CoreSpotlight.mm */; };
@@ -1533,7 +1532,6 @@
 		ED82C6D02F90186300FA103D /* MWMRoutePoint+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMRoutePoint+CPP.h"; sourceTree = "<group>"; };
 		ED82C6D12F90186300FA103D /* MWMRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouter.h; sourceTree = "<group>"; };
 		ED82C6D22F90186300FA103D /* MWMRouter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouter.mm; sourceTree = "<group>"; };
-		ED82C6D32F90186300FA103D /* MWMRouter+RouteManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMRouter+RouteManager.mm"; sourceTree = "<group>"; };
 		ED82C6D42F90186300FA103D /* MWMRouterRecommendation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterRecommendation.h; sourceTree = "<group>"; };
 		A13810000000000000000001 /* MWMRouterTransitStepInfo+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMRouterTransitStepInfo+Core.h"; sourceTree = "<group>"; };
 		ED82C6D52F90186300FA103D /* MWMRouterTransitStepInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterTransitStepInfo.h; sourceTree = "<group>"; };
@@ -3819,7 +3817,6 @@
 				ED82C6D02F90186300FA103D /* MWMRoutePoint+CPP.h */,
 				ED82C6D12F90186300FA103D /* MWMRouter.h */,
 				ED82C6D22F90186300FA103D /* MWMRouter.mm */,
-				ED82C6D32F90186300FA103D /* MWMRouter+RouteManager.mm */,
 				ED82C6D42F90186300FA103D /* MWMRouterRecommendation.h */,
 				ED82C6D52F90186300FA103D /* MWMRouterTransitStepInfo.h */,
 				A13810000000000000000001 /* MWMRouterTransitStepInfo+Core.h */,
@@ -4825,7 +4822,6 @@
 				ED82C76D2F90186300FA103D /* MetalContextFactory.mm in Sources */,
 				ED82C76E2F90186300FA103D /* MWMRoutePoint.mm in Sources */,
 				ED82C76F2F90186300FA103D /* MWMRouter.mm in Sources */,
-				ED82C7702F90186300FA103D /* MWMRouter+RouteManager.mm in Sources */,
 				ED82C7712F90186300FA103D /* MWMRouterTransitStepInfo.mm in Sources */,
 				ED82C7722F90186300FA103D /* MWMSearch.mm in Sources */,
 				ED82C7732F90186300FA103D /* MWMSearch+CoreSpotlight.mm in Sources */,

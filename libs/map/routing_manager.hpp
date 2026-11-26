@@ -313,8 +313,6 @@ public:
   void RemoveIntermediateRoutePoints();
   void RemovePassedRoutePoints();
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
-  void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
-                      size_t targetIntermediateIndex);
   /// Reverses the complete route, including intermediate points. Returns false without changing points if either
   /// endpoint is missing.
   bool ReverseRoutePoints();
@@ -352,11 +350,6 @@ public:
   // The accepted preview entry identifies its section at a shared boundary distance.
   std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
-  uint32_t OpenRoutePointsTransaction();
-  void ApplyRoutePointsTransaction(uint32_t transactionId);
-  void CancelRoutePointsTransaction(uint32_t transactionId);
-  static uint32_t InvalidRoutePointsTransactionId();
-
   /// \returns true if there are route points saved in file and false otherwise.
   bool HasSavedRoutePoints() const;
   /// Synchronously restores into an empty, inactive itinerary on the GUI thread. Returns whether points were restored.
@@ -366,9 +359,6 @@ public:
   void SaveRoutePoints();
   /// Deletes saved recovery synchronously on the GUI thread.
   void DeleteSavedRoutePoints();
-
-  void UpdatePreviewMode();
-  void CancelPreviewMode();
 
 private:
   struct FollowSession;
@@ -425,7 +415,6 @@ private:
   // Match GPS to the active route, allowing ordinary car routes to fall back to the road graph.
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
-  uint32_t GenerateRoutePointsTransactionId() const;
 
   void SetPointsFollowingMode(bool enabled);
 
@@ -433,10 +422,8 @@ private:
   /// Returns whether any stop index changed.
   bool ReorderIntermediatePoints(RoutePointsLayout & layout, RouteMarkPoint const * added);
 
-  m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
+  void ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
-
-  void SetSubroutesVisibility(bool visible);
 
   void CancelRecommendation(Recommendation recommendation);
 
@@ -481,11 +468,6 @@ private:
 
   TransitRouteInfo m_transitRouteInfo;
 
-  struct RoutePointsTransaction
-  {
-    std::vector<RouteMarkData> m_routeMarks;
-  };
-  std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
   std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;
   std::map<std::string, m2::PointF> m_transitSymbolSizes;
 

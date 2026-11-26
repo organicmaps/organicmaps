@@ -1496,6 +1496,11 @@ UNIT_TEST(RoutingManager_SetRouterReplacesTrackRouter)
     TEST_EQUAL(manager.IsStartingFollowedTrack(), pendingStart, ());
     TEST_EQUAL(manager.IsRoutingFollowing(), !pendingStart, ());
 
+    TestAssertion([&] { manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.001), false); });
+    TestAssertion([&]
+    { manager.ReplaceRoutePoint(RouteMarkType::Finish, 0, MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.001)); });
+    TEST_EQUAL(manager.GetRoutePointsCount(), 0,
+               ("Rejected road-point edits must leave the followed track without route marks"));
     TestAssertion([&] { manager.BuildRoute(); });
     TEST_EQUAL(manager.GetFollowedTrackInfo()->m_id, id, ());
     TEST_EQUAL(manager.IsStartingFollowedTrack(), pendingStart, ());
@@ -1734,38 +1739,6 @@ UNIT_TEST(RoutingManager_TrackPreviewEditsReplacePendingBuild)
   TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), bookmarks.GetTrack(id)->GetLengthMeters() - 600.0, 0.01,
                         ());
   TEST(!manager.IsRoutingFollowing() && !manager.IsStartingFollowedTrack(), ());
-}
-
-UNIT_TEST(RoutingManager_FollowingRetiresRoadPointTransactions)
-{
-  AsyncBuildFixture fixture;
-  auto & manager = fixture.m_framework.GetRoutingManager();
-  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.001), false);
-  auto const oldTransaction = manager.OpenRoutePointsTransaction();
-  auto const id = CreateTestTrack(bookmarks, "pedestrian");
-  bookmarks.SetTrackSelectionInfo({id, bookmarks.GetTrack(id)->GetPoint(0.0), 0.0}, false);
-  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
-  fixture.WaitForBuildResult();
-  manager.CancelRoutePointsTransaction(oldTransaction);
-  TEST_EQUAL(manager.GetRoutePointsCount(), 0, ("Old planning callbacks cannot restore marks into a followed track"));
-  TestAssertion([&] { manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.001), false); });
-  TestAssertion([&]
-  { manager.ReplaceRoutePoint(RouteMarkType::Finish, 0, MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.001)); });
-  TestAssertion([&] { manager.OpenRoutePointsTransaction(); });
-  TEST_EQUAL(manager.GetRoutePointsCount(), 0, ());
-  manager.CloseRouting(true);
-
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.001), false);
-  auto const newTransaction = manager.OpenRoutePointsTransaction();
-  TEST_NOT_EQUAL(newTransaction, oldTransaction, ());
-  manager.ReplaceRoutePoint(RouteMarkType::Finish, 0, MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.002));
-  manager.CancelRoutePointsTransaction(oldTransaction);
-  TEST_EQUAL(manager.GetRoutePoints().back().m_position, m2::PointD(0.002, 0.0), ());
-  manager.CancelRoutePointsTransaction(newTransaction);
-  TEST_EQUAL(manager.GetRoutePoints().back().m_position, m2::PointD(0.001, 0.0), ());
 }
 
 UNIT_TEST(RoutingManager_TrackStartRefreshesGpsWithoutChangingEntry)

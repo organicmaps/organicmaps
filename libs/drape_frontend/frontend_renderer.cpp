@@ -657,13 +657,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
-  case Message::Type::SetSubrouteVisibility:
-  {
-    ref_ptr<SetSubrouteVisibilityMessage> const msg = message;
-    m_routeRenderer->SetSubrouteVisibility(msg->GetSubrouteId(), msg->IsVisible());
-    break;
-  }
-
   case Message::Type::PrepareSubrouteArrows:
   {
     ref_ptr<PrepareSubrouteArrowsMessage> msg = message;

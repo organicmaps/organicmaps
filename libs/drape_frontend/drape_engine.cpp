@@ -633,13 +633,6 @@ void DrapeEngine::DeactivateRouteFollowing()
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetSubrouteVisibility(dp::DrapeID subrouteId, bool isVisible)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SetSubrouteVisibilityMessage>(subrouteId, isVisible),
-                                  MessagePriority::Normal);
-}
-
 dp::DrapeID DrapeEngine::AddRoutePreviewSegment(m2::PointD const & startPt, m2::PointD const & finishPt)
 {
   dp::DrapeID const id = GenerateDrapeID();
