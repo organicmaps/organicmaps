@@ -51,6 +51,7 @@ double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
 std::string_view const kKMZMimeType = "application/vnd.google-earth.kmz";
+std::string_view const kKMLMimeType = "application/vnd.google-earth.kml+xml";
 std::string_view const kGPXMimeType = "application/gpx+xml";
 std::string_view const kGeoJsonMimeType = "application/geo+json";
 
@@ -101,6 +102,17 @@ std::string CategoryFileName(BookmarkCategory const & category)
 }
 
 BookmarkManager::SharingResult ExportSingleFileKml(
+    BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
+{
+  std::string const fileName = GetFileNameForExport(kmlToShare);
+  auto filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
+  auto const categoryId = kmlToShare.second->m_categoryData.m_id;
+  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, FileType::Kml))
+    return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
+  return {{categoryId}, std::move(filePath), kKMLMimeType};
+}
+
+BookmarkManager::SharingResult ExportSingleFileKmz(
     BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
   std::string const fileName = GetFileNameForExport(kmlToShare);
@@ -221,6 +233,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   switch (fileType)
   {
   case FileType::Kml: return ExportSingleFileKml(collection->front());
+  case FileType::Kmz: return ExportSingleFileKmz(collection->front());
   case FileType::Gpx: return ExportSingleFileGpx(collection->front());
   case FileType::GeoJson: return ExportSingleFileGeoJson(collection->front());
   default:
@@ -3045,7 +3058,7 @@ void BookmarkManager::PrepareAllFilesForSharing(SharingHandler && handler)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
   PrepareFileForSharing(decltype(m_unsortedBmGroupsIdList){m_unsortedBmGroupsIdList}, std::move(handler),
-                        FileType::Kml);
+                        FileType::Kmz);
 }
 
 bool BookmarkManager::AreAllCategoriesEmpty() const

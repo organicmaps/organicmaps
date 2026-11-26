@@ -8,7 +8,8 @@ import java.util.function.Consumer
 
 @JvmOverloads
 fun create(hasAreas: Boolean = false, onSelected: Consumer<FileType>): ArrayList<MenuBottomSheetItem> = arrayListOf(
-    MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz) { onSelected.accept(FileType.Kml) },
+    MenuBottomSheetItem(R.string.export_file_kml, R.drawable.ic_file_kml) { onSelected.accept(FileType.Kml) },
+    MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz) { onSelected.accept(FileType.Kmz) },
 ).apply {
     if (!hasAreas) {
         add(MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx) { onSelected.accept(FileType.Gpx) })
