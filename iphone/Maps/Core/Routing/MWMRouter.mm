@@ -303,6 +303,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 {
   if (![MWMRouter hasTrackNavigationSession])
     return;
+  // Active guidance uses captured geometry and survives local and synced bookmark edits.
   // Core is still publishing bookmark edits. Recheck the current session after that edit finishes.
   dispatch_async(dispatch_get_main_queue(), ^{
     auto const info = [MWMRouter followedTrackInfo];

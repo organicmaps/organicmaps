@@ -4,6 +4,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMPlacePageManagerHelper.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MapViewController.h"
@@ -13,7 +14,10 @@
 
 #include <CoreApi/ElevationProfileData.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/IOpeningHoursLocalization.h>
 #include <CoreApi/MWMBookmarksManager.h>
+#include <CoreApi/PlacePageData.h>
+#include <CoreApi/RecentlyDeletedCategory.h>
 #include <CoreApi/RouteElevationPreviewData.h>
 
 #include "geometry/mercator.hpp"
@@ -21,6 +25,28 @@
 @interface MWMRouter (TrackPreviewTests)
 + (MWMRouter *)router;
 - (void)onRouteReady:(BOOL)hasWarnings;
+@end
+
+@interface TrackPreviewOpeningHoursLocalization : NSObject <IOpeningHoursLocalization>
+@end
+
+@implementation TrackPreviewOpeningHoursLocalization
+- (NSString *)closedString
+{
+  return @"Closed";
+}
+- (NSString *)allDayString
+{
+  return @"All day";
+}
+- (NSString *)noonString
+{
+  return @"Noon";
+}
+- (NSString *)midnightString
+{
+  return @"Midnight";
+}
 @end
 
 @interface MWMRouterTrackPreviewTests : XCTestCase
@@ -245,7 +271,7 @@
   XCTAssertEqual([MWMRouter followedTrackInfo].entryDistanceMeters, distance);
 }
 
-- (void)testDeletionKeepsAnActiveJourneyOnItsFrozenGeometry
+- (void)assertActiveGuidanceSurvivesDeletion:(void (^)(kml::TrackId))deleteTrack
 {
   auto const id = [self createPreview];
   [self waitForPreview];
@@ -255,13 +281,70 @@
   [MWMRouter showNavigationMapControls];
   XCTAssertTrue([MWMRouter isOnRoute]);
   auto const * route = manager.RoutingSession().GetRoute();
-  double const length = route->GetTotalDistanceMeters();
-  [MWMBookmarksManager.sharedManager deleteTrack:id];
+  if (!route)
+  {
+    XCTFail(@"Expected a built route before deleting its track");
+    return;
+  }
+  double const distance = route->GetTotalDistanceMeters();
+  deleteTrack(id);
   [self drainMainQueue];
+  XCTAssertFalse([MWMBookmarksManager.sharedManager hasTrack:id]);
   XCTAssertTrue([MWMRouter hasTrackNavigationSession]);
   XCTAssertTrue([MWMRouter isOnRoute]);
-  XCTAssertEqual(manager.RoutingSession().GetRoute(), route);
-  XCTAssertEqual(route->GetTotalDistanceMeters(), length);
+  auto const * activeRoute = manager.RoutingSession().GetRoute();
+  XCTAssertEqual(activeRoute, route);
+  if (activeRoute)
+    XCTAssertEqual(activeRoute->GetTotalDistanceMeters(), distance);
+}
+
+- (void)testSingleDeletionKeepsActiveGuidance
+{
+  [self
+      assertActiveGuidanceSurvivesDeletion:^(kml::TrackId id) { [MWMBookmarksManager.sharedManager deleteTrack:id]; }];
+}
+
+- (void)testPlacePageDeletionKeepsActiveGuidance
+{
+  [self assertActiveGuidanceSurvivesDeletion:^(kml::TrackId id) {
+    auto & framework = GetFramework();
+    framework.ShowTrack(id);
+    SCOPE_GUARD(deselect, [&] { framework.DeactivateMapSelection(); });
+    auto data =
+        [[PlacePageData alloc] initWithLocalizationProvider:[[TrackPreviewOpeningHoursLocalization alloc] init]];
+    XCTAssertEqual(data.trackData.trackId, id);
+    [MWMPlacePageManagerHelper removeTrack:data];
+  }];
+}
+
+- (void)testBatchDeletionKeepsActiveGuidance
+{
+  [self assertActiveGuidanceSurvivesDeletion:^(kml::TrackId id) {
+    [MWMBookmarksManager.sharedManager deleteBookmarks:@[] tracks:@[@(id)]];
+  }];
+}
+
+- (void)testSyncedListDeletionKeepsActiveGuidance
+{
+  auto const categoryId = m_categoryId;
+  [self assertActiveGuidanceSurvivesDeletion:^(kml::TrackId) {
+    auto & bookmarks = GetFramework().GetBookmarkManager();
+    NSString * const name = NSUUID.UUID.UUIDString;
+    bookmarks.GetEditSession().SetCategoryName(categoryId, name.UTF8String);
+    if (!bookmarks.SaveBookmarkCategory(categoryId))
+    {
+      XCTFail(@"Could not save the list");
+      return;
+    }
+
+    auto manager = MWMBookmarksManager.sharedManager;
+    auto const path = bookmarks.GetCategoryFileName(categoryId);
+    [manager deleteCategoryAtFilePath:@(path.c_str())];
+    XCTAssertFalse([manager hasCategory:categoryId]);
+    for (RecentlyDeletedCategory * category in [manager getRecentlyDeletedCategories])
+      if ([category.fileURL.lastPathComponent hasPrefix:name])
+        [manager deleteRecentlyDeletedCategoryAtURLs:@[category.fileURL]];
+  }];
 }
 
 - (void)testDeferredDeletionDoesNotCancelAReplacementPreview
