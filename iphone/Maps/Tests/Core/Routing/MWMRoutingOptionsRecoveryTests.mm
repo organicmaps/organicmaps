@@ -1,8 +1,10 @@
 #import <XCTest/XCTest.h>
 
 #import "MWMAlertViewController.h"
+#import "MWMDefaultAlert.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "MWMMacros.h"
 #import "MWMRouter.h"
 #import "MWMRoutingManager.h"
 #import "MWMRoutingOptions.h"
@@ -77,6 +79,14 @@ private:
 };
 }  // namespace
 
+@interface MWMRouter (RoutingOptionsRecoveryTests)
++ (id<MWMFrameworkRouteBuilderObserver>)router;
+@end
+
+@interface MWMDefaultAlert (RoutingOptionsRecoveryTests)
+@property(nonatomic, readonly) UIButton * rightButton;
+@end
+
 @interface MWMRoutingOptionsRecoveryTests : XCTestCase <MWMFrameworkRouteBuilderObserver>
 {
   MWMRouterType m_previousRouter;
@@ -137,6 +147,11 @@ private:
   [self waitForExpectations:@[self.completed] timeout:5];
   self.completed = nil;
   XCTAssertTrue(m_result == code, @"%s", routing::ToString(m_result).c_str());
+  [self closeRouteAlert];
+}
+
+- (void)closeRouteAlert
+{
   MWMAlertViewController * alerts = MWMAlertViewController.activeAlertController;
   if (alerts.isAlertDisplayed)
   {
@@ -165,6 +180,27 @@ private:
   finish.m_position = {2, 2};
   manager.AddRoutePoint(std::move(finish), false);
   [self expectResult:routing::RouterResultCode::NoError action:^{ [MWMRouter rebuildWithBestRouter:NO]; }];
+}
+
+- (void)testEndpointAlertsOfferSettingsWithActiveAvoidance
+{
+  using routing::RouterResultCode;
+  using routing::RoutingOptions;
+  storage::CountriesSet const absentCountries;
+  [MWMRouter setType:MWMRouterTypePedestrian];
+  for (bool const avoidSteps : {false, true})
+  {
+    RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian,
+                                   RoutingOptions(avoidSteps ? RoutingOptions::Steps : 0));
+    for (auto const failure : {RouterResultCode::StartPointNotFound, RouterResultCode::EndPointNotFound,
+                               RouterResultCode::IntermediatePointNotFound})
+    {
+      [MWMRouter.router processRouteBuilderEvent:failure countries:absentCountries];
+      auto * alert = (MWMDefaultAlert *)MWMAlertViewController.activeAlertController.view.subviews.lastObject;
+      XCTAssertEqualObjects(alert.rightButton.currentTitle, avoidSteps ? L(@"settings") : L(@"ok"));
+      [self closeRouteAlert];
+    }
+  }
 }
 
 - (void)testChangedAvoidanceRetriesFailedRoutes

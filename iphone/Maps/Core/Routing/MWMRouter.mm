@@ -696,7 +696,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;
   case routing::RouterResultCode::HasWarnings: [self onRouteReady:YES]; break;
   case routing::RouterResultCode::NeedMoreMaps:
-    [self presentDownloaderAlert:code countries:absentCountries];
+    [self presentRouteBuilderAlert:code countries:absentCountries];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
     // the user may decline extra maps and still navigate along the current route.
     if (![MWMRouter isRouteValid])
@@ -704,16 +704,16 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
     break;
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
-    [self presentDownloaderAlert:code countries:absentCountries];
+  case routing::RouterResultCode::StartPointNotFound:
+  case routing::RouterResultCode::EndPointNotFound:
+  case routing::RouterResultCode::IntermediatePointNotFound:
+    [self presentRouteBuilderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
   case routing::RouterResultCode::Cancelled: [mapViewControlsManager onRoutePrepare]; break;
-  case routing::RouterResultCode::StartPointNotFound:
-  case routing::RouterResultCode::EndPointNotFound:
   case routing::RouterResultCode::NoCurrentPosition:
   case routing::RouterResultCode::PointsInDifferentMWM:
   case routing::RouterResultCode::InternalError:
-  case routing::RouterResultCode::IntermediatePointNotFound:
   case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
   case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
   case routing::RouterResultCode::RouteNotFoundRedressRouteError:
@@ -741,7 +741,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 
 #pragma mark - Alerts
 
-- (void)presentDownloaderAlert:(routing::RouterResultCode)code countries:(storage::CountriesSet const &)countries
+- (void)presentRouteBuilderAlert:(routing::RouterResultCode)code countries:(storage::CountriesSet const &)countries
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
   if (!countries.empty())
