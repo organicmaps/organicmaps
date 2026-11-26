@@ -210,8 +210,6 @@ public class StoragePathManager
       return;
     }
 
-    // For writability check use a test dir creation instead of canWrite() to get more information
-    // and avoid possible false negatives.
     if (!StorageUtils.isDirWritable(dir))
     {
       if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
