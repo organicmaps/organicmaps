@@ -57,6 +57,8 @@
     <!-- SECTION: Search categories -->
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
     <string name="category_transport">Tresporte</string>
+    <!-- Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging! -->
+    <string name="category_car_charging">Cargadores de coches</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">Aparcaderu</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->

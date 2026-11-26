@@ -258,6 +258,55 @@ zh-Hans:加油站
 zh-Hant:加油站
 
 
+# First keyword should match [category_car_charging] definition in strings.txt!
+@category_car_charging
+en:Car chargers
+ar:شواحن السيارات
+be:Аўтазарадкі
+bg:Зарядни станции
+ca:Carregadors de cotxes
+cs:Nabíječky aut
+cy:Gwefryddion ceir
+da:Billadestandere
+de:E-Ladestationen
+el:Φορτιστές αυτοκινήτων
+es:Cargadores de coches
+es-MX:Cargadores de autos
+et:Autode laadimisjaamad
+eu:Autoentzako kargagailuak
+fa:شارژ خودرو
+fi:Autojen latauspisteet
+fr:Bornes de recharge
+he:עמדות טעינה לרכב
+hi:कार चार्जिंग स्टेशन
+hu:Autótöltők
+id:Pengisian mobil listrik
+it:Ricarica auto
+ja:EV充電スタンド
+ko:전기차 충전소
+lt:Elektromobilių įkrovikliai
+lv:Auto uzlādes punkti
+mr:कार चार्जिंग केंद्रे
+nb:Elbilladere
+nl:Laadpalen
+pl:Ładowarki do aut
+pt:Carregadores de carros
+pt-BR:Eletropostos
+ro:Încărcare auto
+ru:Автозарядки
+sk:Nabíjačky áut
+sl:Polnilnice za avtomobile
+sr:Пуњачи за аутомобиле
+sv:Billaddare
+sw:Vituo vya kuchaji magari
+th:จุดชาร์จรถยนต์
+tr:Araç şarj istasyonları
+uk:Зарядки для авто
+vi:Trạm sạc ô tô
+zh-Hans:汽车充电桩
+zh-Hant:汽車充電站
+
+
 # First keyword should match [category_parking] definition in strings.txt!
 @category_parking
 en:4Parking
@@ -3267,7 +3316,7 @@ vi:Đường tàu hỏa
 zh-Hans:1火车站|铁路|站|运输|交通|小站|车站大楼
 zh-Hant:1鐵道|鐵路|火車|火車站|高鐵站|運輸|小站|車站大樓
 
-railway-station-funicular
+railway-station-funicular|@category_transport
 en:Funicular
 ar:حبلي
 be:Фунікулёр
@@ -15232,7 +15281,7 @@ vi:Trạm sạc|điểm sạc
 zh-Hans:充电站|充电桩|充电
 zh-Hant:充電站|充電樁|充電
 
-amenity-charging_station|@charging_station
+amenity-charging_station|@charging_station|@category_car_charging
 ja:充電ステーション
 ko:충전소|충전 역
 sl:Polnilna postaja
@@ -15282,7 +15331,7 @@ vi:Sạc xe đạp
 zh-Hans:自行车充电|自行车充电站
 zh-Hant:自行車充電|自行車充電站
 
-amenity-charging_station-motorcar|@charging_station
+amenity-charging_station-motorcar|@charging_station|@category_car_charging
 en:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint
 en-GB:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint|Pod Point
 ar:3شاحن سيارة|شحن سيارة كهربائية
