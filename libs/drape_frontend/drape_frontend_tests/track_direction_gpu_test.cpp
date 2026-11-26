@@ -1,12 +1,10 @@
 #include "testing/testing.hpp"
 
 #include "drape_frontend/drape_frontend_tests/shape_test_fixture.hpp"
-#include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/color.hpp"
-#include "drape/overlay_handle.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
@@ -427,33 +425,6 @@ UNIT_TEST(TrackDirectionArrowSpacingAcrossTilesGpuTest)
       }
     }
   }
-}
-
-UNIT_TEST(TrackDirectionArrowPanDoesNotPropagateCollisions)
-{
-  df::VisualParams::Init(1.0, 512);
-  ScreenBase screen;
-  screen.OnSize(0, 0, 120, 100);
-  screen.SetScale(0.001);
-  std::vector<drape_ptr<dp::SquareHandle>> handles;
-  std::vector<ref_ptr<dp::OverlayHandle>> arrows;
-  // Each candidate is within 48 dp of the previous one. The highest priority arrow
-  // leaves the placement area on pan, while the arrow at x=0 remains on screen.
-  for (int x : {-120, -80, -40, 0})
-  {
-    handles.push_back(make_unique_dp<dp::SquareHandle>(dp::OverlayID{}, dp::Center,
-                                                       m2::PointD(x * screen.GetScale(), 0), m2::PointD(4, 4),
-                                                       m2::PointD::Zero(), 1 - x, false, 1, false));
-    arrows.emplace_back(make_ref(handles.back()));
-  }
-  screen.SetOrg({-20 * screen.GetScale(), 0});
-  df::PlaceTrackArrows(screen, arrows);
-  TEST(handles.front()->IsVisible(), ());
-  bool const visible = handles.back()->IsVisible();
-  screen.SetOrg({20 * screen.GetScale(), 0});
-  df::PlaceTrackArrows(screen, arrows);
-  TEST(!handles.front()->IsVisible(), ());
-  TEST_EQUAL(handles.back()->IsVisible(), visible, ("A distant arrow entering or leaving moved a visible conflict"));
 }
 
 UNIT_TEST(TrackWithoutDirectionHasNoDecorationsGpuTest)

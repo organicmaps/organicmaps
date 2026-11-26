@@ -8,10 +8,13 @@
 
 #include "geometry/spline.hpp"
 
+#include <cstdint>
 #include <optional>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+
+class ScreenBase;
 
 namespace df
 {
@@ -192,6 +195,23 @@ drape_ptr<dp::OverlayHandle> CreateUserMarkOverlayHandle(UserMarkRenderParams co
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     MarksSource const & source, UserMarksRenderCollection const & renderParams, dp::Batcher & batcher);
+
+// Collect handles from all track tiles. Place releases them and keeps the buffer for the next frame.
+class TrackArrowPlacement
+{
+public:
+  void Add(ref_ptr<dp::OverlayHandle> handle) { m_candidates.push_back({handle, {}, 0}); }
+  void Place(ScreenBase const & screen);
+
+private:
+  struct Candidate
+  {
+    ref_ptr<dp::OverlayHandle> m_handle;
+    m2::PointD m_pixelPosition;
+    uint64_t m_priority;
+  };
+  std::vector<Candidate> m_candidates;
+};
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);

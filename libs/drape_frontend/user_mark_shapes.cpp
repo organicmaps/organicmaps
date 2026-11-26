@@ -16,6 +16,7 @@
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/font_constants.hpp"
+#include "drape/overlay_handle.hpp"
 #include "drape/utils/projection.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
@@ -27,6 +28,8 @@
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/robust_orientation.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/spatial_hash_grid.hpp"
 
 #include "base/logging.hpp"
 
@@ -37,9 +40,11 @@
 #include <array>
 #include <cmath>
 #include <memory>
+#include <tuple>
 #include <utility>
 #include <vector>
 
+#include <boost/container_hash/hash.hpp>
 #include <boost/geometry/algorithms/correct.hpp>
 #include <boost/geometry/algorithms/is_valid.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
@@ -83,7 +88,8 @@ std::array<double, 20> constexpr kLineWidthZoomFactor = {
 int constexpr kTrackDirectionMinZoom = 11;
 int constexpr kTrackEndpointMinZoom = 8;
 float constexpr kTrackArrowOffset = 48.0f;
-float constexpr kTrackArrowStep = 96.0f;
+float constexpr kTrackArrowStep = 96.0f;  // Nominal spacing along the spline at the tile zoom.
+float constexpr kTrackArrowMinScreenSpacing = kTrackArrowStep / 2;
 // Chevron size in dp, as in track-direction-arrow-*.svg; atlas regions add 2 px of padding per side.
 float constexpr kTrackArrowLength = 4.0f;
 float constexpr kTrackArrowHeight = 4.0f;
@@ -139,6 +145,25 @@ float GetNextArrowOffset(double sourceOffset, double pixelToGlobalScale, float f
   double const phase = std::fmod(sourceOffsetInPixels - firstOffset, step);
   double constexpr kEps = 1e-6;
   return phase < kEps || step - phase < kEps ? 0.0f : static_cast<float>(step - phase);
+}
+
+drape_ptr<dp::OverlayHandle> MakeTrackArrowHandle(TileKey const & tile, PathSymbolViewParams const & params,
+                                                  m2::PointD const & position, m2::PointD const & direction,
+                                                  m2::PointF const & halfSize)
+{
+  // Selection wins every conflict. Within a layer, distribute arrows among nearby tracks
+  // using their map geometry, so their priority is independent of camera motion and tile arrival order.
+  uint64_t constexpr kSelectedBit = uint64_t{1} << 63;
+  auto const hash = boost::hash_value(
+      std::tie(position.x, position.y, direction.x, direction.y, params.m_symbolName, params.m_symbolScale));
+  uint64_t const priority =
+      (hash & ~kSelectedBit) | (params.m_depthLayer == DepthLayer::SelectedUserLineLayer ? kSelectedBit : 0);
+  dp::OverlayID id;
+  // Tile coordinates tell SquareHandle to project this already-wrapped pivot directly.
+  id.m_tileCoords = tile.GetTileCoords();
+  auto const world = position + m2::PointD(tile.GetTileXOffset(), 0);
+  return make_unique_dp<dp::SquareHandle>(id, dp::Center, world, m2::PointD(halfSize) * 2.0, m2::PointD::Zero(),
+                                          priority, false /* isBound */, 1, false /* isBillboard */);
 }
 
 void DrawTrackEndpoint(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
@@ -791,6 +816,49 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   });
 }
 
+void TrackArrowPlacement::Place(ScreenBase const & screen)
+{
+  if (m_candidates.empty())
+    return;
+
+  double const spacing = kTrackArrowMinScreenSpacing * VisualParams::Instance().GetVisualScale();
+  auto bounds = screen.PixelRectIn3d();
+  bounds.Inflate(spacing, spacing);
+
+  // Project once and compact in place. Only arrows within one spacing of the screen can affect it.
+  size_t count = 0;
+  for (auto const & candidate : m_candidates)
+  {
+    auto const & arrow = candidate.m_handle;
+    arrow->SetIsVisible(false);
+    auto const pivot = arrow->GetPivot(screen, false);
+    if (screen.IsReverseProjection3d(pivot))
+      continue;
+    auto const p = screen.PtoP3d(pivot);
+    if (bounds.IsPointInside(p))
+      m_candidates[count++] = {arrow, p, arrow->GetPriority()};
+  }
+  m_candidates.resize(count);
+  std::ranges::sort(m_candidates, std::greater{}, &Candidate::m_priority);
+
+  m2::SpatialHashGrid const grid(spacing);
+  m2::SpatialHashGrid::Map<std::vector<m2::PointD>> higherPriority;
+  for (auto const & candidate : m_candidates)
+  {
+    auto const & p = candidate.m_pixelPosition;
+    bool const crowded = std::ranges::any_of(grid.GetNearbyCells(p), [&](auto const & cell)
+    {
+      auto const it = higherPriority.find(cell);
+      return it != higherPriority.end() && std::ranges::any_of(it->second, [&](auto const & other)
+      { return p.SquaredLength(other) < spacing * spacing; });
+    });
+    candidate.m_handle->SetIsVisible(!crowded);
+    // Only a local priority maximum is visible. Hidden neighbors still participate.
+    higherPriority[grid.ToCell(p)].push_back(p);
+  }
+  m_candidates.clear();
+}
+
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher)
 {
@@ -944,7 +1012,10 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
           params.m_searchRadius = kTrackArrowSearchRadius * static_cast<float>(vs);
           params.m_exclusionRects = endpointRects;
           params.m_baseGtoPScale = 1.0 / pixelToGlobalScale;
-          PathSymbolShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures, &tileKey);
+          PathSymbolShape shape(clippedSpline, params,
+                                [&](auto const & position, auto const & direction, auto const & halfSize)
+          { return MakeTrackArrowHandle(tileKey, params, position, direction, halfSize); });
+          shape.Draw(context, make_ref(&batcher), textures);
         }
       }
     }
