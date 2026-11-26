@@ -9,6 +9,7 @@ class ChartLineView: UIView {
   private var maxY: CGFloat = 0
 
   private var highlightedStroke: CAShapeLayer?
+  private var directionArrow: CAShapeLayer?
 
   var chartLine: ChartPresentationLine! {
     didSet {
@@ -16,6 +17,8 @@ class ChartLineView: UIView {
       let lineWidth: CGFloat = 3
       highlightedStroke?.removeFromSuperlayer()
       highlightedStroke = nil
+      directionArrow?.removeFromSuperlayer()
+      directionArrow = nil
       if chartLine.highlighted != nil, chartLine.type == .line {
         let stroke = CAShapeLayer()
         stroke.actions = ["path": NSNull(), "bounds": NSNull(), "position": NSNull()]
@@ -25,6 +28,10 @@ class ChartLineView: UIView {
         stroke.lineCap = .round
         shapeLayer.addSublayer(stroke)
         highlightedStroke = stroke
+        let arrow = CAShapeLayer()
+        arrow.actions = stroke.actions
+        shapeLayer.addSublayer(arrow)
+        directionArrow = arrow
       }
       shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
       updateLineColors()
@@ -62,6 +69,7 @@ class ChartLineView: UIView {
     case .line:
       shapeLayer.strokeColor = highlightedStroke == nil ? resolvedColor : UIColor.secondaryLabel.resolvedColor(with: traitCollection).cgColor
       highlightedStroke?.strokeColor = resolvedColor
+      directionArrow?.fillColor = resolvedColor
       shapeLayer.fillColor = UIColor.clear.cgColor
       shapeLayer.lineJoin = .round
     case .lineArea:
@@ -70,7 +78,7 @@ class ChartLineView: UIView {
     }
   }
 
-  private func updateGraph(animationStyle: ChartAnimation = .none) {
+  func updateGraph(animationStyle: ChartAnimation = .none) {
     // Layout can run before the chart supplies its viewport.
     guard let chartLine, maxX > minX, maxY > minY else { return }
 
@@ -85,7 +93,7 @@ class ChartLineView: UIView {
     let section = chartLine.highlighted
     realPath.addPath(chartLine.path, transform: transform)
 
-    if let section, let highlightedStroke {
+    if let section, let highlightedStroke, let directionArrow {
       let stroke = CGMutablePath()
       stroke.addPath(section.path, transform: transform)
       let entryX = section.entry.x * xScale + xTranslate
@@ -95,13 +103,23 @@ class ChartLineView: UIView {
       let tipX = entryX + sign * length
       let head = min(4, length / 2)
       let y = bounds.height - 8
-      stroke.move(to: CGPoint(x: entryX, y: y))
-      stroke.addLine(to: CGPoint(x: tipX, y: y))
-      stroke.move(to: CGPoint(x: tipX - sign * head, y: y - head))
-      stroke.addLine(to: CGPoint(x: tipX, y: y))
-      stroke.addLine(to: CGPoint(x: tipX - sign * head, y: y + head))
       highlightedStroke.frame = bounds
       highlightedStroke.path = stroke
+
+      let width = highlightedStroke.lineWidth
+      let arrow = CGMutablePath()
+      // The shaft meets the selector with a flat edge; the head keeps rounded ends.
+      let shaft = CGMutablePath()
+      shaft.move(to: CGPoint(x: entryX, y: y))
+      shaft.addLine(to: CGPoint(x: tipX, y: y))
+      arrow.addPath(shaft.copy(strokingWithWidth: width, lineCap: .butt, lineJoin: .round, miterLimit: 10))
+      let arrowhead = CGMutablePath()
+      arrowhead.move(to: CGPoint(x: tipX - sign * head, y: y - head))
+      arrowhead.addLine(to: CGPoint(x: tipX, y: y))
+      arrowhead.addLine(to: CGPoint(x: tipX - sign * head, y: y + head))
+      arrow.addPath(arrowhead.copy(strokingWithWidth: width, lineCap: .round, lineJoin: .round, miterLimit: 10))
+      directionArrow.frame = bounds
+      directionArrow.path = arrow
     }
 
     if chartLine.type == .lineArea, !realPath.isEmpty {

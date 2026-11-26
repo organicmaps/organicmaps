@@ -207,6 +207,13 @@ extension NavigationDashboard {
 // MARK: - ElevationProfileViewControllerDelegate
 
 extension NavigationDashboard.Interactor: ElevationProfileViewControllerDelegate {
+  func routeElevationSection(atDistance distance: Double) -> (entry: Double, finish: Int)? {
+    guard isValid else { return nil }
+    let section = router.routeElevationSection(atDistance: distance)
+    guard section.finishPointIndex >= 0 else { return nil }
+    return (section.entryPointIndex, section.finishPointIndex)
+  }
+
   func updateMapPoint(distance: Double) {
     guard isValid else { return }
     routeElevationActivePointDistance = distance

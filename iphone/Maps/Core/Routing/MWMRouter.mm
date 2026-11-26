@@ -104,6 +104,13 @@ using namespace routing;
   return info && !manager.IsRoutingFollowing() ? @(info->m_entryDistanceM) : nil;
 }
 
++ (MWMRouteElevationSection)routeElevationSectionAtDistance:(double)distance
+{
+  auto const section = GetFramework().GetRoutingManager().GetTrackPreviewSectionAt(distance);
+  return section ? MWMRouteElevationSection{section->m_entryPoint, static_cast<NSInteger>(section->m_finishPoint)}
+                 : MWMRouteElevationSection{0.0, -1};
+}
+
 + (void)setRouteElevationActivePointDistance:(double)distance
 {
   GetFramework().SetRouteElevationActivePoint(distance);

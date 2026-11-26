@@ -25,6 +25,13 @@ typedef NS_ENUM(NSInteger, MWMFollowTrackResult) {
   MWMFollowTrackResultNoRemainingGeometry,
 };
 
+typedef struct
+{
+  double entryPointIndex;
+  /// Negative when there is no track preview with elevation data.
+  NSInteger finishPointIndex;
+} MWMRouteElevationSection;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /// Captured track details remain valid after source deletion. Looking up the original track by
@@ -121,6 +128,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)saveRouteAsTrack;
 + (nullable RouteElevationPreviewData *)routeElevationProfileData;
 + (nullable NSNumber *)routeElevationActivePointDistance;
+/// Read-only section for the current chart gesture; does not move the accepted entry or rebuild.
++ (MWMRouteElevationSection)routeElevationSectionAtDistance:(double)distance
+    NS_SWIFT_NAME(routeElevationSection(atDistance:));
 + (void)setRouteElevationActivePointDistance:(double)distance;
 + (void)resetRouteElevationActivePoint;
 

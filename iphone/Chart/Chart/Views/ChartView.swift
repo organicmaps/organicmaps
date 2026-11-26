@@ -170,6 +170,13 @@ public class ChartView: UIView {
     addSubview(xAxisView)
   }
 
+  public func setHighlightedSection(entry: Double, finish: Int) {
+    chartData.setHighlightedSection(entry: entry, finish: finish)
+    lineViews.forEach { $0.updateGraph() }
+    // The marker height at a gap boundary follows the highlighted entry's side.
+    chartInfoView.update()
+  }
+
   public func setSelectedPoint(_ x: Double) {
     let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
     var upper = chartData.xAxisValueAt(CGFloat(xAxisView.upperBound))

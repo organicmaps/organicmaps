@@ -15,6 +15,12 @@ public class ChartPresentationData {
     presentationLines = chartData.lines.map { ChartPresentationLine($0, section: chartData.highlightedSection) }
   }
 
+  func setHighlightedSection(entry: Double, finish: Int) {
+    for line in presentationLines {
+      line.setHighlightedSection(entry: entry, finish: finish)
+    }
+  }
+
   func labelAt(_ point: CGFloat) -> String {
     formatter.xAxisString(from: xAxisValueAt(point))
   }

@@ -18,12 +18,14 @@ protocol ElevationProfilePresenterProtocol:
 }
 
 protocol ElevationProfileViewControllerDelegate: AnyObject {
+  func routeElevationSection(atDistance distance: Double) -> (entry: Double, finish: Int)?
   func updateMapPoint(distance: Double)
   func didFinishSelectingPoint(distance: Double)
   func didCancelSelectingPoint()
 }
 
 extension ElevationProfileViewControllerDelegate {
+  func routeElevationSection(atDistance _: Double) -> (entry: Double, finish: Int)? { nil }
   func didFinishSelectingPoint(distance _: Double) {}
   func didCancelSelectingPoint() {}
 }
@@ -36,8 +38,8 @@ enum ElevationProfileState {
 
 struct ElevationProfileDisplayData {
   let trackInfo: TrackInfo
-  let chartData: ElevationProfileChartData
-  let activePointDistance: Double
+  var chartData: ElevationProfileChartData
+  var activePointDistance: Double
   let myPositionDistance: Double
 }
 
@@ -105,8 +107,22 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     }
   }
 
+  private func recordActivePointDistance(_ distance: Double) -> (entry: Double, finish: Int)? {
+    guard case .routePreview(var data)? = state else { return nil }
+    data.activePointDistance = distance
+    if let section = delegate?.routeElevationSection(atDistance: distance) {
+      data.chartData.highlightedSection = section
+    }
+    state = .routePreview(data)
+    return data.chartData.highlightedSection
+  }
+
   func updateActivePointDistance(_ distance: Double) {
+    let section = recordActivePointDistance(distance)
     guard let view, view.canReceiveUpdates else { return }
+    if let section {
+      view.setHighlightedSection(entry: section.entry, finish: section.finish)
+    }
     view.setActivePointDistance(distance)
   }
 
@@ -132,7 +148,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.reloadDescription()
     view?.userInteractionEnabled = true
     view?.isChartViewInfoHidden = false
-    view?.setActivePointDistance(data.activePointDistance)
+    updateActivePointDistance(data.activePointDistance)
     view?.setMyPositionDistance(data.myPositionDistance)
   }
 
@@ -144,6 +160,9 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func onSelectedPointChanged(_ distance: Double) {
+    if let section = recordActivePointDistance(distance), let view, view.canReceiveUpdates {
+      view.setHighlightedSection(entry: section.entry, finish: section.finish)
+    }
     delegate?.updateMapPoint(distance: distance)
   }
 
