@@ -318,7 +318,7 @@ public:
 
     // Road number.
     if (hasStreetType)
-      for (auto const & shield : ftypes::GetRoadShieldsNames(f))
+      for (auto const & shield : ftypes::GetRoadShieldsNames(f, true /* allSpellings */))
         m_inserter(StringUtf8Multilang::kDefaultCode, shield);
 
     if (ftypes::IsAirportChecker::Instance()(types))
