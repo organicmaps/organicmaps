@@ -63,6 +63,7 @@
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/bg_tiles_url"
           style="@style/MwmWidget.Editor.CustomTextInput"
+          android:minHeight="@dimen/height_block_base"
           android:hint="https://xxx.yyy/{z}/{x}/{y}.png"
           tools:ignore="HardcodedText"
           android:importantForAutofill="no"
