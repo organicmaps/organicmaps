@@ -19,8 +19,9 @@ namespace platform
 // This class also wraps World.mwm and WorldCoasts.mwm
 // files from resource bundle, when they can't be found in a data
 // directory. In this exceptional case, directory will be empty and
-// SyncWithDisk()/DeleteFromDisk()/GetPath()/GetSize() will return
-// incorrect results.
+// SyncWithDisk()/DeleteFromDisk()/GetPath() will return
+// incorrect results. GetSize() returns the size recorded by the
+// resource scanner.
 //
 // In any case, when you're going to read a file LocalCountryFile points to,
 // use platform::GetCountryReader().

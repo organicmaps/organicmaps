@@ -2835,9 +2835,10 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
       return;
 
     nodeAttrs.m_localMwmCounter += 1;
-    nodeAttrs.m_localMwmSize += localFile->GetSize(MapFileType::Map);
+    if (!localFile->IsInBundle())
+      nodeAttrs.m_localMwmSize += localFile->GetSize(MapFileType::Map);
   });
-  nodeAttrs.m_present = m_localFiles.find(countryId) != m_localFiles.end();
+    nodeAttrs.m_present = m_localFiles.find(countryId) != m_localFiles.end();
 
   // Parents information.
   nodeAttrs.m_parentInfo.clear();

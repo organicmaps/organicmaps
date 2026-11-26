@@ -791,6 +791,32 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   TEST(storage.IsNodeDownloaded(WORLD_FILE_NAME), ());
   TEST(storage.IsNodeDownloaded(WORLD_COASTS_FILE_NAME), ());
 
+  // Check that bundled world maps are excluded from the local map size.
+  NodeAttrs nodeAttrs;
+  storage.GetNodeAttrs(storage.GetRootId(), nodeAttrs);
+
+  LocalFilePtr algeriaCentralLocalFile = storage.GetLatestLocalFile(algeriaCentralCountryId);
+  LocalFilePtr algeriaCoastLocalFile = storage.GetLatestLocalFile(algeriaCoastCountryId);
+
+  TEST(algeriaCentralLocalFile, ());
+  TEST(algeriaCoastLocalFile, ());
+
+  uint64_t const expectedLocalSize =
+      algeriaCentralLocalFile->GetSize(MapFileType::Map) +
+      algeriaCoastLocalFile->GetSize(MapFileType::Map);
+
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, expectedLocalSize, ());
+
+  // Check that a writable WorldCoasts map contributes to the local map size.
+  CountryFile const worldCoastsCountryFile = storage.GetCountryFile(WORLD_COASTS_FILE_NAME);
+  LocalFilePtr const worldCoastsLocalFile =
+      CreateDummyMapFile(worldCoastsCountryFile, storage.GetCurrentDataVersion(), 1024 /* size */);
+    storage.RegisterCountryFiles(worldCoastsLocalFile);
+
+  storage.GetNodeAttrs(storage.GetRootId(), nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_localMwmSize,
+             expectedLocalSize + worldCoastsLocalFile->GetSize(MapFileType::Map), ());
+
   // Storage::GetChildrenInGroups test when at least Algeria_Central and Algeria_Coast have been downloaded.
   CountryId const rootCountryId = storage.GetRootId();
   TEST_EQUAL(rootCountryId, COUNTRIES_ROOT, ());
