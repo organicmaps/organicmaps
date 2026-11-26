@@ -52,6 +52,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private int currentPeekHeight = 0;
   private Mode mSpeedMode = Mode.Normal;
+  private Mode mDisplayedSpeedMode = Mode.Normal;
   private int mSpeedLimit = 0;
 
   public interface OnMenuSizeChangedListener
@@ -80,6 +81,7 @@ public class NavMenu implements DefaultLifecycleObserver
       @Override
       public void onStateChanged(@NonNull View bottomSheet, int newState)
       {
+        NavigationAccessibility.updatePanelState(mHeaderFrame, newState);
         if (newState == BottomSheetBehavior.STATE_COLLAPSED || newState == BottomSheetBehavior.STATE_HIDDEN)
         {
           mBottomSheetBackground.setVisibility(View.GONE);
@@ -97,6 +99,8 @@ public class NavMenu implements DefaultLifecycleObserver
         mBottomSheetBackground.setAlpha(slideOffset);
       }
     });
+    NavigationAccessibility.attachPanel(mHeaderFrame, mBottomSheetBackground, this::getBottomSheetState,
+                                        this::expandNavBottomSheet, this::collapseNavBottomSheet);
 
     // Bottom frame
     mSpeedViewContainer = bottomFrame.findViewById(R.id.speed_view_container);
@@ -110,6 +114,18 @@ public class NavMenu implements DefaultLifecycleObserver
     mDistanceValue = bottomFrame.findViewById(R.id.distance_value);
     mDistanceUnits = bottomFrame.findViewById(R.id.distance_dimen);
     mRouteProgress = bottomFrame.findViewById(R.id.navigation_progress);
+    NavigationAccessibility.attachReading(
+        mSpeedViewContainer,
+        ()
+            -> NavigationAccessibility.speedDescription(mActivity, mSpeedValue.getText().toString(),
+                                                        mSpeedUnits.getText().toString(),
+                                                        mSpeedLimit > 0 ? mSpeedLimit : null, mDisplayedSpeedMode));
+    NavigationAccessibility.attachNumberGroup(bottomFrame.findViewById(R.id.time_values_container),
+                                              R.string.navigation_time_remaining, mTimeHourValue, mTimeHourUnits,
+                                              mTimeMinuteValue, mTimeMinuteUnits);
+    NavigationAccessibility.attachNumberGroup(mTimeEstimate, R.string.navigation_arrival_time, mTimeEstimate);
+    NavigationAccessibility.attachNumberGroup(bottomFrame.findViewById(R.id.distance_values_container),
+                                              R.string.navigation_distance_remaining, mDistanceValue, mDistanceUnits);
 
     // Bottom frame buttons
     ImageView mSettings = bottomFrame.findViewById(R.id.settings);
@@ -251,7 +267,8 @@ public class NavMenu implements DefaultLifecycleObserver
     mSpeedLimit = speedLimit;
     mSpeedMode = SpeedThresholds.DEFAULT.modeFor(speed, speedLimit, mSpeedMode);
 
-    switch (info.isSpeedCamLimitExceeded() ? Mode.Alert : mSpeedMode)
+    mDisplayedSpeedMode = info.isSpeedCamLimitExceeded() ? Mode.Alert : mSpeedMode;
+    switch (mDisplayedSpeedMode)
     {
     case Normal ->
     {

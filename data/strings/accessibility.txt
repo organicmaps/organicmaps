@@ -121,3 +121,75 @@
   en = %d degrees clockwise from the top of the phone
   ru = Угол по часовой стрелке от верхнего края телефона: %d°
 
+[navigation_controls]
+  comment = Accessibility label or state for navigation controls.
+  tags = android-app
+  en = Navigation controls
+  ru = Управление навигацией
+
+[navigation_controls_expand]
+  comment = Accessibility label or state for navigation controls.
+  tags = android-app
+  en = Expand navigation controls
+  ru = Развернуть панель навигации
+
+[navigation_controls_collapse]
+  comment = Accessibility label or state for navigation controls.
+  tags = android-app
+  en = Collapse navigation controls
+  ru = Свернуть панель навигации
+
+[navigation_controls_expanded]
+  comment = Accessibility label or state for navigation controls.
+  tags = android-app
+  en = Expanded
+  ru = Развёрнута
+
+[navigation_controls_collapsed]
+  comment = Accessibility label or state for navigation controls.
+  tags = android-app
+  en = Collapsed
+  ru = Свёрнута
+
+[navigation_current_speed]
+  comment = Accessibility reading of current navigation data, requested by the screen reader.
+  tags = android-app
+  en = Current speed: %1$s %2$s
+  ru = Текущая скорость: %1$s %2$s
+
+[navigation_speed_limit]
+  comment = Accessibility reading of current navigation data, requested by the screen reader.
+  tags = android-app
+  en = Speed limit: %1$s %2$s
+  ru = Ограничение скорости: %1$s %2$s
+
+[navigation_speed_warning]
+  comment = Accessibility reading of current navigation data, requested by the screen reader.
+  tags = android-app
+  en = Speed warning
+  ru = Предупреждение о скорости
+
+[navigation_speed_alert]
+  comment = Accessibility description of the red Alert mode of the speed display, more severe than its yellow Warning mode.
+  tags = android-app
+  en = Speed alert
+  ru = Тревога по скорости
+
+[navigation_time_remaining]
+  comment = Accessibility reading of current navigation data, requested by the screen reader.
+  tags = android-app
+  en = Time remaining: %s
+  ru = Осталось времени: %s
+
+[navigation_arrival_time]
+  comment = Accessibility reading of current navigation data, requested by the screen reader.
+  tags = android-app
+  en = Arrival: %s
+  ru = Прибытие: %s
+
+[navigation_distance_remaining]
+  comment = Accessibility reading of current navigation data, requested by the screen reader.
+  tags = android-app
+  en = Distance remaining: %s
+  ru = До конца маршрута: %s
+

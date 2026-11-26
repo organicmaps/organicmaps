@@ -35,6 +35,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.widget.menu.NavMenu;
+import app.organicmaps.widget.menu.NavigationAccessibility;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class NavigationController implements TrafficManager.TrafficCallback, NavMenu.NavMenuListener
@@ -94,6 +95,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
     mSpeedView = mTopFrame.findViewById(R.id.nav_speed_limit);
     mSpeedController = new CombinedSpeedViewController(mSpeedView);
+    NavigationAccessibility.attachReading(
+        mSpeedView,
+        ()
+            -> NavigationAccessibility.speedDescription(
+                mFrame.getContext(), mSpeedController.getSpeed(), mSpeedController.getUnits(),
+                mSpeedController.isSpeedLimitVisible() ? mSpeedController.getSpeedLimit() : null,
+                mSpeedView.getMode()));
     updateCurrentSpeed();
 
     // Blank rectangle below the navbar that hides menu content behind it.
