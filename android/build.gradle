@@ -56,30 +56,29 @@ tasks.register("lintAllModules") {
         p.tasks.matching { it.name == "lint" }
     })
 
-    doLast {
-        def reportsDir = file("$rootDir/build/reports/lint")
-        reportsDir.mkdirs()
+    def mergedReportFile = layout.buildDirectory.file("reports/lint/lint.xml")
+    def lintReports = files(subprojects.collect { p ->
+        p.layout.buildDirectory.dir("reports").map { reports ->
+            reports.asFileTree.matching { include "**/lint-results*.xml" }
+        }
+    })
 
-        def mergedReport = new File(reportsDir, "lint.xml")
+    doLast {
+        def mergedReport = mergedReportFile.get().asFile
+        mergedReport.parentFile.mkdirs()
+
         // start of merged XML
         mergedReport.text = '<?xml version="1.0" encoding="UTF-8"?>\n<issues format="6">'
 
-        subprojects.each { p ->
-            // Find any lint-results*.xml in this module
-            def reportFiles = p.layout.buildDirectory.dir("reports").get().asFileTree.matching {
-                include "**/lint-results*.xml"
-            }
-
-            reportFiles.each { reportFile ->
-                println "Merging report from: ${reportFile}"
-                def content = reportFile.getText("UTF-8")
-                // strip XML prolog and root tags
-                content = content
-                        .replaceFirst(/<\?xml.*?\?>/, "")
-                        .replaceAll("<issues.*?>", "")
-                        .replaceAll("</issues>", "")
-                mergedReport.append(content)
-            }
+        lintReports.each { reportFile ->
+            println "Merging report from: ${reportFile}"
+            def content = reportFile.getText("UTF-8")
+            // strip XML prolog and root tags
+            content = content
+                    .replaceFirst(/<\?xml.*?\?>/, "")
+                    .replaceAll("<issues.*?>", "")
+                    .replaceAll("</issues>", "")
+            mergedReport.append(content)
         }
 
         mergedReport.append("</issues>")

@@ -11,8 +11,12 @@ ext.sdkArtifacts = [
 ]
 ext.sdkVersion = providers.gradleProperty('sdkVersion').getOrElse(rootProject.ext.versionName)
 def docsTool = rootProject.file('../tools/python/check_sdk_docs.py')
+def docsProviders = providers
+def docsLogger = logger
+def sdkArtifacts = rootProject.ext.sdkArtifacts
+def sdkVersion = rootProject.ext.sdkVersion
 def runDocsTool = { File directory, List<String> options = [] ->
-  def output = providers.exec {
+  def output = docsProviders.exec {
     commandLine(['python3', docsTool] + options + [directory])
     ignoreExitValue = true
   }
@@ -20,7 +24,7 @@ def runDocsTool = { File directory, List<String> options = [] ->
   if (result.exitValue != 0) {
     throw new GradleException("SDK documentation check failed: ${output.standardError.asText.get().trim()}")
   }
-  logger.info(output.standardOutput.asText.get().trim())
+  docsLogger.info(output.standardOutput.asText.get().trim())
 }
 
 rootProject.ext.sdkArtifacts.keySet().each { modulePath ->
@@ -37,32 +41,33 @@ tasks.register('sdkApiDocs', Sync) {
   group = 'documentation'
   description = 'Generate the published SDK API documentation and its module index.'
   into layout.buildDirectory.dir('sdk-api')
-  inputs.property('sdkVersion', rootProject.ext.sdkVersion)
-  inputs.property('sdkArtifacts', rootProject.ext.sdkArtifacts)
+  inputs.property('sdkVersion', sdkVersion)
+  inputs.property('sdkArtifacts', sdkArtifacts)
   inputs.file(docsTool)
-  from('sdk/api-index.html') {
+  from('sdk/docs/api-index.html') {
     rename { 'index.html' }
-    filter { line -> line.replace('@SDK_VERSION@', rootProject.ext.sdkVersion) }
+    filter { line -> line.replace('@SDK_VERSION@', sdkVersion) }
   }
-  rootProject.ext.sdkArtifacts.each { modulePath, artifact ->
-    dependsOn "${modulePath}:javaDocReleaseJar"
-    from({ zipTree(project(modulePath).tasks.named('javaDocReleaseJar').get().archiveFile.get()) }) {
+  sdkArtifacts.each { modulePath, artifact ->
+    def docsJar = project(modulePath).tasks.named('javaDocReleaseJar')
+    dependsOn docsJar
+    from(zipTree(docsJar.flatMap { it.archiveFile })) {
       into artifact
       exclude 'META-INF/**'
     }
   }
-  doLast {
-    def rows = rootProject.ext.sdkArtifacts.values().collect { artifact ->
-      def hasApi = new File(destinationDir, "${artifact}/index.html").isFile()
+  doLast { task ->
+    def rows = sdkArtifacts.values().collect { artifact ->
+      def hasApi = new File(task.destinationDir, "${artifact}/index.html").isFile()
       if (!hasApi && !(artifact in ['location-google', 'location-foss', 'maps-world'])) {
         throw new GradleException("Missing SDK API index: ${artifact}")
       }
       def link = hasApi ? "<a href=\"${artifact}/index.html\">API reference</a>" : 'No public Java API'
       "<tr><td>${artifact}</td><td>${link}</td></tr>"
     }.join('\n')
-    def index = new File(destinationDir, 'index.html')
+    def index = new File(task.destinationDir, 'index.html')
     index.setText(index.getText('UTF-8').replace('@SDK_MODULE_ROWS@', rows), 'UTF-8')
-    runDocsTool(destinationDir)
+    runDocsTool(task.destinationDir)
   }
 }
 

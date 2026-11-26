@@ -129,6 +129,9 @@ jobs:
           # Avoids overflowing the 10GB repo limit, which evicts master's caches.
           save: ${{ github.ref == 'refs/heads/master' }}
 
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+
       - name: Compile ${{ matrix.flavor }}
         shell: bash
         working-directory: android

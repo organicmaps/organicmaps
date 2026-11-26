@@ -31,6 +31,9 @@ jobs:
           PRIVATE_H: ${{ secrets.PRIVATE_H }}
           GOOGLE_PLAY_JSON: ${{ secrets.GOOGLE_PLAY_JSON }}
 
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+
       - name: Upload
         shell: bash
         run: ./gradlew prepareGoogleReleaseListing publishGoogleReleaseListing
