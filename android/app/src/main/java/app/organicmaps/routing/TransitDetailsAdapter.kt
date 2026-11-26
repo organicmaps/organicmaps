@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.TextViewCompat
@@ -21,6 +22,7 @@ import app.organicmaps.sdk.routing.TransitStepInfo
 import app.organicmaps.sdk.routing.TransitStepType
 import app.organicmaps.sdk.util.StringUtils
 import app.organicmaps.util.ThemeUtils
+import app.organicmaps.widget.ExpandableSectionAccessibility
 import kotlin.math.roundToInt
 
 /**
@@ -185,6 +187,13 @@ class TransitDetailsAdapter(
         private val transferGap: View = itemView.findViewById(R.id.transfer_gap)
         private val barRadius = itemView.resources.getDimension(R.dimen.routing_transit_step_corner_radius)
         private var hasIntermediates = false
+        private var isExpanded = false
+        private val expansionAccessibility =
+            ExpandableSectionAccessibility(summaryRow, { hasIntermediates }, { isExpanded })
+
+        init {
+            ViewCompat.setScreenReaderFocusable(summaryRow, true)
+        }
         private var heightAnimator: ValueAnimator? = null
 
         fun bind(
@@ -250,7 +259,7 @@ class TransitDetailsAdapter(
             summaryRow.isClickable = hasIntermediates
             // Text is always set (even while hidden) so the collapse/expand animation can measure it. One stop
             // per line, read as a column between board and exit.
-            if (!stops.isNullOrEmpty()) intermediates.text = stops.joinToString("\n")
+            intermediates.text = stops?.joinToString("\n").orEmpty()
             setExpanded(expanded, false)
         }
 
@@ -266,6 +275,13 @@ class TransitDetailsAdapter(
         // stops open/close by tweening their height, pushing the rows below; otherwise (a fresh bind) the
         // state is applied instantly.
         fun setExpanded(expanded: Boolean, animate: Boolean) {
+            isExpanded = hasIntermediates && expanded
+            expansionAccessibility.update()
+            intermediates.importantForAccessibility = if (isExpanded) {
+                View.IMPORTANT_FOR_ACCESSIBILITY_AUTO
+            } else {
+                View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+            }
             val chevron = when {
                 !hasIntermediates -> 0
                 expanded -> R.drawable.ic_expand_less

@@ -115,7 +115,7 @@ class QtMatcherTest(unittest.TestCase):
 
 class QtValidationTest(unittest.TestCase):
     @staticmethod
-    def _validate(definitions, sources):
+    def _validate(definitions, sources, accessibility="[[Accessibility]]\n"):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             for name in ("data/strings", "libs", "qt", "android", "iphone/Maps", "iphone/CoreApi"):
@@ -124,6 +124,7 @@ class QtValidationTest(unittest.TestCase):
                 f"[{key}]\ntags = {tags}\nen = Message\n" for key, tags in definitions.items()
             )
             (root / "data/strings/strings.txt").write_text(strings, encoding="utf-8")
+            (root / "data/strings/accessibility.txt").write_text(accessibility, encoding="utf-8")
             for name, source in sources.items():
                 path = root / name
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -135,6 +136,40 @@ class QtValidationTest(unittest.TestCase):
 
     def test_qt_only_reference_needs_no_mobile_tags(self):
         result, output = self._validate({"qt_key": "qt"}, {"qt/widget.cpp": 'qt::Tr("qt_key")'})
+        self.assertEqual(result, 0, output)
+
+    def test_accessibility_catalog_is_scanned(self):
+        result, output = self._validate(
+            {}, {"android/Main.java": "getString(R.string.location_state)"},
+            "[[Accessibility]]\n[location_state]\ntags = android-app\nen = Following location\n",
+        )
+        self.assertEqual(result, 0, output)
+        self.assertIn("Defined: 1, referenced in code: 1", output)
+
+    def test_duplicate_between_catalogs_is_rejected(self):
+        result, output = self._validate(
+            {"shared": "qt"}, {},
+            "[[Accessibility]]\n[shared]\ntags = qt\nen = Duplicate\n",
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("Duplicate translation key [shared]", output)
+        self.assertIn("strings.txt:", output)
+        self.assertIn("accessibility.txt:", output)
+
+    def test_duplicate_within_catalog_is_rejected(self):
+        result, output = self._validate(
+            {}, {},
+            "[[Accessibility]]\n[shared]\ntags = qt\nen = First\n"
+            "[shared]\ntags = qt\nen = Second\n",
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("Duplicate translation key [shared]", output)
+
+    def test_cross_catalog_reference_is_resolved(self):
+        result, output = self._validate(
+            {"base": "qt"}, {"qt/widget.cpp": 'Tr("base"); Tr("accessible");'},
+            "[[Accessibility]]\n[accessible]\ntags = qt\nref = base\n",
+        )
         self.assertEqual(result, 0, output)
 
     def test_qt_reuses_mobile_translation_with_both_tags(self):
@@ -171,9 +206,9 @@ class QtValidationTest(unittest.TestCase):
             {"qt/widget.hpp": 'Tr("live");\nqt::Tr(\n  "missing", n);'},
         )
         self.assertEqual(result, 1, output)
-        self.assertIn("referenced in code but missing from strings.txt", output)
+        self.assertIn("referenced in code but missing from UI catalogs", output)
         self.assertIn("- missing at ", output)
-        self.assertIn("qt/widget.hpp:3", output)
+        self.assertIn(str(Path("qt") / "widget.hpp") + ":3", output)
 
     def test_unused_qt_definition_is_rejected(self):
         result, output = self._validate({"unused": "qt"}, {})
