@@ -801,6 +801,12 @@ void CallRouteRecommendationListener(std::shared_ptr<jobject> listener, RoutingM
   env->CallVoidMethod(*listener, methodId, routing_jni::GetRouteRecommendationType(env, recommendation));
 }
 
+void CallTrackEntryTapListener(std::shared_ptr<jobject> listener)
+{
+  JNIEnv * env = jni::GetEnv();
+  env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener, "run", "()V"));
+}
+
 /// @name JNI EXPORTS
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetAddress(JNIEnv * env, jclass clazz, jdouble lat,
                                                                       jdouble lon)
@@ -1304,6 +1310,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(J
   return manager.IsRoutingFollowing() || manager.IsStartingFollowedTrack();
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeReverseFollowedTrack(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().ReverseFollowedTrack());
+}
+
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
 {
   return static_cast<jint>(
@@ -1322,11 +1333,12 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
-  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;D)V");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;DZZZ)V");
 
   jni::TScopedLocalRef const name(env, jni::ToJavaStringWithSupplementalCharsFix(env, info->m_name));
   return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
-                        static_cast<jdouble>(info->m_entryDistanceM));
+                        static_cast<jdouble>(info->m_entryDistanceM), static_cast<jboolean>(info->m_reversed),
+                        static_cast<jboolean>(info->m_canReverse), static_cast<jboolean>(info->m_endsAtGap));
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)
@@ -1411,7 +1423,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   auto const & statistics = data->m_statistics;
 
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
-  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIDI)V");
 
   jsize const size = static_cast<jsize>(ei.GetSize());
 
@@ -1434,9 +1446,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   env->ReleaseDoubleArrayElements(jDistances, distances, 0);
   env->ReleaseIntArrayElements(jElevs, elevations, 0);
 
+  auto const & section = data->m_followedSection;
   return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(statistics.m_ascent),
-                        static_cast<jint>(statistics.m_descent), static_cast<jint>(statistics.m_minElevation),
-                        static_cast<jint>(statistics.m_maxElevation));
+                        static_cast<jint>(statistics.m_descent), section ? section->m_entryPoint : 0.0,
+                        section ? static_cast<jint>(section->m_finishPoint) : -1);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,
@@ -1474,6 +1487,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendation
 {
   frm()->GetRoutingManager().SetRouteRecommendationListener(
       std::bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), std::placeholders::_1));
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetTrackEntryTapListener(JNIEnv *, jclass, jobject listener)
+{
+  frm()->GetRoutingManager().SetTrackEntryTapListener(
+      std::bind(&CallTrackEntryTapListener, jni::make_global_ref(listener)));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)

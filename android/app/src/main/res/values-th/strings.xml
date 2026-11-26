@@ -945,6 +945,12 @@
     <string name="editor_level">ชั้น (ชั้นล่างคือ 0)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">นำทาง</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">จุดที่เลือก</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">จุดเริ่มต้นของช่วงเส้นทาง</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">จุดสิ้นสุดของช่วงเส้นทาง</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">จุดเริ่มต้นเส้นทาง</string>
     <!-- Track finish point label. -->

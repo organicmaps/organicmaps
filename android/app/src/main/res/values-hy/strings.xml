@@ -956,6 +956,12 @@
     <string name="editor_level">Հարկ (առաջին հարկը 0 է)</string>
     <!-- Start navigation along the selected track. -->
     <string name="navigate_track">Նավիգացիա</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">Ընտրված կետ</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">Հատվածի սկիզբ</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">Հատվածի վերջ</string>
     <!-- Track start point label. -->
     <string name="navigate_track_start">Հետագծի սկիզբ</string>
     <!-- Track finish point label. -->

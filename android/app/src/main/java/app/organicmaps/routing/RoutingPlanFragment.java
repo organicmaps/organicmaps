@@ -63,6 +63,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private BottomSheetBehavior<View> mSheetBehavior;
   private int mBottomButtonsMaxHeight;
   private int mPeekHeightMargins;
+  private int mSheetInsetBottom;
   private View mButtonsLayout;
   private int mTopInset;
   private boolean mRoutingContentActive = true;
@@ -130,7 +131,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mDrivingOptionsContainer = mChartPanel.findViewById(R.id.driving_options_btn_container);
     mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
-    mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
+    mReverseRouteBtn.setOnClickListener(v -> onReverseClicked());
 
     mTransitButton = mRouterTypes.findViewById(R.id.transit);
     mRulerButton = mRouterTypes.findViewById(R.id.ruler);
@@ -231,16 +232,17 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     if (controller.isPlanning())
     {
-      setRoutingContentActive(isTrackRebuilding(controller));
+      setRoutingContentActive(controller.isBuilt() || isTrackRebuilding(controller));
       updateTrackFollowMode();
       mRoutingBottomMenuController.refreshManageRoute();
       mViewModel.setShowRoutingBottomSheet(true);
     }
     else
+    {
       mShownTrackPreviewId = null;
-
-    if (controller.isBuilt())
-      setRoutingContentActive(true);
+      if (controller.isBuilt())
+        setRoutingContentActive(true);
+    }
   }
 
   private void updateSheetVisible()
@@ -263,9 +265,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         if (getView() == null || !Boolean.TRUE.equals(mSheetVisible.getValue()))
           return;
         mSheetBehavior.setHideable(false);
-        final int state = mViewModel.getBottomSheetState();
-        mSheetBehavior.setState(state == BottomSheetBehavior.STATE_HIDDEN ? BottomSheetBehavior.STATE_COLLAPSED
-                                                                          : state);
+        mSheetBehavior.setState(mViewModel.getBottomSheetState());
         mRoutingBottomMenuController.restoreElevationActivePoint();
       });
     }
@@ -283,8 +283,15 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private void setRoutingContentActive(boolean active)
   {
     mRoutingContentActive = active;
-    updateRoutingOptions(RoutingController.get().getLastRouterType());
-    mReverseRouteBtn.setEnabled(active);
+    final RoutingController controller = RoutingController.get();
+    updateRoutingOptions(controller.getLastRouterType());
+    final FollowedTrackInfo track = controller.getFollowedTrackInfo();
+    final boolean canReverse =
+        active && (track == null || (controller.isPlanning() && controller.isBuilt() && track.canReverse()));
+    mReverseRouteBtn.setEnabled(canReverse);
+    mReverseRouteBtn.setAlpha(active && !canReverse ? 0.38f : 1.0f);
+    ViewCompat.setStateDescription(mReverseRouteBtn,
+                                   track == null ? null : getString(RoutePointLabels.trackDestination(track)));
     mChartPanel.setAlpha(active ? 1.0f : 0.2f);
   }
 
@@ -293,6 +300,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (mFrame.getTop() == 0)
       return;
     updateSheetHeights();
+    resettleOnInsetChange();
     final int newDistanceTop = mFrame.getTop();
     mViewModel.setRoutingBottomDistanceToTop(newDistanceTop);
   }
@@ -310,6 +318,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final int peekHeight =
         mRoutingTypesContainer.getHeight() + chartHeader + mBottomButtonsMaxHeight + mPeekHeightMargins;
     mSheetBehavior.setPeekHeight(peekHeight);
+  }
+
+  // The behavior starts listening for insets on the sheet's first layout, so the first slide-in starts before the
+  // bottom inset pads the sheet and raises its target. A settle keeps its old target: redirect it to the new one.
+  private void resettleOnInsetChange()
+  {
+    final int insetBottom = mFrame.getPaddingBottom();
+    if (insetBottom == mSheetInsetBottom)
+      return;
+    mSheetInsetBottom = insetBottom;
+    if (mSheetBehavior.getState() == BottomSheetBehavior.STATE_SETTLING
+        && Boolean.TRUE.equals(mSheetVisible.getValue()))
+      mSheetBehavior.setState(mViewModel.getBottomSheetState());
   }
 
   // The steps are nested in the transit summary tile, so their top is relative to it, not to the chart panel.
@@ -336,7 +357,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final RoutingController controller = RoutingController.get();
     final boolean followsTrack = controller.isFollowingTrack();
     UiUtils.showIf(!followsTrack, mTransitButton, mRulerButton, mRouterTypes.findViewById(R.id.water),
-                   mDrivingOptionsContainer, mReverseRouteBtn, mSearchBtn, mBookmarkBtn);
+                   mDrivingOptionsContainer, mSearchBtn, mBookmarkBtn);
     // Check the follow profile: the user's own Transit or Ruler pick may still be checked, and its radio is hidden now.
     if (followsTrack)
       mRouterTypes.check(routerToButtonId(controller.getLastRouterType()));
@@ -366,6 +387,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     // The tap has already checked the radio: re-sync with the profile actually in effect, so a
     // refused switch snaps the picker back (a successful one is a no-op here).
     updateTrackFollowMode();
+  }
+
+  private void onReverseClicked()
+  {
+    final RoutingController controller = RoutingController.get();
+    if (!controller.isFollowingTrack())
+    {
+      controller.reverseRoute();
+      return;
+    }
+    final FollowTrackResult result = controller.reverseFollowedTrack();
+    if (result != FollowTrackResult.Ok)
+      Utils.showFollowTrackError(requireContext(), result);
   }
 
   @IdRes

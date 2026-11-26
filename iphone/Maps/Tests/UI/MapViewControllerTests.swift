@@ -1,3 +1,4 @@
+@testable import Chart
 @testable import Organic_Maps__Debug_
 import XCTest
 
@@ -36,13 +37,74 @@ final class MapViewControllerTests: XCTestCase {
     XCTAssertNil(map.controlsManager.trackRecordingButton)
   }
 
-  private func importTrack() throws -> UInt64 {
+  func testTrackReverseAfterClosingSearch() throws {
+    let map = try XCTUnwrap(MapViewController.shared())
+    map.loadViewIfNeeded()
+    let track = try importTrack(lines: ["19,0 19.001,0", "20,0 20.001,0"])
+    MWMRouter.stopRouting()
+    defer { MWMRouter.stopRouting() }
+    MWMRouter.subscribeToEvents()
+    BookmarksManager.shared().setElevationActivePointDistance(0, trackId: track)
+    XCTAssertEqual(MWMRouter.navigateTrack(track), .ok)
+
+    waitForPreview()
+    let dashboard = try XCTUnwrap(map.children.compactMap { $0 as? NavigationDashboardViewController }.last)
+    let reverse = try reverseButton(in: dashboard)
+    XCTAssertFalse(reverse.isEnabled)
+    XCTAssertEqual(reverse.accessibilityValue, L("navigate_track_section_finish"))
+
+    XCTAssertEqual(MWMRouter.updateFollowedTrackEntry(atDistance: 40), .ok)
+    waitForPreview()
+    map.searchManager.startSearching(isRouting: false)
+    map.searchManager.close()
+    XCTAssertTrue(reverse.isEnabled)
+    reverse.sendActions(for: .touchUpInside)
+    waitForPreview()
+    XCTAssertEqual(MWMRouter.followedTrackInfo()?.isReversed, true)
+    XCTAssertEqual(reverse.accessibilityValue, L("navigate_track_start"))
+  }
+
+  func testLoopReverseMovesTheChartMarkerToTheOtherTrailheadOccurrence() throws {
+    let map = try XCTUnwrap(MapViewController.shared())
+    map.loadViewIfNeeded()
+    let track = try importTrack(lines: ["19,0,100 19.001,0,125 19.001,0.001,150 19,0,100"])
+    MWMRouter.stopRouting()
+    defer { MWMRouter.stopRouting() }
+    MWMRouter.subscribeToEvents()
+    BookmarksManager.shared().setElevationActivePointDistance(0, trackId: track)
+    XCTAssertEqual(MWMRouter.navigateTrack(track), .ok)
+    waitForPreview()
+
+    let dashboard = try XCTUnwrap(map.children.compactMap { $0 as? NavigationDashboardViewController }.last)
+    func markerFraction() throws -> CGFloat {
+      let chart = try XCTUnwrap(dashboard.view.firstDescendant { $0 is ChartView } as? ChartView)
+      return chart.chartInfoView.infoX
+    }
+    XCTAssertEqual(try markerFraction(), 0, accuracy: 0.001)
+    let reverse = try reverseButton(in: dashboard)
+    XCTAssertTrue(reverse.isEnabled)
+    reverse.sendActions(for: .touchUpInside)
+    waitForPreview()
+    XCTAssertEqual(MWMRouter.followedTrackInfo()?.isReversed, true)
+    XCTAssertEqual(try markerFraction(), 1, accuracy: 0.001)
+  }
+
+  private func reverseButton(in dashboard: NavigationDashboardViewController) throws -> UIButton {
+    try XCTUnwrap(dashboard.view.firstDescendant { $0 is UIButton && $0.accessibilityLabel == L("reverse_route") } as? UIButton)
+  }
+
+  private func waitForPreview() {
+    wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in MWMRouter.isRouteBuilt() }, object: nil)], timeout: 5)
+  }
+
+  private func importTrack(lines: [String] = ["19,0 19.001,0"]) throws -> UInt64 {
     let bookmarks = BookmarksManager.shared()
     let name = "RecordingTest-\(UUID().uuidString)"
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+    let geometry = lines.map { "<LineString><coordinates>\($0)</coordinates></LineString>" }.joined()
     let kml = """
     <kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>\(name)</name>
-      <Placemark><name>Saved track</name><LineString><coordinates>19,0 19.001,0</coordinates></LineString></Placemark>
+      <Placemark><name>Saved track</name><MultiGeometry>\(geometry)</MultiGeometry></Placemark>
     </Document></kml>
     """
     try kml.write(to: url, atomically: true, encoding: .utf8)

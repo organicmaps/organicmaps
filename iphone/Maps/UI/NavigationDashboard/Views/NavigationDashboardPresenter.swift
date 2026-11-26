@@ -1,6 +1,7 @@
 extension NavigationDashboard {
   protocol Rendering: AnyObject {
     func render(_ viewModel: ViewModel)
+    func updateElevationActivePoint(_ distance: Double?)
   }
 
   final class Presenter: NSObject {
@@ -18,8 +19,18 @@ extension NavigationDashboard {
       let newViewModel = resolve(action: response, with: viewModel)
       if viewModel != newViewModel {
         viewModel = newViewModel
-        view?.render(newViewModel)
+        if case .updateElevationActivePoint = response {
+          view?.updateElevationActivePoint(viewModel.routeElevationActivePointDistance)
+        } else {
+          view?.render(newViewModel)
+        }
       }
+    }
+
+    /// The chart has already moved its own cursor before delivering a drag callback.
+    func recordElevationActivePoint(_ distance: Double) {
+      guard viewModel.dashboardState != .closed else { return }
+      viewModel = resolve(action: .updateElevationActivePoint(distance), with: viewModel)
     }
 
     private func resolve(action: Response, with previousViewModel: ViewModel) -> ViewModel {
@@ -88,6 +99,9 @@ extension NavigationDashboard {
       case .updateElevationInfo(let elevationInfo, let activePointDistance):
         viewModel.routeElevationPreviewData = elevationInfo
         viewModel.routeElevationActivePointDistance = activePointDistance
+
+      case .updateElevationActivePoint(let distance):
+        viewModel.routeElevationActivePointDistance = distance
 
       case .updateNavigationInfoAvailableArea(let rect):
         viewModel.navigationInfo.availableArea = rect

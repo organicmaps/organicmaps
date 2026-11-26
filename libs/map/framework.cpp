@@ -2561,6 +2561,20 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   else if (m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
     return;
 
+  // A map tap moves a track preview's entry to the tapped track point, like its chart. Marks, POIs and the position
+  // keep their place pages, as do points opened from map links.
+  if (buildInfo.m_source == place_page::BuildInfo::Source::User && umID == kml::kInvalidMarkId &&
+      !buildInfo.m_featureId.IsValid() && !buildInfo.m_isMyPosition)
+  {
+    auto const touchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
+    if (m_routingManager.TryTapOnFollowedTrack(touchRect))
+    {
+      if (HasPlacePageInfo())
+        DeactivateMapSelection();
+      return;
+    }
+  }
+
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
   if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
@@ -2599,17 +2613,24 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     return;
   }
 
-  auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId() : kml::kInvalidTrackId;
+  // For user tracks: tapping the same track at a different point of the same region just moves the selection
+  // circle. Another region changes the map to download and other candidates change the track chooser, so the
+  // PlacePage is updated then. Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
+  auto const newTrackId = placePageInfo.GetTrackId();
+  bool const onlyMovesTrackSelection =
+      newTrackId != kml::kInvalidTrackId && newTrackId != kml::kTempRelationTrackId && m_currentPlacePageInfo &&
+      m_currentPlacePageInfo->GetTrackId() == newTrackId &&
+      m_currentPlacePageInfo->GetCountryId() == placePageInfo.GetCountryId() &&
+      std::ranges::equal(m_currentPlacePageInfo->GetTrackCandidates(), placePageInfo.GetTrackCandidates(),
+                         [](auto const & lhs, auto const & rhs)
+  { return lhs.m_trackId == rhs.m_trackId && lhs.m_relationId == rhs.m_relationId; });
   DeactivateHotelSearchMark();
 
-  m_currentPlacePageInfo = placePageInfo;
+  m_currentPlacePageInfo = std::move(placePageInfo);
 
-  auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
   if (newTrackId != kml::kInvalidTrackId)
   {
-    // For user tracks: tapping the same track at a different point just moves the selection circle.
-    // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
-    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId)
+    if (onlyMovesTrackSelection)
     {
       if (m_drapeEngine)
       {
@@ -2688,6 +2709,7 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   FillTrackInfo(*track, selectedInfo, info);
+  info.SetCountryId(m_infoGetter->GetRegionCountryId(info.GetMercator()));
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
   return true;
 }
@@ -2765,10 +2787,7 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
                                                                        [](UserMark::Type) { return true; });
       // On a stale track mark keep the feature info filled above and fall back to the POI selection.
       if (mark && FillUserMarkInfo(mark, outInfo))
-      {
-        sp.SetPlacePageLocation(outInfo);
         return outInfo;
-      }
     }
 
     outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
@@ -2841,15 +2860,10 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
         trackToSelect = trackSelectionCandidates.front();
 
       // Set first track as selected to display.
-      if (trackToSelect.IsValid())
+      if (trackToSelect.IsValid() && BuildTrackPlacePage(trackToSelect, outInfo))
       {
-        outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-        sp.SetPlacePageLocation(outInfo);
-        if (BuildTrackPlacePage(trackToSelect, outInfo))
-        {
-          outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
-          return outInfo;
-        }
+        outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
+        return outInfo;
       }
 
       auto const bestFeature = tap.m_line.IsValid() ? tap.m_line : tap.m_area;

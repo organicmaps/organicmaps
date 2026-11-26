@@ -29,32 +29,53 @@ final class ChartLineViewTests: XCTestCase {
 
   func testZoomedFillReachesBothBottomCorners() throws {
     let chart = makeChart(heights: [-80, -50, -20, -50, -80])
-    chart.chartPreviewView.setX(min: 1, max: 3)
+    chart.setViewport(lower: 1, upper: 3)
     try assertFillBelowLine(chart)
   }
 
   func testZoomingIntoFlatSectionKeepsPathsDrawable() throws {
     let chart = makeChart(heights: [-50, 0, 0, 0, 50])
-    chart.chartPreviewView.setX(min: 1, max: 3)
+    chart.setViewport(lower: 1, upper: 3)
     XCTAssertGreaterThan(chart.yAxisView.upperBound, chart.yAxisView.lowerBound)
     try assertFillBelowLine(chart)
   }
 
-  func testPreviewUsesTheSameFillGeometry() throws {
-    let chart = makeChart(heights: [-80, -50, -20])
-    let preview = chart.chartPreviewView
-    preview.frame = chart.chartsContainerView.bounds
-    preview.layoutIfNeeded()
-    preview.previewViews.forEach { $0.layoutIfNeeded() }
+  func testSelectionFollowsZoomAndRecentersWithoutEchoingExternalChanges() {
+    let chart = makeChart(heights: [100, 150, 200, 150, 100])
+    chart.setSelectedPoint(1)
+    var reportedDistances: [Double] = []
+    chart.onSelectedPointChanged = { reportedDistances.append($0) }
 
-    let fill = try XCTUnwrap(preview.previewViews[1].shapeLayer.path)
-    XCTAssertFalse(fill.isEmpty)
-    XCTAssertEqual(fill.boundingBoxOfPath.minY, 0)
-    for point in points(in: fill) {
-      XCTAssertTrue(point.x.isFinite && point.y.isFinite)
+    chart.setViewport(lower: 1, upper: 3)
+    // Consecutive gesture updates can round to the same sample bounds.
+    chart.setViewport(lower: 1, upper: 3)
+    XCTAssertEqual(reportedDistances, [1.5])
+
+    chart.setSelectedPoint(4)
+    XCTAssertEqual(chart.xAxisView.lowerBound, 2)
+    XCTAssertEqual(chart.xAxisView.upperBound, 4)
+    XCTAssertEqual(chart.chartInfoView.infoX, 1)
+    XCTAssertEqual(reportedDistances, [1.5])
+  }
+
+  func testPanOvershootingEitherEdgeKeepsTheZoomSpan() {
+    let chart = makeChart(heights: Array(repeating: 100, count: 9), width: 320)
+    chart.setViewport(lower: 2, upper: 6)
+    chart.setSelectedPoint(4)
+    var reportedDistances: [Double] = []
+    chart.onSelectedPointChanged = { reportedDistances.append($0) }
+
+    let pan = MockPanGestureRecognizer()
+    pan.state = .began
+    chart.onPan(pan)
+    pan.state = .changed
+    for (translation, lower) in [(80, 1), (320, 0), (640, 0), (-320, 4), (-640, 4)] {
+      pan.translationX = CGFloat(translation)
+      chart.onPan(pan)
+      XCTAssertEqual(chart.xAxisView.lowerBound, lower)
+      XCTAssertEqual(chart.xAxisView.upperBound, lower + 4)
     }
-    XCTAssertTrue(fill.contains(CGPoint(x: preview.bounds.midX, y: 1)))
-    XCTAssertFalse(fill.contains(CGPoint(x: preview.bounds.midX, y: preview.bounds.maxY - 1)))
+    XCTAssertEqual(reportedDistances, [3, 2, 6])
   }
 
   func testFillStartsAtTheFirstDistanceAfterTransforming() throws {
@@ -79,19 +100,54 @@ final class ChartLineViewTests: XCTestCase {
     XCTAssertEqual(points(in: line.path), originalPoints)
   }
 
-  func testFlatPreviewDrawsStrokeAndFill() throws {
-    let preview = ChartPreviewView(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
-    preview.chartData = ChartPresentationData(TestData(heights: [100, 100, 100]), formatter: TestFormatter())
-    preview.layoutIfNeeded()
-    preview.previewViews.forEach { $0.layoutIfNeeded() }
-
-    let stroke = try XCTUnwrap(preview.previewViews[0].shapeLayer.path)
-    let fill = try XCTUnwrap(preview.previewViews[1].shapeLayer.path)
-    XCTAssertFalse(stroke.isEmpty)
-    XCTAssertFalse(fill.isEmpty)
-    for point in points(in: stroke) + points(in: fill) {
-      XCTAssertTrue(point.x.isFinite && point.y.isFinite)
+  func testFollowedFillUsesTheConnectedSectionInRecordedCoordinates() throws {
+    let values = zip([0, 100, 100, 300], [100, 130, 210, 190]).map {
+      ChartValue(xValues: CGFloat($0.0), y: CGFloat($0.1))
     }
+    let view = ChartLineView(frame: CGRect(x: 0, y: 0, width: 300, height: 150))
+    let line = TestLine(values: values, type: .lineArea)
+    for (entry, finish, expectedX, expectedHeight) in [(2.5, 2, 200.0, 200.0), (2.0, 3, 100.0, 210.0), (1.0, 0, 100.0, 130.0)] {
+      view.chartLine = ChartPresentationLine(line, section: (entry, finish))
+      view.setViewport(minX: 0, maxX: 3, minY: 50, maxY: 250)
+      let path = try XCTUnwrap(view.shapeLayer.path)
+      let rendered = points(in: path)
+      XCTAssertEqual(rendered[0].x, expectedX, accuracy: 0.001)
+      XCTAssertEqual(rendered[0].y, (expectedHeight - 50) / 200 * 149 + 0.5, accuracy: 0.001)
+      XCTAssertEqual(rendered[1].x, values[finish].x, accuracy: 0.001)
+      XCTAssertEqual(path.boundingBoxOfPath.width, abs(expectedX - values[finish].x), accuracy: 0.001)
+    }
+  }
+
+  func testFollowedSectionKeepsTheFullProfileStrokeWidth() throws {
+    let heights: [CGFloat] = [100, 150, 200, 150, 100]
+    let chart = makeChart(heights: heights)
+    let fullWidth = chart.lineViews[0].shapeLayer.lineWidth
+    chart.chartData = ChartPresentationData(TestData(heights: heights, highlightedSection: (1, 3)), formatter: TestFormatter())
+    let profile = chart.lineViews[0].shapeLayer
+    let followed = try XCTUnwrap(profile.sublayers?.first as? CAShapeLayer)
+    XCTAssertEqual(followed.lineWidth, fullWidth)
+    XCTAssertGreaterThan(followed.lineWidth, profile.lineWidth)
+    XCTAssertFalse(try XCTUnwrap(followed.path).isEmpty)
+  }
+
+  func testEntryAfterGapUsesItsOwnHeightAndKeepsOtherPointsSelectable() throws {
+    // UIKit can round the selection overlay and its parent to different widths.
+    let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 370.5, height: 180))
+    let data = TestData(heights: [100, 130, 210, 190], distances: [0, 1000, 1000, 5000], highlightedSection: (2, 3))
+    chart.chartData = ChartPresentationData(data, formatter: TestFormatter())
+    chart.setNeedsLayout()
+    chart.layoutIfNeeded()
+    let overlay = chart.chartInfoView
+    chart.setSelectedPoint(1000)
+    let entryX = overlay.infoX * overlay.bounds.width
+    let entry = try XCTUnwrap(chart.chartInfoView(overlay, infoAtPointX: entryX))
+    XCTAssertEqual(entry.1.first?.formattedValue, "210.0")
+    var mapDistance: Double?
+    chart.onSelectedPointChanged = { mapDistance = $0 }
+    chart.chartInfoView(overlay, didMoveToPoint: entryX)
+    XCTAssertEqual(try XCTUnwrap(mapDistance), 1000, accuracy: 1e-9)
+    let outside = try XCTUnwrap(chart.chartInfoView(overlay, infoAtPointX: entryX / 2))
+    XCTAssertEqual(outside.1.first?.formattedValue, "115.0")
   }
 
   func testViewportEdgeOnSegmentBreakKeepsBothHeights() {
@@ -101,7 +157,7 @@ final class ChartLineViewTests: XCTestCase {
     let chart = ChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 180))
     chart.chartData = ChartPresentationData(TestData(heights: heights, distances: distances), formatter: TestFormatter())
     chart.layoutIfNeeded()
-    chart.chartPreviewView.setX(min: 7, max: 11)
+    chart.setViewport(lower: 7, upper: 11)
     chart.layoutIfNeeded()
 
     XCTAssertEqual(chart.yAxisView.lowerBound, 0)
@@ -156,6 +212,17 @@ final class ChartLineViewTests: XCTestCase {
   }
 }
 
+private final class MockPanGestureRecognizer: UIPanGestureRecognizer {
+  private var gestureState: UIGestureRecognizer.State = .possible
+  var translationX: CGFloat = 0
+  override var state: UIGestureRecognizer.State {
+    get { gestureState }
+    set { gestureState = newValue }
+  }
+
+  override func translation(in _: UIView?) -> CGPoint { CGPoint(x: translationX, y: 0) }
+}
+
 private struct TestLine: ChartLine {
   let values: [ChartValue]
   let type: ChartLineType
@@ -165,6 +232,7 @@ private struct TestLine: ChartLine {
 private struct TestData: ChartData {
   let heights: [CGFloat]
   var distances: [CGFloat]?
+  var highlightedSection: (entry: Double, finish: Int)?
   var xAxisValues: [Double] { (distances ?? heights.indices.map { CGFloat($0) }).map(Double.init) }
   var lines: [ChartLine] {
     let values = zip(xAxisValues, heights).map { ChartValue(xValues: CGFloat($0), y: $1) }

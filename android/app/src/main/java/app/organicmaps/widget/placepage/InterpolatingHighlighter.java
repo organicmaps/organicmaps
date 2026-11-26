@@ -44,7 +44,8 @@ public class InterpolatingHighlighter extends ChartHighlighter<BarLineChartBase>
     else if (xVal >= lastX)
       xVal = lastX;
 
-    float yVal = ElevationChartUtils.interpolateY(entries, xVal);
+    final Entry entry = SmoothLineChartRenderer.FollowedSection.entryAt(data, xVal);
+    float yVal = entry == null ? ElevationChartUtils.interpolateY(entries, xVal) : entry.getY();
 
     MPPointD pix = mChart.getTransformer(YAxis.AxisDependency.LEFT).getPixelForValues(xVal, yVal);
 

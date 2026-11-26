@@ -259,11 +259,14 @@ public class Framework
    */
   public static native int nativeNavigateTrack(long trackId);
 
-  /** Explicitly returns a followed track to planning using its captured entry/profile. */
+  /** Explicitly returns a followed track to planning using its captured entry/profile/direction. */
   public static native int nativeResetFollowedTrackToPlanning();
 
-  /** Updates the track preview from a distance along its source, retaining profile and viewport. */
+  /** Moves the entry along the source, keeping the current direction whenever geometry remains. */
   public static native int nativeUpdateFollowedTrackEntryAt(double distanceMeters);
+
+  /** Reverses the track preview; returns a FollowTrackResult ordinal. */
+  public static native int nativeReverseFollowedTrack();
 
   /**
    * Switches this track preview's profile without changing the persisted default.
@@ -337,6 +340,9 @@ public class Framework
   public static native void nativeSetRouteProgressListener(@NonNull RoutingProgressListener listener);
 
   public static native void nativeSetRoutingRecommendationListener(@NonNull RoutingRecommendationListener listener);
+
+  // Called when a map tap moves the followed track entry and starts its rebuild.
+  public static native void nativeSetTrackEntryTapListener(@NonNull Runnable listener);
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 

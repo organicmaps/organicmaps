@@ -36,7 +36,7 @@ enum NavigationDashboard {
 extension NavigationDashboard.ViewModel {
   static var initial: Self {
     NavigationDashboard.ViewModel(
-      routePoints: MWMRouter.followedTrackInfo().map { NavigationDashboard.RoutePoints(trackName: $0.name) } ?? .empty,
+      routePoints: MWMRouter.followedTrackInfo().map(NavigationDashboard.RoutePoints.init(track:)) ?? .empty,
       routerType: MWMRouter.renderType(),
       entity: MWMNavigationDashboardEntity(),
       trackRecordingState: TrackRecordingManager.shared.recordingState,
@@ -69,11 +69,13 @@ extension NavigationDashboard.ViewModel {
   }
 
   var canReverseRoutePoints: Bool {
-    guard planningMode != .navigateTrack else { return false }
+    guard progress == 1 else { return false }
+    if let track = routePoints.track {
+      return track.canReverse && (dashboardState == .ready || (dashboardState == .prepare && MWMRouter.isRouteBuilt()))
+    }
     // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
     return routePoints.hasStartAndFinish &&
       (dashboardState == .ready || dashboardState == .prepare) &&
-      progress == 1 &&
       MWMRouter.isRouteValid()
   }
 

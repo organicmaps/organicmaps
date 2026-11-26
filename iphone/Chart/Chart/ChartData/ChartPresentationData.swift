@@ -8,14 +8,11 @@ public class ChartPresentationData {
   var linesCount: Int { chartData.lines.count }
   var pointsCount: Int { chartData.xAxisValues.count }
   var segmentDistances: [Double] { chartData.segmentDistances }
-  var lower = CGFloat(Int.max)
-  var upper = CGFloat(Int.min)
 
   public init(_ chartData: ChartData, formatter: ChartFormatter) {
     self.chartData = chartData
     self.formatter = formatter
-    presentationLines = chartData.lines.map { ChartPresentationLine($0) }
-    recalculateBounds()
+    presentationLines = chartData.lines.map { ChartPresentationLine($0, section: chartData.highlightedSection) }
   }
 
   func labelAt(_ point: CGFloat) -> String {
@@ -40,16 +37,5 @@ public class ChartPresentationData {
 
   func lineAt(_ index: Int) -> ChartPresentationLine {
     presentationLines[index]
-  }
-
-  private func recalculateBounds() {
-    var l = CGFloat(Int.max)
-    var u = CGFloat(Int.min)
-    for presentationLine in presentationLines {
-      l = min(presentationLine.minY, l)
-      u = max(presentationLine.maxY, u)
-    }
-    lower = l
-    upper = u
   }
 }

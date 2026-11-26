@@ -289,7 +289,7 @@ final class MapPointPickerViewControllerTests: XCTestCase {
   }
 }
 
-private extension UIView {
+extension UIView {
   func firstDescendant(where predicate: (UIView) -> Bool) -> UIView? {
     for subview in subviews {
       if predicate(subview) {

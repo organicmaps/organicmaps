@@ -36,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic, readonly) NSString * name;
 /// Captured distance along the full source, independent of the map selection.
 @property(nonatomic, readonly) double entryDistanceMeters;
+/// Travel runs toward the start of the recorded section.
+@property(nonatomic, readonly) BOOL isReversed;
+/// The selected entry supports travel in the opposite direction.
+@property(nonatomic, readonly) BOOL canReverse;
+/// The destination borders a gap inside the recorded track.
+@property(nonatomic, readonly) BOOL endsAtGap;
 
 @end
 
@@ -77,9 +83,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Refusals preserve the current session; accepted builds report through normal routing events.
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
 /// Rebuilds from a finite distance along the full track, preserving profile and viewport.
+/// Keeps the chosen direction unless only the opposite side of the entry has geometry.
 /// Refusals leave the preview and selection unchanged.
 + (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
     NS_SWIFT_NAME(updateFollowedTrackEntry(atDistance:));
+/// Reverses the completed track preview at the selected location. A closed trailhead switches chart endpoints.
++ (MWMFollowTrackResult)reverseFollowedTrack;
 /// Switches the preview profile without changing the persisted default. Refusals preserve the session.
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type;
 + (BOOL)hasTrackNavigationSession;

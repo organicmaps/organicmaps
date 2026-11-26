@@ -16,6 +16,7 @@ struct TrackSourcePosition
   double m_fraction = 0.0;
 
   auto operator<=>(TrackSourcePosition const &) const = default;
+  double GetDistanceMeters(Track const & track) const;
 };
 
 // Resolve the selected source occurrence using both its coordinate and finite chart distance.
@@ -25,10 +26,17 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(Track const & track, m2::Po
 // The caller supplies a finite distance in [0, track length]. A gap uses the preceding section.
 TrackSourcePosition ResolveTrackEntryAt(Track const & track, double distanceFromBeginningM);
 
-// Whether horizontal geometry remains after a valid source position, without preparing stops.
-bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourcePosition const & entry);
+// Whether horizontal geometry remains in the requested direction from a valid source position, without preparing stops.
+bool HasRemainingTrackGeometry(kml::MultiGeometry const & geometry, TrackSourcePosition const & entry,
+                               bool reverse = false);
 
-// Prepare one connected remainder from a valid source position, preserving source order,
-// stops and altitude availability. Returns nullopt when no horizontal geometry remains.
+// Reverse from the same entry when usable. Near a loop trailhead start a full lap at the current destination.
+std::optional<TrackSourcePosition> GetReverseTrackEntry(Track const & track, TrackSourcePosition const & entry,
+                                                        TrackSourcePosition const & destination);
+
+// Prepare the connected remainder and its stops in travel order, preserving altitude availability.
+// Returns nullopt for an empty remainder, or writes the reached source endpoint if requested.
 std::optional<routing::TrackFollowingData> BuildTrackFollowingData(kml::TrackData const & source,
-                                                                   TrackSourcePosition const & entry);
+                                                                   TrackSourcePosition const & entry,
+                                                                   bool reverse = false,
+                                                                   TrackSourcePosition * destination = nullptr);

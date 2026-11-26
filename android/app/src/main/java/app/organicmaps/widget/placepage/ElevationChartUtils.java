@@ -3,6 +3,7 @@ package app.organicmaps.widget.placepage;
 import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.R;
@@ -114,9 +115,28 @@ public final class ElevationChartUtils
 
   public static void setChartData(@NonNull LineChart chart, @NonNull List<Entry> values, @NonNull Context context)
   {
+    setChartData(chart, values, context, null);
+  }
+
+  public static void setChartData(@NonNull LineChart chart, @NonNull List<Entry> values, @NonNull Context context,
+                                  @Nullable SmoothLineChartRenderer.FollowedSection section)
+  {
     LineDataSet set = new LineDataSet(values, ELEVATION_PROFILE_POINTS);
     applyLineDataSetStyle(set, context);
     LineData data = new LineData(set);
+    if (section != null)
+    {
+      // Hit testing uses the whole profile, including the muted portion.
+      set.setColor(ThemeUtils.getColor(context, R.attr.iconTint));
+      set.setLineWidth(1f);
+      set.setDrawFilled(false);
+      applyLineDataSetStyle(section, context);
+      section.setLineWidth(2f);
+      section.setFillColor(section.getColor());
+      section.setFillFormatter((line, provider) -> chart.getAxisLeft().getAxisMinimum());
+      section.setHighlightEnabled(false);
+      data.addDataSet(section);
+    }
     data.setDrawValues(false);
     chart.setData(data);
     chart.animateX(0);

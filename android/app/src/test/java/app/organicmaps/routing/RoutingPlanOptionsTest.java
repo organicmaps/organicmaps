@@ -1,15 +1,18 @@
 package app.organicmaps.routing;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import androidx.lifecycle.MediatorLiveData;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -147,6 +150,50 @@ public class RoutingPlanOptionsTest
 
     // The steps' top inside the panel is the tile's offset plus the steps' offset within the tile.
     verify(sheetBehavior).setPeekHeight(50 + 200 + 40 + 60 + 10);
+  }
+
+  @Test
+  @SuppressWarnings("unchecked")
+  public void aSlideInFollowsTheBottomInsetThatArrivesDuringIt() throws ReflectiveOperationException
+  {
+    RoutingPlanFragment fragment = mock(RoutingPlanFragment.class, CALLS_REAL_METHODS);
+    View frame = mock(View.class);
+    View steps = mock(View.class);
+    RoutingPlanViewModel viewModel = mock(RoutingPlanViewModel.class);
+    BottomSheetBehavior<View> sheetBehavior = mock(BottomSheetBehavior.class);
+    MediatorLiveData<Boolean> sheetVisible = mock(MediatorLiveData.class);
+    when(frame.getTop()).thenReturn(500);
+    when(steps.getVisibility()).thenReturn(View.GONE);
+    when(viewModel.getBottomSheetState()).thenReturn(BottomSheetBehavior.STATE_EXPANDED);
+    when(sheetBehavior.getState()).thenReturn(BottomSheetBehavior.STATE_SETTLING);
+    setField(fragment, "mFrame", frame);
+    setField(fragment, "mTransitStepsView", steps);
+    setField(fragment, "mChartPanel", mock(View.class));
+    setField(fragment, "mRoutingTypesContainer", mock(View.class));
+    setField(fragment, "mViewModel", viewModel);
+    setField(fragment, "mSheetBehavior", sheetBehavior);
+    setField(fragment, "mSheetVisible", sheetVisible);
+
+    // A sheet sliding in heads for the state it is shown in, once per inset change.
+    when(sheetVisible.getValue()).thenReturn(true);
+    when(frame.getPaddingBottom()).thenReturn(63);
+    fragment.updateSheetLayout();
+    fragment.updateSheetLayout();
+    verify(sheetBehavior).setState(BottomSheetBehavior.STATE_EXPANDED);
+    clearInvocations(sheetBehavior);
+
+    // A sheet sliding out keeps its course.
+    when(sheetVisible.getValue()).thenReturn(false);
+    when(frame.getPaddingBottom()).thenReturn(0);
+    fragment.updateSheetLayout();
+    verify(sheetBehavior, never()).setState(anyInt());
+
+    // A settled sheet is moved by the behavior itself.
+    when(sheetVisible.getValue()).thenReturn(true);
+    when(sheetBehavior.getState()).thenReturn(BottomSheetBehavior.STATE_COLLAPSED);
+    when(frame.getPaddingBottom()).thenReturn(63);
+    fragment.updateSheetLayout();
+    verify(sheetBehavior, never()).setState(anyInt());
   }
 
   private static void updateProgress(RoutingPlanFragment fragment, Router router) throws ReflectiveOperationException

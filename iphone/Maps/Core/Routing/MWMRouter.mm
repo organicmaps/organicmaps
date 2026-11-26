@@ -45,6 +45,9 @@ using namespace routing;
     _trackId = info.m_id;
     _name = @(info.m_name.c_str());
     _entryDistanceMeters = info.m_entryDistanceM;
+    _isReversed = info.m_reversed;
+    _canReverse = info.m_canReverse;
+    _endsAtGap = info.m_endsAtGap;
   }
   return self;
 }
@@ -86,7 +89,12 @@ using namespace routing;
   TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:statistics hasElevationInfo:YES];
   ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
                                                                        elevationInfo:data->m_elevationInfo];
-  return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
+  auto const & section = data->m_followedSection;
+  return [[RouteElevationPreviewData alloc]
+      initWithTrackInfo:trackInfo
+          elevationInfo:profileData
+        entryPointIndex:section ? section->m_entryPoint : 0
+       finishPointIndex:section ? static_cast<NSInteger>(section->m_finishPoint) : -1];
 }
 
 + (NSNumber *)routeElevationActivePointDistance
@@ -159,6 +167,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 + (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
 {
   return OnFollowTrackResult(GetFramework().GetRoutingManager().UpdateFollowedTrackEntryAt(distance));
+}
+
++ (MWMFollowTrackResult)reverseFollowedTrack
+{
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().ReverseFollowedTrack());
 }
 
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type
@@ -752,6 +765,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
                                                                    intermediateIndex:0]];
     break;
   }
+}
+
+- (void)processTrackEntryTapRebuild
+{
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
 }
 
 #pragma mark - Alerts

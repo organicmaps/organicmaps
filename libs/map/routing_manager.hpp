@@ -27,7 +27,6 @@
 
 #include <chrono>
 #include <cstdint>
-#include <expected>
 #include <functional>
 #include <map>
 #include <memory>
@@ -72,6 +71,12 @@ struct FollowedTrackInfo
   std::string m_name;
   /// Captured distance along the full source, independent of the map selection.
   double m_entryDistanceM = 0.0;
+  /// Travel runs toward the beginning of the recorded section.
+  bool m_reversed = false;
+  /// The destination borders a gap inside the recorded track.
+  bool m_endsAtGap = false;
+  /// The selected entry supports travel in the opposite direction.
+  bool m_canReverse = false;
   /// The router type the track is followed and rendered as (never Transit or Ruler).
   routing::RouterType m_profile = routing::RouterType::Vehicle;
 };
@@ -82,11 +87,11 @@ enum class FollowTrackResult
   Ok,
   /// The requested live source track does not exist.
   NoTrack,
-  /// Active navigation or a pending Start prevents this operation.
+  /// The current build or navigation state prevents this operation.
   Busy,
   /// The selection does not identify a valid occurrence in its source.
   InvalidSelection,
-  /// No horizontal geometry remains in the selected connected section.
+  /// No horizontal geometry remains in the requested direction.
   NoRemainingGeometry,
   /// The saved profile supports measurement only.
   UnsupportedProfile,
@@ -97,6 +102,7 @@ std::string DebugPrint(FollowTrackResult result);
 struct RouteElevationData
 {
   ElevationInfo m_elevationInfo;
+  std::optional<ElevationInfo::ChartSection> m_followedSection;
   TrackStatistics m_statistics;
 };
 
@@ -141,6 +147,7 @@ public:
   using RouteBuildingCallback = std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
   using RouteSpeedCamShowCallback = std::function<void(m2::PointD const &, double)>;
   using RouteSpeedCamsClearCallback = std::function<void()>;
+  using TrackEntryTapCallback = std::function<void()>;
 
   using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
 
@@ -206,19 +213,28 @@ public:
   {
     m_routeRecommendCallback = recommendCallback;
   }
+  // Platform commands report the track builds they start. A map tap starts one inside the core, so it notifies here.
+  void SetTrackEntryTapListener(TrackEntryTapCallback const & callback) { m_trackEntryTapCallback = callback; }
   // Track navigation requires a current position and completes any approach build before following.
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
 
-  // Capture the selected connected remainder. Active navigation and a pending Start return Busy.
+  // Follow the connected section forward, or backward when only that direction has geometry.
+  // Active navigation and a pending Start return Busy.
   // Requires routing initialization. Accepted previews use the route-building callbacks.
   FollowTrackResult NavigateTrack(kml::TrackId trackId);
-  // The following three commands require a captured session.
+  // The following preview edits require a captured session.
   // Return to the captured preview.
   FollowTrackResult ResetFollowedTrackToPlanning();
   // Clamp a finite source distance to the full track, preserving profile and viewport.
+  // Keep the direction unless only the opposite side of the entry has geometry.
   // At a gap the exact accepted distance keeps its section. Other distances use source order.
   FollowTrackResult UpdateFollowedTrackEntryAt(double distanceM);
+  // Move a track preview's entry to the source point within |touchRect| nearest to its center.
+  // Returns false, leaving the tap to the place page, when it misses the track or the preview rejects that entry.
+  bool TryTapOnFollowedTrack(m2::RectD const & touchRect);
+  // Near a loop trailhead reverse from the other recorded endpoint. Elsewhere keep the captured entry.
+  FollowTrackResult ReverseFollowedTrack();
   // Change this preview's profile (Vehicle, Bicycle or Pedestrian) without writing global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
   bool IsFollowingTrack() const { return m_followSession.has_value(); }
@@ -230,9 +246,6 @@ public:
   {
     return m_followSession ? &m_followSession->m_info : nullptr;
   }
-  // Whether the live selection has a usable connected remainder, independent of GPS or
-  // conflicting navigation. NavigateTrack still validates before replacing the session.
-  bool HasNavigableTrackSelection(kml::TrackId trackId) const;
   // Profile for route presentation and camera behavior, including a track session's local choice.
   routing::RouterType GetRenderRouterType() const;
 
@@ -339,7 +352,8 @@ public:
   }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
 
-  // Preview charts use the captured full track; navigation charts use the active route.
+  // Preview charts show the full source profile with elevation totals for the followed section.
+  // Navigation charts use the active route.
   // Returns nullopt when chart geometry or useful complete altitudes are unavailable.
   std::optional<RouteElevationData> GetRouteElevationData() const;
 
@@ -370,20 +384,13 @@ private:
 
   void SetRouterImpl(routing::RouterType type);
 
-  struct SelectedTrack
-  {
-    Track const * m_track;
-    TrackSourcePosition m_entry;
-    double m_distanceM;
-  };
-
-  // Resolve a live source selection without changing the session.
-  std::expected<SelectedTrack, FollowTrackResult> CheckTrackFollowable(kml::TrackId trackId) const;
   FollowTrackResult CheckFollowedTrackEditable(bool allowFollowing = false) const;
   bool IsPreviewingTrack() const { return m_followSession && !IsRoutingFollowing(); }
 
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
-                                       double entryDistanceM, routing::RouterType profile, bool keepViewport = false);
+                                       double entryDistanceM, bool reverse, routing::RouterType profile,
+                                       bool keepViewport = false);
+  FollowTrackResult UpdateFollowedTrackEntry(TrackSourcePosition const & entry, double entryDistanceM);
   void InstallFollowedTrack(FollowSession session, bool keepViewport = false);
   void BuildFollowedTrackPreview(std::optional<m2::PointD> const & position);
   std::optional<m2::PointD> GetLatestGpsPosition() const;
@@ -453,6 +460,7 @@ private:
   RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;
   RouteSpeedCamsClearCallback m_routeSpeedCamsClearCallback;
   RouteRecommendCallback m_routeRecommendCallback;
+  TrackEntryTapCallback m_trackEntryTapCallback;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
@@ -467,6 +475,9 @@ private:
     FollowedTrackInfo m_info;
     std::shared_ptr<Track const> m_source;
     TrackSourcePosition m_entry;
+    size_t m_destinationLine;
+    // Reverse starts at m_entry or at the other endpoint of a loop. Empty when neither gives a route.
+    std::optional<TrackSourcePosition> m_reverseEntry;
     std::shared_ptr<routing::TrackFollowingData const> m_data;
     bool m_keepViewport = false;
     bool m_startWhenReady = false;

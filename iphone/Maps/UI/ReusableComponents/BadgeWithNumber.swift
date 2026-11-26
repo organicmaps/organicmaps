@@ -23,7 +23,7 @@ class BadgeWithNumber: UIView {
   private func setup() {
     isUserInteractionEnabled = false
     backgroundColor = .systemRed
-    label.textColor = .whitePrimary
+    label.textColor = .white
     label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
     label.textAlignment = .center
     label.translatesAutoresizingMaskIntoConstraints = false

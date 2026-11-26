@@ -8,21 +8,26 @@ class ChartLineView: UIView {
   private var minY: CGFloat = 0
   private var maxY: CGFloat = 0
 
-  var lineWidth: CGFloat = 1 {
-    didSet {
-      shapeLayer.lineWidth = lineWidth
-    }
-  }
+  private var highlightedStroke: CAShapeLayer?
 
   var chartLine: ChartPresentationLine! {
     didSet {
-      guard let chartLine = chartLine else { return }
-      maxX = chartLine.values.count - 1
-      minY = chartLine.minY
-      maxY = chartLine.maxY
+      guard let chartLine else { return }
+      let lineWidth: CGFloat = 3
+      highlightedStroke?.removeFromSuperlayer()
+      highlightedStroke = nil
+      if chartLine.highlighted != nil, chartLine.type == .line {
+        let stroke = CAShapeLayer()
+        stroke.actions = ["path": NSNull(), "bounds": NSNull(), "position": NSNull()]
+        stroke.fillColor = nil
+        stroke.lineWidth = lineWidth
+        stroke.lineJoin = .round
+        stroke.lineCap = .round
+        shapeLayer.addSublayer(stroke)
+        highlightedStroke = stroke
+      }
+      shapeLayer.lineWidth = highlightedStroke == nil ? lineWidth : 1
       updateLineColors()
-      shapeLayer.lineWidth = lineWidth
-      updateGraph()
     }
   }
 
@@ -50,26 +55,13 @@ class ChartLineView: UIView {
     updateGraph(animationStyle: animationStyle)
   }
 
-  func setX(min: Int, max: Int) {
-    guard min < max else { return }
-    minX = min
-    maxX = max
-    updateGraph()
-  }
-
-  func setY(min: CGFloat, max: CGFloat, animationStyle: ChartAnimation = .none) {
-    guard min < max else { return }
-    minY = min
-    maxY = max
-    updateGraph(animationStyle: animationStyle)
-  }
-
   private func updateLineColors() {
     guard let chartLine else { return }
     let resolvedColor = chartLine.color.resolvedColor(with: traitCollection).cgColor
     switch chartLine.type {
     case .line:
-      shapeLayer.strokeColor = resolvedColor
+      shapeLayer.strokeColor = highlightedStroke == nil ? resolvedColor : UIColor.secondaryLabel.resolvedColor(with: traitCollection).cgColor
+      highlightedStroke?.strokeColor = resolvedColor
       shapeLayer.fillColor = UIColor.clear.cgColor
       shapeLayer.lineJoin = .round
     case .lineArea:
@@ -79,7 +71,7 @@ class ChartLineView: UIView {
   }
 
   private func updateGraph(animationStyle: ChartAnimation = .none) {
-    // A flat profile gets its Y span from the owner's setY() or setViewport().
+    // Layout can run before the chart supplies its viewport.
     guard let chartLine, maxX > minX, maxY > minY else { return }
 
     let xScale = bounds.width / CGFloat(maxX - minX)
@@ -90,11 +82,31 @@ class ChartLineView: UIView {
     let translate = CGAffineTransform.identity.translatedBy(x: xTranslate, y: yTranslate)
     let transform = scale.concatenating(translate)
     let realPath = CGMutablePath()
+    let section = chartLine.highlighted
     realPath.addPath(chartLine.path, transform: transform)
+
+    if let section, let highlightedStroke {
+      let stroke = CGMutablePath()
+      stroke.addPath(section.path, transform: transform)
+      let entryX = section.entry.x * xScale + xTranslate
+      let delta = stroke.currentPoint.x - entryX
+      let sign: CGFloat = delta < 0 ? -1 : 1
+      let length = min(18, abs(delta))
+      let tipX = entryX + sign * length
+      let head = min(4, length / 2)
+      let y = bounds.height - 8
+      stroke.move(to: CGPoint(x: entryX, y: y))
+      stroke.addLine(to: CGPoint(x: tipX, y: y))
+      stroke.move(to: CGPoint(x: tipX - sign * head, y: y - head))
+      stroke.addLine(to: CGPoint(x: tipX, y: y))
+      stroke.addLine(to: CGPoint(x: tipX - sign * head, y: y + head))
+      highlightedStroke.frame = bounds
+      highlightedStroke.path = stroke
+    }
 
     if chartLine.type == .lineArea, !realPath.isEmpty {
       // Close area fills at the viewport bottom, regardless of sea level.
-      let startX = chartLine.pathStartX * xScale + xTranslate
+      let startX = (section?.entry.x ?? chartLine.pathStartX) * xScale + xTranslate
       realPath.addLine(to: CGPoint(x: realPath.currentPoint.x, y: 0))
       realPath.addLine(to: CGPoint(x: startX, y: 0))
       realPath.closeSubpath()

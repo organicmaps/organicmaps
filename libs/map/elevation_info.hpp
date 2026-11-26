@@ -74,9 +74,26 @@ public:
     uint32_t GetTotalDescent() const { return IsGoodFiltered() ? m_totalDescentFiltered : m_totalDescentRaw; }
   };
 
+  // The two sides of a gap share a chart distance. Identify the entry by line and distance on that line.
+  struct Section
+  {
+    size_t m_entryLine;
+    double m_distanceOnLine;
+    size_t m_endLine;
+    bool m_reverse;
+  };
+
+  // Indexes into ForEachPoint() order. The entry can lie between two simplified samples.
+  struct ChartSection
+  {
+    double m_entryPoint;
+    size_t m_finishPoint;
+  };
+  ChartSection GetChartSection(Section const & section) const;
+
   /// Calculates all altitude statistics in one pass.
   /// @param[in] threshold Minimum altitude change for filtered ascent/descent (threshold accumulation).
-  AltitudesInfo CalculateAltitudesInfo(Altitude threshold) const;
+  AltitudesInfo CalculateAltitudesInfo(Altitude threshold, Section const * section = nullptr) const;
 
   /// Iterates all points with cumulative distances across all lines.
   /// @param[in] fn Called with (double cumulativeDistance, geometry::Altitude altitude) for each point.

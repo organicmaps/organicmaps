@@ -37,7 +37,7 @@ enum ElevationProfileState {
 struct ElevationProfileDisplayData {
   let trackInfo: TrackInfo
   let chartData: ElevationProfileChartData
-  let activePointDistance: Double
+  var activePointDistance: Double
   let myPositionDistance: Double
 }
 
@@ -105,7 +105,15 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     }
   }
 
+  private func recordActivePointDistance(_ distance: Double) {
+    if case .routePreview(var data)? = state {
+      data.activePointDistance = distance
+      state = .routePreview(data)
+    }
+  }
+
   func updateActivePointDistance(_ distance: Double) {
+    recordActivePointDistance(distance)
     guard let view, view.canReceiveUpdates else { return }
     view.setActivePointDistance(distance)
   }
@@ -144,6 +152,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func onSelectedPointChanged(_ distance: Double) {
+    recordActivePointDistance(distance)
     delegate?.updateMapPoint(distance: distance)
   }
 
@@ -200,6 +209,7 @@ struct ElevationProfileChartData {
     var type: ChartLineType
   }
 
+  var highlightedSection: (entry: Double, finish: Int)?
   let chartValues: [ChartValue]
   let chartLines: [Line]
   let distances: [Double]

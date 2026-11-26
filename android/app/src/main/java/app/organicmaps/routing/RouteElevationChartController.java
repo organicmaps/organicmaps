@@ -11,6 +11,7 @@ import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.widget.placepage.ElevationChartUtils;
 import app.organicmaps.widget.placepage.ElevationProfileChart;
+import app.organicmaps.widget.placepage.SmoothLineChartRenderer.FollowedSection;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -126,7 +127,10 @@ public class RouteElevationChartController
     // Only a shown chart is selected, and it is shown with data only.
     Assert.debug(!mEntries.isEmpty(), "Selecting on an elevation chart without data");
     mSelectedDistance = distanceMeters;
-    mChart.highlightValue(ElevationChartUtils.highlightAt(mEntries, (float) distanceMeters), false);
+    final float x = (float) distanceMeters;
+    final Entry entry = FollowedSection.entryAt(mChart.getData(), x);
+    mChart.highlightValue(
+        entry == null ? ElevationChartUtils.highlightAt(mEntries, x) : new Highlight(x, entry.getY(), 0), false);
   }
 
   public void setData(@Nullable RouteAltitudeData data)
@@ -156,17 +160,53 @@ public class RouteElevationChartController
       return;
     }
 
-    List<Entry> values = new ArrayList<>();
+    List<Entry> values = new ArrayList<>(data.getSize());
+    int chartMin = data.getAltitude(0);
+    int chartMax = chartMin;
     for (int i = 0; i < data.getSize(); i++)
-      values.add(new Entry((float) data.getDistance(i), data.getAltitude(i), i));
+    {
+      final int altitude = data.getAltitude(i);
+      values.add(new Entry((float) data.getDistance(i), altitude, i));
+      chartMin = Math.min(chartMin, altitude);
+      chartMax = Math.max(chartMax, altitude);
+    }
     mEntries = values;
 
-    ElevationChartUtils.configureYAxisBounds(mChart, data.getMinAltitude(), data.getMaxAltitude());
-    ElevationChartUtils.setChartData(mChart, values, mContext);
+    // The full chart also shows elevations outside the followed section.
+    ElevationChartUtils.configureYAxisBounds(mChart, chartMin, chartMax);
+    ElevationChartUtils.setChartData(mChart, values, mContext, followedSection(data, values));
 
     if (mMinAltitude != null)
-      mMinAltitude.setText(Framework.nativeFormatAltitude(data.getMinAltitude()));
+      mMinAltitude.setText(Framework.nativeFormatAltitude(chartMin));
     if (mMaxAltitude != null)
-      mMaxAltitude.setText(Framework.nativeFormatAltitude(data.getMaxAltitude()));
+      mMaxAltitude.setText(Framework.nativeFormatAltitude(chartMax));
+  }
+
+  @Nullable
+  private static FollowedSection followedSection(RouteAltitudeData data, List<Entry> values)
+  {
+    if (data.finishPointIndex < 0)
+      return null;
+    final double index = data.entryPointIndex;
+    final int lower = (int) Math.floor(index);
+    final int upper = (int) Math.ceil(index);
+    final double fraction = index - lower;
+    final Entry entry =
+        new Entry((float) (data.getDistance(lower) + fraction * (data.getDistance(upper) - data.getDistance(lower))),
+                  (float) (data.getAltitude(lower) + fraction * (data.getAltitude(upper) - data.getAltitude(lower))));
+    final int finish = data.finishPointIndex;
+    final boolean reversed = finish < index;
+    final List<Entry> section = new ArrayList<>(Math.abs(finish - lower) + 2);
+    if (reversed)
+    {
+      section.addAll(values.subList(finish, upper));
+      section.add(entry);
+    }
+    else
+    {
+      section.add(entry);
+      section.addAll(values.subList(lower + 1, finish + 1));
+    }
+    return new FollowedSection(section, reversed);
   }
 }
