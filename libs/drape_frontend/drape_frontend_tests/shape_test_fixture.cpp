@@ -1,5 +1,6 @@
 #include "drape_frontend/drape_frontend_tests/shape_test_fixture.hpp"
 
+#include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -137,13 +138,19 @@ void ShapeTestFixture::AddShape(drape_ptr<MapShape> && shape)
 void ShapeTestFixture::AddUserLines(TileKey const & tileKey, TracksSource const & source,
                                     UserLinesRenderCollection const & renderParams)
 {
-  CHECK(m_batcher != nullptr, ("Call Init() before AddUserLines()"));
-  CacheUserLines(make_ref(m_context), tileKey, make_ref(m_texMng), source, renderParams, *m_batcher);
+  AddTile(tileKey, [&](dp::Batcher & batcher)
+  { CacheUserLines(make_ref(m_context), tileKey, make_ref(m_texMng), source, renderParams, batcher); });
 }
 
 void ShapeTestFixture::AddUserAreas(TileKey const & tileKey, UserAreasToCache const & areas)
 {
-  CHECK(m_batcher != nullptr, ("Call Init() before AddUserAreas()"));
+  AddTile(tileKey, [&](dp::Batcher & batcher)
+  { CacheUserAreas(make_ref(m_context), tileKey, make_ref(m_texMng), areas, batcher); });
+}
+
+void ShapeTestFixture::AddTile(TileKey const & tileKey, std::function<void(dp::Batcher &)> const & cache)
+{
+  CHECK(m_batcher != nullptr, ("Call Init() before AddTile()"));
   auto const tileCenter = tileKey.GetGlobalRect().Center();
   if (!m_viewCenter)
     m_viewCenter = tileCenter;
@@ -154,7 +161,7 @@ void ShapeTestFixture::AddUserAreas(TileKey const & tileKey, UserAreasToCache co
   dp::SessionGuard guard(make_ref(m_context), batcher,
                          [this, shift](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
   { m_buckets.push_back({state, std::move(bucket), shift}); });
-  CacheUserAreas(make_ref(m_context), tileKey, make_ref(m_texMng), areas, batcher);
+  cache(batcher);
 }
 
 void ShapeTestFixture::Flush()
@@ -196,6 +203,18 @@ void ShapeTestFixture::Render()
     auto const rightLayer = GetDepthLayer(rhs.m_state);
     return leftLayer == rightLayer ? lhs.m_state < rhs.m_state : leftLayer < rightLayer;
   });
+  if (m_viewCenter)
+  {
+    ScreenBase screen;
+    screen.OnSize(0, 0, m_width, m_height);
+    screen.SetScale(1.0 / m_worldToPixelScale);
+    screen.SetOrg(*m_viewCenter);
+    std::vector<ref_ptr<dp::OverlayHandle>> arrows;
+    for (auto const & entry : m_buckets)
+      if (entry.m_state.GetProgram<gpu::Program>() == gpu::Program::PathSymbol)
+        entry.m_bucket->ForEachOverlay([&](auto h) { arrows.push_back(h); });
+    PlaceTrackArrows(screen, arrows);
+  }
   std::optional<DepthLayer> layer;
   for (auto & entry : m_buckets)
   {

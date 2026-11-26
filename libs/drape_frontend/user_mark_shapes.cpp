@@ -85,7 +85,7 @@ int constexpr kTrackEndpointMinZoom = 8;
 float constexpr kTrackArrowOffset = 48.0f;
 float constexpr kTrackArrowStep = 96.0f;
 // Chevron size in dp, as in track-direction-arrow-*.svg; atlas regions add 2 px of padding per side.
-float constexpr kTrackArrowLength = 7.0f;
+float constexpr kTrackArrowLength = 4.0f;
 float constexpr kTrackArrowHeight = 4.0f;
 float constexpr kTrackArrowMaxHeight = 8.0f;
 float constexpr kTrackArrowInset = 0.25f;
@@ -944,7 +944,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
           params.m_searchRadius = kTrackArrowSearchRadius * static_cast<float>(vs);
           params.m_exclusionRects = endpointRects;
           params.m_baseGtoPScale = 1.0 / pixelToGlobalScale;
-          PathSymbolShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
+          PathSymbolShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures, &tileKey);
         }
       }
     }

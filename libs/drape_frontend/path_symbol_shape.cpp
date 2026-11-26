@@ -12,10 +12,15 @@
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
+#include "geometry/spatial_hash_grid.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <optional>
+#include <tuple>
 #include <vector>
+
+#include <boost/container_hash/hash.hpp>
 
 namespace df
 {
@@ -113,6 +118,24 @@ std::optional<double> FindValidPlacement(SplineSampler const & sampler, double t
   }
   return std::nullopt;
 }
+
+drape_ptr<dp::OverlayHandle> MakeTrackArrowHandle(TileKey const & tile, PathSymbolViewParams const & params,
+                                                  m2::PointD const & position, m2::PointD const & direction,
+                                                  m2::PointF const & halfSize)
+{
+  // Selection wins every conflict. Within a layer, distribute arrows among nearby tracks
+  // using their map geometry, so their priority is independent of camera motion and tile arrival order.
+  uint64_t constexpr kSelectedBit = uint64_t{1} << 63;
+  auto const hash = boost::hash_value(
+      std::tie(position.x, position.y, direction.x, direction.y, params.m_symbolName, params.m_symbolScale));
+  uint64_t const priority =
+      (hash & ~kSelectedBit) | (params.m_depthLayer == DepthLayer::SelectedUserLineLayer ? kSelectedBit : 0);
+  dp::OverlayID id;
+  id.m_tileCoords = tile.GetTileCoords();
+  auto const world = position + m2::PointD(tile.GetTileXOffset(), 0);
+  return make_unique_dp<dp::SquareHandle>(id, dp::Center, world, m2::PointD(halfSize) * 2.0, m2::PointD::Zero(),
+                                          priority, false /* isBound */, 1, false /* isBillboard */);
+}
 }  // namespace
 
 PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params)
@@ -122,6 +145,12 @@ PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolView
 
 void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
                            ref_ptr<dp::TextureManager> textures) const
+{
+  Draw(context, batcher, textures, nullptr);
+}
+
+void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                           ref_ptr<dp::TextureManager> textures, TileKey const * trackTile) const
 {
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
@@ -135,6 +164,19 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
 
   gpu::VBUnknownSizeT<gpu::SolidTexturingVertex> buffer;
   double const pixelToGlobalScale = 1.0 / m_params.m_baseGtoPScale;
+
+  auto state = CreateRenderState(gpu::Program::PathSymbol, m_params.m_depthLayer);
+  state.SetColorTexture(region.GetTexture());
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+  state.SetTextureIndex(region.GetTextureIndex());
+
+  auto const flush = [&](drape_ptr<dp::OverlayHandle> handle)
+  {
+    dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
+    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
+    batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
+    buffer.clear();
+  };
 
   auto const addSymbol = [&](m2::PointD const & position, m2::PointD const & direction)
   {
@@ -157,6 +199,8 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     buffer.emplace_back(pivot, -d + n, lb);
     buffer.emplace_back(pivot, d - n, rt);
     buffer.emplace_back(pivot, d + n, rb);
+    if (trackTile)
+      flush(MakeTrackArrowHandle(*trackTile, m_params, position, direction, halfPxSize));
   };
 
   double const offset = m_params.m_offset * pixelToGlobalScale;
@@ -192,16 +236,43 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     }
   }
 
-  if (buffer.empty())
+  if (!buffer.empty())
+    flush(nullptr);
+}
+
+void PlaceTrackArrows(ScreenBase const & screen, std::vector<ref_ptr<dp::OverlayHandle>> & arrows)
+{
+  if (arrows.empty())
     return;
 
-  auto state = CreateRenderState(gpu::Program::PathSymbol, m_params.m_depthLayer);
-  state.SetColorTexture(region.GetTexture());
-  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
-  state.SetTextureIndex(region.GetTextureIndex());
+  double constexpr kMinSpacingDp = 48.0;
+  double const spacing = kMinSpacingDp * VisualParams::Instance().GetVisualScale();
+  auto bounds = screen.PixelRectIn3d();
+  bounds.Inflate(spacing, spacing);
 
-  dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
-  batcher->InsertListOfStrip(context, state, make_ref(&provider), 4);
+  std::ranges::sort(arrows, std::greater{}, [](auto const & h) { return h->GetPriority(); });
+  m2::SpatialHashGrid const grid(spacing);
+  m2::SpatialHashGrid::Map<std::vector<m2::PointD>> higherPriority;
+  for (auto const & arrow : arrows)
+  {
+    arrow->SetIsVisible(false);
+    auto const pivot = arrow->GetPivot(screen, false);
+    if (screen.IsReverseProjection3d(pivot))
+      continue;
+
+    auto const p = screen.PtoP3d(pivot);
+    if (!bounds.IsPointInside(p))
+      continue;
+    bool const crowded = std::ranges::any_of(grid.GetNearbyCells(p), [&](auto const & cell)
+    {
+      auto const it = higherPriority.find(cell);
+      return it != higherPriority.end() && std::ranges::any_of(it->second, [&](auto const & other)
+      { return p.SquaredLength(other) < spacing * spacing; });
+    });
+    arrow->SetIsVisible(!crowded);
+    // Even a hidden candidate competes with its immediate neighbors. A tile entering the viewport
+    // can then only affect arrows within one spacing of it, never a chain reaching into the screen.
+    higherPriority[grid.ToCell(p)].push_back(p);
+  }
 }
 }  // namespace df
