@@ -514,8 +514,11 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId, storag
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
 
-  if (countryId == m_lastReportedCountry)
-    m_lastReportedCountry = kInvalidCountryId;
+  {
+    std::lock_guard lock(m_reportedCountryMutex);
+    if (countryId == m_lastReportedCountry)
+      m_lastReportedCountry = kInvalidCountryId;
+  }
 
   GetSearchAPI().CancelAllSearches();
 
@@ -1479,13 +1482,13 @@ void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
   if (zoomLevel > scales::GetUpperWorldScale())
     newCountryId = m_infoGetter->GetRegionCountryId(pt);
 
-  if (newCountryId == m_lastReportedCountry)
-    return;
+  {
+    std::lock_guard lock(m_reportedCountryMutex);
+    if (newCountryId == m_lastReportedCountry)
+      return;
+    m_lastReportedCountry = newCountryId;
+  }
 
-  m_lastReportedCountry = newCountryId;
-
-  /// @todo Looks logical to add if (m_currentCountryChanged) before RunTask,
-  /// but possible races with read/write of m_currentCountryChanged.
   GetPlatform().RunTask(Platform::Thread::Gui, [this, newCountryId]()
   {
     if (m_currentCountryChanged)
@@ -1496,6 +1499,7 @@ void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
 void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged listener)
 {
   m_currentCountryChanged = std::move(listener);
+  std::lock_guard lock(m_reportedCountryMutex);
   m_lastReportedCountry = kInvalidCountryId;
 }
 
