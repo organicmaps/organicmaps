@@ -2,7 +2,6 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:background="?attr/cardBackground"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -24,57 +23,20 @@
       android:id="@+id/content"
       android:orientation="vertical"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base">
       <TextView
-        android:text="@string/routing_options_all_modes"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/margin_base"
-        android:paddingEnd="@dimen/margin_base"
-        android:paddingTop="@dimen/margin_half_double_plus"
-        android:textColor="?android:attr/textColorSecondary"/>
-      <LinearLayout
-        android:orientation="horizontal"
-        android:minHeight="@dimen/height_block_base"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_base"
-        android:paddingStart="@dimen/margin_base">
-        <LinearLayout
-          android:orientation="vertical"
-          android:layout_width="0dp"
-          android:layout_weight="1"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:paddingTop="@dimen/margin_half"
-          android:paddingBottom="@dimen/margin_half">
-          <TextView
-            android:labelFor="@id/route_optimization_btn"
-            android:text="@string/route_optimization"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary"/>
-          <TextView
-            android:text="@string/route_optimization_description"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_quarter"
-            android:textColor="?android:attr/textColorSecondary"/>
-        </LinearLayout>
+        style="@style/MwmWidget.RoutingOptions.Header"
+        android:text="@string/routing_options_all_modes"/>
+      <com.google.android.material.card.MaterialCardView style="@style/MwmWidget.RoutingOptions.Card">
         <androidx.appcompat.widget.SwitchCompat
           android:id="@+id/route_optimization_btn"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:padding="@dimen/margin_half_double_plus"/>
-      </LinearLayout>
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_base"
-        android:background="?windowBackgroundForced"/>
+          style="@style/MwmWidget.RoutingOptions.Row.Switch"
+          android:text="@string/route_optimization"/>
+      </com.google.android.material.card.MaterialCardView>
+      <TextView
+        style="@style/MwmWidget.RoutingOptions.Footer"
+        android:text="@string/route_optimization_description"/>
       <RadioGroup
         android:id="@+id/router_types"
         android:orientation="horizontal"
@@ -82,9 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
         android:layout_marginEnd="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
         android:background="@drawable/routing_toolbar_pill_bg"
-        android:padding="@dimen/routing_toolbar_pill_padding">
+        android:padding="@dimen/routing_toolbar_pill_padding"
+        android:theme="@style/ThemeOverlay.RoutingOptions.Tabs">
         <app.organicmaps.widget.RoutingToolbarButton
           android:id="@+id/vehicle"
           style="@style/MwmWidget.RoutingToolbarCell"
@@ -101,189 +63,64 @@
           android:button="@drawable/ic_bike"
           android:contentDescription="@string/routing_options_cycling"/>
       </RadioGroup>
-      <LinearLayout
-        android:layout_marginTop="@dimen/margin_half_double_plus"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="?android:attr/listDivider"
-        android:showDividers="middle">
-        <LinearLayout
-          android:orientation="horizontal"
-          android:minHeight="@dimen/height_block_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingEnd="@dimen/margin_base"
-          android:paddingStart="@dimen/margin_base">
-          <TextView
-            android:labelFor="@id/avoid_tolls_btn"
-            android:text="@string/avoid_tolls"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="?android:attr/textColorPrimary"/>
+      <com.google.android.material.card.MaterialCardView
+        style="@style/MwmWidget.RoutingOptions.Card"
+        android:layout_marginTop="@dimen/margin_base">
+        <LinearLayout style="@style/MwmWidget.RoutingOptions.Rows">
           <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/avoid_tolls_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
-        </LinearLayout>
-        <LinearLayout
-          android:orientation="horizontal"
-          android:minHeight="@dimen/height_block_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingEnd="@dimen/margin_base"
-          android:paddingStart="@dimen/margin_base">
-          <TextView
-            android:labelFor="@id/avoid_dirty_roads_btn"
-            android:text="@string/avoid_unpaved"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="?android:attr/textColorPrimary"/>
+            style="@style/MwmWidget.RoutingOptions.Row.Switch"
+            android:text="@string/avoid_tolls"/>
           <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/avoid_dirty_roads_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
-        </LinearLayout>
-        <LinearLayout
-          android:orientation="horizontal"
-          android:minHeight="@dimen/height_block_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingEnd="@dimen/margin_base"
-          android:paddingStart="@dimen/margin_base">
-          <TextView
-            android:labelFor="@id/avoid_ferries_btn"
-            android:text="@string/avoid_ferry"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="?android:attr/textColorPrimary"/>
+            style="@style/MwmWidget.RoutingOptions.Row.Switch"
+            android:text="@string/avoid_unpaved"/>
           <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/avoid_ferries_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
-        </LinearLayout>
-        <LinearLayout
-          android:orientation="horizontal"
-          android:minHeight="@dimen/height_block_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingEnd="@dimen/margin_base"
-          android:paddingStart="@dimen/margin_base">
-          <TextView
-            android:labelFor="@id/avoid_motorways_btn"
-            android:text="@string/avoid_motorways"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary"/>
+            style="@style/MwmWidget.RoutingOptions.Row.Switch"
+            android:text="@string/avoid_ferry"/>
           <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/avoid_motorways_btn"
-            android:layout_width="wrap_content"
-            android:padding="@dimen/margin_half_double_plus"
-            android:layout_height="match_parent"/>
-        </LinearLayout>
-        <LinearLayout
-          android:orientation="horizontal"
-          android:minHeight="@dimen/height_block_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingEnd="@dimen/margin_base"
-          android:paddingStart="@dimen/margin_base">
-          <TextView
-            android:labelFor="@id/avoid_steps_btn"
-            android:text="@string/avoid_steps"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="?android:attr/textColorPrimary"/>
+            style="@style/MwmWidget.RoutingOptions.Row.Switch"
+            android:text="@string/avoid_motorways"/>
           <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/avoid_steps_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
-        </LinearLayout>
-        <LinearLayout
-          android:orientation="horizontal"
-          android:minHeight="@dimen/height_block_base"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingEnd="@dimen/margin_base"
-          android:paddingStart="@dimen/margin_base">
-          <TextView
-            android:labelFor="@id/avoid_difficult_trails_btn"
-            android:text="@string/avoid_difficult_trails"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="?android:attr/textColorPrimary"/>
+            style="@style/MwmWidget.RoutingOptions.Row.Switch"
+            android:text="@string/avoid_steps"/>
           <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/avoid_difficult_trails_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_half_double_plus"/>
+            style="@style/MwmWidget.RoutingOptions.Row.Switch"
+            android:text="@string/avoid_difficult_trails"/>
         </LinearLayout>
-      </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
       <LinearLayout
         android:id="@+id/bicycle_surface_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/margin_base"
-        android:paddingEnd="@dimen/margin_base">
+        android:orientation="vertical">
         <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingTop="@dimen/margin_half_double_plus"
-          android:text="@string/bicycle_surface"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:textColor="?android:attr/textColorSecondary"/>
-        <RadioGroup
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-          <RadioButton
-            android:id="@+id/bicycle_surface_any"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="@string/bicycle_surface_any"/>
-          <RadioButton
-            android:id="@+id/bicycle_surface_paved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="@string/bicycle_surface_prefer_paved"/>
-          <RadioButton
-            android:id="@+id/bicycle_surface_unpaved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="@string/bicycle_surface_prefer_unpaved"/>
-          <RadioButton
-            android:id="@+id/bicycle_surface_avoid_unpaved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="@string/avoid_unpaved"/>
-        </RadioGroup>
+          style="@style/MwmWidget.RoutingOptions.Header"
+          android:text="@string/bicycle_surface"/>
+        <com.google.android.material.card.MaterialCardView style="@style/MwmWidget.RoutingOptions.Card">
+          <RadioGroup style="@style/MwmWidget.RoutingOptions.Rows">
+            <RadioButton
+              android:id="@+id/bicycle_surface_any"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/bicycle_surface_any"/>
+            <RadioButton
+              android:id="@+id/bicycle_surface_paved"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/bicycle_surface_prefer_paved"/>
+            <RadioButton
+              android:id="@+id/bicycle_surface_unpaved"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/bicycle_surface_prefer_unpaved"/>
+            <RadioButton
+              android:id="@+id/bicycle_surface_avoid_unpaved"
+              style="@style/MwmWidget.RoutingOptions.Row.Choice"
+              android:text="@string/avoid_unpaved"/>
+          </RadioGroup>
+        </com.google.android.material.card.MaterialCardView>
       </LinearLayout>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
