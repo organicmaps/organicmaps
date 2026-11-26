@@ -173,6 +173,36 @@ UNIT_TEST(TestLeftmostDirection)
   TEST_EQUAL(LeftmostDirection(-170.), CarDirection::TurnSharpLeft, ());
 }
 
+UNIT_TEST(TestCorrectRightmostAndLeftmost)
+{
+  auto const check = [](vector<double> const & exitAngles, size_t routeIndex, CarDirection expected)
+  {
+    vector<TurnCandidate> candidates;
+    for (uint32_t i = 0; i < exitAngles.size(); ++i)
+      candidates.emplace_back(exitAngles[i], Segment(0, i, 0, true), ftypes::HighwayClass::Secondary, false);
+
+    auto const & route = candidates[routeIndex];
+    TurnItem turn(0, IntermediateDirection(route.m_angle));
+    CorrectRightmostAndLeftmost(candidates, route.m_segment, route.m_angle, turn);
+    TEST_EQUAL(turn.m_turn, expected, (exitAngles, routeIndex));
+  };
+
+  // Hilden and its mirror: the alternatives on both sides turn more than 90 degrees.
+  check({-133, -89, 90.4}, 1, CarDirection::TurnLeft);
+  check({-90.4, 89, 133}, 1, CarDirection::TurnRight);
+
+  // At a one-sided fork, the straighter branch can still be announced as straight.
+  check({-50, -15}, 1, CarDirection::GoStraight);
+  check({15, 50}, 0, CarDirection::GoStraight);
+
+  // Choose a branch at a shallow fork, including one with sharp exits behind it.
+  check({-5, 6}, 0, CarDirection::TurnSlightLeft);
+  check({-135, -5, 6, 135}, 2, CarDirection::TurnSlightRight);
+
+  // A middle exit between two forward alternatives keeps its own turn angle.
+  check({-60, -20, 60}, 1, CarDirection::TurnSlightLeft);
+}
+
 UNIT_TEST(TestIntermediateDirection)
 {
   TEST_EQUAL(IntermediateDirection(180.), CarDirection::TurnSharpRight, ());

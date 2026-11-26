@@ -530,6 +530,15 @@ UNIT_TEST(Russia_Voronezh_ProspTruda_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
+UNIT_TEST(Germany_Hilden_BaustrasseToRichratherStrasse_TurnTest)
+{
+  using namespace integration;
+  auto const [route, result] = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(51.161658, 6.938912),
+                                              {}, FromLatLon(51.160822, 6.938070));
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  TestTurns(*route, {CarDirection::TurnLeft});
+}
+
 UNIT_TEST(Germany_FrankfurtAirport_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),

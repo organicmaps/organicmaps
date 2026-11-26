@@ -8,6 +8,8 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
+#include <algorithm>
+
 namespace routing
 {
 using namespace turns;
@@ -372,35 +374,10 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection, dou
   return true;
 }
 
-/*!
- * \brief Corrects |turn.m_turn| if |turn.m_turn == CarDirection::GoStraight|.
- * If the other way is not sharp enough, turn.m_turn is set to |turnToSet|.
- */
-void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const routeAngle, CarDirection const & turnToSet,
-                       TurnItem & turn)
-{
-  if (turn.m_turn != CarDirection::GoStraight)
-    return;
-
-  // Correct turn if alternative cadidate's angle is not sharp enough compared to the route.
-  if (std::abs(notRouteCandidate.m_angle) < std::abs(routeAngle) + kMinAbsAngleDiffForStraightRoute)
-  {
-    LOG(LDEBUG, ("Turn: ", turn.m_index, " GoStraight correction."));
-    turn.m_turn = turnToSet;
-  }
-}
-
-// If the route goes along the rightmost or the leftmost way among available ones:
-// 1. RightmostDirection or LeftmostDirection is selected
-// 2. If the turn direction is |CarDirection::GoStraight|
-// and there's another not sharp enough turn
-// GoStraight is corrected to TurnSlightRight/TurnSlightLeft
-// to avoid ambiguity for GoStraight direction: 2 or more almost straight turns.
 void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidates, Segment const & firstOutgoingSeg,
                                  double const turnAngle, TurnItem & turn)
 {
-  // turnCandidates are sorted by angle from leftmost to rightmost.
-  // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order.
+  // Equal angles make the ordering of those exits ambiguous.
   if (adjacent_find(turnCandidates.begin(), turnCandidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) !=
       turnCandidates.end())
   {
@@ -408,46 +385,30 @@ void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidat
     return;
   }
 
-  double constexpr kMaxAbsAngleConsideredLeftOrRightMost = 90;
+  auto const route = std::ranges::find(turnCandidates, firstOutgoingSeg, &TurnCandidate::m_segment);
+  if (route == turnCandidates.end())
+    return;
 
-  // Go from left to right to findout if the route goes through the leftmost candidate and fixes can be applied.
-  // Other candidates which are sharper than kMaxAbsAngleConsideredLeftOrRightMost are ignored.
-  for (auto candidate = turnCandidates.begin(); candidate != turnCandidates.end(); ++candidate)
-  {
-    if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.end())
-    {
-      // The route goes along the leftmost candidate.
-      turn.m_turn = LeftmostDirection(turnAngle);
-      if (IntermediateDirection(turnAngle) != turn.m_turn)
-        LOG(LDEBUG, ("Turn: ", turn.m_index, " LeftmostDirection correction."));
-      // Compare with the next candidate to the right.
-      CorrectGoStraight(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightLeft, turn);
-      break;
-    }
-    // Check if this candidate is considered as leftmost as not too sharp.
-    // If yes - this candidate is leftmost, not route's one.
-    if (candidate->m_angle > -kMaxAbsAngleConsideredLeftOrRightMost)
-      break;
-  }
-  // Go from right to left to findout if the route goes through the rightmost candidate anf fixes can be applied.
-  // Other candidates which are sharper than kMaxAbsAngleConsideredLeftOrRightMost are ignored.
-  for (auto candidate = turnCandidates.rbegin(); candidate != turnCandidates.rend(); ++candidate)
-  {
-    if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.rend())
-    {
-      // The route goes along the rightmost candidate.
-      turn.m_turn = RightmostDirection(turnAngle);
-      if (IntermediateDirection(turnAngle) != turn.m_turn)
-        LOG(LDEBUG, ("Turn: ", turn.m_index, " RighmostDirection correction."));
-      // Compare with the next candidate to the left.
-      CorrectGoStraight(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightRight, turn);
-      break;
-    }
-    // Check if this candidate is considered as rightmost as not too sharp.
-    // If yes - this candidate is rightmost, not route's one.
-    if (candidate->m_angle < kMaxAbsAngleConsideredLeftOrRightMost)
-      break;
-  }
+  // Candidates are sorted by angle, so the immediate neighbors determine whether the route is an outermost turn.
+  double constexpr kMinSharpAlternativeAngle = 90.0;
+  bool const hasLeft = route != turnCandidates.begin();
+  bool const hasRight = route + 1 != turnCandidates.end();
+  bool const isLeftmost = hasRight && (!hasLeft || route[-1].m_angle <= -kMinSharpAlternativeAngle);
+  bool const isRightmost = hasLeft && (!hasRight || route[1].m_angle >= kMinSharpAlternativeAngle);
+  // If sharp alternatives on both sides make the route qualify as both extremes, keep its geometric direction.
+  if (isLeftmost == isRightmost)
+    return;
+
+  auto direction = isLeftmost ? LeftmostDirection(turnAngle) : RightmostDirection(turnAngle);
+  auto const & alternative = isLeftmost ? route[1] : route[-1];
+  // When both branches are nearly straight, tell the driver which one to take.
+  if (direction == CarDirection::GoStraight &&
+      std::abs(alternative.m_angle) < std::abs(route->m_angle) + kMinAbsAngleDiffForStraightRoute)
+    direction = isLeftmost ? CarDirection::TurnSlightLeft : CarDirection::TurnSlightRight;
+
+  if (turn.m_turn != direction)
+    LOG(LDEBUG, ("Turn:", turn.m_index, "corrected from", turn.m_turn, "to", direction));
+  turn.m_turn = direction;
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,

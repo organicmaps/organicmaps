@@ -25,6 +25,11 @@ protected:
 
 void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
+// With candidates sorted by angle, ignore outer alternatives at or beyond 90 degrees. Correct the measured turn
+// only if the route is outermost on exactly one side. Use a slight turn to distinguish two nearly straight branches.
+void CorrectRightmostAndLeftmost(std::vector<turns::TurnCandidate> const & turnCandidates,
+                                 Segment const & firstOutgoingSeg, double turnAngle, turns::TurnItem & turn);
+
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
  * \returns an index in |segments| that has the opposite direction with master segment
