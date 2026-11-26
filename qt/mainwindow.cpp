@@ -29,18 +29,18 @@
 
 #include "std/target_os.hpp"
 
-#ifdef BUILD_DESIGNER
 #include "build_style/build_common.h"
-#include "build_style/build_phone_pack.h"
+#include "build_style/build_skins.h"
 #include "build_style/build_statistics.h"
 #include "build_style/build_style.h"
 #include "build_style/run_tests.h"
 
 #include "drape_frontend/debug_rect_renderer.hpp"
 
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
-#endif  // BUILD_DESIGNER
 
 #include <QtCore/QLocale>
 #include <QtGui/QCloseEvent>
@@ -81,18 +81,13 @@ T * CreateBlackControl(QString const & name)
 extern char const * kOauthTokenSetting;
 
 MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
-                       QRect const & screenGeometry, QLocale const & dataSizeLocale
-#ifdef BUILD_DESIGNER
-                       ,
-                       QString const & mapcssFilePath
-#endif
-                       )
+                       QRect const & screenGeometry, QLocale const & dataSizeLocale, QString const & mapcssFilePath,
+                       build_style::StyleInfo const & styleInfo)
   : m_locationService(CreateDesktopLocationService(*this))
   , m_screenshotMode(screenshotParams != nullptr)
   , m_dataSizeLocale(dataSizeLocale)
-#ifdef BUILD_DESIGNER
   , m_mapcssFilePath(mapcssFilePath)
-#endif
+  , m_styleInfo(styleInfo)
 {
   setGeometry(screenGeometry);
 
@@ -127,10 +122,8 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   QString caption = QCoreApplication::applicationName();
 
-#ifdef BUILD_DESIGNER
-  if (!m_mapcssFilePath.isEmpty())
+  if (IsDesignerMode())
     caption += QString(" - ") + m_mapcssFilePath;
-#endif
 
   setWindowTitle(caption);
   setWindowIcon(QIcon(":/ui/logo.png"));
@@ -282,9 +275,17 @@ void MainWindow::CreateNavigationBar()
                         std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
     m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_outdoor"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
-    m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+    QAction * outdoorsAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_outdoor"),
+                                                   std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
+    if (IsDesignerMode())
+    {
+      // Designer pins the opened style; keep the disabled action for enum-based indexing.
+      outdoorsAction->setEnabled(false);
+    }
+    else
+    {
+      m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+    }
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_hiking"),
                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
@@ -303,62 +304,63 @@ void MainWindow::CreateNavigationBar()
                         SLOT(OnBookmarksAction()));
     pToolBar->addSeparator();
 
-#ifndef BUILD_DESIGNER
-    m_routing = new PopupMenuHolder(this);
+    if (!IsDesignerMode())
+    {
+      m_routing = new PopupMenuHolder(this);
 
-    // The order should be the same as in "enum class RouteMarkType".
-    m_routing->addAction(QIcon(":/navig64/point-start.png"), Tr("choose_start_location"),
-                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Start), false);
-    m_routing->addAction(QIcon(":/navig64/point-intermediate.png"), Tr("intermediate_point"),
-                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Intermediate), false);
-    m_routing->addAction(QIcon(":/navig64/point-finish.png"), Tr("choose_destination"),
-                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Finish), false);
+      // The order should be the same as in "enum class RouteMarkType".
+      m_routing->addAction(QIcon(":/navig64/point-start.png"), Tr("choose_start_location"),
+                           std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Start), false);
+      m_routing->addAction(QIcon(":/navig64/point-intermediate.png"), Tr("intermediate_point"),
+                           std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Intermediate), false);
+      m_routing->addAction(QIcon(":/navig64/point-finish.png"), Tr("choose_destination"),
+                           std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Finish), false);
 
-    QToolButton * toolBtn = m_routing->create();
-    toolBtn->setToolTip(Tr("route_point_mouse_shortcut_tooltip"));
-    pToolBar->addWidget(toolBtn);
-    m_routing->setCurrent(m_pDrawWidget->GetRoutePointAddMode());
+      QToolButton * toolBtn = m_routing->create();
+      toolBtn->setToolTip(Tr("route_point_mouse_shortcut_tooltip"));
+      pToolBar->addWidget(toolBtn);
+      m_routing->setCurrent(m_pDrawWidget->GetRoutePointAddMode());
 
-    QAction * act =
-        pToolBar->addAction(QIcon(":/navig64/routing.png"), Tr("follow_route"), this, SLOT(OnFollowRoute()));
-    act->setToolTip(Tr("follow_route_mouse_shortcut_tooltip"));
-    pToolBar->addAction(QIcon(":/navig64/clear-route.png"), Tr("clear_route"), this, SLOT(OnClearRoute()));
-    pToolBar->addAction(QIcon(":/navig64/settings-routing.png"), Tr("routing_settings"), this,
-                        SLOT(OnRoutingSettings()));
+      QAction * act =
+          pToolBar->addAction(QIcon(":/navig64/routing.png"), Tr("follow_route"), this, SLOT(OnFollowRoute()));
+      act->setToolTip(Tr("follow_route_mouse_shortcut_tooltip"));
+      pToolBar->addAction(QIcon(":/navig64/clear-route.png"), Tr("clear_route"), this, SLOT(OnClearRoute()));
+      pToolBar->addAction(QIcon(":/navig64/settings-routing.png"), Tr("routing_settings"), this,
+                          SLOT(OnRoutingSettings()));
 
-    pToolBar->addSeparator();
+      pToolBar->addSeparator();
 
-    m_pCreateFeatureAction =
-        pToolBar->addAction(QIcon(":/navig64/select.png"), Tr("create_feature"), this, SLOT(OnCreateFeatureClicked()));
-    m_pCreateFeatureAction->setCheckable(true);
-    m_pCreateFeatureAction->setToolTip(Tr("create_feature_tooltip"));
-    m_pCreateFeatureAction->setShortcut(QKeySequence::New);
+      m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"), Tr("create_feature"), this,
+                                                   SLOT(OnCreateFeatureClicked()));
+      m_pCreateFeatureAction->setCheckable(true);
+      m_pCreateFeatureAction->setToolTip(Tr("create_feature_tooltip"));
+      m_pCreateFeatureAction->setShortcut(QKeySequence::New);
 
-    pToolBar->addSeparator();
+      pToolBar->addSeparator();
 
-    m_selection = new PopupMenuHolder(this);
+      m_selection = new PopupMenuHolder(this);
 
-    // The order should be the same as in "enum class SelectionMode".
-    m_selection->addAction(QIcon(":/navig64/selectmode.png"), Tr("roads_selection_mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::Features), true);
-    m_selection->addAction(QIcon(":/navig64/city_boundaries.png"), Tr("city_boundaries_selection_mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityBoundaries), true);
-    m_selection->addAction(QIcon(":/navig64/city_roads.png"), Tr("city_roads_selection_mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
-    m_selection->addAction(QIcon(":/navig64/test.png"), Tr("cross_mwm_segments_selection_mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments), true);
-    m_selection->addAction(QIcon(":/navig64/borders_selection.png"), Tr("mwms_borders_selection_mode"), this,
-                           SLOT(OnSwitchMwmsBordersSelectionMode()), true);
+      // The order should be the same as in "enum class SelectionMode".
+      m_selection->addAction(QIcon(":/navig64/selectmode.png"), Tr("roads_selection_mode"),
+                             std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::Features), true);
+      m_selection->addAction(QIcon(":/navig64/city_boundaries.png"), Tr("city_boundaries_selection_mode"),
+                             std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityBoundaries), true);
+      m_selection->addAction(QIcon(":/navig64/city_roads.png"), Tr("city_roads_selection_mode"),
+                             std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
+      m_selection->addAction(QIcon(":/navig64/test.png"), Tr("cross_mwm_segments_selection_mode"),
+                             std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments),
+                             true);
+      m_selection->addAction(QIcon(":/navig64/borders_selection.png"), Tr("mwms_borders_selection_mode"), this,
+                             SLOT(OnSwitchMwmsBordersSelectionMode()), true);
 
-    toolBtn = m_selection->create();
-    toolBtn->setToolTip(Tr("selection_mode_mouse_tooltip"));
-    pToolBar->addWidget(toolBtn);
+      toolBtn = m_selection->create();
+      toolBtn->setToolTip(Tr("selection_mode_mouse_tooltip"));
+      pToolBar->addWidget(toolBtn);
 
-    pToolBar->addAction(QIcon(":/navig64/clear.png"), Tr("clear"), this, SLOT(OnClearSelection()));
+      pToolBar->addAction(QIcon(":/navig64/clear.png"), Tr("clear"), this, SLOT(OnClearSelection()));
 
-    pToolBar->addSeparator();
-
-#endif  // NOT BUILD_DESIGNER
+      pToolBar->addSeparator();
+    }
 
     // Add search button with "checked" behavior.
     m_pSearchAction =
@@ -379,46 +381,45 @@ void MainWindow::CreateNavigationBar()
         pToolBar->addAction(QIcon(":/navig64/location.png"), Tr("core_my_position"), this, SLOT(OnMyPosition()));
     m_pMyPositionAction->setCheckable(true);
 
-#ifdef BUILD_DESIGNER
-    // Add "Build style" button
-    if (!m_mapcssFilePath.isEmpty())
+    if (IsDesignerMode())
     {
-      m_pBuildStyleAction =
+      // Add "Build style" button
+      auto * buildStyleAction =
           pToolBar->addAction(QIcon(":/navig64/run.png"), Tr("build_style"), this, SLOT(OnBuildStyle()));
-      m_pBuildStyleAction->setCheckable(false);
-      m_pBuildStyleAction->setToolTip(Tr("build_style"));
+      buildStyleAction->setCheckable(false);
+      buildStyleAction->setToolTip(Tr("build_style"));
 
-      m_pRecalculateGeomIndex = pToolBar->addAction(QIcon(":/navig64/geom.png"), Tr("recalculate_geometry_index"), this,
-                                                    SLOT(OnRecalculateGeomIndex()));
-      m_pRecalculateGeomIndex->setCheckable(false);
-      m_pRecalculateGeomIndex->setToolTip(Tr("recalculate_geometry_index"));
+      auto * recalculateGeomIndex = pToolBar->addAction(QIcon(":/navig64/geom.png"), Tr("recalculate_geometry_index"),
+                                                        this, &MainWindow::OnRecalculateGeomIndex);
+      recalculateGeomIndex->setCheckable(false);
+      recalculateGeomIndex->setToolTip(Tr("recalculate_geometry_index"));
+
+      // Add "Debug style" button
+      m_pDrawDebugRectAction =
+          pToolBar->addAction(QIcon(":/navig64/bug.png"), Tr("debug_style"), this, SLOT(OnDebugStyle()));
+      m_pDrawDebugRectAction->setCheckable(true);
+      m_pDrawDebugRectAction->setChecked(false);
+      m_pDrawDebugRectAction->setToolTip(Tr("debug_style"));
+      m_pDrawWidget->GetFramework().EnableDebugRectRendering(false);
+
+      // Add "Get statistics" button
+      auto * getStatisticsAction =
+          pToolBar->addAction(QIcon(":/navig64/chart.png"), Tr("get_statistics"), this, SLOT(OnGetStatistics()));
+      getStatisticsAction->setCheckable(false);
+      getStatisticsAction->setToolTip(Tr("get_statistics"));
+
+      // Add "Run tests" button
+      auto * runTestsAction =
+          pToolBar->addAction(QIcon(":/navig64/test.png"), Tr("run_tests"), this, SLOT(OnRunTests()));
+      runTestsAction->setCheckable(false);
+      runTestsAction->setToolTip(Tr("run_tests"));
+
+      // Add "Build phone package" button
+      auto * buildPhonePackAction = pToolBar->addAction(QIcon(":/navig64/phonepack.png"), Tr("build_phone_package"),
+                                                        this, SLOT(OnBuildPhonePackage()));
+      buildPhonePackAction->setCheckable(false);
+      buildPhonePackAction->setToolTip(Tr("build_phone_package"));
     }
-
-    // Add "Debug style" button
-    m_pDrawDebugRectAction =
-        pToolBar->addAction(QIcon(":/navig64/bug.png"), Tr("debug_style"), this, SLOT(OnDebugStyle()));
-    m_pDrawDebugRectAction->setCheckable(true);
-    m_pDrawDebugRectAction->setChecked(false);
-    m_pDrawDebugRectAction->setToolTip(Tr("debug_style"));
-    m_pDrawWidget->GetFramework().EnableDebugRectRendering(false);
-
-    // Add "Get statistics" button
-    m_pGetStatisticsAction =
-        pToolBar->addAction(QIcon(":/navig64/chart.png"), Tr("get_statistics"), this, SLOT(OnGetStatistics()));
-    m_pGetStatisticsAction->setCheckable(false);
-    m_pGetStatisticsAction->setToolTip(Tr("get_statistics"));
-
-    // Add "Run tests" button
-    m_pRunTestsAction = pToolBar->addAction(QIcon(":/navig64/test.png"), Tr("run_tests"), this, SLOT(OnRunTests()));
-    m_pRunTestsAction->setCheckable(false);
-    m_pRunTestsAction->setToolTip(Tr("run_tests"));
-
-    // Add "Build phone package" button
-    m_pBuildPhonePackAction = pToolBar->addAction(QIcon(":/navig64/phonepack.png"), Tr("build_phone_package"), this,
-                                                  SLOT(OnBuildPhonePackage()));
-    m_pBuildPhonePackAction->setCheckable(false);
-    m_pBuildPhonePackAction->setToolTip(Tr("build_phone_package"));
-#endif  // BUILD_DESIGNER
   }
 
   pToolBar->addSeparator();
@@ -642,12 +643,11 @@ void MainWindow::OnPreferences()
   framework.EnterForeground();
 }
 
-#ifdef BUILD_DESIGNER
 void MainWindow::OnBuildStyle()
 {
   try
   {
-    build_style::BuildAndApply(m_mapcssFilePath);
+    build_style::BuildAndApply(m_mapcssFilePath, m_styleInfo);
     m_pDrawWidget->RefreshDrawingRules();
 
     bool enabled;
@@ -662,12 +662,7 @@ void MainWindow::OnBuildStyle()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -688,12 +683,7 @@ void MainWindow::OnRecalculateGeomIndex()
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -701,25 +691,19 @@ void MainWindow::OnDebugStyle()
 {
   bool const checked = m_pDrawDebugRectAction->isChecked();
   m_pDrawWidget->GetFramework().EnableDebugRectRendering(checked);
-  m_pDrawWidget->RefreshDrawingRules();
 }
 
 void MainWindow::OnGetStatistics()
 {
   try
   {
-    QString text = build_style::GetCurrentStyleStatistics();
+    QString text = build_style::GetCurrentStyleStatistics(m_styleInfo);
     InfoDialog dlg(QString("Style statistics"), text, NULL);
     dlg.exec();
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -727,18 +711,12 @@ void MainWindow::OnRunTests()
 {
   try
   {
-    std::pair<bool, QString> res = build_style::RunCurrentStyleTests();
-    InfoDialog dlg(QString("Style tests: ") + (res.first ? "OK" : "FAILED"), res.second, NULL);
+    InfoDialog dlg("Style tests: OK", build_style::RunCurrentStyleTests(), nullptr);
     dlg.exec();
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
 
@@ -746,48 +724,36 @@ void MainWindow::OnBuildPhonePackage()
 {
   try
   {
-    char const * const kStylesFolder = "styles";
-    char const * const kClearStyleFolder = "clear";
-
     QString const targetDir = QFileDialog::getExistingDirectory(nullptr, "Choose output directory");
     if (targetDir.isEmpty())
       return;
-    auto outDir = QDir(JoinPathQt({targetDir, kStylesFolder}));
-    if (outDir.exists())
+
+    QString const phoneStylesDir =
+        build_style::ExportPhonePackage(m_mapcssFilePath, m_styleInfo, targetDir, [this](QString const & destination)
     {
-      QMessageBox msgBox;
-      msgBox.setWindowTitle("Warning");
-      msgBox.setText(QString("Folder ") + outDir.absolutePath() + " will be deleted?");
-      msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-      msgBox.setDefaultButton(QMessageBox::No);
-      auto result = msgBox.exec();
-      if (result == QMessageBox::No)
-        throw std::runtime_error(std::string("Target directory exists: ") + outDir.absolutePath().toStdString());
-    }
+      return QMessageBox::question(this, "Overwrite phone package",
+                                   "Folder " + destination + " will be overwritten. Continue?",
+                                   QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes;
+    });
+    if (phoneStylesDir.isEmpty())
+      return;
 
-    QString const stylesDir = JoinPathQt({m_mapcssFilePath, "..", "..", ".."});
-    if (!QDir(JoinPathQt({stylesDir, kClearStyleFolder})).exists())
-      throw std::runtime_error(std::string("Styles folder is not found in ") + stylesDir.toStdString());
-
-    QString text = build_style::RunBuildingPhonePack(stylesDir, targetDir);
-    text.append("\nMobile device style package is in the directory: ");
-    text.append(JoinPathQt({targetDir, kStylesFolder}));
-    text.append(". Copy it to your mobile device.\n");
+    QString const text = QString(
+                             "Phone package for %1/%2 written to:\n  %3\n\n"
+                             "Copy this 'styles/' folder to your device:\n"
+                             "  Android: <storage>/Android/data/app.organicmaps/files/styles/\n"
+                             "  iOS:     Files -> On My iPhone -> Organic Maps -> styles/\n\n"
+                             "Only drules and symbol atlases are overridable on-device.\n"
+                             "Edits to colors / patterns / classifier need a full app rebuild.")
+                             .arg(m_styleInfo.m_styleType, m_styleInfo.m_theme, phoneStylesDir);
     InfoDialog dlg(QString("Building phone pack"), text, nullptr);
     dlg.exec();
   }
   catch (std::exception & e)
   {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Error");
-    msgBox.setText(e.what());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    QMessageBox::critical(this, "Error", e.what());
   }
 }
-#endif  // BUILD_DESIGNER
-
 #ifndef NO_DOWNLOADER
 void MainWindow::ShowUpdateDialog()
 {

@@ -77,6 +77,19 @@ void LoadFamily(MapStyle style)
     c.SetLoaded(true);
   }
 }
+
+void ReloadFamily(MapStyle style)
+{
+  auto const variants = FamilyVariants(style);
+  auto const fmt = drule::DecodeRules(variants.front());
+  for (auto const variant : variants)
+  {
+    auto & c = classif(variant);
+    CHECK(c.IsLoaded(), ("Reload requires a resident family", variant));
+    c.GetMutableRoot()->ClearDrawingRules();
+    drule::GetRules(variant).LoadFromFormat(fmt, GetStyleReader().GetDrawingRulesVariant(variant), c);
+  }
+}
 }  // namespace
 
 namespace classificator
@@ -96,9 +109,8 @@ void Load()
 {
   LOG(LDEBUG, ("Reading of classificator started"));
 
-  // Drop every loaded flag so the designer's rebuilt drules are re-read on reload, then load the
-  // current and outdoors families now (others, e.g. vehicle, load lazily on first use). Outdoors is
-  // always made resident because hiking/cycling relations can explicitly select its rules.
+  // Load the current and outdoors families. Hiking and cycling relations can explicitly use
+  // outdoors rules. Other families load on demand.
   for (size_t i = 0; i < MapStyleCount; ++i)
     classif(static_cast<MapStyle>(i)).SetLoaded(false);
 
@@ -106,6 +118,12 @@ void Load()
   EnsureStyleLoaded(MapStyleOutdoorsLight);
 
   LOG(LDEBUG, ("Reading of classificator finished"));
+}
+
+void ReloadDrawingRules()
+{
+  CHECK(GetStyleReader().IsDesignerMode(), ("Live rule reload is for Designer"));
+  ReloadFamily(GetStyleReader().GetCurrentStyle());
 }
 
 void LoadTypes(std::string const & classificatorFileStr, std::string const & typesFileStr)

@@ -89,7 +89,8 @@ public:
   std::string const & GetName() const { return m_name; }
   ClassifObject const * GetObject(size_t i) const;
 
-  std::vector<drule::Key> const & GetDrawRules() const { return m_drawRules; }
+  // Clears rendering metadata while preserving type identities and child nodes.
+  void ClearDrawingRules();
   void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
 
   // Returns std::numeric_limits<int>::min() if there are no overlay drules.

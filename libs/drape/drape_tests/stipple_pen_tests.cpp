@@ -7,6 +7,8 @@
 #include "drape/texture.hpp"
 #include "drape/tm_read_resources.hpp"
 
+#include "platform/platform_tests_support/scoped_file.hpp"
+
 namespace stipple_pen_tests
 {
 using namespace dp;
@@ -73,5 +75,15 @@ UNIT_TEST(StippleTest_EqualPatterns)
       else if (IsAlmostEqualPatterns(patterns[i], patterns[j]))
         LOG(LINFO, ("Almost equal:", patterns[i], patterns[j]));
   }
+}
+
+UNIT_TEST(StippleTest_PatternsLineEndingsAndWhitespace)
+{
+  platform::tests_support::ScopedFile file("stipple_patterns_whitespace.txt", "24.0 15.0\n7.0 3.0\r\n\t1.5\t2.25 \r\n");
+  std::vector<std::vector<double>> patterns;
+  dp::impl::ParsePatternsList(file.GetFullPath(),
+                              [&](auto const & pattern) { patterns.emplace_back(pattern.begin(), pattern.end()); });
+  std::vector<std::vector<double>> const expected{{24.0, 15.0}, {7.0, 3.0}, {1.5, 2.25}};
+  TEST_EQUAL(patterns, expected, ());
 }
 }  // namespace stipple_pen_tests

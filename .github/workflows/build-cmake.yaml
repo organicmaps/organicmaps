@@ -42,8 +42,10 @@ on:
       - tools/mwm_viewer/**
       - tools/openlr/**
       - tools/poly_borders/**
-      - tools/python/generate_styles_override.py
       - tools/python/recalculate_geom_index.py
+      - tools/python/test_recalculate_geom_index.py
+      - tools/python/test_designer_style_generation.py
+      - tools/python/test_package_designer.py
       - tools/python/stylesheet/**
       - tools/python/test_server/**
       - tools/shaders_compiler/**
@@ -51,6 +53,7 @@ on:
       - tools/topography_generator/**
       - tools/track_analyzing/**
       - tools/track_generator/**
+      - tools/unix/package_designer.sh
       - tools/unix/version.sh
       - tools/windows/**
       # Git reports submodule updates as paths without a trailing slash.
@@ -87,6 +90,7 @@ jobs:
           - os: ubuntu-26.04
             cc: gcc-15
             cxx: g++-15
+            package-designer: ON
 
           - os: ubuntu-26.04-arm
             cc: gcc-14
@@ -96,6 +100,7 @@ jobs:
             cc: clang
             cxx: clang++
             developer-dir: /Applications/Xcode_26.5.app/Contents/Developer
+            package-designer: ON
 
           - os: windows-2025-vs2026
             cc: cl.exe
@@ -254,6 +259,28 @@ jobs:
       - name: Compile
         run: cmake --build --preset $PRESET
 
+      # A portable folder with the app, the style sources and the tools Build Style
+      # runs, so that map designers can tune styles without a checkout and a build.
+      # Release only: Debug is too slow to preview a style comfortably.
+      - name: Package Designer
+        if: ${{ matrix.environment.package-designer == 'ON' && matrix.cmake-build-type == 'Release' }}
+        run: |
+          tools/unix/package_designer.sh build
+          # Uploading the folder as is would lose the executable bits and the
+          # symlinks inside OrganicMaps.app, so upload a single archive instead.
+          tar -czf organicmaps-designer-${{ matrix.environment.os }}.tar.gz -C build OrganicMaps-Designer
+
+      - name: Upload Designer package
+        if: ${{ matrix.environment.package-designer == 'ON' && matrix.cmake-build-type == 'Release' }}
+        uses: actions/upload-artifact@v7
+        with:
+          path: organicmaps-designer-${{ matrix.environment.os }}.tar.gz
+          if-no-files-found: error
+          # Upload the tarball itself, so that it downloads ready to unpack instead of
+          # wrapped into a zip.  The file name becomes the artifact name: `name:` is
+          # ignored without an archive.
+          archive: false
+
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
         run: |
@@ -316,7 +343,7 @@ jobs:
           python -m unittest discover -s tools/windows -p test_stage_runtime.py
           cmake --preset "$PRESET" \
             -DCMAKE_BUILD_TYPE=Release \
-            -DBUILD_TESTING=OFF -DBUILD_DESIGNER=OFF \
+            -DBUILD_TESTING=OFF \
             -DOMIM_WINDOWS_DISTRIBUTION=direct
           cmake --build --preset "$PRESET" --target desktop
           cmake --install build --prefix dist/windows-direct-ci --component WindowsRuntime
