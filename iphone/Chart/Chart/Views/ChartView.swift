@@ -129,6 +129,15 @@ public class ChartView: UIView {
   public var onSelectedPointChanged: OnSelectedPointChangedClosure?
   public var onSelectionFinished: OnSelectedPointChangedClosure?
   public var onSelectionCancelled: (() -> Void)?
+  public var onAccessibilityAdjustment: ((_ direction: Int) -> Void)?
+
+  override public func accessibilityIncrement() {
+    onAccessibilityAdjustment?(1)
+  }
+
+  override public func accessibilityDecrement() {
+    onAccessibilityAdjustment?(-1)
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)

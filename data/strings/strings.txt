@@ -5395,7 +5395,7 @@ zh-Hant = 地圖下載進行中。
 
 [share]
 comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-tags = android-app,qt
+tags = android-app,apple-maps,qt
 en = Share
 af = Deel
 ar = مشاركة
@@ -20880,7 +20880,7 @@ zh-Hant = 更多
 
 [placepage_edit_bookmark_button]
 comment = Toolbar title of the Edit Bookmark screen.
-tags = android-app
+tags = android-app,apple-maps
 en = Edit Bookmark
 af = Wysig boekmerk
 ar = تحرير العلامة المرجعية
@@ -45951,7 +45951,7 @@ zh-Hant = 移動並縮放地圖以定位十字
 
 [track_recording_stop_and_save]
 comment = Track recording notification button: stops the recording and saves the recorded track.
-tags = android-app
+tags = android-app,apple-maps
 en = Stop and Save
 af = Stop en stoor
 ar = إيقاف وحفظ
@@ -47294,6 +47294,86 @@ en = Distance: %@
 pl = Odległość: %@
 ru = Расстояние: %@
 uk = Відстань: %@
+
+[placepage_copy]
+comment = VoiceOver action for copying a place page information row, such as an address or phone number.
+tags = apple-maps
+en = Copy
+pl = Kopiuj
+ru = Скопировать
+uk = Копіювати
+
+[placepage_choose_coordinate_format]
+comment = VoiceOver label for the coordinate format menu in the iOS place page.
+tags = apple-maps
+en = Choose coordinate format
+pl = Wybierz format współrzędnych
+ru = Выбрать формат координат
+uk = Вибрати формат координат
+
+[placepage_show_direction]
+comment = VoiceOver hint for opening the full-screen direction view from the place page distance control.
+tags = apple-maps
+en = Show direction
+pl = Pokaż kierunek
+ru = Показать направление
+uk = Показати напрямок
+
+[placepage_hours_collapsed]
+comment = VoiceOver value of the expandable opening-hours row when only today's hours are shown.
+tags = apple-maps
+en = Other days hidden
+pl = Pozostałe dni ukryte
+ru = Другие дни скрыты
+uk = Інші дні приховано
+
+[placepage_hours_expanded]
+comment = VoiceOver value of the expandable opening-hours row when all days are shown.
+tags = apple-maps
+en = Other days shown
+pl = Pozostałe dni widoczne
+ru = Другие дни показаны
+uk = Інші дні показано
+
+[placepage_translate_description]
+comment = VoiceOver label for the translation button next to an OpenStreetMap description in the iOS place page.
+tags = apple-maps
+en = Translate description
+pl = Przetłumacz opis
+ru = Перевести описание
+uk = Перекласти опис
+
+[placepage_elevation_profile]
+comment = VoiceOver label for the elevation profile graph on the iOS track place page.
+tags = apple-maps
+en = Elevation profile
+pl = Profil wysokości
+ru = Профиль высот
+uk = Профіль висот
+
+[placepage_discard_track_recording]
+comment = VoiceOver label for the button that discards an active track recording in the iOS place page.
+tags = apple-maps
+en = Discard track recording
+pl = Odrzuć nagrywanie trasy
+ru = Удалить запись трека
+uk = Видалити запис треку
+
+[placepage_select_track]
+comment = VoiceOver label for opening the track selector in the iOS place page header.
+tags = apple-maps
+en = Select track
+pl = Wybierz trasę
+ru = Выбрать трек
+uk = Вибрати трек
+
+[placepage_elevation_point]
+comment = VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude.
+tags = apple-maps
+en = Distance %@, elevation %@
+pl = Odległość %@, wysokość %@
+ru = Расстояние %@, высота %@
+uk = Відстань %@, висота %@
 
 [downloader_applying_status]
 comment = VoiceOver status of a map that is being applied after downloading on iOS.
