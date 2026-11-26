@@ -4,7 +4,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/height_item_oneline"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/height_item_oneline"
   android:background="?clickableBackground"
   android:gravity="center_vertical"
   android:orientation="horizontal"
@@ -35,7 +36,7 @@
       android:id="@+id/street_default"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:singleLine="true"
+      android:singleLine="false"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       tools:text="Street name"/>
 
@@ -43,7 +44,7 @@
       android:id="@+id/street_localized"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:singleLine="true"
+      android:singleLine="false"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       tools:text="Localized street name"/>
 
