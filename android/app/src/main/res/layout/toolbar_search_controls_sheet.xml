@@ -39,7 +39,8 @@
   <LinearLayout
     android:id="@+id/search_container"
     android:layout_width="0dp"
-    android:layout_height="@dimen/search_input_height"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/search_input_height"
     android:layout_weight="1"
     android:orientation="horizontal"
     android:baselineAligned="false"
@@ -71,7 +72,7 @@
     <LinearLayout
       android:id="@+id/search_content"
       android:layout_width="0dp"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:layout_weight="1"
       android:gravity="center_vertical">

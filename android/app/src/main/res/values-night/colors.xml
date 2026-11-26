@@ -4,6 +4,7 @@
 
   <color name="base_accent">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF3C9BBE</color>
+  <color name="base_accent_transparent">#1E4BB9E6</color>
 
   <color name="icon_tint">#FFC4C6C7</color>
 
