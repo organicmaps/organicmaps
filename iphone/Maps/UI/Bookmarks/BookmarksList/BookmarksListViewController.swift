@@ -78,10 +78,12 @@ final class BookmarksListViewController: MWMViewController {
     sortToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     moreToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     sortToolbarItem.title = L("sort")
+    moreToolbarItem.accessibilityLabel = L("placepage_more_button")
     defaultToolbarItems = toolBar.items ?? []
 
     extendedLayoutIncludesOpaqueBars = true
     searchController.searchBar.placeholder = L("search_in_the_list")
+    searchController.searchBar.searchTextField.accessibilityLabel = searchController.searchBar.placeholder
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
     searchController.delegate = self
