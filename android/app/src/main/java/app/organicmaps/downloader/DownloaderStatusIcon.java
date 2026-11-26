@@ -2,11 +2,13 @@ package app.organicmaps.downloader;
 
 import android.util.SparseIntArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.AttrRes;
 import androidx.annotation.DrawableRes;
 import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.WheelProgressView;
@@ -24,6 +26,10 @@ public class DownloaderStatusIcon
     mFrame = frame;
     mIcon = mFrame.findViewById(R.id.downloader_status);
     mProgress = mFrame.findViewById(R.id.downloader_progress_wheel);
+    int padding = frame.getResources().getDimensionPixelSize(R.dimen.margin_quarter);
+    ViewGroup host = (ViewGroup) frame.getParent();
+    MultiTouchDelegate.expand(host, mIcon, padding);
+    MultiTouchDelegate.expand(host, mProgress, padding);
   }
 
   public DownloaderStatusIcon setOnIconClickListener(View.OnClickListener listener)

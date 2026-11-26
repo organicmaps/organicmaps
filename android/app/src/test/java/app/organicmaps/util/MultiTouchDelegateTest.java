@@ -29,6 +29,31 @@ import org.robolectric.shadows.ShadowLooper;
 @Config(sdk = 35, application = Application.class)
 public class MultiTouchDelegateTest
 {
+  @Test
+  @Config(sdk = {23, 35})
+  public void registrationCreatesAndSharesADelegate()
+  {
+    Fixture fixture = new Fixture();
+    fixture.host.setTouchDelegate(null);
+    MultiTouchDelegate.expand(fixture.host, fixture.first, 4);
+    MultiTouchDelegate.expand(fixture.host, fixture.second, 4);
+    fixture.tap(97, 18);
+    fixture.tap(174, 18);
+    assertEquals(1, fixture.firstClicks.get());
+    assertEquals(1, fixture.secondClicks.get());
+  }
+
+  @Test
+  public void registrationPreservesOtherTargets()
+  {
+    Fixture fixture = new Fixture();
+    MultiTouchDelegate.expand(fixture.host, fixture.first, 4);
+    MultiTouchDelegate.expand(fixture.host, fixture.second, 4);
+    assertEquals(2, fixture.host.getTouchDelegate().getTouchDelegateInfo().getRegionCount());
+    fixture.second.setVisibility(View.GONE);
+    assertEquals(1, fixture.host.getTouchDelegate().getTouchDelegateInfo().getRegionCount());
+  }
+
   private static final class Fixture
   {
     final Activity activity = createActivity();

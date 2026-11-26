@@ -36,7 +36,21 @@ public final class MultiTouchDelegate extends TouchDelegate
 
   public void addTarget(@NonNull View view, int top, int start, int bottom, int end)
   {
+    mTargets.removeIf(target -> target.view() == view);
     mTargets.add(new Target(view, top, start, bottom, end));
+  }
+
+  public static void expand(@NonNull ViewGroup host, @NonNull View target, int padding)
+  {
+    MultiTouchDelegate delegate;
+    if (host.getTouchDelegate() instanceof MultiTouchDelegate existing)
+      delegate = existing;
+    else
+    {
+      delegate = new MultiTouchDelegate(host);
+      host.setTouchDelegate(delegate);
+    }
+    delegate.addTarget(target, padding, padding, padding, padding);
   }
 
   private Rect getBounds(Target target)

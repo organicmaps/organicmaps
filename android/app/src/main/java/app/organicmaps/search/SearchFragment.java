@@ -47,6 +47,7 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchShimmerView;
@@ -1040,7 +1041,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       super(root, SearchFragment.this.requireActivity());
       ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
-      root.findViewById(R.id.close_search).setOnClickListener(v -> mSearchFragmentListener.closeSearch());
+      View close = root.findViewById(R.id.close_search);
+      close.setOnClickListener(v -> mSearchFragmentListener.closeSearch());
+      MultiTouchDelegate.expand((ViewGroup) close.getParent(), close,
+                                getResources().getDimensionPixelSize(R.dimen.margin_quarter));
     }
 
     @Override
