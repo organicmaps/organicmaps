@@ -162,7 +162,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
         else
         {
           UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
-          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_green));
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.status_green));
         }
       }
       case SearchResult.OPEN_NOW_NO ->
@@ -173,12 +173,12 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
           final String string = resources.getString(R.string.opens_in, time);
 
           UiUtils.setTextAndShow(mOpen, string);
-          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.status_red));
         }
         else
         {
           UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
-          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.status_red));
         }
       }
       default -> UiUtils.hide(mOpen);

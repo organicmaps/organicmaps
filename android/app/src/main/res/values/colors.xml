@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- Text colors -->
+  <color name="status_green">#FF3E7023</color>
+  <color name="status_red">#FFB3261E</color>
   <color name="text_dark">@color/black_primary</color>
   <color name="text_dark_subtitle">@color/black_60</color>
   <color name="text_dark_hint">@color/black_60</color>
@@ -89,7 +91,7 @@
   <color name="button_accent_text_disabled">#42000000</color>
 
   <color name="button_red">@color/button_red_normal</color>
-  <color name="button_red_normal">@color/base_red</color>
+  <color name="button_red_normal">#FFB3261E</color>
   <color name="button_red_pressed">#FFC22219</color>
   <color name="button_red_disabled">#FFB9332B</color>
   <color name="button_red_text">#FFFFFFFF</color>

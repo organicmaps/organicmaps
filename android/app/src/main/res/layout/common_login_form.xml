@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
         android:gravity="center"
-        android:textColor="@color/base_red"
+        android:textColor="@color/status_red"
         android:visibility="gone"
         android:importantForAccessibility="yes"
         android:accessibilityLiveRegion="polite"
