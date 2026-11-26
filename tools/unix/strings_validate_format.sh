@@ -11,14 +11,14 @@ TWINE_CLI="$OMIM_PATH/tools/python/twine/python_twine/twine_cli.py"
 echo
 echo "Validating translation string files format"
 
-for f in data/strings/strings.txt data/strings/types_strings.txt data/strings/sound.txt; do
+UI_STRINGS=$(mktemp)
+trap 'rm -f "$UI_STRINGS"' EXIT
+python3 "$OMIM_PATH/tools/python/merge_ui_strings.py" "$OMIM_PATH/data/strings" "$UI_STRINGS"
+# Both UI catalogs require tags. Validate together so references can cross catalogs.
+python3 "$TWINE_CLI" validate-twine-file --pedantic "$UI_STRINGS"
+
+for f in data/strings/types_strings.txt data/strings/sound.txt; do
   echo ">> Validating '$f' ..."
-  if [[ "$f" == "data/strings/strings.txt" ]]; then
-    # Generation selects definitions by tag but keeps untagged ones for every target, so a
-    # missing 'tags' line silently copies the string into all apps. --pedantic rejects it.
-    python3 "$TWINE_CLI" validate-twine-file --pedantic "$OMIM_PATH/$f"
-  else
-    # All definitions in types_strings.txt and sound.txt are intentionally untagged.
-    python3 "$TWINE_CLI" validate-twine-file "$OMIM_PATH/$f" | sed '/^WARNING: Definition .* has no tags$/d'
-  fi
+  # All definitions in types_strings.txt and sound.txt are intentionally untagged.
+  python3 "$TWINE_CLI" validate-twine-file "$OMIM_PATH/$f" | sed '/^WARNING: Definition .* has no tags$/d'
 done

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.util.Utils;
@@ -69,6 +71,12 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
       itemView.setVisibility(View.VISIBLE);
       itemView.setOnClickListener(this);
       itemView.setOnLongClickListener(this);
+      ViewCompat.replaceAccessibilityAction(itemView,
+                                            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK,
+                                            itemView.getContext().getString(R.string.place_phone_call), null);
+      ViewCompat.replaceAccessibilityAction(itemView,
+                                            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
+                                            itemView.getContext().getString(R.string.place_phone_copy), null);
     }
 
     public void setPhone(String phoneNumber)

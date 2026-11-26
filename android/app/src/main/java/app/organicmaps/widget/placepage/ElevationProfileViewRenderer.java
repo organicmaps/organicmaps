@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import app.organicmaps.ChartController;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
@@ -54,6 +55,16 @@ public class ElevationProfileViewRenderer
     mDescent.setText(Framework.nativeFormatAltitude((int) stats.getDescent()));
     mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
     mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
+    describeValue(mAscent, R.string.elevation_profile_ascent);
+    describeValue(mDescent, R.string.elevation_profile_descent);
+    describeValue(mMaxAltitude, R.string.elevation_profile_max_elevation);
+    describeValue(mMinAltitude, R.string.elevation_profile_min_elevation);
+  }
+
+  private static void describeValue(TextView view, @StringRes int label)
+  {
+    view.setContentDescription(view.getContext().getString(R.string.accessibility_name_and_value,
+                                                           view.getContext().getString(label), view.getText()));
   }
 
   public void onChartElevationActivePointChanged(double distance)

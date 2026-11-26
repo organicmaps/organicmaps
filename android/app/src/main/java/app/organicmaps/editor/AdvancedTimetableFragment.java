@@ -2,6 +2,7 @@ package app.organicmaps.editor;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.sdk.editor.OpeningHours;
@@ -18,6 +22,7 @@ import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.ExpandableSectionAccessibility;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AdvancedTimetableFragment extends BaseMwmFragment implements View.OnClickListener, TimetableProvider
@@ -26,6 +31,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment implements View.O
   private TextInputEditText mInput;
   private WebView mExample;
   private TextView mExamplesTitle;
+  private ExpandableSectionAccessibility mExamplesAccessibility;
   private static TextView mSaveButton;
   @Nullable
   private String mInitTimetables;
@@ -58,11 +64,24 @@ public class AdvancedTimetableFragment extends BaseMwmFragment implements View.O
   private void initViews(View view)
   {
     view.findViewById(R.id.examples).setOnClickListener(this);
+    view.findViewById(R.id.examples).setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+    view.findViewById(R.id.examples).setFocusable(false);
     mInput = view.findViewById(R.id.et__timetable);
+    ViewCompat.setAccessibilityDelegate(mInput, new AccessibilityDelegateCompat() {
+      @Override
+      public void onInitializeAccessibilityNodeInfo(@NonNull View host, @NonNull AccessibilityNodeInfoCompat info)
+      {
+        super.onInitializeAccessibilityNodeInfo(host, info);
+        info.setHintText(getString(R.string.editor_opening_hours_input));
+        info.setShowingHintText(TextUtils.isEmpty(info.getText()));
+      }
+    });
     mExample = view.findViewById(R.id.wv__examples);
     mExample.getSettings().setJavaScriptEnabled(true);
     mExample.loadUrl(Constants.Url.OPENING_HOURS_MANUAL);
     mExamplesTitle = view.findViewById(R.id.tv__examples_title);
+    mExamplesTitle.setOnClickListener(v -> showExample(!mIsExampleShown));
+    mExamplesAccessibility = new ExpandableSectionAccessibility(mExamplesTitle, () -> true, () -> mIsExampleShown);
     setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_more);
     setTextChangedListener(mInput, mListener);
     mSaveButton = getParentFragment().getParentFragment().getView().findViewById(R.id.save);
@@ -71,6 +90,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment implements View.O
   private void showExample(boolean show)
   {
     mIsExampleShown = show;
+    mExamplesAccessibility.update();
     if (mIsExampleShown)
     {
       UiUtils.show(mExample);

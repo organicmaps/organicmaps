@@ -58,7 +58,10 @@ public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.
       super(itemView);
       selfServiceDef = itemView.findViewById(R.id.self_service_default);
       selected = itemView.findViewById(R.id.self_service_selected);
+      itemView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+      selfServiceDef.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
       itemView.setOnClickListener(this);
+      itemView.setFocusable(false);
       selected.setOnClickListener(v -> {
         selected.toggle();
         SelfServiceAdapter.ViewHolder.this.onClick(selected);
@@ -72,6 +75,7 @@ public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.
       selected.setChecked(mSelectedOption.equals(option));
       String text = Utils.getTagValueLocalized(context, "self_service", option);
       selfServiceDef.setText(text);
+      selected.setContentDescription(text);
     }
 
     @Override

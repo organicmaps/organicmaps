@@ -32,6 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -321,6 +323,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
+    ViewCompat.replaceAccessibilityAction(latlon, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK,
+                                          getString(R.string.coordinates_next_format), null);
+    ViewCompat.replaceAccessibilityAction(latlon,
+                                          AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
+                                          getString(R.string.coordinates_copy), null);
     LinearLayout openIn = mFrame.findViewById(R.id.ll__place_open_in);
     openIn.setOnClickListener(this);
     openIn.setOnLongClickListener(this);
@@ -768,6 +775,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
       mWifi.setVisibility(VISIBLE);
       /// @todo Better (but harder) to wrap C++ osm::Internet into Java, instead of comparing with "no".
       mTvWiFi.setText(TextUtils.equals(inet, "no") ? R.string.no_available : R.string.yes_available);
+      mTvWiFi.setContentDescription(getString(R.string.place_wifi_status, mTvWiFi.getText()));
     }
     else
       mWifi.setVisibility(GONE);

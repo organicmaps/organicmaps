@@ -190,6 +190,7 @@ public final class UiUtils
 
   public static void showHomeUpButton(Toolbar toolbar)
   {
+    toolbar.setNavigationContentDescription(R.string.back);
     toolbar.setNavigationIcon(
         ThemeUtils.getResource(toolbar.getContext(), androidx.appcompat.R.attr.homeAsUpIndicator));
   }
@@ -273,6 +274,7 @@ public final class UiUtils
 
   public static void clearHomeUpButton(@NonNull Toolbar toolbar)
   {
+    toolbar.setNavigationContentDescription(null);
     toolbar.setNavigationIcon(null);
     toolbar.setNavigationOnClickListener(null);
   }
