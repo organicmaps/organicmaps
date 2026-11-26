@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "مرداب";
 "type.noexit" = "بن‌بست";
 "type.office" = "اداره";
+"type.office.accountant" = "دفتر حسابداری";
 "type.office.architect" = "دفتر معماری";
 "type.office.company" = "دفتر شرکت";
 "type.office.educational_institution" = "مؤسسه آموزشی";

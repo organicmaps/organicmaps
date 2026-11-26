@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Padura";
 "type.noexit" = "Dead End";
 "type.office" = "Bulegoa";
+"type.office.accountant" = "Kontabilitate bulegoa";
 "type.office.architect" = "Arkitekto bulegoa";
 "type.office.company" = "Bulegoa";
 "type.office.educational_institution" = "Hezkuntza erakundea";

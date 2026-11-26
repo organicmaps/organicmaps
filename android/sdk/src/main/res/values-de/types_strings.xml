@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Sumpf</string>
     <string name="type.noexit">Sackgasse</string>
     <string name="type.office">Büro</string>
+    <string name="type.office.accountant">Buchhaltungsbüro</string>
     <string name="type.office.architect">Architekturbüro</string>
     <string name="type.office.company">Unternehmensbüro</string>
     <string name="type.office.educational_institution">Bildungseinrichtung</string>

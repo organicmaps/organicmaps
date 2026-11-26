@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Ciénaga";
 "type.noexit" = "Sin salida";
 "type.office" = "Oficina";
+"type.office.accountant" = "Oficina de contabilidad";
 "type.office.architect" = "Estudio de arquitectura";
 "type.office.company" = "Oficina";
 "type.office.educational_institution" = "Institución educativa";

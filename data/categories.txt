@@ -13144,6 +13144,49 @@ vi:Văn phòng
 zh-Hans:办公室|公司
 zh-Hant:辦公室|1辦事處
 
+office-accountant
+en:4Accountant|accounting|accountancy|bookkeeper|bookkeeping|CPA
+ar:مكتب محاسبة|محاسب
+bg:Счетоводна кантора|счетоводител
+cs:Účetní kancelář|účetní
+cy:4Cyfrifydd|cyfrifeg
+da:4Revisor|bogholder|regnskab
+de:4Buchhaltungsbüro|Buchhalter|Buchhaltung|Wirtschaftsprüfer
+el:Λογιστικό γραφείο|λογιστής
+es:Oficina de contabilidad|contable|contador|asesoría contable
+et:Raamatupidamisbüroo|raamatupidaja
+eu:Kontabilitate bulegoa|kontularia
+fa:دفتر حسابداری|حسابدار
+fi:4Tilitoimisto|kirjanpitäjä|tilintarkastaja
+fr:Cabinet comptable|comptable|expert-comptable
+hi:लेखाकार
+hu:Könyvelőiroda|könyvelő
+id:Kantor akuntan|akuntan
+it:Commercialista|studio contabile|contabile
+ja:会計事務所|会計士|税理士
+ko:회계 사무소|회계사
+lt:4Buhalteris|buhalterinė apskaita
+lv:Grāmatvedības birojs|grāmatvedis
+mr:लेखापाल
+nb:4Regnskapskontor|regnskapsfører|revisor
+nl:4Accountantskantoor|accountant|boekhouder
+pl:4Biuro rachunkowe|księgowy|księgowość
+pt:Contabilista|contabilidade
+pt-BR:Escritório de contabilidade|contador|contabilidade
+ro:Birou de contabilitate|contabil
+ru:4Бухгалтер|бухгалтерия|бухгалтерские услуги
+sk:Účtovnícka kancelária|účtovník
+sl:Računovodstvo|računovodja
+sr:Рачуновођа|Računovođa
+sv:4Redovisningsbyrå|revisor|bokföring
+sw:Ofisi ya Mhasibu|mhasibu
+th:สำนักงานบัญชี|นักบัญชี
+tr:4Muhasebe Bürosu|muhasebeci|mali müşavir
+uk:4Бухгалтер|бухгалтерія
+vi:Văn phòng kế toán|kế toán
+zh-Hans:会计师事务所|会计
+zh-Hant:會計師事務所|會計
+
 office-architect
 en:4Architect|architecture office|architect office
 cy:4Pensaer|swyddfa bensaer|pensaernïaeth

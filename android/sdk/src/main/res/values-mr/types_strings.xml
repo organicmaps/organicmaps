@@ -655,6 +655,7 @@
     <string name="type.natural.wetland.marsh">ओलिताची जमीन</string>
     <string name="type.noexit">रस्ता बंद</string>
     <string name="type.office">कार्यालय</string>
+    <string name="type.office.accountant">लेखापाल</string>
     <string name="type.office.company">कंपनी कार्यालय</string>
     <string name="type.office.estate_agent">इस्टेट एजंट</string>
     <string name="type.office.government">सरकारी कार्यालय</string>

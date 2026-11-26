@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Έλος</string>
     <string name="type.noexit">Αδιέξοδο</string>
     <string name="type.office">Γραφείο</string>
+    <string name="type.office.accountant">Λογιστικό γραφείο</string>
     <string name="type.office.architect">Αρχιτεκτονικό γραφείο</string>
     <string name="type.office.company">Γραφείο επιχείρησης</string>
     <string name="type.office.educational_institution">Εκπαιδευτικό ίδρυμα</string>

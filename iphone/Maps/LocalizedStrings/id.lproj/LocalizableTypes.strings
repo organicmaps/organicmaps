@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Paya";
 "type.noexit" = "Dead End";
 "type.office" = "Kantor";
+"type.office.accountant" = "Kantor akuntan";
 "type.office.architect" = "Kantor arsitek";
 "type.office.company" = "Kantor perusahaan";
 "type.office.educational_institution" = "Lembaga pendidikan";

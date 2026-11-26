@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Bažina</string>
     <string name="type.noexit">Slepý konec</string>
     <string name="type.office">Kancelář</string>
+    <string name="type.office.accountant">Účetní kancelář</string>
     <string name="type.office.architect">Architektonická kancelář</string>
     <string name="type.office.company">Kancelář společnosti</string>
     <string name="type.office.educational_institution">Vzdělávací instituce</string>

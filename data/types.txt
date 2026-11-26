@@ -1658,3 +1658,4 @@ amenity|recycling|container
 *railway|station|subway|suzhou
 *railway|subway_entrance|suzhou
 *organicapp|twm_border
+*office|accountant

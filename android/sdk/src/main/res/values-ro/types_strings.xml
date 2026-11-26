@@ -666,6 +666,7 @@
     <string name="type.natural.wetland.bog">Turbărie</string>
     <string name="type.natural.wetland.marsh">Mlaştină</string>
     <string name="type.office">Birou</string>
+    <string name="type.office.accountant">Birou de contabilitate</string>
     <string name="type.office.architect">Birou de arhitectură</string>
     <string name="type.office.company">Sediu companei</string>
     <string name="type.office.educational_institution">Instituție de învățământ</string>

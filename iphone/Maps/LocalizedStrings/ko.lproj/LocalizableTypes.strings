@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "소택";
 "type.noexit" = "Dead End";
 "type.office" = "사무실";
+"type.office.accountant" = "회계 사무소";
 "type.office.architect" = "건축 사무소";
 "type.office.company" = "회사";
 "type.office.educational_institution" = "교육 기관";

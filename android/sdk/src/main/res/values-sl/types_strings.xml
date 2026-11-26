@@ -744,6 +744,7 @@
     <string name="type.natural.wetland.marsh">Močvirje</string>
     <string name="type.noexit">Slepa ulica</string>
     <string name="type.office">Pisarna</string>
+    <string name="type.office.accountant">Računovodstvo</string>
     <string name="type.office.architect">Arhitekturni biro</string>
     <string name="type.office.company">Pisarna podjetja</string>
     <string name="type.office.educational_institution">Izobraževalna ustanova</string>

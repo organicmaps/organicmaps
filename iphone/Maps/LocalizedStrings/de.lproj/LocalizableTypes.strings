@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Sumpf";
 "type.noexit" = "Sackgasse";
 "type.office" = "Büro";
+"type.office.accountant" = "Buchhaltungsbüro";
 "type.office.architect" = "Architekturbüro";
 "type.office.company" = "Unternehmensbüro";
 "type.office.educational_institution" = "Bildungseinrichtung";

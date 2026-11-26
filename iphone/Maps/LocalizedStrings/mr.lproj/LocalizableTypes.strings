@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "ओलिताची जमीन";
 "type.noexit" = "रस्ता बंद";
 "type.office" = "कार्यालय";
+"type.office.accountant" = "लेखापाल";
 "type.office.architect" = "Architect Office";
 "type.office.company" = "कंपनी कार्यालय";
 "type.office.educational_institution" = "Educational Institution";

@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Ճահիճ";
 "type.noexit" = "Փակուղի";
 "type.office" = "Գրասենյակ";
+"type.office.accountant" = "Հաշվապահ";
 "type.office.architect" = "Ճարտարապետական բյուրո";
 "type.office.company" = "Ընկերության գրասենյակ";
 "type.office.educational_institution" = "Ուսումնական հաստատություն";

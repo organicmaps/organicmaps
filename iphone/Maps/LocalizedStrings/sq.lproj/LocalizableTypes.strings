@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Kënetë";
 "type.noexit" = "Rrugë pa krye";
 "type.office" = "Zyrë";
+"type.office.accountant" = "Kontabilist";
 "type.office.architect" = "Studio arkitekture";
 "type.office.company" = "Zyrë kompanie";
 "type.office.educational_institution" = "Institucion arsimor";

@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Bataqlıq";
 "type.noexit" = "Çıxılmaz";
 "type.office" = "Ofis";
+"type.office.accountant" = "Mühasibat ofisi";
 "type.office.architect" = "Memar ofisi";
 "type.office.company" = "Şirkət ofisi";
 "type.office.educational_institution" = "Təhsil müəssisəsi";

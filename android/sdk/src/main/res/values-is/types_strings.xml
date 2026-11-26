@@ -773,6 +773,7 @@
     <string name="type.natural.wetland.marsh">Mýri</string>
     <string name="type.noexit">Blindgata</string>
     <string name="type.office">Skrifstofa</string>
+    <string name="type.office.accountant">Bókhaldsstofa</string>
     <string name="type.office.architect">Arkitektaskrifstofa</string>
     <string name="type.office.company">Skrifstofa fyrirtækis</string>
     <string name="type.office.educational_institution">Menntastofnun</string>

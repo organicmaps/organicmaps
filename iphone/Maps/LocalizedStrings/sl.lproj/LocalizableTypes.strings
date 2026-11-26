@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Močvirje";
 "type.noexit" = "Slepa ulica";
 "type.office" = "Pisarna";
+"type.office.accountant" = "Računovodstvo";
 "type.office.architect" = "Arhitekturni biro";
 "type.office.company" = "Pisarna podjetja";
 "type.office.educational_institution" = "Izobraževalna ustanova";

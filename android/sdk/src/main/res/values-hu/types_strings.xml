@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Mocsár</string>
     <string name="type.noexit">Zsákutca</string>
     <string name="type.office">Iroda</string>
+    <string name="type.office.accountant">Könyvelőiroda</string>
     <string name="type.office.architect">Építészeti iroda</string>
     <string name="type.office.company">Vállalati iroda</string>
     <string name="type.office.educational_institution">Oktatási intézmény</string>

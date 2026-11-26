@@ -678,6 +678,7 @@
     <string name="type.natural.wetland.marsh">مرداب</string>
     <string name="type.noexit">بن‌بست</string>
     <string name="type.office">اداره</string>
+    <string name="type.office.accountant">دفتر حسابداری</string>
     <string name="type.office.architect">دفتر معماری</string>
     <string name="type.office.company">دفتر شرکت</string>
     <string name="type.office.educational_institution">مؤسسه آموزشی</string>

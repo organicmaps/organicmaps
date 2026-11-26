@@ -772,6 +772,7 @@
     <string name="type.natural.wetland.marsh">ບຶງ</string>
     <string name="type.noexit">ທາງຕັນ</string>
     <string name="type.office">ຫ້ອງການ</string>
+    <string name="type.office.accountant">ນັກບັນຊີ</string>
     <string name="type.office.company">ຫ້ອງການບໍລິສັດ</string>
     <string name="type.office.estate_agent">ນາຍໜ້າອະສັງຫາລິມະຊັບ</string>
     <string name="type.office.government">ຫ້ອງການລັດ</string>

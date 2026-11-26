@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Kärr</string>
     <string name="type.noexit">Återvändsgränd</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.accountant">Redovisningsbyrå</string>
     <string name="type.office.architect">Arkitektkontor</string>
     <string name="type.office.company">Företagskontor</string>
     <string name="type.office.educational_institution">Utbildningsinstitution</string>

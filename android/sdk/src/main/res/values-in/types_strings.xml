@@ -645,6 +645,7 @@
     <string name="type.natural.wetland.bog">Rawa gambut</string>
     <string name="type.natural.wetland.marsh">Paya</string>
     <string name="type.office">Kantor</string>
+    <string name="type.office.accountant">Kantor akuntan</string>
     <string name="type.office.architect">Kantor arsitek</string>
     <string name="type.office.company">Kantor perusahaan</string>
     <string name="type.office.educational_institution">Lembaga pendidikan</string>

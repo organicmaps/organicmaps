@@ -655,6 +655,7 @@
     <string name="type.natural.wetland.bog">수렁</string>
     <string name="type.natural.wetland.marsh">소택</string>
     <string name="type.office">사무실</string>
+    <string name="type.office.accountant">회계 사무소</string>
     <string name="type.office.architect">건축 사무소</string>
     <string name="type.office.company">회사</string>
     <string name="type.office.educational_institution">교육 기관</string>

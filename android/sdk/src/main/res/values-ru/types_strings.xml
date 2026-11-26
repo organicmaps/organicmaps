@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Болото</string>
     <string name="type.noexit">Тупик</string>
     <string name="type.office">Офис</string>
+    <string name="type.office.accountant">Бухгалтер</string>
     <string name="type.office.architect">Архитектурное бюро</string>
     <string name="type.office.company">Организация</string>
     <string name="type.office.educational_institution">Образовательное учреждение</string>

@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Moczary";
 "type.noexit" = "Ślepy koniec drogi";
 "type.office" = "Biuro";
+"type.office.accountant" = "Biuro rachunkowe";
 "type.office.architect" = "Pracownia architektoniczna";
 "type.office.company" = "Biuro przedsiębiorstwa";
 "type.office.educational_institution" = "Placówka oświatowa";

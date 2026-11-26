@@ -771,6 +771,7 @@
     <string name="type.natural.wetland.marsh">Aiguamoll</string>
     <string name="type.noexit">Atzucac</string>
     <string name="type.office">Oficina</string>
+    <string name="type.office.accountant">Comptable</string>
     <string name="type.office.architect">Estudi d\'arquitectura</string>
     <string name="type.office.company">Oficina d’empresa</string>
     <string name="type.office.educational_institution">Institució educativa</string>

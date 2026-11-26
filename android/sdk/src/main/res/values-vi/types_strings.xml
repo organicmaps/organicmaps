@@ -651,6 +651,7 @@
     <string name="type.natural.wetland.bog">Đầm lầy toan</string>
     <string name="type.natural.wetland.marsh">Đầm lầy cỏ</string>
     <string name="type.office">Văn phòng</string>
+    <string name="type.office.accountant">Văn phòng kế toán</string>
     <string name="type.office.architect">Văn phòng kiến trúc</string>
     <string name="type.office.company">Văn phòng công ty</string>
     <string name="type.office.educational_institution">Cơ sở giáo dục</string>

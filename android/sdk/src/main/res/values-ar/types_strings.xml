@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">هور</string>
     <string name="type.noexit">طريق مسدود</string>
     <string name="type.office">مكتب</string>
+    <string name="type.office.accountant">مكتب محاسبة</string>
     <string name="type.office.architect">مكتب معماري</string>
     <string name="type.office.company">مكتب شركة</string>
     <string name="type.office.educational_institution">مؤسسة تعليمية</string>

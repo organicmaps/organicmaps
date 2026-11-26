@@ -774,6 +774,7 @@
     <string name="type.natural.wetland.marsh">Moczary</string>
     <string name="type.noexit">Ślepy koniec drogi</string>
     <string name="type.office">Biuro</string>
+    <string name="type.office.accountant">Biuro rachunkowe</string>
     <string name="type.office.architect">Pracownia architektoniczna</string>
     <string name="type.office.company">Biuro przedsiębiorstwa</string>
     <string name="type.office.educational_institution">Placówka oświatowa</string>

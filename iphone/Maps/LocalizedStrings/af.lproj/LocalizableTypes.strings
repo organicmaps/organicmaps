@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Moeras";
 "type.noexit" = "Doodloop";
 "type.office" = "Kantoor";
+"type.office.accountant" = "Rekenmeester";
 "type.office.architect" = "Argitekskantoor";
 "type.office.company" = "Maatskappykantoor";
 "type.office.educational_institution" = "Opvoedkundige instelling";

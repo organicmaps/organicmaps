@@ -773,6 +773,7 @@
     <string name="type.natural.wetland.marsh">Kënetë</string>
     <string name="type.noexit">Rrugë pa krye</string>
     <string name="type.office">Zyrë</string>
+    <string name="type.office.accountant">Kontabilist</string>
     <string name="type.office.architect">Studio arkitekture</string>
     <string name="type.office.company">Zyrë kompanie</string>
     <string name="type.office.educational_institution">Institucion arsimor</string>

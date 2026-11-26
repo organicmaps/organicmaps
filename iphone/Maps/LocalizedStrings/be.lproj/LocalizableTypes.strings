@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Балота";
 "type.noexit" = "Тупік";
 "type.office" = "Офіс";
+"type.office.accountant" = "Бухгалтар";
 "type.office.architect" = "Архітэктурнае бюро";
 "type.office.company" = "Офіс кампаніі";
 "type.office.educational_institution" = "Адукацыйная ўстанова";

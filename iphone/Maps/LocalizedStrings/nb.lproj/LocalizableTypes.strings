@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Sump";
 "type.noexit" = "Dead End";
 "type.office" = "Kontor";
+"type.office.accountant" = "Regnskapskontor";
 "type.office.architect" = "Arkitektkontor";
 "type.office.company" = "Firmakontor";
 "type.office.educational_institution" = "Utdanningsinstitusjon";

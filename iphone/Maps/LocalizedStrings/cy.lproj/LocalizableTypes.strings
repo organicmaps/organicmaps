@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Cors";
 "type.noexit" = "Ffordd Bengaead";
 "type.office" = "Swyddfa";
+"type.office.accountant" = "Cyfrifydd";
 "type.office.architect" = "Swyddfa Bensaer";
 "type.office.company" = "Swyddfa'r Cwmni";
 "type.office.educational_institution" = "Sefydliad Addysgol";

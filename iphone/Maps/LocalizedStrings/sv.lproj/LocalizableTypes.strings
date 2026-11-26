@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "Kärr";
 "type.noexit" = "Återvändsgränd";
 "type.office" = "Kontor";
+"type.office.accountant" = "Redovisningsbyrå";
 "type.office.architect" = "Arkitektkontor";
 "type.office.company" = "Företagskontor";
 "type.office.educational_institution" = "Utbildningsinstitution";

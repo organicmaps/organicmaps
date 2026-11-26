@@ -905,6 +905,7 @@
 "type.natural.wetland.marsh" = "ที่ลุ่มชื้นแฉะ";
 "type.noexit" = "Dead End";
 "type.office" = "สำนักงาน";
+"type.office.accountant" = "สำนักงานบัญชี";
 "type.office.architect" = "สำนักงานสถาปัตยกรรม";
 "type.office.company" = "สำนักงานบริษัท";
 "type.office.educational_institution" = "สถาบันการศึกษา";
