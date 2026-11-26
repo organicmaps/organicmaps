@@ -1,8 +1,10 @@
 #pragma once
 
-#include "base/buffer_vector.hpp"
+#include "indexer/feature_data.hpp"
 
-#include "indexer/feature.hpp"
+#include "geometry/rect2d.hpp"
+
+#include "base/buffer_vector.hpp"
 
 namespace drule
 {
@@ -26,7 +28,8 @@ int32_t constexpr kOverlaysMaxPriority = 10000;
  *      doesn't always work with e.g. water mapped over a forest,
  *      so water should be on top of other landcover always,
  *      but linear waterways should be hidden beneath it.
- * BG-by-size - landcover areas rendered in bbox size order, smaller areas are above larger ones.
+ * BG-by-size - landcover areas rendered in bbox area order, smaller areas are above larger ones,
+ *      but priorities decide between areas of similar bbox areas (see CalcAreaBySizeDepth).
  * Still, a BG-top water area with layer=-1 should go below other landcover,
  * and a layer=1 landcover area should be displayed above water,
  * so BG-top and BG-by-size should share the same "layer" space.
@@ -87,5 +90,5 @@ enum TypeT
 
 typedef buffer_vector<Key, 16> KeysT;
 void MakeUnique(KeysT & keys);
-double CalcAreaBySizeDepth(FeatureType & f);
+double CalcAreaBySizeDepth(m2::RectD const & r, int priority);
 }  // namespace drule

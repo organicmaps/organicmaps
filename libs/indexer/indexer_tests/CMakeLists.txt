@@ -14,6 +14,7 @@ set(SRC
   counting_reader.hpp
   custom_keyvalue_tests.cpp
   data_source_test.cpp
+  drawing_rule_def_test.cpp
   drules_format_tests.cpp
   drules_selector_parser_test.cpp
   editable_map_object_test.cpp
