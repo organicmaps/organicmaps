@@ -100,6 +100,8 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
 
   private func cell(_ tableView: UITableView, indexPath: IndexPath, item: Item) -> UITableViewCell {
     guard let itemViewModel = itemViewModels[item] else { return UITableViewCell() }
+    let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+    let sectionHeader = dataSource.sectionViewModels[section]?.header
     switch itemViewModel.kind {
     case .link:
       let cell = tableView.dequeueReusableCell(cell: SettingsTableViewLinkCell.self, indexPath: indexPath)
@@ -113,6 +115,8 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
       let cell = tableView.dequeueReusableCell(cell: SettingsTableViewSwitchCell.self, indexPath: indexPath)
       cell.isEnabled = isEnabled
       cell.config(delegate: self, title: itemViewModel.title ?? "", subtitile: itemViewModel.detail, isOn: isOn)
+      cell.accessibilityHint = isEnabled ? nil : itemViewModel.accessibilityHint
+      cell.switchButton.accessibilityHint = isEnabled ? itemViewModel.accessibilityHint : nil
       return cell
     case .iCloudSwitcher(let isOn, let isAvailable, let errorDescription):
       let cell = tableView.dequeueReusableCell(cell: SettingsTableViewiCloudSwitchCell.self, indexPath: indexPath)
@@ -122,10 +126,14 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
                   subtitile: errorDescription,
                   isAvailable: isAvailable,
                   isOn: isOn)
+      cell.accessibilityAction = isAvailable ? nil : { [weak self] in
+        self?.interactor?.handle(.didTapAccessory(item))
+      }
       return cell
     case .textField(let text, let placeholder, let isEnabled, let isValid):
       let cell = tableView.dequeueReusableCell(cell: SettingsTextFieldCell.self, indexPath: indexPath)
       cell.configure(delegate: self, text: text, placeholder: placeholder, isEnabled: isEnabled, isValid: isValid)
+      cell.configureAccessibility(label: sectionHeader)
       return cell
     case .message(let text):
       let cell = tableView.dequeueReusableCell(cell: SettingsMessageCell.self, indexPath: indexPath)
@@ -139,6 +147,7 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
                      maximumValue: maximumValue,
                      valueTitle: valueTitle,
                      isEnabled: isEnabled)
+      cell.configureAccessibility(label: sectionHeader)
       return cell
     case .preview(let isSelected, let isPlaying, let showsDisclosure):
       let cell = tableView.dequeueReusableCell(cell: TTSSettingsPreviewCell.self, indexPath: indexPath)
@@ -148,6 +157,9 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
                      isSelected: isSelected,
                      isPlaying: isPlaying,
                      showsDisclosure: showsDisclosure)
+      if itemViewModel.title?.isEmpty != false {
+        cell.accessibilityLabel = sectionHeader
+      }
       return cell
     }
   }

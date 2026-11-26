@@ -29,5 +29,9 @@ final class SettingsTableViewLinkCell: MWMTableViewCell {
     textLabel?.text = title
     detailTextLabel?.text = info
     detailTextLabel?.isHidden = info == nil
+    isAccessibilityElement = true
+    accessibilityLabel = title
+    accessibilityValue = info
+    accessibilityTraits = .button
   }
 }

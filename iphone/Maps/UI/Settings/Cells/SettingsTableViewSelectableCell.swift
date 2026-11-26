@@ -29,5 +29,8 @@ final class SettingsTableViewSelectableCell: MWMTableViewCell {
   func config(title: String, isSelected: Bool) {
     config(title: title)
     accessoryType = isSelected ? .checkmark : .none
+    isAccessibilityElement = true
+    accessibilityLabel = title
+    accessibilityTraits = isSelected ? [.button, .selected] : .button
   }
 }

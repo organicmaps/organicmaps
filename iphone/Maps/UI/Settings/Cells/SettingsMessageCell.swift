@@ -22,6 +22,9 @@ final class SettingsMessageCell: MWMTableViewCell {
 
   func configure(text: String) {
     messageLabel.text = text
+    isAccessibilityElement = true
+    accessibilityLabel = text
+    accessibilityTraits = .staticText
   }
 
   private func setupCell() {

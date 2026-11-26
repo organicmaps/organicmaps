@@ -35,7 +35,12 @@ final class SettingsSliderCell: MWMTableViewCell {
     slider.value = value
     slider.isEnabled = isEnabled
     valueLabel.text = valueTitle
+    slider.accessibilityValue = valueTitle
     valueLabel.textColor = isEnabled ? .label : .tertiaryLabel
+  }
+
+  func configureAccessibility(label: String?) {
+    slider.accessibilityLabel = label
   }
 
   private func setupCell() {
@@ -45,6 +50,7 @@ final class SettingsSliderCell: MWMTableViewCell {
     slider.translatesAutoresizingMaskIntoConstraints = false
     slider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
 
+    valueLabel.isAccessibilityElement = false
     valueLabel.translatesAutoresizingMaskIntoConstraints = false
     valueLabel.setContentHuggingPriority(.required, for: .horizontal)
 

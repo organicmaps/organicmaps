@@ -41698,6 +41698,14 @@ vi = Bạn có muốn gửi báo cáo lỗi cho nhà phát triển không?\nChú
 zh-Hans = 您想向开发人员发送错误报告吗？\n由于 Organic Maps 不会自动收集任何错误信息，因此我们只能依靠我们的用户。感谢您对 Organic Maps 的支持！
 zh-Hant = 您想向開發人員發送錯誤報告嗎？\n由於 Organic Maps 不會自動收集任何錯誤資訊，因此我們只能依靠用戶的協助。感謝您對 Organic Maps 的支持！
 
+[icloud_synchronization_beta_title]
+comment = Title of the iCloud synchronization switch in iOS Settings. The feature is in beta.
+tags = apple-maps
+en = iCloud Synchronization (Beta)
+pl = Synchronizacja z iCloud (beta)
+ru = Синхронизация с iCloud (бета)
+uk = Синхронізація з iCloud (бета)
+
 [enable_icloud_synchronization_title]
 comment = Title for the "Enable iCloud Syncronization" alert.
 tags = apple-maps

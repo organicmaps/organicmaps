@@ -50,6 +50,10 @@ final class SettingsTextFieldCell: MWMTableViewCell {
     }
   }
 
+  func configureAccessibility(label: String?) {
+    textField.accessibilityLabel = label
+  }
+
   private func setupCell() {
     setStyle(.background)
     selectionStyle = .none
@@ -75,6 +79,7 @@ final class SettingsTextFieldCell: MWMTableViewCell {
 
   func setValid(_ isValid: Bool) {
     contentView.setStyleAndApply(isValid ? .background : .errorBackground)
+    textField.accessibilityHint = isValid ? nil : L("pref_bg_tiles_url_error")
   }
 }
 

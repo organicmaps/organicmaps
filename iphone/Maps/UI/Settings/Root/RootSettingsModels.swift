@@ -65,7 +65,7 @@ extension RootSettings {
     case .largeFont: return L("big_font")
     case .transliteration: return L("transliteration_title")
     case .appearance: return L("pref_appearance_title")
-    case .iCloud: return "iCloud Synchronization (Beta)"
+    case .iCloud: return L("icloud_synchronization_beta_title")
     case .mapTiles: return L("pref_bg_tiles_title")
     case .logging: return L("enable_logging")
     case .perspectiveView: return L("pref_map_3d_title")
@@ -150,11 +150,12 @@ extension MWMSettingsPowerManagement {
 }
 
 extension SettingsItemViewModel where Item == RootSettings {
-  init(setting: RootSettings, detail: String? = nil, kind: SettingsItemKind) {
+  init(setting: RootSettings, detail: String? = nil, kind: SettingsItemKind, accessibilityHint: String? = nil) {
     item = setting
     title = setting.title
     self.detail = detail
     self.kind = kind
+    self.accessibilityHint = accessibilityHint
   }
 }
 
