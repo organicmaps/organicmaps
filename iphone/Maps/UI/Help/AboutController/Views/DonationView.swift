@@ -120,7 +120,7 @@ final class DonationView: UIButton {
 
     isAccessibilityElement = true
     accessibilityTraits = [.button]
-    accessibilityLabel = L("support_organic_maps")
+    accessibilityLabel = [descriptionLabel.text, actionLabel.text].compactMap { $0 }.joined(separator: " ")
   }
 
   private func layoutViews() {

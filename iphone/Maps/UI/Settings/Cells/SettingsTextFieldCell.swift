@@ -31,13 +31,15 @@ final class SettingsTextFieldCell: MWMTableViewCell {
                  isEnabled: Bool,
                  isValid: Bool,
                  autocapitalizationType: UITextAutocapitalizationType = .none,
-                 autocorrectionType: UITextAutocorrectionType = .no) {
+                 autocorrectionType: UITextAutocorrectionType = .no,
+                 accessibilityLabel: String? = nil) {
     let wasFirstResponder = textField.isFirstResponder
     self.delegate = delegate
     if textField.text != text {
       textField.text = text
     }
     textField.placeholder = placeholder
+    textField.accessibilityLabel = accessibilityLabel
     textField.isEnabled = isEnabled
     textField.textColor = isEnabled ? .label : .tertiaryLabel
     textField.autocapitalizationType = autocapitalizationType

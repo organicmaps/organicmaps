@@ -21,19 +21,32 @@ final class OSMView: UIView {
   // MARK: - Public
 
   func setMapDate(_ mapDate: String) {
-    OSMTextLabel.attributedText = attributedString(for: mapDate)
+    let text = attributedString(for: mapDate)
+    OSMTextLabel.attributedText = text
+    accessibilityLabel = text.string
+  }
+
+  override func accessibilityActivate() -> Bool {
+    guard let didTapHandler else { return false }
+    didTapHandler()
+    return true
   }
 
   // MARK: - Private
 
   private func setupViews() {
     OSMImageView.image = UIImage(named: "osm_logo")
+    OSMImageView.isAccessibilityElement = false
+
+    isAccessibilityElement = true
+    accessibilityTraits = [.link]
 
     OSMTextLabel.setFontStyle(.regular14, color: .blackPrimary)
     OSMTextLabel.adjustsFontForContentSizeCategory = true
     OSMTextLabel.lineBreakMode = .byWordWrapping
     OSMTextLabel.numberOfLines = 0
     OSMTextLabel.isUserInteractionEnabled = true
+    OSMTextLabel.isAccessibilityElement = false
 
     let osmDidTapGesture = UITapGestureRecognizer(target: self, action: #selector(osmDidTap))
     OSMTextLabel.addGestureRecognizer(osmDidTapGesture)

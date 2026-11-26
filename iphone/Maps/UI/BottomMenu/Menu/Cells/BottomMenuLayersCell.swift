@@ -1,7 +1,10 @@
 import UIKit
 
 class BottomMenuLayersCell: UITableViewCell {
+  @IBOutlet private var headerLabel: UILabel!
   @IBOutlet var closeButton: CircleImageButton!
+
+  var accessibilityHeader: UILabel { headerLabel }
 
   @IBOutlet private var subwayButton: BottomMenuLayerButton! {
     didSet {
@@ -43,6 +46,10 @@ class BottomMenuLayersCell: UITableViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
+    isAccessibilityElement = false
+    headerLabel.isAccessibilityElement = true
+    headerLabel.accessibilityTraits = .header
+    closeButton.accessibilityLabel = L("close")
     MapOverlayManager.add(self)
     closeButton.setImage(UIImage(named: "ic_close"))
     setupButtons()
@@ -161,5 +168,7 @@ private extension BottomMenuLayerButton {
     spacing = 10
     numberOfLines = 2
     localizedText = text
+    isAccessibilityElement = true
+    accessibilityLabel = text
   }
 }

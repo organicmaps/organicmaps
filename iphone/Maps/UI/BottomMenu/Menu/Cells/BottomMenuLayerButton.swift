@@ -19,6 +19,12 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
 
   func setLayerEnabled(_ enabled: Bool) {
     setStyleAndApply(enabled ? .mapMenuButtonEnabled : .mapMenuButtonDisabled)
+    accessibilityTraits = enabled ? [.button, .selected] : [.button]
+  }
+
+  override func accessibilityActivate() -> Bool {
+    sendActions(for: .touchUpInside)
+    return true
   }
 
   private func updateBadge() {

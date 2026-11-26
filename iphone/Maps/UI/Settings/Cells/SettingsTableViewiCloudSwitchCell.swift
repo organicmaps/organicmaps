@@ -9,6 +9,10 @@ final class SettingsTableViewiCloudSwitchCell: SettingsTableViewSwitchCell {
       setOn(isOn, animated: true)
       accessoryView = nil
       accessoryType = .detailButton
+      accessibilityElements = nil
+      switchButton.isAccessibilityElement = false
+      textLabel?.isAccessibilityElement = true
+      textLabel?.accessibilityLabel = switchButton.accessibilityLabel
       return
     }
     accessoryView = switchButton

@@ -64,6 +64,9 @@ final class BottomMenuViewController: MWMViewController {
       }
       tableView.cellForRow(at: cellToHighlight)?.highlight()
     }
+    if let layersCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? BottomMenuLayersCell {
+      UIAccessibility.post(notification: .screenChanged, argument: layersCell.accessibilityHeader)
+    }
   }
 
   override func viewDidLayoutSubviews() {

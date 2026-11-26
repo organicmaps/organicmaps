@@ -1014,7 +1014,7 @@ zh-Hans = 再试一次
 zh-Hant = 再試一次
 
 [about_menu_title]
-tags = android-app,qt
+tags = android-app,apple-maps,qt
 en = About Organic Maps
 af = Oor Organic Maps
 ar = حول Organic Maps
@@ -8079,7 +8079,7 @@ zh-Hant = 在地圖上查看
 
 [menu]
 comment = Menu button
-tags = android-app
+tags = android-app,apple-maps
 en = Menu
 af = Kieslys
 ar = القائمة
@@ -47246,4 +47246,28 @@ en = Turn off map layers
 pl = Wyłącz warstwy mapy
 ru = Отключить слои карты
 uk = Вимкнути шари мапи
+
+[about_copy_version_hint]
+comment = VoiceOver hint for the tappable app version in the iOS About screen.
+tags = apple-maps
+en = Copies the app version to the clipboard
+pl = Kopiuje wersję aplikacji do schowka
+ru = Копирует версию приложения в буфер обмена
+uk = Копіює версію застосунку до буфера обміну
+
+[about_contact_email]
+comment = VoiceOver label for the email icon in the iOS About screen's social links.
+tags = apple-maps
+en = Email Organic Maps
+pl = Napisz e-mail do Organic Maps
+ru = Написать в Organic Maps по электронной почте
+uk = Написати в Organic Maps електронною поштою
+
+[menu_map_updates_count]
+comment = VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates.
+tags = apple-maps
+en = Map updates available: %d
+pl = Dostępne aktualizacje map: %d
+ru = Доступны обновления карт: %d
+uk = Доступні оновлення мап: %d
 

@@ -164,6 +164,7 @@
             <connections>
                 <outlet property="closeButton" destination="2xW-dK-D9y" id="RQI-hb-JpS"/>
                 <outlet property="cyclingButton" destination="Yji-ug-v7R" id="4mj-EJ-Tc2"/>
+                <outlet property="headerLabel" destination="Vuk-dn-n2c" id="A7N-Vo-0X9"/>
                 <outlet property="hikingButton" destination="YG0-yw-eUi" id="WPy-Uf-UhB"/>
                 <outlet property="isoLinesButton" destination="edA-Mo-3Vx" id="qoC-8w-EqY"/>
                 <outlet property="outdoorButton" destination="g13-pK-Eig" id="ib1-aw-Qv9"/>

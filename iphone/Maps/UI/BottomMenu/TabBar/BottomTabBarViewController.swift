@@ -25,6 +25,11 @@ class BottomTabBarViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.alpha = 0 // Hide the view until it receives a first available area update.
+    helpButton.accessibilityLabel = L("about_menu_title")
+    searchButton.accessibilityLabel = L("search")
+    bookmarksButton.accessibilityLabel = L("bookmarks_and_tracks")
+    moreButton.accessibilityLabel = L("menu")
+    downloadBadge.isAccessibilityElement = false
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -89,5 +94,6 @@ class BottomTabBarViewController: UIViewController {
 
   private func updateBadge() {
     downloadBadge.isHidden = isApplicationBadgeHidden
+    moreButton.accessibilityValue = isApplicationBadgeHidden ? nil : L("map_updates_available")
   }
 }
