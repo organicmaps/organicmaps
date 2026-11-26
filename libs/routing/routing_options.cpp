@@ -122,6 +122,36 @@ bool RoutingOptions::Has(RoutingOptions::Road type) const
   return (m_options & static_cast<RoadType>(type)) != 0;
 }
 
+std::string_view ToString(RoadRoutingStrategy strategy)
+{
+  switch (strategy)
+  {
+  case RoadRoutingStrategy::Normal: return "normal";
+  case RoadRoutingStrategy::DistanceBiased: return "distance_biased";
+  }
+  UNREACHABLE();
+}
+
+std::map<std::string, std::string> RoadRoutingPreferences::ToTrackProperties() const
+{
+  std::map<std::string, std::string> properties;
+  properties.emplace("routing.road.strategy", ToString(m_strategy));
+
+  // Stable file keys. Explicit false and an absent preference have different meanings on restore.
+  std::pair<RoutingOptions::Road, char const *> constexpr avoidances[] = {
+      {RoutingOptions::Toll, "routing.avoid.toll"},
+      {RoutingOptions::Motorway, "routing.avoid.motorway"},
+      {RoutingOptions::Ferry, "routing.avoid.ferry"},
+      {RoutingOptions::Dirty, "routing.avoid.unpaved"},
+      {RoutingOptions::Steps, "routing.avoid.steps"},
+      {RoutingOptions::DifficultTrail, "routing.avoid.difficult_trails"}};
+  auto const supported = RoutingOptions::GetSupportedOptions(m_vehicleType);
+  for (auto const & [road, key] : avoidances)
+    if (supported & road)
+      properties.emplace(key, m_avoidances.Has(road) ? "true" : "false");
+  return properties;
+}
+
 // RoutingOptionsClassifier ---------------------------------------------------------------------------
 
 RoutingOptionsClassifier::RoutingOptionsClassifier(bool includeDirtyRoadClasses)
@@ -179,6 +209,11 @@ RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance(VehicleType 
   case VehicleType::Count: break;
   }
   UNREACHABLE();
+}
+
+std::string DebugPrint(RoadRoutingStrategy strategy)
+{
+  return std::string(ToString(strategy));
 }
 
 std::string DebugPrint(RoutingOptions const & routingOptions)

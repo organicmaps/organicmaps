@@ -1167,6 +1167,9 @@ UNIT_TEST(Germany_FrankfurtDarmstadt_KeepAlternativeAfterRebuild)
                                                    true /* needAlternatives */, delegate, adjusted),
              RouterResultCode::NoError, ());
   TEST_EQUAL(adjusted.m_routes.size(), 1, ());
+  auto const & preferences = adjusted.GetActive().GetRoadRoutingPreferences();
+  TEST(preferences, ());
+  TEST_EQUAL(preferences->m_strategy, RoadRoutingStrategy::DistanceBiased, ());
   TEST_LESS(Route(adjusted.GetActive()).GetTotalDistanceMeters(), shortestM, ());
 
   // An adjustment publishes only the active route, but must retain its strategy for a later

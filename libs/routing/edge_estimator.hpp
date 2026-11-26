@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -29,23 +30,6 @@ public:
     ETA
   };
 
-  /// \brief Calculation strategy. Normal — full road model (speed, traffic, penalties, climb).
-  /// DistanceBiased — roads whose Normal weight speed is at or above the per-vehicle
-  /// |distanceBiasCapSpeedKMpH| are ranked purely by distance (weight = distance / cap), while
-  /// slower roads keep their Normal weight, so the search yields the shortest chain of reasonable
-  /// roads without gaining from segments the model considers unreasonably slow (tracks, footways,
-  /// steps, bad surfaces — see issue #12953). Weights never drop below distance / cap and thus
-  /// below distance / GetMaxWeightSpeedMpS(), so CalcHeuristic() stays admissible and may even
-  /// divide by the cap where no faster-priced edges exist (see |tightAllowed| there).
-  /// Non-segment penalties applied at the graph layer (u-turn, ferry, etc. in
-  /// IndexGraph::CalculateEdgeWeight) still take effect. Used to compute a reasonable,
-  /// distance-biased alternative alongside the normal route.
-  enum class Strategy
-  {
-    Normal,
-    DistanceBiased
-  };
-
   EdgeEstimator(double maxWeightSpeedKMpH, double distanceBiasCapSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                 DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
@@ -53,12 +37,12 @@ public:
   /// |tightHeuristicAllowed| == false keeps CalcHeuristic() on the loose max-speed bound even under
   /// DistanceBiased. Needed when guides are attached: guides edges are priced at max speed
   /// (see GuidesGraph::CalcSegmentWeight), i.e. cheaper per meter than the cap.
-  void SetStrategy(Strategy strategy, bool tightHeuristicAllowed = true)
+  void SetStrategy(RoadRoutingStrategy strategy, bool tightHeuristicAllowed = true)
   {
     m_strategy = strategy;
     m_tightHeuristicAllowed = tightHeuristicAllowed;
   }
-  Strategy GetStrategy() const { return m_strategy; }
+  RoadRoutingStrategy GetStrategy() const { return m_strategy; }
 
   /// The endings of the current search that are on service roads, see GetTurnPenaltyFactor().
   struct ServiceEndings
@@ -87,7 +71,7 @@ public:
   double GetTransitWalkWeightFactor() const { return m_transitWalkWeightFactor; }
   double GetTransitAltBoardingPenaltyS() const { return m_transitAltBoardingPenaltyS; }
 
-  /// A* heuristic: straight-line time at the maximum possible speed. Under Strategy::DistanceBiased
+  /// A* heuristic: straight-line time at the maximum possible speed. Under RoadRoutingStrategy::DistanceBiased
   /// every estimator weight is >= distance / cap, so when the caller guarantees the search sees no
   /// edges priced by other models (leap edges and precomputed cross-mwm weights in
   /// WorldGraphMode::LeapsOnly, guides edges — see SetStrategy), |tightAllowed| == true divides by
@@ -125,11 +109,11 @@ public:
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
 protected:
-  /// Applies Strategy::DistanceBiased to a Normal |weight|: roads not slower than the cap tie by
-  /// pure distance, slower ones keep their full cost. No-op for Purpose::ETA and Strategy::Normal.
+  /// Applies RoadRoutingStrategy::DistanceBiased to a Normal |weight|: roads not slower than the cap tie by
+  /// pure distance, slower ones keep their full cost. No-op for Purpose::ETA and RoadRoutingStrategy::Normal.
   double ApplyStrategy(Purpose purpose, double weight, double distanceM) const
   {
-    if (purpose == Purpose::Weight && m_strategy == Strategy::DistanceBiased)
+    if (purpose == Purpose::Weight && m_strategy == RoadRoutingStrategy::DistanceBiased)
       return std::max(weight, distanceM * m_distanceBiasSecPerM);
     return weight;
   }
@@ -138,7 +122,7 @@ private:
   double const m_maxWeightSpeedMpS;
   double const m_distanceBiasSecPerM;
   SpeedKMpH const m_offroadSpeedKMpH;
-  Strategy m_strategy = Strategy::Normal;
+  RoadRoutingStrategy m_strategy = RoadRoutingStrategy::Normal;
   bool m_tightHeuristicAllowed = true;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitAltBoardingPenaltyS = 0.0;

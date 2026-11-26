@@ -4,8 +4,10 @@
 
 #include "base/small_map.hpp"
 
+#include <map>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <type_traits>
 
 namespace routing
@@ -51,6 +53,36 @@ public:
 
 private:
   RoadType m_options = 0;
+};
+
+/// \brief Calculation strategy. Normal — full road model (speed, traffic, penalties, climb).
+/// DistanceBiased — roads whose Normal weight speed is at or above the per-vehicle
+/// distance-bias speed cap are ranked purely by distance (weight = distance / cap), while
+/// slower roads keep their Normal weight, so the search yields the shortest chain of reasonable
+/// roads without gaining from segments the model considers unreasonably slow (tracks, footways,
+/// steps, bad surfaces — see issue #12953). Weights never drop below distance / cap and thus
+/// below distance / the model's maximum speed, so the A* heuristic stays admissible and may even
+/// divide by the cap where no faster-priced edges exist (see EdgeEstimator::CalcHeuristic).
+/// Non-segment penalties applied at the graph layer (u-turn, ferry, etc. in
+/// IndexGraph::CalculateEdgeWeight) still take effect. Used to compute a reasonable,
+/// distance-biased alternative alongside the normal route.
+enum class RoadRoutingStrategy : uint8_t
+{
+  Normal,
+  DistanceBiased
+};
+
+std::string_view ToString(RoadRoutingStrategy strategy);
+std::string DebugPrint(RoadRoutingStrategy strategy);
+
+// Captured by IndexRouter on each road variant, including the alternative.
+struct RoadRoutingPreferences
+{
+  VehicleType m_vehicleType;
+  RoutingOptions m_avoidances;
+  RoadRoutingStrategy m_strategy;
+
+  std::map<std::string, std::string> ToTrackProperties() const;
 };
 
 class RoutingOptionsClassifier
