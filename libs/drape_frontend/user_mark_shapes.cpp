@@ -103,6 +103,7 @@ float constexpr kTrackArrowSearchRadius = 24.0f;
 float constexpr kTrackEndpointRadius = 5.0f;
 float constexpr kTrackEndpointOutlineWidth = 1.5f;
 float constexpr kTrackCombinedEndpointDistance = 12.0f;
+float constexpr kTrackFinishTaperWidths = 2.5f;
 float constexpr kTrackShapeDepthOffset = 1.0f;
 float constexpr kSelectedTrackInnerBorderWidth = 2.0f;  // dp on each side.
 float constexpr kSelectedTrackOuterBorderWidth = 1.0f;
@@ -890,6 +891,8 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
   double const vs = df::VisualParams::Instance().GetVisualScale();
   bool const simplify = tileKey.m_zoomLevel <= 15;
+  auto const zoomFactor = static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+  auto const widthScale = static_cast<float>(vs) * zoomFactor;
 
   // This var is used only if simplify == true.
   double minSegmentSqrLength = 1.0;
@@ -920,7 +923,8 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     double const radius = (kTrackEndpointRadius + kTrackEndpointOutlineWidth) * vs * pixelToGlobalScale;
     source.ForEachUniqueTrack(tileKey.m_zoomLevel, renderParams, [&](UserLineRenderParams const & renderInfo)
     {
-      if (!renderInfo.m_hasDirection || renderInfo.m_layers.empty() || renderInfo.m_splines.empty())
+      if (renderInfo.m_depthLayer != DepthLayer::SelectedUserLineLayer || !renderInfo.m_hasDirection ||
+          renderInfo.m_layers.empty() || renderInfo.m_splines.empty())
         return;
 
       auto const & topLayer = GetTopLayer(renderInfo);
@@ -951,12 +955,12 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     auto const & topLayer = GetTopLayer(renderInfo);
     // All stroke layers share the spline; selection borders surround the widest layer, below every stroke.
+    bool const selected = renderInfo.m_depthLayer == DepthLayer::SelectedUserLineLayer;
+    float const width = std::ranges::max(renderInfo.m_layers, {}, &LineLayer::m_width).m_width;
     std::vector<LineLayer> selectedLayers;
-    if (renderInfo.m_depthLayer == DepthLayer::SelectedUserLineLayer)
+    if (selected)
     {
       // Borders stay the same width in dp, while stroke widths scale with zoom.
-      auto const zoomFactor = static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
-      float const width = std::ranges::max(renderInfo.m_layers, {}, &LineLayer::m_width).m_width;
       float const depth = std::ranges::min(renderInfo.m_layers, {}, &LineLayer::m_depth).m_depth;
       auto const innerColor = GetContrastingColor(topLayer.m_color);
       selectedLayers.reserve(renderInfo.m_layers.size() + 2);
@@ -972,8 +976,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     }
     auto const & lineLayers = selectedLayers.empty() ? renderInfo.m_layers : selectedLayers;
     float const shapesDepth = topLayer.m_depth + kTrackShapeDepthOffset;
-    float const trackWidth =
-        topLayer.m_width * static_cast<float>(vs) * static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+    float const trackWidth = topLayer.m_width * widthScale;
     float const maxArrowHeight = std::min(trackWidth - 2.0f * kTrackArrowInset * static_cast<float>(vs),
                                           kTrackArrowMaxHeight * static_cast<float>(vs));
     float const arrowScale = std::max(0.0f, maxArrowHeight / (kTrackArrowHeight * static_cast<float>(vs)));
@@ -986,25 +989,46 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       directionSymbol = GetContrastingColor(topLayer.m_color) == dp::Color::Black() ? kTrackDirectionBlackSymbol
                                                                                     : kTrackDirectionWhiteSymbol;
 
-    // Spline is a shared_ptr here, can reassign later.
-    for (auto spline : renderInfo.m_splines)
+    auto const & finish = renderInfo.m_splines.back()->GetPath().back();
+    double const strokeWidth = width * widthScale * pixelToGlobalScale;
+    double const maxTaper = kTrackFinishTaperWidths * strokeWidth;
+    m2::RectD const finishRect(finish, maxTaper, maxTaper);
+    bool const shapedEnds = !selected && renderInfo.m_hasDirection && tileKey.m_zoomLevel >= kTrackEndpointMinZoom;
+    bool const taperFinish =
+        shapedEnds && tileRect.IsIntersect(finishRect) &&
+        finish.SquaredLength(renderInfo.m_splines.front()->GetPath().front()) > math::Pow2(0.5 * strokeWidth);
+
+    for (auto const & original : renderInfo.m_splines)
     {
-      if (simplify)
-        spline = SimplifySpline(spline, minSegmentSqrLength);
+      auto const spline = simplify ? SimplifySpline(original, minSegmentSqrLength) : original;
 
       if (spline->GetSize() < 2)
         continue;
 
+      double const length = taperFinish && &original == &renderInfo.m_splines.back() ? spline->GetLength() : 0.0;
+      // Even a very short track keeps a full-width start. Closed loops keep their continuous stroke.
+      double const taper = std::min(maxTaper, 0.5 * length);
+      if (drawDirection && taper > 0)
+        endpointRects.emplace_back(finish, taper, taper);
+
       std::vector<double> sourceOffsets;
-      auto const clippedSplines = drawDirection ? m2::ClipSplineByRect(tileRect, spline, sourceOffsets)
-                                                : m2::ClipSplineByRect(tileRect, spline);
+      auto const clippedSplines = (drawDirection || taper > 0) ? m2::ClipSplineByRect(tileRect, spline, sourceOffsets)
+                                                               : m2::ClipSplineByRect(tileRect, spline);
       for (size_t clippedIndex = 0; clippedIndex < clippedSplines.size(); ++clippedIndex)
       {
         auto const & clippedSpline = clippedSplines[clippedIndex];
+        double const toFinish = taper > 0 ? length - sourceOffsets[clippedIndex] : 0.0;
+        bool const reachesTaper = taper > 0 && toFinish - clippedSpline->GetLength() < taper;
         for (auto const & layer : lineLayers)
         {
           LineViewParams params;
           params.m_tileCenter = tileRect.Center();
+          params.m_allowNativeLine = !shapedEnds;
+          if (reachesTaper)
+          {
+            params.m_finishTaperLength = taper;
+            params.m_distanceToFinish = toFinish;
+          }
           params.m_baseGtoPScale = 1.0f;
           params.m_cap = dp::RoundCap;
           params.m_join = dp::RoundJoin;
@@ -1012,7 +1036,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
           params.m_depthTestEnabled = true;
           params.m_depth = layer.m_depth;
           params.m_depthLayer = renderInfo.m_depthLayer;
-          params.m_width = static_cast<float>(layer.m_width * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+          params.m_width = layer.m_width * widthScale;
           params.m_minVisibleScale = 1;
           params.m_rank = 0;
 
@@ -1041,6 +1065,8 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
           shape.Draw(context, make_ref(&batcher), textures);
         }
       }
+      if (drawDirection && taper > 0)
+        endpointRects.pop_back();
     }
   });
 }
