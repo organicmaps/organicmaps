@@ -68,6 +68,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
     ProgramInfo("vsLine", "fsLine", {{0, 2}}),                                        // Line
     ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),                      // TransitCircle
     ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),                            // DashedLine
+    ProgramInfo("vsSquareDash", "fsSquareDash", {{0, 4}}),                            // SquareDash
     ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),                            // PathSymbol
     ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                        // TransparentArea
     ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),                                  // CapJoin

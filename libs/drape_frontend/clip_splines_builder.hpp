@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geometry/clipping.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/spline.hpp"
@@ -58,7 +59,10 @@ public:
   /// Clips the built path against the tile rect (isoline pipeline if isIsoline).
   /// In the Inside case m_path is moved out into the resulting spline; otherwise
   /// no cleanup is performed — the next Build() resets all state.
-  std::vector<m2::SharedSpline> Release(bool isIsoline);
+  /// |info| receives the source range of each fragment for square caps. Baked dashed isolines need
+  /// |keepDashPhase| to measure distances along the whole smoothed feature.
+  std::vector<m2::SharedSpline> Release(bool isIsoline, std::vector<m2::SplineClipInfo> * info = nullptr,
+                                        bool keepDashPhase = false);
 
 private:
   ApplyFeatureParams const & m_params;

@@ -22,6 +22,8 @@ set(shader_files
     GL/colored_symbol_billboard.vsh.glsl
     GL/dashed_line.fsh.glsl
     GL/dashed_line.vsh.glsl
+    GL/square_dash.vsh.glsl
+    GL/square_dash.fsh.glsl
     GL/debug_rect.fsh.glsl
     GL/debug_rect.vsh.glsl
     GL/area_grid.fsh.glsl

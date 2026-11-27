@@ -92,9 +92,9 @@ struct ALIGNMENT MapProgramParams
 
   BIND_PROGRAMS(MapProgramParams, Program::Area, Program::Area3d, Program::Area3dOutline, Program::AreaOutline,
                 Program::Bookmark, Program::BookmarkBillboard, Program::CapJoin, Program::CirclePoint,
-                Program::ColoredSymbol, Program::ColoredSymbolBillboard, Program::DashedLine, Program::TransparentArea,
-                Program::TerrainShade, Program::HatchingArea, Program::HatchingAreaDash, Program::AreaStipple,
-                Program::AreaSpeckle, Program::AreaGrid, Program::Line, Program::MaskedTexturing,
+                Program::ColoredSymbol, Program::ColoredSymbolBillboard, Program::DashedLine, Program::SquareDash,
+                Program::TransparentArea, Program::TerrainShade, Program::HatchingArea, Program::HatchingAreaDash,
+                Program::AreaStipple, Program::AreaSpeckle, Program::AreaGrid, Program::Line, Program::MaskedTexturing,
                 Program::MaskedTexturingBillboard, Program::PathSymbol, Program::Text, Program::TextBillboard,
                 Program::TextOutlined, Program::TextOutlinedBillboard, Program::Texturing, Program::TexturingBillboard,
                 Program::BookmarkAboveText, Program::BookmarkAboveTextBillboard)

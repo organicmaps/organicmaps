@@ -4,11 +4,11 @@
 #include "geometry/robust_orientation.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cfloat>
 #include <cmath>
+#include <sstream>
 #include <utility>
 
 namespace m2
@@ -95,45 +95,67 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
       resultIterator(pts[0], pts[i - 1], pts[i]);
 }
 
-template <class FnT>
-void ClipPathByRectImpl(m2::RectD const & rect, std::vector<m2::PointD> const & path, FnT && fn)
+std::string DebugPrint(SplineClipInfo const & info)
 {
-  size_t const sz = path.size();
-  ASSERT_GREATER(sz, 1, ());
+  std::ostringstream out;
+  out << "offset=" << info.m_offset << " trim=(" << info.m_startTrim << ", " << info.m_endTrim
+      << ") start=" << info.m_hasStart << " end=" << info.m_hasEnd << " endJoin=" << info.m_hasEndJoin;
+  return out.str();
+}
 
-  // Divide spline into parts.
-  m2::PointD p1, p2;
-  int code1 = 0;
-  int code2 = 0;
-
-  std::unique_ptr<m2::Spline> s;
-  for (size_t i = 0; i < sz - 1; i++)
+void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out,
+                    std::vector<SplineClipInfo> * info)
+{
+  ASSERT_GREATER(path.size(), 1, ());
+  ASSERT(!info || info->size() == out.size(), ());
+  bool const open = path.front() != path.back();
+  double distance = 0;
+  SplineClipInfo fragment;
+  std::unique_ptr<Spline> spline;
+  auto const finish = [&](bool hasEnd)
   {
-    p1 = path[i];
-    p2 = path[i + 1];
+    if (!spline->IsValid())
+    {
+      spline->Clear();
+      return;
+    }
+    out.emplace_back(std::move(spline));
+    if (info)
+    {
+      fragment.m_hasEnd = open && hasEnd;
+      info->push_back(fragment);
+    }
+  };
+  for (size_t i = 0; i + 1 < path.size(); ++i)
+  {
+    auto p1 = path[i];
+    auto p2 = path[i + 1];
+    int code1, code2;
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
-      if (!s)
-        s = std::make_unique<Spline>(sz - i);
-
-      s->AddPoint(p1);
-      s->AddPoint(p2);
-
-      if (code2 != 0 || i + 2 == sz)
+      if (!spline)
+        spline = std::make_unique<Spline>(path.size() - i);
+      if (info && !spline->IsValid())
       {
-        if (s->GetSize() > 1)
-          fn(std::move(s));
-        else
-          s->Clear();  // reuse reserved
+        fragment.m_startTrim = code1 == 0 ? 0 : path[i].Length(p1);
+        fragment.m_offset = distance + fragment.m_startTrim;
+        fragment.m_hasStart = open && i == 0 && code1 == 0;
       }
+      bool const last = i + 2 == path.size();
+      if (info && p1 != p2)
+      {
+        fragment.m_endTrim = code2 == 0 ? 0 : p2.Length(path[i + 1]);
+        fragment.m_hasEndJoin = code2 == 0 && (!last || !open);
+      }
+      spline->AddPoint(p1);
+      spline->AddPoint(p2);
+      if (code2 != 0 || last)
+        finish(last && code2 == 0);
     }
-    else if (s && !s->IsEmpty())
-    {
-      if (s->GetSize() > 1)
-        fn(std::move(s));
-      else
-        s->Clear();  // reuse reserved
-    }
+    else if (spline && !spline->IsEmpty())
+      finish(false);
+    if (info)
+      distance += path[i].Length(path[i + 1]);
   }
 }
 
@@ -190,7 +212,7 @@ std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::S
   // segment is still parallel to srcDir).
   //
   // This avoids the per-segment sqrt+normalize that the path-based
-  // ClipPathByRectImpl would otherwise pay inside Spline::AddPoint.
+  // ClipPathByRect would otherwise pay inside Spline::AddPoint.
   std::vector<m2::SharedSpline> out;
   out.reserve(2);
 
@@ -272,17 +294,6 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
                                                std::vector<double> & sourceOffsets)
 {
   return ClipSplineByRectImpl(rect, spline, &sourceOffsets);
-}
-
-void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out)
-{
-  // Precondition: the caller has already classified |path| against |rect|
-  // (e.g. via the feature's limit rect) and only invokes this for the real
-  // Intersect case. Inside/Outside dispatch is therefore intentionally absent.
-  // ClipPathByRectImpl is still correct for Inside/Outside paths — it just
-  // does redundant work — so calling it from places where the classification
-  // is unknown (e.g. post-smoothing isoline fragments) remains safe.
-  ClipPathByRectImpl(rect, path, base::MakeBackInsertFunctor(out));
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,

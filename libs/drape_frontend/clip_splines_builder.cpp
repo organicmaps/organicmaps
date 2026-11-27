@@ -190,9 +190,12 @@ void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
   thinner.Finish();
 }
 
-std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
+std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, std::vector<m2::SplineClipInfo> * info,
+                                                          bool keepDashPhase)
 {
   std::vector<m2::SharedSpline> out;
+  if (info)
+    info->clear();
   if (m_path.size() < 2)
     return out;
 
@@ -204,6 +207,8 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   if (!isIsoline && m_knownInside)
   {
     out.emplace_back(std::move(m_path));
+    if (info)
+      info->push_back(m2::SplineClipInfo::Whole(*out.front()));
     return out;
   }
 
@@ -215,20 +220,31 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     m2::PathsForSmooth clippedPaths;
     auto extTileRect = m_params.m_tileRect;
     extTileRect.Scale(kIsolineSmoothScale);
-    m2::ClipPathByRectBeforeSmooth(extTileRect, m_path, guidePoints, clippedPaths);
+    // Square dashes measure phase from the start of the smoothed feature.
+    m2::ClipPathByRectBeforeSmooth(keepDashPhase ? m2::RectD::GetInfiniteRect() : extTileRect, m_path, guidePoints,
+                                   clippedPaths);
 
     if (!clippedPaths.empty())
     {
       m2::SmoothPaths(guidePoints, 4 /* newPointsPerSegmentCount */, m2::kCentripetalAlpha, clippedPaths);
 
       for (auto const & path : clippedPaths)
-        m2::ClipPathByRect(m_params.m_tileRect, path, out);
+        m2::ClipPathByRect(m_params.m_tileRect, path, out, info);
+      // Pre-clipping can split a ring at its closing vertex into two open smoothing paths.
+      if (info && !keepDashPhase && m_path.front() == m_path.back())
+      {
+        for (auto & piece : *info)
+        {
+          piece.m_hasEndJoin |= piece.m_hasEnd;
+          piece.m_hasStart = piece.m_hasEnd = false;
+        }
+      }
     }
   }
   else
   {
     out.reserve(2);
-    m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
+    m2::ClipPathByRect(m_params.m_tileRect, m_path, out, info);
   }
 
   return out;

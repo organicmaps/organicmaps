@@ -6,7 +6,7 @@
 
 #include "drape/binding_info.hpp"
 
-#include "geometry/spline.hpp"
+#include "geometry/clipping.hpp"
 
 #include <memory>
 
@@ -36,6 +36,7 @@ class LineShape : public MapShape
 {
 public:
   LineShape(m2::SharedSpline const & spline, LineViewParams const & params);
+  LineShape(m2::SharedSpline const & spline, LineViewParams const & params, m2::SplineClipInfo clip);
 
   void Prepare(ref_ptr<dp::TextureManager> textures) const override;
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
@@ -57,6 +58,7 @@ private:
 
   LineViewParams m_params;
   m2::SharedSpline m_spline;
+  m2::SplineClipInfo m_clip;
   mutable std::unique_ptr<LineShapeInfo> m_lineShapeInfo;
   mutable bool m_isSimple;
 };

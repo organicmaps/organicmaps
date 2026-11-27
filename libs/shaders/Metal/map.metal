@@ -489,6 +489,54 @@ fragment float4 fsDashedLine(const DashedLineFragment_T in [[stage_in]],
   return color;
 }
 
+struct SquareDashVertex
+{
+  float3 a_position [[attribute(0)]];
+  float3 a_normal [[attribute(1)]];
+  float2 a_colorTexCoord [[attribute(2)]];
+  float4 a_range [[attribute(3)]];
+  float2 a_pattern [[attribute(4)]];
+};
+
+struct SquareDashFragment
+{
+  float4 position [[position]];
+  float2 colorTexCoord;
+  float4 dash;
+  float opacity;
+};
+
+vertex SquareDashFragment vsSquareDash(const SquareDashVertex in [[stage_in]],
+                                        constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  SquareDashFragment out;
+  float scale = length(float4(kShapeCoordScalar, 0, 0, 0) * uniforms.u_modelView);
+  float pixelToPeriod = 1.0 / (scale * in.a_pattern.y);
+  float2 offset = in.a_normal.xy;
+  float2 axis = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
+  float2 transformedAxisPos = CalcLineTransformedAxisPos(axis, in.a_position.xy + offset, uniforms.u_modelView, length(offset));
+  float h = in.a_range.w * pixelToPeriod;
+  out.dash = float4(in.a_range.x + in.a_normal.z * pixelToPeriod + h, in.a_pattern.x + 2.0 * h, in.a_range.yz);
+  float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
+  out.colorTexCoord = in.a_colorTexCoord;
+  out.opacity = uniforms.u_opacity;
+  return out;
+}
+
+fragment float4 fsSquareDash(const SquareDashFragment in [[stage_in]],
+                             texture2d<float> u_colorTex [[texture(0)]],
+                             sampler u_colorTexSampler [[sampler(0)]])
+{
+  float4 d = in.dash;
+  float start = min(floor(d.x), d.w);
+  if (start < d.z || d.x - start > d.y)
+    discard_fragment();
+  float4 color = u_colorTex.sample(u_colorTexSampler, in.colorTexCoord);
+  color.a *= in.opacity;
+  return color;
+}
+
 // CapJoin
 
 typedef struct

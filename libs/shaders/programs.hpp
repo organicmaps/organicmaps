@@ -30,6 +30,7 @@ enum class Program
   Line,
   TransitCircle,
   DashedLine,
+  SquareDash,
   PathSymbol,
   TransparentArea,
   CapJoin,
@@ -100,6 +101,7 @@ inline std::string_view DebugPrint(Program p)
   case Program::CapJoin: return "CapJoin";
   case Program::TransitCircle: return "TransitCircle";
   case Program::DashedLine: return "DashedLine";
+  case Program::SquareDash: return "SquareDash";
   case Program::PathSymbol: return "PathSymbol";
   case Program::TransparentArea: return "TransparentArea";
   case Program::TerrainShade: return "TerrainShade";

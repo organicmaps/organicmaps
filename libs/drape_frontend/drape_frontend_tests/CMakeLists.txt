@@ -33,6 +33,7 @@ if (BUILD_OPENGL_TESTS)
     rainbow_line_gpu_test.cpp
     shape_test_fixture.cpp
     shape_test_fixture.hpp
+    square_line_gpu_test.cpp
     terrain_shade_gpu_test.cpp
     track_direction_gpu_test.cpp
     user_area_gpu_test.cpp

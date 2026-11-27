@@ -79,6 +79,28 @@ void TestPath(df::ClipSplinesBuilder const & builder, std::vector<P> const & exp
     TEST_EQUAL(got[i], expected[i], (i, got, expected));
 }
 
+UNIT_TEST(ClipSplinesBuilder_SquareEndpoints)
+{
+  auto params = MakeParams(kNoSimplifyZoom, 0);
+  params.m_tileRect = {0, -10, 10, 10};
+  auto check = [&](std::vector<P> const & path, std::initializer_list<m2::SplineClipInfo> expected)
+  {
+    MockTestFeature feature(path);
+    df::ClipSplinesBuilder builder(params);
+    builder.Build(feature, kNoSimplifyZoom);
+    std::vector<m2::SplineClipInfo> info;
+    auto const pieces = builder.Release(false, &info);
+    TEST_EQUAL(pieces.size(), expected.size(), ());
+    TEST_EQUAL(info, std::vector<m2::SplineClipInfo>(expected), ());
+  };
+  check({{0, 0}, {10, 0}}, {{}});
+  check({{0, 0}, {15, 0}, {10, 0}, {0, 0}, {-5, 0}},
+        {{.m_endTrim = 5, .m_hasEnd = false},
+         {.m_offset = 20, .m_hasStart = false, .m_hasEnd = false, .m_hasEndJoin = true}});
+  check({{-5, 0}, {0, 0}, {10, 0}}, {{.m_offset = 5, .m_hasStart = false}});
+  check({{0, 0}, {5, 0}, {0, 0}}, {{.m_hasStart = false, .m_hasEnd = false, .m_hasEndJoin = true}});
+}
+
 UNIT_TEST(ClipSplinesBuilder_SinglePoint)
 {
   auto params = MakeParams(kSimplifyZoom, kMinSqr);

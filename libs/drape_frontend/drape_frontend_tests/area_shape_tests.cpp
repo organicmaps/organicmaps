@@ -84,9 +84,9 @@ UNIT_TEST(AreaPatterns_SolidFillsDrawBeforeTranslucentGeometry)
 
   // gpu::DebugPrint returns string_view, which base::Message can't concatenate; wrap names in std::string.
   for (auto fill : {gpu::Program::AreaStipple, gpu::Program::AreaSpeckle, gpu::Program::AreaGrid})
-    for (auto overlay :
-         {gpu::Program::Line, gpu::Program::DashedLine, gpu::Program::PathSymbol, gpu::Program::TransparentArea,
-          gpu::Program::CapJoin, gpu::Program::HatchingArea, gpu::Program::HatchingAreaDash})
+    for (auto overlay : {gpu::Program::Line, gpu::Program::DashedLine, gpu::Program::SquareDash,
+                         gpu::Program::PathSymbol, gpu::Program::TransparentArea, gpu::Program::CapJoin,
+                         gpu::Program::HatchingArea, gpu::Program::HatchingAreaDash})
       TEST(state(fill) < state(overlay),
            (std::string{DebugPrint(fill)}, "must sort before", std::string{DebugPrint(overlay)}));
 }
