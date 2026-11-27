@@ -166,17 +166,6 @@ public:
                  std::optional<ArrowPose> const & arrowTarget = std::nullopt)
     : m_center(center)
     , m_zoom(zoom)
-    , m_scaleFactor(0.0)
-    , m_isAnim(isAnim)
-    , m_trackVisibleViewport(trackVisibleViewport)
-    , m_arrowTarget(arrowTarget)
-  {}
-
-  SetCenterEvent(double scaleFactor, m2::PointD const & center, bool isAnim, bool trackVisibleViewport,
-                 std::optional<ArrowPose> const & arrowTarget = std::nullopt)
-    : m_center(center)
-    , m_zoom(-1)
-    , m_scaleFactor(scaleFactor)
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
     , m_arrowTarget(arrowTarget)
@@ -186,16 +175,13 @@ public:
 
   m2::PointD const & GetCenter() const { return m_center; }
   int GetZoom() const { return m_zoom; }
-  double GetScaleFactor() const { return m_scaleFactor; }
   bool IsAnim() const { return m_isAnim; }
   bool TrackVisibleViewport() const { return m_trackVisibleViewport; }
   std::optional<ArrowPose> const & GetArrowTarget() const { return m_arrowTarget; }
 
 private:
-  m2::PointD m_center;   // center point in mercator
-  int m_zoom;            // if zoom == -1, then zoom level will not change
-  double m_scaleFactor;  // this parameter is used when zoom == -1,
-                         // if scaleFactor <= 0.0, then scale will not change
+  m2::PointD m_center;  // center point in mercator
+  int m_zoom;           // if zoom == -1, then zoom level will not change
   bool m_isAnim;
   bool m_trackVisibleViewport;
   std::optional<ArrowPose> m_arrowTarget;
@@ -470,13 +456,19 @@ private:
   void SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
                std::optional<ArrowPose> const & arrowTarget = std::nullopt);
 
-  void SetScreen(ScreenBase const & screen, double duration = 0.0,
+  void SetScreen(ScreenBase const & target, bool isAnim = false,
                  std::optional<ArrowPose> const & arrowTarget = std::nullopt,
-                 MapAnimation::Type type = MapAnimation::Type::Camera, std::optional<m2::PointD> anchor = std::nullopt);
+                 MapAnimation::Type type = MapAnimation::Type::Camera, double maxScaleTime = kMaxAnimationTimeSec);
+  void SetScreen(ScreenBase const & target, std::optional<MapAnimation> && animation,
+                 std::optional<ArrowPose> const & arrowTarget);
+  bool RetargetMove(ScreenBase const & target, std::optional<ArrowPose> const & arrowTarget, MapAnimation::Type type);
+  void AnimateArrow(ArrowPose const & target, MapAnimation const * animation);
   void SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
                           int preferredZoomLevel, std::optional<double> autoScale, bool isAnim,
                           std::optional<ArrowPose> const & arrowTarget);
   void SetAutoPerspective(bool isAutoPerspective);
+  // The time left for the scale of a running animation that a request keeping the zoom changes to targetScale.
+  double GetInheritedScaleTime(double targetScale) const;
 
   void ProcessTouch(TouchEvent const & touch);
 
@@ -514,8 +506,6 @@ private:
   bool TryBeginFilter(Touch const & t);
   void EndFilter(Touch const & t);
   void CancelFilter(Touch const & t);
-
-  double KeepZoomDuration(double duration, double targetScale) const;
 
   bool CheckDrag(std::array<Touch, 2> const & touches, double threshold) const;
 
@@ -557,7 +547,7 @@ private:
   m2::PointD m_startDoubleTapAndHold;
 
   KineticScroller m_scroller;
-  base::Timer m_kineticTimer;
+  AnimationClock::time_point m_flingBlockedUntil{};
   bool m_kineticScrollEnabled = true;
 };
 }  // namespace df

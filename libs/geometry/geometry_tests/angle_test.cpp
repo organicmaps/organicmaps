@@ -69,6 +69,11 @@ UNIT_TEST(ShortestDistance)
 
   TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(math::pi - 1, 0), -math::pi + 1, ());
   TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, ());
+
+  // Angles of different signs.
+  TEST_ALMOST_EQUAL_ABS(ang::GetShortestDistance(5.5, -5.5), 4 * math::pi - 11, 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(ang::GetShortestDistance(-5.5, 5.5), 11 - 4 * math::pi, 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(ang::GetShortestDistance(-0.1, 2 * math::pi + 0.1), 0.2, 1e-12, ());
 }
 
 UNIT_TEST(TwoVectorsAngle)

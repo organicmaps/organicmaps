@@ -1,4 +1,5 @@
 #include "drape_frontend/selection_shape.hpp"
+#include "drape_frontend/animation/interpolations.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/selection_shape_generator.hpp"
@@ -16,8 +17,6 @@ namespace df
 {
 namespace
 {
-double constexpr kSelectionAnimationTimeSec = 0.18;
-
 // clang-format off
 std::array<float, 20> const kHalfLineWidthInPixel = {
     // 1   2     3     4     5     6     7     8     9     10
@@ -44,7 +43,7 @@ void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, doub
   m_selectedObject = obj;
   ResetSelectionGeometry();
   if (animateSelection && obj != OBJECT_TRACK)
-    m_scaleAnimation.emplace(kSelectionAnimationTimeSec, 0.0, 1.0);
+    m_scaleAnimation.emplace(kPopUpTimeSec, 0.0, 1.0);
   else
     m_scaleAnimation.reset();
 }
@@ -96,9 +95,7 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     float accuracy = m_selectedObject == OBJECT_TRACK ? 1.0f : static_cast<float>(m_radius);
     if (m_scaleAnimation)
     {
-      double const t = m_scaleAnimation->GetOpacity();
-      // Ease in and out so the ring lands smoothly at its resting size.
-      accuracy *= static_cast<float>(0.75 + 0.25 * t * t * (3.0 - 2.0 * t));
+      accuracy *= static_cast<float>(GetPopUpScale(m_scaleAnimation->GetOpacity()));
       if (m_scaleAnimation->IsFinished())
         m_scaleAnimation.reset();
     }

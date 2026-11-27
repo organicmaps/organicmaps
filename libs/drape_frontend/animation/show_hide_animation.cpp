@@ -4,12 +4,6 @@
 
 namespace df
 {
-void ShowHideAnimation::SetVisible(bool visible)
-{
-  m_visible = visible;
-  m_fade.reset();
-}
-
 void ShowHideAnimation::AnimateVisibility(bool visible)
 {
   if (m_visible == visible)

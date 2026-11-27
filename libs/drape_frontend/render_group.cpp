@@ -1,4 +1,5 @@
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/animation/interpolations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "shaders/program_manager.hpp"
@@ -20,7 +21,7 @@ RenderGroup::RenderGroup(dp::RenderState const & state, df::TileKey const & tile
   , m_canBeDeleted(false)
 {
   if (state.GetRenderStateExtension<RenderStateExtension>()->ShouldAnimateBookmark())
-    m_bookmarkAnimation = std::make_unique<OpacityAnimation>(0.25 /* seconds */, 0.90, 1.0);
+    m_bookmarkAnimation = std::make_unique<OpacityAnimation>(kPopUpTimeSec, 0.0, 1.0);
 }
 
 void RenderGroup::Update(ScreenBase const & modelView)
@@ -80,7 +81,7 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
 
   if (m_bookmarkAnimation)
   {
-    m_params.m_bookmarkScale = static_cast<float>(m_bookmarkAnimation->GetOpacity());
+    m_params.m_bookmarkScale = static_cast<float>(GetPopUpScale(m_bookmarkAnimation->GetOpacity()));
     if (m_bookmarkAnimation->IsFinished())
       m_bookmarkAnimation.reset();
   }
