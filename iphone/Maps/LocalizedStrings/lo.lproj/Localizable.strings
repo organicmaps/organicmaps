@@ -834,6 +834,9 @@
 "add_opening_hours" = "ເພີ່ມເວລາເປີດ-ປິດ";
 "password_8_chars_min" = "ລະຫັດຜ່ານ (ຢ່າງໜ້ອຍ 8 ຕົວອັກສອນ)";
 "invalid_username_or_password" = "ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "ບັນຊີ OSM";
 
 /* Information text: "Last upload 11.01.2016" */

@@ -834,6 +834,9 @@
 "add_opening_hours" = "영업일 추가";
 "password_8_chars_min" = "암호(최소 8자)";
 "invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM 계정";
 
 /* Information text: "Last upload 11.01.2016" */

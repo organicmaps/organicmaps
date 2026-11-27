@@ -834,6 +834,9 @@
 "add_opening_hours" = "Добавить время работы";
 "password_8_chars_min" = "Пароль (минимум 8 символов)";
 "invalid_username_or_password" = "Неверное имя пользователя или пароль.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Не удалось войти в OpenStreetMap. Попробуйте ещё раз.";
 "osm_account" = "OSM Аккаунт";
 
 /* Information text: "Last upload 11.01.2016" */

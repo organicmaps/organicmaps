@@ -834,6 +834,9 @@
 "add_opening_hours" = "営業時間を追加";
 "password_8_chars_min" = "パスワード(最低8文字)";
 "invalid_username_or_password" = "ユーザー名またはパスワードが無効です。";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSMアカウント";
 
 /* Information text: "Last upload 11.01.2016" */

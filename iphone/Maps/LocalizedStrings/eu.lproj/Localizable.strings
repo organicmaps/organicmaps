@@ -834,6 +834,9 @@
 "add_opening_hours" = "Gehitu ordutegia";
 "password_8_chars_min" = "Pasahitza (gutxienez 8 karaktere)";
 "invalid_username_or_password" = "Erabiltzaile izena edo pasahitza baliogabea.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM kontua";
 
 /* Information text: "Last upload 11.01.2016" */

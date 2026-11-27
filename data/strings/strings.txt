@@ -30605,6 +30605,13 @@ vi = Sai Tên người dùng hoặc Mật khẩu.
 zh-Hans = 无效的用户名或密码。
 zh-Hant = 無效的使用者名稱或密碼。
 
+[osm_login_failed]
+comment = Shown if the browser sign-in to OpenStreetMap could not be completed.
+tags = apple-maps
+en = Could not sign in to OpenStreetMap. Please try again.
+ru = Не удалось войти в OpenStreetMap. Попробуйте ещё раз.
+uk = Не вдалося увійти в OpenStreetMap. Спробуйте ще раз.
+
 [osm_account]
 tags = apple-maps
 en = OSM Account

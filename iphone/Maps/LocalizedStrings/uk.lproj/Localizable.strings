@@ -834,6 +834,9 @@
 "add_opening_hours" = "Додати графік роботи";
 "password_8_chars_min" = "Пароль (мінімум 8 символів)";
 "invalid_username_or_password" = "Невірне ім'я користувача або пароль.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Не вдалося увійти в OpenStreetMap. Спробуйте ще раз.";
 "osm_account" = "Обліковий запис OSM";
 
 /* Information text: "Last upload 11.01.2016" */

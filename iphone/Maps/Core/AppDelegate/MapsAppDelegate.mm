@@ -80,9 +80,9 @@ using namespace osm_auth_ios;
   return (MapsAppDelegate *)UIApplication.sharedApplication.delegate;
 }
 
-- (void)completeOAuth2Authorization
+- (void)completeOAuth2AuthorizationWithCompletion:(void (^)(MWMOAuth2Result))completion
 {
-  AuthorizationStoreCredentialsWithOauth2Code(GetFramework().GetParsedOAuth2Code());
+  AuthorizationStoreCredentialsWithOauth2Code(GetFramework().GetParsedOAuth2Code(), completion);
 }
 
 - (BOOL)isDrapeEngineCreated

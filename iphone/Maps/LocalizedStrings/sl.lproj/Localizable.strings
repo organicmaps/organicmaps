@@ -834,6 +834,9 @@
 "add_opening_hours" = "Dodaj delovni čas";
 "password_8_chars_min" = "Geslo (najmanj 8 znakov)";
 "invalid_username_or_password" = "Neveljavno uporabniško ime ali geslo.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "Račun OSM";
 
 /* Information text: "Last upload 11.01.2016" */

@@ -834,6 +834,9 @@
 "add_opening_hours" = "新增營業時間";
 "password_8_chars_min" = "密碼（至少 8 個字符）";
 "invalid_username_or_password" = "無效的使用者名稱或密碼。";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM 帳號";
 
 /* Information text: "Last upload 11.01.2016" */

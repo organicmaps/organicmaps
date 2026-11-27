@@ -834,6 +834,9 @@
 "add_opening_hours" = "Ychwanegu oriau agor";
 "password_8_chars_min" = "Cyfrinair (o leiaf 8 nod)";
 "invalid_username_or_password" = "Enw defnyddiwr neu gyfrinair annilys.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "Cyfrif OSM";
 
 /* Information text: "Last upload 11.01.2016" */

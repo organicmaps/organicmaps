@@ -834,6 +834,9 @@
 "add_opening_hours" = "Lisää aukioloajat";
 "password_8_chars_min" = "Salasana (vähintään 8 merkkiä)";
 "invalid_username_or_password" = "Virheellinen käyttäjätunnus tai salasana.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM-tili";
 
 /* Information text: "Last upload 11.01.2016" */

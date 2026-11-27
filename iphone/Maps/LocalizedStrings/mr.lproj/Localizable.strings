@@ -834,6 +834,9 @@
 "add_opening_hours" = "उघडण्याची वेळ जोड";
 "password_8_chars_min" = "पासवर्ड (किमान ८ अक्षरे)";
 "invalid_username_or_password" = "अवैध वापरकर्तानाव किंवा पासवर्ड.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM खाते";
 
 /* Information text: "Last upload 11.01.2016" */

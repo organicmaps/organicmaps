@@ -4,6 +4,8 @@
   private(set) var hasPendingColdLaunchDeepLink = false
   private(set) var url: URL?
   private var featureHighlightData: DeepLinkInAppFeatureHighlightData?
+  private var isCompletingOAuth2Authorization = false
+  private weak var oauth2LoginController: MWMAuthorizationLoginViewController?
 
   override private init() {
     super.init()
@@ -120,8 +122,6 @@
   }
 
   private func handleDeepLink(url: URL) -> Bool {
-    LOG(.info, "handleDeepLink: \(url)")
-
     var url = url
     if #available(iOS 18.4, *), let omURL = GeoNavigationToOMURLConverter.convert(url) {
       LOG(.info, "Default navigation app link is converted from \(url) to \(omURL)")
@@ -129,6 +129,9 @@
     }
 
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
+    if urlType != .oAuth2, url.host != "oauth2" {
+      LOG(.info, "handleDeepLink: \(url)")
+    }
     // The destination consumes a snapshot without changing the core's parsed request.
     featureHighlightData = (urlType == .menu || urlType == .settings) ? DeepLinkInAppFeatureHighlightData(urlType) : nil
     LOG(.info, "URL type: \(urlType)")
@@ -175,8 +178,7 @@
       // Not supported on iOS.
       return false
     case .oAuth2:
-      MapsAppDelegate.theApp().completeOAuth2Authorization()
-      MapsAppDelegate.theApp().mapViewController.closeCurrentView()
+      completeOAuth2Authorization()
       return true
     case .incorrect:
       // Invalid URL or API parameters.
@@ -184,6 +186,46 @@
     @unknown default:
       LOG(.critical, "Unknown URL type: \(urlType)")
       return false
+    }
+  }
+
+  @objc(beginOAuth2AuthorizationFrom:)
+  func beginOAuth2Authorization(from loginController: MWMAuthorizationLoginViewController) -> Bool {
+    guard !isCompletingOAuth2Authorization else { return false }
+    oauth2LoginController = loginController
+    return true
+  }
+
+  private func completeOAuth2Authorization() {
+    guard !isCompletingOAuth2Authorization else { return }
+    isCompletingOAuth2Authorization = true
+
+    let app = MapsAppDelegate.theApp()
+    let navigationController = app.mainNavigationController
+    let loginController = oauth2LoginController
+    oauth2LoginController = nil
+    app.completeOAuth2Authorization { [weak loginController] result in
+      self.isCompletingOAuth2Authorization = false
+      switch result {
+      case .success:
+        if let loginController, navigationController.topViewController === loginController,
+           navigationController.presentedViewController == nil {
+          navigationController.popViewController(animated: true)
+        }
+      case .failure:
+        var presenter: UIViewController = navigationController
+        while let presented = presenter.presentedViewController {
+          presenter = presented
+        }
+        guard presenter.viewIfLoaded?.window != nil else { return }
+        let alert = UIAlertController(title: L("osm_account"), message: L("osm_login_failed"), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: L("ok"), style: .default))
+        presenter.present(alert, animated: true)
+      case .superseded:
+        break
+      @unknown default:
+        break
+      }
     }
   }
 }

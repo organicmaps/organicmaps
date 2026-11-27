@@ -2,10 +2,15 @@
 #import "MWMNetworkPolicy+UI.h"
 #import "UIButton+RuntimeAttributes.h"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "editor/server_api.hpp"
 
+#include <optional>
+
 namespace osm_auth_ios
+{
+namespace
 {
 
 NSString * const kOSMRequestToken = @"OSMRequestToken";    // Unused after migration from OAuth1 to OAuth2
@@ -15,41 +20,82 @@ NSString * const kOSMAuthToken = @"OSMAuthToken";
 NSString * const kOSMUserName = @"UDOsmUserName";
 NSString * const kOSMChangesetsCount = @"OSMUserChangesetsCount";
 
-BOOL LoadOsmUserPreferences(osm::UserPreferences & prefs)
-{
-  __block BOOL success = false;
-  dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-    try
-    {
-      osm::ServerApi06 const api{osm::OsmOAuth::ServerAuth(AuthorizationGetCredentials())};
-      prefs = api.GetUserPreferences();
-      success = true;
-    }
-    catch (std::exception const & ex)
-    {
-      LOG(LWARNING, ("Can't load user preferences from OSM server:", ex.what()));
-    }
-  });
-  return success;
-}
+// Credential writes are serialized on the main thread. A newer write or logout
+// invalidates a browser exchange that is still waiting on the server.
+uint64_t g_credentialsRevision = 0;
 
-void AuthorizationStoreCredentials(std::string const & oauthToken)
+std::optional<osm::UserPreferences> LoadOsmUserPreferences(std::string const & token)
 {
-  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  [ud setObject:@(oauthToken.c_str()) forKey:kOSMAuthToken];
-  osm::UserPreferences prefs;
-  if (LoadOsmUserPreferences(prefs))
+  try
   {
-    [ud setObject:@(prefs.m_displayName.c_str()) forKey:kOSMUserName];
-    // To also see # of edits when offline.
-    [ud setInteger:prefs.m_changesets forKey:kOSMChangesetsCount];
+    return osm::ServerApi06{osm::OsmOAuth::ServerAuth(token)}.GetUserPreferences();
+  }
+  catch (std::exception const &)
+  {
+    LOG(LWARNING, ("Can't load user preferences from OSM server"));
+    return std::nullopt;
   }
 }
 
-void AuthorizationStoreCredentialsWithOauth2Code(std::string const & oauth2code)
+void StoreCredentials(std::string const & token, std::optional<osm::UserPreferences> const & prefs)
 {
-  std::string const oauth2token = osm::OsmOAuth::ServerAuth().FinishAuthorization(oauth2code);
-  AuthorizationStoreCredentials(oauth2token);
+  ASSERT(NSThread.isMainThread, ());
+  ++g_credentialsRevision;
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  if (prefs)
+  {
+    [ud setObject:@(prefs->m_displayName.c_str()) forKey:kOSMUserName];
+    // To also see # of edits when offline.
+    [ud setInteger:prefs->m_changesets forKey:kOSMChangesetsCount];
+  }
+  else if (token != AuthorizationGetCredentials())
+  {
+    [ud removeObjectForKey:kOSMUserName];
+    [ud removeObjectForKey:kOSMChangesetsCount];
+  }
+  [ud setObject:@(token.c_str()) forKey:kOSMAuthToken];
+}
+
+std::string ExchangeOAuth2Code(std::string const & code)
+{
+  try
+  {
+    return osm::OsmOAuth::ServerAuth().FinishAuthorization(code);
+  }
+  catch (osm::OsmOAuth::OsmOAuthException const &)
+  {
+    // OAuth errors can include the server response. Keep it out of the log.
+    LOG(LWARNING, ("OpenStreetMap token exchange failed"));
+    return {};
+  }
+}
+}  // namespace
+
+void AuthorizationStoreCredentials(std::string const & oauthToken)
+{
+  StoreCredentials(oauthToken, LoadOsmUserPreferences(oauthToken));
+}
+
+void AuthorizationStoreCredentialsWithOauth2Code(std::string const & oauth2Code, void (^completion)(MWMOAuth2Result))
+{
+  ASSERT(NSThread.isMainThread, ());
+  auto const revision = g_credentialsRevision;
+  auto const code = oauth2Code;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+    auto const token = ExchangeOAuth2Code(code);
+    auto const prefs = token.empty() ? std::nullopt : LoadOsmUserPreferences(token);
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if (revision != g_credentialsRevision)
+        completion(MWMOAuth2ResultSuperseded);
+      else if (token.empty())
+        completion(MWMOAuth2ResultFailure);
+      else
+      {
+        StoreCredentials(token, prefs);
+        completion(MWMOAuth2ResultSuccess);
+      }
+    });
+  });
 }
 
 BOOL AuthorizationHaveOAuth1Credentials()
@@ -76,6 +122,8 @@ BOOL AuthorizationHaveCredentials()
 
 void AuthorizationClearCredentials()
 {
+  ASSERT(NSThread.isMainThread, ());
+  ++g_credentialsRevision;
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud removeObjectForKey:kOSMAuthToken];
   [ud removeObjectForKey:kOSMRequestToken];
@@ -114,8 +162,8 @@ NSInteger OSMUserChangesetsCount()
   __block NSInteger count = -1;
   [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL permitted) {
     if (permitted)
-      if (osm::UserPreferences prefs; YES == LoadOsmUserPreferences(prefs))
-        count = prefs.m_changesets;
+      if (auto const prefs = LoadOsmUserPreferences(AuthorizationGetCredentials()))
+        count = prefs->m_changesets;
   }];
 
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;

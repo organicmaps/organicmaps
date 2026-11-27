@@ -834,6 +834,9 @@
 "add_opening_hours" = "Tilføj arbejdstid";
 "password_8_chars_min" = "Adgangskode (mindst 8 tegn)";
 "invalid_username_or_password" = "Ugyldigt brugernavn eller adgangskode.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM-konto";
 
 /* Information text: "Last upload 11.01.2016" */

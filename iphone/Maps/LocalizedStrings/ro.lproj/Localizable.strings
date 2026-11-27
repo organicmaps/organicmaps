@@ -834,6 +834,9 @@
 "add_opening_hours" = "Adaugă orele de funcționare";
 "password_8_chars_min" = "Parola (minim 8 caractere)";
 "invalid_username_or_password" = "Nume de utilizator sau parolă incorecte.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "Cont OSM";
 
 /* Information text: "Last upload 11.01.2016" */

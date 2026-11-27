@@ -1,6 +1,7 @@
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
@@ -88,7 +89,10 @@ using namespace osm_auth_ios;
 
 - (IBAction)loginWithBrowser
 {
-  [self performOnlineAction:^{ [self openUrl:@(OsmOAuth::ServerAuth().BuildOAuth2Url().c_str()) externally:YES]; }];
+  [self performOnlineAction:^{
+    if ([DeepLinkHandler.shared beginOAuth2AuthorizationFrom:self])
+      [self openUrl:@(OsmOAuth::ServerAuth().BuildOAuth2Url().c_str()) externally:YES];
+  }];
 }
 
 - (IBAction)loginWithPassword

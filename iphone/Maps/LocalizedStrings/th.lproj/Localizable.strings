@@ -834,6 +834,9 @@
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 "password_8_chars_min" = "รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)";
 "invalid_username_or_password" = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "บัญชี OSM";
 
 /* Information text: "Last upload 11.01.2016" */

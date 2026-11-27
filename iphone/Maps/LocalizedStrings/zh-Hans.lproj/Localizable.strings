@@ -834,6 +834,9 @@
 "add_opening_hours" = "添加营业时间";
 "password_8_chars_min" = "密码（至少 8 个字符）";
 "invalid_username_or_password" = "无效的用户名或密码。";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM 账号";
 
 /* Information text: "Last upload 11.01.2016" */

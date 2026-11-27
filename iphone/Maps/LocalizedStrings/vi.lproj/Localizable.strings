@@ -834,6 +834,9 @@
 "add_opening_hours" = "Thêm giờ làm việc";
 "password_8_chars_min" = "Mật khẩu (tối thiểu 8 ký tự)";
 "invalid_username_or_password" = "Sai Tên người dùng hoặc Mật khẩu.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "Tài khoản OSM";
 
 /* Information text: "Last upload 11.01.2016" */

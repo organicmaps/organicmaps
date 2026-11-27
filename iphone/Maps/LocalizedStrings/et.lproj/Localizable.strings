@@ -834,6 +834,9 @@
 "add_opening_hours" = "Lisa tööaeg";
 "password_8_chars_min" = "Salasõna (vähemalt 8 märki)";
 "invalid_username_or_password" = "Vigane kasutajanimi või salasõna.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSMi kasutajakonto";
 
 /* Information text: "Last upload 11.01.2016" */

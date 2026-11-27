@@ -834,6 +834,9 @@
 "add_opening_hours" = "Voeg openingstijden toe";
 "password_8_chars_min" = "Wachtwoord (minimaal 8 tekens)";
 "invalid_username_or_password" = "Ongeldige gebruikersnaam of ongeldig wachtwoord.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "OSM-account";
 
 /* Information text: "Last upload 11.01.2016" */

@@ -834,6 +834,9 @@
 "add_opening_hours" = "Engadir horarios de apertura";
 "password_8_chars_min" = "Contrasinal (mínimo 8 caracteres)";
 "invalid_username_or_password" = "Usuario ou contrasinal incorrectos.";
+
+/* Shown if the browser sign-in to OpenStreetMap could not be completed. */
+"osm_login_failed" = "Could not sign in to OpenStreetMap. Please try again.";
 "osm_account" = "Conta OSM";
 
 /* Information text: "Last upload 11.01.2016" */
