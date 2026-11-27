@@ -17025,6 +17025,47 @@ vi:Bảng Thông Tin
 zh-Hans:公告板|标示
 zh-Hant:資訊中心|標示
 
+tourism-information-guidepost
+en:Guidepost|signpost|direction sign
+ar:لافتة اتجاه|دليل الطريق
+bg:Пътепоказател|указателна табела
+cs:Rozcestník|směrovka
+cy:Arwyddbost|arwydd cyfeiriadol
+da:Vejviser|retningsskilt
+de:Wegweiser|Richtungsschild
+el:Πινακίδα κατεύθυνσης|δείκτης πορείας
+es:Señal direccional|poste indicador
+et:Suunaviit|teeviit
+eu:Seinaleztapen|norabide-seinale
+fa:تابلوی راهنما|تابلوی جهت‌نما
+fi:Opaste|suuntaviitta
+fr:Panneau directionnel|poteau indicateur
+hu:Útjelző tábla|irányjelző
+id:Penunjuk arah|rambu petunjuk arah
+it:Segnavia|cartello direzionale
+ja:道標|方向案内標識
+ko:이정표|방향 표지판
+lt:Krypties rodyklė|kelio nuoroda
+lv:Virziena norāde|ceļazīme
+mr:दिशादर्शक फलक
+nb:Veiviser|retningsskilt
+nl:Wegwijzer|richtingsbord
+pl:Drogowskaz|znak kierunkowy
+pt:Placa de direção|sinal direcional
+pt-BR:Placa de direção|placa indicativa
+ro:Indicator de direcție|stâlp indicator
+ru:Указательный столб|указатель|путевой указатель
+sk:Smerovník|smerová tabuľa
+sl:Usmerjevalna tabla|smerokaz
+sr:Путоказ|путоказни знак|putokaz
+sv:Vägvisare|riktningsskylt
+th:ป้ายบอกทาง
+tr:Yön tabelası|yön levhası
+uk:Покажчик напрямку|вказівник напрямку
+vi:Biển chỉ dẫn|biển chỉ đường
+zh-Hans:路标|方向指示牌
+zh-Hant:路標|方向指示牌
+
 tourism-information-map
 en:Tourist Map
 ar:خريطة سياحية
