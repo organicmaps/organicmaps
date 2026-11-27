@@ -250,6 +250,10 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       final int position = getBindingAdapterPosition();
       final Timetable data = mItems.get(position);
       UiUtils.showIf(position > 0, deleteTimetable);
+      deleteTimetable.setContentDescription(
+          itemView.getContext().getString(R.string.editor_remove_schedule, TimeFormatUtils.formatWeekdays(data),
+                                          data.isFullday ? itemView.getContext().getString(R.string.editor_time_allday)
+                                                         : data.workingTimespan.toString()));
       tvOpen.setText(data.workingTimespan.start.toString());
       tvClose.setText(data.workingTimespan.end.toString());
       showDays(data.weekdays);

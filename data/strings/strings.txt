@@ -47213,3 +47213,8 @@ comment = Accessibility action to remove a break: interval followed by the sched
 tags = android-app
 en = Remove break %1$s, %2$s
 ru = Удалить перерыв %1$s, %2$s
+
+[editor_remove_schedule]
+  tags = android-app
+  en = Remove schedule: %1$s, %2$s
+  ru = Удалить расписание: %1$s, %2$s
