@@ -11,12 +11,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.fragment.app.Fragment;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.products.Product;
 import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.util.Constants;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import java.util.Objects;
@@ -59,6 +63,7 @@ public class PlacePageProductsFragment extends Fragment
     View productsRemindLater = requireNonNull(view.findViewById(R.id.products_remind_later));
     View alreadyDonated = requireNonNull(view.findViewById(R.id.products_already_donated));
 
+    attachActionTargets((ViewGroup) view);
     productsPrompt.setText(config.placePagePrompt);
 
     productsButtons.removeAllViews();
@@ -79,6 +84,35 @@ public class PlacePageProductsFragment extends Fragment
 
     alreadyDonated.setOnClickListener(
         (v) -> { closeWithReason(view, Constants.ProductsPopupCloseReason.ALREADY_DONATED); });
+  }
+
+  static void attachActionTargets(ViewGroup host)
+  {
+    for (int id : new int[] {R.id.products_close, R.id.products_remind_later, R.id.products_already_donated})
+    {
+      View target = host.findViewById(id);
+      target.setFocusable(true);
+      ViewCompat.setAccessibilityDelegate(target, new AccessibilityDelegateCompat() {
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View view, AccessibilityNodeInfoCompat info)
+        {
+          super.onInitializeAccessibilityNodeInfo(view, info);
+          info.setClassName(Button.class.getName());
+        }
+      });
+      target.addOnLayoutChangeListener(
+          (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> expandTarget(host, v));
+      if (target.isLaidOut())
+        expandTarget(host, target);
+    }
+  }
+
+  private static void expandTarget(ViewGroup host, View target)
+  {
+    int minimum = Math.round(48 * target.getResources().getDisplayMetrics().density);
+    int horizontal = Math.max(0, (minimum - target.getWidth() + 1) / 2);
+    int vertical = Math.max(0, (minimum - target.getHeight() + 1) / 2);
+    MultiTouchDelegate.expand(host, target, vertical, horizontal, vertical, horizontal);
   }
 
   private void closeWithReason(View view, String reason)
