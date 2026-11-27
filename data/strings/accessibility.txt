@@ -1,17 +1,5 @@
 [[Accessibility]]
 
-[editor_section_expanded]
-  comment = Accessibility state of an expandable section, including opening hours and transit stops.
-  tags = android-app
-  en = Expanded
-  ru = Развёрнуто
-
-[editor_section_collapsed]
-  comment = Accessibility state of an expandable section, including opening hours and transit stops.
-  tags = android-app
-  en = Collapsed
-  ru = Свёрнуто
-
 [transit_walking_distance]
   comment = Accessible description of the walking portion of a public transport route. %s is the formatted distance including units.
   tags = android-app

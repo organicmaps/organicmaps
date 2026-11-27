@@ -54,10 +54,6 @@ public class TransitAccessibilityTest
           @Override
           public String getString(int id)
           {
-            if (id == R.string.editor_section_expanded)
-              return "Expanded";
-            if (id == R.string.editor_section_collapsed)
-              return "Collapsed";
             if (id == R.string.routing_options_walking)
               return "Walking";
             if (id == R.string.transit_waypoint_label)
@@ -151,10 +147,12 @@ public class TransitAccessibilityTest
       bind.setAccessible(true);
       setExpanded.setAccessible(true);
       bind.invoke(holder, step(TransitStepType.BUS, "Middle"), false, false, false, 0xff0060a8);
+      boolean[] expanded = {false};
       summary.setOnClickListener(v -> {
         try
         {
-          setExpanded.invoke(holder, !"Expanded".contentEquals(ViewCompat.getStateDescription(summary)), true);
+          expanded[0] = !expanded[0];
+          setExpanded.invoke(holder, expanded[0], true);
         }
         catch (ReflectiveOperationException e)
         {
@@ -163,9 +161,15 @@ public class TransitAccessibilityTest
       });
       var node = AccessibilityNodeInfoCompat.wrap(summary.createAccessibilityNodeInfo());
       assertEquals("android.widget.Button", node.getClassName());
-      assertEquals("Collapsed", ViewCompat.getStateDescription(summary));
+      assertNull(AccessibilityNodeInfoCompat.wrap(summary.createAccessibilityNodeInfo()).getStateDescription());
+      assertTrue(node.getActionList().stream().anyMatch(
+          action -> action.getId() == AccessibilityNodeInfoCompat.ACTION_EXPAND));
       assertTrue(summary.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
-      assertEquals("Expanded", ViewCompat.getStateDescription(summary));
+      assertNull(AccessibilityNodeInfoCompat.wrap(summary.createAccessibilityNodeInfo()).getStateDescription());
+      assertTrue(AccessibilityNodeInfoCompat.wrap(summary.createAccessibilityNodeInfo())
+                     .getActionList()
+                     .stream()
+                     .anyMatch(action -> action.getId() == AccessibilityNodeInfoCompat.ACTION_COLLAPSE));
       assertFalse(summary.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
       assertTrue(summary.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_COLLAPSE, null));
       assertEquals(View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS,
