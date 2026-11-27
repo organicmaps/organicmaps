@@ -169,19 +169,7 @@ class ColorSlidersView @JvmOverloads constructor(
         val sliderHeight = thumbDiameter + stroke * 2 + resources.getDimensionPixelSize(R.dimen.margin_quarter)
         row.addView(slider, LayoutParams(0, sliderHeight, 1f))
 
-        val valueText = TextView(context).apply {
-            importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-            setTextColor(ThemeUtils.getColor(context, android.R.attr.textColorPrimary))
-            gravity = Gravity.CENTER
-            minWidth = resources.getDimensionPixelSize(R.dimen.color_picker_slider_value_min_width)
-            background = GradientDrawable().apply {
-                setColor(ThemeUtils.getColor(context, R.attr.windowBackgroundForced))
-                cornerRadius = resources.getDimension(R.dimen.corner_radius_small)
-            }
-            val pad = resources.getDimensionPixelSize(R.dimen.margin_quarter_plus)
-            setPadding(pad, pad, pad, pad)
-        }
+        val valueText = createSliderValueText()
         row.addView(
             valueText,
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
@@ -196,16 +184,29 @@ class ColorSlidersView @JvmOverloads constructor(
             },
         )
 
-        val isFirst = sliderGroups.isEmpty()
         addView(
             group,
             LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
-                if (!isFirst) topMargin = marginBase
+                if (sliderGroups.isNotEmpty()) topMargin = marginBase
             },
         )
         sliderGroups.add(group)
 
         return slider to valueText
+    }
+
+    private fun createSliderValueText(): TextView = TextView(context).apply {
+        importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        setTextColor(ThemeUtils.getColor(context, android.R.attr.textColorPrimary))
+        gravity = Gravity.CENTER
+        minWidth = resources.getDimensionPixelSize(R.dimen.color_picker_slider_value_min_width)
+        background = GradientDrawable().apply {
+            setColor(ThemeUtils.getColor(context, R.attr.windowBackgroundForced))
+            cornerRadius = resources.getDimension(R.dimen.corner_radius_small)
+        }
+        val pad = resources.getDimensionPixelSize(R.dimen.margin_quarter_plus)
+        setPadding(pad, pad, pad, pad)
     }
 
     private fun addHexRow(): Pair<EditText, View> {

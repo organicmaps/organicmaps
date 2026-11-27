@@ -93,11 +93,9 @@ class ColorGridView @JvmOverloads constructor(context: Context, attrs: Attribute
         override fun getVirtualViewAt(x: Float, y: Float): Int {
             val w = width - paddingLeft - paddingRight
             val h = height - paddingTop - paddingBottom
-            if (w <= 0 || h <= 0 || x < paddingLeft || y < paddingTop ||
-                x >= width - paddingRight || y >= height - paddingBottom
-            ) {
-                return INVALID_ID
-            }
+            if (w <= 0 || h <= 0) return INVALID_ID
+            if (x < paddingLeft || x >= width - paddingRight) return INVALID_ID
+            if (y < paddingTop || y >= height - paddingBottom) return INVALID_ID
             return ((y - paddingTop) / h * rows).toInt() * cols + ((x - paddingLeft) / w * cols).toInt()
         }
 
