@@ -2,13 +2,13 @@ package app.organicmaps.widget;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import app.organicmaps.R;
 import java.util.function.BooleanSupplier;
 
 /** Adds expansion semantics while keeping the view's existing click handler and validation. */
@@ -17,6 +17,7 @@ public final class ExpandableSectionAccessibility extends AccessibilityDelegateC
   private final View mView;
   private final BooleanSupplier mCanExpand;
   private final BooleanSupplier mIsExpanded;
+  private int mExpansionAction;
 
   public ExpandableSectionAccessibility(View view, BooleanSupplier canExpand, BooleanSupplier isExpanded)
   {
@@ -31,10 +32,15 @@ public final class ExpandableSectionAccessibility extends AccessibilityDelegateC
     boolean canExpand = mCanExpand.getAsBoolean();
     mView.setClickable(canExpand);
     mView.setFocusable(canExpand);
-    ViewCompat.setStateDescription(
-        mView, canExpand ? mView.getContext().getString(mIsExpanded.getAsBoolean() ? R.string.editor_section_expanded
-                                                                                   : R.string.editor_section_collapsed)
-                         : null);
+    int action = canExpand ? (mIsExpanded.getAsBoolean() ? AccessibilityNodeInfoCompat.ACTION_COLLAPSE
+                                                         : AccessibilityNodeInfoCompat.ACTION_EXPAND)
+                           : 0;
+    if (action != mExpansionAction)
+    {
+      mExpansionAction = action;
+      // TalkBack derives the state from the actions; a state description would repeat it.
+      mView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED);
+    }
   }
 
   @Override

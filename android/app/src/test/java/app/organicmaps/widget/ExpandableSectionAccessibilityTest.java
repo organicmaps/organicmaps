@@ -2,13 +2,12 @@ package app.organicmaps.widget;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.res.Resources;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -16,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import app.organicmaps.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,26 +39,7 @@ public class ExpandableSectionAccessibilityTest
   public void setUp()
   {
     Activity activity = Robolectric.buildActivity(Activity.class).setup().get();
-    Resources original = activity.getResources();
-    Resources resources =
-        new Resources(original.getAssets(), original.getDisplayMetrics(), original.getConfiguration()) {
-          @Override
-          public String getString(int id)
-          {
-            if (id == R.string.editor_section_expanded)
-              return "Expanded";
-            if (id == R.string.editor_section_collapsed)
-              return "Collapsed";
-            return super.getString(id);
-          }
-        };
-    Context context = new ContextWrapper(activity) {
-      @Override
-      public Resources getResources()
-      {
-        return resources;
-      }
-    };
+    Context context = activity;
     Shadows.shadowOf((AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE)).setEnabled(true);
     mRoot = new EventHost(context);
     activity.setContentView(mRoot);
@@ -91,12 +70,12 @@ public class ExpandableSectionAccessibilityTest
   public void expansionAndCollapseUseTheExistingClickHandler()
   {
     assertEquals("android.widget.Button", node().getClassName());
-    assertEquals("Collapsed", node().getStateDescription());
+    assertNull(node().getStateDescription());
     assertTrue(hasAction(AccessibilityNodeInfoCompat.ACTION_EXPAND));
     assertFalse(hasAction(AccessibilityNodeInfoCompat.ACTION_COLLAPSE));
     assertTrue(mHeader.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
     assertTrue(mExpanded);
-    assertEquals("Expanded", node().getStateDescription());
+    assertNull(node().getStateDescription());
     assertTrue(hasAction(AccessibilityNodeInfoCompat.ACTION_COLLAPSE));
     assertFalse(mHeader.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
     assertEquals(1, mClicks);
@@ -113,7 +92,7 @@ public class ExpandableSectionAccessibilityTest
     mValid = false;
     assertFalse(mHeader.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_COLLAPSE, null));
     assertTrue(mExpanded);
-    assertEquals("Expanded", node().getStateDescription());
+    assertNull(node().getStateDescription());
     mValid = true;
     assertTrue(mHeader.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_COLLAPSE, null));
   }
@@ -176,9 +155,23 @@ public class ExpandableSectionAccessibilityTest
     assertEquals(2, copies[0]);
   }
 
+  @Test
+  public void transitionsNotifyTheNodeWithoutAnAdditionalSpokenState()
+  {
+    int changes = mRoot.mChanges;
+    assertTrue(mHeader.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
+    assertTrue(mRoot.mChanges > changes);
+    assertNull(node().getStateDescription());
+    assertEquals(0, mRoot.mStateDescriptionChanges);
+    changes = mRoot.mChanges;
+    mAccessibility.update();
+    assertEquals(changes, mRoot.mChanges);
+  }
+
   private static final class EventHost extends FrameLayout
   {
     int mChanges;
+    int mStateDescriptionChanges;
     EventHost(Context context)
     {
       super(context);
@@ -187,7 +180,11 @@ public class ExpandableSectionAccessibilityTest
     public boolean requestSendAccessibilityEvent(View child, AccessibilityEvent event)
     {
       if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
+      {
         ++mChanges;
+        if ((event.getContentChangeTypes() & AccessibilityEvent.CONTENT_CHANGE_TYPE_STATE_DESCRIPTION) != 0)
+          ++mStateDescriptionChanges;
+      }
       return super.requestSendAccessibilityEvent(child, event);
     }
   }

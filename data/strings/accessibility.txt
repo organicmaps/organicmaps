@@ -1,17 +1,5 @@
 [[Accessibility]]
 
-[editor_section_expanded]
-  comment = Accessibility state of an expandable section, such as names, timetable examples or opening hours.
-  tags = android-app
-  en = Expanded
-  ru = Развёрнуто
-
-[editor_section_collapsed]
-  comment = Accessibility state of an expandable section, such as names, timetable examples or opening hours.
-  tags = android-app
-  en = Collapsed
-  ru = Свёрнуто
-
 [editor_more_names]
   comment = Accessibility name of the More button that reveals additional language names in the editor.
   tags = android-app
