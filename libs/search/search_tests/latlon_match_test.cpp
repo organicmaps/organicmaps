@@ -70,6 +70,15 @@ UNIT_TEST(LatLon_Match_Smoke)
   TestAlmostEqual(lat, -10.1);
   TestAlmostEqual(lon, -20.2);
 
+  // The sign at the start of a coordinate must still work with either decimal mark.
+  TEST(MatchLatLonDegree("-1.2 N 4.5 E", lat, lon), ());
+  TestAlmostEqual(lat, -1.2);
+  TestAlmostEqual(lon, 4.5);
+
+  TEST(MatchLatLonDegree("-1,2 N -4,5 E", lat, lon), ());
+  TestAlmostEqual(lat, -1.2);
+  TestAlmostEqual(lon, -4.5);
+
   TEST(MatchLatLonDegree("-22.3534 -42.7076\n", lat, lon), ());
   TestAlmostEqual(lat, -22.3534);
   TestAlmostEqual(lon, -42.7076);
@@ -187,6 +196,13 @@ UNIT_TEST(LatLon_Match_False)
 {
   double lat, lon;
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
+
+  // These used to parse into plausible coordinates instead of failing.
+  TEST(!MatchLatLonDegree("1.2-3 N 4.5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1.2--3 N 4.5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1,2-3 N 4,5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("-1,2-3 N 4,5 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 51* 33.217-4 E 11* 10.113", lat, lon), ());
 }
 
 }  // namespace latlon_match_test
