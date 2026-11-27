@@ -367,15 +367,15 @@ std::optional<AddressQuery> ParseAddressQuery(std::string const & query)
   // Keep postal-only queries intact. In a comma-delimited full address, only the
   // context is eligible: numbered streets and compound house identifiers stay untouched.
   auto const comma = prepared.find(',');
-  auto const streetComponent = comma == std::string::npos ? std::nullopt : ParseAddress(prepared.substr(0, comma));
   if (comma == std::string::npos)
     return AddressQuery{parsed->m_houseNumber, std::move(parsed->m_houseIdentifier), std::move(parsed->m_streetTokens)};
+  auto const streetComponent = ParseAddress(prepared.substr(0, comma));
   auto const streetSize = Tokenize(parsed->m_street).size();
-  auto const secondComma = comma == std::string::npos ? comma : prepared.find(',', comma + 1);
+  auto const secondComma = prepared.find(',', comma + 1);
   auto const contextStart = streetComponent                  ? comma + 1
                           : secondComma == std::string::npos ? secondComma
                                                              : secondComma + 1;
-  if (contextStart != std::string::npos && parsed->m_streetTokens.size() >= streetSize)
+  if (contextStart != std::string::npos)
   {
     std::multiset<std::string> postcodes;
     auto const hasDigit = [](std::string const & token)
@@ -447,8 +447,6 @@ std::string DebugPrint(AddressResultMatch match)
 
 bool IsAddressQuery(std::string const & query)
 {
-  if (query.size() > 4096)
-    return false;
   auto const address = ParseAddressQuery(query);
   if (!address || address->m_streetAndLocalityTokens.empty())
     return false;
@@ -580,7 +578,8 @@ Result const * FindUniqueAddressResult(std::string const & query, Results const 
       ambiguous = false;
     }
     else if (kind == bestKind && isAddressPoint == bestIsAddressPoint &&
-             match->GetFeatureCenter() != result.GetFeatureCenter())
+             mercator::DistanceOnEarth(match->GetFeatureCenter(), result.GetFeatureCenter()) >
+                 (isAddressPoint ? kAssociatedAddressPoiRadiusMeters : 0.0))
       ambiguous = true;
   }
   if (ambiguous || !match)

@@ -320,6 +320,30 @@ UNIT_CLASS_TEST(ProcessorTest, NamedBuildingRetainsExactAddressIdentity)
   TEST(!FindUniqueAddressResult("200 Example Drive", candidates, "200 Example Drive"), ());
 }
 
+UNIT_CLASS_TEST(ProcessorTest, ResolutionCoalescesNearbyBuildingAndEntrance)
+{
+  auto const countryId = BuildCountry("Duplicate Addressland", [](TestMwmBuilder & builder)
+  {
+    builder.Add(TestBuilding({0, 0}, {}, "200", "Example Drive", "en"));
+  });
+
+  auto const add = [&](Results & results, double lat, char const * name, uint32_t type, uint32_t index)
+  {
+    Result result(mercator::FromLatLon(lat, -123), name);
+    result.FromFeature(FeatureID(countryId, index), type, type, {});
+    result.SetAddressIdentity({"200", "Example Drive"});
+    results.AddResultNoChecks(std::move(result));
+  };
+  Results results;
+  auto const building = classif().GetTypeByPath({"building"});
+  auto const entrance = classif().GetTypeByPath({"entrance"});
+  add(results, 49, "Building", building, 0);
+  add(results, 49.00001, "Entrance", entrance, 1);
+  TEST(FindUniqueAddressResult("200 Example Drive", results), ());
+  add(results, 49.01, "Distant entrance", entrance, 2);
+  TEST(!FindUniqueAddressResult("200 Example Drive", results), ());
+}
+
 UNIT_CLASS_TEST(ProcessorTest, NearbyAddressHouseNumber)
 {
   std::string const lang = "en";
@@ -4020,6 +4044,34 @@ UNIT_CLASS_TEST(ProcessorTest, CompleteResolutionDistinguishesDeadlinesFromOrdin
     };
     m_engine.Search(params);
     TEST_EQUAL(future.get().IsEndedCancelled(), requireComplete, ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, CompleteResolutionRejectsResultCutoff)
+{
+  TestStreet street({{-0.01, 0}, {0.01, 0}}, "Broadway", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(TestBuilding({0, 0}, "First Building", "636", "Broadway", "en"));
+    builder.Add(TestBuilding({0.005, 0}, "Second Building", "636", "Broadway", "en"));
+  });
+  for (bool requireComplete : {false, true})
+  {
+    auto params = GetDefaultSearchParams("636 Broadway ");
+    params.m_maxNumResults = 1;
+    params.m_requireCompleteResults = requireComplete;
+    std::promise<Results> completed;
+    auto future = completed.get_future();
+    params.m_onResults = [&](Results const & results)
+    {
+      if (results.IsEndMarker())
+        completed.set_value(results);
+    };
+    m_engine.Search(params);
+    auto const results = future.get();
+    TEST_EQUAL(results.GetCount(), 1, ());
+    TEST_EQUAL(results.IsEndedCancelled(), requireComplete, ());
   }
 }
 

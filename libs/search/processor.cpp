@@ -625,9 +625,10 @@ void Processor::Search(SearchParams params)
       m_preRanker.UpdateResults(true /* lastUpdate */);
     }
 
-    // Emit finish marker to client.
+    // An address resolver cannot certify uniqueness after a deadline or a result cutoff.
+    bool const incomplete = cancellationStatus == Cancellable::Status::DeadlineExceeded || m_preRanker.IsFull();
     m_geocoder.Finish(cancellationStatus == Cancellable::Status::CancelCalled ||
-                      (params.m_requireCompleteResults && cancellationStatus == Cancellable::Status::DeadlineExceeded));
+                      (params.m_requireCompleteResults && incomplete));
     break;
   }
   case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;
@@ -897,6 +898,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_filteringParams = searchParams.m_filteringParams;
   geocoderParams.m_useDebugInfo = searchParams.m_useDebugInfo;
   geocoderParams.m_allowNearbyHouseNumbers = searchParams.m_allowNearbyHouseNumbers;
+  geocoderParams.m_requireCompleteResults = searchParams.m_requireCompleteResults;
   geocoderParams.m_isAddressQuery = searchParams.m_mode == Mode::Everywhere && !searchParams.m_categorialRequest &&
                                     IsAddressQuery(searchParams.m_query);
 
