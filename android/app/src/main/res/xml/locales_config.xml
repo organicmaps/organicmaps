@@ -52,6 +52,7 @@
     <locale android:name="sr" />
     <locale android:name="sv" />
     <locale android:name="sw" />
+    <locale android:name="te" />
     <locale android:name="th" />
     <locale android:name="tr" />
     <locale android:name="uk" />

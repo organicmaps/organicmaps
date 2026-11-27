@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Types: Recycling -->
+    <string name="type.cuisine.uzbek">ఉజ్బెక్</string>
+
+    <!-- SECTION: Types: Roads -->
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">ప్రయాణికులు ఎక్కి దిగే చోటు</string>
+
+    <!-- SECTION: Types: Historic -->
+    <string name="type.man_made.ceremonial_gate">సమారోహ ద్వారం</string>
+    <string name="type.leisure.track">క్రీడా ట్రాక్</string>
+    <string name="type.leisure.track.area">క్రీడా ట్రాక్</string>
+    <string name="type.natural.hill">కొండ</string>
+    <string name="type.natural.arch">రాతి కమాను</string>
+    <string name="type.natural.volcano.active">చురుకైన అగ్నిపర్వతం</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">ప్రయాణికులు ఎక్కి దిగే చోటు</string>
+    <string name="type.railway.disused.tunnel">వాడుకలో లేని రైల్వే సొరంగం</string>
+    <string name="type.shop.leather">చర్మపు వస్తువుల దుకాణం</string>
+    <string name="type.shop.religion">మతసంబంధమైన వస్తువుల దుకాణం</string>
+    <string name="type.waterway.access_point">జలమార్గ ప్రవేశ స్థలం</string>
+    <string name="type.amenity.stage">రంగస్థలం</string>
+</resources>

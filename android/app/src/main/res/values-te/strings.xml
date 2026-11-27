@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">వెనుకకు</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">రద్దు</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">తొలగించు</string>
+    <string name="download_maps">మ్యాప్‌లను డౌన్‌లోడ్ చేయండి</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">శోధన</string>
+    <string name="close">మూసివేయి</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">బుక్‌మార్క్‌లు</string>
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
+    <string name="bookmarks_and_tracks">బుక్‌మార్క్‌లు మరియు ట్రాక్‌లు</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">సెట్టింగ్‌లు</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- resource for context menu -->
+    <string name="edit">సవరించు</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">భాగస్వామ్యం చేయి</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">పూర్తయింది</string>
+    <string name="share_my_location">నా స్థానాన్ని షేర్ చేయండి</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">ఉపగ్రహ చిత్రాలు</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">సర్వర్ URL</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">{z}/{x}/{y} ఉన్న చెల్లుబాటు అయ్యే URLని నమోదు చేయండి</string>
+    <string name="search_show_on_map">మ్యాప్‌లో చూడండి</string>
+    <!-- Text in menu -->
+    <string name="help">సహాయం</string>
+    <!-- Button in the main menu -->
+    <string name="donate">విరాళం ఇవ్వండి</string>
+    <string name="save">సేవ్ చేయి</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">తెల్లవారుజాము నుంచి సంధ్య వరకు లేత</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">వర్గాలు</string>
+    <string name="history">చరిత్ర</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">wikipedia.org నుండి వ్యాసం</string>
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
+    <string name="track_recording">ట్రాక్ రికార్డ్ అవుతోంది</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">గమ్యం జోడించు</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">స్టాప్ జోడించు</string>
+    <string name="drag_to_reorder">పునఃక్రమించు</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d ప్రాంతం</item>
+        <item quantity="other">%d ప్రాంతాలు</item>
+    </plurals>
+    <string name="button_layer_traffic">ట్రాఫిక్</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">హైకింగ్</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">సైక్లింగ్</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">ఉపగ్రహం</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
+    <string name="button_layer_subway">మెట్రో</string>
+    <string name="layers_title">మ్యాప్ శైలులు మరియు లేయర్‌లు</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">అవును</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">కాదు</string>
+    <string name="ok">సరే</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D భూభాగం</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/te/</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">అవుట్‌డోర్స్</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">నేపథ్య రికార్డింగ్ హెచ్చరిక</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">స్క్రీన్ ఆఫ్‌లో ఉన్నప్పుడు ట్రాక్ రికార్డింగ్ ఆగకుండా ఉండేందుకు, Organic Maps‌ను బ్యాటరీ ఆప్టిమైజేషన్ నుండి మినహాయించండి. Samsung పరికరాలలో, దాన్ని “ఎప్పుడూ స్లీప్ మోడ్‌లోకి వెళ్లని యాప్‌లు” జాబితాలో చేర్చండి.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">ట్రాక్‌ను రికార్డ్ చేయండి</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">ట్రాక్ రికార్డింగ్‌ను ఆపండి</string>
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
+    <string name="track_recording_title">ట్రాక్ రికార్డింగ్</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">ఇటీవల ఉపయోగించినవి</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">స్పెక్ట్రమ్</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">స్లైడర్లు</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ఎరుపు</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ఆకుపచ్చ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">నీలం</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB హెక్స్ రంగు #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">గ్రిడ్</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">వాయిస్ సెర్చ్</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">మ్యాప్‌లో ఎంచుకోండి</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">ప్రారంభ స్థానం</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">గమ్యం</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">ప్రారంభం మార్చు</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">గమ్యం మార్చు</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">స్టాప్ మార్చు</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">గరిష్ట సంఖ్యలో స్టాప్‌లు చేరాయి</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">క్రాస్‌ను ఉంచడానికి మ్యాప్‌ను కదిలించండి మరియు జూమ్ చేయండి</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">ఆపి సేవ్ చేయండి</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">ముగించు</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">మార్గాన్ని వ్యతిరేక దిశలో మార్చండి</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">సరైన ఫ్లోర్ నంబర్‌ను నమోదు చేయండి</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">అంతస్తు (గ్రౌండ్ ఫ్లోర్ 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">నావిగేట్ చేయండి</string>
+    <!-- Route planner label for the selected entry point on an unnamed track. -->
+    <string name="navigate_track_entry">ఎంచుకున్న స్థానం</string>
+    <!-- Destination when following a track backwards to the start of a section after a gap. -->
+    <string name="navigate_track_section_start">మార్గ భాగం ప్రారంభం</string>
+    <!-- Destination when following a track forwards to the end of a section before a gap. -->
+    <string name="navigate_track_section_finish">మార్గ భాగం ముగింపు</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">ట్రాక్ ప్రారంభం</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">ట్రాక్ ముగింపు</string>
+</resources>
