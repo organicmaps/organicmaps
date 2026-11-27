@@ -76,7 +76,7 @@ void QtOGLContextFactory::WaitForInitialization(dp::GraphicsContext * context)
     m_mainThreadReady.count_down();
     m_contextsCreated.wait();
   }
-  else
+  else if (!m_contextsCreated.try_wait())
     m_contextsCreated.count_down();
 }
 
