@@ -2,6 +2,7 @@ package app.organicmaps.widget.menu;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
@@ -78,12 +79,12 @@ public class NavigationAccessibilityTest
             -> state[0],
         () -> state[0] = BottomSheetBehavior.STATE_EXPANDED, () -> state[0] = BottomSheetBehavior.STATE_COLLAPSED);
     assertEquals("android.widget.Button", node(header).getClassName());
-    assertEquals("Collapsed", node(header).getStateDescription());
+    assertNull(node(header).getStateDescription());
     assertTrue(hasAction(header, AccessibilityNodeInfoCompat.ACTION_EXPAND));
     assertFalse(hasAction(header, AccessibilityNodeInfoCompat.ACTION_COLLAPSE));
     assertTrue(header.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
     NavigationAccessibility.updatePanelState(header, state[0]);
-    assertEquals("Expanded", node(header).getStateDescription());
+    assertNull(node(header).getStateDescription());
     assertFalse(header.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_EXPAND, null));
     assertTrue(hasAction(header, AccessibilityNodeInfoCompat.ACTION_COLLAPSE));
     assertTrue(header.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_CLICK, null));

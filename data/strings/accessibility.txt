@@ -139,18 +139,6 @@
   en = Collapse navigation controls
   ru = Свернуть панель навигации
 
-[navigation_controls_expanded]
-  comment = Accessibility label or state for navigation controls.
-  tags = android-app
-  en = Expanded
-  ru = Развёрнута
-
-[navigation_controls_collapsed]
-  comment = Accessibility label or state for navigation controls.
-  tags = android-app
-  en = Collapsed
-  ru = Свёрнута
-
 [navigation_current_speed]
   comment = Accessibility reading of current navigation data, requested by the screen reader.
   tags = android-app

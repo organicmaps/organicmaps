@@ -20,10 +20,7 @@ public final class AccessibilityTestContext
               return "Expand navigation controls";
             if (id == R.string.navigation_controls_collapse)
               return "Collapse navigation controls";
-            if (id == R.string.navigation_controls_expanded)
-              return "Expanded";
-            if (id == R.string.navigation_controls_collapsed)
-              return "Collapsed";
+
             if (id == R.string.navigation_current_speed)
               return "Current speed: %1$s %2$s";
             if (id == R.string.navigation_speed_limit)

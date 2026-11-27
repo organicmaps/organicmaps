@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -86,9 +87,12 @@ public final class NavigationAccessibility
   {
     if (state != BottomSheetBehavior.STATE_EXPANDED && state != BottomSheetBehavior.STATE_COLLAPSED)
       return;
-    ViewCompat.setStateDescription(header, header.getContext().getString(state == BottomSheetBehavior.STATE_EXPANDED
-                                                                             ? R.string.navigation_controls_expanded
-                                                                             : R.string.navigation_controls_collapsed));
+    Object previous = header.getTag(R.id.navigation_accessibility_state);
+    if (previous instanceof Integer && (Integer) previous == state)
+      return;
+    header.setTag(R.id.navigation_accessibility_state, state);
+    // Standard expansion actions already convey the state to TalkBack.
+    header.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED);
   }
 
   /** Query current values instead of publishing a new description on every GPS update. */
