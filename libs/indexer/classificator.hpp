@@ -223,6 +223,7 @@ public:
 
   inline uint32_t GetCoastType() const { return m_coastType; }
   inline uint32_t GetStubType() const { return m_stubType; }
+  uint32_t GetBuildingAddressType() const { return m_buildingAddressType; }
 
   /// @name used in osm2type.cpp, not for public use.
   //@{
@@ -263,6 +264,7 @@ private:
   IndexAndTypeMapping m_mapping;
   uint32_t m_coastType = 0;
   uint32_t m_stubType = 0;
+  uint32_t m_buildingAddressType = INVALID_TYPE;
   bool m_loaded = false;
 
   DISALLOW_COPY_AND_MOVE(Classificator);

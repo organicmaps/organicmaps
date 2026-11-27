@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <utility>
 
 namespace df
 {
@@ -246,6 +247,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   auto const geomType = types.GetGeomType();
 
   drule::KeysT keys;
+  bool mainTypeHasOverlays = false;
   for (uint32_t t : types)
   {
     drule::KeysT typeKeys;
@@ -258,18 +260,47 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
       if (types.Size() > 1 && k.m_type == drule::area && areaPatternChecker.IsIntermittentWater(t))
         k.m_priority += kIntermittentWaterSelectionBoost;
 
-      // Take overlay drules from the main type only.
-      if (t == mainOverlayType || (k.m_type != drule::caption && k.m_type != drule::symbol &&
-                                   k.m_type != drule::shield && k.m_type != drule::pathtext))
+      if (drule::IsOverlay(k.m_type))
       {
-        if (hasHatching && k.m_type == drule::area)
-          k.m_hatching = true;
-        keys.push_back(k);
+        if (t != mainOverlayType)
+          continue;
+        mainTypeHasOverlays = true;
       }
+      if (hasHatching && k.m_type == drule::area)
+        k.m_hatching = true;
+      keys.push_back(k);
     }
   }
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, rules, keys);
+
+  // Keep the same overlay type across zooms unless its selectors reject every candidate at this zoom.
+  if (mainTypeHasOverlays && types.Size() > 1 &&
+      std::none_of(keys.begin(), keys.end(), [](auto const & key) { return drule::IsOverlay(key.m_type); }))
+  {
+    auto const rejectedType = mainOverlayType;
+    int fallbackPriority = std::numeric_limits<int>::min();
+    drule::KeysT fallback;
+    for (uint32_t t : types)
+    {
+      auto const * object = cl.GetObject(t);
+      int const priority = object->GetMaxOverlaysPriority();
+      if (t == rejectedType || priority <= fallbackPriority)
+        continue;
+
+      drule::KeysT candidates;
+      object->GetSuitable(zoomLevel, geomType, candidates);
+      candidates.erase_if([](drule::Key const & key) { return !drule::IsOverlay(key.m_type); });
+      feature::FilterRulesByRuntimeSelector(f, zoomLevel, rules, candidates);
+      if (candidates.empty())
+        continue;
+
+      fallbackPriority = priority;
+      fallback = std::move(candidates);
+      mainOverlayType = t;
+    }
+    keys.insert(keys.end(), fallback.begin(), fallback.end());
+  }
 
   if (keys.empty())
     return;
@@ -303,8 +334,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
 
       if (isGood)
       {
+        auto const addressType = cl.GetBuildingAddressType();
         // Use building-address' caption drule to display house numbers.
-        static auto const addressType = cl.GetTypeByPath({"building", "address"});
         if (mainOverlayType == addressType)
         {
           // Optimization: just duplicate the drule if the main type is building-address.
@@ -315,11 +346,13 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
         {
           drule::KeysT addressKeys;
           cl.GetObject(addressType)->GetSuitable(zoomLevel, geomType, addressKeys);
+          feature::FilterRulesByRuntimeSelector(f, zoomLevel, rules, addressKeys);
           if (!addressKeys.empty())
           {
-            // A caption drule exists for this zoom level.
-            ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
-                   ("building-address should contain a caption drule only"));
+            ASSERT(std::all_of(addressKeys.begin(), addressKeys.end(),
+                               [](drule::Key const & key) { return key.m_type == drule::caption; }),
+                   ("building-address should only contain caption rules"));
+            drule::MakeUnique(addressKeys);
             ASSERT(m_houseNumberRule == nullptr, ());
             m_houseNumberRule = rules.Find(addressKeys[0])->GetCaption();
           }
