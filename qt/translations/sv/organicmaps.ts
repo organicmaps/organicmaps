@@ -801,57 +801,57 @@
 <message id="download_region_with_size">
 <extracomment>Download button: first placeholder is the region, second is the formatted size.</extracomment>
 <source>Download %1 (%2)</source>
-<translation>Download %1 (%2)</translation>
+<translation>Hämta %1 (%2)</translation>
 </message>
 <message id="region_queued_for_download">
 <extracomment>Map download status; %@ is the region name.</extracomment>
 <source>%1 is queued for download</source>
-<translation>%1 is queued for download</translation>
+<translation>%1 väntar på hämtning</translation>
 </message>
 <message id="retry_region_download">
 <extracomment>Retry button; %@ is the region name.</extracomment>
 <source>Retry downloading %1</source>
-<translation>Retry downloading %1</translation>
+<translation>Försök hämta %1 igen</translation>
 </message>
 <message id="downloading_region_progress">
 <extracomment>Map download progress: first placeholder is the region, second is the formatted percentage.</extracomment>
 <source>Downloading %1 (%2)</source>
-<translation>Downloading %1 (%2)</translation>
+<translation>Hämtar %1 (%2)</translation>
 </message>
 <message id="route_along_track">
 <extracomment>Route action for a selected track.</extracomment>
 <source>Route Along Track</source>
-<translation>Route Along Track</translation>
+<translation>Rutt längs spår</translation>
 </message>
 <message id="copy_link">
 <extracomment>Copies the selected place link to the clipboard.</extracomment>
 <source>Copy Link</source>
-<translation>Copy Link</translation>
+<translation>Kopiera länk</translation>
 </message>
 <message id="copy_text">
 <extracomment>Copies the selected place details to the clipboard.</extracomment>
 <source>Copy Text</source>
-<translation>Copy Text</translation>
+<translation>Kopiera text</translation>
 </message>
 <message id="select_transit_route">
 <extracomment>Placeholder for the public transport route selector.</extracomment>
 <source>Select a route…</source>
-<translation>Select a route…</translation>
+<translation>Välj en linje…</translation>
 </message>
 <message id="switch_coordinates_format">
 <extracomment>Tooltip for cycling coordinate formats.</extracomment>
 <source>Switch coordinate format</source>
-<translation>Switch coordinate format</translation>
+<translation>Byt koordinatformat</translation>
 </message>
 <message id="bookmark_color">
 <extracomment>Bookmark color row label.</extracomment>
 <source>Bookmark color</source>
-<translation>Bookmark color</translation>
+<translation>Bokmärkesfärg</translation>
 </message>
 <message id="heritage_website">
 <extracomment>Website for the place’s heritage designation.</extracomment>
 <source>Heritage website</source>
-<translation>Heritage website</translation>
+<translation>Kulturarvets webbplats</translation>
 </message>
 <message id="wikipedia_place_title">
 <extracomment>Wikipedia description dialog title; %@ is the place name.</extracomment>
@@ -860,53 +860,53 @@
 </message>
 <message id="app_exit">
 <source>Exit</source>
-<translation>Exit</translation>
+<translation>Avsluta</translation>
 </message>
 <message id="upload_edits">
 <source>Upload Edits</source>
-<translation>Upload Edits</translation>
+<translation>Skicka ändringar</translation>
 </message>
 <message id="welcome_to_app">
 <extracomment>Welcome dialog title. %@ is the application name; Twine converts it to Qt&#x27;s %1.</extracomment>
 <source>Welcome to %1</source>
-<translation>Welcome to %1</translation>
+<translation>Välkommen till %1</translation>
 </message>
 <message id="looking_for_position">
 <source>Looking for position…</source>
-<translation>Looking for position…</translation>
+<translation>Söker position…</translation>
 </message>
 <message id="public_transport">
 <extracomment>Public transport routing profile, including subway and trains.</extracomment>
 <source>Public transport</source>
-<translation>Public transport</translation>
+<translation>Kollektivtrafik</translation>
 </message>
 <message id="bookmarks_mouse_shortcuts_tooltip">
 <source>Show bookmarks and tracks; use ALT + RMB to add a bookmark</source>
-<translation>Show bookmarks and tracks; use ALT + RMB to add a bookmark</translation>
+<translation>Visa bokmärken och spår; använd Alt + höger musknapp för att lägga till ett bokmärke</translation>
 </message>
 <message id="intermediate_point">
 <source>Intermediate point</source>
-<translation>Intermediate point</translation>
+<translation>Mellanpunkt</translation>
 </message>
 <message id="route_point_mouse_shortcut_tooltip">
 <source>Select mode and use SHIFT + LMB to set point</source>
-<translation>Select mode and use SHIFT + LMB to set point</translation>
+<translation>Välj läget och använd Skift + vänster musknapp för att ange punkt</translation>
 </message>
 <message id="follow_route">
 <source>Follow route</source>
-<translation>Follow route</translation>
+<translation>Följ rutt</translation>
 </message>
 <message id="follow_route_mouse_shortcut_tooltip">
 <source>Build route and use ALT + LMB to emulate current position</source>
-<translation>Build route and use ALT + LMB to emulate current position</translation>
+<translation>Skapa rutt och använd Alt + vänster musknapp för att simulera aktuell position</translation>
 </message>
 <message id="clear_route">
 <source>Clear route</source>
-<translation>Clear route</translation>
+<translation>Rensa rutt</translation>
 </message>
 <message id="routing_settings">
 <source>Routing settings</source>
-<translation>Routing settings</translation>
+<translation>Ruttinställningar</translation>
 </message>
 <message id="create_feature">
 <source>Create Feature</source>
@@ -914,63 +914,63 @@
 </message>
 <message id="create_feature_tooltip">
 <source>Click to select a position, then click again to create a feature</source>
-<translation>Click to select a position, then click again to create a feature</translation>
+<translation>Klicka för att välja en position och klicka sedan igen för att skapa ett objekt</translation>
 </message>
 <message id="roads_selection_mode">
 <source>Roads selection mode</source>
-<translation>Roads selection mode</translation>
+<translation>Urvalsläge för vägar</translation>
 </message>
 <message id="city_boundaries_selection_mode">
 <source>City boundaries selection mode</source>
-<translation>City boundaries selection mode</translation>
+<translation>Urvalsläge för stadsgränser</translation>
 </message>
 <message id="city_roads_selection_mode">
 <source>City roads selection mode</source>
-<translation>City roads selection mode</translation>
+<translation>Urvalsläge för stadsvägar</translation>
 </message>
 <message id="cross_mwm_segments_selection_mode">
 <source>Cross MWM segments selection mode</source>
-<translation>Cross MWM segments selection mode</translation>
+<translation>Urvalsläge för korsande MWM-segment</translation>
 </message>
 <message id="mwms_borders_selection_mode">
 <source>MWM borders selection mode</source>
-<translation>MWM borders selection mode</translation>
+<translation>Urvalsläge för MWM-gränser</translation>
 </message>
 <message id="selection_mode_mouse_tooltip">
 <source>Select mode and use RMB to define selection box</source>
-<translation>Select mode and use RMB to define selection box</translation>
+<translation>Välj läge och använd höger musknapp för att ange en markeringsruta</translation>
 </message>
 <message id="ruler">
 <source>Ruler</source>
-<translation>Ruler</translation>
+<translation>Linjal</translation>
 </message>
 <message id="ruler_mouse_shortcuts_tooltip">
 <source>Check this button and use ALT + LMB to set points</source>
-<translation>Check this button and use ALT + LMB to set points</translation>
+<translation>Markera den här knappen och använd Alt + vänster musknapp för att ange punkter</translation>
 </message>
 <message id="build_style">
 <source>Build style</source>
-<translation>Build style</translation>
+<translation>Bygg stil</translation>
 </message>
 <message id="recalculate_geometry_index">
 <source>Recalculate geometry index</source>
-<translation>Recalculate geometry index</translation>
+<translation>Beräkna om geometriindexet</translation>
 </message>
 <message id="debug_style">
 <source>Debug style</source>
-<translation>Debug style</translation>
+<translation>Felsökningsstil</translation>
 </message>
 <message id="get_statistics">
 <source>Get statistics</source>
-<translation>Get statistics</translation>
+<translation>Hämta statistik</translation>
 </message>
 <message id="run_tests">
 <source>Run tests</source>
-<translation>Run tests</translation>
+<translation>Kör tester</translation>
 </message>
 <message id="build_phone_package">
 <source>Build phone package</source>
-<translation>Build phone package</translation>
+<translation>Bygg telefonpaket</translation>
 </message>
 <message id="developer_mode">
 <source>Developer Mode</source>
@@ -978,27 +978,27 @@
 </message>
 <message id="enable_auto_regeneration_geometry_index">
 <source>Automatically regenerate the geometry index</source>
-<translation>Automatically regenerate the geometry index</translation>
+<translation>Återskapa geometriindexet automatiskt</translation>
 </message>
 <message id="search_everywhere">
 <source>Everywhere</source>
-<translation>Everywhere</translation>
+<translation>Överallt</translation>
 </message>
 <message id="search_viewport">
 <source>Viewport</source>
-<translation>Viewport</translation>
+<translation>Kartvyn</translation>
 </message>
 <message id="category_request">
 <source>Category request</source>
-<translation>Category request</translation>
+<translation>Kategoriförfrågan</translation>
 </message>
 <message id="downloader_unuploaded_edits_delete_map">
 <source>Some map edits have not been uploaded yet. Delete this map anyway?</source>
-<translation>Some map edits have not been uploaded yet. Delete this map anyway?</translation>
+<translation>Vissa kartändringar har inte skickats ännu. Vill du ändå ta bort kartan?</translation>
 </message>
 <message id="downloader_country_column">
 <source>Country</source>
-<translation>Country</translation>
+<translation>Land</translation>
 </message>
 <message id="downloader_status_column">
 <source>Status</source>
@@ -1006,15 +1006,15 @@
 </message>
 <message id="downloader_size_column">
 <source>Size</source>
-<translation>Size</translation>
+<translation>Storlek</translation>
 </message>
 <message id="downloader_matched_by_column">
 <source>Matched by</source>
-<translation>Matched by</translation>
+<translation>Matchad av</translation>
 </message>
 <message id="downloader_rank_column">
 <source>Rank</source>
-<translation>Rank</translation>
+<translation>Rang</translation>
 </message>
 <message id="locale_label">
 <source>locale:</source>
@@ -1022,75 +1022,75 @@
 </message>
 <message id="search_query_label">
 <source>search query:</source>
-<translation>search query:</translation>
+<translation>sökfråga:</translation>
 </message>
 <message id="update_or_delete_region_confirmation">
 <source>Do you want to update or delete %1?</source>
-<translation>Do you want to update or delete %1?</translation>
+<translation>Vill du uppdatera eller ta bort %1?</translation>
 </message>
 <message id="delete_region_confirmation">
 <source>Do you want to delete %1?</source>
-<translation>Do you want to delete %1?</translation>
+<translation>Vill du ta bort %1?</translation>
 </message>
 <message id="click_to_download">
 <source>Click to download</source>
-<translation>Click to download</translation>
+<translation>Klicka för att hämta</translation>
 </message>
 <message id="installed_click_to_delete">
 <source>Installed (click to delete)</source>
-<translation>Installed (click to delete)</translation>
+<translation>Installerad (klicka för att ta bort)</translation>
 </message>
 <message id="out_of_date_click_to_update_or_delete">
 <source>Out of date (click to update or delete)</source>
-<translation>Out of date (click to update or delete)</translation>
+<translation>Föråldrad (klicka för att uppdatera eller ta bort)</translation>
 </message>
 <message id="bookmark_files_filter">
 <source>KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)</source>
-<translation>KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)</translation>
+<translation>KML-, KMZ-, GPX-, JSON- och GeoJSON-filer (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)</translation>
 </message>
 <message id="select_bookmark_category_to_export">
 <source>Select one of the bookmark categories to export.</source>
-<translation>Select one of the bookmark categories to export.</translation>
+<translation>Välj en bokmärkessamling att exportera.</translation>
 </message>
 <message id="selected_item_not_bookmark_category">
 <source>Selected item is not a bookmark category.</source>
-<translation>Selected item is not a bookmark category.</translation>
+<translation>Det valda objektet är inte en bokmärkessamling.</translation>
 </message>
 <message id="gpx_filter">
 <source>GPX files (*.gpx)</source>
-<translation>GPX files (*.gpx)</translation>
+<translation>GPX-filer (*.gpx)</translation>
 </message>
 <message id="geojson_filter">
 <source>GeoJSON files (*.geojson);;JSON files (*.json)</source>
-<translation>GeoJSON files (*.geojson);;JSON files (*.json)</translation>
+<translation>GeoJSON-filer (*.geojson);;JSON-filer (*.json)</translation>
 </message>
 <message id="kmz_filter">
 <source>KMZ files (*.kmz)</source>
-<translation>KMZ files (*.kmz)</translation>
+<translation>KMZ-filer (*.kmz)</translation>
 </message>
 <message id="bookmarks_exported">
 <source>Bookmarks successfully exported.</source>
-<translation>Bookmarks successfully exported.</translation>
+<translation>Bokmärkena har exporterats.</translation>
 </message>
 <message id="bookmarks_export_error">
 <source>Could not export bookmarks: %1</source>
-<translation>Could not export bookmarks: %1</translation>
+<translation>Det gick inte att exportera bokmärkena: %1</translation>
 </message>
 <message id="cannot_save_selected_file">
 <source>Could not save the selected file.</source>
-<translation>Could not save the selected file.</translation>
+<translation>Det gick inte att spara den valda filen.</translation>
 </message>
 <message id="cannot_delete_last_bookmark_category">
 <source>Could not delete the last category.</source>
-<translation>Could not delete the last category.</translation>
+<translation>Det gick inte att ta bort den sista samlingen.</translation>
 </message>
 <message id="select_bookmark_item_to_delete">
 <source>Select a category, bookmark or track to delete.</source>
-<translation>Select a category, bookmark or track to delete.</translation>
+<translation>Välj en samling, ett bokmärke eller ett spår att ta bort.</translation>
 </message>
 <message id="unnamed_track">
 <source>No name</source>
-<translation>No name</translation>
+<translation>Namnlöst</translation>
 </message>
 <message id="unnamed_area">
 <extracomment>Placeholder for an imported polygon area without a name.</extracomment>
@@ -1100,12 +1100,12 @@
 <message id="bookmark_title_with_type">
 <extracomment>Bookmark tree item or place page title. %@ is the name.</extracomment>
 <source>%1 (Bookmark)</source>
-<translation>%1 (Bookmark)</translation>
+<translation>%1 (bokmärke)</translation>
 </message>
 <message id="track_title_with_type">
 <extracomment>Track tree item or place page title. %@ is the name.</extracomment>
 <source>%1 (Track)</source>
-<translation>%1 (Track)</translation>
+<translation>%1 (spår)</translation>
 </message>
 <message id="area_title_with_type">
 <extracomment>Bookmark tree item title. %@ is the polygon area name.</extracomment>
@@ -1114,39 +1114,39 @@
 </message>
 <message id="mwms_borders_selection_settings">
 <source>MWM borders selection settings</source>
-<translation>MWM borders selection settings</translation>
+<translation>Inställningar för urval av MWM-gränser</translation>
 </message>
 <message id="get_borders_from_packed_polygon">
 <source>Get borders from packed_polygon.bin</source>
-<translation>Get borders from packed_polygon.bin</translation>
+<translation>Hämta gränser från packed_polygon.bin</translation>
 </message>
 <message id="get_borders_from_poly_files">
 <source>Get borders from *.poly files</source>
-<translation>Get borders from *.poly files</translation>
+<translation>Hämta gränser från *.poly-filer</translation>
 </message>
 <message id="show_borders_with_vertices">
 <source>Show borders with vertices</source>
-<translation>Show borders with vertices</translation>
+<translation>Visa gränser med hörn</translation>
 </message>
 <message id="show_just_borders">
 <source>Show just borders</source>
-<translation>Show just borders</translation>
+<translation>Visa endast gränser</translation>
 </message>
 <message id="show_bounding_box">
 <source>Show bounding box</source>
-<translation>Show bounding box</translation>
+<translation>Visa begränsningsruta</translation>
 </message>
 <message id="enter_login">
 <source>Enter your username or email</source>
-<translation>Enter your username or email</translation>
+<translation>Ange ditt användarnamn eller din e-postadress</translation>
 </message>
 <message id="enter_password">
 <source>Enter your password</source>
-<translation>Enter your password</translation>
+<translation>Ange ditt lösenord</translation>
 </message>
 <message id="authentication_failed">
 <source>Authentication failed: %1</source>
-<translation>Authentication failed: %1</translation>
+<translation>Autentisering misslyckades: %1</translation>
 </message>
 <message id="placepage_title">
 <extracomment>Place page dialog window title</extracomment>
@@ -1181,27 +1181,27 @@
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
 <source>Latitude, longitude</source>
-<translation>Latitude, longitude</translation>
+<translation>Latitud, longitud</translation>
 </message>
 <message id="routing_mode">
 <extracomment>Label of the routing profile selector, e.g. driving, walking, cycling.</extracomment>
 <source>Routing mode</source>
-<translation>Routing mode</translation>
+<translation>Ruttläge</translation>
 </message>
 <message id="show_route_turns">
 <extracomment>Routing settings checkbox to display turn markers on the map.</extracomment>
 <source>Show turns</source>
-<translation>Show turns</translation>
+<translation>Visa svängar</translation>
 </message>
 <message id="remember_routing_settings">
 <extracomment>Routing settings checkbox to reuse the current settings after restarting the app.</extracomment>
 <source>Remember these settings for the next session</source>
-<translation>Remember these settings for the next session</translation>
+<translation>Kom ihåg de här inställningarna till nästa session</translation>
 </message>
 <message id="invalid_route_coordinates">
 <extracomment>Routing error shown when a start or destination coordinate pair cannot be parsed.</extracomment>
 <source>The start or destination coordinates are invalid.</source>
-<translation>The start or destination coordinates are invalid.</translation>
+<translation>Start- eller målkoordinaterna är ogiltiga.</translation>
 </message>
 <message id="fax">
 <extracomment>Fax number field in the OpenStreetMap editor.</extracomment>
@@ -1216,7 +1216,7 @@
 <message id="internet_access">
 <extracomment>Internet access field in the OpenStreetMap editor.</extracomment>
 <source>Internet access</source>
-<translation>Internet access</translation>
+<translation>Internetåtkomst</translation>
 </message>
 <message id="elevation">
 <extracomment>Elevation above sea level field in the OpenStreetMap editor.</extracomment>
@@ -1226,7 +1226,7 @@
 <message id="apartment_numbers">
 <extracomment>Apartment numbers field in the OpenStreetMap address editor.</extracomment>
 <source>Apartment numbers</source>
-<translation>Apartment numbers</translation>
+<translation>Lägenhetsnummer</translation>
 </message>
 <message id="height">
 <extracomment>Object height field in the OpenStreetMap editor.</extracomment>
@@ -1236,12 +1236,12 @@
 <message id="religious_denomination">
 <extracomment>Religious denomination field for a place of worship in the OpenStreetMap editor.</extracomment>
 <source>Religious denomination</source>
-<translation>Religious denomination</translation>
+<translation>Religionstillhörighet</translation>
 </message>
 <message id="not_specified">
 <extracomment>An optional property has no value set, e.g. internet access in the OpenStreetMap editor.</extracomment>
 <source>Not specified</source>
-<translation>Not specified</translation>
+<translation>Inte angivet</translation>
 </message>
 <message id="wired_internet">
 <extracomment>Internet access option for a wired connection in the OpenStreetMap editor.</extracomment>
@@ -1251,7 +1251,7 @@
 <message id="internet_terminal">
 <extracomment>Internet access option for a public computer in the OpenStreetMap editor.</extracomment>
 <source>Internet terminal</source>
-<translation>Internet terminal</translation>
+<translation>Internetterminal</translation>
 </message>
 <message id="qt_license_notice">
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
