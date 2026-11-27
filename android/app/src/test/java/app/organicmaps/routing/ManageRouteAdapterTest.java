@@ -203,7 +203,7 @@ public class ManageRouteAdapterTest
     assertFalse(adapter.moveRoutePoint(0, 1));
     assertEquals(1, adapter.getRoutePoints().size());
 
-    adapter.setTrackPoints("Ridge");
+    adapter.setTrackPoints(track("Ridge", false));
     assertFalse(adapter.moveRoutePoint(0, 1));
     assertEquals("Ridge", adapter.getRoutePoints().get(1).mTitle);
   }
