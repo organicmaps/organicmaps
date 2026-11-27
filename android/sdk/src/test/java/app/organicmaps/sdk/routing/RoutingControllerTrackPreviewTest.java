@@ -123,6 +123,7 @@ public class RoutingControllerTrackPreviewTest
   public void trackStartNearTheEntryEntersNavigationAtOnce() throws ReflectiveOperationException
   {
     final StartController controller = new StartController();
+    set(controller, "mLastRouterType", Router.Water);
     controller.nativeFollowing = true;
     controller.start();
     assertTrue(controller.isNavigating());

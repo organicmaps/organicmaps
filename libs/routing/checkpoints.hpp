@@ -20,6 +20,8 @@ public:
   m2::PointD const & GetFinish() const { return m_points.back(); }
   CheckpointsGeometry const & GetPoints() const { return m_points; }
   size_t GetPassedIdx() const { return m_passedIdx; }
+  bool IsStartMyPosition() const { return m_startIsMyPosition; }
+  void SetStartIsMyPosition(bool value) { m_startIsMyPosition = value; }
 
   void SetPointFrom(m2::PointD const & point);
   m2::PointD const & GetPoint(size_t pointIdx) const;
@@ -39,6 +41,7 @@ private:
   // m_passedIdx is the index of the checkpoint by which the user passed by.
   // By default, user has passed 0, it is start point.
   size_t m_passedIdx = 0;
+  bool m_startIsMyPosition = false;
 };
 
 std::string DebugPrint(Checkpoints const & checkpoints);

@@ -89,7 +89,7 @@
   return [self createPreviewWithFinishAltitude:110];
 }
 
-- (kml::TrackId)createTrackWithFinishAltitude:(geometry::Altitude)finishAltitude
+- (kml::TrackId)createTrackWithProfile:(char const *)profile finishAltitude:(geometry::Altitude)finishAltitude
 {
   auto & bookmarks = GetFramework().GetBookmarkManager();
   auto const start = mercator::FromLatLon(45.0, 19.0);
@@ -97,7 +97,7 @@
   data.m_layers.emplace_back();
   data.m_geometry.AddLine({{start, 100}, {mercator::FromLatLon(45.01, 19.0), finishAltitude}});
   data.m_geometry.AddTimestamps({});
-  data.m_routerType = "pedestrian";
+  data.m_routerType = profile;
   auto const id = bookmarks.GetEditSession().CreateTrack(std::move(data))->GetId();
   bookmarks.GetEditSession().AttachTrack(id, m_categoryId);
   return id;
@@ -105,13 +105,30 @@
 
 - (kml::TrackId)createPreviewWithFinishAltitude:(geometry::Altitude)finishAltitude
 {
-  auto const id = [self createTrackWithFinishAltitude:finishAltitude];
+  auto const id = [self createTrackWithProfile:"pedestrian" finishAltitude:finishAltitude];
+  [self selectTrackAtStart:id];
+  XCTAssertEqual([MWMRouter navigateTrack:id], MWMFollowTrackResultOk);
+  return id;
+}
+
+- (void)selectTrackAtStart:(kml::TrackId)id
+{
   auto & bookmarks = GetFramework().GetBookmarkManager();
   auto const start = bookmarks.GetTrack(id)->GetPoint(0);
   bookmarks.SetTrackSelectionInfo({id, start, 0.0}, false);
   bookmarks.MyPositionMark().SetUserPosition(start, true);
-  XCTAssertEqual([MWMRouter navigateTrack:id], MWMFollowTrackResultOk);
-  return id;
+}
+
+- (void)testSavedWaterTrackRejectsNavigationAndOrdinaryTrackCanFollowWaterSelection
+{
+  auto const water = [self createTrackWithProfile:"water" finishAltitude:110];
+  [self selectTrackAtStart:water];
+  XCTAssertEqual([MWMRouter navigateTrack:water], MWMFollowTrackResultUnsupportedProfile);
+  XCTAssertFalse([MWMRouter hasTrackNavigationSession]);
+  [MWMRouter setType:MWMRouterTypeWater];
+  [self createPreview];
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter renderType], MWMRouterTypePedestrian);
 }
 
 - (void)waitForPreview
@@ -348,7 +365,7 @@
 
 - (void)testDeletingAnotherTrackKeepsActiveGuidance
 {
-  auto const other = [self createTrackWithFinishAltitude:110];
+  auto const other = [self createTrackWithProfile:"pedestrian" finishAltitude:110];
   auto const followed = [self startTrackGuidance];
   [MWMBookmarksManager.sharedManager deleteTrack:other];
   [self drainMainQueue];

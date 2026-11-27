@@ -129,6 +129,8 @@ set(SRC
   unique_index.hpp
   utils.cpp
   utils.hpp
+  water_geometry.cpp
+  water_geometry.hpp
   v2/cell_trie.hpp
   v2/ids_packet.hpp
   v2/succinct_wrapper.hpp

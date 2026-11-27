@@ -70,6 +70,11 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
     _isMyPosition = rawData().IsMyPosition();
     _isRoutePoint = rawData().IsRoutePoint();
     _isPreviewPlus = rawData().GetOpeningMode() == place_page::OpeningMode::PreviewPlus;
+    if (auto const & position = rawData().m_waterwayPosition)
+    {
+      auto const ll = mercator::ToLatLon(*position);
+      _waterwayLocation = [[CLLocation alloc] initWithLatitude:ll.m_lat longitude:ll.m_lon];
+    }
     auto latlon = rawData().GetLatLon();
     _locationCoordinate = CLLocationCoordinate2DMake(latlon.m_lat, latlon.m_lon);
 

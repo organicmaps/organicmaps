@@ -13,6 +13,8 @@
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
 #include "routing/track_router.hpp"
+#include "routing/water_geometry_provider.hpp"
+#include "routing/water_router.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
@@ -46,6 +48,7 @@
 #include <glaze/json.hpp>
 
 #include <algorithm>
+#include <array>
 #include <map>
 #include <utility>
 
@@ -61,16 +64,20 @@ struct RoutePointJson
   double x = 0.0;
   double y = 0.0;
   bool replaceWithMyPosition = false;
+  std::optional<std::array<double, 2>> waterwayPosition;
 };
 
 RoutePointJson ToRoutePointJson(RouteMarkData const & data)
 {
-  return {.type = static_cast<int>(data.m_pointType),
-          .title = data.m_title,
-          .subtitle = data.m_subTitle,
-          .x = data.m_position.x,
-          .y = data.m_position.y,
-          .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
+  RoutePointJson point{.type = static_cast<int>(data.m_pointType),
+                       .title = data.m_title,
+                       .subtitle = data.m_subTitle,
+                       .x = data.m_position.x,
+                       .y = data.m_position.y,
+                       .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
+  if (data.m_waterwayPosition)
+    point.waterwayPosition = {data.m_waterwayPosition->x, data.m_waterwayPosition->y};
+  return point;
 }
 
 RouteMarkData ToRouteMarkData(RoutePointJson const & point)
@@ -80,6 +87,8 @@ RouteMarkData ToRouteMarkData(RoutePointJson const & point)
   data.m_title = point.title;
   data.m_subTitle = point.subtitle;
   data.m_position = {point.x, point.y};
+  if (point.waterwayPosition)
+    data.m_waterwayPosition.emplace((*point.waterwayPosition)[0], (*point.waterwayPosition)[1]);
   data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
   return data;
 }
@@ -198,7 +207,8 @@ RouterType GetFollowTrackRouterType(RouterType routerType)
   case RouterType::Bicycle:
   case RouterType::Pedestrian: return routerType;
   case RouterType::Transit:
-  case RouterType::Ruler: return RouterType::Pedestrian;
+  case RouterType::Ruler:
+  case RouterType::Water: return RouterType::Pedestrian;
   case RouterType::Count: break;
   }
   UNREACHABLE();
@@ -335,6 +345,7 @@ std::string DebugPrint(FollowTrackResult result)
   {
   case FollowTrackResult::Ok: return "Ok";
   case FollowTrackResult::NoTrack: return "NoTrack";
+  case FollowTrackResult::UnsupportedProfile: return "UnsupportedProfile";
   case FollowTrackResult::Busy: return "Busy";
   case FollowTrackResult::InvalidSelection: return "InvalidSelection";
   case FollowTrackResult::NoRemainingGeometry: return "NoRemainingGeometry";
@@ -370,7 +381,10 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   m_routingSession.SetChangeSessionStateCallback([this](SessionState, SessionState state)
   {
     if (state == SessionState::RouteBuilding || state == SessionState::RouteRebuilding)
+    {
       ClearAlternativeRoutes();
+      m_bmManager->GetEditSession().ClearGroup(UserMark::Type::WATER_TRANSFER);
+    }
   });
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
@@ -455,7 +469,7 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
   // An overview helps plan a track even when it contains stops. When adding stops to a road
   // route, keep the local view so the user can continue editing.
   if (active.IsValid() && !keepViewport &&
-      (followsTrack || (active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)))
+      (followsTrack || (active.GetSubrouteCount() < 2 && !IsMeasurementRouter(m_currentRouterType))))
   {
     m2::RectD routeRect = active.GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
@@ -568,6 +582,29 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
   if (type == RouterType::Ruler)
     router = std::make_unique<RulerRouter>();
+  else if (type == RouterType::Water)
+  {
+    absentFinder = std::make_unique<AbsentRegionsFinder>([this](m2::PointD const & point)
+    { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(point); }, [this](std::string const & country)
+    { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(platform::CountryFile(country)).IsAlive(); });
+    auto provider = std::make_shared<WaterGeometryProvider>(
+        m_callbacks.m_dataSourceGetter(), [this](std::string const & country, m2::RectD const & bounds)
+    { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegion(country, bounds); },
+        [this](std::vector<std::string> const & countries, m2::RectD const & bounds)
+    { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegions(countries, bounds); });
+    auto pedestrian = std::make_unique<IndexRouter>(
+        VehicleType::Pedestrian, false, m_callbacks.m_countryParentNameGetterFn, [this](m2::PointD const & point)
+    { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(point); }, [this](std::string const & country) {
+      return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(country);
+    }, m_numMwmIDs, m_numMwmTree, m_routingSession, m_callbacks.m_dataSourceGetter(), true /* cacheWalkingGraph */);
+    pedestrian->SetAvoidRoads(RoutingOptions::Ferry);
+    router = std::make_unique<WaterRouter>(
+        [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
+    { return provider->GetGeometry(checkpoints, delegate); }, std::move(pedestrian),
+        [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate,
+                   routing::water::Geometry const & previous, std::array<bool, 4> const & frontiers, bool adaptive)
+    { return provider->ExpandGeometry(checkpoints, delegate, previous, frontiers, adaptive); });
+  }
   else
   {
     auto & dataSource = m_callbacks.m_dataSourceGetter();
@@ -602,6 +639,19 @@ void RoutingManager::SetRouterImpl(RouterType type)
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(std::move(router), std::move(absentFinder));
   m_currentRouterType = type;
+  if (type == RouterType::Water && m_bmManager)
+  {
+    RoutePointsLayout layout(*m_bmManager);
+    for (auto * mark : layout.GetRoutePoints())
+    {
+      if (mark->GetMarkData().m_waterwayPosition)
+      {
+        auto data = mark->GetMarkData();
+        data.ApplyWaterwayPosition();
+        mark->SetMarkData(std::move(data));
+      }
+    }
+  }
 }
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
@@ -614,6 +664,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
       es.ClearGroup(UserMark::Type::SPEED_CAM);
       es.ClearGroup(UserMark::Type::ROAD_WARNING);
       es.ClearGroup(UserMark::Type::ROUTE_ALT);
+      es.ClearGroup(UserMark::Type::WATER_TRANSFER);
     }
     if (deactivateFollowing)
       SetPointsFollowingMode(false /* enabled */);
@@ -770,6 +821,25 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
   });
 }
 
+void RoutingManager::CreateWaterTransferMarks(RoutesResult const & result)
+{
+  auto transfers = result.GetActive().GetWaterTransfers();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, routesId = result.m_routesId, transfers = std::move(transfers)]()
+  {
+    // Water disables following; IsBuilt() excludes that measurement-only session state.
+    if (m_currentRouterType != RouterType::Water || !m_routingSession.IsActive() || !m_routingSession.IsRouteValid() ||
+        m_routingSession.IsBuilding() || !m_routingSession.IsRouteId(routesId))
+      return;
+    auto es = m_bmManager->GetEditSession();
+    es.ClearGroup(UserMark::Type::WATER_TRANSFER);
+    for (auto const & [exit, entry] : transfers)
+    {
+      es.CreateUserMark<WaterTransferMark>(exit)->SetDirection(WaterTransferMark::Direction::Exit);
+      es.CreateUserMark<WaterTransferMark>(entry)->SetDirection(WaterTransferMark::Direction::Entry);
+    }
+  });
+}
+
 MwmSet::MwmId RoutingManager::GetMwmId(routing::NumMwmId numMwmId) const
 {
   return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId));
@@ -825,7 +895,10 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
 
-  if (!isFollowing && GetRenderRouterType() != RouterType::Ruler && result.m_routes.size() >= 2)
+  if (GetRenderRouterType() == RouterType::Water)
+    CreateWaterTransferMarks(result);
+
+  if (!isFollowing && !IsMeasurementRouter(GetRenderRouterType()) && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
 
   {
@@ -859,7 +932,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
   auto const renderRouterType = GetRenderRouterType();
-  bool const isGeometric = renderRouterType == RouterType::Ruler || route.IsTrack();
+  bool const isGeometric = IsMeasurementRouter(renderRouterType) || route.IsTrack();
 
   std::vector<RouteSegment> segments;
   auto const subroutesCount = route.GetSubrouteCount();
@@ -918,6 +991,24 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
       subroute->AddStyle(df::SubrouteStyle(df::kRouteRuler, df::RoutePattern(16.0, 2.0)));
       break;
     }
+    case RouterType::Water:
+    {
+      subroute->m_routeType = df::RouteType::Ruler;
+      subroute->m_styleType = df::SubrouteStyleType::Multiple;
+      for (size_t i = 0; i < segments.size(); ++i)
+      {
+        auto const previous = i == 0 ? startPt : segments[i - 1].GetJunction().GetPoint();
+        if (previous == segments[i].GetJunction().GetPoint())
+          continue;
+        df::SubrouteStyle style = segments[i].IsLandGap()
+                                    ? df::SubrouteStyle(df::kRouteRuler, df::RoutePattern(6.0, 4.0))
+                                    : df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor);
+        style.m_startIndex = i;
+        style.m_endIndex = i + 1;
+        subroute->AddStyle(style);
+      }
+      break;
+    }
     default: CHECK(false, ("Unknown router type"));
     }
 
@@ -943,6 +1034,8 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
 void RoutingManager::FollowRoute()
 {
+  if (GetRenderRouterType() == RouterType::Water)
+    return;
   if (IsFollowingTrack())
   {
     auto const position = GetLatestGpsPosition();
@@ -990,6 +1083,14 @@ void RoutingManager::FollowRoute()
   ClearAlternativeRoutes();
 
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+}
+
+std::optional<RouteBase::WaterDistances> RoutingManager::GetWaterDistances() const
+{
+  auto const * route = m_routingSession.GetRoute();
+  if (m_currentRouterType != RouterType::Water || route == nullptr || !route->IsValid())
+    return {};
+  return route->GetWaterDistances();
 }
 
 bool RoutingManager::SwapActiveAlternative(size_t idx)
@@ -1264,6 +1365,8 @@ FollowTrackResult RoutingManager::NavigateTrack(kml::TrackId trackId)
   auto const * track = m_bmManager->GetTrack(trackId);
   if (!track)
     return FollowTrackResult::NoTrack;
+  if (track->GetData().m_routerType == ToString(RouterType::Water))
+    return FollowTrackResult::UnsupportedProfile;
   auto const selection = m_bmManager->GetTrackSelectionInfo(trackId);
   if (!selection.IsValid())
     return FollowTrackResult::InvalidSelection;
@@ -1326,6 +1429,8 @@ bool RoutingManager::CouldAddIntermediatePoint() const
 bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 {
   CHECK(!IsFollowingTrack(), ("Leave track following before editing route points"));
+  if (m_currentRouterType == RouterType::Water)
+    markData.ApplyWaterwayPosition();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   bool const isIntermediate = markData.m_pointType == RouteMarkType::Intermediate;
@@ -1350,7 +1455,7 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
     return false;
 
   // Ruler points describe the user's measurement, not a route to optimize.
-  if (isIntermediate && optimize && hasStart && hasFinish && m_currentRouterType != RouterType::Ruler)
+  if (isIntermediate && optimize && hasStart && hasFinish && !IsMeasurementRouter(m_currentRouterType))
     ReorderIntermediatePoints(routePoints, addedPoint);
   return true;
 }
@@ -1358,6 +1463,8 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
   CHECK(!IsFollowingTrack(), ("Leave track following before editing route points"));
+  if (m_currentRouterType == RouterType::Water)
+    markData.ApplyWaterwayPosition();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto * target = routePoints.GetRoutePointForEdit(type, intermediateIndex);
@@ -1387,7 +1494,7 @@ void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIn
 bool RoutingManager::OptimizeRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
-  if (IsRoutingFollowing() || m_currentRouterType == RouterType::Ruler ||
+  if (IsRoutingFollowing() || IsMeasurementRouter(m_currentRouterType) ||
       m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).size() < 3)
     return false;
   RoutePointsLayout layout(*m_bmManager);
@@ -1398,6 +1505,8 @@ bool RoutingManager::OptimizeRoutePoints()
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
+  if (m_currentRouterType == RouterType::Water)
+    markData.ApplyWaterwayPosition();
   ASSERT(m_bmManager != nullptr, ());
   ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1725,7 +1834,9 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
+  Checkpoints checkpoints(std::move(points));
+  checkpoints.SetStartIsMyPosition(routePoints.front().m_isMyPosition);
+  m_routingSession.BuildRoute(checkpoints, timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
@@ -1963,6 +2074,8 @@ void RoutingManager::SetRouter(RouterType type)
   else if (m_currentRouterType == type)
     return;
 
+  m_bmManager->GetEditSession().ClearGroup(UserMark::Type::WATER_TRANSFER);
+
   // Hide preview.
   HidePreviewSegments();
 
@@ -2024,7 +2137,11 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
   editSession.ClearGroup(UserMark::Type::ROUTING);
   RoutePointsLayout routePoints(*m_bmManager);
   for (auto & markData : routeMarks)
+  {
+    if (m_currentRouterType == RouterType::Water)
+      markData.ApplyWaterwayPosition();
     routePoints.AddRoutePoint(std::move(markData));
+  }
 }
 
 bool RoutingManager::HasSavedRoutePoints() const

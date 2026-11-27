@@ -55,7 +55,8 @@ std::optional<VehicleType> RoutingOptions::GetVehicleType(RouterType routerType)
   case RouterType::Bicycle: return VehicleType::Bicycle;
   case RouterType::Pedestrian: return VehicleType::Pedestrian;
   case RouterType::Transit: return VehicleType::Transit;
-  case RouterType::Ruler: return {};
+  case RouterType::Ruler:
+  case RouterType::Water: return {};
   case RouterType::Count: break;
   }
   CHECK(false, (routerType));

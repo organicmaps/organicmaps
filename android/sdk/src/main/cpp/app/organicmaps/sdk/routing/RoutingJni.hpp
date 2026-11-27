@@ -23,5 +23,6 @@ jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWi
 
 RouteMarkType GetRouteMarkType(JNIEnv * env, jobject markType);
 jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info);
+jdoubleArray ToWaterwayPosition(JNIEnv * env, std::optional<m2::PointD> const & position);
 jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> const & points);
 }  // namespace routing_jni

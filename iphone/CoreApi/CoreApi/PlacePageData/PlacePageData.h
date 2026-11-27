@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isRoutePoint;
 @property(nonatomic, readonly) PlacePageObjectType objectType;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;
+@property(nonatomic, readonly, nullable) CLLocation * waterwayLocation;
 @property(nonatomic, copy, nullable) MWMVoidBlock onMapNodeStatusUpdate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onTrackRecordingProgressUpdate;
 @property(nonatomic, copy, nullable) void (^onMapNodeProgressUpdate)(uint64_t downloadedBytes, uint64_t totalBytes);

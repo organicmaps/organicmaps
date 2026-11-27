@@ -1042,6 +1042,88 @@ UNIT_TEST(RoutingManager_SaveLoadRoutePointsRestoresMyPosition)
   TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, true /* hasCurrentPosition */);
 }
 
+UNIT_TEST(RoutingManager_WaterOnlyProjectsSelectedWaterways)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread &)
+  {
+    manager.SetRouter(routing::RouterType::Ruler);
+    auto ids = std::make_shared<routing::NumMwmIds>();
+    ids->RegisterFile(platform::CountryFile("Uruguay"));
+    manager.Init(std::move(ids));
+    auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1);
+    start.m_waterwayPosition = m2::PointD(1, 1.001);
+    manager.AddRoutePoint(std::move(start), false);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 3), false);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2), false);
+
+    TEST_EQUAL(manager.GetRoutePoints()[0].m_position, m2::PointD(1, 1), ());
+    auto const transaction = manager.OpenRoutePointsTransaction();
+    manager.SetRouter(routing::RouterType::Water);
+    TEST_EQUAL(manager.GetRoutePoints()[0].m_position, m2::PointD(1, 1.001), ());
+    manager.CancelRoutePointsTransaction(transaction);
+    auto const points = manager.GetRoutePoints();
+    TEST_EQUAL(points.size(), 3, ());
+    TEST_EQUAL(points[0].m_position, m2::PointD(1, 1.001), ());
+    TEST_EQUAL(points[1].m_position, m2::PointD(2, 2), ());
+    TEST_EQUAL(points[2].m_position, m2::PointD(3, 3), ());
+    manager.SetRouter(routing::RouterType::Ruler);
+    manager.SetRouter(routing::RouterType::Water);
+    TEST_EQUAL(manager.GetRoutePoints()[0].m_position, points[0].m_position, ());
+  });
+}
+
+// Run with the Uruguay 261110 MWM from PR #13968 in --writable_path.
+UNIT_TEST(RoutingManager_WaterReportedUruguayRulerTap)
+{
+  auto & platform = GetPlatform();
+  auto const path = base::JoinPath(platform.WritableDir(), "Uruguay.mwm");
+  if (!Platform::IsFileExistsByFullPath(path))
+    return;
+
+  auto gui = std::make_unique<TestGuiThread>();
+  auto * guiThread = gui.get();
+  platform.SetGuiThread(std::move(gui));
+  SCOPE_GUARD(restoreGui, [&] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  ScopedVehicleRouter savedProfile;
+  Framework framework(FrameworkParams(false), false /* loadMaps */);
+  framework.RegisterMap(platform::LocalCountryFile::MakeTemporary(path));
+  auto & manager = framework.GetRoutingManager();
+  manager.SetRouter(routing::RouterType::Ruler);
+  manager.Init(routing::CreateNumMwmIds(framework.GetStorage()));
+
+  auto pick = [&](RouteMarkType type, double lat, double lon)
+  {
+    place_page::BuildInfo tap;
+    tap.m_source = place_page::BuildInfo::Source::User;
+    tap.m_match = place_page::BuildInfo::Match::FeatureOnly;
+    tap.m_mercator = mercator::FromLatLon(lat, lon);
+    framework.BuildAndSetPlacePageInfo(tap);
+    auto const & place = framework.GetCurrentPlacePageInfo();
+    TEST(place.m_waterwayPosition, ());
+    TEST_EQUAL(place.GetMercator(), tap.m_mercator, ());
+    RouteMarkData point;
+    point.m_pointType = type;
+    point.m_position = place.GetMercator();
+    point.m_waterwayPosition = place.m_waterwayPosition;
+    manager.AddRoutePoint(std::move(point), false);
+  };
+  pick(RouteMarkType::Start, -34.7971, -54.67059);
+  pick(RouteMarkType::Finish, -34.801566, -54.663023);
+  manager.SetRouter(routing::RouterType::Water);
+  bool built = false;
+  manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+  {
+    TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+    built = true;
+  });
+  manager.BuildRoute();
+  guiThread->RunUntil([&] { return built; });
+  auto const distances = manager.GetWaterDistances();
+  TEST(distances, ());
+  TEST_EQUAL(distances->m_landMeters, 0.0, ());
+  TEST_ALMOST_EQUAL_ABS(distances->m_waterMeters, 890.0, 10.0, ());
+}
+
 UNIT_TEST(RoutingManager_BuildKeepsResolvedMyPosition)
 {
   for (auto const type : {RouteMarkType::Start, RouteMarkType::Intermediate, RouteMarkType::Finish})
@@ -1226,14 +1308,8 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
 }
 UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 {
-  Platform::ThreadRunner const threadRunner;
   df::VisualParams::Init(1.0, 1024);
 
-  class Delegate final : public RoutingManager::Delegate
-  {
-  public:
-    void OnRouteFollow(routing::RouterType) override {}
-  } delegate;
   class Router final : public routing::IRouter
   {
   public:
@@ -1268,13 +1344,13 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   auto * guiThread = gui.get();
   platform.SetGuiThread(std::move(gui));
   SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
-  BookmarkManager bookmarks(BookmarkManager::Callbacks([]() -> StringsBundle const &
-  {
-    static StringsBundle const bundle;
-    return bundle;
-  }, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
-  RoutingManager manager(RoutingManager::Callbacks(nullptr, nullptr, nullptr, nullptr, nullptr), delegate);
-  manager.SetBookmarkManager(&bookmarks);
+  TestFramework framework;
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto & manager = framework.GetRoutingManager();
+  auto const previousRouter = manager.GetLastUsedRouter();
+  SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(previousRouter); });
+  manager.SetRouter(routing::RouterType::Ruler);
+  manager.Init(routing::CreateNumMwmIds(framework.GetStorage()));
   auto & session = manager.RoutingSession();
   session.SetRouter(std::make_unique<Router>(), nullptr);
   bool built = false;
@@ -1283,19 +1359,26 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   session.BuildRoute(routing::Checkpoints({1, 2}, {5, 6}), routing::RouterDelegate::kNoTimeout);
   guiThread->RunUntil([&] { return built; });
   TEST(session.SwapActiveAlternative(1), ());
+  TEST(session.DisableFollowMode(), ());
+  TEST(session.IsNoFollowing(), ("Water displays routes without navigation."));
+  TEST(session.IsActive() && session.IsRouteValid(), ());
   {
     auto edit = bookmarks.GetEditSession();
     edit.CreateUserMark<RouteAltMark>({1, 2});
     edit.CreateUserMark<RouteAltMark>({2, 5});
+    edit.CreateUserMark<WaterTransferMark>({3, 4})->SetDirection(WaterTransferMark::Direction::Exit);
+    edit.CreateUserMark<WaterTransferMark>({4, 5})->SetDirection(WaterTransferMark::Direction::Entry);
   }
   TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).size(), 2, ());
 
+  TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).size(), 2, ());
   bool failed = false;
   session.RebuildRoute({1, 2}, [](routing::RoutesResult const &, routing::RouterResultCode) {}, nullptr,
                        [&failed](routing::RouterResultCode) { failed = true; }, routing::RouterDelegate::kNoTimeout,
                        routing::SessionState::RouteRebuilding, false);
   TEST(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).empty(),
        ("Unavailable controls must disappear immediately."));
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).empty(), ());
   session.RouteCall([](routing::RoutesResult const & result)
   {
     TEST_EQUAL(result.m_routes.size(), 1, ());
@@ -1312,6 +1395,23 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   }, nullptr, nullptr, routing::RouterDelegate::kNoTimeout, routing::SessionState::RouteRebuilding, false);
   guiThread->RunUntil([&] { return recovered; });
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+  bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>({3, 4})->SetDirection(
+      WaterTransferMark::Direction::Exit);
+  manager.SetRouter(routing::RouterType::Pedestrian);
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).empty(), ());
+}
+UNIT_TEST(WaterTransferMark_IsSeparateFromRouteCheckpoints)
+{
+  WaterTransferMark mark({1, 2});
+  mark.SetDirection(WaterTransferMark::Direction::Exit);
+  TEST_EQUAL(mark.GetMarkType(), UserMark::Type::WATER_TRANSFER, ());
+  TEST_EQUAL(mark.GetPivot(), m2::PointD(1, 2), ());
+  TEST(!mark.IsAvailableForSearch(), ());
+  TEST(!mark.IsSymbolSelectable(), ());
+  TEST_EQUAL(mark.GetSymbolNames()->begin()->second, "water_exit", ());
+  WaterTransferMark entry({1, 2});
+  entry.SetDirection(WaterTransferMark::Direction::Entry);
+  TEST_EQUAL(entry.GetSymbolNames()->begin()->second, "water_entry", ());
 }
 
 UNIT_TEST(RoutingManager_RouteElevationDataUsesMeasuredTransitAltitudes)
@@ -1323,6 +1423,35 @@ UNIT_TEST(RoutingManager_RouteElevationDataUsesMeasuredTransitAltitudes)
   auto const data = manager.GetRouteElevationData();
   TEST(data, ());
   TEST_EQUAL(data->m_statistics.m_maxElevation, 110, ());
+}
+
+UNIT_TEST(RoutingManager_SavedWaterTrackIsViewOnly)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const selectTrack = [&](std::string const & profile)
+  {
+    auto const id = CreateTestTrack(bookmarks, profile);
+    auto const entry = bookmarks.GetTrack(id)->GetPoint(0.0);
+    bookmarks.SetTrackSelectionInfo({id, entry, 0.0}, false);
+    fixture.SetGpsPosition(entry);
+    return id;
+  };
+
+  manager.SetRouter(routing::RouterType::Bicycle);
+  auto const water = selectTrack("water");
+  TEST_EQUAL(manager.NavigateTrack(water), FollowTrackResult::UnsupportedProfile, ());
+  TEST(!manager.IsFollowingTrack(), ());
+  TEST(bookmarks.GetTrack(water), ());
+
+  manager.SetRouter(routing::RouterType::Water);
+  auto const ordinary = selectTrack("");
+  TEST_EQUAL(manager.NavigateTrack(ordinary), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian, ());
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
 }
 
 UNIT_TEST(RoutingManager_TrackChartUsesCapturedSourceUntilNavigation)

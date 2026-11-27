@@ -349,16 +349,28 @@ public class Framework
   public static boolean addRoutePoint(RouteMarkData point, boolean allowOptimization)
   {
     return Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIsMyPosition,
-                                         point.mLat, point.mLon, allowOptimization);
+                                         point.mLat, point.mLon, allowOptimization, point.mWaterwayPosition);
+  }
+
+  public static boolean nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
+                                            boolean isMyPosition, double lat, double lon, boolean allowOptimization)
+  {
+    return nativeAddRoutePoint(title, subtitle, markType, isMyPosition, lat, lon, allowOptimization, null);
   }
 
   public static native boolean nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
                                                    boolean isMyPosition, double lat, double lon,
-                                                   boolean allowOptimization);
+                                                   boolean allowOptimization, @Nullable double[] waterwayPosition);
+
+  public static void nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
+                                             int intermediateIndex, boolean isMyPosition, double lat, double lon)
+  {
+    nativeReplaceRoutePoint(title, subtitle, markType, intermediateIndex, isMyPosition, lat, lon, null);
+  }
 
   public static native void nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
-                                                    int intermediateIndex, boolean isMyPosition, double lat,
-                                                    double lon);
+                                                    int intermediateIndex, boolean isMyPosition, double lat, double lon,
+                                                    @Nullable double[] waterwayPosition);
 
   /**
    * Appends the point to the end of the route: the current finish becomes the last intermediate point and
@@ -366,8 +378,14 @@ public class Framework
    *
    * @return {@code false} if the route has no finish point or the route points limit is reached.
    */
+  public static boolean nativeContinueRouteToPoint(String title, String subtitle, boolean isMyPosition, double lat,
+                                                   double lon)
+  {
+    return nativeContinueRouteToPoint(title, subtitle, isMyPosition, lat, lon, null);
+  }
+
   public static native boolean nativeContinueRouteToPoint(String title, String subtitle, boolean isMyPosition,
-                                                          double lat, double lon);
+                                                          double lat, double lon, @Nullable double[] waterwayPosition);
 
   public static native void nativeRemoveRoutePoints();
 

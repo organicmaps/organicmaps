@@ -17,7 +17,9 @@ public enum FollowTrackResult
   /** The selected source geometry is unavailable or has changed. */
   InvalidSelection,
   /** No connected track geometry remains in this direction. */
-  NoRemainingGeometry;
+  NoRemainingGeometry,
+  /** The saved track profile supports measurement only. */
+  UnsupportedProfile;
 
   public static FollowTrackResult valueOf(int result)
   {

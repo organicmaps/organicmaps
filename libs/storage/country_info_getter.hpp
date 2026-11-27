@@ -74,6 +74,12 @@ protected:
 class CountryInfoGetter : public CountryInfoGetterBase
 {
 public:
+  // True only if actual border polygons certify the whole rectangle.
+  virtual bool IsRectCoveredByRegion(CountryId const &, m2::RectD const &) const { return false; }
+  virtual bool IsRectCoveredByRegions(std::vector<CountryId> const & countries, m2::RectD const & rect) const
+  {
+    return countries.size() == 1 && IsRectCoveredByRegion(countries.front(), rect);
+  }
   // Returns vector of countries file names without extension for
   // countries belonging to |rect|. When |rough| is equal to true, the
   // method is much faster but the result is less precise.
@@ -146,6 +152,8 @@ public:
 
   // Loads all regions for country number |id| from |m_reader|.
   std::vector<m2::RegionD> LoadRegionsFromDisk(RegionId id) const;
+  bool IsRectCoveredByRegion(CountryId const & countryId, m2::RectD const & rect) const override;
+  bool IsRectCoveredByRegions(std::vector<CountryId> const & countries, m2::RectD const & rect) const override;
 
   bool HasRegionTriangles() const;
   void GetTriangles(RegionId id, FeatureType & ft) const;
@@ -167,6 +175,9 @@ protected:
   mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_polyCache;
   mutable base::Cache<uint32_t, std::vector<m2::PointD>> m_trgCache;
   mutable std::mutex m_readerMutex;
+  struct Coverage;
+  mutable std::shared_ptr<Coverage> m_coverage;
+  mutable std::mutex m_coverageMutex;
 };
 
 // This class allows users to get info about very simply rectangular

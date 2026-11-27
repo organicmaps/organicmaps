@@ -355,6 +355,16 @@ jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info)
   return env->NewObject(clazz, ctorId, static_cast<jint>(info.GetRouteMarkType()), info.GetIntermediateIndex());
 }
 
+jdoubleArray ToWaterwayPosition(JNIEnv * env, std::optional<m2::PointD> const & position)
+{
+  if (!position)
+    return nullptr;
+  jdoubleArray result = env->NewDoubleArray(2);
+  jdouble const coords[] = {position->x, position->y};
+  env->SetDoubleArrayRegion(result, 0, 2, coords);
+  return result;
+}
+
 jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> const & points)
 {
   using namespace jni;
@@ -364,16 +374,17 @@ jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> c
   //                                int intermediateIndex, boolean isVisible, boolean isMyPosition,
   //                                boolean isPassed, double lat, double lon)
   static jmethodID const pointConstructor =
-      GetConstructorID(env, pointClazz, "(Ljava/lang/String;Ljava/lang/String;IIZZZDD)V");
+      GetConstructorID(env, pointClazz, "(Ljava/lang/String;Ljava/lang/String;IIZZZDD[D)V");
   return ToJavaArray(env, pointClazz, points, [](JNIEnv * env, RouteMarkData const & data)
   {
     TScopedLocalRef const title(env, ToJavaString(env, data.m_title));
     TScopedLocalRef const subtitle(env, ToJavaString(env, data.m_subTitle));
+    TScopedLocalRef const position(env, ToWaterwayPosition(env, data.m_waterwayPosition));
     return env->NewObject(pointClazz, pointConstructor, title.get(), subtitle.get(),
                           static_cast<jint>(data.m_pointType), static_cast<jint>(data.m_intermediateIndex),
                           static_cast<jboolean>(data.m_isVisible), static_cast<jboolean>(data.m_isMyPosition),
                           static_cast<jboolean>(data.m_isPassed), mercator::YToLat(data.m_position.y),
-                          mercator::XToLon(data.m_position.x));
+                          mercator::XToLon(data.m_position.x), position.get());
   });
 }
 }  // namespace routing_jni

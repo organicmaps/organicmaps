@@ -248,6 +248,27 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
+  public void savedWaterTrackIsViewOnlyAndOrdinaryTrackUsesItsFollowProfile() throws Exception
+  {
+    try (ImportedTrack water = new ImportedTrack("water", ImportedTrack.DEFAULT_COORDINATES))
+    {
+      onMain(() -> {
+        assertEquals(FollowTrackResult.UnsupportedProfile, mController.navigateTrack(water.id));
+        assertFalse(mController.isFollowingTrack());
+      });
+    }
+    try (ImportedTrack ordinary = new ImportedTrack("pedestrian", ImportedTrack.DEFAULT_COORDINATES))
+    {
+      onMain(() -> {
+        mController.setRouterType(Router.Water);
+        assertEquals(FollowTrackResult.Ok, mController.navigateTrack(ordinary.id));
+        assertEquals(Router.Pedestrian, mController.getLastRouterType());
+        assertFalse(mController.isWaterRouterType());
+      });
+    }
+  }
+
+  @Test
   public void acceptedTrackBuildReplacesTheSavedHostsCancelledResult() throws Exception
   {
     try (ImportedTrack track = new ImportedTrack())
@@ -397,7 +418,7 @@ public class RoutingControllerRecoveryTest
   @Test
   public void reversingAClosedTrackMovesTheChartMarkerToItsFinish() throws Exception
   {
-    try (ImportedTrack track = new ImportedTrack("0,51.47,100 0,51.48,120 0.01,51.48,150 0,51.470049,100");
+    try (ImportedTrack track = new ImportedTrack("", "0,51.47,100 0,51.48,120 0.01,51.48,150 0,51.470049,100");
          ActivityScenario<MwmActivity> scenario = launchMap())
     {
       onMain(() -> {
@@ -592,12 +613,14 @@ public class RoutingControllerRecoveryTest
     private final File source = File.createTempFile("track-preview-", ".kml", mApplication.getCacheDir());
     final long id;
 
+    private static final String DEFAULT_COORDINATES = "0,51.47,100 0,51.48,200";
+
     ImportedTrack() throws Exception
     {
-      this("0,51.47,100 0,51.48,200");
+      this("", DEFAULT_COORDINATES);
     }
 
-    ImportedTrack(String coordinates) throws Exception
+    ImportedTrack(String profile, String coordinates) throws Exception
     {
       try (FileWriter writer = new FileWriter(source))
       {
@@ -605,8 +628,11 @@ public class RoutingControllerRecoveryTest
             <kml xmlns="http://www.opengis.net/kml/2.2"><Document>
             <name>%s</name><Placemark><name>Trail 🏔</name>
             <LineString><coordinates>%s</coordinates></LineString>
-            </Placemark></Document></kml>
-            """, source.getName(), coordinates));
+            %s</Placemark></Document></kml>
+            """, source.getName(), coordinates,
+                                   profile.isEmpty() ? ""
+                                                     : "<ExtendedData xmlns:mwm=\"https://omaps.app\"><mwm:routerType>"
+                                                           + profile + "</mwm:routerType></ExtendedData>"));
       }
       onMain(() -> BookmarkManager.INSTANCE.loadBookmarksFile(source.getAbsolutePath(), false));
       await("Track was not imported", () -> category() != null && category().getTracksCount() == 1);

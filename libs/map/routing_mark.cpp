@@ -1,6 +1,7 @@
 #include "map/routing_mark.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
@@ -960,4 +961,13 @@ bool IsAvoidableRoadWarning(RoadWarningMarkType type)
   using enum RoadWarningMarkType;
   return type == Toll || type == Ferry || type == Dirty || type == Steps || type == DifficultTrail ||
          type == ExpertTrail;
+}
+
+WaterTransferMark::WaterTransferMark(m2::PointD const & point) : UserMark(point, Type::WATER_TRANSFER) {}
+
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> WaterTransferMark::GetSymbolNames() const
+{
+  auto symbols = make_unique_dp<SymbolNameZoomInfo>();
+  symbols->emplace(1, m_direction == Direction::Exit ? "water_exit" : "water_entry");
+  return symbols;
 }

@@ -17,6 +17,7 @@
 #include <future>
 #include <memory>
 #include <mutex>
+#include <set>
 #include <string>
 #include <thread>
 #include <utility>
@@ -408,5 +409,57 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, RoadProjectionAfterReturni
     m_session->MatchLocationToRoadGraph(info);
     TEST_EQUAL(raw->m_projections, 1, ("Road projection resumes after the worker finishes."));
   });
+}
+}  // namespace async_router_test
+
+UNIT_TEST(AbsentRegions_CheckpointsOnly)
+{
+  using namespace routing;
+  std::set<std::string> downloaded;
+  AbsentRegionsFinder finder([](m2::PointD const & p) {
+    return p.x == 0 ? std::string{} : p.x == 1 ? std::string("A") : std::string("B");
+  }, [&](std::string const & country) { return downloaded.contains(country); });
+  Checkpoints checkpoints(CheckpointsGeometry{{1, 0}, {2, 0}, {1, 1}});
+  RouterDelegate delegate;
+  TEST(finder.GenerateAbsentRegions(checkpoints, delegate) == RouterResultCode::NeedMoreMaps, ());
+  TEST_EQUAL(finder.GetAbsentRegions(), (std::set<std::string>{"A", "B"}), ());
+  downloaded.insert("A");
+  TEST(finder.GenerateAbsentRegions(checkpoints, delegate) == RouterResultCode::NeedMoreMaps, ());
+  TEST_EQUAL(finder.GetAbsentRegions(), (std::set<std::string>{"B"}), ());
+  downloaded.insert("B");
+  TEST(finder.GenerateAbsentRegions(checkpoints, delegate) == RouterResultCode::NoError, ());
+  TEST(finder.GetAbsentRegions().empty(), ());
+  // Countryless sea points stay under the water coverage check's authority.
+  TEST(finder.GenerateAbsentRegions(Checkpoints({0, 0}, {0, 1}), delegate) == RouterResultCode::NoError, ());
+  TEST(finder.GetAbsentRegions().empty(), ());
+}
+
+namespace async_router_test
+{
+UNIT_CLASS_TEST(AsyncGuiThreadTest, MissingCheckpointMapReachesDownloadCallback)
+{
+  auto finder = make_unique<AbsentRegionsFinder>([](auto const & p) {
+    return p.x == 1 ? string("Lithuania_East") : string("Latvia");
+  }, [](auto const & country) { return country == "Lithuania_East"; });
+  AsyncRouter async(nullptr);
+  // No outcome is allowed: missing checkpoint maps must bypass route calculation.
+  async.SetRouter(make_unique<TestRouter>(vector<Outcome>{}), std::move(finder));
+  auto missing = make_shared<promise<set<string>>>();
+  auto future = missing->get_future();
+  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {}, false, false, nullptr,
+                       [missing](uint64_t, set<string> const & countries) { missing->set_value(countries); }, nullptr,
+                       nullptr);
+  TEST(future.wait_for(30s) == future_status::ready, ());
+  TEST_EQUAL(future.get(), (set<string>{"Latvia"}), ());
+
+  AsyncRouter available(nullptr);
+  available.SetRouter(make_unique<TestRouter>(vector{Outcome::Failure}),
+                      make_unique<AbsentRegionsFinder>([](auto const &) { return string("Latvia"); },
+                                                       [](auto const &) { return true; }));
+  auto failed = make_shared<promise<RouterResultCode>>();
+  auto failure = failed->get_future();
+  Calculate(available, [failed](RouterResultCode code) { failed->set_value(code); });
+  TEST(failure.wait_for(30s) == future_status::ready, ());
+  TEST_EQUAL(failure.get(), RouterResultCode::RouteNotFound, ());
 }
 }  // namespace async_router_test

@@ -91,7 +91,7 @@ namespace
 jobject g_placePageActivationListener = nullptr;
 
 RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, RouteMarkType type,
-                                jboolean isMyPosition, jdouble lat, jdouble lon)
+                                jboolean isMyPosition, jdouble lat, jdouble lon, jdoubleArray waterwayPosition)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -99,6 +99,12 @@ RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, R
   data.m_pointType = type;
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = mercator::FromLatLon(lat, lon);
+  if (waterwayPosition && env->GetArrayLength(waterwayPosition) == 2)
+  {
+    jdouble coords[2];
+    env->GetDoubleArrayRegion(waterwayPosition, 0, 2, coords);
+    data.m_waterwayPosition.emplace(coords[0], coords[1]);
+  }
 
   return data;
 }
@@ -1503,10 +1509,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
                                                                           jstring subtitle, jobject markType,
                                                                           jboolean isMyPosition, jdouble lat,
-                                                                          jdouble lon, jboolean allowOptimization)
+                                                                          jdouble lon, jboolean allowOptimization,
+                                                                          jdoubleArray waterwayPosition)
 {
-  auto data =
-      MakeRouteMarkData(env, title, subtitle, routing_jni::GetRouteMarkType(env, markType), isMyPosition, lat, lon);
+  auto data = MakeRouteMarkData(env, title, subtitle, routing_jni::GetRouteMarkType(env, markType), isMyPosition, lat,
+                                lon, waterwayPosition);
 
   bool const optimize = allowOptimization && routing::RoutingOptions::LoadRouteOptimizationFromSettings();
   return frm()->GetRoutingManager().AddRoutePoint(std::move(data), optimize);
@@ -1515,10 +1522,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeContinueRouteToPoint(JNIEnv * env, jclass, jstring title,
                                                                                  jstring subtitle,
                                                                                  jboolean isMyPosition, jdouble lat,
-                                                                                 jdouble lon)
+                                                                                 jdouble lon,
+                                                                                 jdoubleArray waterwayPosition)
 {
   return frm()->GetRoutingManager().ContinueRouteToPoint(
-      MakeRouteMarkData(env, title, subtitle, RouteMarkType::Finish, isMyPosition, lat, lon));
+      MakeRouteMarkData(env, title, subtitle, RouteMarkType::Finish, isMyPosition, lat, lon, waterwayPosition));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
@@ -1529,10 +1537,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
                                                                           jstring subtitle, jobject markType,
                                                                           jint intermediateIndex, jboolean isMyPosition,
-                                                                          jdouble lat, jdouble lon)
+                                                                          jdouble lat, jdouble lon,
+                                                                          jdoubleArray waterwayPosition)
 {
   auto const type = routing_jni::GetRouteMarkType(env, markType);
-  auto data = MakeRouteMarkData(env, title, subtitle, type, isMyPosition, lat, lon);
+  auto data = MakeRouteMarkData(env, title, subtitle, type, isMyPosition, lat, lon, waterwayPosition);
   frm()->GetRoutingManager().ReplaceRoutePoint(type, static_cast<size_t>(intermediateIndex), std::move(data));
 }
 

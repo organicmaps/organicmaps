@@ -135,6 +135,7 @@ static MWMFollowTrackResult ToMWMFollowTrackResult(FollowTrackResult result)
 {
   switch (result)
   {
+  case FollowTrackResult::UnsupportedProfile: return MWMFollowTrackResultUnsupportedProfile;
   case FollowTrackResult::Ok: return MWMFollowTrackResultOk;
   case FollowTrackResult::NoTrack: return MWMFollowTrackResultNoTrack;
   case FollowTrackResult::Busy: return MWMFollowTrackResultBusy;
@@ -559,6 +560,9 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 
 + (void)start
 {
+  if (GetFramework().GetRoutingManager().GetRenderRouterType() == RouterType::Water)
+    return;
+
   auto const doStart = ^{
     auto & rm = GetFramework().GetRoutingManager();
     if (rm.IsFollowingTrack())
@@ -644,11 +648,21 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   if (![MWMRouter isRoutingActive])
     return;
   auto const & rm = GetFramework().GetRoutingManager();
+  auto navManager = [MWMNavigationDashboardManager sharedManager];
+  if (GetFramework().GetRoutingManager().GetRenderRouterType() == RouterType::Water)
+  {
+    if (rm.IsRouteBuilding())
+      return;
+    if (auto const distances = rm.GetWaterDistances())
+      [navManager updateWaterDistance:distances->m_waterMeters
+                         landDistance:distances->m_landMeters
+                    shortestConfirmed:distances->m_shortestConfirmed];
+    return;
+  }
   routing::FollowingInfo info;
   rm.GetRouteFollowingInfo(info);
   if (!info.IsValid())
     return;
-  auto navManager = [MWMNavigationDashboardManager sharedManager];
   // The render type: a followed track is presented as its follow profile, never as transit.
   auto const type = [MWMRouter renderType];
   if (type == MWMRouterTypePublicTransport)
@@ -711,10 +725,24 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   case routing::RouterResultCode::Cancelled: [mapViewControlsManager onRoutePrepare]; break;
   case routing::RouterResultCode::StartPointNotFound:
   case routing::RouterResultCode::EndPointNotFound:
+  case routing::RouterResultCode::IntermediatePointNotFound:
+    if (GetFramework().GetRoutingManager().GetRenderRouterType() == RouterType::Water)
+    {
+      [[MWMAlertViewController activeAlertController] presentDefaultAlertWithTitle:L(@"routing_planning_error")
+                                                                           message:L(@"water_select_point")
+                                                                  rightButtonTitle:L(@"ok")
+                                                                   leftButtonTitle:nil
+                                                                 rightButtonAction:nil];
+      [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"water_select_point")];
+      break;
+    }
+    [[fallthrough]];
   case routing::RouterResultCode::NoCurrentPosition:
   case routing::RouterResultCode::PointsInDifferentMWM:
+  case routing::RouterResultCode::WaterCorridorUnavailable:
+  case routing::RouterResultCode::WaterRouteUnavailable:
+  case routing::RouterResultCode::ResourceLimitExceeded:
   case routing::RouterResultCode::InternalError:
-  case routing::RouterResultCode::IntermediatePointNotFound:
   case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
   case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
   case routing::RouterResultCode::RouteNotFoundRedressRouteError:

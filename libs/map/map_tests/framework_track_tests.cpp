@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
+#include "map/routing_mark.hpp"
 #include "map/track_mark.hpp"
 
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
@@ -48,6 +49,30 @@ void CheckSelection(Framework const & framework, kml::TrackId id, m2::PointD con
   TEST_ALMOST_EQUAL_ABS(selection.m_distFromBegM, distance, 1e-7, ());
 }
 }  // namespace
+
+UNIT_CLASS_TEST(VisualParamsFixture, Framework_SelectsWaterTransferMarks)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto & bookmarks = framework.GetBookmarkManager();
+  bookmarks.EnableTestMode(true);
+
+  m2::PointD const points[] = {{10, 10}, {11, 11}};
+  for (auto const & point : points)
+  {
+    auto * mark = bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>(point);
+    mark->SetDirection(point == points[0] ? WaterTransferMark::Direction::Exit : WaterTransferMark::Direction::Entry);
+    auto const id = mark->GetId();
+    place_page::BuildInfo info;
+    info.m_userMarkId = id;
+    info.m_mercator = point;
+    framework.BuildAndSetPlacePageInfo(info);
+
+    auto const & selection = framework.GetCurrentPlacePageInfo();
+    TEST_EQUAL(selection.GetSelectedObject(), df::SelectionShape::OBJECT_USER_MARK, ());
+    TEST_EQUAL(selection.GetMercator(), point, ());
+    TEST(!selection.IsRoutePoint(), ());
+  }
+}
 
 UNIT_CLASS_TEST(VisualParamsFixture, Framework_ShowTrackSelectsStart)
 {

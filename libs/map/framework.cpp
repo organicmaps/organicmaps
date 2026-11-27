@@ -61,6 +61,7 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/checked_cast.hpp"
@@ -786,6 +787,7 @@ bool Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   case UserMark::Type::BOOKMARK: FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo); break;
   case UserMark::Type::SEARCH: FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo); break;
   case UserMark::Type::ROUTING: FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo); break;
+  case UserMark::Type::WATER_TRANSFER: GetSelectionProcessor().FillPointInfo(outInfo, mark->GetPivot()); break;
   case UserMark::Type::ROAD_WARNING: FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo); break;
   case UserMark::Type::TRACK_INFO:
   {
@@ -2596,7 +2598,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       // Continue route to exact bookmark position.
       data.m_position = placePageInfo.GetBookmarkData().m_point;
     else
+    {
       data.m_position = buildInfo.m_mercator;
+      data.m_waterwayPosition = placePageInfo.m_waterwayPosition;
+    }
 
     if (m_routingManager.ContinueRouteToPoint(std::move(data)))
     {
@@ -2866,6 +2871,32 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
       {
         sp.FillFeatureInfo(bestFeature, outInfo);
         outInfo.SetMercator(buildInfo.m_mercator);
+        static ftypes::BaseCheckerEx const waterways({{"waterway", "river"},
+                                                      {"waterway", "canal"},
+                                                      {"waterway", "stream"},
+                                                      {"waterway", "ditch"},
+                                                      {"waterway", "drain"},
+                                                      {"waterway", "fish_pass"}});
+        bool const waterMode = m_routingManager.GetRouter() == routing::RouterType::Water;
+        if ((waterMode || buildInfo.m_source == place_page::BuildInfo::Source::User) && bestFeature == tap.m_line &&
+            waterways(outInfo.GetTypes()))
+        {
+          auto const & points = outInfo.GetPoints();
+          double distance = std::numeric_limits<double>::max();
+          for (size_t i = 1; i < points.size(); ++i)
+          {
+            auto const projected =
+                m2::ParametrizedSegment<m2::PointD>(points[i - 1], points[i]).ClosestPointTo(buildInfo.m_mercator);
+            auto const candidate = (projected - buildInfo.m_mercator).SquaredLength();
+            if (candidate < distance)
+            {
+              distance = candidate;
+              outInfo.m_waterwayPosition = projected;
+            }
+          }
+          if (waterMode && outInfo.m_waterwayPosition)
+            outInfo.SetMercator(*outInfo.m_waterwayPosition);
+        }
       }
       else
       {

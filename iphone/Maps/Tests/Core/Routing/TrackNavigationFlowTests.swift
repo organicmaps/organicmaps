@@ -63,6 +63,20 @@ final class TrackNavigationFlowTests: XCTestCase {
     XCTAssertEqual(MockRouter.mapPointRequests.last, 100)
   }
 
+  func testWaterEstimateWaitsForReadyEvenAfterProgressReachesOne() {
+    var model = NavigationDashboard.ViewModel.initial
+    model.routePoints = .init(points: suppliedPoints)
+    model.routerType = .water
+    model.dashboardState = .planning
+    model.progress = 1
+    model.estimates = NSAttributedString(string: "250 m")
+    XCTAssertEqual(model.estimatesState, .loading)
+    XCTAssertTrue(model.isStartButtonHidden)
+
+    model.dashboardState = .ready
+    XCTAssertEqual(model.estimatesState, .estimates(model.estimates))
+  }
+
   func testTrackBuildKeepsStartAvailableAndUsesTheLastEstimate() {
     var model = NavigationDashboard.ViewModel.initial
     model.dashboardState = .planning
@@ -540,6 +554,7 @@ final class TrackNavigationFlowTests: XCTestCase {
     let controller = NavigationDashboardViewController()
     controller.loadViewIfNeeded()
     var model = NavigationDashboard.ViewModel.initial
+    model.routerType = .pedestrian
     model.dashboardState = .ready
     model.progress = 1
     for size in [CGSize(width: 375, height: 812), CGSize(width: 1024, height: 1366)] {
@@ -552,6 +567,7 @@ final class TrackNavigationFlowTests: XCTestCase {
           controller.render(model)
           controller.view.layoutIfNeeded()
           let start = try XCTUnwrap(Mirror(reflecting: controller).children.first { $0.label == "startRouteButton" }?.value as? StartRouteButton)
+          XCTAssertFalse(start.isHidden)
           XCTAssertEqual(start.bounds.height, 44, accuracy: 0.5)
           let reverse = try XCTUnwrap(Mirror(reflecting: controller).children
             .first { $0.label == "reverseRoutePointsButton" }?.value as? UIButton)

@@ -318,6 +318,21 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, CarFerryAvoidanceDoesNotAffectOtherRoa
   }
 }
 
+UNIT_CLASS_TEST(RoutingPreferenceFixture, ForcedFerryAvoidanceSurvivesRequestSnapshot)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  RouterDelegate const delegate{RoutingOptions{}};
+  RoutesResult before;
+  TEST_EQUAL(Calculate(*router, before, delegate), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(before.GetActive(), RoutingOptions::Ferry), ());
+
+  router->SetAvoidRoads(RoutingOptions::Ferry);
+  RoutesResult after;
+  TEST_EQUAL(Calculate(*router, after, delegate), RouterResultCode::NoError, ());
+  for (auto const & route : after.m_routes)
+    TEST(!UsesRoadType(route, RoutingOptions::Ferry), ());
+}
+
 UNIT_CLASS_TEST(RoutingPreferenceFixture, FerryAvoidanceIsIndependent)
 {
   for (auto const avoided : {VehicleType::Bicycle, VehicleType::Pedestrian})

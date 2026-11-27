@@ -6,6 +6,7 @@
 #include "routing/routing_options.hpp"  // routing::RoutingOptions
 
 #include <functional>
+#include <optional>
 #include <string>
 
 enum class RouteMarkType : uint8_t
@@ -27,6 +28,14 @@ struct RouteMarkData
   bool m_isPassed = false;
   bool m_replaceWithMyPositionAfterRestart = false;
   m2::PointD m_position;
+  std::optional<m2::PointD> m_waterwayPosition;
+
+  void ApplyWaterwayPosition()
+  {
+    if (m_waterwayPosition && !m_isMyPosition)
+      m_position = *m_waterwayPosition;
+    m_waterwayPosition.reset();
+  }
 };
 
 class RouteMarkPoint : public UserMark
@@ -266,6 +275,33 @@ RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::
 
 // Returns whether the warning has an avoidance setting in a supported routing profile.
 bool IsAvoidableRoadWarning(RoadWarningMarkType type);
+
+// Exit or re-entry of an internal walking transfer on a Water route.
+class WaterTransferMark : public UserMark
+{
+public:
+  enum class Direction
+  {
+    Exit,
+    Entry
+  };
+  explicit WaterTransferMark(m2::PointD const & point);
+  void SetDirection(Direction direction)
+  {
+    m_direction = direction;
+    SetDirty();
+  }
+
+  bool IsAvailableForSearch() const override { return false; }
+  bool SymbolIsPOI() const override { return true; }
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingBottomMarkLayer; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::TransitTransfer); }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+private:
+  Direction m_direction = Direction::Exit;
+};
 
 /// \brief ETA balloon attached to a route variant (active or alternative). Tappable so the user can
 /// swap the active route by tapping its balloon. The pivot (m_ptOrg) sits on the route polyline.

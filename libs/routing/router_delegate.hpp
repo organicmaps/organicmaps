@@ -19,6 +19,8 @@ public:
   static auto constexpr kNoTimeout = std::numeric_limits<uint32_t>::max();
 
   RouterDelegate();
+  // Parent cancellation and deadlines also stop this synchronous subcalculation.
+  explicit RouterDelegate(base::Cancellable const & parent);
   explicit RouterDelegate(std::optional<RoutingOptions> routingOptions);
 
   /// Avoidance options for this request. If unset, IndexRouter loads the saved settings.
@@ -43,6 +45,24 @@ private:
   PointCheckCallback m_pointCallback;
 
   std::optional<RoutingOptions> const m_routingOptions;
-  base::Cancellable m_cancellable;
+
+  class Cancellable final : public base::Cancellable
+  {
+  public:
+    explicit Cancellable(base::Cancellable const * parent = nullptr) : m_parent(parent) {}
+    bool IsCancelled() const override
+    {
+      return base::Cancellable::IsCancelled() || (m_parent && m_parent->IsCancelled());
+    }
+    Status CancellationStatus() const override
+    {
+      auto const status = base::Cancellable::CancellationStatus();
+      return status != Status::Active || !m_parent ? status : m_parent->CancellationStatus();
+    }
+
+  private:
+    base::Cancellable const * m_parent;
+  };
+  Cancellable m_cancellable;
 };
 }  //  namespace routing

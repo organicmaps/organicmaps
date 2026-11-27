@@ -95,6 +95,11 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   if (self)
   {
     _point = point.m_position;
+    if (point.m_waterwayPosition)
+    {
+      auto const ll = mercator::ToLatLon(*point.m_waterwayPosition);
+      _waterwayLocation = [[CLLocation alloc] initWithLatitude:ll.m_lat longitude:ll.m_lon];
+    }
     _title = NormalizeTitle(@(point.m_title.c_str()), _point);
     _subtitle = NormalizeSubtitle(@(point.m_subTitle.c_str()));
     _isMyPosition = point.m_isMyPosition;
@@ -175,6 +180,8 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   case MWMRoutePointTypeFinish: pt.m_pointType = RouteMarkType::Finish; break;
   }
   pt.m_position = self.point;
+  if (self.waterwayLocation)
+    pt.m_waterwayPosition = self.waterwayLocation.mercator;
   pt.m_isMyPosition = self.isMyPosition;
   pt.m_title = self.title.UTF8String;
   pt.m_subTitle = self.subtitle.UTF8String;

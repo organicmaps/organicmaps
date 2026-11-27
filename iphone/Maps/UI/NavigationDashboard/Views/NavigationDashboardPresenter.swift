@@ -45,6 +45,10 @@ extension NavigationDashboard {
         if state == .planning {
           viewModel.progress = 0
         }
+        if viewModel.planningMode == .default, state == .prepare || state == .planning || state == .error {
+          viewModel.entity = MWMNavigationDashboardEntity()
+          viewModel.estimates = NSAttributedString()
+        }
 
       case .close:
         viewModel.dashboardState = .closed

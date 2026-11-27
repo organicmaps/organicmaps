@@ -626,7 +626,7 @@ public class RoutingController
   public void start()
   {
     // Phone and car actions can outlive the built route they were created for.
-    if (!isPlanning() || !isBuilt())
+    if (!isPlanning() || !isBuilt() || isWaterRouterType())
       return;
     Logger.d(TAG, "start");
     final boolean followsTrack = isFollowingTrack();
@@ -980,9 +980,11 @@ public class RoutingController
   @NonNull
   private MapObject toMapObject(@NonNull RouteMarkData point)
   {
-    return MapObject.createMapObject(point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
-                                     point.mTitle == null ? "" : point.mTitle,
-                                     point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
+    MapObject result = MapObject.createMapObject(
+        point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI, point.mTitle == null ? "" : point.mTitle,
+        point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
+    result.mWaterwayPosition = point.mWaterwayPosition;
+    return result;
   }
 
   /**
@@ -1139,6 +1141,16 @@ public class RoutingController
   public boolean isRulerRouterType()
   {
     return getLastRouterType() == Router.Ruler;
+  }
+
+  public boolean isWaterRouterType()
+  {
+    return mLastRouterType == Router.Water && !isFollowingTrack();
+  }
+
+  public boolean isMeasurementRouterType()
+  {
+    return isRulerRouterType() || isWaterRouterType();
   }
 
   public boolean isNavigating()
@@ -1476,7 +1488,7 @@ public class RoutingController
     Pair<String, String> description = getDescriptionForPoint(point);
     Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,
                                       replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                      point.getLon());
+                                      point.getLon(), point.mWaterwayPosition);
   }
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
@@ -1484,14 +1496,15 @@ public class RoutingController
     Pair<String, String> description = getDescriptionForPoint(point);
     return Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
                                          point.isMyPosition(), point.getLat(), point.getLon(),
-                                         true /* allowOptimization */);
+                                         true /* allowOptimization */, point.mWaterwayPosition);
   }
 
   private static boolean appendRoutePoint(@NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
     return Framework.nativeContinueRouteToPoint(description.first /* title */, description.second /* subtitle */,
-                                                point.isMyPosition(), point.getLat(), point.getLon());
+                                                point.isMyPosition(), point.getLat(), point.getLon(),
+                                                point.mWaterwayPosition);
   }
 
   @NonNull

@@ -119,11 +119,13 @@ using namespace storage;
   if (data.previewData.routeSubtitle.length > 0 && ![title isEqualToString:data.previewData.routeSubtitle])
     subtitle = data.previewData.routeSubtitle;
 
-  return [[MWMRoutePoint alloc] initWithPoint:location_helpers::ToMercator(data.locationCoordinate)
-                                        title:title
-                                     subtitle:subtitle
-                                         type:type
-                            intermediateIndex:intermediateIndex];
+  MWMRoutePoint * point = [[MWMRoutePoint alloc] initWithPoint:location_helpers::ToMercator(data.locationCoordinate)
+                                                         title:title
+                                                      subtitle:subtitle
+                                                          type:type
+                                             intermediateIndex:intermediateIndex];
+  point.waterwayLocation = data.waterwayLocation;
+  return point;
 }
 
 - (void)editPlace

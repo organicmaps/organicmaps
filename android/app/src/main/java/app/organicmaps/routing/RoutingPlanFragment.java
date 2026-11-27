@@ -349,13 +349,15 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setRouterClick(R.id.transit, Router.Transit);
     setRouterClick(R.id.bicycle, Router.Bicycle);
     setRouterClick(R.id.ruler, Router.Ruler);
+    setRouterClick(R.id.water, Router.Water);
   }
 
   private void updateTrackFollowMode()
   {
     final RoutingController controller = RoutingController.get();
     final boolean followsTrack = controller.isFollowingTrack();
-    UiUtils.showIf(!followsTrack, mTransitButton, mRulerButton, mDrivingOptionsContainer, mSearchBtn, mBookmarkBtn);
+    UiUtils.showIf(!followsTrack, mTransitButton, mRulerButton, mRouterTypes.findViewById(R.id.water),
+                   mDrivingOptionsContainer, mSearchBtn, mBookmarkBtn);
     // Check the follow profile: the user's own Transit or Ruler pick may still be checked, and its radio is hidden now.
     if (followsTrack)
       mRouterTypes.check(routerToButtonId(controller.getLastRouterType()));
@@ -373,6 +375,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (!controller.isFollowingTrack())
     {
       controller.setRouterType(router);
+      mRoutingBottomMenuController.updateModeControls();
       // A partial plan has no calculation callback to refresh its settings controls.
       updateRoutingOptions(router);
       return;
@@ -409,6 +412,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       case Transit -> R.id.transit;
       case Bicycle -> R.id.bicycle;
       case Ruler -> R.id.ruler;
+      case Water -> R.id.water;
     };
   }
 
@@ -428,6 +432,12 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       TransitRouteInfo info = controller.getCachedTransitInfo();
       if (info != null)
         mRoutingBottomMenuController.showTransitInfo(info);
+      return;
+    }
+
+    if (controller.isWaterRouterType())
+    {
+      mRoutingBottomMenuController.showWaterInfo();
       return;
     }
 

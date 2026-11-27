@@ -9,9 +9,9 @@ final class RoutingOptionsSettingsInteractor {
     self.routingOptionsProvider = routingOptionsProvider ?? { RoutingOptions(routerType: routerType) }
   }
 
-  /// The router type outlives a closed Ruler route, so only an active one blocks the switch.
+  /// The router type outlives a closed measurement route, so only an active one blocks the switch.
   private var canChangeOptimization: Bool {
-    !MWMRouter.isOnRoute() && (!MWMRouter.isRoutingActive() || MWMRouter.type() != .ruler)
+    !MWMRouter.isOnRoute() && (!MWMRouter.isRoutingActive() || MWMRouter.type().hasRoutingSettings)
   }
 
   func loadSettings() {

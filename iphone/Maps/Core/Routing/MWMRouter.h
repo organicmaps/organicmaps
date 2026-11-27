@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, MWMFollowTrackResult) {
   MWMFollowTrackResultBusy,
   MWMFollowTrackResultInvalidSelection,
   MWMFollowTrackResultNoRemainingGeometry,
+  MWMFollowTrackResultUnsupportedProfile,
 };
 
 NS_ASSUME_NONNULL_BEGIN
