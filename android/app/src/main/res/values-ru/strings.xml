@@ -989,10 +989,6 @@
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
 
     <!-- SECTION: Accessibility -->
-    <!-- Accessibility state of an expandable section, such as names, timetable examples or opening hours. -->
-    <string name="editor_section_expanded">Развёрнуто</string>
-    <!-- Accessibility state of an expandable section, such as names, timetable examples or opening hours. -->
-    <string name="editor_section_collapsed">Свёрнуто</string>
     <!-- Accessibility name of the More button that reveals additional language names in the editor. -->
     <string name="editor_more_names">Показать дополнительные названия</string>
     <!-- Accessibility-only hint for raw opening_hours input; the visible input text is unchanged. -->
