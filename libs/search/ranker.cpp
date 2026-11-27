@@ -837,6 +837,13 @@ void Ranker::UpdateResults(bool lastUpdate)
         if (!m_addressMatches.contains(result.GetID()))
           m_addressMatches.emplace(result.GetID(), GetAddressResultMatch(*query, MakeResult(result, true, false)));
       }
+      if (m_geocoderParams.m_requireCompleteResults)
+        std::erase_if(m_tentativeResults, [&](auto const & result)
+        {
+          auto const match = m_addressMatches.at(result.GetID());
+          return match != AddressResultMatch::Exact && match != AddressResultMatch::Interpolated;
+        });
+
       // Textual address correctness precedes distance/popularity and the final result limit.
       std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [&](auto const & first, auto const & second)
       { return m_addressMatches.at(first.GetID()) > m_addressMatches.at(second.GetID()); });

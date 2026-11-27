@@ -918,7 +918,13 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams, SearchPar
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_position = m_position;
   params.m_scale = geocoderParams.m_scale;
-  params.m_limit = std::max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
+  // Resolution validates mapped addresses after loading features. Allow a separate, bounded
+  // pool of raw candidates so unrelated results cannot exhaust the display-result quota.
+  size_t constexpr kAddressCandidateLimit = 12000;
+  params.m_requireCompleteResults = searchParams.m_requireCompleteResults;
+  params.m_limit = params.m_requireCompleteResults
+                       ? kAddressCandidateLimit
+                       : std::max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
   params.m_numQueryTokens = geocoderParams.GetNumTokens();
