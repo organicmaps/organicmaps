@@ -989,10 +989,6 @@
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
     <!-- Button to collapse an expanded bookmark or track description -->
     <string name="description_less">Свернуть</string>
-    <!-- Accessibility state of an expanded bookmark or track description -->
-    <string name="description_expanded">Развёрнуто</string>
-    <!-- Accessibility state of a collapsed bookmark or track description -->
-    <string name="description_collapsed">Свёрнуто</string>
     <!-- Accessibility label of the adjustable selected point on an elevation profile -->
     <string name="elevation_profile_selection">Точка на профиле высот</string>
     <!-- Accessibility state: selected distance along the track or route, and total length, both with units -->
