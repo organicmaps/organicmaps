@@ -75,6 +75,10 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
     if (!currInfo.HasSpeed())
       continue;
 
+    // Exclude inaccurate fixes from the jump and direction checks and from the final track endpoint.
+    if (currInfo.m_horizontalAccuracy > m_minAccuracy)
+      continue;
+
     // A replayed fix (same time and position) must not enter the history: IsGoodVector() would take a zero
     // direction from it and reject the next fix. Other fixes still do, also an older one, so the filter follows
     // a backward clock correction.
@@ -130,10 +134,6 @@ bool GpsTrackFilter::IsGoodVector(location::GpsInfo const & info) const
 
 bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
 {
-  // Filter by point accuracy
-  if (info.m_horizontalAccuracy > m_minAccuracy)
-    return false;
-
   auto const & lastInfo = GetLastInfo();
   auto const & lastAcceptedInfo = GetLastAcceptedInfo();
 
