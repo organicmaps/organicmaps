@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,7 +14,9 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.ImageViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Map;
@@ -60,6 +63,19 @@ public class MyPositionButton
     }
     Resources resources = mButton.getResources();
     Context context = mButton.getContext();
+    @StringRes
+    int stateDescription = switch (mode)
+    {
+      case LocationState.PENDING_POSITION -> R.string.my_position_state_pending;
+      case LocationState.NOT_FOLLOW_NO_POSITION -> R.string.my_position_state_off;
+      case LocationState.NOT_FOLLOW -> R.string.my_position_state_not_following;
+      case LocationState.FOLLOW -> R.string.my_position_state_following;
+      case LocationState.FOLLOW_AND_ROTATE -> R.string.my_position_state_following_heading;
+      default -> throw new IllegalArgumentException("Invalid button mode: " + mode);
+    };
+    String description = resources.getString(stateDescription);
+    if (!TextUtils.equals(ViewCompat.getStateDescription(mButton), description))
+      ViewCompat.setStateDescription(mButton, description);
     if (image == null)
     {
       @DrawableRes
