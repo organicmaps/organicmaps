@@ -98,11 +98,8 @@ private:
   MultiGeometry::TimeT m_timestamps;
   // Pending <rtept><name>; consumed when the rtept closes (see Pop).
   std::string m_rteptName;
-  // Named valid route points with their ordinal inside the current <rte>. Its first/last valid points are the
-  // route's start/finish (the geometry's endpoints), so only intermediate ones become stops --
-  // filtered positionally at track finalize to keep a loop's coincident middle stop.
-  std::vector<std::pair<size_t, TrackStopData>> m_stopCandidates;
-  size_t m_rteptOrdinal = 0;
+  // Valid route points after the start, including the candidate finish until </rte>.
+  std::vector<TrackStopData> m_stops;
   void ParseName(std::string const & value, std::string const & prevTag);
   void ParseDescription(std::string const & value, std::string const & prevTag);
   void ParseAltitude(std::string const & value);
