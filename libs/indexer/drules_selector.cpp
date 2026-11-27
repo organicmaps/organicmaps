@@ -194,6 +194,8 @@ std::unique_ptr<ISelector> ParseSelector(std::string const & str)
   }
   else if (e.m_tag == "name")
   {
+    if (e.m_operator != SelectorOperatorIsSet && e.m_operator != SelectorOperatorIsNotSet)
+      return {};
     return std::make_unique<HasSelector>(&HasName, e.m_operator);
   }
   else if (e.m_tag == "bbox_area")

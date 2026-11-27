@@ -154,6 +154,9 @@ UNIT_TEST(PopulationSelector_Smoke)
 
 UNIT_TEST(NameSelector_Smoke)
 {
+  TEST(!ParseSelector("name=Broadway"), ());
+  TEST(!ParseSelector("name!=Broadway"), ());
+  TEST(!ParseSelector("name>Broadway"), ());
   TEST(ParseSelector("name"), ());
   TEST(ParseSelector("!name"), ());
 }
