@@ -134,6 +134,11 @@ public class OnmapDownloader
           mParent.setText(mCurrentCountry.topmostParentName);
 
         mTitle.setText(mCurrentCountry.name);
+        if (progress || enqueued)
+          DownloadAccessibility.updateProgress(mProgress, mCurrentCountry.name, mCurrentCountry.status,
+                                               mCurrentCountry.progress);
+        else
+          ViewCompat.setStateDescription(mProgress, null);
 
         String sizeText;
 
@@ -171,6 +176,10 @@ public class OnmapDownloader
             }
 
             mButton.setText(failed ? R.string.downloader_retry : R.string.download);
+            mButton.setContentDescription(mContext.getString(
+                R.string.downloader_map_action,
+                mContext.getString(failed ? R.string.downloader_retry : R.string.downloader_download_map),
+                mCurrentCountry.name));
           }
         }
 
@@ -200,6 +209,7 @@ public class OnmapDownloader
       MapManager.cancel(mCurrentCountry.id);
       setAutodownloadLocked(true);
     });
+    DownloadAccessibility.attachButtonRole(mProgress);
     mButton.setOnClickListener(
         v -> MapManagerHelper.warnOn3g(mContext, mCurrentCountry == null ? null : mCurrentCountry.id, () -> {
           if (mCurrentCountry == null)

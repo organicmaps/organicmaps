@@ -184,12 +184,13 @@ public class DownloaderStatusIconAccessibilityTest
   }
 
   @Test
-  public void percentageUsesTheCurrentLocale()
+  @Config(qualifiers = "en-rUS")
+  public void percentageUsesTheInterfaceLocaleWhenTheProcessLocaleDiffers()
   {
     Locale.setDefault(Locale.GERMANY);
     mCountry.progress = 42;
     update(CountryItem.STATUS_PROGRESS);
-    assertEquals("Downloading: " + NumberFormat.getPercentInstance().format(0.42),
+    assertEquals("Downloading: " + NumberFormat.getPercentInstance(Locale.US).format(0.42),
                  ViewCompat.getStateDescription(mProgress));
   }
 

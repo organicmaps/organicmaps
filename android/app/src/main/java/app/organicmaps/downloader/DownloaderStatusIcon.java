@@ -3,21 +3,16 @@ package app.organicmaps.downloader;
 import android.content.Context;
 import android.util.SparseIntArray;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.AttrRes;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.WheelProgressView;
-import java.text.NumberFormat;
 
 public class DownloaderStatusIcon
 {
@@ -32,17 +27,8 @@ public class DownloaderStatusIcon
     mFrame = frame;
     mIcon = mFrame.findViewById(R.id.downloader_status);
     mProgress = mFrame.findViewById(R.id.downloader_progress_wheel);
-    final AccessibilityDelegateCompat buttonRole = new AccessibilityDelegateCompat() {
-      @Override
-      public void onInitializeAccessibilityNodeInfo(@NonNull View host, @NonNull AccessibilityNodeInfoCompat info)
-      {
-        super.onInitializeAccessibilityNodeInfo(host, info);
-        if (host.hasOnClickListeners())
-          info.setClassName(Button.class.getName());
-      }
-    };
-    ViewCompat.setAccessibilityDelegate(mIcon, buttonRole);
-    ViewCompat.setAccessibilityDelegate(mProgress, buttonRole);
+    DownloadAccessibility.attachButtonRole(mIcon);
+    DownloadAccessibility.attachButtonRole(mProgress);
   }
 
   public DownloaderStatusIcon setOnIconClickListener(View.OnClickListener listener)
@@ -119,21 +105,9 @@ public class DownloaderStatusIcon
 
     if (inProgress)
     {
-      mProgress.setContentDescription(
-          context.getString(R.string.downloader_map_action, context.getString(R.string.cancel_download), country.name));
-      final String state;
-      if (pending)
-        state = context.getString(R.string.downloader_queued);
-      else
-      {
-        final int progress = Math.round(country.progress);
-        mProgress.setProgress(progress);
-        final String percent = NumberFormat.getPercentInstance().format(progress / 100.0);
-        state = context.getString(country.status == CountryItem.STATUS_APPLYING ? R.string.downloader_applying_percent
-                                                                                : R.string.downloader_progress_percent,
-                                  percent);
-      }
-      ViewCompat.setStateDescription(mProgress, state);
+      if (!pending)
+        mProgress.setProgress(Math.round(country.progress));
+      DownloadAccessibility.updateProgress(mProgress, country.name, country.status, country.progress);
       return;
     }
 
