@@ -115,6 +115,22 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPeakChecker);
 };
 
+class IsCyclewayLaneChecker : public BaseCheckerEx
+{
+  IsCyclewayLaneChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsCyclewayLaneChecker);
+};
+
+class IsCyclewaySharedLaneChecker : public BaseCheckerEx
+{
+  IsCyclewaySharedLaneChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsCyclewaySharedLaneChecker);
+};
+
 class IsATMChecker : public BaseCheckerEx
 {
   IsATMChecker();
