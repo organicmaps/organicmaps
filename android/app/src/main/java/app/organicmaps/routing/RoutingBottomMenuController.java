@@ -305,7 +305,7 @@ final class RoutingBottomMenuController
     TextView walkView = mTransitTime.findViewById(R.id.total_walk_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, walkView, mTransitTime.findViewById(R.id.pedestrian_icon));
     walkView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
-    walkView.setContentDescription(mActivity.getString(R.string.transit_walking_distance, walkView.getText()));
+    walkView.setContentDescription(mContext.getString(R.string.transit_walking_distance, walkView.getText()));
     mTransitTime.setClickable(true);
     UiUtils.show(mTransitTime, mTransitRecyclerView, mTransitTime.findViewById(R.id.transit_topline));
 
