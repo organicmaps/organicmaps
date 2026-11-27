@@ -5,17 +5,29 @@
 
 #include "geometry/spline.hpp"
 
+#include <functional>
+
+namespace dp
+{
+class OverlayHandle;
+}
+
 namespace df
 {
 class PathSymbolShape : public MapShape
 {
 public:
-  PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params);
+  using OverlayFactory = std::function<drape_ptr<dp::OverlayHandle>(
+      m2::PointD const & position, m2::PointD const & direction, m2::PointF const & halfSize)>;
+
+  PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params,
+                  OverlayFactory makeOverlay = {});
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
             ref_ptr<dp::TextureManager> textures) const override;
 
 private:
   PathSymbolViewParams m_params;
   m2::SharedSpline m_spline;
+  OverlayFactory m_makeOverlay;
 };
 }  // namespace df

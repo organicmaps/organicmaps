@@ -95,6 +95,8 @@ struct RenderOptions
   dp::Color m_background = dp::Color::White();
   bool m_wrapped = false;
   bool m_groupVisible = true;
+  bool m_eastNeighbor = false;
+  int m_panX = 0;
 };
 
 QImage RenderTracks(char const * title, uint32_t width, uint32_t height, std::vector<TestTrack> const & tracks,
@@ -118,7 +120,11 @@ QImage RenderTracks(char const * title, uint32_t width, uint32_t height, std::ve
     df::MarksIDGroups groups;
     auto ids = make_unique_dp<df::IDCollections>();
     df::UserLinesRenderCollection renderParams;
-    auto const center = tileKey.GetWrappedDataRect().Center();
+    auto const rect = tileKey.GetWrappedDataRect();
+    auto center = rect.Center();
+    if (options.m_eastNeighbor)
+      center.x = rect.maxX();
+    f.SetViewCenter(center + m2::PointD(tileKey.GetTileXOffset() + options.m_panX * scale, 0));
 
     for (size_t i = 0; i < tracks.size(); ++i)
     {
@@ -148,6 +154,8 @@ QImage RenderTracks(char const * title, uint32_t width, uint32_t height, std::ve
     df::TracksSource source(&visibility);
     source.AddGroup(make_ref(&groups));
     f.AddUserLines(tileKey, source, renderParams);
+    if (options.m_eastNeighbor)
+      f.AddUserLines({tileKey.m_x + 1, tileKey.m_y, tileKey.m_zoomLevel}, source, renderParams);
   });
   return fixture.GetLastImage();
 }
@@ -354,6 +362,69 @@ UNIT_TEST(TrackDirectionArrowsAvoidOtherTrackEndpointsGpuTest)
         ++arrowPixels;
     }
   TEST_GREATER(arrowPixels, 0u, ("Direction arrows disappeared away from the other track's marker"));
+}
+
+UNIT_TEST(TrackDirectionArrowsShareScreenSpaceGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  int constexpr kWidth = 480;
+  int constexpr kHeight = 240;
+  // On the selected track the two horizontal passes are 16 dp apart. The second pass starts
+  // in the opposite direction, with its arrows aligned with those on the first pass.
+  TestTrack const folded{.m_pathInPixels = {{-160, 0}, {168, 0}, {168, 16}, {-160, 16}},
+                         .m_layers = {{dp::Color::Blue(), 5.0f, 0.0f}},
+                         .m_selected = true};
+  TestTrack const nearby{.m_pathInPixels = {{-160, -16}, {168, -16}}, .m_layers = {{dp::Color::Red(), 5.0f, 0.0f}}};
+  auto const image = RenderTracks("Arrows compete across tracks and switchbacks", kWidth, kHeight, {nearby, folded});
+  auto const hasArrow = [&](int x, int y)
+  {
+    for (int dy = -1; dy <= 1; ++dy)
+      for (int dx = -6; dx <= 6; ++dx)
+        if (image.pixelColor(kWidth / 2 + x + dx, kHeight / 2 - y + dy).green() > 100)
+          return true;
+    return false;
+  };
+  for (int x : {-112, -16, 80})
+  {
+    TEST_NOT_EQUAL(hasArrow(x, 0), hasArrow(x, 16), ("Expected one arrow on the selected switchback", x));
+    TEST(!hasArrow(x, -16), ("Neighboring track displaced a selected arrow", x));
+  }
+}
+
+UNIT_TEST(TrackDirectionArrowSpacingAcrossTilesGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  int constexpr kWidth = 320;
+  int constexpr kHeight = 300;
+  auto const track = [](int x, bool selected)
+  {
+    return TestTrack{.m_pathInPixels = {{static_cast<double>(x), -130}, {static_cast<double>(x), 130}},
+                     .m_layers = {{dp::Color::Blue(), 5.0f, 0.0f}},
+                     .m_selected = selected};
+  };
+  // The selected track is in the eastern tile. The tracks 47 and 49 dp away are both in the western tile.
+  for (int distance : {47, 49})
+  {
+    int const x = 10 - distance;
+    for (int pan : {0, 23})
+    {
+      auto const image = RenderTracks("Arrow spacing across tile edges while panning", kWidth, kHeight,
+                                      {track(x, false), track(10, true)}, {.m_eastNeighbor = true, .m_panX = pan});
+      auto const hasArrow = [&](int trackX, int trackY)
+      {
+        for (int dx = -1; dx <= 1; ++dx)
+          for (int dy = -5; dy <= 5; ++dy)
+            if (image.pixelColor(kWidth / 2 + trackX - pan + dx, kHeight / 2 - trackY + dy).red() > 100)
+              return true;
+        return false;
+      };
+      for (int y : {-82, 14, 110})
+      {
+        TEST(hasArrow(10, y), ("Selected arrow lost at tile boundary", y, pan));
+        TEST_EQUAL(hasArrow(x, y), distance >= 48, (distance, y, pan));
+      }
+    }
+  }
 }
 
 UNIT_TEST(TrackWithoutDirectionHasNoDecorationsGpuTest)

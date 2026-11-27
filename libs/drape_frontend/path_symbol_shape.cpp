@@ -1,6 +1,5 @@
 #include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/render_state_extension.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -15,6 +14,7 @@
 #include <algorithm>
 #include <cmath>
 #include <optional>
+#include <utility>
 #include <vector>
 
 namespace df
@@ -113,11 +113,14 @@ std::optional<double> FindValidPlacement(SplineSampler const & sampler, double t
   }
   return std::nullopt;
 }
+
 }  // namespace
 
-PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params)
+PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params,
+                                 OverlayFactory makeOverlay)
   : m_params(params)
   , m_spline(spline)
+  , m_makeOverlay(std::move(makeOverlay))
 {}
 
 void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
@@ -135,6 +138,19 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
 
   gpu::VBUnknownSizeT<gpu::SolidTexturingVertex> buffer;
   double const pixelToGlobalScale = 1.0 / m_params.m_baseGtoPScale;
+
+  auto state = CreateRenderState(gpu::Program::PathSymbol, m_params.m_depthLayer);
+  state.SetColorTexture(region.GetTexture());
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+  state.SetTextureIndex(region.GetTextureIndex());
+
+  auto const flush = [&](drape_ptr<dp::OverlayHandle> handle)
+  {
+    dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
+    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
+    batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
+    buffer.clear();
+  };
 
   auto const addSymbol = [&](m2::PointD const & position, m2::PointD const & direction)
   {
@@ -157,6 +173,8 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     buffer.emplace_back(pivot, -d + n, lb);
     buffer.emplace_back(pivot, d - n, rt);
     buffer.emplace_back(pivot, d + n, rb);
+    if (m_makeOverlay)
+      flush(m_makeOverlay(position, direction, halfPxSize));
   };
 
   double const offset = m_params.m_offset * pixelToGlobalScale;
@@ -192,16 +210,8 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     }
   }
 
-  if (buffer.empty())
-    return;
-
-  auto state = CreateRenderState(gpu::Program::PathSymbol, m_params.m_depthLayer);
-  state.SetColorTexture(region.GetTexture());
-  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
-  state.SetTextureIndex(region.GetTextureIndex());
-
-  dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
-  batcher->InsertListOfStrip(context, state, make_ref(&provider), 4);
+  if (!buffer.empty())
+    flush(nullptr);
 }
+
 }  // namespace df

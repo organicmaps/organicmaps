@@ -20,6 +20,7 @@
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/transit_scheme_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -200,6 +201,7 @@ private:
   void Render3dLayer(ScreenBase const & modelView);
   void RenderMwmBorderLayer(ScreenBase const & modelView);
   void RenderOverlayLayer(ScreenBase const & modelView);
+  void UpdateTrackArrows(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
@@ -348,6 +350,7 @@ private:
   // Actually, it holds displacing Bookmark titles. The tree named after SearchMarkLayer.
   drape_ptr<dp::OverlayTree> m_searchMarkTextOverlayTree;
   SearchMarkOverlayFilter m_searchMarkOverlayFilter;
+  TrackArrowPlacement m_trackArrowPlacement;
 
   FrameValues m_frameValues;
 

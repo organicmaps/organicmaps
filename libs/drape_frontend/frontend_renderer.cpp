@@ -1514,6 +1514,7 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserAreaLayer);
+    UpdateTrackArrows(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
     RenderUserMarksLayer(modelView, DepthLayer::SelectedUserLineLayer);
 
@@ -1790,6 +1791,15 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
+}
+
+void FrontendRenderer::UpdateTrackArrows(ScreenBase const & modelView)
+{
+  for (auto layer : {DepthLayer::UserLineLayer, DepthLayer::SelectedUserLineLayer})
+    for (auto const & group : m_layers[static_cast<size_t>(layer)].m_renderGroups)
+      if (group->GetState().GetProgram<gpu::Program>() == gpu::Program::PathSymbol)
+        group->ForEachOverlay([this](auto h) { m_trackArrowPlacement.Add(h); });
+  m_trackArrowPlacement.Place(modelView);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
