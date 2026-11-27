@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -100,7 +101,8 @@ public abstract class GoogleAssistantIntentHandler
     }
   }
 
-  private static DestinationData parseDestination(@NonNull Uri uri)
+  @VisibleForTesting
+  static DestinationData parseDestination(@NonNull Uri uri)
   {
     DestinationData dst = new DestinationData();
 
@@ -120,6 +122,13 @@ public abstract class GoogleAssistantIntentHandler
             dst.lon = Double.parseDouble(parts[1]);
           }
           catch (NumberFormatException ignore)
+          {
+            dst.lat = 0.0;
+            dst.lon = 0.0;
+          }
+          // Same range check as the core geo: URI parser. parseDouble() also accepts "NaN" and
+          // "Infinity"; written as !(x <= max) so that NaN is rejected as well.
+          if (!(Math.abs(dst.lat) <= 90.0 && Math.abs(dst.lon) <= 180.0))
           {
             dst.lat = 0.0;
             dst.lon = 0.0;
@@ -392,7 +401,7 @@ public abstract class GoogleAssistantIntentHandler
   /**
    * Destination data holder
    */
-  private static class DestinationData
+  static class DestinationData
   {
     public double lat = 0.0;
     public double lon = 0.0;
