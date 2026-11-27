@@ -5,16 +5,16 @@
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
-<translation>Cancel</translation>
+<translation>రద్దు</translation>
 </message>
 <message id="delete">
 <extracomment>Button which deletes downloaded country</extracomment>
 <source>Delete</source>
-<translation>Delete</translation>
+<translation>తొలగించు</translation>
 </message>
 <message id="download_maps">
 <source>Download Maps</source>
-<translation>Download Maps</translation>
+<translation>మ్యాప్‌లను డౌన్‌లోడ్ చేయండి</translation>
 </message>
 <message id="downloading">
 <extracomment>Settings/Downloader - info for country which started downloading</extracomment>
@@ -34,7 +34,7 @@
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
-<translation>Search</translation>
+<translation>శోధన</translation>
 </message>
 <message id="zoom_to_country">
 <extracomment>View and button titles for accessibility</extracomment>
@@ -52,7 +52,7 @@
 </message>
 <message id="close">
 <source>Close</source>
-<translation>Close</translation>
+<translation>మూసివేయి</translation>
 </message>
 <message id="download">
 <source>Download</source>
@@ -61,12 +61,12 @@
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
 <source>Bookmarks</source>
-<translation>Bookmarks</translation>
+<translation>బుక్‌మార్క్‌లు</translation>
 </message>
 <message id="bookmarks_and_tracks">
 <extracomment>&quot;Bookmarks and Tracks&quot; dialog title. Also used in iPhone home screen quick actions.</extracomment>
 <source>Bookmarks and Tracks</source>
-<translation>Bookmarks and Tracks</translation>
+<translation>బుక్‌మార్క్‌లు మరియు ట్రాక్‌లు</translation>
 </message>
 <message id="name">
 <extracomment>Add bookmark dialog - bookmark name</extracomment>
@@ -76,7 +76,7 @@
 <message id="settings">
 <extracomment>Settings button in system menu</extracomment>
 <source>Settings</source>
-<translation>Settings</translation>
+<translation>సెట్టింగ్‌లు</translation>
 </message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
@@ -196,7 +196,7 @@
 <message id="share">
 <extracomment>Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.</extracomment>
 <source>Share</source>
-<translation>Share</translation>
+<translation>భాగస్వామ్యం చేయి</translation>
 </message>
 <message id="share_my_position">
 <extracomment>Text shown before a shared &quot;my position&quot; link, and the email subject when sharing the current location.</extracomment>
@@ -290,7 +290,7 @@
 <message id="help">
 <extracomment>Text in menu</extracomment>
 <source>Help</source>
-<translation>Help</translation>
+<translation>సహాయం</translation>
 </message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
@@ -314,7 +314,7 @@
 </message>
 <message id="categories">
 <source>Categories</source>
-<translation>Categories</translation>
+<translation>వర్గాలు</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -469,22 +469,22 @@
 </message>
 <message id="button_layer_traffic">
 <source>Traffic</source>
-<translation>Traffic</translation>
+<translation>ట్రాఫిక్</translation>
 </message>
 <message id="button_layer_hiking">
 <extracomment>Hiking routes layer name in the Styles and Layers dialog</extracomment>
 <source>Hiking</source>
-<translation>Hiking</translation>
+<translation>హైకింగ్</translation>
 </message>
 <message id="button_layer_cycling">
 <extracomment>Cycling routes layer name in the Styles and Layers dialog</extracomment>
 <source>Cycling</source>
-<translation>Cycling</translation>
+<translation>సైక్లింగ్</translation>
 </message>
 <message id="button_layer_subway">
 <extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
-<translation>Subway</translation>
+<translation>మెట్రో</translation>
 </message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
@@ -559,16 +559,16 @@
 <message id="yes">
 <extracomment>A generic &quot;Yes&quot; button in dialogs</extracomment>
 <source>Yes</source>
-<translation>Yes</translation>
+<translation>అవును</translation>
 </message>
 <message id="no">
 <extracomment>A generic &quot;No&quot; button in dialogs</extracomment>
 <source>No</source>
-<translation>No</translation>
+<translation>కాదు</translation>
 </message>
 <message id="ok">
 <source>OK</source>
-<translation>OK</translation>
+<translation>సరే</translation>
 </message>
 <message id="week_ago_sorttype">
 <source>A week ago</source>
@@ -681,7 +681,7 @@
 <message id="button_layer_terrain">
 <extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
 <source>3D Terrain</source>
-<translation>3D Terrain</translation>
+<translation>3D భూభాగం</translation>
 </message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
@@ -696,7 +696,7 @@
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
-<translation>Outdoors</translation>
+<translation>అవుట్‌డోర్స్</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>
@@ -739,7 +739,7 @@
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
-<translation>Clear</translation>
+<translation>క్లియర్ చేయి</translation>
 </message>
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
