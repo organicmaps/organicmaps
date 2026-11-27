@@ -70,6 +70,9 @@ final class ExpandableLabel: UIView {
     textContainerView.clipsToBounds = true
 
     expandView.isHidden = true
+    expandView.onAccessibilityActivate = { [weak self] in
+      self?.didTap()
+    }
     expandView.setContentHuggingPriority(.defaultHigh, for: .vertical)
     expandView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
     expandView.updateAppearance()
@@ -176,7 +179,14 @@ private final class ExpandView: UIView {
   }
 
   let label = UILabel()
+  var onAccessibilityActivate: (() -> Void)?
   private let gradientLayer = CAGradientLayer()
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -216,6 +226,10 @@ private final class ExpandView: UIView {
   private func setupView() {
     label.text = L("text_more_button")
     label.setFontStyle(.regular14, color: .linkBlue)
+    label.isAccessibilityElement = false
+    isAccessibilityElement = true
+    accessibilityLabel = label.text
+    accessibilityTraits = .button
 
     backgroundColor = .clear
     clipsToBounds = false

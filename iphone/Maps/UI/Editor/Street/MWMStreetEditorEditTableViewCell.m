@@ -13,6 +13,7 @@
 {
   self.delegate = delegate;
   self.textField.text = street;
+  self.textField.accessibilityLabel = L(@"add_street");
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(textDidChange:)
                                                name:UITextFieldTextDidChangeNotification

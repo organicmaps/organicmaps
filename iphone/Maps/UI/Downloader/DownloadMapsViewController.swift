@@ -79,11 +79,13 @@ class DownloadMapsViewController: MWMViewController {
                                           style: .plain,
                                           target: self,
                                           action: #selector(onAddMaps))
+      addMapsButton.accessibilityLabel = L("download_maps")
       navigationItem.rightBarButtonItem = addMapsButton
     }
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     extendedLayoutIncludesOpaqueBars = true
     searchController.searchBar.placeholder = L("downloader_search_field_hint")
+    searchController.searchBar.searchTextField.accessibilityLabel = searchController.searchBar.placeholder
     searchController.searchBar.delegate = self
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
@@ -193,11 +195,18 @@ class DownloadMapsViewController: MWMViewController {
 
   fileprivate func reloadTableView() {
     tableView.reloadData()
+    updateAccessibilityVisibility()
     configButtons()
   }
 
   private func updateNoMapsVisibility() {
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
+    updateAccessibilityVisibility()
+  }
+
+  private func updateAccessibilityVisibility() {
+    noMapsContainer.accessibilityElementsHidden = dataSource.isSearching
+    tableView.accessibilityElementsHidden = dataSource.isSearching ? dataSource.isEmpty : !noMapsContainer.isHidden
   }
 
   private func updateTableViewContentInset() {

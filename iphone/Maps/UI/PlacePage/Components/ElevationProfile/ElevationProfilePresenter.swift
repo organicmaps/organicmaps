@@ -137,7 +137,8 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   private func configureInteractiveProfile(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
-    view?.reloadDescription()
+    view?.setChartAccessibility(data.chartData, interactive: true)
+    reloadDescription()
     view?.userInteractionEnabled = true
     view?.isChartViewInfoHidden = false
     view?.setActivePointDistance(data.activePointDistance)
@@ -146,7 +147,8 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   private func configureTrackRecording(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
-    view?.reloadDescription()
+    view?.setChartAccessibility(data.chartData, interactive: false)
+    reloadDescription()
     view?.userInteractionEnabled = false
     view?.isChartViewInfoHidden = true
   }
@@ -162,6 +164,12 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   func onSelectionCancelled() {
     delegate?.didCancelSelectingPoint()
+  }
+
+  private func reloadDescription() {
+    view?.reloadDescription()
+    let summary = descriptionModels.map { "\($0.title): \($0.value)" }.joined(separator: ", ")
+    view?.setDescriptionAccessibility(summary)
   }
 }
 
@@ -213,9 +221,25 @@ struct ElevationProfileChartData {
   let chartValues: [ChartValue]
   let chartLines: [Line]
   let distances: [Double]
+  let altitudes: [Double]
   let segmentBoundaryDistances: [Double]
   let maxDistance: Double
   let pointsCount: Int
+  let isPlaceholder: Bool
+
+  static func placeholder(altitude: Double) -> ElevationProfileChartData {
+    // Keep the placeholder invisible while giving the chart a non-degenerate Y range.
+    let values = [
+      ChartValue(xValues: 0, y: CGFloat(altitude)),
+      ChartValue(xValues: 1, y: CGFloat(altitude + 1)),
+    ]
+    return ElevationProfileChartData(chartValues: values,
+                                     chartLines: [Line(values: values, color: .clear, type: .line)],
+                                     distances: [0, 1],
+                                     altitudes: [altitude, altitude + 1],
+                                     segmentBoundaryDistances: [],
+                                     isPlaceholder: true)
+  }
 
   init(_ elevationData: ElevationProfileData) {
     let points = elevationData.points
@@ -224,9 +248,40 @@ struct ElevationProfileChartData {
     chartLines = [Line(values: chartValues, color: .chartLine, type: .line),
                   Line(values: chartValues, color: .chartShadow, type: .lineArea)]
     distances = points.map(\.distance)
+    altitudes = points.map(\.altitude)
     segmentBoundaryDistances = elevationData.segmentDistances.map(\.doubleValue)
+    isPlaceholder = false
     maxDistance = distances.last ?? 0
     pointsCount = chartValues.count
+  }
+
+  private init(chartValues: [ChartValue],
+               chartLines: [Line],
+               distances: [Double],
+               altitudes: [Double],
+               segmentBoundaryDistances: [Double],
+               isPlaceholder: Bool) {
+    self.chartValues = chartValues
+    self.chartLines = chartLines
+    self.distances = distances
+    self.altitudes = altitudes
+    self.segmentBoundaryDistances = segmentBoundaryDistances
+    self.isPlaceholder = isPlaceholder
+    maxDistance = distances.last ?? 0
+    pointsCount = chartValues.count
+  }
+
+  func altitude(at distance: Double) -> Double? {
+    guard !isPlaceholder else { return nil }
+    guard let upperIndex = distances.firstIndexAtOrAfter(distance, by: \.self) else {
+      return altitudes.last
+    }
+    guard upperIndex > 0 else { return altitudes.first }
+    let lowerIndex = upperIndex - 1
+    let span = distances[upperIndex] - distances[lowerIndex]
+    guard span > 0 else { return altitudes[upperIndex] }
+    let progress = (distance - distances[lowerIndex]) / span
+    return altitudes[lowerIndex] + progress * (altitudes[upperIndex] - altitudes[lowerIndex])
   }
 }
 

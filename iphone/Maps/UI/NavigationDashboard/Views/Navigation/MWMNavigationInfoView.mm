@@ -5,6 +5,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMSearch.h"
+#import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
@@ -95,6 +96,8 @@ CGFloat ScaledTurnsWidth()
 @property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
 @property(nonatomic) BOOL hasLocation;
+@property(copy, nonatomic) NSString * lastManeuverIdentity;
+@property(nonatomic) BOOL needsInitialAccessibilityFocus;
 
 @property(nonatomic) NSLayoutConstraint * topConstraint;
 @property(nonatomic) NSLayoutConstraint * leadingConstraint;
@@ -117,6 +120,17 @@ CGFloat ScaledTurnsWidth()
 
   self.distanceToNextTurnLabel.adjustsFontForContentSizeCategory = YES;
   self.turnsWidth.constant = ScaledTurnsWidth();
+
+  self.streetNameView.isAccessibilityElement = NO;
+  self.streetNameLabel.accessibilityTraits = UIAccessibilityTraitStaticText;
+  self.turnsView.isAccessibilityElement = YES;
+  self.turnsView.accessibilityTraits = UIAccessibilityTraitStaticText;
+  self.bookmarksButton.accessibilityLabel = L(@"bookmarks_and_tracks");
+  self.searchGasButton.accessibilityLabel = L(@"category_fuel");
+  self.searchParkingButton.accessibilityLabel = L(@"category_parking");
+  self.searchEatButton.accessibilityLabel = L(@"category_eat");
+  self.searchFoodButton.accessibilityLabel = L(@"category_food");
+  self.searchATMButton.accessibilityLabel = L(@"category_atm");
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
@@ -259,6 +273,20 @@ CGFloat ScaledTurnsWidth()
     [self setTurnsViewVisible:YES];
     self.nextTurnImageView.image = info.turnImage;
 
+    NSMutableArray<NSString *> * maneuverParts = [NSMutableArray arrayWithObject:info.turnInstruction];
+    if (info.distanceToTurn.length && info.turnUnits.length)
+      [maneuverParts addObject:[NSString stringWithFormat:@"%@ %@", info.distanceToTurn, info.turnUnits]];
+    if (info.nextTurnImage && info.nextTurnInstruction.length)
+      [maneuverParts addObject:[NSString stringWithFormat:@"%@ %@", L(@"then_turn"), info.nextTurnInstruction]];
+    self.turnsView.accessibilityLabel = [maneuverParts componentsJoinedByString:@", "];
+
+    NSString * maneuverIdentity = [NSString
+        stringWithFormat:@"%@|%@|%lu", info.turnInstruction, info.streetName, (unsigned long)info.roundExitNumber];
+    if (self.isVisible && self.lastManeuverIdentity && ![self.lastManeuverIdentity isEqualToString:maneuverIdentity] &&
+        UIAccessibilityIsVoiceOverRunning() && ![MWMTextToSpeech tts].active)
+      UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, self.turnsView.accessibilityLabel);
+    self.lastManeuverIdentity = maneuverIdentity;
+
     if (info.roundExitNumber == 0)
     {
       self.roundTurnLabel.hidden = YES;
@@ -298,8 +326,17 @@ CGFloat ScaledTurnsWidth()
   else
   {
     [self setTurnsViewVisible:NO];
+    self.turnsView.accessibilityLabel = nil;
   }
   [self setNeedsLayout];
+  if (self.needsInitialAccessibilityFocus && UIAccessibilityIsVoiceOverRunning())
+  {
+    self.needsInitialAccessibilityFocus = NO;
+    UIView * focusView = self.turnsView;
+    if (self.turnsView.hidden)
+      focusView = self.streetNameView.hidden ? self.searchMainButton : self.streetNameLabel;
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, focusView);
+  }
 }
 
 #pragma mark - SolidTouchView
@@ -423,7 +460,8 @@ CGFloat ScaledTurnsWidth()
   if (self.searchState == NavigationSearchStateMaximized)
   {
     [self.superview bringSubviewToFront:self];
-    [self performSelector:collapseSelector withObject:self afterDelay:kCollapseSearchTimeout];
+    if (!UIAccessibilityIsVoiceOverRunning())
+      [self performSelector:collapseSelector withObject:self afterDelay:kCollapseSearchTimeout];
   }
   else
   {
@@ -435,6 +473,11 @@ CGFloat ScaledTurnsWidth()
 {
   _searchState = searchState;
   self.searchMainButton.imageName = kSearchStateButtonImageNames.at(searchState);
+  self.searchMainButton.accessibilityLabel =
+      searchState == NavigationSearchStateMinimizedNormal || searchState == NavigationSearchStateMaximized
+          ? L(@"search")
+          : L(@"clear_the_search");
+  self.searchButtonsView.accessibilityElementsHidden = searchState != NavigationSearchStateMaximized;
 }
 
 - (void)setState:(MWMNavigationInfoViewState)state
@@ -466,6 +509,16 @@ CGFloat ScaledTurnsWidth()
   if (_isVisible == isVisible)
     return;
   _isVisible = isVisible;
+  self.accessibilityElementsHidden = !isVisible;
+  if (isVisible)
+  {
+    self.lastManeuverIdentity = nil;
+    self.needsInitialAccessibilityFocus = YES;
+  }
+  else
+  {
+    self.needsInitialAccessibilityFocus = NO;
+  }
   [self setNeedsLayout];
   if (isVisible)
   {

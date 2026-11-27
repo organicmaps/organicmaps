@@ -52,6 +52,9 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
   if (self)
   {
     [NSBundle.mainBundle loadNibNamed:kMWMSideButtonsViewNibName owner:self options:nil];
+    self.zoomInButton.accessibilityLabel = L(@"zoom_in");
+    self.zoomOutButton.accessibilityLabel = L(@"zoom_out");
+    self.locationButton.accessibilityLabel = L(@"p2p_your_location");
     [view addSubview:self.sideView];
     [self.sideView setNeedsLayout];
     self.zoomSwipeEnabled = NO;
@@ -93,12 +96,22 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
   {
     [locBtn setStyleNameAndApply:@"ButtonPending"];
     [locBtn.imageView startRotation:1];
+    locBtn.accessibilityValue = L(@"map_location_searching");
     break;
   }
   case MWMMyPositionModeNotFollow:
-  case MWMMyPositionModeNotFollowNoPosition: [locBtn setStyleNameAndApply:@"ButtonGetPosition"]; break;
-  case MWMMyPositionModeFollow: [locBtn setStyleNameAndApply:@"ButtonFollow"]; break;
-  case MWMMyPositionModeFollowAndRotate: [locBtn setStyleNameAndApply:@"ButtonFollowAndRotate"]; break;
+  case MWMMyPositionModeNotFollowNoPosition:
+    [locBtn setStyleNameAndApply:@"ButtonGetPosition"];
+    locBtn.accessibilityValue = nil;
+    break;
+  case MWMMyPositionModeFollow:
+    [locBtn setStyleNameAndApply:@"ButtonFollow"];
+    locBtn.accessibilityValue = L(@"map_location_following");
+    break;
+  case MWMMyPositionModeFollowAndRotate:
+    [locBtn setStyleNameAndApply:@"ButtonFollowAndRotate"];
+    locBtn.accessibilityValue = L(@"map_location_following_direction");
+    break;
   }
 }
 

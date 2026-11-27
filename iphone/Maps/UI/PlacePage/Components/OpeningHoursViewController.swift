@@ -1,5 +1,15 @@
 import UIKit
 
+final class OpeningHoursStatusView: UIView {
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
+}
+
 /// Whether the place is open now and when that changes, e.g. "Closed now" and "Opens in 2 h 4 min • 17:00".
 struct OpeningHoursStatus {
   let state: String
@@ -93,7 +103,12 @@ class OpeningHoursStatusViewController: UIViewController {
   @IBOutlet var arrowImageView: UIImageView!
 
   var status: OpeningHoursStatus!
-  var onExpand: MWMVoidBlock?
+  var onExpand: MWMVoidBlock? {
+    didSet {
+      (view as? OpeningHoursStatusView)?.onAccessibilityActivate = onExpand
+      view.accessibilityTraits = onExpand == nil ? .staticText : .button
+    }
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -102,6 +117,12 @@ class OpeningHoursStatusViewController: UIViewController {
     stateLabel.textColor = status.stateColor
     detailsLabel.text = status.details
     detailsLabel.isHidden = status.details == nil
+    view.isAccessibilityElement = true
+    view.accessibilityTraits = .staticText
+    view.accessibilityLabel = [status.state, status.details].compactMap { $0 }.joined(separator: ", ")
+    stateLabel.isAccessibilityElement = false
+    detailsLabel.isAccessibilityElement = false
+    arrowImageView.isAccessibilityElement = false
   }
 
   @IBAction func onTap(_: UITapGestureRecognizer) {
@@ -125,6 +146,13 @@ class OpeningHoursDayViewController: UIViewController {
       todayLabel.setFontStyleAndApply(.regular16, color: .blackPrimary)
       scheduleLabel.setFontStyleAndApply(.regular16, color: .blackPrimary)
     }
+    view.isAccessibilityElement = true
+    view.accessibilityTraits = .staticText
+    view.accessibilityLabel = [todayLabel.text, scheduleLabel.text]
+      .compactMap { $0?.isEmpty == false ? $0 : nil }
+      .joined(separator: ", ")
+    todayLabel.isAccessibilityElement = false
+    scheduleLabel.isAccessibilityElement = false
   }
 }
 
@@ -193,6 +221,7 @@ class OpeningHoursViewController: UIViewController {
     statusView.onExpand = { [weak self] in
       guard let self else { return }
       self.expanded.toggle()
+      self.statusView.view.accessibilityValue = L(self.expanded ? "placepage_hours_expanded" : "placepage_hours_collapsed")
       UIView.animate(withDuration: AppConstants.defaultAnimationDuration) { [weak self] in
         guard let self else { return }
         for view in self.expandedViews {
@@ -203,6 +232,7 @@ class OpeningHoursViewController: UIViewController {
         self.view.layoutIfNeeded()
       }
     }
+    statusView.view.accessibilityValue = L("placepage_hours_collapsed")
   }
 
   private func createDayItem(_ workingDay: WorkingDay, isToday: Bool) -> OpeningHoursDayViewController {

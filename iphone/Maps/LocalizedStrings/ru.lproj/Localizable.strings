@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Ошибка загрузки";
+"about_menu_title" = "Про Organic Maps";
 
 /* Text in About screen */
 "about_headline" = "Бесплатно для всех, сделано с любовью";
@@ -174,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше местоположение ещё не определено";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Поделиться";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "Я здесь на карте Organic Maps";
 
@@ -275,6 +279,9 @@
 "pref_map_auto_zoom" = "Автозум";
 "placepage_distance" = "Расстояние";
 "search_show_on_map" = "Посмотреть на карте";
+
+/* Menu button */
+"menu" = "Меню";
 
 /* Text in menu */
 "website" = "Вебсайт";
@@ -505,6 +512,21 @@
 "editor_time_open" = "Открыто";
 "editor_time_close" = "Закрыто";
 "editor_time_add_closed" = "Добавить перерыв";
+
+/* VoiceOver label of the opening-time picker in the iOS opening-hours editor. */
+"editor_time_open_picker" = "Время открытия";
+
+/* VoiceOver label of the closing-time picker in the iOS opening-hours editor. */
+"editor_time_close_picker" = "Время закрытия";
+
+/* VoiceOver name of an expandable opening-hours interval on iOS. %1$@ is the opening time and %2$@ is the closing time. */
+"editor_time_span_accessibility" = "Открыто с %1$@ до %2$@";
+
+/* VoiceOver name of an expandable closed interval in the iOS opening-hours editor. %1$@ and %2$@ are the start and end times. */
+"editor_time_closed_span_accessibility" = "Закрыто с %1$@ до %2$@";
+
+/* VoiceOver custom action for removing a closed interval in the iOS opening-hours editor. */
+"editor_time_remove_closed_period" = "Удалить период закрытия";
 "editor_time_title" = "Время работы";
 "editor_time_advanced" = "Расширенный режим";
 "editor_time_simple" = "Простой режим";
@@ -613,6 +635,9 @@
 /* Short label for seconds (time unit), placed after a number */
 "second" = "с";
 "placepage_more_button" = "Ещё";
+
+/* Toolbar title of the Edit Bookmark screen. */
+"placepage_edit_bookmark_button" = "Редактировать метку";
 "placepage_personal_notes_hint" = "Примечание (текст или html)";
 "editor_comment_hint" = "Комментарий…";
 "editor_reset_edits_message" = "Сбросить все локальные правки?";
@@ -679,6 +704,7 @@
 "bookmarks_error_message_share_empty" = "Нельзя делиться пустыми списками";
 "bookmarks_error_message_empty_list_name" = "Введите имя списка, пожалуйста";
 "bookmarks_error_title_list_name_already_taken" = "Такое имя уже занято";
+"please_wait" = "Пожалуйста, подождите…";
 "profile" = "Профиль OpenStreetMap";
 "restore" = "Восстановить";
 
@@ -1031,6 +1057,7 @@
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Экспортировать все метки и треки";
 "drive_through" = "С окошком для водителей";
+"clear_the_search" = "Очистите поиск";
 
 /* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
 "zoom_in" = "Приблизить";
@@ -1053,8 +1080,12 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Остановить запись трека";
 
+/* Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. */
+"track_recording_title" = "Запись трека";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
+"edit_track" = "Редактировать трек";
 "downloader_updating_ios" = "Обновление";
 
 /* Autoupdate dialog on start */
@@ -1098,6 +1129,9 @@
 
 /* Message for the bug report alert. */
 "bugreport_alert_message" = "Хотите отправить разработчикам сообщение об ошибке?\nМы полагаемся на наших пользователей, так как Organic Maps не собирает информацию об ошибках автоматически. Заранее спасибо за поддержку Organic Maps!";
+
+/* Title of the iCloud synchronization switch in iOS Settings. The feature is in beta. */
+"icloud_synchronization_beta_title" = "Синхронизация с iCloud (бета)";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Включить синхронизацию с iCloud";
@@ -1236,6 +1270,9 @@
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Перемещайте и масштабируйте карту, чтобы установить крестик";
 
+/* Track recording notification button: stops the recording and saves the recorded track. */
+"track_recording_stop_and_save" = "Остановить и сохранить";
+
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Развернуть маршрут";
 
@@ -1265,3 +1302,180 @@
 
 /* Error when the selected connected track section has no geometry left in the requested direction. */
 "track_no_remaining_geometry" = "В этом направлении трека больше нет. Выберите другую точку.";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Определение вашего местоположения";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Отслеживание вашего местоположения";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Отслеживание вашего местоположения и направления";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Доступны обновления карт";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Отключить слои карты";
+
+/* VoiceOver hint for the tappable app version in the iOS About screen. */
+"about_copy_version_hint" = "Копирует версию приложения в буфер обмена";
+
+/* VoiceOver label for the email icon in the iOS About screen's social links. */
+"about_contact_email" = "Написать в Organic Maps по электронной почте";
+
+/* VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates. */
+"menu_map_updates_count" = "Доступны обновления карт: %d";
+
+/* VoiceOver label for the progress indicator while iOS search is running. */
+"search_accessibility_searching" = "Поиск";
+
+/* VoiceOver announcement after an iOS search completes. %d is the number of results. */
+"search_accessibility_results_count" = "Найдено результатов: %d";
+
+/* VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit. */
+"search_accessibility_distance" = "Расстояние: %@";
+
+/* VoiceOver action for copying a place page information row, such as an address or phone number. */
+"placepage_copy" = "Скопировать";
+
+/* VoiceOver label for the coordinate format menu in the iOS place page. */
+"placepage_choose_coordinate_format" = "Выбрать формат координат";
+
+/* VoiceOver hint for opening the full-screen direction view from the place page distance control. */
+"placepage_show_direction" = "Показать направление";
+
+/* VoiceOver value of the expandable opening-hours row when only today's hours are shown. */
+"placepage_hours_collapsed" = "Другие дни скрыты";
+
+/* VoiceOver value of the expandable opening-hours row when all days are shown. */
+"placepage_hours_expanded" = "Другие дни показаны";
+
+/* VoiceOver label for the translation button next to an OpenStreetMap description in the iOS place page. */
+"placepage_translate_description" = "Перевести описание";
+
+/* VoiceOver label for the elevation profile graph on the iOS track place page. */
+"placepage_elevation_profile" = "Профиль высот";
+
+/* VoiceOver label for the button that discards an active track recording in the iOS place page. */
+"placepage_discard_track_recording" = "Удалить запись трека";
+
+/* VoiceOver label for opening the track selector in the iOS place page header. */
+"placepage_select_track" = "Выбрать трек";
+
+/* VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude. */
+"placepage_elevation_point" = "Расстояние %@, высота %@";
+
+/* VoiceOver name of the car mode in the iOS route planning transport selector. */
+"routing_accessibility_car" = "На автомобиле";
+
+/* VoiceOver name of the walking mode and walking steps in iOS route planning. */
+"routing_accessibility_walking" = "Пешком";
+
+/* VoiceOver name of the public transport mode in the iOS route planning selector. */
+"routing_accessibility_public_transport" = "Общественный транспорт";
+
+/* VoiceOver name of the bicycle mode in the iOS route planning selector. */
+"routing_accessibility_cycling" = "На велосипеде";
+
+/* VoiceOver name of the straight-line distance mode in the iOS route planning selector. */
+"routing_accessibility_measure_distance" = "Измерить расстояние";
+
+/* VoiceOver label for the icon button that saves a planned route as a track on iOS. */
+"routing_accessibility_save_as_track" = "Сохранить маршрут как трек";
+
+/* VoiceOver value of the routing options button on iOS. %d is the number of enabled routing options. */
+"routing_accessibility_options_count" = "Включено опций: %d";
+
+/* VoiceOver label for the route estimate while iOS calculates a route. */
+"routing_accessibility_calculating" = "Построение маршрута";
+
+/* VoiceOver value of the disabled Start button while iOS calculates a route. %@ is a locale-formatted percentage. */
+"routing_accessibility_calculating_progress" = "Построение маршрута: %@";
+
+/* VoiceOver name of a numbered intermediate route point on iOS. %d is its one-based number. */
+"routing_accessibility_stop_number" = "Промежуточная точка %d";
+
+/* VoiceOver action for moving a route point toward the start of the route on iOS. */
+"routing_accessibility_move_point_up" = "Переместить точку раньше";
+
+/* VoiceOver action for moving a route point toward the destination on iOS. */
+"routing_accessibility_move_point_down" = "Переместить точку позже";
+
+/* VoiceOver name of a train step in an iOS public transport route preview. */
+"routing_accessibility_train" = "Поезд";
+
+/* VoiceOver name of a light rail step in an iOS public transport route preview. */
+"routing_accessibility_light_rail" = "Легкорельсовый транспорт";
+
+/* VoiceOver name of a monorail step in an iOS public transport route preview. */
+"routing_accessibility_monorail" = "Монорельс";
+
+/* VoiceOver name of a tram step in an iOS public transport route preview. */
+"routing_accessibility_tram" = "Трамвай";
+
+/* VoiceOver name of a bus step in an iOS public transport route preview. */
+"routing_accessibility_bus" = "Автобус";
+
+/* VoiceOver name of a ferry step in an iOS public transport route preview. */
+"routing_accessibility_ferry" = "Паром";
+
+/* VoiceOver name of a cable tram step in an iOS public transport route preview. */
+"routing_accessibility_cable_tram" = "Канатный трамвай";
+
+/* VoiceOver name of an aerial lift step in an iOS public transport route preview. */
+"routing_accessibility_aerial_lift" = "Канатная дорога";
+
+/* VoiceOver name of a funicular step in an iOS public transport route preview. */
+"routing_accessibility_funicular" = "Фуникулёр";
+
+/* VoiceOver name of an air service step in an iOS public transport route preview. */
+"routing_accessibility_air_service" = "Авиасообщение";
+
+/* VoiceOver name of a water service step in an iOS public transport route preview. */
+"routing_accessibility_water_service" = "Водный транспорт";
+
+/* VoiceOver name of the collapsed controls button during iOS navigation. */
+"navigation_accessibility_more_controls" = "Больше элементов навигации";
+
+/* VoiceOver name of the expanded controls button during iOS navigation. */
+"navigation_accessibility_hide_controls" = "Скрыть элементы навигации";
+
+/* VoiceOver label for the remaining route distance during iOS navigation. */
+"navigation_accessibility_distance_remaining" = "Оставшееся расстояние";
+
+/* VoiceOver label for current speed during iOS navigation. */
+"navigation_accessibility_current_speed" = "Текущая скорость";
+
+/* VoiceOver label for the remaining route time during iOS navigation. */
+"navigation_accessibility_time_remaining" = "Оставшееся время";
+
+/* VoiceOver label for the estimated arrival time during iOS navigation. */
+"navigation_accessibility_arrival_time" = "Время прибытия";
+
+/* VoiceOver hint for the time button when it shows remaining time during iOS navigation. */
+"navigation_accessibility_show_arrival_time" = "Показывает время прибытия";
+
+/* VoiceOver hint for the time button when it shows arrival time during iOS navigation. */
+"navigation_accessibility_show_time_remaining" = "Показывает оставшееся время";
+
+/* VoiceOver value for the route speed limit on iOS. %@ is a localized speed or the unlimited-speed label. */
+"navigation_accessibility_speed_limit" = "Ограничение скорости: %@";
+
+/* VoiceOver value for a road without a speed limit during iOS navigation. */
+"navigation_accessibility_unlimited_speed" = "Без ограничения";
+
+/* VoiceOver instruction for a left highway exit during iOS navigation. */
+"navigation_accessibility_exit_highway_left" = "Съезд с автомагистрали налево";
+
+/* VoiceOver instruction for a right highway exit during iOS navigation. */
+"navigation_accessibility_exit_highway_right" = "Съезд с автомагистрали направо";
+
+/* VoiceOver status of a map that is being applied after downloading on iOS. */
+"downloader_applying_status" = "Применение";
+
+/* VoiceOver name of the icon button that opens a group of maps in the iOS downloader. */
+"downloader_accessibility_open_region" = "Показать карты региона";
+
+/* VoiceOver name of the list name text field on the iOS bookmark list editing screen. */
+"bookmarks_accessibility_list_name" = "Название списка";

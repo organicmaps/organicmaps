@@ -129,13 +129,15 @@ final class EditBookmarkViewController: MWMTableViewController {
                        isEnabled: true,
                        isValid: isTitleValid(bookmarkTitle),
                        autocapitalizationType: .sentences,
-                       autocorrectionType: .default)
+                       autocorrectionType: .default,
+                       accessibilityLabel: L("placepage_bookmark_name_hint"))
         return cell
       case .color:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = L("change_color")
         cell.imageView?.image = circleImageForColor(bookmarkColor, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
+        cell.accessibilityTraits.insert(.button)
         return cell
       case .bookmarkGroup:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
@@ -143,6 +145,7 @@ final class EditBookmarkViewController: MWMTableViewController {
         cell.imageView?.image = UIImage(named: "ic_folder")
         cell.imageView?.setStyle(.black)
         cell.accessoryType = .disclosureIndicator
+        cell.accessibilityTraits.insert(.button)
         return cell
       default:
         fatalError()

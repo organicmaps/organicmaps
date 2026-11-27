@@ -27,6 +27,7 @@ using namespace osm_auth_ios;
 @property(weak, nonatomic) IBOutlet UIButton * signupButton;
 
 @property(weak, nonatomic) IBOutlet UILabel * changesCountLabel;
+@property(weak, nonatomic) IBOutlet UILabel * changesTitleLabel;
 @property(weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
 
 @end
@@ -66,6 +67,7 @@ using namespace osm_auth_ios;
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(showActionSheet)];
+  self.navigationItem.rightBarButtonItem.accessibilityLabel = L(@"placepage_more_button");
   [self refresh:NO];
 }
 
@@ -121,6 +123,9 @@ using namespace osm_auth_ios;
 - (void)refresh:(BOOL)force
 {
   self.changesCountLabel.text = @(OSMUserChangesetsCount()).stringValue;
+  self.changesCountLabel.accessibilityLabel = self.changesTitleLabel.text;
+  self.changesCountLabel.accessibilityValue = self.changesCountLabel.text;
+  self.changesTitleLabel.isAccessibilityElement = NO;
 }
 
 #pragma mark - ActionSheet

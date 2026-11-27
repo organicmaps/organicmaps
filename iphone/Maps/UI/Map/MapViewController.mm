@@ -21,9 +21,21 @@
 #import <CoreApi/MWMFrameworkHelper.h>
 #import <CoreApi/PlacePageData.h>
 
+#include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
+
+#include <algorithm>
+#include <atomic>
+#include <iterator>
+#include <limits>
+#include <map>
+#include <memory>
+#include <optional>
+#include <tuple>
 
 #import "../../../private.h"
 
@@ -47,6 +59,26 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 // Mirrors kMapToCategorySelectorSegue in MWMMapViewControlsManager.mm.
 NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
+
+using MapAccessibilityID = std::tuple<FeatureID, kml::MarkId, kml::TrackId>;
+
+struct MapAccessibilityRenderState
+{
+  std::atomic_uint64_t m_revision{0};
+  std::atomic_bool m_notificationPending{false};
+};
+
+CGRect MapAccessibilityFrame(m2::RectD const & rect, CGFloat scale)
+{
+  return CGRectMake(rect.minX() / scale, rect.minY() / scale, rect.SizeX() / scale, rect.SizeY() / scale);
+}
+
+CGRect PaddedMapAccessibilityFrame(CGRect frame)
+{
+  frame = CGRectInset(frame, -8.0, -8.0);
+  return CGRectInset(frame, -std::max(0.0, (44.0 - frame.size.width) / 2.0),
+                     -std::max(0.0, (44.0 - frame.size.height) / 2.0));
+}
 }  // namespace
 
 @interface NSValueWrapper : NSObject
@@ -79,9 +111,243 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 @end
 
+@interface MapViewController (MapAccessibilityActivation)
+
+- (BOOL)activateMapAccessibilityObject:(MapAccessibilityID const &)identity
+                              mercator:(m2::PointD const &)mercator
+                              revision:(NSUInteger)revision
+                                  zoom:(int)zoom;
+
+@end
+
+@interface MWMMapFeatureAccessibilityElement : UIAccessibilityElement
+
+- (instancetype)initWithContainer:(UIView *)container
+                       controller:(MapViewController *)controller
+                         identity:(MapAccessibilityID const &)identity;
+- (MapAccessibilityID const &)mapIdentity;
+- (void)updateWithObject:(df::AccessibleMapObject &)object
+                 mapView:(UIView *)mapView
+                  screen:(ScreenBase const &)screen
+                viewport:(CGRect)viewport
+                revision:(NSUInteger)revision
+                    zoom:(int)zoom;
+- (NSInteger)hitRankAtScreenPoint:(CGPoint)point;
+- (NSInteger)mapSelectionPriority;
+- (CGFloat)squaredDistanceToScreenPoint:(CGPoint)point;
+- (void)setMapExplorationPoint:(CGPoint)point;
+
+@end
+
+@implementation MWMMapFeatureAccessibilityElement
+{
+  MapAccessibilityID m_identity;
+  m2::PointD m_mercator;
+  NSUInteger m_revision;
+  int m_zoom;
+  __weak MapViewController * m_controller;
+  NSString * m_title;
+  NSString * m_subtitle;
+  BOOL m_textLoaded;
+  std::vector<CGRect> m_drawnFrames;
+  std::vector<CGRect> m_paddedFrames;
+  UIBezierPath * m_drawnTrackPath;
+  std::vector<df::ProjectedPolyline> m_trackPaths;
+  std::optional<ScreenBase> m_trackScreen;
+  std::optional<CGPoint> m_explorationPoint;
+}
+
+- (instancetype)initWithContainer:(UIView *)container
+                       controller:(MapViewController *)controller
+                         identity:(MapAccessibilityID const &)identity
+{
+  self = [super initWithAccessibilityContainer:container];
+  if (self)
+  {
+    m_identity = identity;
+    m_controller = controller;
+    self.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitButton;
+  }
+  return self;
+}
+
+- (MapAccessibilityID const &)mapIdentity
+{
+  return m_identity;
+}
+
+- (void)updateWithObject:(df::AccessibleMapObject &)object
+                 mapView:(UIView *)mapView
+                  screen:(ScreenBase const &)screen
+                viewport:(CGRect)viewport
+                revision:(NSUInteger)revision
+                    zoom:(int)zoom
+{
+  m_mercator = object.m_mercator;
+  m_revision = revision;
+  m_zoom = zoom;
+  m_textLoaded = NO;
+  m_drawnFrames.clear();
+  m_paddedFrames.clear();
+  m_drawnTrackPath = nil;
+  self.accessibilityPath = nil;
+
+  CGFloat const scale = mapView.contentScaleFactor;
+  if (object.m_trackId != kml::kInvalidTrackId)
+  {
+    m_trackScreen = screen;
+    m_trackPaths = std::move(object.m_pixelPaths);
+    m_explorationPoint.reset();
+    UIBezierPath * line = [UIBezierPath bezierPath];
+    for (auto const & path : m_trackPaths)
+    {
+      auto const & points = path.m_pixels;
+      [line moveToPoint:CGPointMake(points.front().x / scale, points.front().y / scale)];
+      for (size_t i = 1; i < points.size(); ++i)
+        [line addLineToPoint:CGPointMake(points[i].x / scale, points[i].y / scale)];
+    }
+
+    CGFloat const width = object.m_lineWidth / scale;
+    auto const strokeInScreenCoordinates = [line, mapView](CGFloat strokeWidth)
+    {
+      CGPathRef const stroke =
+          CGPathCreateCopyByStrokingPath(line.CGPath, nullptr, strokeWidth, kCGLineCapRound, kCGLineJoinRound, 10.0);
+      UIBezierPath * path = [UIBezierPath bezierPathWithCGPath:stroke];
+      CGPathRelease(stroke);
+      return UIAccessibilityConvertPathToScreenCoordinates(path, mapView);
+    };
+    m_drawnTrackPath = strokeInScreenCoordinates(width);
+    self.accessibilityPath = strokeInScreenCoordinates(std::max(44.0, width));
+    self.accessibilityFrameInContainerSpace =
+        CGRectIntersection(CGRectInset(MapAccessibilityFrame(object.m_pixelRect, scale), -22.0, -22.0), viewport);
+    return;
+  }
+
+  CGRect frame = CGRectNull;
+  for (auto const & pixelRect : object.m_pixelRects)
+  {
+    CGRect const drawn = MapAccessibilityFrame(pixelRect, scale);
+    CGRect const padded = CGRectIntersection(PaddedMapAccessibilityFrame(drawn), viewport);
+    m_drawnFrames.push_back(UIAccessibilityConvertFrameToScreenCoordinates(drawn, mapView));
+    m_paddedFrames.push_back(UIAccessibilityConvertFrameToScreenCoordinates(padded, mapView));
+    frame = CGRectUnion(frame, padded);
+  }
+  self.accessibilityFrameInContainerSpace = frame;
+}
+
+- (void)loadTextIfNeeded
+{
+  if (m_textLoaded)
+    return;
+  m_textLoaded = YES;
+  auto const & [featureId, markId, trackId] = m_identity;
+  std::pair<std::string, std::string> text;
+  auto & framework = GetFramework();
+  if (markId != kml::kInvalidMarkId)
+    text = framework.GetAccessibleBookmarkText(markId);
+  else if (trackId != kml::kInvalidTrackId)
+    text = framework.GetAccessibleTrackText(trackId);
+  else
+    text = framework.GetAccessibleFeatureText(featureId);
+  auto const & [title, subtitle] = text;
+  m_title = [NSString stringWithUTF8String:title.c_str()];
+  m_subtitle = [NSString stringWithUTF8String:subtitle.c_str()];
+}
+
+- (NSString *)accessibilityLabel
+{
+  [self loadTextIfNeeded];
+  return m_title;
+}
+
+- (NSString *)accessibilityValue
+{
+  [self loadTextIfNeeded];
+  return m_subtitle;
+}
+
+- (void)setMapExplorationPoint:(CGPoint)point
+{
+  if (m_trackScreen)
+    m_explorationPoint = point;
+}
+
+- (void)accessibilityElementDidLoseFocus
+{
+  [super accessibilityElementDidLoseFocus];
+  m_explorationPoint.reset();
+}
+
+- (BOOL)accessibilityActivate
+{
+  auto mercator = m_mercator;
+  UIView * mapView = self.accessibilityContainer;
+  if (m_explorationPoint && mapView.window)
+  {
+    CGPoint const local = [mapView convertPoint:*m_explorationPoint
+                            fromCoordinateSpace:mapView.window.screen.coordinateSpace];
+    CGFloat const scale = mapView.contentScaleFactor;
+    m2::PointD const pixel(local.x * scale, local.y * scale);
+    double bestDistance = std::numeric_limits<double>::max();
+    for (auto const & path : m_trackPaths)
+    {
+      auto const & points = path.m_pixels;
+      for (size_t i = 1; i < points.size(); ++i)
+      {
+        m2::ParametrizedSegment<m2::PointD> const segment(points[i - 1], points[i]);
+        auto const nearest = segment.ClosestPointTo(pixel);
+        double const distance = nearest.SquaredLength(pixel);
+        if (distance < bestDistance)
+        {
+          bestDistance = distance;
+          mercator = m_trackScreen->PtoG(m_trackScreen->P3dtoP(nearest));
+          mercator.x -= path.m_worldOffsetX;
+        }
+      }
+    }
+  }
+  return [m_controller activateMapAccessibilityObject:m_identity mercator:mercator revision:m_revision zoom:m_zoom];
+}
+
+- (NSInteger)hitRankAtScreenPoint:(CGPoint)point
+{
+  if (!CGRectContainsPoint(self.accessibilityFrame, point))
+    return 0;
+  if (m_drawnTrackPath != nil)
+  {
+    if (CGPathContainsPoint(m_drawnTrackPath.CGPath, nullptr, point, false))
+      return 2;
+    return CGPathContainsPoint(self.accessibilityPath.CGPath, nullptr, point, false) ? 1 : 0;
+  }
+
+  auto const containsPoint = [point](CGRect rect) { return CGRectContainsPoint(rect, point); };
+  if (std::any_of(m_drawnFrames.begin(), m_drawnFrames.end(), containsPoint))
+    return 2;
+  return std::any_of(m_paddedFrames.begin(), m_paddedFrames.end(), containsPoint) ? 1 : 0;
+}
+
+- (NSInteger)mapSelectionPriority
+{
+  if (std::get<1>(m_identity) != kml::kInvalidMarkId)
+    return 2;
+  return std::get<2>(m_identity) == kml::kInvalidTrackId ? 1 : 0;
+}
+
+- (CGFloat)squaredDistanceToScreenPoint:(CGPoint)point
+{
+  CGRect const frame = self.accessibilityFrame;
+  CGFloat const dx = point.x - CGRectGetMidX(frame);
+  CGFloat const dy = point.y - CGRectGetMidY(frame);
+  return dx * dx + dy * dy;
+}
+
+@end
+
 @interface MapViewController () <MWMFrameworkDrapeObserver,
                                  MWMKeyboardObserver,
                                  MWMBookmarksObserver,
+                                 SearchOnMapManagerObserver,
                                  UIGestureRecognizerDelegate>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
@@ -121,11 +387,24 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic) NSLayoutConstraint * placePageLeadingConstraint;
 @property(nonatomic) NSLayoutConstraint * placePageTrailingConstraint;
 
+@property(nonatomic) NSUInteger mapAccessibilityRevision;
+@property(nonatomic) NSUInteger mapAccessibilityAppliedRevision;
+@property(nonatomic) NSTimer * mapAccessibilityRefreshTimer;
+@property(nonatomic, weak) MWMMapFeatureAccessibilityElement * lastActivatedMapAccessibilityElement;
+
+- (void)scheduleMapAccessibilityRefresh;
+- (void)stopMapAccessibilityUpdates;
+- (void)applyMapAccessibilitySnapshot:(df::AccessibleMapSnapshot &)snapshot;
+
 @property(nonatomic, readwrite) BOOL isMapVisible;
 
 @end
 
 @implementation MapViewController
+{
+  std::shared_ptr<MapAccessibilityRenderState> m_accessibilityRenderState;
+  uint64_t m_accessibilityAppliedRenderRevision;
+}
 @synthesize mapView, controlsView;
 
 + (MapViewController *)sharedController
@@ -274,6 +553,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [self.placePageVC removeFromParentViewController];
     self.placePageVC = nil;
     self.placePageContainer.hidden = YES;
+    [self scheduleMapAccessibilityRefresh];
   }];
 }
 
@@ -287,6 +567,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)onMapObjectDeselected
 {
   [self hidePlacePage];
+  [self scheduleMapAccessibilityRefresh];
   BOOL const isSearching = self.searchManager.isSearching;
   BOOL const isNavigationDashboardHidden = self.navigationDashboardManager.state == MWMNavigationDashboardStateHidden ||
                                            self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed;
@@ -317,6 +598,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   if (!PlacePageData.hasData)
     return;
+  self.mapView.accessibilityElementsHidden = UIAccessibilityIsVoiceOverRunning();
   [self.navigationDashboardManager onSelectPlacePage:YES];
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
   [self stopObservingTrackRecordingUpdates];
@@ -493,6 +775,39 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  self.mapView.isAccessibilityElement = NO;
+  __weak MapViewController * weakSelf = self;
+  self.mapView.accessibilityHitTestHandler = ^id(CGPoint point) {
+    MapViewController * controller = weakSelf;
+    if (controller == nil || ![controller isMapFullyVisible])
+      return nil;
+
+    MWMMapFeatureAccessibilityElement * selected = nil;
+    std::tuple<NSInteger, NSInteger, CGFloat> bestScore;
+    for (UIAccessibilityElement * candidate in controller.mapView.accessibilityElements)
+    {
+      if (![candidate isKindOfClass:[MWMMapFeatureAccessibilityElement class]])
+        continue;
+      auto * mapElement = (MWMMapFeatureAccessibilityElement *)candidate;
+      NSInteger const rank = [mapElement hitRankAtScreenPoint:point];
+      if (rank == 0)
+        continue;
+      auto const score =
+          std::tuple{rank, mapElement.mapSelectionPriority, -[mapElement squaredDistanceToScreenPoint:point]};
+      if (score > bestScore)
+      {
+        selected = mapElement;
+        bestScore = score;
+      }
+    }
+    [selected setMapExplorationPoint:point];
+    return selected;
+  };
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(onVoiceOverStatusChanged)
+                                               name:UIAccessibilityVoiceOverStatusDidChangeNotification
+                                             object:nil];
+  [self.searchManager addObserver:self];
   [self setupPlacePageContainer];
   [self setupSearchContainer];
 
@@ -558,13 +873,17 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
     (void)[DeepLinkHandler.shared handlePendingDeepLink];
+  [self scheduleMapAccessibilityRefresh];
 }
 
 - (void)viewDidLayoutSubviews
 {
   [super viewDidLayoutSubviews];
   if (!self.mapView.drapeEngineCreated && !MapsAppDelegate.isTestsEnvironment)
+  {
     [self.mapView createDrapeEngine];
+    [self scheduleMapAccessibilityRefresh];
+  }
 }
 
 - (void)applyTheme
@@ -627,6 +946,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
+  [self stopMapAccessibilityUpdates];
 
   // The shared EAGLView may already be hosted by CarPlay while the phone controller disappears.
   if (![MWMCarPlayService shared].isCarplayActivated)
@@ -696,6 +1016,12 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)dealloc
 {
+  self.mapView.accessibilityHitTestHandler = nil;
+  [self.mapAccessibilityRefreshTimer invalidate];
+  [_searchManager removeObserver:self];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:UIAccessibilityVoiceOverStatusDidChangeNotification
+                                                object:nil];
   [[MWMBookmarksManager sharedManager] removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
 }
@@ -730,6 +1056,12 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
                                  if ([DeepLinkHandler.shared.url isEqual:url])
                                    [self.controlsManager openMenuFromDeepLink];
                                }];
+}
+
+- (void)refreshMapAccessibilityAfterMenuDismissal
+{
+  if (UIAccessibilityIsVoiceOverRunning())
+    [self scheduleMapAccessibilityRefresh];
 }
 
 - (void)openSettings
@@ -799,6 +1131,225 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - MWMFrameworkDrapeObserver
+
+- (void)onVoiceOverStatusChanged
+{
+  [self scheduleMapAccessibilityRefresh];
+}
+
+- (void)searchManagerWithDidChangeState:(SearchOnMapState)state
+{
+  if (!UIAccessibilityIsVoiceOverRunning())
+    return;
+
+  __weak MapViewController * weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{ [weakSelf scheduleMapAccessibilityRefresh]; });
+}
+
+- (void)stopMapAccessibilityUpdates
+{
+  if (m_accessibilityRenderState)
+  {
+    m_accessibilityRenderState.reset();
+    if (auto engine = GetFramework().GetDrapeEngine())
+      engine->SetAccessibilityObjectsChangedListener({});
+    GetFramework().GetBookmarkManager().SetBookmarksChangedCallback({});
+  }
+  [self.mapAccessibilityRefreshTimer invalidate];
+  self.mapAccessibilityRefreshTimer = nil;
+  self.mapView.accessibilityElements = nil;
+  self.mapView.accessibilityElementsHidden = NO;
+  self.lastActivatedMapAccessibilityElement = nil;
+  ++self.mapAccessibilityRevision;
+}
+
+- (void)scheduleMapAccessibilityRefresh
+{
+  if (!UIAccessibilityIsVoiceOverRunning() || !self.isMapVisible || self.mapView.superview != self.view)
+  {
+    if (m_accessibilityRenderState)
+      [self stopMapAccessibilityUpdates];
+    return;
+  }
+
+  auto engine = GetFramework().GetDrapeEngine();
+  if (!engine)
+    return;
+
+  __weak MapViewController * weakSelf = self;
+  if (!m_accessibilityRenderState)
+  {
+    auto const state = std::make_shared<MapAccessibilityRenderState>();
+    m_accessibilityRenderState = state;
+    engine->SetAccessibilityObjectsChangedListener([weakSelf, state]
+    {
+      ++state->m_revision;
+      if (state->m_notificationPending.exchange(true))
+        return;
+      dispatch_async(dispatch_get_main_queue(), ^{
+        state->m_notificationPending = false;
+        MapViewController * controller = weakSelf;
+        if (controller && controller->m_accessibilityRenderState == state)
+          [controller scheduleMapAccessibilityRefresh];
+      });
+    });
+    GetFramework().GetBookmarkManager().SetBookmarksChangedCallback([weakSelf]
+    { [weakSelf scheduleMapAccessibilityRefresh]; });
+  }
+
+  [self.mapAccessibilityRefreshTimer invalidate];
+  self.mapAccessibilityRefreshTimer = nil;
+  NSUInteger const revision = ++self.mapAccessibilityRevision;
+  self.mapView.accessibilityElementsHidden = ![self isMapFullyVisible];
+  if (self.mapView.accessibilityElementsHidden)
+    return;
+
+  // A renderer update can arrive during map movement or after a stationary viewport's tiles load.
+  self.mapAccessibilityRefreshTimer =
+      [NSTimer timerWithTimeInterval:0.2
+                             repeats:NO
+                               block:^(NSTimer * timer) { [weakSelf requestMapAccessibilitySnapshot:revision]; }];
+  [NSRunLoop.mainRunLoop addTimer:self.mapAccessibilityRefreshTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)requestMapAccessibilitySnapshot:(NSUInteger)revision
+{
+  self.mapAccessibilityRefreshTimer = nil;
+  auto const state = m_accessibilityRenderState;
+  if (!state || revision != self.mapAccessibilityRevision || !UIAccessibilityIsVoiceOverRunning() ||
+      ![self isMapFullyVisible] || self.mapView.superview != self.view)
+    return;
+
+  auto engine = GetFramework().GetDrapeEngine();
+  if (!engine)
+    return;
+
+  __weak MapViewController * weakSelf = self;
+  engine->RequestVisibleAccessibilityObjects([weakSelf, state, revision](df::AccessibleMapSnapshot && snapshot)
+  {
+    auto result = std::make_shared<df::AccessibleMapSnapshot>(std::move(snapshot));
+    uint64_t const renderRevision = state->m_revision;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      MapViewController * controller = weakSelf;
+      if (!controller || controller->m_accessibilityRenderState != state || state->m_revision != renderRevision ||
+          controller.mapAccessibilityRevision != revision || !UIAccessibilityIsVoiceOverRunning() ||
+          ![controller isMapFullyVisible] || controller.mapView.superview != controller.view)
+        return;
+
+      auto tracks = GetFramework().GetAccessibleTrackObjects(*result);
+      if (state->m_revision != renderRevision)
+        return;
+      auto & objects = result->m_objects;
+      objects.insert(objects.end(), std::make_move_iterator(tracks.begin()), std::make_move_iterator(tracks.end()));
+      [controller applyMapAccessibilitySnapshot:*result];
+      controller->m_accessibilityAppliedRenderRevision = renderRevision;
+      controller.mapAccessibilityAppliedRevision = revision;
+    });
+  });
+}
+
+- (void)applyMapAccessibilitySnapshot:(df::AccessibleMapSnapshot &)snapshot
+{
+  auto & objects = snapshot.m_objects;
+  auto & framework = GetFramework();
+
+  auto const identity = [](df::AccessibleMapObject const & object)
+  { return MapAccessibilityID{object.m_featureId, object.m_markId, object.m_trackId}; };
+  std::sort(objects.begin(), objects.end(), [&identity](auto const & lhs, auto const & rhs)
+  {
+    return std::tuple{lhs.m_pixelRect.minY(), lhs.m_pixelRect.minX(), identity(lhs)} <
+           std::tuple{rhs.m_pixelRect.minY(), rhs.m_pixelRect.minX(), identity(rhs)};
+  });
+
+  std::map<MapAccessibilityID, MWMMapFeatureAccessibilityElement *> previous;
+  for (MWMMapFeatureAccessibilityElement * element in self.mapView.accessibilityElements)
+    previous.emplace([element mapIdentity], element);
+
+  CGRect const viewport =
+      snapshot.m_pixelViewport.IsValid()
+          ? CGRectIntersection(MapAccessibilityFrame(snapshot.m_pixelViewport, self.mapView.contentScaleFactor),
+                               self.mapView.bounds)
+          : CGRectNull;
+  NSMutableArray<MWMMapFeatureAccessibilityElement *> * elements = [NSMutableArray arrayWithCapacity:objects.size()];
+  MWMMapFeatureAccessibilityElement * returnFocus = nil;
+  for (auto & object : objects)
+  {
+    if (CGRectIsNull(viewport) ||
+        !framework.IsAccessibleMapObjectCurrent(object.m_featureId, object.m_markId, object.m_trackId, snapshot.m_zoom))
+      continue;
+    auto const id = identity(object);
+    auto const existing = previous.find(id);
+    MWMMapFeatureAccessibilityElement * element =
+        existing == previous.end()
+            ? [[MWMMapFeatureAccessibilityElement alloc] initWithContainer:self.mapView controller:self identity:id]
+            : existing->second;
+    [element updateWithObject:object
+                      mapView:self.mapView
+                       screen:snapshot.m_screen
+                     viewport:viewport
+                     revision:self.mapAccessibilityRevision
+                         zoom:snapshot.m_zoom];
+    [elements addObject:element];
+    if (element == self.lastActivatedMapAccessibilityElement)
+      returnFocus = element;
+  }
+  if (![elements isEqualToArray:self.mapView.accessibilityElements])
+    self.mapView.accessibilityElements = elements;
+
+  if (returnFocus)
+    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, returnFocus);
+  self.lastActivatedMapAccessibilityElement = nil;
+}
+
+- (BOOL)activateMapAccessibilityObject:(MapAccessibilityID const &)identity
+                              mercator:(m2::PointD const &)mercator
+                              revision:(NSUInteger)revision
+                                  zoom:(int)zoom
+{
+  if (![self isMapFullyVisible] || !m_accessibilityRenderState ||
+      m_accessibilityRenderState->m_revision != m_accessibilityAppliedRenderRevision ||
+      revision != self.mapAccessibilityRevision || revision != self.mapAccessibilityAppliedRevision)
+    return NO;
+
+  auto & framework = GetFramework();
+  auto const & [featureId, markId, trackId] = identity;
+  if (!framework.IsAccessibleMapObjectCurrent(featureId, markId, trackId, zoom))
+  {
+    [self scheduleMapAccessibilityRefresh];
+    return NO;
+  }
+
+  for (MWMMapFeatureAccessibilityElement * element in self.mapView.accessibilityElements)
+  {
+    if ([element mapIdentity] == identity)
+    {
+      self.lastActivatedMapAccessibilityElement = element;
+      break;
+    }
+  }
+
+  place_page::BuildInfo info;
+  info.m_source = place_page::BuildInfo::Source::User;
+  info.m_featureId = featureId;
+  info.m_userMarkId = markId;
+  info.m_trackId = trackId;
+  info.m_mercator = mercator;
+  if (trackId != kml::kInvalidTrackId)
+  {
+    info.m_match = place_page::BuildInfo::Match::TrackOnly;
+    info.m_trackSelectionPoint = mercator;
+  }
+  else if (markId != kml::kInvalidMarkId)
+  {
+    info.m_match = place_page::BuildInfo::Match::UserMarkOnly;
+  }
+  else
+  {
+    info.m_match = place_page::BuildInfo::Match::FeatureOnly;
+  }
+  framework.BuildAndSetPlacePageInfo(info);
+  return YES;
+}
 
 - (void)processViewportCountryEvent:(CountryId const &)countryId
 {
@@ -1018,6 +1569,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)disableCarPlayRepresentation
 {
+  self.carplayPlaceholderView.accessibilityElementsHidden = YES;
   self.carplayPlaceholderView.hidden = YES;
   self.mapView.frame = self.view.bounds;
   [self.view insertSubview:self.mapView atIndex:0];
@@ -1027,6 +1579,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [[self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor] setActive:YES];
   self.controlsView.hidden = NO;
   [MWMFrameworkHelper setVisibleViewport:self.view.bounds scaleFactor:self.view.contentScaleFactor];
+  [self scheduleMapAccessibilityRefresh];
 }
 
 - (void)enableCarPlayRepresentation
@@ -1037,9 +1590,11 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [[MapsAppDelegate theApp] showMap];
   [self loadViewIfNeeded];
   [self.mapView removeFromSuperview];
+  [self stopMapAccessibilityUpdates];
   if (!self.controlsView.isHidden)
     self.controlsView.hidden = YES;
   self.carplayPlaceholderView.hidden = NO;
+  self.carplayPlaceholderView.accessibilityElementsHidden = NO;
 }
 
 #pragma mark - MWMBookmarksObserver

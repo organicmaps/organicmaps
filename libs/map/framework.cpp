@@ -24,7 +24,9 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/relations_draw_info.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/drape_global.hpp"
@@ -2353,6 +2355,119 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
   return GetSelectionProcessor().GetFeatureAtPoint(mercator);
 }
 
+std::pair<std::string, std::string> Framework::GetAccessibleFeatureText(FeatureID const & featureId) const
+{
+  if (!IsAccessibleMapObjectCurrent(featureId, kml::kInvalidMarkId, kml::kInvalidTrackId, 0))
+    return {};
+  place_page::Info info;
+  m_selectionProcessor.FillFeatureInfo(featureId, info);
+  return {info.GetTitle(), info.GetSubtitle()};
+}
+
+std::pair<std::string, std::string> Framework::GetAccessibleBookmarkText(kml::MarkId markId) const
+{
+  auto const & manager = GetBookmarkManager();
+  auto const * bookmark = manager.GetBookmark(markId);
+  if (bookmark == nullptr)
+    return {};
+  return {bookmark->GetPreferredName(), manager.GetCategoryName(bookmark->GetGroupId())};
+}
+
+std::pair<std::string, std::string> Framework::GetAccessibleTrackText(kml::TrackId trackId) const
+{
+  auto const & manager = GetBookmarkManager();
+  auto const * track = manager.GetTrack(trackId);
+  if (track == nullptr)
+    return {};
+  return {track->GetName(), manager.GetCategoryName(track->GetGroupId())};
+}
+
+bool Framework::IsAccessibleMapObjectCurrent(FeatureID const & featureId, kml::MarkId markId, kml::TrackId trackId,
+                                             int zoom) const
+{
+  auto const & manager = GetBookmarkManager();
+  if (markId != kml::kInvalidMarkId)
+  {
+    if (!BookmarkManager::IsBookmark(markId))
+      return false;
+    auto const * bookmark = manager.GetBookmark(markId);
+    return bookmark != nullptr && bookmark->IsVisible() && bookmark->GetMinZoom() <= zoom &&
+           manager.IsVisible(bookmark->GetGroupId());
+  }
+  if (trackId != kml::kInvalidTrackId)
+  {
+    auto const * track = manager.GetTrack(trackId);
+    return track != nullptr && track->IsVisible() && manager.IsVisible(track->GetGroupId());
+  }
+  if (!featureId.IsValid())
+    return false;
+  auto const status = osm::Editor::Instance().GetFeatureStatus(featureId);
+  return status != FeatureStatus::Deleted;
+}
+
+std::vector<df::AccessibleMapObject> Framework::GetAccessibleTrackObjects(
+    df::AccessibleMapSnapshot const & snapshot) const
+{
+  std::vector<df::AccessibleMapObject> objects;
+  if (!snapshot.m_pixelViewport.IsValid() || snapshot.m_pixelViewport.IsEmptyInterior())
+    return objects;
+
+  auto const & manager = GetBookmarkManager();
+  auto const & screen = snapshot.m_screen;
+  auto const & viewport = snapshot.m_pixelViewport;
+  for (auto const groupId : manager.GetUnsortedBmGroupsIdList())
+  {
+    if (!manager.IsVisible(groupId))
+      continue;
+
+    for (auto const trackId : manager.GetTrackIds(groupId))
+    {
+      auto const * track = manager.GetTrack(trackId);
+      if (track == nullptr || !track->IsVisible())
+        continue;
+
+      auto const bounds = track->GetLimitRect();
+      if (!df::IsPolylineInViewport(screen, bounds))
+        continue;
+
+      df::AccessibleMapObject object;
+      object.m_trackId = trackId;
+      double bestSquaredDistance = std::numeric_limits<double>::max();
+      track->ForEachGeometry([&](std::vector<m2::PointD> && line)
+      {
+        for (auto & path : df::ProjectVisiblePolyline(screen, viewport, bounds, line))
+        {
+          for (size_t i = 1; i < path.m_pixels.size(); ++i)
+          {
+            // Pick an interior point on a visible segment so the selection is usable near screen edges.
+            auto const midpoint = (path.m_pixels[i - 1] + path.m_pixels[i]) / 2.0;
+            double const squaredDistance = midpoint.SquaredLength(viewport.Center());
+            if (squaredDistance < bestSquaredDistance)
+            {
+              bestSquaredDistance = squaredDistance;
+              object.m_mercator = screen.PtoG(screen.P3dtoP(midpoint));
+              object.m_mercator.x -= path.m_worldOffsetX;
+            }
+          }
+          for (auto const & pixel : path.m_pixels)
+            object.m_pixelRect.Add(pixel);
+          object.m_pixelPaths.push_back(std::move(path));
+        }
+      });
+
+      if (object.m_pixelPaths.empty())
+        continue;
+      for (size_t layer = 0; layer < track->GetLayerCount(); ++layer)
+      {
+        object.m_lineWidth = std::max(
+            object.m_lineWidth, static_cast<double>(df::GetUserLineWidth(track->GetWidth(layer), snapshot.m_zoom)));
+      }
+      objects.push_back(std::move(object));
+    }
+  }
+  return objects;
+}
+
 osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const
 {
   osm::MapObject res;
@@ -2791,10 +2906,24 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
     return outInfo;
   }
 
-  // 4. User Tracks. Spatial matching needs VisualParams; an explicit ID only reads its selection mark.
+  // 4. User Tracks. A VoiceOver action can supply a visible point; other explicit IDs use their selection mark.
   if (buildInfo.IsTrackMatchingEnabled() && (buildInfo.m_trackId != kml::kInvalidTrackId || m_drapeEngine != nullptr))
   {
-    auto trackSelectionCandidates = FindTracksInTapPosition(buildInfo);
+    std::vector<Track::TrackSelectionInfo> trackSelectionCandidates;
+    if (buildInfo.m_trackId != kml::kInvalidTrackId && buildInfo.m_trackSelectionPoint)
+    {
+      auto const * track = GetBookmarkManager().GetTrack(buildInfo.m_trackId);
+      if (track == nullptr)
+        return outInfo;
+      Track::TrackSelectionInfo selection;
+      track->UpdateSelectionInfo(*buildInfo.m_trackSelectionPoint, selection);
+      ASSERT(selection.IsValid(), ());
+      trackSelectionCandidates.push_back(selection);
+    }
+    else
+    {
+      trackSelectionCandidates = FindTracksInTapPosition(buildInfo);
+    }
     if (buildInfo.m_trackId != kml::kInvalidTrackId && trackSelectionCandidates.empty())
       return outInfo;
     if (!trackSelectionCandidates.empty() && buildInfo.m_trackId == kml::kInvalidTrackId && isFeatureMatchingEnabled)

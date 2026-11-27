@@ -391,7 +391,7 @@
         <scene sceneID="YRt-yX-ZY6">
             <objects>
                 <viewController storyboardIdentifier="OpeningHoursStatusViewController" id="0Mj-uY-vPG" customClass="OpeningHoursStatusViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2IW-oU-HLV">
+                    <view key="view" contentMode="scaleToFill" id="2IW-oU-HLV" customClass="OpeningHoursStatusView" customModule="Organic_Maps" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

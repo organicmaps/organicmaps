@@ -212,6 +212,7 @@ final class NavigationDashboardViewController: UIViewController {
 
   private func setupAvailableView() {
     availableAreaView.setStyle(.modalSheetBackground)
+    availableAreaView.accessibilityElementsHidden = true
   }
 
   private func setupGrabberView() {
@@ -220,6 +221,7 @@ final class NavigationDashboardViewController: UIViewController {
 
   private func setupCloseButton() {
     closeButton.setImage(UIImage(resource: .icClose))
+    closeButton.accessibilityLabel = L("close")
     closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
     closeButton.setStyle(.black)
   }
@@ -255,6 +257,7 @@ final class NavigationDashboardViewController: UIViewController {
   private func setupSettingsButton() {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
+    settingsButton.accessibilityLabel = L("driving_options_title")
     settingsButton.addTarget(self, action: #selector(didTapSettingsButton), for: .touchUpInside)
     settingsBadge.badgeAddTo(settingsButton)
     settingsBadge.isHidden = true
@@ -291,8 +294,11 @@ final class NavigationDashboardViewController: UIViewController {
     }
 
     searchButton = createButton(image: UIImage(resource: .icMenuSearch), action: #selector(didTapSearchButton))
+    searchButton.accessibilityLabel = L("search")
     bookmarksButton = createButton(image: UIImage(resource: .icMenuBookmarkList), action: #selector(didTapBookmarksButton))
+    bookmarksButton.accessibilityLabel = L("bookmarks_and_tracks")
     saveRouteAsTrackButton = createButton(image: UIImage(resource: .ic24PxImport), action: #selector(didTapSaveRouteAsTrackButton))
+    saveRouteAsTrackButton.accessibilityLabel = L("routing_accessibility_save_as_track")
 
     startRouteButton.addTarget(self, action: #selector(didTapStartRouteButton), for: .touchUpInside)
 
@@ -487,12 +493,14 @@ final class NavigationDashboardViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
-  private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep) {
+  private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep,
+                                      moveAccessibilityFocus: Bool) {
     view.layoutIfNeeded()
-    updatePresentationGeometry(step)
+    updatePresentationGeometry(step, moveAccessibilityFocus: moveAccessibilityFocus)
   }
 
-  private func updatePresentationGeometry(_ step: NavigationDashboardModalPresentationStep) {
+  private func updatePresentationGeometry(_ step: NavigationDashboardModalPresentationStep,
+                                          moveAccessibilityFocus: Bool = false) {
     // Measure content independently of the current scroll offset.
     let contentTop = contentScrollView.frame.minY
     let regularHeight = contentTop + contentStackView.bounds.height
@@ -530,7 +538,11 @@ final class NavigationDashboardViewController: UIViewController {
     presentationStepStrategy.shouldShowHalfScreenStep = shouldShowHalfScreenStep
 
     let resolvedStep = presentationStepStrategy.resolvedStep(step)
-    presentationStepsController.setStep(resolvedStep, forced: shouldForceContentFrameUpdate || resolvedStep != step)
+    presentationStepsController.setStep(resolvedStep,
+                                        forced: shouldForceContentFrameUpdate || resolvedStep != step) { [weak self] in
+      guard moveAccessibilityFocus, UIAccessibility.isVoiceOverRunning, let self else { return }
+      UIAccessibility.post(notification: .screenChanged, argument: self.transportOptionsView)
+    }
   }
 
   private func close() {
@@ -634,6 +646,9 @@ extension NavigationDashboardViewController: NavigationDashboard.Rendering {
       settingsButton.isEnabled = viewModel.routerType.hasRoutingSettings
       settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
       settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
+      settingsButton.accessibilityValue = viewModel.routingOptions.enabledOptionsCount == 0
+        ? nil
+        : String(format: L("routing_accessibility_options_count"), viewModel.routingOptions.enabledOptionsCount)
       saveRouteAsTrackButton.isEnabled = viewModel.canSaveRouteAsTrack
       navigationControlView.isVisible = false
 
@@ -647,12 +662,14 @@ extension NavigationDashboardViewController: NavigationDashboard.Rendering {
     navigationInfoView.state = viewModel.navigationInfo.state
     navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
 
+    let moveAccessibilityFocus = availableAreaView.accessibilityElementsHidden && viewModel.presentationStep != .hidden
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
+    availableAreaView.accessibilityElementsHidden = viewModel.presentationStep == .hidden
     startRouteButton.setState(viewModel.startButtonState)
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
     reverseRoutePointsButton.accessibilityValue = viewModel.routePoints.track?.destination
 
     presentationStep = viewModel.presentationStep
-    updatePresentationStep(viewModel.presentationStep)
+    updatePresentationStep(viewModel.presentationStep, moveAccessibilityFocus: moveAccessibilityFocus)
   }
 }

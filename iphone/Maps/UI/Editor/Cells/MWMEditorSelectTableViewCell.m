@@ -40,10 +40,21 @@
 
   if (isInterfaceRightToLeft())
     self.grayArrow.transform = CGAffineTransformMakeScale(-1, 1);
+
+  self.isAccessibilityElement = YES;
+  self.accessibilityLabel = placeholder;
+  self.accessibilityValue = text.length ? text : nil;
+  self.accessibilityTraits = UIAccessibilityTraitButton;
 }
 
 - (IBAction)selectAction
 {
   [self.delegate cellDidPressButton:self];
+}
+
+- (BOOL)accessibilityActivate
+{
+  [self selectAction];
+  return YES;
 }
 @end

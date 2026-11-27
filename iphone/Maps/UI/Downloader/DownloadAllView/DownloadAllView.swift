@@ -65,6 +65,8 @@ class DownloadAllView: UIView {
   var downloadProgress: CGFloat = 0 {
     didSet {
       progress.progress = CGFloat(AppConstants.maxProgress) * downloadProgress
+      progress.buttonAccessibilityValue = NumberFormatter.localizedString(from: NSNumber(value: Double(downloadProgress)),
+                                                                          number: .percent)
     }
   }
 
@@ -131,6 +133,8 @@ class DownloadAllView: UIView {
       downloadButton.isHidden = true
       stateWrapper.isHidden = false
       progress.progress = CGFloat(AppConstants.maxProgress) * downloadProgress
+      progress.buttonAccessibilityLabel = L("cancel_download")
+      progress.buttonAccessibilityValue = nil
     case .none:
       downloadButton.isHidden = true
       stateWrapper.isHidden = true

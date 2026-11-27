@@ -5,7 +5,9 @@
 
 #include "indexer/scales.hpp"
 
+#include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/simplification.hpp"
 
 #include "platform/platform.hpp"
 
@@ -255,6 +257,125 @@ m2::PointD PtoGWrap(m2::PointD const & pt, ScreenBase const & screen)
   auto mercator = screen.PtoG(pt);
   mercator.x = mercator::WrapX(mercator.x);
   return mercator;
+}
+
+namespace
+{
+std::pair<int, int> VisibleWorldCopies(ScreenBase const & screen, m2::RectD const & bounds)
+{
+  m2::RectD const & viewport = screen.ClipRect();
+  constexpr double kWorldWidth = mercator::Bounds::kRangeX;
+  if (viewport.maxY() < bounds.minY() || viewport.minY() > bounds.maxY())
+    return {1, 0};
+  return {static_cast<int>(std::ceil((viewport.minX() - bounds.maxX()) / kWorldWidth)),
+          static_cast<int>(std::floor((viewport.maxX() - bounds.minX()) / kWorldWidth))};
+}
+void AppendProjectedPath(std::vector<ProjectedPolyline> & paths, double offsetX, std::vector<m2::PointD> pixels)
+{
+  if (pixels.size() < 2)
+    return;
+
+  // Drop tightly spaced samples below half a render pixel before building the accessibility path.
+  // Keep the clipped endpoints and retain a distinct point for a small closed loop.
+  double constexpr kMinSquaredSpacing = 0.25;
+  auto kept = pixels.begin();
+  for (auto sample = kept + 1; sample != pixels.end() - 1; ++sample)
+    if (kept->SquaredLength(*sample) >= kMinSquaredSpacing)
+      *++kept = *sample;
+  if (kept == pixels.begin() && *kept == pixels.back())
+  {
+    auto const distinct =
+        std::find_if(kept + 1, pixels.end(), [&kept](auto const & sample) { return sample != *kept; });
+    if (distinct == pixels.end())
+      return;
+    *++kept = *distinct;
+  }
+  if (*kept != pixels.back())
+    *++kept = pixels.back();
+  pixels.erase(kept + 1, pixels.end());
+
+  // Bound the simplification search for long, highly irregular tracks.
+  size_t constexpr kSimplificationWindow = 64;
+  if (pixels.size() > kSimplificationWindow)
+  {
+    std::vector<m2::PointD> simplified;
+    simplified.reserve(pixels.size() / kSimplificationWindow + 1);
+    auto const append = [&simplified](m2::PointD const & point)
+    {
+      if (simplified.empty() || point != simplified.back())
+        simplified.push_back(point);
+    };
+    for (size_t start = 0; start < pixels.size() - 1;)
+    {
+      size_t const end = std::min(start + kSimplificationWindow, pixels.size() - 1);
+      SimplifyDP(pixels.begin() + start, pixels.begin() + end + 1, kMinSquaredSpacing,
+                 m2::SquaredDistanceFromSegmentToPoint{}, append);
+      start = end;
+    }
+    pixels = std::move(simplified);
+  }
+  paths.push_back({offsetX, std::move(pixels)});
+}
+}  // namespace
+
+bool IsPolylineInViewport(ScreenBase const & screen, m2::RectD const & bounds)
+{
+  auto const [first, last] = VisibleWorldCopies(screen, bounds);
+  return first <= last;
+}
+
+std::vector<ProjectedPolyline> ProjectVisiblePolyline(ScreenBase const & screen, m2::RectD const & pixelViewport,
+                                                      m2::RectD const & bounds, std::vector<m2::PointD> const & line)
+{
+  std::vector<ProjectedPolyline> result;
+  if (line.size() < 2 || !pixelViewport.IsValid())
+    return result;
+
+  auto const [first, last] = VisibleWorldCopies(screen, bounds);
+  for (int copy = first; copy <= last; ++copy)
+  {
+    double const offsetX = copy * mercator::Bounds::kRangeX;
+    auto worldClip = screen.ClipRect();
+    worldClip.Offset(-offsetX, 0.0);
+
+    auto project = [&](std::vector<m2::PointD> const & points)
+    {
+      std::vector<m2::PointD> projected;
+      projected.reserve(points.size());
+      m2::RectD projectedBounds;
+      for (auto const & point : points)
+      {
+        auto const pixel = screen.PtoP3d(screen.GtoP({point.x + offsetX, point.y}));
+        projectedBounds.Add(pixel);
+        projected.push_back(pixel);
+      }
+      if (!pixelViewport.IsIntersect(projectedBounds))
+        return;
+
+      if (pixelViewport.IsRectInside(projectedBounds))
+      {
+        AppendProjectedPath(result, offsetX, std::move(projected));
+        return;
+      }
+
+      std::vector<m2::SharedSpline> visiblePaths;
+      m2::ClipPathByRect(pixelViewport, projected, visiblePaths);
+      for (auto const & path : visiblePaths)
+        AppendProjectedPath(result, offsetX, path->GetPath());
+    };
+
+    if (worldClip.IsRectInside(bounds))
+    {
+      project(line);
+      continue;
+    }
+
+    std::vector<m2::SharedSpline> worldPaths;
+    m2::ClipPathByRect(worldClip, line, worldPaths);
+    for (auto const & worldPath : worldPaths)
+      project(worldPath->GetPath());
+  }
+  return result;
 }
 
 AdjustedScreen::AdjustedScreen(ScreenBase const & screen, m2::PointD const & pivot) : m_screen(screen)

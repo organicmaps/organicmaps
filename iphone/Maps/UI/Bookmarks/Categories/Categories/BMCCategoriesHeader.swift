@@ -6,6 +6,11 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
   @IBOutlet private var label: UILabel!
   @IBOutlet private var button: UIButton!
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    label.accessibilityTraits.insert(.header)
+  }
+
   var isShowAll = false {
     didSet {
       let title = L(isShowAll ? "bookmark_lists_show_all" : "bookmark_lists_hide_all")

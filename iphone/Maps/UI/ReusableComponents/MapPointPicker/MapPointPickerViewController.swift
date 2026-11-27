@@ -1,3 +1,14 @@
+private final class MapPointPickerDoneButton: UIButton {
+  override var accessibilityValue: String? {
+    get {
+      guard !FrameworkHelper.isFrameworkDestroyed() else { return nil }
+      let center = FrameworkHelper.mercatorViewportCenter()
+      return FrameworkHelper.address(at: center) ?? FrameworkHelper.formattedCoordinates(at: center)
+    }
+    set { super.accessibilityValue = newValue }
+  }
+}
+
 @objcMembers
 final class MapPointPickerViewController: UIViewController {
   private enum Constants {
@@ -20,7 +31,7 @@ final class MapPointPickerViewController: UIViewController {
   private let titleLabel = UILabel()
   private let hintLabel = UILabel()
   private let cancelButton = UIButton(type: .system)
-  private let doneButton = UIButton(type: .system)
+  private let doneButton = MapPointPickerDoneButton(type: .system)
   private var isChoosePositionModeActive = false
   private var isDismissing = false
   private var dismissalCompletion: (() -> Void)?
@@ -69,9 +80,12 @@ final class MapPointPickerViewController: UIViewController {
     startChoosePositionMode()
     view.layoutIfNeeded()
     headerView.transform = CGAffineTransform(translationX: 0, y: -headerView.bounds.height)
-    UIView.animate(withDuration: AppConstants.defaultAnimationDuration) {
+    UIView.animate(withDuration: AppConstants.defaultAnimationDuration, animations: {
       self.headerView.transform = .identity
-    }
+    }, completion: { _ in
+      guard self.parent != nil, !self.isDismissing else { return }
+      UIAccessibility.post(notification: .screenChanged, argument: self.titleLabel)
+    })
     parentViewController.setNeedsStatusBarAppearanceUpdate()
   }
 
@@ -84,6 +98,7 @@ final class MapPointPickerViewController: UIViewController {
     navigationBarView.setStyleAndApply(.primaryBackground)
 
     titleLabel.text = pickerTitle
+    titleLabel.accessibilityTraits.insert(.header)
     titleLabel.textAlignment = .center
     titleLabel.adjustsFontForContentSizeCategory = true
     titleLabel.adjustsFontSizeToFitWidth = true
@@ -98,6 +113,7 @@ final class MapPointPickerViewController: UIViewController {
 
     configure(button: cancelButton, title: L("cancel"), action: #selector(cancelButtonDidTap))
     configure(button: doneButton, title: L("done"), action: #selector(doneButtonDidTap))
+    doneButton.accessibilityHint = hint
   }
 
   private func configure(button: UIButton, title: String, action: Selector) {
@@ -105,7 +121,6 @@ final class MapPointPickerViewController: UIViewController {
     button.setStyleAndApply(.navigationBarItem)
     button.titleLabel?.adjustsFontForContentSizeCategory = true
     button.addTarget(self, action: action, for: .touchUpInside)
-    button.accessibilityLabel = title
   }
 
   private func layoutViews() {

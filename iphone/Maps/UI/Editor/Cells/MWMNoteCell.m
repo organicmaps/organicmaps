@@ -23,6 +23,7 @@ static void * kContext = &kContext;
   self.delegate = delegate;
   self.textView.text = text;
   self.textView.placeholder = placeholder;
+  self.textView.accessibilityLabel = placeholder;
 }
 
 - (void)updateTextViewForHeight:(CGFloat)height

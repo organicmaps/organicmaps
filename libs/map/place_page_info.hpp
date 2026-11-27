@@ -126,6 +126,7 @@ struct BuildInfo
   Match m_match = Match::Everything;
   kml::MarkId m_userMarkId = kml::kInvalidMarkId;
   kml::TrackId m_trackId = kml::kInvalidTrackId;
+  std::optional<m2::PointD> m_trackSelectionPoint;
   bool m_isGeometrySelectionAllowed = false;
   bool m_animateSelection = true;
 };

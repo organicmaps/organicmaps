@@ -187,6 +187,9 @@ public:
 
   using TapEventInfoHandler = FrontendRenderer::TapEventInfoHandler;
   void SetTapEventInfoListener(TapEventInfoHandler && fn);
+  using AccessibilityObjectsCallback = std::function<void(AccessibleMapSnapshot &&)>;
+  void RequestVisibleAccessibilityObjects(AccessibilityObjectsCallback callback);
+  void SetAccessibilityObjectsChangedListener(std::function<void()> listener);
   using UserPositionChangedHandler = FrontendRenderer::UserPositionChangedHandler;
   void SetUserPositionListener(UserPositionChangedHandler && fn);
 

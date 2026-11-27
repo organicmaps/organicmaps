@@ -14,12 +14,14 @@ struct SettingsItemViewModel<Item: Hashable>: Equatable {
   let title: String?
   let detail: String?
   let kind: SettingsItemKind
+  let accessibilityHint: String?
 
-  init(item: Item, title: String? = nil, detail: String? = nil, kind: SettingsItemKind) {
+  init(item: Item, title: String? = nil, detail: String? = nil, kind: SettingsItemKind, accessibilityHint: String? = nil) {
     self.item = item
     self.title = title
     self.detail = detail
     self.kind = kind
+    self.accessibilityHint = accessibilityHint
   }
 }
 

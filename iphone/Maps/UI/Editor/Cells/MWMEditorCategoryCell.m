@@ -22,6 +22,10 @@ CGFloat const kDetailShortRightSpace = 16;
   self.delegate = delegate;
   self.detail.text = detail;
   self.accessoryIcon.hidden = !isCreating;
+  self.isAccessibilityElement = YES;
+  self.accessibilityLabel = L(isCreating ? @"editor_add_select_category" : @"editor_edit_place_category_title");
+  self.accessibilityValue = detail;
+  self.accessibilityTraits = isCreating ? UIAccessibilityTraitButton : UIAccessibilityTraitStaticText;
   if (isCreating)
   {
     self.selectedBackgroundView = [[UIView alloc] init];
@@ -39,6 +43,14 @@ CGFloat const kDetailShortRightSpace = 16;
   if (self.accessoryIcon.hidden)
     return;
   [self.delegate cellDidPressButton:self];
+}
+
+- (BOOL)accessibilityActivate
+{
+  if (self.accessoryIcon.hidden)
+    return NO;
+  [self cellTap];
+  return YES;
 }
 
 @end

@@ -79,6 +79,27 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
                                   self?.interactor.handle(.didTapAccessory)
                                 })
 
+    if let editInteractor = interactor as? PlacePageEditBookmarkAndTrackSectionInteractor {
+      headerInfoView.textLabel.accessibilityTraits = .button
+      headerInfoView.iconButton.accessibilityLabel = L("change_color")
+      switch editInteractor.data {
+      case .bookmark:
+        headerInfoView.accessoryButton.accessibilityLabel = L("placepage_edit_bookmark_button")
+      case .track:
+        headerInfoView.accessoryButton.accessibilityLabel = L("edit_track")
+      case nil:
+        break
+      }
+    } else if interactor is PlacePageWikipediaDetailsSectionInteractor {
+      headerInfoView.textLabel.onAccessibilityActivate = nil
+      headerInfoView.textLabel.accessibilityTraits = .header
+      headerInfoView.accessoryButton.accessibilityLabel = L("read_in_wikipedia")
+    } else if interactor is PlacePageOSMDescriptionSectionInteractor {
+      headerInfoView.textLabel.onAccessibilityActivate = nil
+      headerInfoView.textLabel.accessibilityTraits = .header
+      headerInfoView.accessoryButton.accessibilityLabel = L("placepage_translate_description")
+    }
+
     guard let expandableText = viewModel.expandableText else {
       removeExpandableLabelIfNeeded()
       return

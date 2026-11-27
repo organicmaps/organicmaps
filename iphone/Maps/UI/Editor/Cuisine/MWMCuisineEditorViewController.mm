@@ -141,6 +141,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   self.searchViewController.obscuresBackgroundDuringPresentation = NO;
   self.searchViewController.hidesNavigationBarDuringPresentation = NO;
   self.searchViewController.searchBar.placeholder = L(@"search");
+  self.searchViewController.searchBar.searchTextField.accessibilityLabel = L(@"search");
   self.searchViewController.searchBar.delegate = self;
   [self.searchViewController.searchBar applyTheme];
   self.navigationItem.searchController = self.searchViewController;
@@ -212,6 +213,9 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
       std::find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
   cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   cell.textLabel.numberOfLines = 0;
+  cell.isAccessibilityElement = YES;
+  cell.accessibilityLabel = cell.textLabel.text;
+  cell.accessibilityTraits = UIAccessibilityTraitButton | (selected ? UIAccessibilityTraitSelected : 0);
   return cell;
 }
 
@@ -241,6 +245,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   [cell setSelected:NO animated:YES];
   BOOL const isAlreadySelected = cell.accessoryType == UITableViewCellAccessoryCheckmark;
   cell.accessoryType = isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+  cell.accessibilityTraits = UIAccessibilityTraitButton | (isAlreadySelected ? 0 : UIAccessibilityTraitSelected);
   [self change:[self dataSourceForSection:indexPath.section][indexPath.row] selected:!isAlreadySelected];
 }
 

@@ -14,6 +14,7 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     didSet {
       styleTitle()
       switchButton.isUserInteractionEnabled = isEnabled
+      updateAccessibility()
     }
   }
 
@@ -58,12 +59,30 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     accessoryType = .none
     accessoryView = switchButton
     selectionStyle = .none
+
+    updateAccessibility()
   }
 
   @objc
   func setDetail(_ text: String?) {
     detailTextLabel?.text = text
+    updateAccessibility()
     setNeedsLayout()
+  }
+
+  private func updateAccessibility() {
+    let label = [textLabel?.text, detailTextLabel?.text]
+      .compactMap { $0?.isEmpty == false ? $0 : nil }.joined(separator: ", ")
+    // A disabled switch cannot activate the row's explanation. Keep that row reachable.
+    isAccessibilityElement = !isEnabled
+    accessibilityLabel = label
+    accessibilityValue = isOn ? L("on") : L("off")
+    accessibilityTraits = isEnabled ? .none : [.button, .notEnabled]
+    textLabel?.isAccessibilityElement = false
+    detailTextLabel?.isAccessibilityElement = false
+    switchButton.isAccessibilityElement = isEnabled
+    switchButton.accessibilityLabel = label
+    accessibilityElements = isEnabled ? [switchButton] : nil
   }
 
   private func setupCell() {

@@ -567,6 +567,7 @@
                         <outlet property="exampleValuesExpandView" destination="m7d-sG-5LN" id="TTZ-yw-ImJ"/>
                         <outlet property="exampleValuesSeparator" destination="Suj-t5-ZWs" id="93G-FX-98W"/>
                         <outlet property="examplesButtonBottomOffset" destination="Phh-rb-ON1" id="7Wp-c1-qbc"/>
+                        <outlet property="examplesButton" destination="MiP-Du-s3i" id="VOA-ExM-002"/>
                         <outlet property="help" destination="Gff-2B-vhp" id="zM3-De-Qr9"/>
                         <outlet property="helpView" destination="85Z-MR-kUV" id="Rcg-KD-UIA"/>
                         <outlet property="ohTextViewHeight" destination="oBv-SK-cOU" id="8yB-hb-hml"/>

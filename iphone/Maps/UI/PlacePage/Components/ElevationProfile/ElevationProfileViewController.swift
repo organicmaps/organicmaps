@@ -9,6 +9,8 @@ protocol ElevationProfileViewProtocol: AnyObject {
   var canReceiveUpdates: Bool { get }
 
   func setChartData(_ data: ChartPresentationData)
+  func setChartAccessibility(_ data: ElevationProfileChartData, interactive: Bool)
+  func setDescriptionAccessibility(_ summary: String)
   func setActivePointDistance(_ distance: Double)
   func setMyPositionDistance(_ distance: Double)
   func reloadDescription()
@@ -88,6 +90,8 @@ final class ElevationProfileViewController: UIViewController {
   }
 
   private var chartView = ChartView()
+  private var accessibilityChartData: ElevationProfileChartData?
+  private var accessibilitySelectedDistance: Double = 0
   private var graphViewContainer = UIView()
   private var descriptionCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -139,10 +143,35 @@ final class ElevationProfileViewController: UIViewController {
     chartView.onSelectionCancelled = { [weak self] in
       self?.presenter?.onSelectionCancelled()
     }
+    chartView.onAccessibilityAdjustment = { [weak self] direction in
+      self?.adjustChartSelection(direction: direction)
+    }
+  }
+
+  private func adjustChartSelection(direction: Int) {
+    guard let data = accessibilityChartData, data.maxDistance > 0 else { return }
+    let step = data.maxDistance / 20
+    let distance = min(data.maxDistance, max(0, accessibilitySelectedDistance + Double(direction) * step))
+    guard distance != accessibilitySelectedDistance else { return }
+    accessibilitySelectedDistance = distance
+    chartView.setSelectedPoint(distance)
+    chartView.accessibilityValue = chartAccessibilityValue(at: distance, data: data)
+    presenter?.onSelectedPointChanged(distance)
+  }
+
+  private func chartAccessibilityValue(at distance: Double, data: ElevationProfileChartData) -> String {
+    let distanceText = DistanceFormatter.distanceString(fromMeters: distance)
+    guard let altitude = data.altitude(at: distance) else {
+      return String(format: L("search_accessibility_distance"), distanceText)
+    }
+    let altitudeText = AltitudeFormatter.altitudeString(fromMeters: altitude)
+    return String(format: L("placepage_elevation_point"), distanceText, altitudeText)
   }
 
   private func setupDescriptionCollectionView() {
     descriptionCollectionView.backgroundColor = .clear
+    descriptionCollectionView.isAccessibilityElement = true
+    descriptionCollectionView.accessibilityTraits = .staticText
     descriptionCollectionView.register(cell: ElevationProfileDescriptionCell.self)
     descriptionCollectionView.dataSource = presenter
     descriptionCollectionView.delegate = presenter
@@ -277,8 +306,27 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
     chartView.chartData = data
   }
 
+  func setChartAccessibility(_ data: ElevationProfileChartData, interactive: Bool) {
+    accessibilityChartData = data
+    accessibilitySelectedDistance = 0
+    chartView.isAccessibilityElement = true
+    chartView.accessibilityLabel = L("placepage_elevation_profile")
+    chartView.accessibilityTraits = interactive && data.maxDistance > 0 ? .adjustable : .staticText
+    chartView.accessibilityValue = data.isPlaceholder
+      ? L("elevation_profile_placeholder")
+      : chartAccessibilityValue(at: interactive ? 0 : data.maxDistance, data: data)
+  }
+
+  func setDescriptionAccessibility(_ summary: String) {
+    descriptionCollectionView.accessibilityLabel = summary
+  }
+
   func setActivePointDistance(_ distance: Double) {
     chartView.setSelectedPoint(distance)
+    if chartView.accessibilityTraits.contains(.adjustable), let data = accessibilityChartData {
+      accessibilitySelectedDistance = min(data.maxDistance, max(0, distance))
+      chartView.accessibilityValue = chartAccessibilityValue(at: accessibilitySelectedDistance, data: data)
+    }
   }
 
   func setMyPositionDistance(_ distance: Double) {

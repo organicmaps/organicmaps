@@ -29,9 +29,12 @@
   self.delegate = delegate;
   self.code = langCode;
   self.languageLabel.text = langName;
+  self.languageLabel.isAccessibilityElement = NO;
   self.errorLabel.text = errorMessage;
+  self.errorLabel.isAccessibilityElement = NO;
   self.isValid = isValid;
   self.textField.text = name;
+  self.textField.accessibilityLabel = langName;
   self.textField.keyboardType = keyboardType;
   self.textField.backgroundColor = [UIColor clearColor];
   [self processValidation];
@@ -40,6 +43,7 @@
 - (void)processValidation
 {
   self.errorLabel.hidden = self.isValid || self.errorLabel.text.length == 0;
+  self.textField.accessibilityHint = self.isValid ? nil : self.errorLabel.text;
   [self.contentView setStyleNameAndApply:self.isValid ? @"Background" : @"ErrorBackground"];
   [self layoutIfNeeded];
 }

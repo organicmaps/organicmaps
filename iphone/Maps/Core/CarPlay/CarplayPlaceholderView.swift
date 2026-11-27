@@ -17,6 +17,7 @@ class CarplayPlaceholderView: UIView {
   }
 
   private func commonInit() {
+    accessibilityElementsHidden = true
     addSubview(containerView)
 
     imageView.image = UIImage(named: "ic_carplay_activated")

@@ -2,8 +2,8 @@ protocol TTSSettingsPreviewCellDelegate: AnyObject {
   func previewCellDidTapPlay(_ cell: TTSSettingsPreviewCell)
 }
 
-/// A cell whose leading button plays a sample of what the row offers, mirroring the iOS VoiceOver
-/// voice picker. The row itself stays selectable, so the button carries its own accessibility label.
+/// A selectable voice row with a sample button. VoiceOver exposes the sample as a custom action
+/// so the default activation still selects the row.
 final class TTSSettingsPreviewCell: MWMTableViewCell {
   private enum Constants {
     static let buttonSize: CGFloat = 44
@@ -38,6 +38,10 @@ final class TTSSettingsPreviewCell: MWMTableViewCell {
                  showsDisclosure: Bool) {
     self.delegate = delegate
     titleLabel.text = title
+    isAccessibilityElement = true
+    accessibilityLabel = title
+    accessibilityValue = detail
+    accessibilityTraits.insert(.button)
     detailLabel.text = detail
     detailLabel.isHidden = detail == nil
     if isSelected {
@@ -53,7 +57,13 @@ final class TTSSettingsPreviewCell: MWMTableViewCell {
     playButton.setImage(UIImage(systemName: isPlaying ? "stop.circle" : "play.circle",
                                 withConfiguration: configuration),
                         for: .normal)
-    playButton.accessibilityLabel = isPlaying ? L("pref_tts_voice_preview_stop") : L("pref_tts_voice_preview_play")
+    let previewTitle = isPlaying ? L("pref_tts_voice_preview_stop") : L("pref_tts_voice_preview_play")
+    playButton.accessibilityLabel = previewTitle
+    accessibilityCustomActions = [UIAccessibilityCustomAction(name: previewTitle) { [weak self] _ in
+      guard let self else { return false }
+      onPlayButtonTap()
+      return true
+    }]
   }
 
   private func setupCell() {

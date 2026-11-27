@@ -16,6 +16,8 @@
   [super awakeFromNib];
   self.calendar = NSCalendar.currentCalendar;
   self.calendar.locale = NSLocale.currentLocale;
+  self.openTimePicker.accessibilityLabel = L(@"editor_time_open_picker");
+  self.closeTimePicker.accessibilityLabel = L(@"editor_time_close_picker");
 }
 
 - (void)refresh

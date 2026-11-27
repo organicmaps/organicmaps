@@ -176,6 +176,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                       target:self
                                                       action:@selector(onCancel)];
+    self.navigationItem.leftBarButtonItem.accessibilityLabel = L(@"cancel");
   }
 }
 
@@ -218,6 +219,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                     target:self
                                                     action:@selector(onSave)];
+  self.navigationItem.rightBarButtonItem.accessibilityLabel = L(@"save");
 }
 
 - (void)onCancel
@@ -238,8 +240,16 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   if (self.invalidCells.count)
   {
     NSIndexPath * ip = self.invalidCells.firstObject;
+    BOOL const voiceOverRunning = UIAccessibilityIsVoiceOverRunning();
+    if (voiceOverRunning)
+    {
+      [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+      [self.tableView layoutIfNeeded];
+    }
     MWMEditorTextTableViewCell * cell = [self.tableView cellForRowAtIndexPath:ip];
     [cell.textField becomeFirstResponder];
+    if (voiceOverRunning && cell)
+      UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, cell.textField);
     return;
   }
 

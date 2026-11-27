@@ -1,5 +1,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <XCTest/XCTest.h>
+#import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMTextToSpeech.h"
 
 #include "LocaleTranslator.h"
@@ -283,6 +284,41 @@
   NSArray<MWMTTSVoice *> * listed = [MWMTextToSpeech voicesForLanguage:[MWMTextToSpeech currentLanguage]];
   XCTAssertTrue([listed containsObject:currentVoice]);
   XCTAssertEqual(listed.count, 1);
+}
+
+@end
+
+@interface MWMNavigationVoiceOverTests : XCTestCase
+@end
+
+@implementation MWMNavigationVoiceOverTests
+
+- (void)testVoiceOverUsesUpcomingArrivalForCarAndPedestrianFinishManeuvers
+{
+  using namespace routing::turns;
+  using navigation_dashboard::TurnInstruction;
+  XCTAssertEqualObjects(TurnInstruction(CarDirection::ReachedYourDestination, PedestrianDirection::None, 0, @"en-US"),
+                        @"You’ll arrive.");
+  XCTAssertEqualObjects(
+      TurnInstruction(CarDirection::GoStraight, PedestrianDirection::ReachedYourDestination, 0, @"en-US"),
+      @"You’ll arrive.");
+}
+
+- (void)testVoiceOverManeuversUseTheLocalizedSoundCatalogForRegionalTags
+{
+  using namespace routing::turns;
+  using navigation_dashboard::TurnInstruction;
+  NSDictionary<NSString *, NSString *> * expected = @{
+    @"fr-FR": @"Vous arriverez.",
+    @"pt-BR": @"Você chegará ao seu destino.",
+    @"es-MX": @"Llegará a su destino.",
+    @"zh-Hans-CN": @"即将到达目的地。",
+    @"yue-HK": @"就嚟到目的地。"
+  };
+  for (NSString * languageTag in expected)
+    XCTAssertEqualObjects(
+        TurnInstruction(CarDirection::ReachedYourDestination, PedestrianDirection::None, 0, languageTag),
+        expected[languageTag], @"%@", languageTag);
 }
 
 @end

@@ -109,6 +109,10 @@
     cell.textLabel.text = street;
     cell.detailTextLabel.text = @(localizedStreet.m_localizedName.c_str());
     cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.isAccessibilityElement = YES;
+    cell.accessibilityLabel = street;
+    cell.accessibilityValue = cell.detailTextLabel.text;
+    cell.accessibilityTraits = UIAccessibilityTraitButton | (selected ? UIAccessibilityTraitSelected : 0);
   }
 }
 

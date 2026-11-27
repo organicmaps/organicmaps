@@ -1,3 +1,4 @@
+#import "LocaleTranslator.h"
 #import "MWMLocationManager.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager+Entity.h"
@@ -11,12 +12,63 @@
 
 #include "routing/following_info.hpp"
 #include "routing/turns.hpp"
+#include "routing/turns_sound_settings.hpp"
+#include "routing/turns_tts_text.hpp"
 
 #include "map/routing_manager.hpp"
 
 #include "platform/location.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+
+#include "base/assert.hpp"
+
+namespace navigation_dashboard
+{
+NSString * TurnInstruction(routing::turns::CarDirection carTurn, routing::turns::PedestrianDirection pedestrianTurn,
+                           uint8_t exitNumber, NSString * languageTag)
+{
+  using namespace routing::turns;
+  using namespace routing::turns::sound;
+
+  if (pedestrianTurn == PedestrianDirection::None && carTurn == CarDirection::ExitHighwayToLeft)
+    return L(@"navigation_accessibility_exit_highway_left");
+  if (pedestrianTurn == PedestrianDirection::None && carTurn == CarDirection::ExitHighwayToRight)
+    return L(@"navigation_accessibility_exit_highway_right");
+
+  ASSERT(NSThread.isMainThread, ());
+  static GetTtsText text;
+  static std::string configuredLocale;
+  auto locale = locale_translator::bcp47ToTwineLanguage(languageTag);
+  if (locale.empty())
+    locale = "en";
+  if (configuredLocale != locale)
+  {
+    text.SetLocale(locale);
+    configuredLocale = locale;
+  }
+
+  if (carTurn == CarDirection::ReachedYourDestination || pedestrianTurn == PedestrianDirection::ReachedYourDestination)
+    return @(text.GetUpcomingDestinationNotification().c_str());
+
+  bool const isRoundabout = carTurn == CarDirection::EnterRoundAbout || carTurn == CarDirection::StayOnRoundAbout ||
+                            carTurn == CarDirection::LeaveRoundAbout;
+  if (carTurn == CarDirection::None || carTurn == CarDirection::StartAtEndOfStreet ||
+      carTurn == CarDirection::StayOnRoundAbout)
+    carTurn = CarDirection::GoStraight;
+  Notification notification(0, exitNumber, false, carTurn, measurement_utils::Units::Metric);
+  notification.m_turnDirPedestrian = pedestrianTurn;
+  NSString * instruction = @(text.GetTurnNotification(notification).c_str());
+  if (isRoundabout && exitNumber > 0)
+  {
+    NSString * ordinal = [NSNumberFormatter localizedStringFromNumber:@(exitNumber)
+                                                          numberStyle:NSNumberFormatterOrdinalStyle];
+    NSString * exit = [NSString stringWithFormat:L(@"carplay_roundabout_exit"), ordinal];
+    instruction = [NSString stringWithFormat:@"%@, %@", instruction, exit];
+  }
+  return instruction;
+}
+}  // namespace navigation_dashboard
 
 namespace
 {
@@ -144,9 +196,15 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 
     _distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
     _turnUnits = @(info.m_distToTurn.GetUnitsString().c_str());
+    NSString * languageTag = [AppInfo sharedInfo].languageId;
     if (type == MWMRouterTypePedestrian)
     {
       _turnImage = image(info.m_pedestrianTurn);
+      auto const pedestrianTurn = info.m_pedestrianTurn == routing::turns::PedestrianDirection::None
+                                    ? routing::turns::PedestrianDirection::GoStraight
+                                    : info.m_pedestrianTurn;
+      _turnInstruction = navigation_dashboard::TurnInstruction(routing::turns::CarDirection::GoStraight, pedestrianTurn,
+                                                               0, languageTag);
     }
     else
     {
@@ -154,6 +212,11 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
       CarDirection const turn = info.m_turn;
       _turnImage = image(turn, false);
       _nextTurnImage = image(info.m_nextTurn, true);
+      _turnInstruction =
+          navigation_dashboard::TurnInstruction(turn, PedestrianDirection::None, info.m_exitNum, languageTag);
+      if (_nextTurnImage)
+        _nextTurnInstruction =
+            navigation_dashboard::TurnInstruction(info.m_nextTurn, PedestrianDirection::None, 0, languageTag);
       BOOL const isRound = turn == CarDirection::EnterRoundAbout || turn == CarDirection::StayOnRoundAbout ||
                            turn == CarDirection::LeaveRoundAbout;
       if (isRound)
@@ -259,6 +322,8 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
   if ([MWMRouter isRouteFinished])
   {
     [MWMRouter stopRouting];
+    if (UIAccessibilityIsVoiceOverRunning())
+      UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, L(@"trip_finished"));
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     return;
   }

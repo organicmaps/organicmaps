@@ -32,6 +32,8 @@ using namespace osm;
   self.title = L(@"osm_account");
   [self checkConnection];
   [self stopSpinner];
+  self.loginTextField.accessibilityLabel = self.loginTextField.placeholder;
+  self.passwordTextField.accessibilityLabel = self.passwordTextField.placeholder;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -76,6 +78,9 @@ using namespace osm;
   self.passwordTextField.enabled = NO;
   self.forgotButton.enabled = NO;
   [self.loginButton setTitle:@"" forState:UIControlStateNormal];
+  self.loginButton.accessibilityLabel = L(@"login");
+  self.loginButton.accessibilityTraits |= UIAccessibilityTraitNotEnabled;
+  self.loginButton.accessibilityValue = L(@"please_wait");
 }
 
 - (void)stopSpinner
@@ -86,6 +91,9 @@ using namespace osm;
   self.passwordTextField.enabled = YES;
   self.forgotButton.enabled = YES;
   [self.loginButton setTitle:L(@"login") forState:UIControlStateNormal];
+  self.loginButton.accessibilityLabel = [self.loginButton titleForState:UIControlStateNormal];
+  self.loginButton.accessibilityTraits &= ~UIAccessibilityTraitNotEnabled;
+  self.loginButton.accessibilityValue = nil;
 }
 
 #pragma mark - Actions

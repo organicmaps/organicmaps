@@ -39,6 +39,7 @@ final class PlacePageHeaderViewController: UIViewController {
 
   var didStartEditingTitle: ((Bool) -> Void)?
   var didChangeEditedTitle: (() -> Void)?
+  var accessibilityTitle: UIView { titleTextView }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -51,10 +52,13 @@ final class PlacePageHeaderViewController: UIViewController {
       self?.grabberView.isHidden = true
     }
     closeButton.setImage(UIImage(resource: .icClose))
+    closeButton.accessibilityLabel = L("close")
     shareButton.setImage(UIImage(resource: .icShare))
+    shareButton.accessibilityLabel = L("share")
     shareButton.isHidden = !(presenter?.canShare ?? true)
 
     trackCandidatesButton.tintColor = .linkBlue
+    trackCandidatesButton.accessibilityLabel = L("placepage_select_track")
     trackCandidatesButton.isHidden = !(presenter?.canSelectTrackCandidates ?? false)
     trackCandidatesButton.addTarget(self, action: #selector(didTapTrackCandidatesButton), for: .touchUpInside)
 
@@ -74,11 +78,30 @@ final class PlacePageHeaderViewController: UIViewController {
     titleTextView.textContainerInset = .zero
     titleTextView.textContainer.lineFragmentPadding = .zero
     titleTextView.delegate = self
+    let copyTitleAction = UIAccessibilityCustomAction(name: L("placepage_copy"), actionHandler: { [weak self] _ in
+      guard let self else { return false }
+      self.presenter?.onCopy(self.isEditingTitle ? self.titleTextView.text : self.titleText ?? self.titleTextView.text)
+      return true
+    })
+    if presenter?.canEditTitle != true {
+      titleTextView.accessibilityTraits.insert(.header)
+      titleTextView.accessibilityCustomActions = [
+        UIAccessibilityCustomAction(name: L("details"), actionHandler: { [weak self] _ in
+          guard let self else { return false }
+          self.presenter?.onExpandPress()
+          return true
+        }),
+        copyTitleAction,
+      ]
+    } else {
+      titleTextView.accessibilityCustomActions = [copyTitleAction]
+    }
 
     let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTitleTextView(_:)))
     titleTextView.addGestureRecognizer(longTapGesture)
 
     clearTitleTextButton.setImage(UIImage.icClear.withRenderingMode(.alwaysTemplate), style: GlobalStyleSheet.gray)
+    clearTitleTextButton.accessibilityLabel = L("clear")
     clearTitleTextButton.isHidden = true
     clearTitleTextButton.addTarget(self, action: #selector(didTapClearTitleButton), for: .touchUpInside)
 
@@ -200,6 +223,8 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     }
     titleTextView.attributedText = titleString
     subtitleLabel.text = subtitleText
+    titleTextView.accessibilityLabel = isEditingTitle ? nil : titleText
+    titleTextView.accessibilityValue = isEditingTitle ? nil : ""
   }
 
   func showShareTrackMenu() {

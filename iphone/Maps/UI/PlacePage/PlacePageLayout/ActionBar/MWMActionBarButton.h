@@ -52,6 +52,9 @@ NS_SWIFT_NAME(ActionBarButton)
                                 isSelected:(BOOL)isSelected
                                  isPrimary:(BOOL)isPrimary;
 
+- (void)setDownloadAccessibilityLabel:(NSString *)label;
+- (void)setDownloadAccessibilityProgress:(CGFloat)progress;
+
 @end
 
 NS_ASSUME_NONNULL_END

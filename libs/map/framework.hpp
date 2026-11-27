@@ -67,6 +67,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace osm
@@ -705,6 +706,14 @@ public:
 
   /// Delegates to SelectionProcessor::GetFeatureAtPoint.
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;
+
+  /// Builds readable text for a map feature without changing the current selection.
+  std::pair<std::string, std::string> GetAccessibleFeatureText(FeatureID const & featureId) const;
+  std::pair<std::string, std::string> GetAccessibleBookmarkText(kml::MarkId markId) const;
+  std::pair<std::string, std::string> GetAccessibleTrackText(kml::TrackId trackId) const;
+  bool IsAccessibleMapObjectCurrent(FeatureID const & featureId, kml::MarkId markId, kml::TrackId trackId,
+                                    int zoom) const;
+  std::vector<df::AccessibleMapObject> GetAccessibleTrackObjects(df::AccessibleMapSnapshot const & snapshot) const;
 
   /// @param[in] scale Pass GetUpperScale (for countries) or GetUpperWorldScale (for World map).
   template <typename TFn>

@@ -47,6 +47,7 @@ final class ProductsViewController: UIViewController {
 
   private func setupTitleLabel() {
     titleLabel.text = viewModel.title
+    titleLabel.accessibilityTraits.insert(.header)
     titleLabel.setFontStyle(.semibold16)
     titleLabel.configureSingleLineAutoScaling()
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +61,7 @@ final class ProductsViewController: UIViewController {
   }
 
   private func setupCloseButton() {
+    closeButton.accessibilityLabel = L("close")
     closeButton.setStyleAndApply(.gray)
     closeButton.setImage(UIImage(resource: .icSearchClear), for: .normal)
     closeButton.translatesAutoresizingMaskIntoConstraints = false

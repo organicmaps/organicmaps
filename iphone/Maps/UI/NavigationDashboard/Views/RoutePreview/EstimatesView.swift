@@ -26,6 +26,8 @@ final class EstimatesView: UIView {
   private func layout() {
     estimatesLabel.adjustsFontForContentSizeCategory = true
     estimatesLabel.configureSingleLineAutoScaling()
+    estimatesLabel.isAccessibilityElement = false
+    accessibilityTraits = .staticText
 
     addSubview(estimatesLabel)
 
@@ -40,6 +42,20 @@ final class EstimatesView: UIView {
 
   func setState(_ state: State) {
     guard self.state != state else { return }
+    switch state {
+    case .none:
+      isAccessibilityElement = false
+      accessibilityLabel = nil
+    case .loading:
+      isAccessibilityElement = true
+      accessibilityLabel = L("routing_accessibility_calculating")
+    case .error(let message):
+      isAccessibilityElement = true
+      accessibilityLabel = message
+    case .estimates(let estimates):
+      isAccessibilityElement = true
+      accessibilityLabel = estimates.string
+    }
     UIView.transition(with: self,
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,

@@ -346,6 +346,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)setMenuState:(MWMBottomMenuState)menuState animated:(BOOL)animated
 {
   MapViewController * ownerController = _ownerController;
+  __weak MapViewController * weakOwnerController = ownerController;
   if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
   {
     if (_isDismissingMenu)
@@ -390,12 +391,15 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     break;
   case MWMBottomMenuStateInactive:
   case MWMBottomMenuStateHidden:
+  {
     _tabBarController.isHidden = menuState == MWMBottomMenuStateHidden;
     if (_pendingMenuURL != nil && [DeepLinkHandler.shared.url isEqual:_pendingMenuURL])
       (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
     _pendingMenuURL = nil;
-    [self dismissBottomMenuAnimated:animated completion:nil];
+    [self dismissBottomMenuAnimated:animated
+                         completion:^{ [weakOwnerController refreshMapAccessibilityAfterMenuDismissal]; }];
     break;
+  }
   default: break;
   }
 }

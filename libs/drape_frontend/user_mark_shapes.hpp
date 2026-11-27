@@ -50,6 +50,7 @@ struct UserMarkRenderParams
   bool m_isMarkAboveText = false;
   float m_symbolOpacity = 1.0f;
   bool m_isSymbolSelectable = true;
+  bool m_hasAccessibilitySymbolBounds = false;
 };
 
 struct LineLayer
@@ -193,6 +194,7 @@ drape_ptr<dp::OverlayHandle> CreateUserMarkOverlayHandle(UserMarkRenderParams co
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     MarksSource const & source, UserMarksRenderCollection const & renderParams, dp::Batcher & batcher);
 
+float GetUserLineWidth(double width, int zoomLevel);
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);
 

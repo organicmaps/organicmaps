@@ -36,6 +36,18 @@ class GraphicsContextFactory;
 
 @implementation EAGLView
 
+- (id)accessibilityHitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+  if (UIAccessibilityIsVoiceOverRunning() && !self.accessibilityElementsHidden && self.accessibilityHitTestHandler)
+  {
+    if (id element = self.accessibilityHitTestHandler(point))
+      return element;
+  }
+  if (@available(iOS 18.0, *))
+    return [super accessibilityHitTest:point withEvent:event];
+  return nil;
+}
+
 + (dp::ApiVersion)getSupportedApiVersion
 {
   static dp::ApiVersion apiVersion = dp::ApiVersion::Invalid;
