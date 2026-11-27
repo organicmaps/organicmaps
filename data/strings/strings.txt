@@ -663,7 +663,7 @@ zh-Hant = 搜尋地圖
 
 [location_is_disabled_long_text]
 comment = Location services are disabled by user alert - message
-tags = android-app,android-libs-car
+tags = android-app,android-libs-car,qt
 en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
 af = Alle liggingsdienste vir hierdie toestel of toepassing is tans gedeaktiveer. Aktiveer dit asb. in Instellings.
 ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
@@ -8880,7 +8880,7 @@ zh-Hant = 報告問題
 
 [compass_calibration_recommended]
 comment = Toast text when compass calibration may improve the correctness of the current position arrow
-tags = android-app
+tags = android-app,qt
 en = Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.
 af = Verbeter die pylrigting deur die selfoon in ’n agtbeweging te beweeg om die kompas te kalibreer.
 ar = قم بتحسين اتجاه السهم عن طريق تحريك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة.
@@ -8939,7 +8939,7 @@ zh-Hant = 以 8 字形移動手機來改善箭頭方向，以校準羅盤。
 
 [compass_calibration_required]
 comment = Toast text when compass calibration may improve the correctness of the current position arrow
-tags = android-app
+tags = android-app,qt
 en = Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.
 af = Beweeg die selfoon in ’n agtvormige beweging om die kompas te kalibreer en die rigting van die pyl op die kaart vas te maak.
 ar = حرك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة وإصلاح اتجاه السهم على الخريطة.
@@ -25993,7 +25993,7 @@ zh-Hans = 地铁
 zh-Hant = 捷運
 
 [layers_title]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Map Styles and Layers
 af = Kaartstyle en -lae
 ar = أنماط الخريطة وطبقاتها
@@ -36337,7 +36337,7 @@ zh-Hans = 3D 地形
 zh-Hant = 3D 地形
 
 [isolines_location_error_dialog]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Update this region to see contour lines
 af = Werk hierdie area by om kontoerlyne te sien
 ar = حدِّث هذه المنطقة لرؤية خطوط الكفاف
@@ -36680,7 +36680,7 @@ zh-Hans = 难度
 zh-Hant = 難度
 
 [isolines_toast_zooms_1_10]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Zoom in to explore isolines
 af = Zoem in om isolyne te bekyk
 ar = قم بالتقريب لتكتشف خطوط الكنتور
@@ -43594,7 +43594,7 @@ zh-Hant = 英尺
 
 [routes_update_maps_text]
 comment = Toast text when the maps version should be updated to display the OSM hiking and cycling routes
-tags = android-sdk,apple-maps
+tags = android-sdk,apple-maps,qt
 en = To display routes, maps must be updated.
 af = Om roetes te vertoon, moet die kaarte opgedateer word.
 ar = لعرض المسارات، يجب تحديث الخرائط.

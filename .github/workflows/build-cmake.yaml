@@ -33,6 +33,7 @@ on:
       - '!data/strings/strings.txt'
       - '!docs/**'
       - '!packaging/**'
+      - '!sailfish/**'
       - '!tools/**'
       - '!xcode/**'
       - .github/workflows/build-cmake.yaml
