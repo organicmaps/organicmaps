@@ -974,4 +974,5 @@
     <string name="track_no_remaining_geometry">No track remains in this direction. Select another point.</string>
     <!-- Accessibility action to remove a break: interval followed by the schedule weekdays -->
     <string name="editor_remove_break">Remove break %1$s, %2$s</string>
+    <string name="editor_remove_schedule">Remove schedule: %1$s, %2$s</string>
 </resources>
