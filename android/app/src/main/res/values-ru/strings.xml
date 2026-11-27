@@ -1035,10 +1035,6 @@
     <string name="navigation_controls_expand">Развернуть панель навигации</string>
     <!-- Accessibility label or state for navigation controls. -->
     <string name="navigation_controls_collapse">Свернуть панель навигации</string>
-    <!-- Accessibility label or state for navigation controls. -->
-    <string name="navigation_controls_expanded">Развёрнута</string>
-    <!-- Accessibility label or state for navigation controls. -->
-    <string name="navigation_controls_collapsed">Свёрнута</string>
     <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
     <string name="navigation_current_speed">Текущая скорость: %1$s %2$s</string>
     <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
