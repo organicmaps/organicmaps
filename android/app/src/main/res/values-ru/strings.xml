@@ -989,10 +989,6 @@
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
 
     <!-- SECTION: Accessibility -->
-    <!-- Accessibility state of an expandable section, including opening hours and transit stops. -->
-    <string name="editor_section_expanded">Развёрнуто</string>
-    <!-- Accessibility state of an expandable section, including opening hours and transit stops. -->
-    <string name="editor_section_collapsed">Свёрнуто</string>
     <!-- Accessible description of the walking portion of a public transport route. %s is the formatted distance including units. -->
     <string name="transit_walking_distance">Пешком: %s</string>
 </resources>
