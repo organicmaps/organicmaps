@@ -15,6 +15,7 @@
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/search_mark_overlay_filter.hpp"
+#include "drape_frontend/selection_tracking.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_background_renderer.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
@@ -320,19 +321,6 @@ private:
   drape_ptr<MyPositionController> m_myPositionController;
 
   drape_ptr<SelectionShape> m_selectionShape;
-  struct SelectionTrackInfo
-  {
-    SelectionTrackInfo() = default;
-
-    SelectionTrackInfo(m2::AnyRectD const & startRect, m2::PointD const & startPos)
-      : m_startRect(startRect)
-      , m_startPos(startPos)
-    {}
-
-    m2::AnyRectD m_startRect;
-    m2::PointD m_startPos;
-    m2::PointI m_snapSides = m2::PointI::Zero();
-  };
   std::optional<SelectionTrackInfo> m_selectionTrackInfo;
 
   drape_ptr<RouteRenderer> m_routeRenderer;

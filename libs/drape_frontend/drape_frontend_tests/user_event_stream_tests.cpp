@@ -6,6 +6,7 @@
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/screen_operations.hpp"
+#include "drape_frontend/selection_tracking.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "base/scope_guard.hpp"
@@ -191,7 +192,7 @@ UNIT_CLASS_TEST(CameraAnimationFixture, ChangedVisibleViewportKeepsTheOriginalDe
 
 namespace
 {
-struct SelectionOffsetListener : df::UserEventStream::Listener
+struct ListenerStub : df::UserEventStream::Listener
 {
   void OnTap(m2::PointD const &, bool) override {}
   void OnForceTap(m2::PointD const &) override {}
@@ -209,6 +210,10 @@ struct SelectionOffsetListener : df::UserEventStream::Listener
   void OnScaleEnded() override {}
   void OnScaleRequested() override {}
   void OnTouchMapAction(df::TouchEvent::ETouchType, bool) override {}
+};
+
+struct SelectionOffsetListener : ListenerStub
+{
   bool OnNewVisibleViewport(m2::RectD const &, m2::RectD const &, bool needOffset, m2::PointD & offset) override
   {
     offset = m_offset;
@@ -216,6 +221,37 @@ struct SelectionOffsetListener : df::UserEventStream::Listener
   }
 
   m2::PointD const m_offset{0.1, 0.05};
+};
+
+// Keeps a selected point visible the way FrontendRenderer::OnNewVisibleViewport() does.
+struct SelectionTrackingListener : ListenerStub
+{
+  static double constexpr kHalfSize = 30;
+
+  SelectionTrackingListener(df::UserEventStream const & stream, m2::PointD const & selection)
+    : m_stream(stream)
+    , m_selection(selection)
+  {}
+
+  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
+                            m2::PointD & offset) override
+  {
+    if (!needOffset)
+      return false;
+
+    auto const screen = m_stream.GetTargetScreen();
+    auto const pos = screen.GtoP(m_selection);
+    auto const pixelOffset = m_info.CalcOffset(oldViewport, newViewport, m2::RectD(pos, kHalfSize, kHalfSize), pos);
+    if (pixelOffset == m2::PointD::Zero())
+      return false;
+
+    offset = screen.PtoG(pos + pixelOffset) - screen.PtoG(pos);
+    return true;
+  }
+
+  df::UserEventStream const & m_stream;
+  m2::PointD const m_selection;
+  df::SelectionTrackInfo m_info;
 };
 }  // namespace
 
@@ -231,6 +267,30 @@ UNIT_CLASS_TEST(CameraAnimationFixture, SelectionOffsetMovesTheCameraDestination
   TEST(m_animations.IsCameraMoving(), ());
   auto const & settled = Process(time + 205ms);
   TEST(settled.GetOrg().EqualDxDy(destination - listener.m_offset, 1e-6), ());
+  m_stream.SetListener(nullptr);
+}
+
+// A track opened from a list is selected before its camera move is applied. The place page that rises next must keep
+// the track start visible on the fitted camera, not on the previous one.
+UNIT_CLASS_TEST(CameraAnimationFixture, SelectionTrackingFollowsQueuedCameraMove)
+{
+  m2::RectD const track(1.0, -1.0, 3.0, 0.0);
+  m2::PointD const trackStart(2.8, -0.8);
+  SelectionTrackingListener listener(m_stream, trackStart);
+  m_stream.SetListener(make_ref(&listener));
+
+  auto const time = AddEvent<df::SetRectEvent>(track, false /* rotate */, df::kDoNotChangeZoom, true /* isAnim */,
+                                               true /* useVisibleViewport */);
+  m2::RectD const panelUp(0.0, 0.0, 800.0, 400.0);
+  AddEvent<df::SetVisibleViewportEvent>(panelUp);
+  Process(time);
+  TEST(m_animations.IsCameraMoving(), ());
+
+  // The fit centres the track horizontally, and the panel only lifts the start to its top edge.
+  auto const & settled = Process(time + 1s);
+  TEST(!m_animations.IsCameraMoving(), ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetOrg().x, track.Center().x, 1e-9, ());
+  TEST_ALMOST_EQUAL_ABS(settled.GtoP(trackStart).y, panelUp.maxY() - SelectionTrackingListener::kHalfSize, 1e-6, ());
   m_stream.SetListener(nullptr);
 }
 

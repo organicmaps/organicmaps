@@ -126,6 +126,8 @@
 		670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947E31BDF9BEC005014C0 /* frontend_renderer.hpp */; };
 		A13599000000000000000001 /* search_mark_overlay_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A13599000000000000000003 /* search_mark_overlay_filter.cpp */; };
 		A13599000000000000000002 /* search_mark_overlay_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A13599000000000000000004 /* search_mark_overlay_filter.hpp */; };
+		A13599000000000000000005 /* selection_tracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A13599000000000000000007 /* selection_tracking.cpp */; };
+		A13599000000000000000006 /* selection_tracking.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A13599000000000000000008 /* selection_tracking.hpp */; };
 		670947F61BDF9BF5005014C0 /* apply_feature_functors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947E81BDF9BF5005014C0 /* apply_feature_functors.cpp */; };
 		670947F71BDF9BF5005014C0 /* apply_feature_functors.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947E91BDF9BF5005014C0 /* apply_feature_functors.hpp */; };
 		670947F91BDF9BF5005014C0 /* area_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947EB1BDF9BF5005014C0 /* area_shape.hpp */; };
@@ -334,6 +336,8 @@
 		670947E31BDF9BEC005014C0 /* frontend_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = frontend_renderer.hpp; sourceTree = "<group>"; };
 		A13599000000000000000003 /* search_mark_overlay_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_mark_overlay_filter.cpp; sourceTree = "<group>"; };
 		A13599000000000000000004 /* search_mark_overlay_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_mark_overlay_filter.hpp; sourceTree = "<group>"; };
+		A13599000000000000000007 /* selection_tracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = selection_tracking.cpp; sourceTree = "<group>"; };
+		A13599000000000000000008 /* selection_tracking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = selection_tracking.hpp; sourceTree = "<group>"; };
 		670947E81BDF9BF5005014C0 /* apply_feature_functors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = apply_feature_functors.cpp; sourceTree = "<group>"; };
 		670947E91BDF9BF5005014C0 /* apply_feature_functors.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = apply_feature_functors.hpp; sourceTree = "<group>"; };
 		670947EA1BDF9BF5005014C0 /* area_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = area_shape.cpp; sourceTree = "<group>"; };
@@ -493,6 +497,8 @@
 				670947E21BDF9BEC005014C0 /* frontend_renderer.cpp */,
 				A13599000000000000000004 /* search_mark_overlay_filter.hpp */,
 				A13599000000000000000003 /* search_mark_overlay_filter.cpp */,
+				A13599000000000000000008 /* selection_tracking.hpp */,
+				A13599000000000000000007 /* selection_tracking.cpp */,
 				F6B2830B1C1B04680081957A /* gps_track_point.hpp */,
 				F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */,
 				F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */,
@@ -742,6 +748,7 @@
 				637FCC372E7FCE95008DB9F1 /* tile_background_renderer.hpp in Headers */,
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
 				A13599000000000000000002 /* search_mark_overlay_filter.hpp in Headers */,
+				A13599000000000000000006 /* selection_tracking.hpp in Headers */,
 				45B241AE20EF9D0500A759D6 /* scale_fps_helper.hpp in Headers */,
 				670947F71BDF9BF5005014C0 /* apply_feature_functors.hpp in Headers */,
 				BB59CED720BF6E46008A9ADF /* transit_scheme_renderer.hpp in Headers */,
@@ -920,6 +927,7 @@
 				452FE5C31EB2004F00EE470C /* screen_quad_renderer.cpp in Sources */,
 				670947E61BDF9BEC005014C0 /* frontend_renderer.cpp in Sources */,
 				A13599000000000000000001 /* search_mark_overlay_filter.cpp in Sources */,
+				A13599000000000000000005 /* selection_tracking.cpp in Sources */,
 				670947D41BDF9BE1005014C0 /* tile_utils.cpp in Sources */,
 				F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */,
 				670947C61BDF9BE1005014C0 /* text_layout.cpp in Sources */,
