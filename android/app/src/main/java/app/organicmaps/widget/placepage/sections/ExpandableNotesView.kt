@@ -152,8 +152,6 @@ class ExpandableNotesView @JvmOverloads constructor(
                 AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_EXPAND
             },
         )
-        info.stateDescription =
-            context.getString(if (isExpanded) R.string.description_expanded else R.string.description_collapsed)
     }
 
     private fun performExpansionAction(action: Int): Boolean {
@@ -434,14 +432,6 @@ class ExpandableNotesView @JvmOverloads constructor(
         moreRegion.visibility = visibility
         fadeOverlay.visibility = if (isExpanded) GONE else visibility
         if (!isExpanded) moreRegion.setText(R.string.category_desc_more)
-        ViewCompat.setStateDescription(
-            moreRegion,
-            if (canExpand) {
-                context.getString(if (isExpanded) R.string.description_expanded else R.string.description_collapsed)
-            } else {
-                null
-            },
-        )
     }
 
     private fun handleWebViewTap(event: MotionEvent) {

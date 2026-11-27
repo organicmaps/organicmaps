@@ -47214,18 +47214,6 @@ tags = android-app
 en = Less
 ru = Свернуть
 
-[description_expanded]
-comment = Accessibility state of an expanded bookmark or track description
-tags = android-app
-en = Expanded
-ru = Развёрнуто
-
-[description_collapsed]
-comment = Accessibility state of a collapsed bookmark or track description
-tags = android-app
-en = Collapsed
-ru = Свёрнуто
-
 [elevation_profile_selection]
 comment = Accessibility label of the adjustable selected point on an elevation profile
 tags = android-app

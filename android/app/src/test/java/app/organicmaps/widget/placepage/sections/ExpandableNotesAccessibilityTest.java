@@ -2,6 +2,7 @@ package app.organicmaps.widget.placepage.sections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
@@ -69,10 +70,7 @@ public class ExpandableNotesAccessibilityTest
               return "More";
             if (id == R.string.description_less)
               return "Less";
-            if (id == R.string.description_expanded)
-              return "Expanded";
-            if (id == R.string.description_collapsed)
-              return "Collapsed";
+
             return super.getText(id);
           }
         };
@@ -143,7 +141,7 @@ public class ExpandableNotesAccessibilityTest
     assertEquals(Integer.MAX_VALUE, mText.getMaxLines());
     assertEquals(View.VISIBLE, mMore.getVisibility());
     assertEquals("Less", mMore.getText().toString());
-    assertEquals("Expanded", mMore.createAccessibilityNodeInfo().getStateDescription());
+    assertNull(AccessibilityNodeInfoCompat.wrap(mMore.createAccessibilityNodeInfo()).getStateDescription());
     assertTrue(mMore.performAccessibilityAction(AccessibilityNodeInfoCompat.ACTION_COLLAPSE, null));
     assertEquals(3, mText.getMaxLines());
     assertEquals("More", mMore.getText().toString());
@@ -186,7 +184,7 @@ public class ExpandableNotesAccessibilityTest
     measure();
     assertEquals(3, mText.getMaxLines());
     assertEquals("More", mMore.getText().toString());
-    assertEquals("Collapsed", mMore.createAccessibilityNodeInfo().getStateDescription());
+    assertNull(AccessibilityNodeInfoCompat.wrap(mMore.createAccessibilityNodeInfo()).getStateDescription());
   }
 
   @Test
