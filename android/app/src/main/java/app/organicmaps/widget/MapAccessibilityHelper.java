@@ -124,7 +124,8 @@ public final class MapAccessibilityHelper extends ExploreByTouchHelper implement
     host.setContentDescription(host.getResources().getString(R.string.map_accessibility_label));
     host.setOnHoverListener((v, event) -> dispatchHoverEvent(event));
     host.setOnKeyListener((v, code, event) -> dispatchKeyEvent(event));
-    host.setOnFocusChangeListener((v, focused) -> onFocusChanged(focused, View.FOCUS_FORWARD, null));
+    if (host instanceof AccessibleMapView mapView)
+      mapView.setAccessibilityHelper(this);
     addPanAction(R.string.map_pan_left, -1, 0);
     addPanAction(R.string.map_pan_right, 1, 0);
     addPanAction(R.string.map_pan_up, 0, -1);
@@ -248,6 +249,7 @@ public final class MapAccessibilityHelper extends ExploreByTouchHelper implement
     List<Integer> order = new ArrayList<>();
     Set<Long> marks = new HashSet<>();
     boolean changed = false;
+    List<Integer> moved = new ArrayList<>();
     Rect visible = new Rect();
     if (mHost.getLocalVisibleRect(visible))
     {
@@ -273,6 +275,9 @@ public final class MapAccessibilityHelper extends ExploreByTouchHelper implement
         // Position updates must not interrupt speech or replace accessibility focus.
         changed |= old == null || !old.mPoint.mTitle.equals(point.mTitle) || old.mPoint.mType != point.mType
                 || old.mPoint.mIntermediateIndex != point.mIntermediateIndex;
+        if (old != null
+            && (!old.mBounds.equals(bounds) || old.mPoint.mLat != point.mLat || old.mPoint.mLon != point.mLon))
+          moved.add(id);
         nodes.put(id, node);
         order.add(id);
       }
@@ -290,6 +295,9 @@ public final class MapAccessibilityHelper extends ExploreByTouchHelper implement
     mOrder = order;
     if (changed)
       invalidateRoot();
+    else
+      for (int id : moved)
+        invalidateVirtualView(id, AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);
   }
 
   @Override

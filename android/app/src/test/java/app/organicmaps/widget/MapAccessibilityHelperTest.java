@@ -169,7 +169,7 @@ public class MapAccessibilityHelperTest
   }
 
   @Test
-  public void positionUpdatesPreserveIdsAndFocusWithoutContentEvents()
+  public void positionUpdatesInvalidateTheNodeAndPreserveIdsAndFocus()
   {
     mSource.mPoints = new MapRoutePoint[] {point(100, "Start", 0, 0, 200, 200)};
     int id = ids().get(0);
@@ -178,10 +178,28 @@ public class MapAccessibilityHelperTest
     mSource.mPoints = new MapRoutePoint[] {point(100, "Start", 0, 0, 250, 260)};
     assertEquals(id, (int) ids().get(0));
     assertEquals(id, mHelper.getAccessibilityFocusedVirtualViewId());
-    assertEquals(0, mParent.mChanges);
+    assertEquals(1, mParent.mChanges);
+    ids();
+    assertEquals(1, mParent.mChanges);
     Rect bounds = new Rect();
     provider().createAccessibilityNodeInfo(id).getBoundsInParent(bounds);
     assertEquals(new Rect(226, 236, 274, 284), bounds);
+  }
+
+  @Test
+  public void coordinateChangesRefreshTheCachedLabelWithoutMovingFocus()
+  {
+    mSource.mPoints = new MapRoutePoint[] {point(100, "Start", 0, 0, 200, 200)};
+    int id = ids().get(0);
+    assertTrue(provider().performAction(id, AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS, null));
+    mParent.mChanges = 0;
+    mSource.mPoints = new MapRoutePoint[] {new MapRoutePoint(100, "Start", 0, 0, 200, 200, 56.0, 38.0)};
+    ids();
+    assertEquals(1, mParent.mChanges);
+    assertEquals(id, mHelper.getAccessibilityFocusedVirtualViewId());
+    assertTrue(provider().createAccessibilityNodeInfo(id).getContentDescription().toString().contains("56"));
+    ids();
+    assertEquals(1, mParent.mChanges);
   }
 
   @Test
