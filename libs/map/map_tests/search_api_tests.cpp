@@ -207,6 +207,32 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionRejectsMisleadingPoiName)
   TEST(delegate.WaitUntil([&] { return delivered; }), ());
 }
 
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionHandlesMoreThanOnePageOfCandidates)
+{
+  TestStreet street({{-0.001, 0}, {0.001, 0}}, "Broadway", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    for (size_t i = 0; i <= SearchParams::kDefaultNumResultsEverywhere; ++i)
+    {
+      // Distinct mapped features at one address, all within the matcher association radius.
+      auto const x = static_cast<double>(i) * 0.000005;
+      builder.Add(TestBuilding(m2::PointD(x, 0.00001), "Unit " + std::to_string(i), "636", "Broadway", "en"));
+    }
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002));
+
+  bool delivered = false;
+  api.ResolveAddress(1, {{"636 Broadway", "636 Broadway"}}, "en", [&](auto result)
+  {
+    TEST(result, ());
+    delivered = true;
+  });
+  TEST(delegate.WaitUntil([&] { return delivered; }), ());
+}
+
 UNIT_CLASS_TEST(SearchAPITest, AddressResolutionRejectsAmbiguousCitiesAcrossMaps)
 {
   TestCity firstCity(m2::PointD(0, 0), "Springfield", "en", 200);

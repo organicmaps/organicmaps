@@ -44,6 +44,21 @@ public class ContactAddressTest
   }
 
   @Test
+  public void stripsLocalityAndUnitFromProviderStreetFields()
+  {
+    var address = new ContactAddress("125 Elm Rd Surrey, BC, Canada",
+                                     "125 Elm Rd Surrey", "Surrey", "BC", "Canada");
+    assertEquals(List.of(new ContactAddress.SearchQuery("125 Elm Road Surrey British Columbia Canada", "125 Elm Road")),
+                 address.getSearchQueries());
+
+    var unit = new ContactAddress("125 West Elm Ave #301, Vancouver, BC, Canada",
+                                  "125 West Elm Ave #301 Vancouver", "Vancouver", "BC", "Canada");
+    assertEquals(List.of(new ContactAddress.SearchQuery("125 West Elm Avenue Vancouver British Columbia Canada",
+                                                       "125 West Elm Avenue")),
+                 unit.getSearchQueries());
+  }
+
+  @Test
   public void formattedOnlyAddressPreservesLocality()
   {
     final ContactAddress address = new ContactAddress("868 West 67 Ave, Vancouver", "", "");

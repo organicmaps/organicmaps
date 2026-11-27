@@ -1,6 +1,7 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
@@ -119,6 +120,15 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
   title.m_primaryTextFont.m_size = 11;  // most frequent font size in styles
   title.m_primaryText = GetPreferredName();
   title.m_primaryOffset.x = 1;
+  if (HasPointLayout())
+  {
+    // Use the default POI caption palette independently of the bookmark color.
+    bool const dark = MapStyleIsDark(GetStyleReader().GetCurrentStyle());
+    auto const gray = dark ? 0xa6 : 0x44;
+    title.m_primaryTextFont.m_color = dp::Color(gray, gray, gray, 255);
+    title.m_primaryTextFont.m_size = 10;
+    title.m_primaryOffset = p == settings::Placement::Bottom ? m2::PointF(0, 2) : m2::PointF(2, 0);
+  }
 
   auto titles = make_unique_dp<TitlesInfo>();
   titles->push_back(std::move(title));
@@ -136,9 +146,16 @@ df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
   return df::DepthLayer::SearchMarkLayer;
 }
 
+bool Bookmark::HasPointLayout() const
+{
+  auto const layout = m_data.m_properties.find("CustomImageLayout");
+  return layout != m_data.m_properties.end() && layout->second == "point" &&
+         m_data.m_properties.contains(kCustomImageProperty);
+}
+
 dp::Anchor Bookmark::GetAnchor() const
 {
-  return dp::Bottom;
+  return HasPointLayout() ? dp::Center : dp::Bottom;
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const

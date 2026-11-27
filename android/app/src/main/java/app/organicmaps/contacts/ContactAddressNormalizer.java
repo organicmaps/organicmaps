@@ -170,16 +170,14 @@ final class ContactAddressNormalizer
       if (looksLikeStructuredStreet(component))
         return normalizeStreetComponent(component);
     }
-    final List<String> tokens = normalizeTokens(prepared);
-    final int streetEnd = findStreetEnd(tokens);
-    if (streetEnd >= 0)
-      return String.join(" ", tokens.subList(0, streetEnd + 1));
-    return String.join(" ", tokens);
+    return normalizeStreetComponent(prepared);
   }
 
   static String normalizeStreetComponent(String street)
   {
-    return String.join(" ", normalizeTokens(prepareAddress(street)));
+    final List<String> tokens = normalizeTokens(prepareAddress(street));
+    final int streetEnd = findStreetEnd(tokens);
+    return String.join(" ", streetEnd < 0 ? tokens : tokens.subList(0, streetEnd + 1));
   }
 
   @NonNull
@@ -418,7 +416,7 @@ final class ContactAddressNormalizer
     {
       if (!isExpandedSuffix(tokens.get(i)))
         continue;
-      if (i + 1 < tokens.size() && tokens.get(i).equalsIgnoreCase("Road")
+      if (i + 1 < tokens.size() && tokens.get(i).matches("(?i)road|highway")
           && tokens.get(i - 1).matches("(?i)county|state|township") && tokens.get(i + 1).matches("\\d{1,4}[A-Za-z]?"))
         return i + 1;
       if (i + 1 < tokens.size() && isDirection(tokens.get(i + 1)))

@@ -505,6 +505,9 @@ void SearchAPI::StartAddressResolution()
   params.m_mode = Mode::Everywhere;
   params.m_needAddress = true;
   params.m_requireCompleteResults = true;
+  // Keep the normal pre-ranker budget available to the resolver. A page of display
+  // results can fill up before we have enough evidence to establish uniqueness.
+  params.m_maxNumResults = SearchParams::kPreResultsCount;
   // Use the engine's normal bounded timeout. A shorter deadline can turn a cold-cache
   // address into a miss before the resolver can validate it.
   params.m_onResults = [this, request, generation, query](Results const & results)

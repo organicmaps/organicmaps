@@ -54,6 +54,7 @@ public:
 
     bool m_viewportSearch = false;
     bool m_categorialRequest = false;
+    bool m_requireCompleteResults = false;
 
     size_t m_numQueryTokens = 0;
   };
@@ -64,13 +65,19 @@ public:
 
   void Finish(bool cancelled);
 
-  bool IsFull() const { return m_numSentResults >= Limit() || m_ranker.IsFull(); }
+  bool IsFull() const { return m_limitReached || m_numSentResults >= Limit() || m_ranker.IsFull(); }
 
   template <typename... Args>
   void Emplace(Args &&... args)
   {
     if (IsFull())
       return;
+
+    if (m_params.m_requireCompleteResults && Size() >= Limit() - m_numSentResults)
+    {
+      m_limitReached = true;
+      return;
+    }
 
     m_results.emplace_back(std::forward<Args>(args)...);
     if (m_results.back().GetInfo().m_allTokensUsed)
@@ -153,6 +160,7 @@ private:
   size_t m_numSentResults = 0;
 
   // True iff there is at least one result with all tokens used (not relaxed).
+  bool m_limitReached = false;
   bool m_haveFullyMatchedResult = false;
 
   // Cache of nested rects used to estimate distance from a feature to the pivot.

@@ -194,6 +194,7 @@ public:
   void SetCustomNames(std::string const & title, std::string const & subtitle);
   void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
   void SetAddress(std::string && address) { m_address = std::move(address); }
+  void SetBookmarkAddress(std::string address, std::string const & addressLabel);
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
 
   /// Bookmark

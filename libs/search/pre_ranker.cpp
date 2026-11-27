@@ -75,6 +75,7 @@ PreRanker::PreRanker(DataSource const & dataSource, Ranker & ranker)
 void PreRanker::Init(Params const & params)
 {
   m_numSentResults = 0;
+  m_limitReached = false;
   m_haveFullyMatchedResult = false;
   m_results.clear();
   m_relaxedResults.clear();
@@ -193,7 +194,7 @@ void PreRanker::Filter()
     FilterForViewportSearch();
 
   // Viewport search ends here.
-  if (m_results.size() <= BatchSize())
+  if (m_params.m_requireCompleteResults || m_results.size() <= BatchSize())
     return;
 
   std::vector<size_t> indices(m_results.size());

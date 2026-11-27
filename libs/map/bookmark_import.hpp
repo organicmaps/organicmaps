@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+class Bookmark;
 class BookmarkManager;
 
 // Stable source keys let an explicit re-import update ordinary bookmarks without duplicating them.
@@ -35,10 +36,12 @@ struct BookmarkImportResult
   size_t m_skipped = 0;
 };
 
+std::string GetImportedBookmarkAddress(Bookmark const & bookmark);
+
 // Main-thread operation. Preserves local changes, unrelated bookmarks, and category names/visibility.
 std::vector<BookmarkImportEntry> GetImportedBookmarks(BookmarkManager const & manager, std::string const & source);
 
 BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string const & source,
                                      std::string const & categoryName,
                                      std::vector<BookmarkImportEntry> const & entries,
-                                     std::string const & customImage = {}, int minZoom = 1);
+                                     std::string const & customImage = {}, int minZoom = 1, bool usePointLayout = false);

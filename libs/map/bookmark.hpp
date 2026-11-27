@@ -78,6 +78,7 @@ public:
   void Detach();
 
 private:
+  bool HasPointLayout() const;
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
 
   kml::BookmarkData m_data;

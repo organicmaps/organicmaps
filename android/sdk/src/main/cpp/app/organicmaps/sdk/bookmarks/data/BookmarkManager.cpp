@@ -655,7 +655,7 @@ JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkMan
   }
   auto const imported =
       ImportBookmarks(frm()->GetBookmarkManager(), kContactsSource, jni::ToNativeString(env, categoryName), entries,
-                      "14,contact-s;15,contact-m", 14);
+                      "14,contact-s;15,contact-m", 14, true /* usePointLayout */);
   jlong const values[] = {static_cast<jlong>(imported.m_categoryId), static_cast<jlong>(imported.m_added),
                           static_cast<jlong>(imported.m_updated),    static_cast<jlong>(imported.m_unchanged),
                           static_cast<jlong>(imported.m_edited),     static_cast<jlong>(imported.m_skipped)};

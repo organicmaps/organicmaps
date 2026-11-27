@@ -4168,10 +4168,18 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
 {
   BookmarkManager manager(BM_CALLBACKS);
   manager.EnableTestMode(true);
-  auto const contacts = ImportBookmarks(manager, "contacts", "Contacts", {{"key", "Name", "Address", 49, -123}},
-                                        "14,contact-s;15,contact-m", 14);
+  std::vector<BookmarkImportEntry> entries{{"key", "Name", "Address", 49, -123}};
+  entries.front().m_requireSourceCategory = true;
+  std::string const image = "14,contact-s;15,contact-m";
+  auto const contacts = ImportBookmarks(manager, "contacts", "Contacts", entries, image, 14);
   auto const id = *manager.GetUserMarkIds(contacts.m_categoryId).begin();
   auto const * bookmark = manager.GetBookmark(id);
+  TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
+  auto const upgraded = ImportBookmarks(manager, "contacts", "Contacts", entries, image, 14,
+                                        true /* usePointLayout */);
+  TEST_EQUAL(upgraded.m_updated, 1, ());
+  TEST_EQUAL(upgraded.m_added, 0, ());
+  TEST_EQUAL(*manager.GetUserMarkIds(contacts.m_categoryId).begin(), id, ());
   auto const other = manager.CreateBookmarkCategory("Other");
   auto session = manager.GetEditSession();
   session.DetachBookmark(id, contacts.m_categoryId);
@@ -4180,6 +4188,8 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
   auto const symbols = bookmark->GetSymbolNames();
   TEST_EQUAL(symbols->at(14), "contact-s", ());
   TEST_EQUAL(symbols->at(15), "contact-m", ());
+  TEST_EQUAL(bookmark->GetAnchor(), dp::Center, ());
+  TEST_EQUAL(bookmark->GetTitleDeclEx(settings::Placement::Bottom, dp::Color::White())->front().m_anchor, dp::Top, ());
   TEST(!bookmark->GetTitleDeclEx(settings::Placement::None, dp::Color::White()), ());
 
   m2::AnyRectD rect(bookmark->GetPivot(), ang::AngleD(0.0), m2::RectD(-1e-7, -1e-7, 1e-7, 1e-7));

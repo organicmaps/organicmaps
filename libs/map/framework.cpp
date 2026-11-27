@@ -1,6 +1,7 @@
 #include "map/framework.hpp"
 #include "base/assert.hpp"
 #include "map/benchmark_tools.hpp"
+#include "map/bookmark_import.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/place_page_info.hpp"
 #include "map/raster_tile_provider.hpp"
@@ -837,6 +838,16 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   else
   {
     FillPointInfoForBookmark(bmk, info);
+  }
+
+  auto savedAddress = GetImportedBookmarkAddress(bmk);
+  if (!savedAddress.empty())
+  {
+    auto address = info.GetAddress();
+    if (address.empty())
+      address = GetAddressAtPoint(bmk.GetPivot()).FormatAddress();
+    info.SetBookmarkAddress(address.empty() ? std::move(savedAddress) : std::move(address),
+                            platform::GetLocalizedTypeName("building-address"));
   }
 }
 
