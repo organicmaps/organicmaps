@@ -9138,16 +9138,22 @@ type landuse-garages
     area color=#00E4E2EB/#0017151E priority=110
   z15
     area color=#00E4E2EB/#0017151E priority=110
+    caption primary[height=10 color=#00444444/#00A6A6A6] priority=3050
   z16
     area color=#00E4E2EB/#0017151E priority=110
+    caption primary[height=10 color=#00444444/#00A6A6A6] priority=3050
   z17
     area color=#00E4E2EB/#0017151E priority=110
+    caption primary[height=10 color=#00444444/#00A6A6A6] priority=3050
   z18
     area color=#00E4E2EB/#0017151E priority=110
+    caption primary[height=10 color=#00444444/#00A6A6A6] priority=3050
   z19
     area color=#00E4E2EB/#0017151E priority=110
+    caption primary[height=10 color=#00444444/#00A6A6A6] priority=3050
   z20
     area color=#00E4E2EB/#0017151E priority=110
+    caption primary[height=10 color=#00444444/#00A6A6A6] priority=3050
 type landuse-grass
   z12
     area color=#00CFD5A8/#001F2310 priority=-1880
