@@ -46,8 +46,6 @@ extension NavigationDashboard {
           viewModel.progress = 0
         }
         if viewModel.planningMode == .default, state == .prepare || state == .planning || state == .error {
-          viewModel.routeElevationPreviewData = nil
-          viewModel.routeElevationActivePointDistance = nil
           viewModel.entity = MWMNavigationDashboardEntity()
           viewModel.estimates = NSAttributedString()
         }

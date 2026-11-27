@@ -11,6 +11,7 @@
 #include "base/scope_guard.hpp"
 
 #include <cstdint>
+#include <map>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -202,6 +203,42 @@ UNIT_TEST(RoutingOptions_SupportedOptionsByVehicle)
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian),
              RoutingOptions::Ferry | RoutingOptions::Steps | RoutingOptions::DifficultTrail, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Transit), 0, ());
+}
+
+UNIT_TEST(RoadRoutingPreferences_TrackProperties)
+{
+  auto const check = [](RoadRoutingPreferences const & preferences, std::map<std::string, std::string> const & expected)
+  { TEST_EQUAL(preferences.ToTrackProperties(), expected, (preferences.m_vehicleType, preferences.m_strategy)); };
+
+  using enum RoutingOptions::Road;
+  check({VehicleType::Car, RoutingOptions(Toll | Dirty | Steps | Usual), RoadRoutingStrategy::DistanceBiased},
+        {{"routing.road.strategy", "distance_biased"},
+         {"routing.avoid.toll", "true"},
+         {"routing.avoid.motorway", "false"},
+         {"routing.avoid.ferry", "false"},
+         {"routing.avoid.unpaved", "true"}});
+  check({VehicleType::Car, RoutingOptions(Motorway), RoadRoutingStrategy::Normal},
+        {{"routing.road.strategy", "normal"},
+         {"routing.avoid.toll", "false"},
+         {"routing.avoid.motorway", "true"},
+         {"routing.avoid.ferry", "false"},
+         {"routing.avoid.unpaved", "false"}});
+  check({VehicleType::Bicycle, RoutingOptions(Ferry | Motorway), RoadRoutingStrategy::Normal},
+        {{"routing.road.strategy", "normal"},
+         {"routing.avoid.ferry", "true"},
+         {"routing.avoid.unpaved", "false"},
+         {"routing.avoid.steps", "false"}});
+  check({VehicleType::Pedestrian, RoutingOptions(DifficultTrail | Steps | Dirty), RoadRoutingStrategy::Normal},
+        {{"routing.road.strategy", "normal"},
+         {"routing.avoid.ferry", "false"},
+         {"routing.avoid.steps", "true"},
+         {"routing.avoid.difficult_trails", "true"}});
+  // ExpertTrail is derived by the graph. It has no independent setting and cannot turn on DifficultTrail.
+  check({VehicleType::Pedestrian, RoutingOptions(ExpertTrail), RoadRoutingStrategy::Normal},
+        {{"routing.road.strategy", "normal"},
+         {"routing.avoid.ferry", "false"},
+         {"routing.avoid.steps", "false"},
+         {"routing.avoid.difficult_trails", "false"}});
 }
 
 UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)

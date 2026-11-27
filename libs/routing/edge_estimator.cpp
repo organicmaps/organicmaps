@@ -213,7 +213,7 @@ double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & 
   // every estimator weight is >= distance / cap, so the cap is the maximum possible speed — unless
   // the search can also see leap, precomputed cross-mwm or guides edges, which are priced by other
   // models (see the declaration).
-  bool const tight = tightAllowed && m_tightHeuristicAllowed && m_strategy == Strategy::DistanceBiased;
+  bool const tight = tightAllowed && m_tightHeuristicAllowed && m_strategy == RoadRoutingStrategy::DistanceBiased;
   double const distanceM = ms::DistanceOnEarth(from, to);
   return tight ? (distanceM * m_distanceBiasSecPerM) : (distanceM / m_maxWeightSpeedMpS);
 }

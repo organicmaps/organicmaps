@@ -59,11 +59,6 @@ extension NavigationDashboard.ViewModel {
   var isStartButtonHidden: Bool { routerType == .water }
   var isWaterCalculating: Bool { routerType == .water && dashboardState == .planning }
 
-  var isTransportSelectionEnabled: Bool {
-    guard planningMode == .navigateTrack, dashboardState == .planning else { return true }
-    return progress >= 1
-  }
-
   var supportsElevationProfile: Bool {
     planningMode == .navigateTrack || routerType == .pedestrian || routerType == .bicycle
   }
@@ -79,6 +74,8 @@ extension NavigationDashboard.ViewModel {
       MWMRouter.isRouteValid()
   }
 
+  private var showsLoadingState: Bool { planningMode != .navigateTrack && progress < 1 }
+
   var startButtonState: StartRouteButton.State {
     if routerType == .water {
       return .disabled
@@ -87,7 +84,7 @@ extension NavigationDashboard.ViewModel {
       dashboardState == .error {
       return .disabled
     }
-    if progress < 1 {
+    if showsLoadingState {
       return .loading(progress: progress)
     }
     let isStartEnabled = routerType != .ruler && routerType != .publicTransport
@@ -98,7 +95,7 @@ extension NavigationDashboard.ViewModel {
     if dashboardState == .error, let errorMessage {
       return .error(errorMessage)
     }
-    if progress < 1 || dashboardState == .planning {
+    if showsLoadingState || (planningMode == .default && dashboardState == .planning) {
       return .loading
     }
     return .estimates(estimates)

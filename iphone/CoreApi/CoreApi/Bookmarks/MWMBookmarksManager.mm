@@ -239,7 +239,7 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 - (void)deleteCategoryAtFilePath:(NSString *)filePath
 {
   auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
-  if (groupId)
+  if (groupId != kml::kInvalidMarkGroupId)
     [self deleteCategory:groupId];
 }
 

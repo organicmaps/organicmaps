@@ -666,7 +666,6 @@ extension NavigationDashboardViewController: NavigationDashboard.Rendering {
     }
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
     reverseRoutePointsButton.accessibilityValue = viewModel.routePoints.track?.destination
-    transportOptionsView.setSelectionEnabled(viewModel.isTransportSelectionEnabled)
 
     presentationStep = viewModel.presentationStep
     updatePresentationStep(viewModel.presentationStep)

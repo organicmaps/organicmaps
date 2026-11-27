@@ -500,6 +500,7 @@ UNIT_TEST(Kml_Serialization_Text_Track_With_Stops)
   auto data = GenerateKmlFileDataForTrackWithoutTimestamps();
   auto & trackData = data.m_tracksData[0];
   trackData.m_routerType = "vehicle & bicycle";
+  trackData.m_properties = {{"custom", "A & B"}};
   trackData.m_stops = {
       {m2::PointD(45.5, 56.5), "Stop 1"}, {m2::PointD(45.3, 56.7), "Кафе «Ёлки» & Co"}, {m2::PointD(45.3, 56.7), ""}};
 

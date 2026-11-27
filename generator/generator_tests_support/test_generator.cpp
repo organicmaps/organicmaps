@@ -110,22 +110,22 @@ void TestRawGenerator::BuildSearch(std::string const & mwmName)
   }
 }
 
-void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string const & countryName)
+void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string const & parentCountryName)
 {
   using namespace routing_builder;
-  CountryParentNameGetterFn const parentGetter = [&countryName](std::string const & name)
-  { return (name != countryName ? countryName : std::string()); };
+  CountryParentNameGetterFn const parentGetter = [&parentCountryName](std::string const & name)
+  { return (name != parentCountryName ? parentCountryName : std::string()); };
 
   std::string const filePath = GetMwmPath(mwmName);
   std::string const osmToFeatureFilename = filePath + OSM2FEATURE_FILE_EXTENSION;
 
-  routing_builder::BuildRoutingIndex(filePath, countryName, parentGetter);
+  routing_builder::BuildRoutingIndex(filePath, mwmName, parentGetter);
 
   auto osm2feature = routing::CreateWay2FeatureMapper(filePath, osmToFeatureFilename);
   BuildRoadAccessInfo(filePath, m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME), *osm2feature);
   BuildCamerasInfo(filePath, m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), osmToFeatureFilename);
 
-  auto routingGraph = CreateIndexGraph(filePath, countryName, parentGetter);
+  auto routingGraph = CreateIndexGraph(filePath, mwmName, parentGetter);
   CHECK(routingGraph, ());
 
   BuildRoadRestrictions(*routingGraph, filePath, m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME),
@@ -134,16 +134,16 @@ void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string con
                         m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME));
 }
 
-void TestRawGenerator::BuildCrossMwm(std::string const & mwmName, std::string const & countryName)
+void TestRawGenerator::BuildCrossMwm(std::string const & mwmName, std::string const & parentCountryName)
 {
   using namespace routing_builder;
-  CHECK(MakeFakeBordersFile(GetTmpPath(), countryName), ());
+  CHECK(MakeFakeBordersFile(GetTmpPath(), mwmName), ());
 
-  CountryParentNameGetterFn const parentGetter = [&countryName](std::string const & name)
-  { return (name != countryName ? countryName : std::string()); };
+  CountryParentNameGetterFn const parentGetter = [&parentCountryName](std::string const & name)
+  { return (name != parentCountryName ? parentCountryName : std::string()); };
 
   std::string const filePath = GetMwmPath(mwmName);
-  BuildRoutingCrossMwmSection(GetTmpPath(), filePath, countryName, GetTmpPath(), parentGetter,
+  BuildRoutingCrossMwmSection(GetTmpPath(), filePath, mwmName, GetTmpPath(), parentGetter,
                               filePath + OSM2FEATURE_FILE_EXTENSION);
 }
 

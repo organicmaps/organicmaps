@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setHidden:(BOOL)hidden;
 - (void)stateClosed;
 - (void)statePrepare;
+- (void)clearRouteElevationPreview;
 - (void)statePlanning;
 - (void)stateError:(NSString * _Nonnull)errorMessage;
 - (void)stateReady;

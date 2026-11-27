@@ -1893,7 +1893,9 @@ kml::TrackId RoutingManager::SaveRoute()
     if (point.m_pointType == RouteMarkType::Intermediate)
       stops.push_back({point.m_position, point.m_title});
 
-  return m_bmManager->SaveRoute(std::move(junctions), from, to, std::move(stops), ToString(m_currentRouterType));
+  auto const & preferences = m_routingSession.GetRoute()->GetRoadRoutingPreferences();
+  return m_bmManager->SaveRoute(std::move(junctions), from, to, std::move(stops), ToString(m_currentRouterType),
+                                preferences ? preferences->ToTrackProperties() : kml::Properties{});
 }
 
 bool RoutingManager::DisableFollowMode()

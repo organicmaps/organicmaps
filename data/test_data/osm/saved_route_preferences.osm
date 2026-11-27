@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1" lat="47.35" lon="8.51"/>
+  <node id="2" lat="47.35" lon="8.53"/>
+  <node id="3" lat="47.35" lon="8.61"/>
+  <node id="4" lat="47.35" lon="8.63"/>
+  <node id="5" lat="47.365" lon="8.57"/>
+  <!-- A faster trunk detour and a shorter, slower secondary road between nodes 2 and 3. -->
+  <way id="10">
+    <nd ref="1"/><nd ref="2"/>
+    <tag k="highway" v="primary"/>
+  </way>
+  <way id="11">
+    <nd ref="2"/><nd ref="5"/><nd ref="3"/>
+    <tag k="highway" v="trunk"/>
+  </way>
+  <way id="12">
+    <nd ref="2"/><nd ref="3"/>
+    <tag k="highway" v="secondary"/>
+  </way>
+  <way id="13">
+    <nd ref="3"/><nd ref="4"/>
+    <tag k="highway" v="primary"/>
+  </way>
+</osm>

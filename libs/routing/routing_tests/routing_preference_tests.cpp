@@ -345,7 +345,13 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, FerryAvoidanceIsIndependent)
       auto router = Router(vehicle);
       RoutesResult result;
       TEST_EQUAL(Calculate(*router, result), RouterResultCode::NoError, (vehicle));
-      TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Ferry), vehicle != avoided, (vehicle, avoided));
+      auto const & route = result.GetActive();
+      TEST_EQUAL(UsesRoadType(route, RoutingOptions::Ferry), vehicle != avoided, (vehicle, avoided));
+      auto const & preferences = route.GetRoadRoutingPreferences();
+      TEST(preferences, (vehicle));
+      TEST_EQUAL(preferences->m_vehicleType, vehicle, ());
+      TEST_EQUAL(preferences->m_avoidances.GetOptions(), vehicle == avoided ? RoutingOptions::Ferry : 0,
+                 (vehicle, avoided));
     }
   }
 }

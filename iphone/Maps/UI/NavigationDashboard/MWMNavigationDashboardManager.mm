@@ -107,6 +107,8 @@
 - (void)onRoutePrepare
 {
   self.state = MWMNavigationDashboardStatePrepare;
+  // A standalone prepare has no rebuild to replace the previous chart.
+  [self.navigationDashboardView clearRouteElevationPreview];
   [self.navigationDashboardView setDrivingOptionState:MWMDrivingOptionsStateNone];
 }
 

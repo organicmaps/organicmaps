@@ -83,8 +83,10 @@ final class ActionBarViewController: UIViewController {
       if canRouteToAndFrom {
         buttons.append(.routeTo)
       }
-      if placePageData.objectType == .track {
+      if placePageData.objectType == .track || placePageData.objectType == .relationTrack {
         buttons.append(.routeAlongTrack)
+      }
+      if placePageData.objectType == .track {
         buttons.append(.track)
       }
     case .trackRecording:

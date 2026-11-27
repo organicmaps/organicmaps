@@ -307,7 +307,8 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   // Core is still publishing bookmark edits. Recheck the current session after that edit finishes.
   dispatch_async(dispatch_get_main_queue(), ^{
     auto const info = [MWMRouter followedTrackInfo];
-    if (info && ![MWMRouter isOnRoute] && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
+    // Closing a relation place page clears its temporary track; routing owns the selected geometry.
+    if (info && info.trackId != kml::kTempRelationTrackId && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
       [MWMRouter stopRouting];
   });
 }
