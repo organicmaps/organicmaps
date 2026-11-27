@@ -614,12 +614,12 @@ void Geocoder::GoImpl(std::vector<MwmInfoPtr> const & infos, bool inViewport)
       // Probably, we should process all MWMs "until the end" but I left some _better-than-before_
       // reasonable criteria (ContinueSearch) not to hang a lot.
       auto const & mwmType = m_context->GetType();
-      if (m_params.m_isAddressQuery || mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
+      if (m_params.m_requireCompleteResults || mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
           m_preRanker.ContinueSearch())
         MatchAroundPivot(ctx);
     }
 
-    // The ranker streams exact addresses but holds nearby/fuzzy matches until all relevant maps are searched.
+    // Send the candidates collected so far to the ranker.
     if (updatePreranker)
       m_preRanker.UpdateResults(false /* lastUpdate */);
 
@@ -1350,7 +1350,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx, StreetsM
   sortedFeatures.reserve(base::asserted_cast<size_t>(prediction.m_features.PopCount()));
   prediction.m_features.ForEach([&](uint64_t bit) { sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit)); });
 
-  if (m_params.m_isAddressQuery)
+  if (m_params.m_requireCompleteResults)
   {
     std::vector<uint32_t> exactStreets;
     base::EraseIf(sortedFeatures, [&](uint32_t id)

@@ -825,20 +825,22 @@ void Ranker::UpdateResults(bool lastUpdate)
     ProcessSuggestions(m_tentativeResults);
   }
 
-  if (m_geocoderParams.m_isAddressQuery && !m_params.m_viewportSearch)
+  if ((m_geocoderParams.m_isAddressQuery || m_geocoderParams.m_requireCompleteResults) && !m_params.m_viewportSearch)
   {
     auto const query = ParseAddressQuery(m_params.m_query.m_query);
-    CHECK(query, (m_params.m_query.m_query));
-    for (auto const & result : m_tentativeResults)
+    if (query)
     {
-      if (!lastUpdate)
-        BailIfCancelled();
-      if (!m_addressMatches.contains(result.GetID()))
-        m_addressMatches.emplace(result.GetID(), GetAddressResultMatch(*query, MakeResult(result, true, false)));
+      for (auto const & result : m_tentativeResults)
+      {
+        if (!lastUpdate)
+          BailIfCancelled();
+        if (!m_addressMatches.contains(result.GetID()))
+          m_addressMatches.emplace(result.GetID(), GetAddressResultMatch(*query, MakeResult(result, true, false)));
+      }
+      // Textual address correctness precedes distance/popularity and the final result limit.
+      std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [&](auto const & first, auto const & second)
+      { return m_addressMatches.at(first.GetID()) > m_addressMatches.at(second.GetID()); });
     }
-    // Textual address correctness precedes distance/popularity and the final result limit.
-    std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [&](auto const & first, auto const & second)
-    { return m_addressMatches.at(first.GetID()) > m_addressMatches.at(second.GetID()); });
   }
 
   // Emit feature results.
@@ -847,7 +849,7 @@ void Ranker::UpdateResults(bool lastUpdate)
   for (; i < m_tentativeResults.size(); ++i)
   {
     // Do not let a nearby/fuzzy batch consume the quota before other downloaded maps are searched.
-    if (!lastUpdate && !m_addressMatches.empty() &&
+    if (!lastUpdate && m_geocoderParams.m_requireCompleteResults && !m_addressMatches.empty() &&
         m_addressMatches.at(m_tentativeResults[i].GetID()) != AddressResultMatch::Exact)
       break;
     if (!lastUpdate && count >= m_params.m_batchSize && !m_params.m_viewportSearch && !m_params.m_categorialRequest)

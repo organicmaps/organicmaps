@@ -54,7 +54,7 @@ public class ContactsImporterTest
   private static ContactsImporter.Entry cached(String key, String address, ContactsImporter.Location location)
   {
     String fingerprint =
-        "v3:" + ContactSourceKey.hash("address-v3:" + new ContactAddress(address, "", "").getAddressKey());
+        "v4:" + ContactSourceKey.hash("address-v3:" + new ContactAddress(address, "", "").getAddressKey()) + ":" + key;
     return new ContactsImporter.Entry(key, "", address, location, true, List.of(), fingerprint);
   }
 
@@ -93,7 +93,7 @@ public class ContactsImporterTest
     String address = "123 Example Street, Canada";
     importer.start(List.of(contact("one", address)),
                    List.of(new ContactsImporter.Entry("one", "Name", address, new ContactsImporter.Location(49, -123),
-                                                      true, List.of(), "v3:unknown")));
+                                                      true, List.of(), "v4:unknown:unknown")));
     assertEquals(1, callbacks.size());
     complete(0, null);
   }

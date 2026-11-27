@@ -292,7 +292,6 @@ public:
   kml::GroupIdCollection const & GetUnsortedBmGroupsIdList() const { return m_unsortedBmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
   size_t GetBmGroupsCount() const { return m_unsortedBmGroupsIdList.size(); }
-  bool IsContactCategory(kml::MarkGroupId groupId) const;
   bool HasBmCategory(kml::MarkGroupId groupId) const;
   bool HasBookmark(kml::MarkId markId) const;
   bool HasTrack(kml::TrackId trackId) const;

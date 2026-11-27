@@ -100,19 +100,7 @@ bool Unmodified(Bookmark const & bookmark, bool strict)
       !IsFiniteCoordinate(lon) || !mercator::ValidLat(lat) || !mercator::ValidLon(lon) ||
       mercator::DistanceOnEarth(bookmark.GetPivot(), mercator::FromLatLon(lat, lon)) > 1.0)
     return false;
-  if (!strict)
-    return true;
-  auto const & appearance = Property(properties, kAppearance);
-  if (!appearance.empty())
-    return appearance == Appearance(data);
-  // Legacy imports have no appearance snapshot. Only migrate their untouched default style.
-  for (auto const & [key, value] : properties)
-    if (!key.starts_with("om:import:") && key != "CustomImage" && key != "CustomImageStyle")
-      return false;
-  return data.m_icon == kml::BookmarkIcon::None && data.m_color.m_predefinedColor == kml::PredefinedColor::Blue &&
-         data.m_viewportScale == 0 && data.m_visible && data.m_boundTracks.empty() && data.m_featureTypes.empty() &&
-         data.m_name.size() <= 1 && data.m_customName.size() <= 1 && data.m_description.size() <= 1 &&
-         (data.m_minZoom == 1 || data.m_minZoom == 14 || data.m_minZoom == 16);
+  return !strict || Property(properties, kAppearance) == Appearance(data);
 }
 }  // namespace
 
@@ -129,7 +117,6 @@ std::vector<BookmarkImportEntry> GetImportedBookmarks(BookmarkManager const & ma
       if (Property(properties, kSource) != source)
         continue;
       BookmarkImportEntry entry;
-      entry.m_groupId = category;
       entry.m_canModify =
           Property(manager.GetCategoryData(category).m_properties, kSource) == source && Unmodified(*bookmark, true);
       entry.m_key = Property(properties, kKey);
@@ -147,7 +134,8 @@ std::vector<BookmarkImportEntry> GetImportedBookmarks(BookmarkManager const & ma
 }
 
 BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string const & source,
-                                     std::string const & categoryName, std::vector<BookmarkImportEntry> const & entries)
+                                     std::string const & categoryName, std::vector<BookmarkImportEntry> const & entries,
+                                     std::string const & customImage, int minZoom)
 {
   BookmarkImportResult result;
   if (entries.empty() || source.empty() || categoryName.empty())
@@ -246,8 +234,7 @@ BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string cons
         continue;
       }
       auto const & existingData = bookmark->GetData();
-      if ((!entry.m_requireSourceCategory || !Property(existingData.m_properties, kAppearance).empty()) &&
-          Property(existingData.m_properties, kSnapshot) == snapshot &&
+      if (Property(existingData.m_properties, kSnapshot) == snapshot &&
           Property(existingData.m_properties, kKey) == entry.m_key &&
           Property(existingData.m_properties, kFingerprint) == entry.m_sourceFingerprint &&
           mercator::DistanceOnEarth(bookmark->GetPivot(), point) <= 1.0)
@@ -270,6 +257,9 @@ BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string cons
       }
       data.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
       data.m_timestamp = kml::TimestampClock::now();
+      if (!customImage.empty())
+        data.m_properties["CustomImage"] = customImage;
+      data.m_minZoom = minZoom;
     }
     kml::SetDefaultStr(data.m_name, entry.m_name);
     kml::SetDefaultStr(data.m_customName, entry.m_name);

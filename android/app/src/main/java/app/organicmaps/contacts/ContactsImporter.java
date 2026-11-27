@@ -445,7 +445,7 @@ public final class ContactsImporter
     return new Entry(contact.key, contact.name, address.address, location, true, List.of(), sourceKey);
   }
 
-  // v3 stored only address hashes. v4 also records the provider keys of household members.
+  // Store address hashes and the provider keys of household members.
   private record Fingerprint(List<String> addresses, List<String> members)
   {
     private static final Pattern HASH = Pattern.compile("[0-9a-f]{64}");
@@ -453,8 +453,6 @@ public final class ContactsImporter
     static Fingerprint parse(String value)
     {
       String[] parts = value.split(":", -1);
-      if (parts.length == 2 && parts[0].equals("v3"))
-        return new Fingerprint(hashes(parts[1]), List.of());
       if (parts.length == 3 && parts[0].equals("v4"))
         return new Fingerprint(hashes(parts[1]), hashes(parts[2]));
       return new Fingerprint(List.of(), List.of());

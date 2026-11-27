@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // Contact-provider formatting only; ordinary search queries use the native search tokenizer.
 final class ContactAddressNormalizer
@@ -57,7 +58,8 @@ final class ContactAddressNormalizer
       return last;
     if (address.matches("(?is).*\\bCanada\\s*$") || CANADIAN_POSTAL_CODE.matcher(address).find())
       return "Canada";
-    if (address.matches("(?is).*\\b(?:USA|United States(?: of America)?)\\s*$"))
+    if (address.matches("(?is).*\\b(?:USA|United States(?: of America)?)\\s*$")
+        || US_STATE_AND_ZIP.matcher(address).find())
       return "USA";
     return "";
   }
@@ -67,76 +69,79 @@ final class ContactAddressNormalizer
     return country.matches("(?i)Canada|USA|US|United States(?: of America)?");
   }
 
-  private static final String[][] REGION_NAMES = {{"AB", "Alberta"},
-                                                  {"BC", "British Columbia"},
-                                                  {"MB", "Manitoba"},
-                                                  {"NB", "New Brunswick"},
-                                                  {"NL", "Newfoundland and Labrador"},
-                                                  {"NS", "Nova Scotia"},
-                                                  {"NT", "Northwest Territories"},
-                                                  {"NU", "Nunavut"},
-                                                  {"ON", "Ontario"},
-                                                  {"PE", "Prince Edward Island"},
-                                                  {"QC", "Quebec"},
-                                                  {"SK", "Saskatchewan"},
-                                                  {"YT", "Yukon"},
-                                                  {"AL", "Alabama"},
-                                                  {"AK", "Alaska"},
-                                                  {"AZ", "Arizona"},
-                                                  {"AR", "Arkansas"},
-                                                  {"CA", "California"},
-                                                  {"CO", "Colorado"},
-                                                  {"CT", "Connecticut"},
-                                                  {"DE", "Delaware"},
-                                                  {"DC", "District of Columbia"},
-                                                  {"FL", "Florida"},
-                                                  {"GA", "Georgia"},
-                                                  {"HI", "Hawaii"},
-                                                  {"ID", "Idaho"},
-                                                  {"IL", "Illinois"},
-                                                  {"IN", "Indiana"},
-                                                  {"IA", "Iowa"},
-                                                  {"KS", "Kansas"},
-                                                  {"KY", "Kentucky"},
-                                                  {"LA", "Louisiana"},
-                                                  {"ME", "Maine"},
-                                                  {"MD", "Maryland"},
-                                                  {"MA", "Massachusetts"},
-                                                  {"MI", "Michigan"},
-                                                  {"MN", "Minnesota"},
-                                                  {"MS", "Mississippi"},
-                                                  {"MO", "Missouri"},
-                                                  {"MT", "Montana"},
-                                                  {"NE", "Nebraska"},
-                                                  {"NV", "Nevada"},
-                                                  {"NH", "New Hampshire"},
-                                                  {"NJ", "New Jersey"},
-                                                  {"NM", "New Mexico"},
-                                                  {"NY", "New York"},
-                                                  {"NC", "North Carolina"},
-                                                  {"ND", "North Dakota"},
-                                                  {"OH", "Ohio"},
-                                                  {"OK", "Oklahoma"},
-                                                  {"OR", "Oregon"},
-                                                  {"PA", "Pennsylvania"},
-                                                  {"RI", "Rhode Island"},
-                                                  {"SC", "South Carolina"},
-                                                  {"SD", "South Dakota"},
-                                                  {"TN", "Tennessee"},
-                                                  {"TX", "Texas"},
-                                                  {"UT", "Utah"},
-                                                  {"VT", "Vermont"},
-                                                  {"VA", "Virginia"},
-                                                  {"WA", "Washington"},
-                                                  {"WV", "West Virginia"},
-                                                  {"WI", "Wisconsin"},
-                                                  {"WY", "Wyoming"}};
+  private static final String[][] CANADIAN_REGIONS = {{"AB", "Alberta"},
+                                                      {"BC", "British Columbia"},
+                                                      {"MB", "Manitoba"},
+                                                      {"NB", "New Brunswick"},
+                                                      {"NL", "Newfoundland and Labrador"},
+                                                      {"NS", "Nova Scotia"},
+                                                      {"NT", "Northwest Territories"},
+                                                      {"NU", "Nunavut"},
+                                                      {"ON", "Ontario"},
+                                                      {"PE", "Prince Edward Island"},
+                                                      {"QC", "Quebec"},
+                                                      {"SK", "Saskatchewan"},
+                                                      {"YT", "Yukon"}};
+
+  private static final String[][] US_STATES = {{"AL", "Alabama"},
+                                               {"AK", "Alaska"},
+                                               {"AZ", "Arizona"},
+                                               {"AR", "Arkansas"},
+                                               {"CA", "California"},
+                                               {"CO", "Colorado"},
+                                               {"CT", "Connecticut"},
+                                               {"DE", "Delaware"},
+                                               {"DC", "District of Columbia"},
+                                               {"FL", "Florida"},
+                                               {"GA", "Georgia"},
+                                               {"HI", "Hawaii"},
+                                               {"ID", "Idaho"},
+                                               {"IL", "Illinois"},
+                                               {"IN", "Indiana"},
+                                               {"IA", "Iowa"},
+                                               {"KS", "Kansas"},
+                                               {"KY", "Kentucky"},
+                                               {"LA", "Louisiana"},
+                                               {"ME", "Maine"},
+                                               {"MD", "Maryland"},
+                                               {"MA", "Massachusetts"},
+                                               {"MI", "Michigan"},
+                                               {"MN", "Minnesota"},
+                                               {"MS", "Mississippi"},
+                                               {"MO", "Missouri"},
+                                               {"MT", "Montana"},
+                                               {"NE", "Nebraska"},
+                                               {"NV", "Nevada"},
+                                               {"NH", "New Hampshire"},
+                                               {"NJ", "New Jersey"},
+                                               {"NM", "New Mexico"},
+                                               {"NY", "New York"},
+                                               {"NC", "North Carolina"},
+                                               {"ND", "North Dakota"},
+                                               {"OH", "Ohio"},
+                                               {"OK", "Oklahoma"},
+                                               {"OR", "Oregon"},
+                                               {"PA", "Pennsylvania"},
+                                               {"RI", "Rhode Island"},
+                                               {"SC", "South Carolina"},
+                                               {"SD", "South Dakota"},
+                                               {"TN", "Tennessee"},
+                                               {"TX", "Texas"},
+                                               {"UT", "Utah"},
+                                               {"VT", "Vermont"},
+                                               {"VA", "Virginia"},
+                                               {"WA", "Washington"},
+                                               {"WV", "West Virginia"},
+                                               {"WI", "Wisconsin"},
+                                               {"WY", "Wyoming"}};
 
   private static final Map<String, String> REGIONS =
-      Arrays.stream(REGION_NAMES).collect(Collectors.toMap(region -> region[0], region -> region[1]));
+      Stream.concat(Arrays.stream(CANADIAN_REGIONS), Arrays.stream(US_STATES))
+          .collect(Collectors.toMap(region -> region[0], region -> region[1]));
   private static final Pattern REGION_CODE = Pattern.compile("\\b(?:" + String.join("|", REGIONS.keySet()) + ")\\b");
-  private static final List<List<String>> REGION_TOKENS =
-      REGIONS.values().stream().map(ContactAddressNormalizer::matchTokens).toList();
+  private static final Pattern US_STATE_AND_ZIP = Pattern.compile(
+      "\\b(?:" + Arrays.stream(US_STATES).map(state -> state[0]).collect(Collectors.joining("|"))
+          + ")\\s+\\d{5}(?:-\\d{4})?\\s*$", Pattern.CASE_INSENSITIVE);
 
   @NonNull
   static String normalizeCountry(@NonNull String country)
@@ -262,39 +267,6 @@ final class ContactAddressNormalizer
       return normalizeContext(value);
     }
     return value.replaceAll("[;\\r\\n]+", " ").replaceAll("\\s+", " ").trim();
-  }
-
-  static boolean matchesMapRegion(@NonNull String context, @NonNull String mapRegion)
-  {
-    return matchesMapRegion(matchTokens(context), matchTokens(mapRegion));
-  }
-
-  static boolean matchesMapRegion(@NonNull List<String> addressTokens, @NonNull List<String> mapTokens)
-  {
-    if (mapTokens.isEmpty())
-      return false;
-    boolean hasRegion = false;
-    for (List<String> regionTokens : REGION_TOKENS)
-    {
-      if (addressTokens.containsAll(regionTokens))
-      {
-        hasRegion = true;
-        if (mapTokens.containsAll(regionTokens))
-          return true;
-      }
-    }
-    if (hasRegion)
-      return false;
-    if (addressTokens.contains("canada"))
-      return mapTokens.contains("canada");
-    if (addressTokens.contains("uk") || (addressTokens.contains("united") && addressTokens.contains("kingdom")))
-      return mapTokens.contains("uk") || (mapTokens.contains("united") && mapTokens.contains("kingdom"));
-    if (addressTokens.contains("usa") || addressTokens.contains("us")
-        || (addressTokens.contains("united") && addressTokens.contains("states")))
-      return mapTokens.contains("us") || mapTokens.contains("usa")
-   || (mapTokens.contains("united") && mapTokens.contains("states"));
-    // No recognized geographical clue: leave disambiguation to the native resolver.
-    return true;
   }
 
   @NonNull
@@ -446,6 +418,9 @@ final class ContactAddressNormalizer
     {
       if (!isExpandedSuffix(tokens.get(i)))
         continue;
+      if (i + 1 < tokens.size() && tokens.get(i).equalsIgnoreCase("Road")
+          && tokens.get(i - 1).matches("(?i)county|state|township") && tokens.get(i + 1).matches("\\d{1,4}[A-Za-z]?"))
+        return i + 1;
       if (i + 1 < tokens.size() && isDirection(tokens.get(i + 1)))
         return i + 1;
       return i;

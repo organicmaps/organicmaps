@@ -579,9 +579,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_background_size,
                                             requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
-      mColorIcon.setClickable(true);
-      mColorIcon.setFocusable(true);
-      mColorIcon.setContentDescription(getString(R.string.change_color));
       showCategory = !track.isRelationTrack();
       if (showCategory)
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
@@ -592,16 +589,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
       Icon icon = bookmark.getIcon();
       if (icon != null)
       {
-        final boolean isContact = BookmarkManager.INSTANCE.isContactCategory(bookmark.getCategoryId());
-        final int iconRes = BookmarkManager.INSTANCE.isContactBookmark(bookmark.getBookmarkId())
-                              ? R.drawable.ic_bookmark_contact
-                              : icon.getResId();
-        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_background_size, iconRes,
-                                                      R.dimen.place_page_icon_size, requireContext());
+        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_background_size,
+                                                      icon.getResId(), R.dimen.place_page_icon_size, requireContext());
         mColorIcon.setImageDrawable(circle);
-        mColorIcon.setClickable(!isContact);
-        mColorIcon.setFocusable(!isContact);
-        mColorIcon.setContentDescription(isContact ? null : getString(R.string.change_color));
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
       }
       showCategory = true;
@@ -623,8 +613,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     else if (mMapObject.isBookmark())
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
-      if (BookmarkManager.INSTANCE.isContactCategory(bookmark.getCategoryId()))
-        return;
       PlacePageController.showColorPicker(fm, bookmark.getBookmarkId(), false, bookmark.getIcon().argb());
     }
   }

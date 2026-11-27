@@ -103,7 +103,6 @@ public final class ContactsImportCoordinator
       return;
     }
     long generation = ++readGeneration;
-    resolver.maps.invalidate();
     CancellationSignal signal = new CancellationSignal();
     reading = signal;
     publish(new ContactsImporter.State(ContactsImporter.Phase.READING, 0, 0, 0, ContactsImporter.Error.NONE, null));
@@ -188,53 +187,21 @@ public final class ContactsImportCoordinator
 
   private final class NativeResolver implements ContactsImporter.Resolver
   {
-    private final ContactsMapAvailability maps = new ContactsMapAvailability();
-    private Runnable timeout;
-    private long activeId;
-
     @Override
     public long resolve(ContactAddress address, Consumer<ContactsImporter.Location> callback)
     {
-      if (!maps.mightHaveMap(address))
-      {
-        callback.accept(null);
-        return 0;
-      }
       List<ContactAddress.SearchQuery> queries = address.getSearchQueries();
-      long id = SearchEngine.INSTANCE.resolveAddress(
+      return SearchEngine.INSTANCE.resolveAddress(
           queries.stream().map(query -> query.query).toArray(String[] ::new),
           queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new),
-          Language.getKeyboardLocale(application), (requestId, found, lat, lon) -> {
-            if (requestId != activeId)
-              return;
-            activeId = 0;
-            if (timeout != null)
-              main.removeCallbacks(timeout);
-            timeout = null;
-            callback.accept(found ? new ContactsImporter.Location(lat, lon) : null);
-          });
-      activeId = id;
-      timeout = () ->
-      {
-        if (activeId != id)
-          return;
-        activeId = 0;
-        SearchEngine.INSTANCE.cancelAddressResolution(id);
-        timeout = null;
-        callback.accept(null);
-      };
-      main.postDelayed(timeout, 30_000);
-      return id;
+          Language.getKeyboardLocale(application),
+          (requestId, found, lat, lon) -> callback.accept(found ? new ContactsImporter.Location(lat, lon) : null));
     }
 
     @Override
     public void cancel(long id)
     {
       SearchEngine.INSTANCE.cancelAddressResolution(id);
-      activeId = 0;
-      if (timeout != null)
-        main.removeCallbacks(timeout);
-      timeout = null;
     }
   }
 }

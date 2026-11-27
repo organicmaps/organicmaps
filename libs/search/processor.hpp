@@ -75,7 +75,7 @@ public:
   // POSTCODE_POINTS section.
   void SearchPostcode();
 
-  void SearchBookmarks(bookmarks::GroupId const & groupId, size_t maxResults);
+  void SearchBookmarks(bookmarks::GroupId const & groupId, size_t maxResults, bool requireAllTokens);
 
   void InitParams(QueryParams & params) const;
 

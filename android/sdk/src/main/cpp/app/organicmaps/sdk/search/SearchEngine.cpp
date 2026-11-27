@@ -330,13 +330,15 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchInBookmarks(JNIEnv * env, jclass clazz,
                                                                                            jbyteArray query,
-                                                                                           jlong catId, jlong timestamp)
+                                                                                           jlong catId, jlong timestamp,
+                                                                                           jboolean requireAllTokens)
 {
   if (static_cast<kml::MarkGroupId>(catId) == kml::kInvalidMarkGroupId)
     g_framework->NativeFramework()->GetBookmarkManager().PrepareForSearch(kml::kInvalidMarkGroupId);
   search::BookmarksSearchParams params{
       jni::ToNativeString(env, query), static_cast<kml::MarkGroupId>(catId),
-      std::bind(&OnBookmarksSearchResults, std::placeholders::_1, std::placeholders::_2, timestamp)};
+      std::bind(&OnBookmarksSearchResults, std::placeholders::_1, std::placeholders::_2, timestamp),
+      requireAllTokens == JNI_TRUE};
 
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchInBookmarks(std::move(params));
   if (searchStarted)

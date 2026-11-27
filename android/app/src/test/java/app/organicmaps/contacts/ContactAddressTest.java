@@ -14,21 +14,24 @@ public class ContactAddressTest
     var twenty = new ContactAddress("12 County Road 20, Springfield, TX, USA", "", "");
     assertEquals("12 County Road 10", ten.getSearchQueries().get(0).expectedStreet);
     assertNotEquals(ten.getAddressKey(), twenty.getAddressKey());
+    var singleLineTen = new ContactAddress("12 County Road 10 Springfield TX 75000", "", "");
+    var singleLineTwenty = new ContactAddress("12 County Road 20 Springfield TX 75000", "", "");
+    assertEquals("12 County Road 10", singleLineTen.getSearchQueries().get(0).expectedStreet);
+    assertEquals("12 County Road 20", singleLineTwenty.getSearchQueries().get(0).expectedStreet);
+    assertNotEquals(singleLineTen.getAddressKey(), singleLineTwenty.getAddressKey());
     assertEquals("12 State Highway 10",
                  new ContactAddress("12 State Highway 10", "12 State Highway 10", "Springfield", "TX", "USA")
                      .getNormalizedStreet());
   }
 
   @Test
-  public void preservesQueensCivicNumbersAndBritishMapContext()
+  public void preservesQueensCivicNumbers()
   {
     final ContactAddress compound = new ContactAddress("12-34 56th St, Queens, NY, USA", "", "");
     final ContactAddress ordinary = new ContactAddress("34 56th St, Queens, NY, USA", "", "");
     assertEquals("12-34 56th Street", compound.getNormalizedStreet());
     assertNotEquals(compound.getAddressKey(), ordinary.getAddressKey());
     assertNotEquals(compound.getSearchQueries(), ordinary.getSearchQueries());
-    assertTrue(ContactAddressNormalizer.matchesMapRegion("London United Kingdom", "UK_England_Greater London"));
-    assertFalse(ContactAddressNormalizer.matchesMapRegion("London United Kingdom", "US_New York"));
   }
   @Test
   public void preservesStreetAndGeographicalContext()
@@ -227,14 +230,4 @@ public class ContactAddressTest
     assertFalse(large.getSearchQueries().isEmpty());
   }
 
-  @Test
-  public void skipsContactsInOtherMapRegions()
-  {
-    assertTrue(ContactAddressNormalizer.matchesMapRegion("123 main street|surrey british columbia canada",
-                                                         "Canada_British Columbia"));
-    assertFalse(ContactAddressNormalizer.matchesMapRegion("123 main street|springfield illinois usa",
-                                                          "Canada_British Columbia"));
-    assertFalse(ContactAddressNormalizer.matchesMapRegion("123 main street|winnipeg manitoba canada",
-                                                          "Canada_British Columbia"));
-  }
 }

@@ -88,7 +88,6 @@ struct FontDecl
 
 struct TitleDecl
 {
-  bool m_usePoiCaption = false;
   dp::FontDecl m_primaryTextFont;
   std::string m_primaryText;
   dp::FontDecl m_secondaryTextFont;

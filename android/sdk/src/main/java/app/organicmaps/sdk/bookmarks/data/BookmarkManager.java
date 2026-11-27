@@ -247,18 +247,6 @@ public enum BookmarkManager {
     return nativeGetBookmarkInfo(bmkId);
   }
 
-  /** Whether the bookmark uses the contact person presentation. */
-  public boolean isContactBookmark(long bmkId)
-  {
-    return nativeIsContactBookmark(bmkId);
-  }
-
-  /** Whether the category is the tagged Contacts list. */
-  public boolean isContactCategory(long categoryId)
-  {
-    return nativeIsContactCategory(categoryId);
-  }
-
   @NonNull
   public Track getTrack(long trackId)
   {
@@ -628,8 +616,6 @@ public enum BookmarkManager {
 
   @Nullable
   private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
-  private native boolean nativeIsContactBookmark(long bmkId);
-  private native boolean nativeIsContactCategory(long categoryId);
 
   @NonNull
   private native Track nativeGetTrack(long trackId, Class<Track> trackClazz);
@@ -659,14 +645,30 @@ public enum BookmarkManager {
 
   /** Explicit contact import. Returns category ID, added, updated, unchanged, locally edited, skipped counts. */
   @NonNull
-  public native long[] importContactBookmarks(@NonNull String categoryName, @NonNull String[] keys,
-                                              @NonNull String[] names, @NonNull String[] addresses,
-                                              @NonNull double[] latitudes, @NonNull double[] longitudes,
-                                              @NonNull String[][] supersededKeys, @NonNull String[] sourceFingerprints);
+  public long[] importContactBookmarks(@NonNull String categoryName, @NonNull String[] keys,
+                                        @NonNull String[] names, @NonNull String[] addresses,
+                                        @NonNull double[] latitudes, @NonNull double[] longitudes,
+                                        @NonNull String[][] supersededKeys, @NonNull String[] sourceFingerprints)
+  {
+    return nativeImportContactBookmarks(categoryName, keys, names, addresses, latitudes, longitudes, supersededKeys,
+                                        sourceFingerprints);
+  }
+
+  @NonNull
+  private native long[] nativeImportContactBookmarks(
+      @NonNull String categoryName, @NonNull String[] keys, @NonNull String[] names, @NonNull String[] addresses,
+      @NonNull double[] latitudes, @NonNull double[] longitudes, @NonNull String[][] supersededKeys,
+      @NonNull String[] sourceFingerprints);
 
   /** Original source locations, with full coordinate precision and ownership metadata. */
   @NonNull
-  public native ImportedBookmarkLocation[] getImportedContactLocations();
+  public ImportedBookmarkLocation[] getImportedContactLocations()
+  {
+    return nativeGetImportedContactLocations();
+  }
+
+  @NonNull
+  private native ImportedBookmarkLocation[] nativeGetImportedContactLocations();
 
   private native void nativeShowBookmarkOnMap(long bmkId);
 

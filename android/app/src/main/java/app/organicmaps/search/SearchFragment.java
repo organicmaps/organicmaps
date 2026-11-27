@@ -611,7 +611,7 @@ public class SearchFragment extends Fragment
     {
       mBookmarkTimestamp = System.nanoTime();
       mBookmarkQuery = getQuery();
-      mBookmarkSearchRunning = SearchEngine.INSTANCE.searchInBookmarks(getQuery(), -1, mBookmarkTimestamp);
+      mBookmarkSearchRunning = SearchEngine.INSTANCE.searchInBookmarks(getQuery(), -1, mBookmarkTimestamp, true);
     }
 
     // Pre-warm tabs after the activity's critical path so the first sheet open is instant.
@@ -842,7 +842,7 @@ public class SearchFragment extends Fragment
     {
       mBookmarkTimestamp = System.nanoTime();
       mBookmarkQuery = getQuery();
-      mBookmarkSearchRunning = SearchEngine.INSTANCE.searchInBookmarks(getQuery(), -1, mBookmarkTimestamp);
+      mBookmarkSearchRunning = SearchEngine.INSTANCE.searchInBookmarks(getQuery(), -1, mBookmarkTimestamp, true);
     }
 
     boolean hasLocation = mLastPosition.valid;

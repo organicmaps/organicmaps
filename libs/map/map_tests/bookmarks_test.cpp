@@ -3880,13 +3880,6 @@ UNIT_TEST(BookmarkSourceImportConsolidatesUnchangedResidenceEntries)
                                  {"natalie", "Natalie Tweed", "2453 163 St. Surrey", 49.046484, -122.771031}});
   auto const category = result.m_categoryId;
   TEST_EQUAL(manager.GetUserMarkIds(category).size(), 2, ());
-  // Exercise migration of the per-contact format shipped before edit-state snapshots existed.
-  for (auto id : manager.GetUserMarkIds(category))
-  {
-    auto data = manager.GetBookmark(id)->GetData();
-    data.m_properties.erase("om:import:appearance");
-    manager.GetEditSession().UpdateBookmark(id, data);
-  }
   BookmarkImportEntry combined{"luke", "Luke Tweed, Natalie Tweed", "2453 163 St", 49.0465, -122.771};
   combined.m_requireSourceCategory = true;
   combined.m_supersededKeys = {"natalie"};
@@ -4068,7 +4061,7 @@ UNIT_TEST(BookmarkSourceImportSurvivesKmlAndKmbRoundTrips)
       manager.EnableTestMode(true);
       std::vector<BookmarkImportEntry> entries{{"key", "Person", "Address", 49.2104550001, -123.125801}};
       entries[0].m_requireSourceCategory = strict;
-      auto result = ImportBookmarks(manager, "contacts", "Contacts", entries);
+      auto result = ImportBookmarks(manager, "contacts", "Contacts", entries, "14,contact-s;15,contact-m", 14);
       std::string serialized;
       MemWriter writer(serialized);
       TEST(manager.SaveBookmarkCategory(result.m_categoryId, writer, type), ());
@@ -4087,7 +4080,11 @@ UNIT_TEST(BookmarkSourceImportSurvivesKmlAndKmbRoundTrips)
       result = ImportBookmarks(restored, "contacts", "Contacts", entries);
       TEST_EQUAL(result.m_updated, 1, ());
       auto const id = *restored.GetUserMarkIds(result.m_categoryId).begin();
-      TEST_EQUAL(restored.GetBookmark(id)->GetPreferredName(), entries[0].m_name, ());
+      auto const * bookmark = restored.GetBookmark(id);
+      TEST_EQUAL(bookmark->GetPreferredName(), entries[0].m_name, ());
+      TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
+      TEST_EQUAL(bookmark->GetSymbolNames()->at(14), "contact-s", ());
+      TEST_EQUAL(bookmark->GetSymbolNames()->at(15), "contact-m", ());
     }
 }
 
@@ -4167,27 +4164,23 @@ UNIT_TEST(BookmarkSourceImportPersistsInputFingerprint)
   TEST(GetImportedBookmarks(manager, "contacts")[0].m_sourceFingerprint.empty(), ());
 }
 
-UNIT_TEST(BookmarkContactPresentationPreservesStoredAppearanceAcrossMoves)
+UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
 {
   BookmarkManager manager(BM_CALLBACKS);
   manager.EnableTestMode(true);
-  auto const contacts =
-      ImportBookmarks(manager, "android-contacts", "Contacts", {{"key", "Name", "Address", 49, -123}});
+  auto const contacts = ImportBookmarks(manager, "contacts", "Contacts", {{"key", "Name", "Address", 49, -123}},
+                                        "14,contact-s;15,contact-m", 14);
+  auto const id = *manager.GetUserMarkIds(contacts.m_categoryId).begin();
+  auto const * bookmark = manager.GetBookmark(id);
   auto const other = manager.CreateBookmarkCategory("Other");
-  kml::BookmarkData data;
-  data.m_point = mercator::FromLatLon(49.2, -123.1);
-  data.m_icon = kml::BookmarkIcon::Hotel;
-  data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
-  data.m_minZoom = 8;
   auto session = manager.GetEditSession();
-  auto * bookmark = session.CreateBookmark(std::move(data));
-  auto const id = bookmark->GetId();
+  session.DetachBookmark(id, contacts.m_categoryId);
   session.AttachBookmark(id, other);
-  auto const original = bookmark->GetData();
-  session.DetachBookmark(id, other);
-  session.AttachBookmark(id, contacts.m_categoryId);
   TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
-  TEST_EQUAL(bookmark->GetSymbolNames()->begin()->second, "contact-s", ());
+  auto const symbols = bookmark->GetSymbolNames();
+  TEST_EQUAL(symbols->at(14), "contact-s", ());
+  TEST_EQUAL(symbols->at(15), "contact-m", ());
+  TEST(!bookmark->GetTitleDeclEx(settings::Placement::None, dp::Color::White()), ());
 
   m2::AnyRectD rect(bookmark->GetPivot(), ang::AngleD(0.0), m2::RectD(-1e-7, -1e-7, 1e-7, 1e-7));
   auto find = [&](int zoom)
@@ -4197,48 +4190,6 @@ UNIT_TEST(BookmarkContactPresentationPreservesStoredAppearanceAcrossMoves)
   };
   TEST(find(13) == nullptr, ());
   TEST(find(14) == bookmark, ());
-  session.DetachBookmark(id, contacts.m_categoryId);
-  session.AttachBookmark(id, other);
-  TEST_EQUAL(bookmark->GetMinZoom(), 8, ());
-  TEST(bookmark->GetData() == original, ());
-}
-
-UNIT_TEST(BookmarkSourceImportPoiPresentationPreservesUserAppearance)
-{
-  classificator::Load();
-  BookmarkManager manager(BM_CALLBACKS);
-  manager.EnableTestMode(true);
-  std::vector<BookmarkImportEntry> entries = {{"key", "Name", "Address", 49, -123}};
-  entries[0].m_requireSourceCategory = true;
-  auto result = ImportBookmarks(manager, "android-contacts", "Contacts", entries);
-  auto id = *manager.GetUserMarkIds(result.m_categoryId).begin();
-  auto const * bookmark = manager.GetBookmark(id);
-  TEST_EQUAL(bookmark->GetAnchor(), dp::Center, ());
-  TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
-  TEST_EQUAL(bookmark->GetMinTitleZoom(), 15, ());
-  TEST_EQUAL(bookmark->GetDepthLayer(), df::DepthLayer::SearchMarkLayer, ());
-  TEST_EQUAL(bookmark->GetDepthLayerEx(settings::Placement::None), df::DepthLayer::OverlayLayer, ());
-  TEST_EQUAL(bookmark->GetSymbolNames()->begin()->first, 14, ());
-  TEST_EQUAL(bookmark->GetSymbolNames()->begin()->second, "contact-s", ());
-  TEST_EQUAL(bookmark->GetSymbolNames()->rbegin()->first, 15, ());
-  TEST_EQUAL(bookmark->GetSymbolNames()->rbegin()->second, "contact-m", ());
-  auto titles = bookmark->GetTitleDeclEx(settings::Placement::None, dp::Color::White());
-  TEST(titles != nullptr, ());
-  TEST_EQUAL(titles->front().m_primaryTextFont.m_size, 10.0f, ());
-  TEST(titles->front().m_usePoiCaption, ());
-  auto edited = bookmark->GetData();
-  edited.m_color = kml::MakeCustomBookmarkColorData(bookmark->GetColorForRendering());
-  kml::SetDefaultStr(edited.m_description, "Edited description");
-  manager.GetEditSession().UpdateBookmark(id, edited);
-  TEST_EQUAL(bookmark->GetAnchor(), dp::Center, ());
-  TEST(!bookmark->GetCustomColor().has_value(), ());
-  manager.GetEditSession().GetBookmarkForEdit(id)->SetColor(dp::Color::Red());
-  TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
-  titles = bookmark->GetTitleDeclEx(settings::Placement::Bottom, dp::Color::White());
-  TEST_EQUAL(bookmark->GetDepthLayerEx(settings::Placement::Bottom), df::DepthLayer::SearchMarkLayer, ());
-  TEST(!titles->front().m_usePoiCaption, ());
-  ImportBookmarks(manager, "android-contacts", "Contacts", entries);
-  TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
 }
 
 UNIT_TEST(BookmarkSourceImportPreservesDifferentContactsAtSamePoint)

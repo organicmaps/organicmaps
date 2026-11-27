@@ -73,6 +73,7 @@ struct SearchParams
 
   RecommendedFilteringParams m_filteringParams;
 
+  bool m_bookmarksRequireAllTokens = false;
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 
   // Amount of time after which the search is aborted.

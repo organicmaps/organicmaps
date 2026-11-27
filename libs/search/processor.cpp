@@ -625,12 +625,15 @@ void Processor::Search(SearchParams params)
       m_preRanker.UpdateResults(true /* lastUpdate */);
     }
 
-    // Emit finish marker to client.
+    // An address resolver cannot certify uniqueness after a deadline or a result cutoff.
+    bool const incomplete = cancellationStatus == Cancellable::Status::DeadlineExceeded || m_preRanker.IsFull();
     m_geocoder.Finish(cancellationStatus == Cancellable::Status::CancelCalled ||
-                      (params.m_requireCompleteResults && cancellationStatus == Cancellable::Status::DeadlineExceeded));
+                      (params.m_requireCompleteResults && incomplete));
     break;
   }
-  case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId, params.m_maxNumResults); break;
+  case Mode::Bookmarks:
+    SearchBookmarks(params.m_bookmarksGroupId, params.m_maxNumResults, params.m_bookmarksRequireAllTokens);
+    break;
   case Mode::Count: ASSERT(false, ("Invalid mode")); break;
   }
 
@@ -825,12 +828,12 @@ void Processor::SearchPostcode()
   }
 }
 
-void Processor::SearchBookmarks(bookmarks::GroupId const & groupId, size_t maxResults)
+void Processor::SearchBookmarks(bookmarks::GroupId const & groupId, size_t maxResults, bool requireAllTokens)
 {
   bookmarks::Processor::Params params;
   InitParams(params);
   params.m_groupId = groupId;
-  params.m_requireAllTokens = groupId == bookmarks::kInvalidGroupId;
+  params.m_requireAllTokens = requireAllTokens;
   params.m_maxNumResults = maxResults;
 
   try
@@ -899,6 +902,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_filteringParams = searchParams.m_filteringParams;
   geocoderParams.m_useDebugInfo = searchParams.m_useDebugInfo;
   geocoderParams.m_allowNearbyHouseNumbers = searchParams.m_allowNearbyHouseNumbers;
+  geocoderParams.m_requireCompleteResults = searchParams.m_requireCompleteResults;
   geocoderParams.m_isAddressQuery = searchParams.m_mode == Mode::Everywhere && !searchParams.m_categorialRequest &&
                                     IsAddressQuery(searchParams.m_query);
 

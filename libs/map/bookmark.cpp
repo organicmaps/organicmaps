@@ -58,7 +58,6 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
 }
 
 std::string const kCustomImageProperty = "CustomImage";
-df::ColorConstant PresetBookmarkColorConstant(kml::PredefinedColor color);
 }  // namespace
 
 Bookmark::Bookmark(m2::PointD const & ptOrg) : Base(ptOrg, UserMark::BOOKMARK), m_groupId(kml::kInvalidMarkGroupId)
@@ -80,23 +79,9 @@ Bookmark::Bookmark(kml::BookmarkData && data)
 
 void Bookmark::SetData(kml::BookmarkData const & data)
 {
-  bool changedAppearance = false;
-  if (HasPoiPresentation())
-  {
-    auto const color = kml::NormalizeBookmarkColorData(data.m_color);
-    auto const renderedColor = kml::IsCustomBookmarkColor(color)
-                                 ? dp::Color(color.m_rgba)
-                                 : df::GetColorConstant(PresetBookmarkColorConstant(color.m_predefinedColor));
-    bool const changedColor = renderedColor != GetColorForRendering();
-    changedAppearance = data.m_icon != m_data.m_icon || changedColor;
-  }
   SetDirty();
-  if (m_ptOrg != data.m_point)
-    m_address = {};
   m_ptOrg = data.m_point;
   m_data = data;
-  if (changedAppearance)
-    OverridePoiPresentation();
   m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
 }
 
@@ -118,24 +103,6 @@ void Bookmark::SetAddress(search::ReverseGeocoder::RegionAddress const & address
 
 drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Placement p, dp::Color outlineColor) const
 {
-  if (HasPoiPresentation())
-  {
-    // Match the standard POI caption colors from the default style. The outline color is supplied
-    // by the renderer and is white in the light theme and black in the dark theme.
-    bool const isDarkTheme = outlineColor == dp::Color::Black();
-    dp::TitleDecl title;
-    title.m_usePoiCaption = true;
-    title.m_primaryText = GetPreferredName();
-    title.m_primaryTextFont.m_color = isDarkTheme ? dp::Color(0xa6, 0xa6, 0xa6, 255) : dp::Color(0x44, 0x44, 0x44, 255);
-    title.m_primaryTextFont.m_outlineColor = outlineColor;
-    title.m_primaryTextFont.m_size = 10.0f;
-    title.m_anchor = dp::Top;
-    title.m_primaryOffset.x = 0.0f;
-    title.m_primaryOffset.y = 2.0f;
-    auto titles = make_unique_dp<TitlesInfo>();
-    titles->push_back(std::move(title));
-    return titles;
-  }
   if (p == settings::Placement::None)
     return nullptr;
 
@@ -160,8 +127,6 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
 
 df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
 {
-  if (HasPoiPresentation())
-    return df::DepthLayer::OverlayLayer;
   if (p == settings::Placement::None)
     return df::DepthLayer::UserMarkLayer;
 
@@ -173,48 +138,7 @@ df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
 
 dp::Anchor Bookmark::GetAnchor() const
 {
-  if (HasPoiPresentation())
-    return dp::Center;
   return dp::Bottom;
-}
-
-void Bookmark::OverridePoiPresentation()
-{
-  if (m_data.m_properties.erase("CustomImageStyle"))
-  {
-    m_data.m_properties.erase(kCustomImageProperty);
-    m_data.m_minZoom = 1;
-  }
-  m_data.m_properties["CustomImageOverride"] = "1";
-}
-
-bool Bookmark::HasContactPresentation() const
-{
-  return m_isContactCategory && !m_data.m_properties.contains("CustomImageOverride");
-}
-
-bool Bookmark::HasStoredContactImage() const
-{
-  auto const it = m_data.m_properties.find(kCustomImageProperty);
-  return it != m_data.m_properties.end() &&
-         (it->second == "14,contact-s;15,contact-m" || it->second == "16,contact-m" || it->second == "15,contact-m");
-}
-
-int Bookmark::GetMinZoom() const
-{
-  if (HasContactPresentation())
-    return 14;
-  return HasStoredContactImage() ? 1 : m_data.m_minZoom;
-}
-
-bool Bookmark::HasPoiPresentation() const
-{
-  if (HasContactPresentation())
-    return true;
-  if (HasStoredContactImage())
-    return false;
-  auto const it = m_data.m_properties.find("CustomImageStyle");
-  return it != m_data.m_properties.end() && it->second == "poi";
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
@@ -234,16 +158,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames() const
 {
-  if (HasContactPresentation())
-  {
-    auto symbols = make_unique_dp<SymbolNameZoomInfo>();
-    symbols->emplace(14, "contact-s");
-    symbols->emplace(15, "contact-m");
-    return symbols;
-  }
-  if (HasStoredContactImage())
-    return nullptr;
-
   auto const it = m_data.m_properties.find(kCustomImageProperty);
   if (it == m_data.m_properties.end())
     return nullptr;
@@ -265,11 +179,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
   return symbolNames;
 }
 
-namespace
+df::ColorConstant Bookmark::GetColorConstant() const
 {
-df::ColorConstant PresetBookmarkColorConstant(kml::PredefinedColor color)
-{
-  switch (color)
+  switch (m_data.m_color.m_predefinedColor)
   {
   case kml::PredefinedColor::Red: return "BookmarkRed";
   case kml::PredefinedColor::Blue: return "BookmarkBlue";
@@ -293,13 +205,6 @@ df::ColorConstant PresetBookmarkColorConstant(kml::PredefinedColor color)
   UNREACHABLE();
 }
 
-}  // namespace
-
-df::ColorConstant Bookmark::GetColorConstant() const
-{
-  return HasPoiPresentation() ? df::ColorConstant{} : PresetBookmarkColorConstant(m_data.m_color.m_predefinedColor);
-}
-
 kml::PredefinedColor Bookmark::GetColor() const
 {
   return m_data.m_color.m_predefinedColor;
@@ -312,15 +217,11 @@ void Bookmark::SetColor(dp::Color color)
     return;
 
   SetDirty();
-  if (HasPoiPresentation())
-    OverridePoiPresentation();
   m_data.m_color = colorData;
 }
 
 std::optional<dp::Color> Bookmark::GetCustomColor() const
 {
-  if (HasPoiPresentation())
-    return std::nullopt;
   if (kml::IsCustomBookmarkColor(m_data.m_color))
     return dp::Color(m_data.m_color.m_rgba);
   return std::nullopt;
@@ -328,10 +229,7 @@ std::optional<dp::Color> Bookmark::GetCustomColor() const
 
 dp::Color Bookmark::GetColorForRendering() const
 {
-  // A POI image carries its own color; the editor still displays the bookmark's stored color.
-  if (kml::IsCustomBookmarkColor(m_data.m_color))
-    return dp::Color(m_data.m_color.m_rgba);
-  return df::GetColorConstant(PresetBookmarkColorConstant(m_data.m_color.m_predefinedColor));
+  return GetCustomColor().value_or(df::GetColorConstant(GetColorConstant()));
 }
 
 std::string Bookmark::GetPreferredName() const
@@ -413,20 +311,18 @@ bool Bookmark::CanFillPlacePageMetadata() const
   return false;
 }
 
-void Bookmark::Attach(kml::MarkGroupId groupId, bool isContactCategory)
+void Bookmark::Attach(kml::MarkGroupId groupId)
 {
   ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   ASSERT_EQUAL(m_groupId, kml::kInvalidMarkGroupId, ());
   // A restored bookmark may have been rendered before, so re-attaching has to make it dirty again.
   SetDirty();
   m_groupId = groupId;
-  m_isContactCategory = isContactCategory;
 }
 
 void Bookmark::Detach()
 {
   m_groupId = kml::kInvalidMarkGroupId;
-  m_isContactCategory = false;
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave)

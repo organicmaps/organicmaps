@@ -364,7 +364,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData, kml::Mar
 
     bookmark = CreateBookmark(std::move(bmData));
   }
-  bookmark->Attach(groupId, IsContactCategory(groupId));
+  bookmark->Attach(groupId);
 
   auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
@@ -402,7 +402,7 @@ void BookmarkManager::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * bookmark = GetBookmarkForEdit(bmId);
-  bookmark->Attach(catId, IsContactCategory(catId));
+  bookmark->Attach(catId);
   GetGroup(catId)->AttachUserMark(bmId);
   m_changesTracker.OnAttachBookmark(bmId, catId);
 }
@@ -1770,17 +1770,6 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
   return categoryRect;
 }
 
-bool BookmarkManager::IsContactCategory(kml::MarkGroupId groupId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const category = m_categories.find(groupId);
-  if (category == m_categories.end())
-    return false;
-  auto const & properties = category->second->GetCategoryData().m_properties;
-  auto const it = properties.find("om:import:source");
-  return it != properties.end() && it->second == "android-contacts";
-}
-
 kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2805,11 +2794,10 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);
 
-    bool const isContactCategory = IsContactCategory(groupId);
     for (auto & bmData : fileData.m_bookmarksData)
     {
       auto * bm = CreateBookmark(std::move(bmData));
-      bm->Attach(groupId, isContactCategory);
+      bm->Attach(groupId);
       group->m_userMarks.insert(bm->GetId());
       m_changesTracker.OnAttachBookmark(bm->GetId(), groupId);
     }
@@ -3628,9 +3616,6 @@ void BookmarkManager::EditSession::SetBookmarksAndTracksColor(kml::MarkIdCollect
   {
     if (auto * bookmark = m_bmManager.GetBookmarkForEdit(markId))
     {
-      // Contacts keeps its person badge; changing the color would replace it with a generic icon.
-      if (m_bmManager.IsContactCategory(bookmark->GetGroupId()))
-        continue;
       bookmark->SetColor(color);
       recoloredBookmark = true;
     }
@@ -3732,10 +3717,6 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
 
 void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color)
 {
-  // Contacts keeps its person badge; category recoloring must not replace it.
-  if (m_bmManager.IsContactCategory(groupId))
-    return;
-
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
   for (auto const markId : markIds)
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))

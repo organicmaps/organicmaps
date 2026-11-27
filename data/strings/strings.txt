@@ -47256,6 +47256,7 @@ en = Could not read contacts. Please try again.
 [bookmarks_contacts_import_save_error]
 tags = android-app
 en = Could not finish importing contacts. Please try again.
+
 [bookmarks_contacts_import_interrupted]
 tags = android-app
 en = The previous contact import was interrupted. Retry the import? Existing bookmarks will be kept and duplicates avoided.

@@ -10,6 +10,14 @@ import org.junit.Test;
 public class ContactAddressNormalizerTest
 {
   @Test
+  public void infersUnitedStatesOnlyFromStateAndZip()
+  {
+    assertEquals("USA", ContactAddressNormalizer.formattingCountry("", "12 County Road 10 Springfield TX 75000"));
+    assertEquals("", ContactAddressNormalizer.formattingCountry("", "12 County Road 10 Springfield ON 75000"));
+    assertEquals("Canada", ContactAddressNormalizer.formattingCountry("CA", "12 County Road 10 Springfield TX 75000"));
+  }
+
+  @Test
   public void formatsContactProviderFields()
   {
     assertEquals("123 Main Street, Vancouver BC, Canada",
@@ -122,16 +130,6 @@ public class ContactAddressNormalizerTest
     assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("12 Av Diagonal"));
   }
 
-  @Test
-  public void matchesAnyExplicitRegionWithoutUsingStreetNames()
-  {
-    assertTrue(
-        ContactAddressNormalizer.matchesMapRegion("Washington District of Columbia USA", "US District of Columbia"));
-    assertTrue(
-        ContactAddressNormalizer.matchesMapRegion("Vancouver British Columbia Canada", "Canada British Columbia"));
-    assertFalse(ContactAddressNormalizer.matchesMapRegion("Springfield Illinois USA", "US Massachusetts"));
-    assertFalse(ContactAddressNormalizer.matchesMapRegion("Vancouver British Columbia Canada", ""));
-  }
 
   @Test
   public void doesNotCrashOnOversizedHouseOrUnitNumbers()

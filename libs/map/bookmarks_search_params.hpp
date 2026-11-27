@@ -26,6 +26,7 @@ struct BookmarksSearchParams
 
   using OnResults = std::function<void(Results results, Status status)>;
   OnResults m_onResults;
+  bool m_requireAllTokens = false;
 };
 
 inline std::string DebugPrint(BookmarksSearchParams::Status status)

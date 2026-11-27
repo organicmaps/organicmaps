@@ -269,6 +269,7 @@ bool SearchAPI::SearchInBookmarks(search::BookmarksSearchParams params)
   p.m_needAddress = false;
 
   p.m_bookmarksGroupId = params.m_groupId;
+  p.m_bookmarksRequireAllTokens = params.m_requireAllTokens;
   p.m_onResults = BookmarksSearchCallback(m_delegate, std::move(params.m_onResults));
 
   return Search(std::move(p), true /* forceSearch */);
@@ -505,7 +506,7 @@ void SearchAPI::StartAddressResolution()
   params.m_needAddress = true;
   params.m_requireCompleteResults = true;
   // Use the engine's normal bounded timeout. A shorter deadline can turn a cold-cache
-  // address into a false miss now that resolution waits for complete results.
+  // address into a miss before the resolver can validate it.
   params.m_onResults = [this, request, generation, query](Results const & results)
   {
     if (!results.IsEndMarker())

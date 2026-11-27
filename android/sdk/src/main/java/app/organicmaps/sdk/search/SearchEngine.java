@@ -9,7 +9,6 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.chromium.base.ObserverList;
@@ -146,12 +145,6 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @MainThread
-  public void cancelAllAddressResolutions()
-  {
-    for (long requestId : new ArrayList<>(mAddressResolutionListeners.keySet()))
-      cancelAddressResolution(requestId);
-  }
-
   @Keep
   private void onAddressResolved(long requestId, boolean found, double lat, double lon)
   {
@@ -255,7 +248,13 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   @MainThread
   public boolean searchInBookmarks(@NonNull String query, long categoryId, long timestamp)
   {
-    return nativeRunSearchInBookmarks(query.getBytes(StandardCharsets.UTF_8), categoryId, timestamp);
+    return searchInBookmarks(query, categoryId, timestamp, false);
+  }
+
+  @MainThread
+  public boolean searchInBookmarks(@NonNull String query, long categoryId, long timestamp, boolean requireAllTokens)
+  {
+    return nativeRunSearchInBookmarks(query.getBytes(StandardCharsets.UTF_8), categoryId, timestamp, requireAllTokens);
   }
 
   /**
@@ -392,7 +391,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
    */
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
-  private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
+  private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp,
+                                                            boolean requireAllTokens);
 
   private static native void nativeResolveAddress(String[] queries, String[] expectedStreets, String language,
                                                   long requestId);

@@ -25,6 +25,7 @@
 
 namespace
 {
+constexpr char kContactsSource[] = "android-contacts";
 jclass g_bookmarkManagerClass;
 jfieldID g_bookmarkManagerInstanceField;
 jmethodID g_onBookmarksChangedMethod;
@@ -405,20 +406,6 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
                         address);
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeIsContactBookmark(JNIEnv *,
-                                                                                                           jobject,
-                                                                                                           jlong bmkId)
-{
-  auto const * bookmark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
-  return bookmark && bookmark->HasContactPresentation();
-}
-
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeIsContactCategory(JNIEnv *, jobject, jlong categoryId)
-{
-  return frm()->GetBookmarkManager().IsContactCategory(static_cast<kml::MarkGroupId>(categoryId));
-}
-
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetTrack(JNIEnv * env, jobject,
                                                                                          jlong trackId,
                                                                                          jclass trackClazz)
@@ -590,12 +577,12 @@ Java_app_organicmaps_sdk_widget_placepage_PlacePageButtonFactory_nativeHasRecent
   return frm()->GetBookmarkManager().HasRecentlyDeletedBookmark();
 }
 JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_getImportedContactLocations(JNIEnv * env, jobject)
+Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetImportedContactLocations(JNIEnv * env, jobject)
 {
-  auto entries = GetImportedBookmarks(frm()->GetBookmarkManager(), "android-contacts");
+  auto entries = GetImportedBookmarks(frm()->GetBookmarkManager(), kContactsSource);
   jni::ScopedLocalRef<jclass> clazz(env, env->FindClass("app/organicmaps/sdk/bookmarks/data/ImportedBookmarkLocation"));
   auto const constructor =
-      jni::GetConstructorID(env, clazz.get(), "(Ljava/lang/String;Ljava/lang/String;DDJZLjava/lang/String;)V");
+      jni::GetConstructorID(env, clazz.get(), "(Ljava/lang/String;Ljava/lang/String;DDZLjava/lang/String;)V");
   jobjectArray result = env->NewObjectArray(entries.size(), clazz.get(), nullptr);
   if (!result)
     return nullptr;
@@ -607,8 +594,7 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_getImportedContactLocati
     jni::ScopedLocalRef<jstring> fingerprint(env, jni::ToJavaString(env, entry.m_sourceFingerprint));
     jni::ScopedLocalRef<jobject> location(
         env, env->NewObject(clazz.get(), constructor, key.get(), address.get(), entry.m_lat, entry.m_lon,
-                            static_cast<jlong>(entry.m_groupId), static_cast<jboolean>(entry.m_canModify),
-                            fingerprint.get()));
+                            static_cast<jboolean>(entry.m_canModify), fingerprint.get()));
     if (env->ExceptionCheck())
       return nullptr;
     env->SetObjectArrayElement(result, index++, location.get());
@@ -616,7 +602,7 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_getImportedContactLocati
   return result;
 }
 
-JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_importContactBookmarks(
+JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeImportContactBookmarks(
     JNIEnv * env, jobject, jstring categoryName, jobjectArray keys, jobjectArray names, jobjectArray addresses,
     jdoubleArray latitudes, jdoubleArray longitudes, jobjectArray supersededKeys, jobjectArray sourceFingerprints)
 {
@@ -668,7 +654,8 @@ JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkMan
       }
   }
   auto const imported =
-      ImportBookmarks(frm()->GetBookmarkManager(), "android-contacts", jni::ToNativeString(env, categoryName), entries);
+      ImportBookmarks(frm()->GetBookmarkManager(), kContactsSource, jni::ToNativeString(env, categoryName), entries,
+                      "14,contact-s;15,contact-m", 14);
   jlong const values[] = {static_cast<jlong>(imported.m_categoryId), static_cast<jlong>(imported.m_added),
                           static_cast<jlong>(imported.m_updated),    static_cast<jlong>(imported.m_unchanged),
                           static_cast<jlong>(imported.m_edited),     static_cast<jlong>(imported.m_skipped)};
