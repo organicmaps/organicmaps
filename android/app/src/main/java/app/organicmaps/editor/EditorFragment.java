@@ -1,5 +1,6 @@
 package app.organicmaps.editor;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -100,8 +101,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputEditText mHouseNumber;
 
   // Define Metadata entries, that have more tricky logic, separately.
-  private TextView mPhone;
-  private TextView mEditPhoneLink;
+  private PhoneListAdapter mPhonesAdapter;
+  private RecyclerView mPhonesRecycler;
+
   private TextView mCuisine;
   private SwitchCompat mWifi;
   private TextView mSelfService;
@@ -160,7 +162,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     });
 
-    mPhone.setText(Editor.nativeGetPhone());
+    setupPhoneRecyclerView(view.getContext());
 
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
     String selfServiceMetadata = Editor.nativeGetMetadata(Metadata.MetadataType.FMD_SELF_SERVICE.toInt());
@@ -171,6 +173,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
+  }
+
+  private void setupPhoneRecyclerView(@NonNull Context context)
+  {
+    mPhonesAdapter = new PhoneListAdapter(Editor.nativeGetPhone());
+    mPhonesAdapter.setHasStableIds(false);
+    LinearLayoutManager manager = new LinearLayoutManager(context);
+    mPhonesRecycler.setLayoutManager(manager);
+    mPhonesRecycler.setAdapter(mPhonesAdapter);
   }
 
   @Override
@@ -209,6 +220,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
+    Editor.nativeSetPhone(mPhonesAdapter.getPhoneList());
 
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     // Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(),
@@ -237,6 +249,22 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     {
       mHouseNumber.requestFocus();
       InputUtils.showKeyboard(mHouseNumber);
+      return false;
+    }
+
+    // Validate phones
+    int invalidPhoneIdx = mPhonesAdapter.findInvalidPhone();
+    if (invalidPhoneIdx != -1)
+    {
+      mPhonesRecycler.scrollToPosition(invalidPhoneIdx);
+      mPhonesRecycler.post(() -> {
+        final var holder = mPhonesRecycler.findViewHolderForAdapterPosition(invalidPhoneIdx);
+        if (holder == null)
+          return;
+        final View input = holder.itemView.findViewById(R.id.input);
+        input.requestFocus();
+        InputUtils.showKeyboard(input);
+      });
       return false;
     }
 
@@ -440,10 +468,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
               getString(R.string.editor_storey_number, maxBuildingLevels),
               getString(R.string.error_enter_correct_storey_number, maxBuildingLevels), InputType.TYPE_CLASS_NUMBER);
     View blockPhone = view.findViewById(R.id.block_phone);
-    mPhone = blockPhone.findViewById(R.id.phone);
-    mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
-    mEditPhoneLink.setOnClickListener(this);
-    mPhone.setOnClickListener(this);
+    mPhonesRecycler = blockPhone.findViewById(R.id.edit_phones_recycler);
+
     View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website, R.drawable.ic_website,
                                   R.string.website, R.string.error_enter_correct_web, INPUT_TYPE_URI);
     View websiteMenuBlock =
@@ -548,8 +574,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     final int id = v.getId();
     if (id == R.id.edit_opening_hours || id == R.id.empty_opening_hours || id == R.id.opening_hours)
       mParent.editTimetable();
-    else if (id == R.id.phone || id == R.id.edit_phone)
-      mParent.editPhone();
     else if (id == R.id.block_wifi)
       mWifi.toggle();
     else if (id == R.id.block_self_service)
