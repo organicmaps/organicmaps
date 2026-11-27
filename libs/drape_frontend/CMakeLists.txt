@@ -162,6 +162,8 @@ set(SRC
   selection_shape.hpp
   selection_shape_generator.cpp
   selection_shape_generator.hpp
+  selection_tracking.cpp
+  selection_tracking.hpp
   shape_view_params.hpp
   stylist.cpp
   stylist.hpp

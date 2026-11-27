@@ -11,6 +11,7 @@ set(SRC
   read_metaline_task_tests.cpp
   screen_operations_tests.cpp
   search_mark_overlay_filter_tests.cpp
+  selection_tracking_tests.cpp
   read_cancellation_tests.cpp
   shape_batch_tests.cpp
   stylist_tests.cpp

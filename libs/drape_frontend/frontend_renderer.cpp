@@ -1432,10 +1432,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->ShouldAnimateSelection());
 
     if (!m_myPositionController->IsModeChangeViewport())
-    {
-      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView))
-        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), *startPosition);
-    }
+      m_selectionTrackInfo = SelectionTrackInfo{.m_startRect = modelView.GlobalRect()};
 
     if (msg->IsGeometrySelectionAllowed())
     {
@@ -2392,39 +2389,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     rect.Inflate(kOffset, kOffset);
   }
 
-  if (newViewport.SizeX() < rect.SizeX() || newViewport.SizeY() < rect.SizeY())
-    return false;
-
-  m2::PointD pOffset(0.0, 0.0);
-  bool const fits = newViewport.IsRectInside(rect);
-  if ((!fits && oldViewport.IsIntersect(rect)) || (fits && m_selectionTrackInfo->m_snapSides != m2::PointI::Zero()))
-  {
-    // In case the rect of the selection is [partly] hidden, scroll the map to keep it visible.
-    // In case the rect of the selection is visible after the map scrolling,
-    // try to rollback part of that scrolling to return the map to its original position.
-    if (rect.minX() < newViewport.minX() || m_selectionTrackInfo->m_snapSides.x < 0)
-    {
-      pOffset.x = std::max(m_selectionTrackInfo->m_startPos.x - pos->x, newViewport.minX() - rect.minX());
-      m_selectionTrackInfo->m_snapSides.x = -1;
-    }
-    else if (rect.maxX() > newViewport.maxX() || m_selectionTrackInfo->m_snapSides.x > 0)
-    {
-      pOffset.x = std::min(m_selectionTrackInfo->m_startPos.x - pos->x, newViewport.maxX() - rect.maxX());
-      m_selectionTrackInfo->m_snapSides.x = 1;
-    }
-
-    if (rect.minY() < newViewport.minY() || m_selectionTrackInfo->m_snapSides.y < 0)
-    {
-      pOffset.y = std::max(m_selectionTrackInfo->m_startPos.y - pos->y, newViewport.minY() - rect.minY());
-      m_selectionTrackInfo->m_snapSides.y = -1;
-    }
-    else if (rect.maxY() > newViewport.maxY() || m_selectionTrackInfo->m_snapSides.y > 0)
-    {
-      pOffset.y = std::min(m_selectionTrackInfo->m_startPos.y - pos->y, newViewport.maxY() - rect.maxY());
-      m_selectionTrackInfo->m_snapSides.y = 1;
-    }
-  }
-
+  auto const pOffset = m_selectionTrackInfo->CalcOffset(oldViewport, newViewport, rect, *pos);
   if (pOffset == m2::PointD::Zero())
     return false;
 
