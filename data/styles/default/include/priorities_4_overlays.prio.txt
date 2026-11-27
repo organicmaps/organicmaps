@@ -622,6 +622,7 @@ historic-wreck                                      # icon z16- (also has captio
 landuse-allotments                                  # caption z15- (also has area z12-)
 landuse-cemetery                                    # icon z15- (also has caption(optional) z15-, area z14-)
 landuse-cemetery-christian                          # icon z15- (also has caption(optional) z15-, area z14-)
+landuse-garages                                     # caption z15- (also has area z14-)
 man_made-water_tap                                  # icon z16- (also has caption(optional) z18-)
 man_made-water_well                                 # icon z16- (also has caption(optional) z18-)
 man_made-windmill                                   # icon z16- (also has caption(optional) z16-)

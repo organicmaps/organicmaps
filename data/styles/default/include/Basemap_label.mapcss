@@ -474,6 +474,7 @@ area|z18-[leisure=garden][garden:type!=residential][!name]
 area|z15-[landuse=farmland],
 area|z15-[landuse=farmyard],
 area|z15-[landuse=allotments],
+area|z15-[landuse=garages],
 area|z15-[landuse=recreation_ground],
 area|z15-[landuse=orchard],
 area|z15-[landuse=vineyard],
