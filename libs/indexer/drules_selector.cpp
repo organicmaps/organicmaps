@@ -132,7 +132,7 @@ public:
 
 private:
   uint32_t m_type;
-  decltype(ftype::GetLevel(uint32_t{})) m_level;
+  uint8_t m_level;
   bool m_equals;
 };
 
@@ -198,7 +198,7 @@ static std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classif
   }
   else if (e.m_tag == "extra_tag")
   {
-    if ((e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual) || e.m_value.empty())
+    if (e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual)
       return {};
     std::vector<std::string_view> path;
     for (auto const component : e.m_value | std::views::split('='))

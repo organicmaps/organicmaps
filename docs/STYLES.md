@@ -113,4 +113,7 @@ line|z15[highway=tertiary] {width: 2;}
 line|z15[highway=tertiary][hwtag=oneway] {width: 3;}
 ```
 
+Terrain contour rendering does not evaluate runtime guards. Use a static
+selector such as `line|z18[isoline=step_100]` for 100 m contours.
+
 The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.xml`).
