@@ -23,6 +23,7 @@ import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.util.UiUtils;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -204,7 +205,10 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
 
       allday = itemView.findViewById(R.id.allday);
       allday.setOnClickListener(this);
+      allday.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+      allday.setFocusable(false);
       swAllday = allday.findViewById(R.id.sw__allday);
+      swAllday.setContentDescription(itemView.getResources().getString(R.string.editor_time_allday));
       schedule = itemView.findViewById(R.id.schedule);
       openClose = schedule.findViewById(R.id.time_open_close);
       open = openClose.findViewById(R.id.time_open);
@@ -336,8 +340,13 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       checkBox.setTag(dayIndex);
       days.put(dayIndex, checkBox);
       day.setOnClickListener(v -> checkBox.toggle());
+      day.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+      day.setFocusable(false);
+      checkBox.setContentDescription(DateFormatSymbols.getInstance().getWeekdays()[dayIndex]);
 
-      ((TextView) day.findViewById(R.id.tv__day)).setText(TimeFormatUtils.formatShortWeekday(dayIndex));
+      TextView label = day.findViewById(R.id.tv__day);
+      label.setText(TimeFormatUtils.formatShortWeekday(dayIndex));
+      label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
     }
 
     private void switchWorkingDay(@IntRange(from = 1, to = 7) int dayIndex)
