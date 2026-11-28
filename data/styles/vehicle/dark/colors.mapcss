@@ -98,6 +98,7 @@
 /* 5.ROADS */
 /* 5.1 All roads */
 
+@motorway: #024066;
 @trunk0: #7A4A2F;
 @trunk1: #7A4A2D;
 @primary0:  #8A5A3D;
