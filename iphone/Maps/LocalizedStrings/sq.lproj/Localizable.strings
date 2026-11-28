@@ -690,7 +690,7 @@
 /* Hiking routes layer name in the Styles and Layers dialog */
 "button_layer_hiking" = "Eisje në natyrë";
 
-/* Cycling routes layer name in the Styles and Layers dialog */
+/* Name of the Cycling map style in the Styles and Layers dialog */
 "button_layer_cycling" = "Çiklizëm";
 
 /* Map layers menu: toggle button for the satellite imagery layer */

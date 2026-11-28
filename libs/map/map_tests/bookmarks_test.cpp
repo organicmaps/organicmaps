@@ -1363,9 +1363,9 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TrackRetapWithOtherCandidatesUpda
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_RouteRelationPlacePageHasCountryOfTappedPoint)
 {
   Framework fm({} /* params */, false /* loadMaps */);
-  auto const cyclingEnabled = fm.IsCyclingEnabled();
-  fm.SetCyclingEnabled(true);
-  SCOPE_GUARD(restoreCycling, [&]() { fm.SetCyclingEnabled(cyclingEnabled); });
+  auto const originalStyle = fm.GetMapStyle();
+  SCOPE_GUARD(restoreStyle, [&] { fm.SetMapStyle(originalStyle); });
+  fm.SetMapStyle(MapStyleCyclingLight);
 
   TEST_EQUAL(fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")).second,
              MwmSet::RegResult::Success, ());

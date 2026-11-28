@@ -12,7 +12,9 @@ public enum MapStyle
   VehicleClear(3),
   VehicleDark(4),
   OutdoorsClear(5),
-  OutdoorsDark(6);
+  OutdoorsDark(6),
+  CyclingClear(7),
+  CyclingDark(8);
 
   MapStyle(int value)
   {
@@ -25,22 +27,10 @@ public enum MapStyle
     return valueOf(nativeGet());
   }
 
-  /**
-   * Applies a map style to an existing renderer; this can recreate rendering resources.
-   * Use {@link #mark} before the renderer is first created.
-   */
-  public static void set(@NonNull MapStyle mapStyle)
+  /** Synchronizes the selected map style with the display's appearance and navigation state. */
+  public static void setForCurrentMode(boolean dark, boolean vehicleNavigation, boolean isRendererActive)
   {
-    nativeSet(mapStyle.value);
-  }
-
-  /**
-   * Records the map style to use when the renderer is created without immediately rebuilding graphics resources.
-   * @param mapStyle desired style
-   */
-  public static void mark(@NonNull MapStyle mapStyle)
-  {
-    nativeMark(mapStyle.value);
+    nativeSetForCurrentMode(dark, vehicleNavigation, isRendererActive);
   }
 
   /**
@@ -60,9 +50,7 @@ public enum MapStyle
 
   private final int value;
 
-  private static native void nativeSet(int mapStyle);
-
   private static native int nativeGet();
 
-  private static native void nativeMark(int mapStyle);
+  private static native void nativeSetForCurrentMode(boolean dark, boolean vehicleNavigation, boolean isRendererActive);
 }
