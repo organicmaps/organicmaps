@@ -44,4 +44,4 @@ std::vector<BookmarkImportEntry> GetImportedBookmarks(BookmarkManager const & ma
 BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string const & source,
                                      std::string const & categoryName,
                                      std::vector<BookmarkImportEntry> const & entries,
-                                     std::string const & customImage = {}, int minZoom = 1, bool usePointLayout = false);
+                                     kml::BookmarkIcon icon = kml::BookmarkIcon::None);

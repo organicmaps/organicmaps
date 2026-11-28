@@ -160,7 +160,7 @@ kml::BookmarkData Bookmark::MakeDataWithIcon(kml::BookmarkIcon icon) const
 {
   auto data = m_data;
   auto const previousIcon = GetIcon();
-  if (previousIcon == icon)
+  if (previousIcon == icon && (icon != kml::BookmarkIcon::Person || m_data.m_icon == icon))
     return data;
 
   data.m_icon = icon;

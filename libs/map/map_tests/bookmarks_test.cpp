@@ -4061,7 +4061,7 @@ UNIT_TEST(BookmarkSourceImportSurvivesKmlAndKmbRoundTrips)
       manager.EnableTestMode(true);
       std::vector<BookmarkImportEntry> entries{{"key", "Person", "Address", 49.2104550001, -123.125801}};
       entries[0].m_requireSourceCategory = strict;
-      auto result = ImportBookmarks(manager, "contacts", "Contacts", entries, "14,contact-s;15,contact-m", 14);
+      auto result = ImportBookmarks(manager, "contacts", "Contacts", entries, kml::BookmarkIcon::Person);
       std::string serialized;
       MemWriter writer(serialized);
       TEST(manager.SaveBookmarkCategory(result.m_categoryId, writer, type), ());
@@ -4082,6 +4082,7 @@ UNIT_TEST(BookmarkSourceImportSurvivesKmlAndKmbRoundTrips)
       auto const id = *restored.GetUserMarkIds(result.m_categoryId).begin();
       auto const * bookmark = restored.GetBookmark(id);
       TEST_EQUAL(bookmark->GetPreferredName(), entries[0].m_name, ());
+      TEST_EQUAL(bookmark->GetIcon(), kml::BookmarkIcon::Person, ());
       TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
       TEST_EQUAL(bookmark->GetSymbolNames()->at(14), "contact-s", ());
       TEST_EQUAL(bookmark->GetSymbolNames()->at(15), "contact-m", ());
@@ -4169,18 +4170,11 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
   BookmarkManager manager(BM_CALLBACKS);
   manager.EnableTestMode(true);
   std::vector<BookmarkImportEntry> entries{{"key", "Name", "Address", 49, -123}};
-  entries.front().m_requireSourceCategory = true;
-  std::string const image = "14,contact-s;15,contact-m";
-  auto const contacts = ImportBookmarks(manager, "contacts", "Contacts", entries, image, 14);
+  auto const contacts = ImportBookmarks(manager, "contacts", "Contacts", entries, kml::BookmarkIcon::Person);
   auto const id = *manager.GetUserMarkIds(contacts.m_categoryId).begin();
   auto const * bookmark = manager.GetBookmark(id);
-  TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
-  TEST_EQUAL(bookmark->GetMinTitleZoom(), 14, ());
-  auto const upgraded = ImportBookmarks(manager, "contacts", "Contacts", entries, image, 14,
-                                        true /* usePointLayout */);
-  TEST_EQUAL(upgraded.m_updated, 1, ());
-  TEST_EQUAL(upgraded.m_added, 0, ());
-  TEST_EQUAL(*manager.GetUserMarkIds(contacts.m_categoryId).begin(), id, ());
+  TEST_EQUAL(bookmark->GetData().m_icon, kml::BookmarkIcon::Person, ());
+  TEST(!bookmark->GetData().m_properties.contains("CustomImage"), ());
   auto const other = manager.CreateBookmarkCategory("Other");
   auto session = manager.GetEditSession();
   session.DetachBookmark(id, contacts.m_categoryId);
@@ -4202,6 +4196,30 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
   };
   TEST(find(13) == nullptr, ());
   TEST(find(14) == bookmark, ());
+}
+
+UNIT_TEST(BookmarkImportMigratesLegacyPersonIcon)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  std::vector<BookmarkImportEntry> const entries{{"key", "Name", "Address", 49, -123}};
+  auto const contacts = ImportBookmarks(manager, "contacts", "Contacts", entries);
+  auto const id = *manager.GetUserMarkIds(contacts.m_categoryId).begin();
+  auto const * bookmark = manager.GetBookmark(id);
+
+  auto data = bookmark->GetData();
+  data.m_minZoom = 14;
+  data.m_properties["CustomImage"] = "14,contact-s;15,contact-m";
+  manager.GetEditSession().UpdateBookmark(id, data);
+  TEST_EQUAL(bookmark->GetIcon(), kml::BookmarkIcon::Person, ());
+
+  auto const upgraded = ImportBookmarks(manager, "contacts", "Contacts", entries, kml::BookmarkIcon::Person);
+  TEST_EQUAL(upgraded.m_updated, 1, ());
+  TEST_EQUAL(upgraded.m_added, 0, ());
+  TEST_EQUAL(bookmark->GetData().m_icon, kml::BookmarkIcon::Person, ());
+  TEST(!bookmark->GetData().m_properties.contains("CustomImage"), ());
+  TEST_EQUAL(bookmark->GetAnchor(), dp::Center, ());
+  TEST_EQUAL(bookmark->GetMinTitleZoom(), 15, ());
 }
 
 UNIT_TEST(BookmarkPersonIconWorksOutsideImportedContacts)

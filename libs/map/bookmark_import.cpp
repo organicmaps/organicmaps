@@ -145,7 +145,7 @@ std::vector<BookmarkImportEntry> GetImportedBookmarks(BookmarkManager const & ma
 
 BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string const & source,
                                      std::string const & categoryName, std::vector<BookmarkImportEntry> const & entries,
-                                     std::string const & customImage, int minZoom, bool usePointLayout)
+                                     kml::BookmarkIcon icon)
 {
   BookmarkImportResult result;
   if (entries.empty() || source.empty() || categoryName.empty())
@@ -244,10 +244,10 @@ BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string cons
         continue;
       }
       auto const & existingData = bookmark->GetData();
-      bool const setPointLayout = usePointLayout && !customImage.empty() &&
-                                  Property(existingData.m_properties, "CustomImage") == customImage &&
-                                  Property(existingData.m_properties, "CustomImageLayout") != "point";
-      if (!setPointLayout && Property(existingData.m_properties, kSnapshot) == snapshot &&
+      bool const upgradePersonIcon = icon == kml::BookmarkIcon::Person &&
+                                     existingData.m_icon == kml::BookmarkIcon::None &&
+                                     bookmark->GetIcon() == kml::BookmarkIcon::Person;
+      if (!upgradePersonIcon && Property(existingData.m_properties, kSnapshot) == snapshot &&
           Property(existingData.m_properties, kKey) == entry.m_key &&
           Property(existingData.m_properties, kFingerprint) == entry.m_sourceFingerprint &&
           mercator::DistanceOnEarth(bookmark->GetPivot(), point) <= 1.0)
@@ -256,9 +256,7 @@ BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string cons
         retire(entry, bookmark->GetGroupId());
         continue;
       }
-      data = existingData;
-      if (setPointLayout)
-        data.m_properties["CustomImageLayout"] = "point";
+      data = upgradePersonIcon ? bookmark->MakeDataWithIcon(icon) : existingData;
     }
     else
     {
@@ -272,13 +270,7 @@ BookmarkImportResult ImportBookmarks(BookmarkManager & manager, std::string cons
       }
       data.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
       data.m_timestamp = kml::TimestampClock::now();
-      if (!customImage.empty())
-      {
-        data.m_properties["CustomImage"] = customImage;
-        if (usePointLayout)
-          data.m_properties["CustomImageLayout"] = "point";
-      }
-      data.m_minZoom = minZoom;
+      data.m_icon = icon;
     }
     kml::SetDefaultStr(data.m_name, entry.m_name);
     kml::SetDefaultStr(data.m_customName, entry.m_name);
