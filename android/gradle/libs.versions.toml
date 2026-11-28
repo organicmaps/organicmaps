@@ -17,6 +17,7 @@ androidx-constraintlayout = "2.2.2"
 # Newer versions require minSdk 23
 # noinspection GradleDependency
 androidx-core = "1.17.0"
+androidx-customview = "1.2.0"
 # 1.9+ requires minSdk 23
 # noinspection GradleDependency
 androidx-fragment = "1.8.9"
@@ -85,6 +86,7 @@ androidx-car-app-projected = { module = "androidx.car.app:app-projected", versio
 androidx-car-app-testing = { module = "androidx.car.app:app-testing", version.ref = "androidx-car" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
+androidx-customview = { module = "androidx.customview:customview", version.ref = "androidx-customview" }
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx-fragment" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidx-lifecycle" }

@@ -987,4 +987,78 @@
     <string name="navigate_track_finish">Конец трека</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
+
+    <!-- SECTION: Accessibility -->
+    <!-- Accessibility name of the map surface containing selectable virtual objects. -->
+    <string name="map_accessibility_label">Карта</string>
+    <!-- Accessibility role of the route start marker on the map. -->
+    <string name="map_route_start">Начало маршрута</string>
+    <!-- Accessibility role of an intermediate route marker. %d is its one-based route order. -->
+    <string name="map_route_stop">Промежуточная точка %d</string>
+    <!-- Accessibility role of the route destination marker on the map. -->
+    <string name="map_route_finish">Конец маршрута</string>
+    <!-- Accessibility location of a map object: latitude followed by longitude, both in degrees. -->
+    <string name="map_point_coordinates">Широта %1$.5f, долгота %2$.5f</string>
+    <!-- Accessibility state of the My Position button while waiting for a location fix. -->
+    <string name="my_position_state_pending">Определение местоположения…</string>
+    <!-- Accessibility state of the My Position button when location tracking is off. Does not mean device GPS is disabled. -->
+    <string name="my_position_state_off">Отслеживание местоположения выключено</string>
+    <!-- Accessibility state: location is shown, but the map does not follow it. -->
+    <string name="my_position_state_not_following">Карта не следует за местоположением</string>
+    <!-- Accessibility state: the map follows the user's location without following their heading. -->
+    <string name="my_position_state_following">Карта следует за местоположением</string>
+    <!-- Accessibility state: the map follows the user's location and rotates with their heading. -->
+    <string name="my_position_state_following_heading">Карта следует за местоположением и направлением движения</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_left">Посмотреть левее на карте</string>
+    <!-- Accessibility pane title of an opened place card when the place has no title. -->
+    <string name="map_place_details">Информация о месте</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_right">Посмотреть правее на карте</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_up">Посмотреть выше на карте</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_down">Посмотреть ниже на карте</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_read_center">Прочитать координаты центра карты</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_relative">Направление к выбранному месту</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_read_relative">Прочитать направление относительно телефона</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_unavailable">Направление недоступно</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_relative_degrees">Угол по часовой стрелке от верхнего края телефона: %d°</string>
+    <!-- Accessibility label or state for navigation controls. -->
+    <string name="navigation_controls">Управление навигацией</string>
+    <!-- Accessibility label or state for navigation controls. -->
+    <string name="navigation_controls_expand">Развернуть панель навигации</string>
+    <!-- Accessibility label or state for navigation controls. -->
+    <string name="navigation_controls_collapse">Свернуть панель навигации</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_current_speed">Текущая скорость: %1$s %2$s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_speed_limit">Ограничение скорости: %1$s %2$s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_speed_warning">Предупреждение о скорости</string>
+    <!-- Accessibility description of the red Alert mode of the speed display, more severe than its yellow Warning mode. -->
+    <string name="navigation_speed_alert">Тревога по скорости</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_time_remaining">Осталось времени: %s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_arrival_time">Прибытие: %s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_distance_remaining">До конца маршрута: %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_actions_named">Действия для «%s»</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_change_color_named">Изменить цвет «%s»</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_hide_list_named">Скрыть список «%s»</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_show_list_named">Показать список «%s»</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_hide_track_named">Скрыть трек «%s»</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_show_track_named">Показать трек «%s»</string>
 </resources>

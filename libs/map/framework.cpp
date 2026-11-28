@@ -1287,6 +1287,51 @@ m2::PointD Framework::GetVisiblePixelCenter() const
   return m_visibleViewport.Center();
 }
 
+std::vector<Framework::VisibleRoutePoint> Framework::GetVisibleRoutePoints() const
+{
+  std::vector<VisibleRoutePoint> points;
+  if (!m_drapeEngine)
+    return points;
+
+  auto const & manager = GetBookmarkManager();
+  for (auto const id : manager.GetUserMarkIds(UserMark::ROUTING))
+  {
+    auto const * mark = static_cast<RouteMarkPoint const *>(manager.GetUserMark(id));
+    ASSERT(mark, (id));
+    if (!mark->IsVisible() || mark->IsPassed())
+      continue;
+    auto const pixel = m_currentModelView.GtoP(mark->GetPivot());
+    if (m_currentModelView.IsReverseProjection3d(pixel))
+      continue;
+    auto const projected = m_currentModelView.PtoP3d(pixel);
+    if (m_visibleViewport.IsPointInside(projected))
+      points.push_back({id, mark->GetMarkData(), projected});
+  }
+  std::sort(points.begin(), points.end(), [](auto const & a, auto const & b)
+  {
+    if (a.m_data.m_pointType != b.m_data.m_pointType)
+      return a.m_data.m_pointType < b.m_data.m_pointType;
+    return a.m_data.m_intermediateIndex < b.m_data.m_intermediateIndex;
+  });
+  return points;
+}
+
+bool Framework::SelectRoutePoint(kml::MarkId id)
+{
+  if (!m_drapeEngine || UserMark::GetMarkType(id) != UserMark::ROUTING)
+    return false;
+  auto const * mark = static_cast<RouteMarkPoint const *>(GetBookmarkManager().GetUserMark(id));
+  if (!mark || !mark->IsVisible() || mark->IsPassed())
+    return false;
+  place_page::BuildInfo info;
+  info.m_source = place_page::BuildInfo::Source::User;
+  info.m_mercator = mark->GetPivot();
+  info.m_userMarkId = id;
+  info.m_match = place_page::BuildInfo::Match::UserMarkOnly;
+  OnTapEvent(info);
+  return true;
+}
+
 m2::PointD Framework::GetViewportCenter() const
 {
   ASSERT(m_visibleViewport.IsValid(), ("Set by OnSize() from CreateDrapeEngine()"));

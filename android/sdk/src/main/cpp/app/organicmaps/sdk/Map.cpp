@@ -6,6 +6,8 @@
 
 #include "storage/storage_defines.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/logging.hpp"
 
 #include "platform/settings.hpp"
@@ -21,6 +23,27 @@ void OnRenderingInitializationFinished(std::shared_ptr<jobject> const & listener
 
 extern "C"
 {
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Map_getVisibleRoutePoints(JNIEnv * env, jclass)
+{
+  static jclass const clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/MapRoutePoint");
+  static jmethodID const constructor = jni::GetConstructorID(env, clazz, "(JLjava/lang/String;IIFFDD)V");
+  auto const points = g_framework->NativeFramework()->GetVisibleRoutePoints();
+  return jni::ToJavaArray(env, clazz, points, [](JNIEnv * env, ::Framework::VisibleRoutePoint const & point)
+  {
+    jni::TScopedLocalRef title(env, jni::ToJavaString(env, point.m_data.m_title));
+    auto const ll = mercator::ToLatLon(point.m_data.m_position);
+    return env->NewObject(clazz, constructor, static_cast<jlong>(point.m_id), title.get(),
+                          static_cast<jint>(point.m_data.m_pointType),
+                          static_cast<jint>(point.m_data.m_intermediateIndex), static_cast<jfloat>(point.m_pixel.x),
+                          static_cast<jfloat>(point.m_pixel.y), ll.m_lat, ll.m_lon);
+  });
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Map_selectRoutePoint(JNIEnv *, jclass, jlong id)
+{
+  return g_framework->NativeFramework()->SelectRoutePoint(static_cast<kml::MarkId>(id));
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Map_nativeCreateEngine(JNIEnv * env, jclass, jobject surface, jint density,
                                                                    jboolean firstLaunch, jboolean isLaunchByDeepLink,
                                                                    jint appVersionCode, jboolean isCustomROM)

@@ -256,6 +256,7 @@ dependencies {
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // See https://stackoverflow.com/a/75719642
   implementation libs.androidx.core
+  implementation libs.androidx.customview
   implementation libs.androidx.annotation
   implementation libs.androidx.appcompat
   implementation libs.androidx.car.app

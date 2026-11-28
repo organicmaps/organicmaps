@@ -76,12 +76,17 @@ public class MapView extends SurfaceView
   {
     super(context, attrs, defStyleAttr, defStyleRes);
 
-    try (final TypedArray data =
-             context.getTheme().obtainStyledAttributes(attrs, R.styleable.MapView, defStyleAttr, defStyleRes))
+    final TypedArray data =
+        context.getTheme().obtainStyledAttributes(attrs, R.styleable.MapView, defStyleAttr, defStyleRes);
+    try
     {
       final int displayTypeOrdinal = data.getInt(R.styleable.MapView_display_type, DisplayType.Device.ordinal());
       final DisplayType displayType = DisplayType.values()[displayTypeOrdinal];
       mMap = new Map(displayType);
+    }
+    finally
+    {
+      data.recycle();
     }
     getHolder().addCallback(new SurfaceHolderCallback());
   }
@@ -100,6 +105,7 @@ public class MapView extends SurfaceView
    * Forwards the view's touch events to the native gesture handler.
    */
   @Override
+  @android.annotation.SuppressLint("ClickableViewAccessibility") // Clicks belong to virtual map objects, not gestures.
   public boolean onTouchEvent(@NonNull MotionEvent event)
   {
     int action = event.getActionMasked();
@@ -126,15 +132,7 @@ public class MapView extends SurfaceView
     case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
     }
     Map.onTouch(action, event, pointerIndex);
-    performClick();
     return true;
-  }
-
-  @Override
-  public boolean performClick()
-  {
-    super.performClick();
-    return false;
   }
 
   @NonNull

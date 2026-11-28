@@ -121,6 +121,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.widget.MapAccessibilityHelper;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -156,6 +157,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private MapController mMapController;
+  private MapAccessibilityHelper mMapAccessibilityHelper;
 
   private View mPointChooser;
   private Toolbar mPointChooserToolbar;
@@ -652,6 +654,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapController = new MapController(findViewById(R.id.map), MwmApplication.from(this).getLocationHelper(), this,
                                        this::reportUnsupported, isLaunchByDeeplink);
     getLifecycle().addObserver(mMapController);
+    mMapAccessibilityHelper = MapAccessibilityHelper.attach(findViewById(R.id.map), mMapController, getLifecycle());
 
     initNavigationButtons();
 
@@ -679,6 +682,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPointChooserHint = mPointChooser.findViewById(R.id.hint);
     UiUtils.showHomeUpButton(mPointChooserToolbar);
     mPointChooserToolbar.setNavigationOnClickListener(v -> closePositionChooser());
+    mMapAccessibilityHelper.attachPositionChooser(mPointChooser.findViewById(R.id.done));
     mPointChooser.findViewById(R.id.done).setOnClickListener(v -> {
       switch (ChoosePositionMode.get())
       {
@@ -2258,6 +2262,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageActiveChanged(boolean active)
   {
+    if (mMapAccessibilityHelper != null)
+      mMapAccessibilityHelper.onPlacePageActiveChanged(active);
     mRoutingPlanViewModel.setIsPlacePageActive(active);
   }
 

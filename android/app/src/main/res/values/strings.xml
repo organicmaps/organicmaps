@@ -972,4 +972,78 @@
     <string name="navigate_track_finish">Track Finish</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">No track remains in this direction. Select another point.</string>
+
+    <!-- SECTION: Accessibility -->
+    <!-- Accessibility name of the map surface containing selectable virtual objects. -->
+    <string name="map_accessibility_label">Map</string>
+    <!-- Accessibility role of the route start marker on the map. -->
+    <string name="map_route_start">Start of route</string>
+    <!-- Accessibility role of an intermediate route marker. %d is its one-based route order. -->
+    <string name="map_route_stop">Intermediate point %d</string>
+    <!-- Accessibility role of the route destination marker on the map. -->
+    <string name="map_route_finish">End of route</string>
+    <!-- Accessibility location of a map object: latitude followed by longitude, both in degrees. -->
+    <string name="map_point_coordinates">Latitude %1$.5f, longitude %2$.5f</string>
+    <!-- Accessibility state of the My Position button while waiting for a location fix. -->
+    <string name="my_position_state_pending">Finding location…</string>
+    <!-- Accessibility state of the My Position button when location tracking is off. Does not mean device GPS is disabled. -->
+    <string name="my_position_state_off">Location tracking off</string>
+    <!-- Accessibility state: location is shown, but the map does not follow it. -->
+    <string name="my_position_state_not_following">Map not following location</string>
+    <!-- Accessibility state: the map follows the user's location without following their heading. -->
+    <string name="my_position_state_following">Map following location</string>
+    <!-- Accessibility state: the map follows the user's location and rotates with their heading. -->
+    <string name="my_position_state_following_heading">Map following location and heading</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_left">Look left on the map</string>
+    <!-- Accessibility pane title of an opened place card when the place has no title. -->
+    <string name="map_place_details">Place details</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_right">Look right on the map</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_up">Look above on the map</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_pan_down">Look below on the map</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="map_read_center">Read map center coordinates</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_relative">Direction to the selected place</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_read_relative">Read direction relative to the phone</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_unavailable">Direction unavailable</string>
+    <!-- Accessibility only. Map navigation action or on-demand direction reading; degrees are clockwise relative to the phone, not geographic north. -->
+    <string name="direction_relative_degrees">%d degrees clockwise from the top of the phone</string>
+    <!-- Accessibility label or state for navigation controls. -->
+    <string name="navigation_controls">Navigation controls</string>
+    <!-- Accessibility label or state for navigation controls. -->
+    <string name="navigation_controls_expand">Expand navigation controls</string>
+    <!-- Accessibility label or state for navigation controls. -->
+    <string name="navigation_controls_collapse">Collapse navigation controls</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_current_speed">Current speed: %1$s %2$s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_speed_limit">Speed limit: %1$s %2$s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_speed_warning">Speed warning</string>
+    <!-- Accessibility description of the red Alert mode of the speed display, more severe than its yellow Warning mode. -->
+    <string name="navigation_speed_alert">Speed alert</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_time_remaining">Time remaining: %s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_arrival_time">Arrival: %s</string>
+    <!-- Accessibility reading of current navigation data, requested by the screen reader. -->
+    <string name="navigation_distance_remaining">Distance remaining: %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_actions_named">Actions for %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_change_color_named">Change color of %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_hide_list_named">Hide list %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_show_list_named">Show list %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_hide_track_named">Hide track %s</string>
+    <!-- Accessibility action; %s is the full name of the list, bookmark or track. -->
+    <string name="bookmark_show_track_named">Show track %s</string>
 </resources>

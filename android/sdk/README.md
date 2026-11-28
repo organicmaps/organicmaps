@@ -96,6 +96,14 @@ an existing renderer. Forward system-bar and cutout insets through the controlle
 widget-offset methods: compass offsets are from the right and top edges; bottom
 widget offsets are from the left and bottom edges. Values are screen pixels.
 
+After `controller.isRenderingActive()` becomes true, `Map.getVisibleRoutePoints()`
+returns unpassed route marks in route order, with stable mark IDs, geographic
+coordinates and view-local pixel positions (including map rotation and tilt).
+The snapshot is limited to the native visible viewport. Use `Map.selectRoutePoint(id)`
+to open the existing place page for that exact mark; it returns false if the mark
+has been removed, hidden or passed. Both calls belong on the main thread. These
+methods expose route marks, not a complete accessibility hierarchy for map features.
+
 ## Location and selection
 
 Location permissions in the SDK manifest are merged into the host, but the host
