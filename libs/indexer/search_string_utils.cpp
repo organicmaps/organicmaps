@@ -45,6 +45,14 @@ std::pair<UniString, UniString> const kPreprocessReplacements[] = {
     {MakeUniString("м-н"), MakeUniString("микрорайон")},
 };
 
+// Pairs of {variant, folded} CJK characters which are the same character, see
+// https://github.com/organicmaps/organicmaps/issues/12839. Names use both spellings.
+std::pair<UniChar, UniChar> constexpr kCJKVariants[] = {
+    {0x81FA, 0x53F0},  // 臺 -> 台
+    {0x7DAB, 0x7DDA},  // 綫 -> 線
+    {0x885E, 0x885B},  // 衞 -> 衛
+};
+
 void TransliterateHiraganaToKatakana(UniString & s)
 {
   // Transliteration is heavy. Check we have any hiragana symbol before transliteration.
@@ -136,6 +144,11 @@ UniString NormalizeAndSimplifyString(std::string_view s)
     case 0xfe0f:  // VARIATION SELECTOR-16
       c = ' ';
       break;
+    default:
+      for (auto const & [variant, folded] : kCJKVariants)
+        if (c == variant)
+          c = folded;
+      break;
     }
   }
 
@@ -179,6 +192,23 @@ UniString NormalizeAndSimplifyString(std::string_view s)
   }
   return result;
   */
+}
+
+bool UnfoldCJKVariants(UniString & s)
+{
+  bool unfolded = false;
+  for (UniChar & c : s)
+  {
+    for (auto const & [variant, folded] : kCJKVariants)
+    {
+      if (c == folded)
+      {
+        c = variant;
+        unfolded = true;
+      }
+    }
+  }
+  return unfolded;
 }
 
 void PreprocessBeforeTokenization(UniString & query)

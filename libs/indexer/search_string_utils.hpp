@@ -38,6 +38,10 @@ strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & 
 // It does some magic text transformation which greatly helps us to improve our search.
 strings::UniString NormalizeAndSimplifyString(std::string_view s);
 
+// Replaces CJK characters folded by NormalizeAndSimplifyString with their variants, like 台 -> 臺.
+// Returns false if |s| has none.
+bool UnfoldCJKVariants(strings::UniString & s);
+
 // Replace abbreviations which can be split during tokenization with full form.
 // Eg. "пр-т" -> "проспект".
 void PreprocessBeforeTokenization(strings::UniString & query);

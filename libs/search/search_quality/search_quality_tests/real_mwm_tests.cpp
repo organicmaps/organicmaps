@@ -1480,4 +1480,44 @@ UNIT_CLASS_TEST(MwmTestsFixture, US_FullAddress_NY)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, CJK_Variants)
+{
+  // https://github.com/organicmaps/organicmaps/issues/12839
+  // OSM names use both spellings of 臺/台, 綫/線 and 衞/衛. Each spelling should find the name without misprints.
+  struct Case
+  {
+    ms::LatLon m_center;
+    std::string m_name;
+    std::vector<std::string> m_queries;
+  };
+
+  Case const cases[] = {
+      {{25.0478, 121.5170}, "臺北車站", {"臺北車站", "台北車站"}},
+      {{24.1369, 120.6856}, "臺中車站", {"臺中車站", "台中車站"}},
+      {{22.9971, 120.2127}, "臺南車站", {"臺南車站", "台南車站"}},
+      {{22.7937, 121.1232}, "臺東車站", {"臺東車站", "台東車站"}},
+      {{25.0136, 121.5414}, "國立臺灣科技大學", {"國立臺灣科技大學", "國立台灣科技大學"}},
+      {{22.3260, 114.2700}, "銀綫灣道 Silverstrand Beach Road", {"銀綫灣道", "銀線灣道"}},
+      {{22.2570, 114.1300}, "鋼綫灣 Telegraph Bay", {"鋼綫灣", "鋼線灣"}},
+      {{22.2860, 114.1430},
+       "衞生署西區牙科診所 Department of Health Western Dental Clinic",
+       {"衞生署西區牙科診所", "衛生署西區牙科診所"}},
+  };
+
+  size_t constexpr kTopResults = 3;
+  for (auto const & c : cases)
+  {
+    SetViewportAndLoadMaps(c.m_center);
+    for (auto const & query : c.m_queries)
+    {
+      auto request = MakeRequest(query, "zh-Hant");
+      auto const & results = request->Results();
+      auto const top = std::min(results.size(), kTopResults);
+      bool const found = std::any_of(results.begin(), results.begin() + top, [&c](search::Result const & r)
+      { return r.GetString() == c.m_name && r.GetRankingInfo().m_errorsMade == search::ErrorsMade(0); });
+      TEST(found, (query, results));
+    }
+  }
+}
+
 }  // namespace real_mwm_tests

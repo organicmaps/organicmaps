@@ -68,6 +68,13 @@ public:
     m_belongsToMatchedRegion[center] = belongsToMatchedRegion;
   }
 
+  // Indexes |name| as is, like a map built before a NormalizeAndSimplifyString change.
+  void AddLocalityWithRawIndex(string const & name, uint32_t featureId)
+  {
+    m_searchIndex.Add(MakeUniString(name), featureId);
+    m_names[featureId].push_back(name);
+  }
+
   vector<Locality> GetLocalities(size_t limit, bool keepNonOverlapping = false)
   {
     BaseContext ctx;
@@ -389,6 +396,38 @@ UNIT_CLASS_TEST(LocalityScorerTest, KeepNonOverlapping_AlternateRangePastLimit)
     if (l.GetFeatureIndex() == 0)
       ++f0count;
   TEST_GREATER(f0count, 1, ("alternate non-overlapping range dropped"));
+}
+
+UNIT_CLASS_TEST(LocalityScorerTest, CJKVariants_MapBuiltBeforeFolding)
+{
+  // https://github.com/organicmaps/organicmaps/issues/12839
+  // Maps built before 臺 was folded into 台 have both spellings in the search index.
+  enum
+  {
+    ID_TAIPEI,
+    ID_TAICHUNG
+  };
+
+  AddLocalityWithRawIndex("臺北", ID_TAIPEI);
+  AddLocalityWithRawIndex("台中", ID_TAICHUNG);
+
+  for (auto const * query : {"臺北", "台北"})
+  {
+    InitParams(query, false /* lastTokenIsPrefix */);
+    TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_TAIPEI}), (query));
+  }
+
+  for (auto const * query : {"臺中", "台中"})
+  {
+    InitParams(query, false /* lastTokenIsPrefix */);
+    TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_TAICHUNG}), (query));
+  }
+
+  for (auto const * query : {"臺", "台"})
+  {
+    InitParams(query, true /* lastTokenIsPrefix */);
+    TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_TAIPEI, ID_TAICHUNG}), (query));
+  }
 }
 
 }  // namespace locality_scorer_test

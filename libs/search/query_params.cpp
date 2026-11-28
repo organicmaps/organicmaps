@@ -3,6 +3,8 @@
 #include "search/ranking_utils.hpp"
 #include "search/token_range.hpp"
 
+#include "indexer/search_string_utils.hpp"
+
 #include <map>
 #include <sstream>
 
@@ -212,22 +214,23 @@ void QueryParams::RemoveToken(size_t i)
 
 void QueryParams::AddSynonyms()
 {
-  for (auto & token : m_tokens)
+  auto const addSynonyms = [](Token & token)
   {
     std::string const ss = ToUtf8(MakeLowerCase(token.GetOriginal()));
     auto const it = kSynonyms.find(ss);
     if (it != kSynonyms.end())
       for (auto const & synonym : it->second)
         token.AddSynonym(synonym);
-  }
+
+    // Search indexes of maps built before NormalizeAndSimplifyString folded CJK variants have the variants.
+    if (auto variants = token.GetOriginal(); UnfoldCJKVariants(variants))
+      token.AddSynonym(variants);
+  };
+
+  for (auto & token : m_tokens)
+    addSynonyms(token);
   if (m_hasPrefix)
-  {
-    std::string const ss = ToUtf8(MakeLowerCase(m_prefixToken.GetOriginal()));
-    auto const it = kSynonyms.find(ss);
-    if (it != kSynonyms.end())
-      for (auto const & synonym : it->second)
-        m_prefixToken.AddSynonym(synonym);
-  }
+    addSynonyms(m_prefixToken);
 }
 
 std::string DebugPrint(QueryParams const & params)

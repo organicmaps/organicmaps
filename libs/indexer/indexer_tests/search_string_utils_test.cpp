@@ -103,6 +103,39 @@ UNIT_TEST(NormalizeAndSimplifyString_WithOurTambourines)
     TEST_EQUAL(arr[i + 1], NormalizeAndSimplifyStringUtf8(arr[i]), ());
 }
 
+UNIT_TEST(NormalizeAndSimplifyString_CJKVariants)
+{
+  // https://github.com/organicmaps/organicmaps/issues/12839
+  string const arr[] = {
+      "臺北車站",   "台北車站",    // 臺 -> 台
+      "霧臺國小",   "霧台國小",    // Not only the first character.
+      "港鐵觀塘綫", "港鐵觀塘線",  // 綫 -> 線
+      "衞生署",     "衛生署",      // 衞 -> 衛
+      "臺灣綫衞",   "台灣線衛",    // All in one token.
+      "台北線衛",   "台北線衛",    // Already folded.
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
+    TEST_EQUAL(arr[i + 1], NormalizeAndSimplifyStringUtf8(arr[i]), ());
+}
+
+UNIT_TEST(UnfoldCJKVariants)
+{
+  auto const unfold = [](string const & s)
+  {
+    UniString us = MakeUniString(s);
+    return UnfoldCJKVariants(us) ? ToUtf8(us) : string();
+  };
+
+  TEST_EQUAL(unfold("台北車站"), "臺北車站", ());
+  TEST_EQUAL(unfold("霧台國小"), "霧臺國小", ());
+  TEST_EQUAL(unfold("觀塘線"), "觀塘綫", ());
+  TEST_EQUAL(unfold("衛生署"), "衞生署", ());
+  TEST_EQUAL(unfold("台灣線衛"), "臺灣綫衞", ());
+  TEST_EQUAL(unfold("東京"), "", ());
+  TEST_EQUAL(unfold("abc"), "", ());
+}
+
 UNIT_TEST(NormalizeAndSimplifyString_Contains)
 {
   constexpr char const * kTestStr = "ØøÆæŒœ Ўвага!";
