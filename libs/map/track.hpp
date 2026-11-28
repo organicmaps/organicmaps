@@ -104,6 +104,8 @@ public:
   // Relation tracks are assembled from OSM ways without a reliable direction.
   bool HasDirection() const override { return GetId() != kml::kTempRelationTrackId; }
   void SetVisibility(bool visible);
+  kml::Timestamp GetModifiedTimestamp() const;
+  void SetModifiedTimestamp(kml::Timestamp);
 
   // Runtime-only; BookmarkManager sends the rendering notification without saving the track.
   bool IsSelected() const { return m_isSelected; }
@@ -119,6 +121,9 @@ public:
   /// Elevation charts and totals require complete heights, with at least one nonzero height.
   /// Incomplete saved tracks retain measured heights for export and still show distance and available duration.
   bool HasAltitudes() const;
+
+protected:
+  void SetDirty(bool updateModificationTime = true);
 
 private:
   std::vector<Lengths> GetLengthsImpl() const;
