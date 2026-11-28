@@ -63,6 +63,11 @@ struct StoredRankingInfo
   // Number of misprints.
   ErrorsMade m_errorsMade;
 
+  // The whole query matched a current feature name before category or street tokens were removed.
+  bool m_exactNameMatch = false;
+
+  double GetNameProximityScore() const;
+
   // Used for non-categorial requests.
   union
   {
@@ -109,6 +114,9 @@ struct RankingInfo : public StoredRankingInfo
 
   // Different geo-parts extracted from query.
   IntersectionResult m_geoParts;
+
+  // Applied to exact names when a village also matches the query.
+  double m_nameProximityScore = 0.0;
 
   // Fraction of characters from original query matched to feature.
   float m_matchedFraction = 0.0;

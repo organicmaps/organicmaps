@@ -27,6 +27,8 @@ double constexpr kCategoriesFalseCats = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.48;
 double constexpr kWalkingDistanceM = 5000.0;
+// Comparable to the population weight of a small village. Half the bonus remains at walking distance.
+double constexpr kExactNameProximity = 0.025;
 
 // These constants are very important and checked in Famous_Cities_Rank test.
 double constexpr kRank = 0.23;
@@ -261,7 +263,8 @@ std::string DebugPrint(RankingInfo const & info)
   os << ", " << DebugPrint(info.m_geoParts);
 
   os << ", m_rank: " << static_cast<int>(info.m_rank) << ", m_popularity: " << static_cast<int>(info.m_popularity)
-     << ", m_nameScore: " << DebugPrint(info.m_nameScore) << ", m_isAltOrOldName: " << info.m_isAltOrOldName
+     << ", m_nameScore: " << DebugPrint(info.m_nameScore) << ", m_exactNameMatch: " << info.m_exactNameMatch
+     << ", m_nameProximityScore: " << info.m_nameProximityScore << ", m_isAltOrOldName: " << info.m_isAltOrOldName
      << ", m_numTokens: " << info.m_numTokens << ", m_commonTokensFactor: " << info.m_commonTokensFactor
      << ", m_matchedFraction: " << info.m_matchedFraction << ", m_pureCats: " << info.m_pureCats
      << ", m_falseCats: " << info.m_falseCats << ", m_allTokensUsed: " << info.m_allTokensUsed
@@ -297,6 +300,11 @@ void RankingInfo::ToCSV(std::ostream & os) const
 double RankingInfo::GetLinearRankViewportThreshold()
 {
   return kViewportDiffThreshold;
+}
+
+double StoredRankingInfo::GetNameProximityScore() const
+{
+  return kExactNameProximity * kWalkingDistanceM / (kWalkingDistanceM + m_distanceToPivot);
 }
 
 double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
@@ -358,6 +366,8 @@ double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
   if (m_nearbyMatch)
     result += kAltOldName;
 
+  if (!viewportMode)
+    result += m_nameProximityScore;
   return result;
 }
 

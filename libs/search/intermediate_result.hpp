@@ -127,6 +127,16 @@ public:
     m_info = info;
   }
 
+  void ApplyExactNameProximity()
+  {
+    if (!m_info.m_exactNameMatch)
+      return;
+    double const score = m_info.GetNameProximityScore();
+    m_finalRank += score;
+    if (m_dbgInfo)
+      m_dbgInfo->m_nameProximityScore = score;
+  }
+
   void SetHNPrefixMatch() { m_hnPrefixMatch = true; }
   bool IsHNPrefixMatch() const { return m_hnPrefixMatch; }
 
