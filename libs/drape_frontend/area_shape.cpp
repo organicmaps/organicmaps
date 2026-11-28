@@ -15,10 +15,6 @@
 
 namespace df
 {
-// Analytic area patterns repeat every kHatchTilePx base pixels. The fragment shaders interpret
-// v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
-uint32_t constexpr kHatchTilePx = 16;
-
 namespace
 {
 // Maps an area-pattern key (hatch or solid-fill) to its analytic GPU program.
@@ -152,12 +148,12 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
     bbox.Add(v);
 
   // World units per tile repeat; the fragment shader scales v_maskTexCoords back to in-tile pixels.
-  double const tilesPerWorld = m_params.m_baseGtoPScale / kHatchTilePx;
+  double const tilesPerWorld = m_params.m_baseGtoPScale / dp::kPatternTileSize;
 
   // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
   // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
-  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), kHatchTilePx, m_params.m_baseGtoPScale);
-  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), kHatchTilePx, m_params.m_baseGtoPScale);
+  double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), dp::kPatternTileSize, m_params.m_baseGtoPScale);
+  double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), dp::kPatternTileSize, m_params.m_baseGtoPScale);
 
   gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
   vertexes.reserve(m_vertexes.size());

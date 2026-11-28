@@ -8,8 +8,6 @@ layout (location = 0) out LOW_P vec4 v_color;
 layout (location = 1) out vec2 v_colorTexCoord;
 #endif
 
-//layout (location = 2) out vec2 v_halfLength;
-
 layout (binding = 0) uniform UBO
 {
   mat4 u_modelView;
@@ -40,7 +38,6 @@ void main()
 #else
   v_colorTexCoord = a_colorTexCoord;
 #endif
-  //v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * u_projection;
   gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);
 }

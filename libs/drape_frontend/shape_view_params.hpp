@@ -90,11 +90,11 @@ struct LineViewParams : CommonViewParams
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;
+  float m_grainScale = 0;  // Map shape coordinates to road grain repeats.
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
-  // Round joins are line triangles too, and thin lines aren't GL lines, so that translucent lines of one bucket
-  // blend in their paint order. Caps must be butt ones. The Less depth test keeps a line from blending twice where
-  // its segments and joins overlap.
+  // Use one triangle bucket for the stroke, round joins and caps, including thin lines.
+  // The Less depth test keeps overlapping pieces of a translucent line from blending twice.
   bool m_blendInPaintOrder = false;
 
   /// Optional rainbow mode: colors for a multi-stripe overlay.

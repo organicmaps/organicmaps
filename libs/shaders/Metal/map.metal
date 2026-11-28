@@ -386,7 +386,6 @@ typedef struct
 {
   float4 position [[position]];
   float4 color;
-  //float2 halfLength;
 } LineFragment_T;
 
 vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
@@ -405,8 +404,6 @@ vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
                                                     uniforms.u_modelView, halfWidth);
   }
   
-  //out.halfLength = float2(sign(in.a_normal.z) * halfWidth, abs(in.a_normal.z));
-  
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
   
@@ -418,16 +415,25 @@ vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
 
 fragment float4 fsLine(const LineFragment_T in [[stage_in]])
 {
-  // Disabled too agressive AA-like blurring of edges,
-  // see https://github.com/organicmaps/organicmaps/issues/6583.
-  //constexpr float kAntialiasingPixelsCount = 2.5;
-  
-  //float currentW = abs(in.halfLength.x);
-  //float diff = in.halfLength.y - currentW;
-  
-  float4 color = in.color;
-  //color.a *= mix(0.3, 1.0, saturate(diff / kAntialiasingPixelsCount));
-  return color;
+  return in.color;
+}
+
+// Same expanded map position for the road geometry and the speckle shader.
+vertex HatchingAreaFragment_T vsRoadGrain(const LineVertex_T in [[stage_in]],
+                                          constant Uniforms_T & uniforms [[buffer(1)]],
+                                          texture2d<half> u_colorTex [[texture(0)]],
+                                          sampler u_colorTexSampler [[sampler(0)]])
+{
+  HatchingAreaFragment_T out;
+  float pixelsPerUnit = length((float4(1, 0, 0, 0) * uniforms.u_modelView).xy);
+  float2 point = in.a_position.xy + in.a_normal.xy / pixelsPerUnit;
+  float2 screen = (float4(point, 0, 1) * uniforms.u_modelView).xy;
+  float4 pos = float4(screen, in.a_position.z, 1) * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
+  out.maskTexCoords = point * in.a_normal.z;
+  out.color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
+  out.color.a *= uniforms.u_opacity;
+  return out;
 }
 
 // DashedLine

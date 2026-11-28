@@ -28,6 +28,7 @@ struct ApplyFeatureParams
 
   double m_currentScaleGtoP, m_trafficScalePtoG;
   double m_minSegmentSqrLength;
+  double m_roadGrainScaleGtoP;
 
   ApplyFeatureParams();
   void Init(TileKey const & tileKey);

@@ -1,6 +1,10 @@
 #include "drape_frontend/apply_feature_params.hpp"
 
+#include "drape/hatching_decl.hpp"
+
 #include "editor/osm_editor.hpp"
+
+#include <cmath>
 
 namespace df
 {
@@ -19,6 +23,10 @@ void ApplyFeatureParams::Init(TileKey const & tileKey)
   geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   geometryConvertor.SetFromRect(rect);
   m_currentScaleGtoP = 1.0 / geometryConvertor.GetScale();
+
+  // Road widths and grain size are in style pixels. Whole repeats keep the grain aligned across tiles.
+  double const repeats = std::round(tileSize / (dp::kPatternTileSize * m_vparams.GetVisualScale()));
+  m_roadGrainScaleGtoP = repeats * dp::kPatternTileSize * m_currentScaleGtoP / tileSize;
 
   // Here we support only two virtual tile size: 2048 px for high resolution and 1024 px for others.
   // It helps to render traffic the same on wide range of devices.

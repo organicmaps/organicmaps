@@ -114,6 +114,8 @@ public:
 
   using LineRulesT = buffer_vector<drule::LineRule const *, 4>;
   LineRulesT m_lineRules;
+  // Main highway stroke to draw solid for a paved track or with grain for an unpaved road.
+  drule::LineRule const * m_surfaceLine = nullptr;
 
   ftypes::RoadShieldsSetT m_roadShields;
 

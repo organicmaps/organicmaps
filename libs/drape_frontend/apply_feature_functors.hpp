@@ -160,12 +160,12 @@ public:
   void BuildGeometry(int zoomLevel);
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
-  void ProcessLineRules(Stylist::LineRulesT const & lineRules);
+  void ProcessLineRules(Stylist const & stylist);
 
   std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
 private:
-  void ProcessRule(drule::LineRule const & lineRule);
+  void ProcessRule(drule::LineRule const & lineRule, bool styleSurface);
 
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;

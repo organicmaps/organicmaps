@@ -1,9 +1,13 @@
 #pragma once
 
+#include <cstdint>
 #include <string_view>
 
 namespace dp
 {
+// Pattern coordinates in the shaders use 16-pixel tiles.
+uint32_t constexpr kPatternTileSize = 16;
+
 std::string_view constexpr k45dHatching = "45d";
 std::string_view constexpr kDashHatching = "dash";
 
