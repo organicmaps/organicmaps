@@ -121,7 +121,6 @@ jobs:
       # Bump this pinned version to update Qt and its cache key together.
       WINDOWS_QT_VERSION: '6.8.3'
       WINDOWS_QT_ARCH: msvc2022_64
-      WINDOWS_QT_MODULES: qtpositioning
 
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
@@ -143,8 +142,10 @@ jobs:
           sudo apt update -y
           sudo apt install -y \
               clang-19 \
+              dbus-daemon \
               libgl1-mesa-dev \
               libgl1-mesa-dri \
+              libgeoclue-2-dev \
               libglx-mesa0 \
               libglvnd-dev \
               libharfbuzz-dev \
@@ -156,7 +157,6 @@ jobs:
               ninja-build \
               qt6-base-dev \
               qt6-l10n-tools \
-              qt6-positioning-dev \
               qt6-tools-dev \
               qt6-translations-l10n \
               xauth \
@@ -177,7 +177,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ runner.temp }}/Qt
-          key: qt-v1-${{ runner.os }}-${{ runner.arch }}-${{ env.WINDOWS_QT_VERSION }}-${{ env.WINDOWS_QT_ARCH }}-${{ env.WINDOWS_QT_MODULES }}
+          key: qt-v1-${{ runner.os }}-${{ runner.arch }}-${{ env.WINDOWS_QT_VERSION }}-${{ env.WINDOWS_QT_ARCH }}
 
       - name: Install Qt (Windows)
         if: ${{ runner.os == 'Windows' && steps.qt-cache.outputs.cache-hit != 'true' }}
@@ -186,7 +186,6 @@ jobs:
           dir: ${{ runner.temp }}
           version: ${{ env.WINDOWS_QT_VERSION }}
           arch: win64_${{ env.WINDOWS_QT_ARCH }}
-          modules: ${{ env.WINDOWS_QT_MODULES }}
           cache: false
           set-env: false
 
@@ -340,8 +339,8 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
-            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-l10n-tools qt6-positioning-dev qt6-tools-dev qt6-translations-l10n
+            build-essential ca-certificates clang-19 cmake git libgeoclue-2-dev libgl1-mesa-dev libglvnd-dev \
+            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-l10n-tools qt6-tools-dev qt6-translations-l10n
 
       - uses: actions/checkout@v6
         with:
