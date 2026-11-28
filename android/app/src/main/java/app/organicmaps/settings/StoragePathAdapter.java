@@ -47,6 +47,19 @@ class StoragePathAdapter extends BaseAdapter
   }
 
   @Override
+  public boolean areAllItemsEnabled()
+  {
+    return false;
+  }
+
+  @Override
+  public boolean isEnabled(int position)
+  {
+    StorageItem item = getItem(position);
+    return !item.mIsReadonly && (isStorageBigEnough(position) || position == mPathManager.mCurrentStorageIndex);
+  }
+
+  @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
     if (convertView == null)
@@ -56,7 +69,7 @@ class StoragePathAdapter extends BaseAdapter
     final boolean isCurrent = position == mPathManager.mCurrentStorageIndex;
     CheckedTextView checkedView = (CheckedTextView) convertView;
     checkedView.setChecked(isCurrent);
-    checkedView.setEnabled(!item.mIsReadonly && (isStorageBigEnough(position) || isCurrent));
+    checkedView.setEnabled(isEnabled(position));
 
     final String size =
         mActivity.getString(R.string.maps_storage_free_size, Formatter.formatShortFileSize(mActivity, item.mFreeSize),

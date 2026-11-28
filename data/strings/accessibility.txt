@@ -1,0 +1,55 @@
+[[Accessibility]]
+
+[editor_more_names]
+  comment = Accessibility name of the More button that reveals additional language names in the editor.
+  tags = android-app
+  en = Show additional names
+  ru = Показать дополнительные названия
+
+[editor_opening_hours_input]
+  comment = Accessibility-only hint for raw opening_hours input; the visible input text is unchanged.
+  tags = android-app
+  en = Opening hours in OpenStreetMap format
+  ru = Часы работы в формате OpenStreetMap
+
+[place_wifi_status]
+  comment = Accessibility description of Wi-Fi availability in the place page. %s is localized Yes or No.
+  tags = android-app
+  en = Wi-Fi: %s
+  ru = Wi-Fi: %s
+
+[coordinates_next_format]
+  comment = Accessibility action label; keeps the existing click or long-click behavior.
+  tags = android-app
+  en = Next coordinate format
+  ru = Следующий формат координат
+
+[coordinates_copy]
+  comment = Accessibility action label; keeps the existing click or long-click behavior.
+  tags = android-app
+  en = Copy coordinates
+  ru = Скопировать координаты
+
+[place_phone_call]
+  comment = Accessibility action label; keeps the existing click or long-click behavior.
+  tags = android-app
+  en = Call
+  ru = Позвонить
+
+[place_phone_copy]
+  comment = Accessibility action label; keeps the existing click or long-click behavior.
+  tags = android-app
+  en = Copy phone number
+  ru = Скопировать номер телефона
+
+[opening_hours_copy]
+  comment = Accessibility action label; keeps the existing click or long-click behavior.
+  tags = android-app
+  en = Copy opening hours
+  ru = Скопировать часы работы
+
+[accessibility_name_and_value]
+  comment = Accessible description of a measurement. %1$s is its localized name, %2$s is the formatted value including units.
+  tags = android-app
+  en = %1$s: %2$s
+  ru = %1$s: %2$s

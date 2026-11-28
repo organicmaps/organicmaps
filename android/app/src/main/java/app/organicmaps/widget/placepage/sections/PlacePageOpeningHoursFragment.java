@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -27,6 +29,7 @@ import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.OpeningHoursInfo;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.ExpandableSectionAccessibility;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import java.text.DateFormat;
@@ -47,6 +50,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private View dropDownIcon;
   private View mOhContainer;
   private boolean isOhExpanded;
+  private boolean mCanExpand;
+  private ExpandableSectionAccessibility mExpansionAccessibility;
   private ValueAnimator mDropdownAnimator;
 
   private PlacePageViewModel mViewModel;
@@ -77,18 +82,34 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
     mOhContainer = mFrame.findViewById(R.id.oh_container);
+    mOhContainer.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+    mOhContainer.setFocusable(false);
+    ViewCompat.setScreenReaderFocusable(mSchedulePreviewContainer, true);
+    mSchedulePreviewContainer.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+    mSchedulePreviewContainer.setOnClickListener(v -> expandOpeningHours());
+    mExpansionAccessibility =
+        new ExpandableSectionAccessibility(mSchedulePreviewContainer, () -> mCanExpand, () -> isOhExpanded);
+    mExpansionAccessibility.update();
     mFullWeekOpeningHours.setOnClickListener(v -> expandOpeningHours());
+    mFullWeekOpeningHours.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+    mFullWeekOpeningHours.setFocusable(false);
+    ViewCompat.replaceAccessibilityAction(mSchedulePreviewContainer,
+                                          AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
+                                          getString(R.string.opening_hours_copy), null);
   }
 
   private void refreshOpeningHours(MapObject mapObject)
   {
     final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    mOhContainer.setOnLongClickListener((v) -> {
+    View.OnLongClickListener copy = v ->
+    {
       PlacePageUtils.copyToClipboard(requireContext(), mOhContainer,
                                      TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
       return true;
-    });
+    };
+    mOhContainer.setOnLongClickListener(copy);
+    mSchedulePreviewContainer.setOnLongClickListener(copy);
 
     resetWeeklyViewState();
 
@@ -131,6 +152,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         enableDropdownContent();
       }
     }
+    mExpansionAccessibility.update();
   }
 
   private void populateWeekSchedule()
@@ -156,6 +178,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
     weekdays.setText(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
     openTime.setText(formatOpenTime(schedule));
+    ViewCompat.setScreenReaderFocusable(row, true);
   }
 
   @NonNull
@@ -174,6 +197,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
   private void expandOpeningHours()
   {
+    if (!mCanExpand)
+      return;
     if (mDropdownAnimator != null)
       mDropdownAnimator.cancel();
 
@@ -193,6 +218,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       dropDownIcon.animate().rotation(0f).setDuration(200).start();
       isOhExpanded = false;
     }
+    mExpansionAccessibility.update();
+    mDropdownContent.setImportantForAccessibility(isOhExpanded ? View.IMPORTANT_FOR_ACCESSIBILITY_AUTO
+                                                               : View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
     mDropdownContent.getLayoutParams().height = startHeight;
     final ValueAnimator va = ValueAnimator.ofInt(startHeight, targetHeight);
     va.setDuration(200);
@@ -256,14 +284,17 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   }
   private void resetWeeklyViewState()
   {
+    mCanExpand = false;
+    mOhContainer.setOnClickListener(null);
+    mOhContainer.setClickable(false);
     if (!isOhExpanded)
     {
       dropDownIcon.setRotation(0f);
-      mOhContainer.setOnClickListener(null);
     }
 
     UiUtils.hide(dropDownIcon);
     UiUtils.hide(mDropdownContent);
+    mDropdownContent.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
     UiUtils.hide(mTvSingleLineOpeningHours);
     UiUtils.hide(mFullWeekOpeningHours);
     mFullWeekOpeningHours.removeAllViews();
@@ -271,9 +302,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
   private void enableDropdownContent()
   {
+    mCanExpand = true;
     UiUtils.show(mDropdownContent);
     UiUtils.show(dropDownIcon);
     mOhContainer.setOnClickListener((v) -> expandOpeningHours());
+    mOhContainer.setFocusable(false);
+    mDropdownContent.setImportantForAccessibility(isOhExpanded ? View.IMPORTANT_FOR_ACCESSIBILITY_AUTO
+                                                               : View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
 
     if (isOhExpanded)
       setDropdownContentWrapHeight();

@@ -27,10 +27,12 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:text="@string/pref_bg_tiles_title"
+        android:importantForAccessibility="no"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimary"/>
       <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/bg_tiles_enabled"
+        android:contentDescription="@string/pref_bg_tiles_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="@dimen/margin_half_double_plus"/>
@@ -50,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/pref_bg_tiles_url_title"
+        android:labelFor="@id/bg_tiles_url"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimary"/>
       <com.google.android.material.textfield.TextInputLayout
@@ -60,6 +63,7 @@
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/bg_tiles_url"
           style="@style/MwmWidget.Editor.CustomTextInput"
+          android:minHeight="@dimen/height_block_base"
           android:hint="https://xxx.yyy/{z}/{x}/{y}.png"
           tools:ignore="HardcodedText"
           android:importantForAutofill="no"
@@ -87,10 +91,12 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:text="@string/pref_bg_tiles_size_title"
+          android:importantForAccessibility="no"
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:textColor="?android:attr/textColorPrimary"/>
         <TextView
           android:id="@+id/bg_tiles_size_value"
+          android:importantForAccessibility="no"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="?android:attr/textAppearanceMedium"
@@ -98,6 +104,7 @@
       </LinearLayout>
       <com.google.android.material.slider.Slider
         android:id="@+id/bg_tiles_size"
+        android:contentDescription="@string/pref_bg_tiles_size_title"
         style="@style/MwmWidget.Slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,10 +134,12 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:text="@string/pref_bg_tiles_opacity_title"
+          android:importantForAccessibility="no"
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:textColor="?android:attr/textColorPrimary"/>
         <TextView
           android:id="@+id/bg_tiles_opacity_value"
+          android:importantForAccessibility="no"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="?android:attr/textAppearanceMedium"
@@ -138,6 +147,7 @@
       </LinearLayout>
       <com.google.android.material.slider.Slider
         android:id="@+id/bg_tiles_opacity"
+        android:contentDescription="@string/pref_bg_tiles_opacity_title"
         style="@style/MwmWidget.Slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

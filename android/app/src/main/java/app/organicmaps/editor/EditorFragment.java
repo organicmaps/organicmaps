@@ -35,6 +35,7 @@ import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.ExpandableSectionAccessibility;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -96,6 +97,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mNamesCaption;
   private TextView mAddLanguage;
   private TextView mMoreLanguages;
+  private ExpandableSectionAccessibility mNamesAccessibility;
+  private ExpandableSectionAccessibility mMoreNamesAccessibility;
 
   private TextView mStreet;
   private TextInputEditText mHouseNumber;
@@ -370,12 +373,17 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     mMoreLanguages = view.findViewById(R.id.more_names);
     mMoreLanguages.setOnClickListener(this);
+    mMoreLanguages.setContentDescription(getString(R.string.editor_more_names));
 
     mNamesView = view.findViewById(R.id.recycler);
     mNamesView.setNestedScrollingEnabled(false);
     mNamesView.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mNamesAdapter = new MultilanguageAdapter(mParent);
     mNamesView.setAdapter(mNamesAdapter);
+    mNamesAccessibility = new ExpandableSectionAccessibility(mNamesCaption, this::hasAdditionalNames,
+                                                             mNamesAdapter::areAdditionalLanguagesShown);
+    mMoreNamesAccessibility = new ExpandableSectionAccessibility(mMoreLanguages, this::hasAdditionalNames,
+                                                                 mNamesAdapter::areAdditionalLanguagesShown);
     mNamesAdapter.registerAdapterDataObserver(mNamesObserver);
 
     final Bundle args = getArguments();
@@ -604,18 +612,25 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshNamesCaption()
   {
-    if (mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount())
+    boolean hasAdditionalNames = hasAdditionalNames();
+    if (!hasAdditionalNames)
       setNamesArrow(0 /* arrowResourceId */); // bind arrow with empty resource (do not draw arrow)
     else if (mNamesAdapter.areAdditionalLanguagesShown())
       setNamesArrow(R.drawable.ic_expand_less);
     else
       setNamesArrow(R.drawable.ic_expand_more);
 
-    boolean showAddLanguage = mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount()
-                           || mNamesAdapter.areAdditionalLanguagesShown();
+    boolean showAddLanguage = !hasAdditionalNames || mNamesAdapter.areAdditionalLanguagesShown();
 
     UiUtils.showIf(showAddLanguage, mAddLanguage);
     UiUtils.showIf(!showAddLanguage, mMoreLanguages);
+    mNamesAccessibility.update();
+    mMoreNamesAccessibility.update();
+  }
+
+  private boolean hasAdditionalNames()
+  {
+    return mNamesAdapter.getNamesCount() > mNamesAdapter.getMandatoryNamesCount();
   }
 
   // Bind arrow in the top right corner of names caption with needed resource.

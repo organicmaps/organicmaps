@@ -23,6 +23,10 @@ Tags identify consumers of a message. The `qt` tag applies to the Qt UI on any o
 
 Qt also needs the `qt` tag on messages requested by the shared core. Feature-type catalogs are generated from `types_strings.txt` during the Qt build and embedded alongside the UI catalogs; they are not checked in separately.
 
+Put new accessibility-only labels, state descriptions and action names in `data/strings/accessibility.txt`. Reuse existing messages from `strings.txt` when the meaning matches instead of duplicating visible labels. The name is independent of a particular screen reader or platform; consumer tags work as in `strings.txt`.
+
+Generation and validation combine both UI catalogs with `tools/python/merge_ui_strings.py`. Keys must be unique across and within the catalogs; `ref` references can cross catalogs. The generated resource files and runtime lookup remain unchanged. After editing either catalog, use the usual generation and validation scripts.
+
 ## Requirements
 
 Python 3.11+ is required to run the `tools/unix/generate_localizations.sh` script.
@@ -32,6 +36,7 @@ Android's `supportedLocalizations` property in [gradle.properties](../android/gr
 ## Components
 
 - App translations [strings.txt](../data/strings/strings.txt)
+- Accessibility-only UI translations [accessibility.txt](../data/strings/accessibility.txt)
 - Map types [types_strings.txt](../data/strings/types_strings.txt)
 - TTS voice directions [sound.txt](../data/strings/sound.txt)
 - Country names [countries-strings](../data/countries-strings/)

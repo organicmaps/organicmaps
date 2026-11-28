@@ -8,6 +8,7 @@ on:
     paths:
       - .github/workflows/strings-check.yaml  # Run check on self change
       - data/strings/strings.txt
+      - data/strings/accessibility.txt
       - data/strings/types_strings.txt
       - data/strings/sound.txt
       - data/sound-strings/**
@@ -16,6 +17,7 @@ on:
       - android/**
       - iphone/**
       - tools/python/validate_translation_keys*.py
+      - tools/python/merge_ui_strings*.py
       - tools/unix/strings_validate_*.sh
       - tools/unix/generate_localizations.sh
       - tools/python/twine  # Twine submodule bump changes both validation and generation

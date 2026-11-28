@@ -11,6 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragment
 import app.organicmaps.sdk.Framework
+import app.organicmaps.sdk.util.StringUtils
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener
 import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputEditText
@@ -53,6 +54,10 @@ class BgTilesSettingsFragment : BaseMwmFragment() {
         cacheSizeLabel = view.findViewById(R.id.bg_tiles_size_value)
         opacitySlider = view.findViewById(R.id.bg_tiles_opacity)
         opacityLabel = view.findViewById(R.id.bg_tiles_opacity_value)
+        cacheSizeSlider.setLabelFormatter { value ->
+            StringUtils.formatUsingSystemLocale("%d %s", value.toInt(), getString(app.organicmaps.sdk.R.string.mb))
+        }
+        opacitySlider.setLabelFormatter { value -> StringUtils.formatPercent(value / 100.0, false) }
 
         // Initial values come from the core; on configuration change Android's view-state restore
         // overlays the in-flight UI values on top of these, which is the intended behavior.
