@@ -126,17 +126,13 @@ public:
   bool Test(FeatureType & ft, int /* zoom */) const override
   {
     bool found = false;
-    ft.ForEachType([&found, this](uint32_t type)
-    {
-      if (ftype::Trunc(type, m_level) == m_type)
-        found = true;
-    });
+    ft.ForEachType([&](uint32_t type) { found = found || ftype::Trunc(type, m_level) == m_type; });
     return found == m_equals;
   }
 
 private:
   uint32_t m_type;
-  decltype(ftype::GetLevel(uint32_t{})) m_level;
+  uint8_t m_level;
   bool m_equals;
 };
 
@@ -202,7 +198,7 @@ static std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classif
   }
   else if (e.m_tag == "extra_tag")
   {
-    if ((e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual) || e.m_value.empty())
+    if (e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual)
       return {};
     std::vector<std::string_view> path;
     for (auto const component : e.m_value | std::views::split('='))
@@ -228,20 +224,20 @@ std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs, 
   if (strs.size() == 1)
     return ParseSelector(strs.front(), classificator);
 
-  std::unique_ptr<CompositeSelector> cs = std::make_unique<CompositeSelector>(strs.size());
+  auto cs = std::make_unique<CompositeSelector>(strs.size());
 
   for (std::string const & str : strs)
   {
-    std::unique_ptr<ISelector> s = ParseSelector(str, classificator);
+    auto s = ParseSelector(str, classificator);
     if (nullptr == s)
     {
       LOG(LDEBUG, ("Invalid composite selector:", str));
-      return std::unique_ptr<ISelector>();
+      return {};
     }
     cs->Add(std::move(s));
   }
 
-  return std::unique_ptr<ISelector>(cs.release());
+  return cs;
 }
 
 }  // namespace drule

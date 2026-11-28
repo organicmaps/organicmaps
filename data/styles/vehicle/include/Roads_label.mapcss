@@ -306,7 +306,6 @@ line|z17-[route=ferry_motorcar]
 
 /* 12. ONEWAY ARROWS  */
 
-/* line|z15-[highway=primary][hwtag=oneway]::arrows <-- не работает по типам магистралей */
 
 line|z15[hwtag=oneway]::arrows
 {pattern-offset: 30;pattern-image: arrow-xs.svg;pattern-spacing: 60;}

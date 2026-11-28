@@ -130,15 +130,16 @@ The processor also produces text versions of these files (`data/drules_*.txt`) t
 
 ### Classifier guards (`extra_tag`)
 
-`extra_tag=hwtag=oneway` matches a classifier type on the feature, not raw OSM tags.
-Use explicit complementary guards in separate declaration blocks for a fallback and
-override on the same layer when targeting older Kothic revisions. An unguarded base
-plus a positive override can emit only the guarded case, and grouping both guards
-in one declaration can drop a branch. Inspect the generated text rules for both cases.
+A classifier guard matches a stored feature type, not a raw OSM tag.
+A parent path also matches its stored descendants. Kothic compiles the
+`[hwtag=oneway]` guard below to `extra_tag=hwtag=oneway`.
 
 ```mapcss
-line|z15[highway=tertiary][extra_tag!=hwtag=oneway] {width: 2;}
-line|z15[highway=tertiary][extra_tag=hwtag=oneway] {width: 3;}
+line|z15[highway=tertiary] {width: 2;}
+line|z15[highway=tertiary][hwtag=oneway] {width: 3;}
 ```
+
+Terrain contour rendering does not evaluate runtime guards. Use a static
+selector such as `line|z18[isoline=step_100]` for 100 m contours.
 
 The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.xml`).
