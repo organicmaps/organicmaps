@@ -147,6 +147,11 @@ object ArrowPopup {
             divider = null
             dividerHeight = 0
             adapter = buildAdapter(context, items, rowStyle)
+            if (rowStyle == RowStyle.COLOR_ICON_LEFT) {
+                choiceMode = ListView.CHOICE_MODE_SINGLE
+                val selected = items.indexOfFirst { it.isSelected }
+                if (selected >= 0) setItemChecked(selected, true)
+            }
             outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {
                     outline.setRoundRect(0, 0, view.width, view.height, radius)
@@ -260,6 +265,7 @@ object ArrowPopup {
                     }
                     val iconDrawable = GradientDrawable().apply { shape = GradientDrawable.OVAL }
                     val icon = ImageView(context).also { iv ->
+                        iv.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
                         iv.setImageDrawable(iconDrawable)
                         row.addView(iv, LinearLayout.LayoutParams(iconSizePx, iconSizePx).apply { marginEnd = gapPx })
                     }
@@ -268,6 +274,7 @@ object ArrowPopup {
                         row.addView(tv, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
                     }
                     val check = ImageView(context).apply {
+                        importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
                         setImageResource(R.drawable.ic_check)
                         setColorFilter(checkTint)
                     }
