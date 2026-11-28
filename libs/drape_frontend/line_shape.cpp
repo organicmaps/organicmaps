@@ -145,13 +145,15 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
 public:
   using BuilderParams = BaseBuilderParams;
 
-  SolidLineBuilder(BuilderParams const & params, size_t pointsInSpline)
+  SolidLineBuilder(BuilderParams const & params, size_t pointsInSpline, float grainScale)
     : TBase(params, pointsInSpline * 2, (pointsInSpline - 2) * 8)
+    , m_grainScale(grainScale)
   {}
 
   dp::RenderState GetState() override
   {
-    auto state = CreateRenderState(gpu::Program::Line, m_params.m_depthLayer);
+    auto state =
+        CreateRenderState(m_grainScale > 0 ? gpu::Program::RoadGrain : gpu::Program::Line, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     if (m_params.m_blendInPaintOrder)
@@ -161,7 +163,7 @@ public:
 
   dp::BindingInfo const & GetCapBindingInfo() override
   {
-    if (m_params.m_blendInPaintOrder)
+    if (UsesTriangleFans())
       return GetBindingInfo();
     ASSERT(!m_capGeometry.empty(), ());
 
@@ -181,7 +183,7 @@ public:
 
   dp::RenderState GetCapState() override
   {
-    if (m_params.m_blendInPaintOrder)
+    if (UsesTriangleFans())
       return GetState();
     ASSERT(!m_capGeometry.empty(), ());
 
@@ -194,18 +196,18 @@ public:
 
   ref_ptr<void> GetCapData() override
   {
-    return m_params.m_blendInPaintOrder ? make_ref<void>(m_fanGeometry.data()) : make_ref<void>(m_capGeometry.data());
+    return UsesTriangleFans() ? make_ref<void>(m_fanGeometry.data()) : make_ref<void>(m_capGeometry.data());
   }
 
   uint32_t GetCapSize() override
   {
-    return static_cast<uint32_t>(m_params.m_blendInPaintOrder ? m_fanGeometry.size() : m_capGeometry.size());
+    return static_cast<uint32_t>(UsesTriangleFans() ? m_fanGeometry.size() : m_capGeometry.size());
   }
 
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
     float const halfWidth = GetHalfWidth();
-    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, m_grainScale),
                             isLeft ? m_colorCoordLeft : m_colorCoordRight);
   }
 
@@ -213,7 +215,7 @@ public:
   {
     if (m_params.m_join != dp::RoundJoin)
       return;
-    if (!m_params.m_blendInPaintOrder)
+    if (!UsesTriangleFans())
       return CreateRoundCap(pos);
 
     // Covers the gap that the segments leave outside the turn. The side and the sweep direction take one sign, since
@@ -225,15 +227,19 @@ public:
     CreateRoundFan(pos, outer, left ? angle : -angle);
   }
 
-  void SubmitCap(glsl::vec2 const & pos)
+  void SubmitCap(glsl::vec2 const & pos, glsl::vec2 const & normal)
   {
-    // Caps of their own program would be drawn out of the paint order.
-    ASSERT(m_params.m_cap == dp::ButtCap || !m_params.m_blendInPaintOrder, ());
-    if (m_params.m_cap != dp::ButtCap)
+    if (m_params.m_cap == dp::ButtCap)
+      return;
+    if (UsesTriangleFans())
+      CreateRoundFan(pos, normal, static_cast<float>(math::pi));
+    else
       CreateRoundCap(pos);
   }
 
 private:
+  bool UsesTriangleFans() const { return m_params.m_blendInPaintOrder || m_grainScale > 0; }
+
   // Unlike caps of their own program, line triangles keep the paint order of translucent lines in one bucket.
   void CreateRoundFan(glsl::vec2 const & pos, glsl::vec2 const & normal, float angle)
   {
@@ -250,9 +256,9 @@ private:
       // Clockwise like the segments, since back faces are culled. Unlike cap offsets, the normals turn with the map.
       auto const & first = angle > 0 ? next : rim;
       auto const & second = angle > 0 ? rim : next;
-      m_fanGeometry.emplace_back(center, TNormal(0, 0, 0), m_colorCoord);
-      m_fanGeometry.emplace_back(center, TNormal(halfWidth * first, halfWidth), m_colorCoord);
-      m_fanGeometry.emplace_back(center, TNormal(halfWidth * second, halfWidth), m_colorCoord);
+      m_fanGeometry.emplace_back(center, TNormal(0, 0, m_grainScale), m_colorCoord);
+      m_fanGeometry.emplace_back(center, TNormal(halfWidth * first, m_grainScale), m_colorCoord);
+      m_fanGeometry.emplace_back(center, TNormal(halfWidth * second, m_grainScale), m_colorCoord);
       rim = next;
     }
   }
@@ -274,6 +280,7 @@ private:
   }
 
 private:
+  float const m_grainScale;
   TCapBuffer m_capGeometry;
   TGeometryBuffer m_fanGeometry;
 };
@@ -460,7 +467,7 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 template <>
 void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 {
-  // Skip joins generation for thin lines, but for paint-order ones, which have butt caps.
+  // Thin strokes can skip joins unless they need consistent coverage for alpha blending.
   bool const generateJoins = m_params.m_blendInPaintOrder || builder.GetHalfWidth() > 2.5f;
 
   glsl::vec2 prevTangent(0, 0);
@@ -474,11 +481,11 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 
     // Generate joins.
     if (flag & 0x1)  // p1 - first point
-      builder.SubmitCap(p1);
+      builder.SubmitCap(p1, leftNormal);
     else if (generateJoins)  // p1 - middle point
       builder.SubmitJoin(p1, prevTangent, tangent);
     if (flag & 0x2)  // p2 - last point
-      builder.SubmitCap(p2);
+      builder.SubmitCap(p2, rightNormal);
     prevTangent = tangent;
   });
 }
@@ -555,6 +562,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     int lineWidth = 1;
     // GL lines need another program.
     m_isSimple = !m_params.m_blendInPaintOrder && CanBeSimplified(lineWidth);
+    ASSERT(!m_isSimple || m_params.m_grainScale == 0, (m_params.m_width));
     if (m_isSimple)
     {
       SimpleSolidLineBuilder::BuilderParams p;
@@ -569,7 +577,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
       SolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
 
-      auto builder = std::make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
+      auto builder = std::make_unique<SolidLineBuilder>(p, m_spline->GetPath().size(), m_params.m_grainScale);
       Construct<SolidLineBuilder>(*builder);
       m_lineShapeInfo = std::move(builder);
     }

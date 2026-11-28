@@ -62,6 +62,7 @@ public:
   size_t m_index = std::numeric_limits<size_t>::max();  // an index to RulesHolder.m_dRules[]
   int m_priority = -1;
   bool m_hatching = false;
+  bool m_roadSurface = false;
 
   Key() = default;
   Key(uint8_t s, int t, size_t i) : m_scale(s), m_type(t), m_index(i), m_priority(-1) {}

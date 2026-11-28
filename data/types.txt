@@ -81,7 +81,7 @@ highway|track
 *highway|residential|bridge
 *railway|rail|bridge
 *natural|water|intermittent
-mapswithme
+*hwtag|unpaved_road
 *highway|secondary|bridge
 *highway|tertiary|bridge
 *barrier|bollard
@@ -143,7 +143,7 @@ landuse|forest|mixed
 *highway|motorway_link|bridge
 *railway|abandoned
 *amenity|parking|private
-mapswithme
+*hwtag|paved_track
 *tourism|attraction
 *natural|water|reservoir
 *natural|water|river

@@ -172,7 +172,7 @@ highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
 railway|rail|bridge;[railway=rail][bridge?][dont=match];;name;int_name;82;
 # ~1.1M usages. Detention and infiltration basins are dry most of the time.
 natural|water|intermittent;[natural=water][intermittent=yes][!tunnel],[natural=water][seasonal?][!tunnel],[natural=water][basin=detention][!tunnel],[natural=water][basin=infiltration][!tunnel];;name;int_name;83;
-deprecated:boundary|administrative|6:04.2024;[boundary=administrative][admin_level=6];x;name;int_name;84;
+hwtag|unpaved_road;84;
 highway|secondary|bridge;[highway=secondary][bridge?];;name;int_name;85;
 highway|tertiary|bridge;[highway=tertiary][bridge?];;name;int_name;86;
 barrier|bollard;87;
@@ -246,7 +246,7 @@ highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143
 # but seems like its being used standalone still in which case usefull for e.g. hiking.
 railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
-deprecated:boundary|administrative|7:04.2024;[boundary=administrative][admin_level=7];x;name;int_name;146;
+hwtag|paved_track;146;
 tourism|attraction;147;
 natural|water|reservoir;[natural=water][water=reservoir][!tunnel];;name;int_name;148;
 # ~430k usages.

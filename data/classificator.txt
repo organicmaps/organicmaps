@@ -618,8 +618,10 @@ world  +
         nosidewalk  -
         onedir_bicycle  -
         oneway  -
+        paved_track  -
         private  -
         toll  -
+        unpaved_road  -
         yesbicycle  -
         yescar  -
         yesfoot  -

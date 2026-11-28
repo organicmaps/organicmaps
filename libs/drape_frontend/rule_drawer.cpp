@@ -340,7 +340,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   applyGeom.BuildGeometry(m_zoomLevel);
 
   if (applyGeom.HasGeometry())
-    applyGeom.ProcessLineRules(s.m_lineRules);
+    applyGeom.ProcessLineRules(s);
 
   if (s.m_pathtextRule || s.m_shieldRule)
   {

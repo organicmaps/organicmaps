@@ -46,7 +46,12 @@ void TestSurfaceTypes(std::string const & surface, std::string const & smoothnes
   FeatureBuilderParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_types.size(), 2, (params));
+  // Expected mapped materials in this routing fixture. Smoothness alone can also set psurface.
+  static base::StringIL const unpavedMaterials = {"compacted", "fine_gravel", "pebblestone", "gravel",
+                                                  "unpaved",   "ground",      "mud",         "laterite"};
+  bool const unpavedRoad = base::IsExist(unpavedMaterials, surface);
+  TEST_EQUAL(params.IsTypeExist(GetType({"hwtag", "unpaved_road"})), unpavedRoad, (surface));
+  TEST_EQUAL(params.m_types.size(), unpavedRoad ? 3 : 2, (params));
   TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
   std::string psurface;
   for (auto type : params.m_types)
@@ -740,6 +745,38 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_MappedRoadSurface)
+{
+  auto const pavedTrack = GetType({"hwtag", "paved_track"});
+  auto const unpavedRoad = GetType({"hwtag", "unpaved_road"});
+  auto const check = [&](Tags const & tags, bool paved, bool unpaved)
+  {
+    auto const params = GetFeatureBuilderParams(tags, OsmElement::EntityType::Way);
+    TEST_EQUAL(params.IsTypeExist(pavedTrack), paved, (tags));
+    TEST_EQUAL(params.IsTypeExist(unpavedRoad), unpaved, (tags));
+  };
+
+  check({{"highway", "track"}, {"surface", "asphalt"}, {"smoothness", "intermediate"}}, true, false);
+  check({{"highway", "track"}, {"surface", "concrete:plates"}, {"bridge", "yes"}}, true, false);
+  // A grade1 track can be compacted gravel. Only a mapped surface confirms pavement.
+  check({{"highway", "track"}, {"tracktype", "grade1"}, {"smoothness", "good"}}, false, false);
+  check({{"highway", "track"}, {"surface", "grass_paver"}}, false, false);
+  check({{"highway", "track"}, {"surface", "grass_paver:lanes"}}, false, false);
+  check({{"highway", "service"}, {"surface", "unpaved"}}, false, false);
+  check({{"highway", "service"}, {"service", "driveway"}, {"surface", "gravel"}}, false, false);
+  check({{"highway", "track"}, {"surface", "gravel"}, {"tracktype", "grade1"}}, false, false);
+  check({{"highway", "residential"}, {"surface", "unpaved"}}, false, true);
+  check({{"highway", "primary_link"}, {"surface", "compacted"}}, false, true);
+  check({{"highway", "primary"}, {"surface", "asphalt"}, {"4wd_only", "yes"}}, false, false);
+  check({{"highway", "service"}, {"surface", "unknown"}}, false, false);
+  check({{"highway", "residential"}, {"smoothness", "very_bad"}}, false, false);
+  check({{"highway", "path"}, {"surface", "fine_gravel"}}, false, false);
+  check({{"highway", "track"}, {"surface", "asphalt; concrete"}}, true, false);
+  check({{"highway", "track"}, {"surface", "asphalt;gravel"}}, false, false);
+  check({{"highway", "primary"}, {"surface", "gravel;ground"}}, false, true);
+  check({{"highway", "primary"}, {"surface", "gravel;asphalt"}}, false, false);
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 {
   TestSurfaceTypes("asphalt", "excellent", "", "paved_good");
@@ -769,6 +806,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("gravel", "very_bad", "", "unpaved_bad");
 
   TestSurfaceTypes("paved", "", "", "paved_good");
+  TestSurfaceTypes("paving_stones", "", "", "paved_good");
   TestSurfaceTypes("paved", "", "2", "paved_good");
   TestSurfaceTypes("paved", "intermediate", "", "paved_bad");
   TestSurfaceTypes("", "excellent", "", "paved_good");

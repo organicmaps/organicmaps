@@ -40,6 +40,7 @@ set(shader_files
     GL/my_position.vsh.glsl
     GL/path_symbol.vsh.glsl
     GL/position_accuracy3d.vsh.glsl
+    GL/road_grain.vsh.glsl
     GL/route.fsh.glsl
     GL/route.vsh.glsl
     GL/route_arrow.fsh.glsl

@@ -101,6 +101,7 @@
 		456660A020E256490085E8C1 /* transit_marker.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_marker.vsh.glsl; path = ../GL/transit_marker.vsh.glsl; sourceTree = "<group>"; };
 		456660A120E256490085E8C1 /* position_accuracy3d.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = position_accuracy3d.vsh.glsl; path = ../GL/position_accuracy3d.vsh.glsl; sourceTree = "<group>"; };
 		456660A220E256490085E8C1 /* solid_color.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = solid_color.fsh.glsl; path = ../GL/solid_color.fsh.glsl; sourceTree = "<group>"; };
+		CC8ADCD9E5CF4B8A9016B7EF /* road_grain.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = road_grain.vsh.glsl; path = ../GL/road_grain.vsh.glsl; sourceTree = "<group>"; };
 		456660A320E256490085E8C1 /* route.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route.vsh.glsl; path = ../GL/route.vsh.glsl; sourceTree = "<group>"; };
 		456660A420E256490085E8C1 /* user_mark.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark.fsh.glsl; path = ../GL/user_mark.fsh.glsl; sourceTree = "<group>"; };
 		456660A520E2564A0085E8C1 /* route_arrow.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_arrow.vsh.glsl; path = ../GL/route_arrow.vsh.glsl; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		456660A820E2564A0085E8C1 /* route_marker.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_marker.vsh.glsl; path = ../GL/route_marker.vsh.glsl; sourceTree = "<group>"; };
 		456660A920E2564A0085E8C1 /* smaa_blending_weight.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = smaa_blending_weight.fsh.glsl; path = ../GL/smaa_blending_weight.fsh.glsl; sourceTree = "<group>"; };
 		456660AA20E2564A0085E8C1 /* masked_texturing_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = masked_texturing_billboard.vsh.glsl; path = ../GL/masked_texturing_billboard.vsh.glsl; sourceTree = "<group>"; };
+		E1D03EE337F4474DA7D44A81 /* area_speckle.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = area_speckle.fsh.glsl; path = ../GL/area_speckle.fsh.glsl; sourceTree = "<group>"; };
 		456660AB20E2564B0085E8C1 /* area.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = area.vsh.glsl; path = ../GL/area.vsh.glsl; sourceTree = "<group>"; };
 		456660AC20E2564B0085E8C1 /* texturing_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing_billboard.vsh.glsl; path = ../GL/texturing_billboard.vsh.glsl; sourceTree = "<group>"; };
 		456660AD20E2564B0085E8C1 /* shader_index.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shader_index.txt; path = ../GL/shader_index.txt; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 		4566608E20E2562C0085E8C1 /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				E1D03EE337F4474DA7D44A81 /* area_speckle.fsh.glsl */,
 				456660AB20E2564B0085E8C1 /* area.vsh.glsl */,
 				456660CF20E256520085E8C1 /* area3d_outline.vsh.glsl */,
 				456660D420E256530085E8C1 /* area3d.vsh.glsl */,
@@ -309,6 +312,7 @@
 				4566609820E256480085E8C1 /* route_marker.fsh.glsl */,
 				456660A820E2564A0085E8C1 /* route_marker.vsh.glsl */,
 				456660B020E2564C0085E8C1 /* route.fsh.glsl */,
+				CC8ADCD9E5CF4B8A9016B7EF /* road_grain.vsh.glsl */,
 				456660A320E256490085E8C1 /* route.vsh.glsl */,
 				4566609E20E256480085E8C1 /* ruler.vsh.glsl */,
 				456660B420E2564C0085E8C1 /* screen_quad.vsh.glsl */,
@@ -521,6 +525,7 @@
 			files = (
 			);
 			inputPaths = (
+				"${OMIM_ROOT}/libs/shaders/GL/area_speckle.fsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/area.vsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/area3d.vsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/area3d_outline.vsh.glsl",
@@ -551,6 +556,7 @@
 				"${OMIM_ROOT}/libs/shaders/GL/path_symbol.vsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/position_accuracy3d.vsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/route.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/road_grain.vsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/route.vsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/route_arrow.fsh.glsl",
 				"${OMIM_ROOT}/libs/shaders/GL/route_arrow.vsh.glsl",

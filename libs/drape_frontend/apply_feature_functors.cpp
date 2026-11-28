@@ -19,6 +19,7 @@
 
 #include "drape/color.hpp"
 #include "drape/font_constants.hpp"
+#include "drape/hatching_decl.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_manager.hpp"
 
@@ -729,8 +730,9 @@ void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel)
   m_builder.Build(m_f, zoomLevel, m_isIsoline);
 }
 
-void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules)
+void ApplyLineFeatureGeometry::ProcessLineRules(Stylist const & stylist)
 {
+  auto const & lineRules = stylist.m_lineRules;
   ASSERT(!lineRules.empty(), ());
   ASSERT(HasGeometry(), ());
   ASSERT(!m_isIsoline || lineRules.size() == 1, ());
@@ -748,14 +750,14 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
     return;
 
   for (drule::LineRule const * r : lineRules)
-    ProcessRule(*r);
+    ProcessRule(*r, r == stylist.m_surfaceLine);
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(builtSize));
 #endif
 }
 
-void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
+void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule, bool styleSurface)
 {
   double const visScale = m_params.m_vparams.GetVisualScale();
   double const depth = PriorityToDepth(lineRule.priority, drule::line, 0);
@@ -780,6 +782,16 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     LineViewParams params;
     params.m_tileCenter = m_params.m_tileRect.Center();
     ExtractLineParams(lineRule, visScale, params);
+    if (styleSurface)
+    {
+      // Track and tunnel strokes keep their opacity through bends and way ends.
+      params.m_blendInPaintOrder = params.m_color.GetAlpha() != 255;
+      if (lineRule.dashdot)
+        params.m_pattern.clear();
+      else
+        params.m_grainScale =
+            static_cast<float>(m_params.m_roadGrainScaleGtoP / (dp::kPatternTileSize * kShapeCoordScalar));
+    }
     params.m_depth = depth;
     params.m_rank = m_f.GetRank();
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;

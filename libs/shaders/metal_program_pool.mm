@@ -66,6 +66,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
     ProgramInfo("vsArea3d", "fsArea3d", {{0, 2}}),                                    // Area3d
     ProgramInfo("vsArea3dOutline", "fsArea", {{0, 1}}),                               // Area3dOutline
     ProgramInfo("vsLine", "fsLine", {{0, 2}}),                                        // Line
+    ProgramInfo("vsRoadGrain", "fsAreaSpeckle", {{0, 2}}),                            // RoadGrain
     ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),                      // TransitCircle
     ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),                            // DashedLine
     ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),                            // PathSymbol

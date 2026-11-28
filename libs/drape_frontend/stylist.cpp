@@ -189,6 +189,10 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key, drule::RulesHo
   case drule::line:
     ASSERT(dRule->GetLine() && geomType == GeomType::Line, (geomType, f.DebugString()));
     m_lineRules.push_back(dRule->GetLine());
+    // Line keys are sorted by descending priority. The highway stroke is above its bridge and tunnel
+    // casings. A custom style may also place path symbols on the highway.
+    if (key.m_roadSurface && !m_surfaceLine && !m_lineRules.back()->pathsym)
+      m_surfaceLine = m_lineRules.back();
     break;
   case drule::area:
     ASSERT(dRule->GetArea() && geomType == GeomType::Area, (geomType, f.DebugString()));
@@ -245,6 +249,17 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   int constexpr kIntermittentWaterSelectionBoost = 25;
   auto const geomType = types.GetGeomType();
 
+  static auto const highway = cl.GetTypeByPath({"highway"});
+  static auto const track = cl.GetTypeByPath({"highway", "track"});
+  static auto const pavedTrack = cl.GetTypeByPath({"hwtag", "paved_track"});
+  static auto const unpavedRoad = cl.GetTypeByPath({"hwtag", "unpaved_road"});
+  // Outdoors uses different track widths and dashes starting at z11. This treatment is for the default map.
+  float constexpr kMinGrainRoadWidth = 6.0f;  // Style pixels. Thinner fills cannot resolve the 4-pixel grain cells.
+  bool const showSurface =
+      geomType == feature::GeomType::Line && (style == MapStyleDefaultLight || style == MapStyleDefaultDark);
+  bool const isPavedTrack = showSurface && types.Has(pavedTrack);
+  bool const isUnpavedRoad = showSurface && types.Has(unpavedRoad);
+
   drule::KeysT keys;
   for (uint32_t t : types)
   {
@@ -252,8 +267,12 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
     cl.GetObject(t)->GetSuitable(zoomLevel, geomType, typeKeys);
     bool const hasHatching = hatchingChecker(t);
 
+    bool const surfaceHighway =
+        (isPavedTrack && ftype::Trunc(t, 2) == track) || (isUnpavedRoad && ftype::Trunc(t, 1) == highway);
     for (auto & k : typeKeys)
     {
+      k.m_roadSurface = surfaceHighway && k.m_type == drule::line;
+
       // The intermittent fill wins on the same feature, while separate permanent-water polygons draw above it.
       if (types.Size() > 1 && k.m_type == drule::area && areaPatternChecker.IsIntermittentWater(t))
         k.m_priority += kIntermittentWaterSelectionBoost;
@@ -279,6 +298,14 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
 
   for (auto const & key : keys)
     ProcessKey(f, key, rules);
+
+  if (m_surfaceLine)
+  {
+    bool const applySurface = isPavedTrack ? m_surfaceLine->dashdot.has_value()
+                                           : !m_surfaceLine->dashdot && m_surfaceLine->width >= kMinGrainRoadWidth;
+    if (!applySurface)
+      m_surfaceLine = nullptr;
+  }
 
   if (m_captionRule || m_pathtextRule)
   {
