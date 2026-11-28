@@ -64,6 +64,7 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormatEntry;
 import app.organicmaps.sdk.widget.placepage.RouteInfo;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -281,6 +282,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
     mTvTitle.setOnClickListener(this);
+    MultiTouchDelegate titleDelegate = new MultiTouchDelegate((ViewGroup) mTvTitle.getParent());
+    int titlePadding = getResources().getDimensionPixelSize(R.dimen.margin_half);
+    titleDelegate.addTarget(mTvTitle, titlePadding, 0, titlePadding, 0);
+    ((ViewGroup) mTvTitle.getParent()).setTouchDelegate(titleDelegate);
     mIvTitleChevron = mPreview.findViewById(R.id.iv__title_chevron);
     mIvTitleChevron.setOnClickListener(this);
     mTvSecondaryTitle = mPreview.findViewById(R.id.tv__secondary_title);
@@ -288,6 +293,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     mTvSecondaryTitle.setOnClickListener(this);
     mToolbar = mFrame.findViewById(R.id.toolbar);
     mTvSubtitle = mPreview.findViewById(R.id.tv__subtitle);
+
+    int previewPadding = getResources().getDimensionPixelSize(R.dimen.margin_half);
+    // The preview button row stays LTR even when its host uses RTL.
+    boolean previewRtl = mPreview.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    MultiTouchDelegate.expand(mPreview, mPreview.findViewById(R.id.share_button), previewPadding,
+                              previewRtl ? 0 : previewPadding, 0, previewRtl ? previewPadding : 0);
+    MultiTouchDelegate.expand(mPreview, mPreview.findViewById(R.id.close_button), previewPadding,
+                              previewRtl ? previewPadding : 0, 0, previewRtl ? 0 : previewPadding);
 
     View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = mPreview.findViewById(R.id.tv__straight_distance);

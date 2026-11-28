@@ -6,6 +6,7 @@ import android.location.Location;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.IconClickListener;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.utils.Graphics;
@@ -211,6 +213,8 @@ public class Holders
       mName = root.findViewById(R.id.name);
       mVisibilityMarker = root.findViewById(R.id.eye);
       mMoreButton = root.findViewById(R.id.more);
+      MultiTouchDelegate.expand((ViewGroup) root, mMoreButton,
+                                root.getResources().getDimensionPixelSize(R.dimen.margin_quarter));
     }
 
     protected void setSize()

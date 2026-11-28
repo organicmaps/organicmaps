@@ -14,6 +14,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.maplayer.Mode;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -40,6 +41,8 @@ public class ToggleMapLayerFragment extends Fragment
         (MapButtonsController) requireActivity().getSupportFragmentManager().findFragmentById(R.id.map_buttons);
     MaterialButton mCloseButton = mRoot.findViewById(R.id.close_button);
     mCloseButton.setOnClickListener(view -> closeLayerBottomSheet());
+    MultiTouchDelegate.expand((ViewGroup) mCloseButton.getParent(), mCloseButton,
+                              getResources().getDimensionPixelSize(R.dimen.margin_quarter));
 
     initRecycler(mRoot);
     return mRoot;
