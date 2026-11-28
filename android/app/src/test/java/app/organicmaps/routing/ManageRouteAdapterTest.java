@@ -1,6 +1,7 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.notNull;
@@ -186,6 +187,25 @@ public class ManageRouteAdapterTest
         }
       }
     }
+  }
+
+  @Test
+  public void invalidOrFixedRouteMovesLeaveTheOrderUnchanged()
+  {
+    final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
+    adapter.setRoutePoints(
+        new RouteMarkData[] {point("Start", RouteMarkType.Start, 0), point("Finish", RouteMarkType.Finish, 0)});
+    for (int[] move : new int[][] {{-1, 0}, {0, -1}, {2, 0}, {0, 2}, {0, 0}})
+      assertFalse(adapter.moveRoutePoint(move[0], move[1]));
+    assertEquals(List.of("Start", "Finish"), adapter.getRoutePoints().stream().map(p -> p.mTitle).toList());
+
+    adapter.setRoutePoints(new RouteMarkData[] {point("Start", RouteMarkType.Start, 0)});
+    assertFalse(adapter.moveRoutePoint(0, 1));
+    assertEquals(1, adapter.getRoutePoints().size());
+
+    adapter.setTrackPoints(track("Ridge", false));
+    assertFalse(adapter.moveRoutePoint(0, 1));
+    assertEquals("Ridge", adapter.getRoutePoints().get(1).mTitle);
   }
 
   @Test

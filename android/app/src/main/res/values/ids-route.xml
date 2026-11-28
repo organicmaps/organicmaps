@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="accessibility_move_route_point_up" type="id" />
+  <item name="accessibility_move_route_point_down" type="id" />
+</resources>

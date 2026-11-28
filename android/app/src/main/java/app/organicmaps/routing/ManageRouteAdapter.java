@@ -3,6 +3,7 @@ package app.organicmaps.routing;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.FollowedTrackInfo;
@@ -35,6 +40,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   {
     void startDrag(RecyclerView.ViewHolder viewHolder);
     void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder);
+    boolean onRoutePointMove(RecyclerView.ViewHolder viewHolder, int offset);
     void onAddStopButtonClicked();
     void onRoutePointClicked(int position);
     void onPartialSlotClicked(@NonNull RouteMarkType type);
@@ -71,7 +77,10 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     if (viewType == TYPE_ADD_BUTTON)
       return new AddStopViewHolder(inflater.inflate(R.layout.manage_route_add_stop_item, parent, false));
-    return new ManageRouteViewHolder(inflater.inflate(R.layout.manage_route_list_item, parent, false));
+    final ManageRouteViewHolder holder =
+        new ManageRouteViewHolder(inflater.inflate(R.layout.manage_route_list_item, parent, false));
+    setupReorderingAccessibility(holder);
+    return holder;
   }
 
   @Override
@@ -151,6 +160,34 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     });
   }
 
+  private void setupReorderingAccessibility(@NonNull ManageRouteViewHolder pointHolder)
+  {
+    ViewCompat.setAccessibilityDelegate(pointHolder.mImageViewDrag, new AccessibilityDelegateCompat() {
+      @Override
+      public void onInitializeAccessibilityNodeInfo(@NonNull View host, @NonNull AccessibilityNodeInfoCompat info)
+      {
+        super.onInitializeAccessibilityNodeInfo(host, info);
+        final int position = pointHolder.getBindingAdapterPosition();
+        if (canMoveRoutePoint(position, position - 1))
+          info.addAction(new AccessibilityActionCompat(R.id.accessibility_move_route_point_up,
+                                                       mContext.getString(R.string.move_route_point_up)));
+        if (canMoveRoutePoint(position, position + 1))
+          info.addAction(new AccessibilityActionCompat(R.id.accessibility_move_route_point_down,
+                                                       mContext.getString(R.string.move_route_point_down)));
+      }
+
+      @Override
+      public boolean performAccessibilityAction(@NonNull View host, int action, @Nullable Bundle args)
+      {
+        if (action == R.id.accessibility_move_route_point_up)
+          return mManageRouteListener.onRoutePointMove(pointHolder, -1);
+        if (action == R.id.accessibility_move_route_point_down)
+          return mManageRouteListener.onRoutePointMove(pointHolder, 1);
+        return super.performAccessibilityAction(host, action, args);
+      }
+    });
+  }
+
   private void bindPartialSlot(@NonNull ManageRouteViewHolder pointHolder, int position)
   {
     final RouteMarkType slotType = (position == 0) ? RouteMarkType.Start : RouteMarkType.Finish;
@@ -197,13 +234,23 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
   public void moveRoutePoint(@NonNull RecyclerView.ViewHolder draggedItem, @NonNull RecyclerView.ViewHolder targetItem)
   {
-    final int draggedItemIndex = draggedItem.getBindingAdapterPosition();
-    final int targetIndex = targetItem.getBindingAdapterPosition();
-    if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
-      return;
+    moveRoutePoint(draggedItem.getBindingAdapterPosition(), targetItem.getBindingAdapterPosition());
+  }
+
+  private boolean canMoveRoutePoint(int position, int target)
+  {
+    return !mTrackRoute && !isPartial() && position >= 0 && position < mRoutePoints.size() && target >= 0
+ && target < mRoutePoints.size() && position != target;
+  }
+
+  boolean moveRoutePoint(int draggedItemIndex, int targetIndex)
+  {
+    if (!canMoveRoutePoint(draggedItemIndex, targetIndex))
+      return false;
     mRoutePoints.add(targetIndex, mRoutePoints.remove(draggedItemIndex));
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
+    return true;
   }
 
   private void updateRoutePointsData()

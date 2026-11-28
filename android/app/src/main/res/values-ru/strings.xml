@@ -543,6 +543,10 @@
     <string name="route_add_destination">Добавить пункт назначения</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Добавить остановку</string>
+    <!-- Accessibility action to move a route point one position earlier in the route. -->
+    <string name="move_route_point_up">Переместить выше</string>
+    <!-- Accessibility action to move a route point one position later in the route. -->
+    <string name="move_route_point_down">Переместить ниже</string>
     <string name="drag_to_reorder">Изменить порядок</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>

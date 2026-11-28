@@ -107,6 +107,18 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       mTouchHelper.startDrag(viewHolder);
   }
   @Override
+  public boolean onRoutePointMove(RecyclerView.ViewHolder viewHolder, int offset)
+  {
+    if (isReordering() || !RoutingController.get().isPlanning() || (offset != -1 && offset != 1))
+      return false;
+    final int position = viewHolder.getBindingAdapterPosition();
+    if (!mManageRouteAdapter.moveRoutePoint(position, position + offset))
+      return false;
+    onRouteOrderChanged(new ArrayList<>(mManageRouteAdapter.getRoutePoints()));
+    return true;
+  }
+
+  @Override
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
     final int position = viewHolder.getBindingAdapterPosition();
