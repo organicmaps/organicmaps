@@ -152,8 +152,9 @@ private:
       m_types[1].push_back(c.GetTypeByPath(type));
 
     // Put _most_ useless types here, that are not fit in the arity logic above.
-    // This change is for generator, to eliminate "lit" type first when max types count exceeded.
-    m_types[2].push_back(c.GetTypeByPath({"hwtag", "lit"}));
+    // Drop lighting and surface styling before routing attributes when a feature exhausts its type slots.
+    for (auto const tag : {"lit", "paved_track", "unpaved_road"})
+      m_types[2].push_back(c.GetTypeByPath({"hwtag", tag}));
 
     for (auto & v : m_types)
       std::sort(v.begin(), v.end());

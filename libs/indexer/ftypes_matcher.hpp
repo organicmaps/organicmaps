@@ -831,5 +831,6 @@ enum class HighwayClass
 std::string DebugPrint(HighwayClass const cls);
 std::string DebugPrint(LocalityType const localityType);
 
+HighwayClass GetHighwayClass(uint32_t type);
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 }  // namespace ftypes

@@ -44,6 +44,8 @@ UNIT_CLASS_TEST(TestWithClassificator, Feature_UselessTypes)
     feature::TypesHolder types = MakeTypesHolder(
         {
             {"hwtag", "lit"},
+            {"hwtag", "unpaved_road"},
+            {"hwtag", "paved_track"},
             {"hwtag", "oneway"},
         },
         false /* sortBySpec */);

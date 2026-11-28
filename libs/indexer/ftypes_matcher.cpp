@@ -104,21 +104,24 @@ std::string DebugPrint(LocalityType const localityType)
   UNREACHABLE();
 }
 
+HighwayClass GetHighwayClass(uint32_t type)
+{
+  static HighwayClasses const highwayClasses;
+  for (uint8_t level : {3, 2})
+  {
+    ftype::TruncValue(type, level);
+    auto const cls = highwayClasses.Get(type);
+    if (cls != HighwayClass::Undefined)
+      return cls;
+  }
+  return HighwayClass::Undefined;
+}
+
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {
-  static HighwayClasses highwayClasses;
-
-  for (auto t : types)
-  {
-    for (uint8_t level : {3, 2})
-    {
-      ftype::TruncValue(t, level);
-      HighwayClass const hc = highwayClasses.Get(t);
-      if (hc != HighwayClass::Undefined)
-        return hc;
-    }
-  }
-
+  for (auto type : types)
+    if (auto const cls = GetHighwayClass(type); cls != HighwayClass::Undefined)
+      return cls;
   return HighwayClass::Undefined;
 }
 

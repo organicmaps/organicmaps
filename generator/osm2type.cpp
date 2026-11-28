@@ -26,6 +26,7 @@
 #include <cctype>
 #include <initializer_list>
 #include <map>
+#include <ranges>
 #include <string>
 #include <vector>
 
@@ -256,10 +257,9 @@ public:
     YesBicycle,
     NoCycleway,  // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
     BicycleBidir,
-    SurfacePavedGood,
-    SurfacePavedBad,
-    SurfaceUnpavedGood,
-    SurfaceUnpavedBad,
+    Track,
+    PavedTrack,
+    UnpavedRoad,
     HasParts,
     NoCar,
     YesCar,
@@ -295,10 +295,9 @@ public:
         {YesBicycle, {"hwtag", "yesbicycle"}},
         {NoCycleway, {"hwtag", "nocycleway"}},
         {BicycleBidir, {"hwtag", "bidir_bicycle"}},
-        {SurfacePavedGood, {"psurface", "paved_good"}},
-        {SurfacePavedBad, {"psurface", "paved_bad"}},
-        {SurfaceUnpavedGood, {"psurface", "unpaved_good"}},
-        {SurfaceUnpavedBad, {"psurface", "unpaved_bad"}},
+        {Track, {"highway", "track"}},
+        {PavedTrack, {"hwtag", "paved_track"}},
+        {UnpavedRoad, {"hwtag", "unpaved_road"}},
         {HasParts, {"building", "has_parts"}},
         {NoCar, {"hwtag", "nocar"}},
         {YesCar, {"hwtag", "yescar"}},
@@ -565,6 +564,50 @@ string MatchCity(ms::LatLon const & ll)
   return {};
 }
 
+// According to https://wiki.openstreetmap.org/wiki/Key:surface
+base::StringIL const kPavedSurfaces = {
+    "asphalt",       "cobblestone", "chipseal", "concrete", "grass_paver",        "stone", "metal", "paved",
+    "paving_stones", "sett",        "brick",    "bricks",   "unhewn_cobblestone", "wood"};
+
+// A material list establishes a surface only when all its members agree. Routing also uses
+// smoothness and 4WD restrictions, so its psurface type cannot distinguish this case.
+void AddMappedRoadSurface(CachedTypes const & types, uint32_t highwayType, std::string_view surface,
+                          FeatureBuilderParams & params)
+{
+  if (surface.empty())
+    return;
+
+  bool const isTrack = ftype::Trunc(highwayType, 2) == types.Get(CachedTypes::Track);
+  if (!isTrack)
+  {
+    auto const cls = ftypes::GetHighwayClass(highwayType);
+    if (cls < ftypes::HighwayClass::Trunk || cls > ftypes::HighwayClass::LivingStreet)
+      return;
+  }
+
+  // These materials are useful for drawing but do not change the routing classification.
+  static base::StringIL const otherPaved = {"metal_grid", "tarmac", "bitmac", "tiles"};
+  static base::StringIL const unpaved = {
+      "unpaved", "compacted", "fine_gravel", "gravel",        "pebblestone", "ground",   "dirt", "earth",
+      "soil",    "grass",     "sand",        "mud",           "rock",        "laterite", "clay", "woodchips",
+      "shells",  "chert",     "caliche",     "crushed_stone", "sandstone",   "salt",     "ice",  "snow"};
+
+  for (auto part : std::views::split(surface, ';'))
+  {
+    std::string_view material(part.begin(), part.end());
+    strings::Trim(material);
+    // Material subtypes such as concrete:plates have the same pavement as their base.
+    material = material.substr(0, material.find(':'));
+    bool const matches = isTrack ? material != "grass_paver" &&
+                                       (base::IsExist(kPavedSurfaces, material) || base::IsExist(otherPaved, material))
+                                 : base::IsExist(unpaved, material);
+    if (!matches)
+      return;
+  }
+
+  params.AddType(types.Get(isTrack ? CachedTypes::PavedTrack : CachedTypes::UnpavedRoad));
+}
+
 string DetermineSurfaceAndHighwayType(OsmElement * p)
 {
   string surface;
@@ -586,11 +629,6 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
       highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
-
-  // According to https://wiki.openstreetmap.org/wiki/Key:surface
-  static base::StringIL pavedSurfaces = {
-      "asphalt",       "cobblestone", "chipseal", "concrete", "grass_paver",        "stone", "metal", "paved",
-      "paving_stones", "sett",        "brick",    "bricks",   "unhewn_cobblestone", "wood"};
 
   // All not explicitly listed surface types are considered unpaved good, e.g. "compacted", "fine_gravel".
   static base::StringIL badSurfaces = {
@@ -645,7 +683,7 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
     bool const hasUrbanTags =
         p->HasTag("footway") || p->HasTag("segregated") || (p->HasTag("lit") && !p->HasTag("lit", "no"));
 
-    bool isFormed = !surface.empty() && Has(pavedSurfaces, surface);
+    bool isFormed = !surface.empty() && Has(kPavedSurfaces, surface);
     // Treat "compacted" and "fine_gravel" as formed when in good or default quality.
     if ((surface == "compacted" || surface == "fine_gravel") && isGood)
       isFormed = true;
@@ -738,7 +776,7 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
       isPaved = false;
   }
   else
-    isPaved = Has(pavedSurfaces, surface);
+    isPaved = Has(kPavedSurfaces, surface);
 
   // Check smoothness.
   if (!smoothness.empty())
@@ -1117,6 +1155,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   {
     if (!highwayDone && types.IsHighway(vType))
     {
+      AddMappedRoadSurface(types, vType, p->GetTag("surface"), params);
       bool addOneway = false;
       bool noOneway = false;
 
