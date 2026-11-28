@@ -175,10 +175,7 @@ using namespace storage;
   self.progress.state = MWMCircularProgressStateFailed;
   MWMAlertViewController * avc = self.controller.alertController;
   [self addToSuperview];
-  auto const retryBlock = ^{
-    [self showInQueue];
-    [[MWMStorage sharedStorage] retryDownloadNode:@(self->m_countryId.c_str())];
-  };
+  auto const retryBlock = ^{ [[MWMStorage sharedStorage] retryDownloadNode:@(self->m_countryId.c_str())]; };
   auto const cancelBlock = ^{ [[MWMStorage sharedStorage] cancelDownloadNode:@(self->m_countryId.c_str())]; };
   switch (errorCode)
   {
@@ -254,7 +251,6 @@ using namespace storage;
 {
   if (progress.state == MWMCircularProgressStateFailed)
   {
-    [self showInQueue];
     [[MWMStorage sharedStorage] retryDownloadNode:@(m_countryId.c_str())];
   }
   else
