@@ -1,11 +1,13 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/string_utils.hpp"
+#include <algorithm>
 
 namespace
 {
@@ -52,6 +54,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::BicycleRental: return "bicycle_rental";
   case kml::BookmarkIcon::FastFood: return "fast_food";
   case kml::BookmarkIcon::Airport: return "airport";
+  case kml::BookmarkIcon::Person: return "person";
   case kml::BookmarkIcon::Count: ASSERT(false, ("Invalid bookmark icon type")); return {};
   }
   UNREACHABLE();
@@ -80,6 +83,7 @@ Bookmark::Bookmark(kml::BookmarkData && data)
 void Bookmark::SetData(kml::BookmarkData const & data)
 {
   SetDirty();
+  m_ptOrg = data.m_point;
   m_data = data;
   m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
 }
@@ -118,6 +122,15 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
   title.m_primaryTextFont.m_size = 11;  // most frequent font size in styles
   title.m_primaryText = GetPreferredName();
   title.m_primaryOffset.x = 1;
+  if (HasPointLayout())
+  {
+    // Use the default POI caption palette independently of the bookmark color.
+    bool const dark = MapStyleIsDark(GetStyleReader().GetCurrentStyle());
+    auto const gray = dark ? 0xa6 : 0x44;
+    title.m_primaryTextFont.m_color = dp::Color(gray, gray, gray, 255);
+    title.m_primaryTextFont.m_size = 10;
+    title.m_primaryOffset = p == settings::Placement::Bottom ? m2::PointF(0, 2) : m2::PointF(2, 0);
+  }
 
   auto titles = make_unique_dp<TitlesInfo>();
   titles->push_back(std::move(title));
@@ -135,9 +148,52 @@ df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
   return df::DepthLayer::SearchMarkLayer;
 }
 
+kml::BookmarkIcon Bookmark::GetIcon() const
+{
+  auto const image = m_data.m_properties.find(kCustomImageProperty);
+  if (image != m_data.m_properties.end() && image->second == "14,contact-s;15,contact-m")
+    return kml::BookmarkIcon::Person;
+  return m_data.m_icon;
+}
+
+kml::BookmarkData Bookmark::MakeDataWithIcon(kml::BookmarkIcon icon) const
+{
+  auto data = m_data;
+  auto const previousIcon = GetIcon();
+  if (previousIcon == icon && (icon != kml::BookmarkIcon::Person || m_data.m_icon == icon))
+    return data;
+
+  data.m_icon = icon;
+  if (data.m_properties.erase(kCustomImageProperty))
+    data.m_properties.erase("CustomImageLayout");
+  if (previousIcon == kml::BookmarkIcon::Person && m_data.m_icon != kml::BookmarkIcon::Person)
+    data.m_minZoom = 1;
+  return data;
+}
+
+int Bookmark::GetMinZoom() const
+{
+  return m_data.m_icon == kml::BookmarkIcon::Person ? std::max(14, m_data.m_minZoom) : m_data.m_minZoom;
+}
+
+bool Bookmark::HasPointLayout() const
+{
+  if (m_data.m_icon == kml::BookmarkIcon::Person)
+    return true;
+  auto const layout = m_data.m_properties.find("CustomImageLayout");
+  return layout != m_data.m_properties.end() && layout->second == "point" &&
+         m_data.m_properties.contains(kCustomImageProperty);
+}
+
+int Bookmark::GetMinTitleZoom() const
+{
+  // Let point-style symbols appear before their captions, like the small POI symbols.
+  return HasPointLayout() ? std::max(15, GetMinZoom()) : GetMinZoom();
+}
+
 dp::Anchor Bookmark::GetAnchor() const
 {
-  return dp::Bottom;
+  return HasPointLayout() ? dp::Center : dp::Bottom;
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
@@ -147,6 +203,12 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
     return symbolNames;
 
   symbolNames = make_unique_dp<SymbolNameZoomInfo>();
+  if (m_data.m_icon == kml::BookmarkIcon::Person)
+  {
+    symbolNames->emplace(GetMinZoom(), "contact-s");
+    symbolNames->insert_or_assign(std::max(15, GetMinZoom()), "contact-m");
+    return symbolNames;
+  }
 
   symbolNames->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
   symbolNames->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));

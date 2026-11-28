@@ -48,6 +48,12 @@
         android:text="@string/change_all_bookmarks_color" />
 
       <TextView
+        android:id="@+id/icon_bookmarks_btn"
+        style="@style/BookmarkSettingsRow"
+        android:layout_marginTop="@dimen/margin_base"
+        android:text="@string/change_all_bookmarks_icon" />
+
+      <TextView
         android:id="@+id/color_tracks_btn"
         style="@style/BookmarkSettingsRow"
         android:layout_marginTop="@dimen/margin_base"

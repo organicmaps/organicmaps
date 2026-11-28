@@ -42,11 +42,13 @@ internal class BookmarkEditTarget(private val info: BookmarkInfo) : EditTarget {
     override val description: String get() = info.description
     override val toolbarTitleRes: Int = R.string.placepage_edit_bookmark_button
     override var color: Int = info.icon.argb()
+    var iconType: Int = info.icon.type
+    private val icon: Icon get() = Icon(color, iconType)
 
     override fun buildSwatch(context: Context): Drawable = Graphics.drawCircleAndImage(
         color,
         R.dimen.track_circle_size,
-        info.icon.resId,
+        icon.resId,
         R.dimen.bookmark_icon_size,
         context,
     )
@@ -57,12 +59,13 @@ internal class BookmarkEditTarget(private val info: BookmarkInfo) : EditTarget {
         newName != info.name ||
             newDescription != info.description ||
             category.id != info.categoryId ||
-            color != info.icon.argb()
+            color != info.icon.argb() ||
+            iconType != info.icon.type
 
     override fun save(newName: String, newDescription: String, category: BookmarkCategory): Boolean {
         val movedFromCategory = info.categoryId != category.id
         if (movedFromCategory) info.changeCategory(category.id)
-        info.update(newName, Icon(color, info.icon.type), newDescription)
+        info.update(newName, icon, newDescription)
         return movedFromCategory
     }
 

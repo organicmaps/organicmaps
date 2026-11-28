@@ -134,7 +134,7 @@ public class BookmarkInfo
       icon = getIcon();
 
     if (!name.equals(getName()) || !icon.equals(getIcon()) || !description.equals(getDescription()))
-      Bookmark.nativeUpdateParams(getBookmarkId(), name, icon.argb(), description);
+      Bookmark.nativeUpdateParams(getBookmarkId(), name, icon.argb(), icon.getType(), description);
     mIcon = icon;
     mTitle = name;
   }

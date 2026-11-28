@@ -115,6 +115,8 @@
 		FAA8388026BB3C92002E54C6 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8387F26BB3C92002E54C6 /* libplatform.a */; };
 		FAA8388626BB3CC3002E54C6 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388526BB3CC3002E54C6 /* libexpat.a */; };
 		FAA8388A26BB3CE4002E54C6 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388926BB3CE4002E54C6 /* libdrape.a */; };
+		C017AC710000000000000001 /* bookmark_import.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C017AC710000000000000003 /* bookmark_import.cpp */; };
+		C017AC710000000000000002 /* bookmark_import.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C017AC710000000000000004 /* bookmark_import.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -259,6 +261,8 @@
 		FAA8387F26BB3C92002E54C6 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388526BB3CC3002E54C6 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388926BB3CE4002E54C6 /* libdrape.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdrape.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C017AC710000000000000003 /* bookmark_import.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_import.cpp; sourceTree = "<group>"; };
+		C017AC710000000000000004 /* bookmark_import.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bookmark_import.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +393,8 @@
 				BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */,
 				675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */,
 				675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */,
+				C017AC710000000000000003 /* bookmark_import.cpp */,
+				C017AC710000000000000004 /* bookmark_import.hpp */,
 				675345DB1A4054E800A0A8C3 /* bookmark.cpp */,
 				675345DC1A4054E800A0A8C3 /* bookmark.hpp */,
 				0831F23B200E53600034C365 /* bookmarks_search_params.hpp */,
@@ -492,6 +498,7 @@
 				3DBD7B93240D523400ED9FE8 /* elevation_info.hpp in Headers */,
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
+				C017AC710000000000000002 /* bookmark_import.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
 				BB4E5F271FCC664A00A77250 /* transit_reader.hpp in Headers */,
 				BBFC7E3B202D29C000531BE7 /* user_mark_layer.hpp in Headers */,
@@ -700,6 +707,7 @@
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,
 				BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */,
 				ED85D1CE2D5F4B7200D8075D /* track_statistics.cpp in Sources */,
+				C017AC710000000000000001 /* bookmark_import.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
 				45580ABE1E2CBD5E00CD535D /* benchmark_tools.cpp in Sources */,
 				ACF95D472F74AD0A009D5D9A /* relation_track.cpp in Sources */,

@@ -8,6 +8,7 @@
 #include "kml/type_utils.hpp"
 
 #include "map/bookmark_helpers.hpp"
+#include "map/bookmark_import.hpp"
 #include "map/place_page_info.hpp"
 
 #include "coding/zip_creator.hpp"
@@ -24,6 +25,7 @@
 
 namespace
 {
+constexpr char kContactsSource[] = "android-contacts";
 jclass g_bookmarkManagerClass;
 jfieldID g_bookmarkManagerInstanceField;
 jmethodID g_onBookmarksChangedMethod;
@@ -394,7 +396,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   auto description = jni::ToJavaString(env, bookmark->GetDescription());
   auto featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark->GetData().m_featureTypes));
   auto color = static_cast<jint>(bookmark->GetColorForRendering().GetARGB());
-  auto iconType = static_cast<jint>(bookmark->GetData().m_icon);
+  auto iconType = static_cast<jint>(bookmark->GetIcon());
   auto coords = jni::GetNewParcelablePointD(env, bookmark->GetPivot());
   auto scale = static_cast<jdouble>(bookmark->GetScale());
   auto address = jni::ToJavaString(env, frm()->GetAddressAtPoint(bookmark->GetPivot()).FormatAddress());
@@ -574,4 +576,93 @@ Java_app_organicmaps_sdk_widget_placepage_PlacePageButtonFactory_nativeHasRecent
 {
   return frm()->GetBookmarkManager().HasRecentlyDeletedBookmark();
 }
+JNIEXPORT jobjectArray JNICALL
+Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetImportedContactLocations(JNIEnv * env, jobject)
+{
+  auto entries = GetImportedBookmarks(frm()->GetBookmarkManager(), kContactsSource);
+  jni::ScopedLocalRef<jclass> clazz(env, env->FindClass("app/organicmaps/sdk/bookmarks/data/ImportedBookmarkLocation"));
+  auto const constructor =
+      jni::GetConstructorID(env, clazz.get(), "(Ljava/lang/String;Ljava/lang/String;DDZLjava/lang/String;)V");
+  jobjectArray result = env->NewObjectArray(entries.size(), clazz.get(), nullptr);
+  if (!result)
+    return nullptr;
+  jsize index = 0;
+  for (auto const & entry : entries)
+  {
+    jni::ScopedLocalRef<jstring> key(env, jni::ToJavaString(env, entry.m_key));
+    jni::ScopedLocalRef<jstring> address(env, jni::ToJavaString(env, entry.m_address));
+    jni::ScopedLocalRef<jstring> fingerprint(env, jni::ToJavaString(env, entry.m_sourceFingerprint));
+    jni::ScopedLocalRef<jobject> location(
+        env, env->NewObject(clazz.get(), constructor, key.get(), address.get(), entry.m_lat, entry.m_lon,
+                            static_cast<jboolean>(entry.m_canModify), fingerprint.get()));
+    if (env->ExceptionCheck())
+      return nullptr;
+    env->SetObjectArrayElement(result, index++, location.get());
+  }
+  return result;
+}
+
+JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeImportContactBookmarks(
+    JNIEnv * env, jobject, jstring categoryName, jobjectArray keys, jobjectArray names, jobjectArray addresses,
+    jdoubleArray latitudes, jdoubleArray longitudes, jobjectArray supersededKeys, jobjectArray sourceFingerprints)
+{
+  if (!categoryName || !keys || !names || !addresses || !latitudes || !longitudes || !supersededKeys ||
+      !sourceFingerprints)
+  {
+    env->ThrowNew(env->FindClass("java/lang/IllegalArgumentException"), "Missing bookmark import data");
+    return nullptr;
+  }
+  auto const count = env->GetArrayLength(keys);
+  if (count != env->GetArrayLength(names) || count != env->GetArrayLength(addresses) ||
+      count != env->GetArrayLength(latitudes) || count != env->GetArrayLength(longitudes) ||
+      count != env->GetArrayLength(supersededKeys) || count != env->GetArrayLength(sourceFingerprints))
+  {
+    env->ThrowNew(env->FindClass("java/lang/IllegalArgumentException"), "Mismatched bookmark import arrays");
+    return nullptr;
+  }
+  std::vector<double> lat(count), lon(count);
+  if (count != 0)
+  {
+    env->GetDoubleArrayRegion(latitudes, 0, count, lat.data());
+    env->GetDoubleArrayRegion(longitudes, 0, count, lon.data());
+  }
+  if (env->ExceptionCheck())
+    return nullptr;
+  std::vector<BookmarkImportEntry> entries;
+  entries.reserve(count);
+  for (jsize i = 0; i < count; ++i)
+  {
+    jni::ScopedLocalRef<jstring> key(env, static_cast<jstring>(env->GetObjectArrayElement(keys, i)));
+    jni::ScopedLocalRef<jstring> name(env, static_cast<jstring>(env->GetObjectArrayElement(names, i)));
+    jni::ScopedLocalRef<jstring> address(env, static_cast<jstring>(env->GetObjectArrayElement(addresses, i)));
+    entries.push_back({key.get() ? jni::ToNativeString(env, key.get()) : "",
+                       name.get() ? jni::ToNativeString(env, name.get()) : "",
+                       address.get() ? jni::ToNativeString(env, address.get()) : "", lat[i], lon[i]});
+    entries.back().m_requireSourceCategory = true;
+    jni::ScopedLocalRef<jstring> fingerprint(env,
+                                             static_cast<jstring>(env->GetObjectArrayElement(sourceFingerprints, i)));
+    if (fingerprint.get())
+      entries.back().m_sourceFingerprint = jni::ToNativeString(env, fingerprint.get());
+    jni::ScopedLocalRef<jobjectArray> obsolete(
+        env, static_cast<jobjectArray>(env->GetObjectArrayElement(supersededKeys, i)));
+    if (obsolete.get())
+      for (jsize j = 0; j < env->GetArrayLength(obsolete.get()); ++j)
+      {
+        jni::ScopedLocalRef<jstring> value(env, static_cast<jstring>(env->GetObjectArrayElement(obsolete.get(), j)));
+        if (value.get())
+          entries.back().m_supersededKeys.push_back(jni::ToNativeString(env, value.get()));
+      }
+  }
+  auto const imported =
+      ImportBookmarks(frm()->GetBookmarkManager(), kContactsSource, jni::ToNativeString(env, categoryName), entries,
+                      kml::BookmarkIcon::Person);
+  jlong const values[] = {static_cast<jlong>(imported.m_categoryId), static_cast<jlong>(imported.m_added),
+                          static_cast<jlong>(imported.m_updated),    static_cast<jlong>(imported.m_unchanged),
+                          static_cast<jlong>(imported.m_edited),     static_cast<jlong>(imported.m_skipped)};
+  auto result = env->NewLongArray(6);
+  if (result)
+    env->SetLongArrayRegion(result, 0, 6, values);
+  return result;
+}
+
 }  // extern "C"

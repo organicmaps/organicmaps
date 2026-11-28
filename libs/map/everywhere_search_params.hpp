@@ -19,5 +19,8 @@ struct EverywhereSearchParams
   bool m_isCategory = false;
 
   OnResults m_onResults;
+
+  // Enables retrieval of nearby house numbers for recognized address queries.
+  bool m_allowNearbyHouseNumbers = false;
 };
 }  // namespace search

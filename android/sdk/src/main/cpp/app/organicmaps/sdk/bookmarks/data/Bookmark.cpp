@@ -65,19 +65,22 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeSetColor(J
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeUpdateParams(JNIEnv * env, jclass, jlong bmk,
-                                                                                   jstring name, jint color,
+                                                                                   jstring name, jint color, jint iconType,
                                                                                    jstring descr)
 {
   auto const * mark = getBookmark(bmk);
 
-  // initialize new bookmark
-  kml::BookmarkData bmData(mark->GetData());
+  auto const icon = iconType >= 0 && iconType < static_cast<jint>(kml::BookmarkIcon::Count)
+                        ? static_cast<kml::BookmarkIcon>(iconType)
+                        : mark->GetIcon();
+  auto bmData = mark->MakeDataWithIcon(icon);
   auto const bmName = jni::ToNativeString(env, name);
   if (mark->GetPreferredName() != bmName)
     kml::SetDefaultStr(bmData.m_customName, bmName);
   if (descr)
     kml::SetDefaultStr(bmData.m_description, jni::ToNativeString(env, descr));
-  bmData.m_color = kml::MakeCustomBookmarkColorData(dp::Color::FromARGB(color));
+  if (mark->GetColorForRendering() != dp::Color::FromARGB(color))
+    bmData.m_color = kml::MakeCustomBookmarkColorData(dp::Color::FromARGB(color));
 
   g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
 }

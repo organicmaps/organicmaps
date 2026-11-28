@@ -139,6 +139,11 @@ public final class BookmarkCategory implements Parcelable
     nativeSetDescription(mId, mDescription);
   }
 
+  public void setCategoryBookmarksIcon(int iconType)
+  {
+    nativeSetCategoryBookmarksIcon(mId, iconType);
+  }
+
   public void setCategoryBookmarksColor(@ColorInt int color)
   {
     nativeSetCategoryBookmarksColor(mId, color);
@@ -277,6 +282,7 @@ public final class BookmarkCategory implements Parcelable
   private static native void nativeSetCustomProperty(long catId, String key, String value);
   private static native boolean nativeIsEmpty(long catId);
 
+  private static native void nativeSetCategoryBookmarksIcon(long catId, int iconType);
   private static native void nativeSetCategoryBookmarksColor(long catId, @ColorInt int color);
   private static native void nativeSetCategoryTracksCustomColor(long catId, @ColorInt int color);
   private static native long nativeGetBookmarkIdByPosition(long catId, int position);

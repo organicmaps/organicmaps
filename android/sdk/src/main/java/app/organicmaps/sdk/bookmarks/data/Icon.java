@@ -20,6 +20,7 @@ public class Icon implements Parcelable
 
   @DrawableRes
   private static int[] sTypeIcons = null;
+  private static int sPersonType;
 
   @ColorInt
   private final int mColor;
@@ -63,6 +64,11 @@ public class Icon implements Parcelable
     return sTypeIcons[mType];
   }
 
+  public static int getPersonType()
+  {
+    return sPersonType;
+  }
+
   public int getType()
   {
     return mType;
@@ -99,6 +105,7 @@ public class Icon implements Parcelable
   public static void loadDefaultIcons(@NonNull Resources resources, @NonNull String packageName)
   {
     final String[] names = nativeGetBookmarkIconNames();
+    sPersonType = Arrays.asList(names).indexOf("Person");
     int[] icons = new int[names.length];
     for (int i = 0; i < names.length; i++)
     {

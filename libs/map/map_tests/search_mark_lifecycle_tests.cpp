@@ -10,6 +10,7 @@
 
 namespace search_mark_lifecycle_tests
 {
+
 class RegisteredMwmInfo : public MwmInfo
 {
 public:

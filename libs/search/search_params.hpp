@@ -73,10 +73,13 @@ struct SearchParams
 
   RecommendedFilteringParams m_filteringParams;
 
+  bool m_bookmarksRequireAllTokens = false;
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 
   // Amount of time after which the search is aborted.
   TimeDurationT m_timeout = kDefaultTimeout;
+  // Address resolution must not infer uniqueness from deadline-limited partial results.
+  bool m_requireCompleteResults = false;
 
   std::shared_ptr<Tracer> m_tracer;
 
@@ -93,6 +96,9 @@ struct SearchParams
 
   // True if you need *pure* category results only, without names/addresses/etc matching.
   bool m_categorialRequest = false;
+
+  // Allows a caller to retrieve nearby mapped house numbers as alternate results, not guessed coordinates.
+  bool m_allowNearbyHouseNumbers = false;
 
   // Set to true for debug logs and tests.
 #ifdef DEBUG

@@ -69,7 +69,10 @@ public:
   kml::MarkGroupId GetGroupId() const override;
   bool HasCreationAnimation() const override { return true; }
 
-  int GetMinZoom() const override { return m_data.m_minZoom; }
+  int GetMinZoom() const override;
+  kml::BookmarkIcon GetIcon() const;
+  kml::BookmarkData MakeDataWithIcon(kml::BookmarkIcon icon) const;
+  int GetMinTitleZoom() const override;
 
   // Whether m_data.m_properties suitable to fill "Key info" part of placepage.
   bool CanFillPlacePageMetadata() const;
@@ -78,6 +81,7 @@ public:
   void Detach();
 
 private:
+  bool HasPointLayout() const;
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
 
   kml::BookmarkData m_data;

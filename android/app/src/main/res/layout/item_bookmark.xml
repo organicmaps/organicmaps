@@ -14,7 +14,7 @@
   <ImageView
     android:id="@+id/iv__bookmark_color"
     style="@style/BookmarkListRow.Icon"
-    android:contentDescription="@string/change_color"
+    android:contentDescription="@string/bookmark_appearance"
     tools:background="@color/base_red"
     tools:src="@drawable/ic_bookmark_transport" />
 

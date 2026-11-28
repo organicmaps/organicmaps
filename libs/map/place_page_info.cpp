@@ -454,6 +454,14 @@ void Info::SetTitlesForBookmark()
   m_uiSubtitle = strings::JoinStrings(subtitle, feature::kFieldsSeparator);
 }
 
+void Info::SetBookmarkAddress(std::string address, std::string const & addressLabel)
+{
+  ASSERT(IsBookmark(), ());
+  m_address = std::move(address);
+  m_uiAddress = m_address;
+  m_uiSubtitle = addressLabel;
+}
+
 void Info::SetCustomName(std::string const & name)
 {
   if (IsBookmark())
