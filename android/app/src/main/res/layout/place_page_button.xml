@@ -10,7 +10,7 @@
   <ImageView
     android:id="@+id/icon"
     style="@style/PlacePageButtonImage"
-    android:contentDescription="@string/back"
+    android:importantForAccessibility="no"
     tools:src="@drawable/ic_share"/>
 
   <TextView

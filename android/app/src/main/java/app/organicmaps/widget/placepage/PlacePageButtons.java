@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -159,6 +162,17 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     TextView title = parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
+    parent.setContentDescription(title.getText());
+    title.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+    parent.setFocusable(true);
+    ViewCompat.setAccessibilityDelegate(parent, new AccessibilityDelegateCompat() {
+      @Override
+      public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info)
+      {
+        super.onInitializeAccessibilityNodeInfo(host, info);
+        info.setClassName(Button.class.getName());
+      }
+    });
     @AttrRes
     final int tint;
     if (isPrimary)
