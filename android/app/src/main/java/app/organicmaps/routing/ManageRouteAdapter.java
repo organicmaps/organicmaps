@@ -18,6 +18,7 @@ import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.util.Assert;
+import app.organicmaps.util.MultiTouchDelegate;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
@@ -71,7 +72,15 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     if (viewType == TYPE_ADD_BUTTON)
       return new AddStopViewHolder(inflater.inflate(R.layout.manage_route_add_stop_item, parent, false));
-    return new ManageRouteViewHolder(inflater.inflate(R.layout.manage_route_list_item, parent, false));
+    final ViewGroup row = (ViewGroup) inflater.inflate(R.layout.manage_route_list_item, parent, false);
+    final MultiTouchDelegate touchDelegate = new MultiTouchDelegate(row);
+    touchDelegate.addTarget(row.findViewById(R.id.delete_icon),
+                            row.getResources().getDimensionPixelSize(R.dimen.margin_half_plus),
+                            row.getResources().getDimensionPixelSize(R.dimen.margin_base),
+                            row.getResources().getDimensionPixelSize(R.dimen.margin_half_plus),
+                            row.getResources().getDimensionPixelSize(R.dimen.margin_half));
+    row.setTouchDelegate(touchDelegate);
+    return new ManageRouteViewHolder(row);
   }
 
   @Override
