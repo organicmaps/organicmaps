@@ -3173,7 +3173,7 @@ zh-Hant = 選擇公里或英哩
 
 [cancel_download]
 comment = Button which interrupts country download
-tags = apple-maps
+tags = android-app,apple-maps
 en = Cancel Download
 af = Kanselleer aflaai
 ar = إلغاء التنزيل
@@ -47151,3 +47151,39 @@ uk = У цьому напрямку треку більше немає. Вибе
 vi = Không còn hành trình theo hướng này. Hãy chọn điểm khác.
 zh-Hans = 此方向上已没有剩余轨迹。请选择其他点。
 zh-Hant = 此方向上已無剩餘軌跡。請選擇其他點。
+
+[downloader_map_action]
+comment = Accessibility label: action followed by the map or map group name
+tags = android-app
+en = %1$s: %2$s
+ru = %1$s: %2$s
+
+[downloader_map_actions]
+comment = Accessibility action to open the menu for a downloaded map
+tags = android-app
+en = Map actions
+ru = Действия с картой
+
+[downloader_open_group]
+comment = Accessibility action to open a group of maps
+tags = android-app
+en = Open map list
+ru = Открыть список карт
+
+[downloader_progress_percent]
+comment = Accessibility state of a map download; parameter is a localized percentage
+tags = android-app
+en = Downloading: %s
+ru = Загружается: %s
+
+[downloader_applying_percent]
+comment = Accessibility state while applying a downloaded update; parameter is a localized percentage
+tags = android-app
+en = Applying changes: %s
+ru = Применяются изменения: %s
+
+[downloader_show_available_maps]
+comment = Accessibility label for the plus button that opens the available maps list
+tags = android-app
+en = Show available maps
+ru = Показать доступные карты

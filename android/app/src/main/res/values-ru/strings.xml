@@ -100,6 +100,8 @@
     <string name="measurement_units">Единицы измерения</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Использовать километры или мили</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Отменить загрузку</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -987,4 +989,16 @@
     <string name="navigate_track_finish">Конец трека</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
+    <!-- Accessibility label: action followed by the map or map group name -->
+    <string name="downloader_map_action">%1$s: %2$s</string>
+    <!-- Accessibility action to open the menu for a downloaded map -->
+    <string name="downloader_map_actions">Действия с картой</string>
+    <!-- Accessibility action to open a group of maps -->
+    <string name="downloader_open_group">Открыть список карт</string>
+    <!-- Accessibility state of a map download; parameter is a localized percentage -->
+    <string name="downloader_progress_percent">Загружается: %s</string>
+    <!-- Accessibility state while applying a downloaded update; parameter is a localized percentage -->
+    <string name="downloader_applying_percent">Применяются изменения: %s</string>
+    <!-- Accessibility label for the plus button that opens the available maps list -->
+    <string name="downloader_show_available_maps">Показать доступные карты</string>
 </resources>

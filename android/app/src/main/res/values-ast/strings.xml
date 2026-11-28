@@ -53,6 +53,8 @@
     <string name="maps_storage_downloaded">Mapes baxaos</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidaes de midida</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Encaboxar baxada</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->

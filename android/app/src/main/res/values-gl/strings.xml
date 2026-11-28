@@ -100,6 +100,8 @@
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Elixir entre millas e quilómetros</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Cancelar descarga</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->

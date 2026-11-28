@@ -67,6 +67,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
           else if (!item.countryId.equals(mDownloadingCountry.id))
             continue;
 
+          mDownloadingCountry.status = item.newStatus;
+
           // The map is usable while its terrain is still downloading or has failed.
           if (MapManager.nativeHasLatestVersion(item.countryId))
           {
@@ -101,6 +103,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
           return;
 
         mDownloadingCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
+        if (mDownloadingCountry.status != CountryItem.STATUS_APPLYING)
+          mDownloadingCountry.status = CountryItem.STATUS_PROGRESS;
         updateProgress();
       }
     });
@@ -143,6 +147,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     mBtnDownloadMap.setText(
         StringUtils.formatUsingUsLocale("%1$s (%2$s)", getString(R.string.downloader_download_map),
                                         StringUtils.getFileSizeString(requireContext(), mCurrentCountry.downloadSize)));
+    mBtnDownloadMap.setContentDescription(
+        getString(R.string.downloader_map_action, mBtnDownloadMap.getText(), mCurrentCountry.name));
   }
 
   private void initViews(View view)
@@ -157,6 +163,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     selectMap.setOnClickListener(this);
     mWpvDownloadProgress = view.findViewById(R.id.wpv__download_progress);
     mWpvDownloadProgress.setOnClickListener(this);
+    DownloadAccessibility.attachButtonRole(mWpvDownloadProgress);
     mTvCountry = view.findViewById(R.id.tv__country_name);
     mTvActiveCountry = view.findViewById(R.id.tv__active_country_name);
     mTvProgress = view.findViewById(R.id.downloader_progress);
@@ -202,6 +209,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
                 + StringUtils.formatPercent(mDownloadingCountry.progress / 100, true);
     mTvProgress.setText(text);
     mWpvDownloadProgress.setProgress(Math.round(mDownloadingCountry.progress));
+    DownloadAccessibility.updateProgress(mWpvDownloadProgress, mDownloadingCountry.name, mDownloadingCountry.status,
+                                         mDownloadingCountry.progress);
   }
 
   @Override

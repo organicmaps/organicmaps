@@ -56,7 +56,8 @@ public class OnmapDownloaderTest
 
     try (var maps = mockStatic(MapManager.class); var countries = mockStatic(CountryItem.class);
          var routing = mockStatic(RoutingController.class); var text = mockStatic(TextUtils.class);
-         var insets = mockStatic(ViewCompat.class); var visibility = mockStatic(UiUtils.class))
+         var insets = mockStatic(ViewCompat.class); var visibility = mockStatic(UiUtils.class);
+         var accessibility = mockStatic(DownloadAccessibility.class))
     {
       countries.when(() -> CountryItem.fill(country.id)).thenReturn(country);
       countries.when(() -> CountryItem.isRoot(country.topmostParentId)).thenReturn(true);
