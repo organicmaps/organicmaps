@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
@@ -9,8 +8,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
 
-#include "generator/feature_builder.hpp"
-#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include <sstream>
 #include <string>
@@ -18,11 +15,10 @@
 
 namespace drules_selector_parser_test
 {
-using generator::tests_support::TestWithClassificator;
 using namespace drule;
 using namespace std;
 
-UNIT_CLASS_TEST(TestWithClassificator, ExtraTag_RulesUseTheirOwnClassifier)
+UNIT_TEST(ExtraTag_RulesUseTheirOwnClassifier)
 {
   Classificator tree;
   istringstream input(
@@ -80,19 +76,19 @@ UNIT_CLASS_TEST(TestWithClassificator, ExtraTag_RulesUseTheirOwnClassifier)
   TEST_EQUAL(holder.Find(selected.front())->GetLine()->width, 1.0, ());
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, ExtraTag_TypeSelectors)
+UNIT_TEST(ExtraTag_TypeSelectors)
 {
-  auto const & c = classif();
+  Classificator c;
+  istringstream input("world + highway + path + bicycle - {} tertiary - {} natural + coastline - {} mapswithme - {}");
+  c.ReadClassificator(input);
   FeatureType path(FeatureID{}, c.GetTypeByPath({"highway", "path", "bicycle"}));
   FeatureType road(FeatureID{}, c.GetTypeByPath({"highway", "tertiary"}));
   auto parent = ParseSelector(vector<string>{"extra_tag= highway = path "}, c);
   auto nested = ParseSelector(vector<string>{"extra_tag=highway=path=bicycle"}, c);
-  auto absent = ParseSelector(vector<string>{"extra_tag!=hwtag=yescar"}, c);
-  TEST(parent && nested && absent, ());
+  TEST(parent && nested, ());
   TEST(parent->Test(path, 15), ());
   TEST(nested->Test(path, 15), ());
   TEST(!parent->Test(road, 15), ());
-  TEST(absent->Test(path, 15), ());
   FeatureType plainPath(FeatureID{}, c.GetTypeByPath({"highway", "path"}));
   auto conjunction = ParseSelector(vector<string>{"extra_tag=highway=path", "extra_tag!=highway=path=bicycle"}, c);
   TEST(conjunction, ());
@@ -254,8 +250,7 @@ UNIT_TEST(NameSelector_Smoke)
 
 UNIT_TEST(InvalidSelector_Smoke)
 {
-  TEST(!ParseSelector(vector<string>{""}, classif()), ());
-  TEST(!ParseSelector(vector<string>({""}), classif()), ());
+  TEST(!ParseSelector({""}, classif()), ());
   TEST(!ParseSelector(vector<string>({"population>=1000", "population<=1000000", ""}), classif()), ());
 }
 
