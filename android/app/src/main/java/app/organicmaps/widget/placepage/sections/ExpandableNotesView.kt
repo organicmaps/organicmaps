@@ -5,6 +5,7 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.text.Layout
 import android.text.Spannable
 import android.text.StaticLayout
@@ -28,6 +29,9 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -130,6 +134,55 @@ class ExpandableNotesView @JvmOverloads constructor(
         }
         moreRegion.setOnClickListener { toggleExpanded() }
         setOnClickListener { toggleExpanded() }
+        addExpansionActions(tvNotes)
+        addExpansionActions(moreRegion)
+    }
+
+    override fun onInitializeAccessibilityNodeInfo(info: android.view.accessibility.AccessibilityNodeInfo) {
+        super.onInitializeAccessibilityNodeInfo(info)
+        populateExpansionActions(AccessibilityNodeInfoCompat.wrap(info))
+    }
+
+    private fun populateExpansionActions(info: AccessibilityNodeInfoCompat) {
+        if (!canExpand || !isEnabled) return
+        info.addAction(
+            if (isExpanded) {
+                AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_COLLAPSE
+            } else {
+                AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_EXPAND
+            },
+        )
+    }
+
+    private fun performExpansionAction(action: Int): Boolean {
+        if (!isEnabled || !canExpand) return false
+        val requested = when (action) {
+            AccessibilityNodeInfoCompat.ACTION_EXPAND -> true
+            AccessibilityNodeInfoCompat.ACTION_COLLAPSE -> false
+            else -> return false
+        }
+        if (requested == isExpanded) return false
+        toggleExpanded()
+        return true
+    }
+
+    override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean =
+        performExpansionAction(action) || super.performAccessibilityAction(action, arguments)
+
+    private fun addExpansionActions(view: View) {
+        ViewCompat.setAccessibilityDelegate(
+            view,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    if (host === moreRegion) info.className = android.widget.Button::class.java.name
+                    populateExpansionActions(info)
+                }
+
+                override fun performAccessibilityAction(host: View, action: Int, args: Bundle?): Boolean =
+                    performExpansionAction(action) || super.performAccessibilityAction(host, action, args)
+            },
+        )
     }
 
     fun setNotes(notes: String?) {
@@ -208,7 +261,7 @@ class ExpandableNotesView @JvmOverloads constructor(
                 tvNotes.paddingLeft - tvNotes.paddingRight
             if (tvWidth > 0) {
                 canExpand = measureFullLineCount(pending, tvWidth) > COLLAPSED_LINES
-                setMoreOverlayVisibility(if (canExpand && !isExpanded) VISIBLE else GONE)
+                setMoreOverlayVisibility(if (canExpand) VISIBLE else GONE)
                 pendingPlainNotes = null
             }
         }
@@ -305,7 +358,8 @@ class ExpandableNotesView @JvmOverloads constructor(
             isVerticalScrollBarEnabled = false
             isHorizontalScrollBarEnabled = false
             isClickable = false
-            isFocusable = false
+            isFocusable = true
+            addExpansionActions(this)
             setOnTouchListener { _, event ->
                 webViewTapDetector.onTouchEvent(event) || !isExpanded
             }
@@ -355,7 +409,7 @@ class ExpandableNotesView @JvmOverloads constructor(
     }
 
     private fun toggleExpanded() {
-        if (!canExpand) return
+        if (!isEnabled || !canExpand) return
         TransitionManager.beginDelayedTransition(this)
         isExpanded = !isExpanded
         if (isHtml) {
@@ -363,7 +417,8 @@ class ExpandableNotesView @JvmOverloads constructor(
         } else {
             tvNotes.maxLines = if (isExpanded) Int.MAX_VALUE else COLLAPSED_LINES
         }
-        setMoreOverlayVisibility(if (isExpanded) GONE else VISIBLE)
+        setMoreOverlayVisibility(VISIBLE)
+        moreRegion.setText(if (isExpanded) R.string.description_less else R.string.category_desc_more)
     }
 
     private fun setWebViewHeight(px: Int) {
@@ -373,8 +428,10 @@ class ExpandableNotesView @JvmOverloads constructor(
     }
 
     private fun setMoreOverlayVisibility(visibility: Int) {
+        isClickable = canExpand
         moreRegion.visibility = visibility
-        fadeOverlay.visibility = visibility
+        fadeOverlay.visibility = if (isExpanded) GONE else visibility
+        if (!isExpanded) moreRegion.setText(R.string.category_desc_more)
     }
 
     private fun handleWebViewTap(event: MotionEvent) {

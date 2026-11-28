@@ -2,12 +2,21 @@ package app.organicmaps.widget.placepage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.SeekBar;
 import androidx.annotation.Nullable;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import app.organicmaps.R;
+import app.organicmaps.sdk.util.StringUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointD;
 
@@ -52,6 +61,107 @@ public class ElevationProfileChart extends LineChart
   {
     super.init();
     mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+    setFocusable(true);
+    setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
+    setContentDescription(getContext().getString(R.string.elevation_profile_selection));
+  }
+
+  private boolean canAdjustSelection()
+  {
+    return isEnabled() && mTouchEnabled && getData() != null && getData().getEntryCount() > 1
+ && getData().getXMax() > getData().getXMin();
+  }
+
+  @Override
+  public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info)
+  {
+    super.onInitializeAccessibilityNodeInfo(info);
+    if (getData() == null || getData().getEntryCount() == 0)
+      return;
+    final float min = getData().getXMin();
+    final float max = getData().getXMax();
+    final float selected = getHighlightX();
+    final String total = StringUtils.nativeFormatDistance(max).toString(getContext());
+    final AccessibilityNodeInfoCompat compat = AccessibilityNodeInfoCompat.wrap(info);
+    compat.setStateDescription(
+        Float.isNaN(selected)
+            ? getContext().getString(R.string.elevation_profile_no_selection, total)
+            : getContext().getString(R.string.elevation_profile_selected_distance,
+                                     StringUtils.nativeFormatDistance(selected).toString(getContext()), total));
+    if (!canAdjustSelection())
+      return;
+    info.setClassName(SeekBar.class.getName());
+    info.setRangeInfo(
+        AccessibilityNodeInfo.RangeInfo.obtain(AccessibilityNodeInfo.RangeInfo.RANGE_TYPE_FLOAT, min, max,
+                                               Float.isNaN(selected) ? min : Math.max(min, Math.min(selected, max))));
+    info.setScrollable(true);
+    if (Float.isNaN(selected) || selected < max)
+      info.addAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_FORWARD);
+    if (Float.isNaN(selected) || selected > min)
+      info.addAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_BACKWARD);
+    compat.addAction(AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SET_PROGRESS);
+  }
+
+  private float selectionStep()
+  {
+    return (getData().getXMax() - getData().getXMin()) / 20f;
+  }
+
+  private float selectionPosition()
+  {
+    final float selected = getHighlightX();
+    return Float.isNaN(selected) ? getData().getXMin() : selected;
+  }
+
+  @Override
+  public boolean performAccessibilityAction(int action, Bundle arguments)
+  {
+    if (action == AccessibilityNodeInfo.ACTION_SCROLL_FORWARD || action == AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD
+        || action == AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SET_PROGRESS.getId())
+    {
+      if (!canAdjustSelection())
+        return false;
+      if (action == AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
+        return selectForAccessibility(selectionPosition() + selectionStep());
+      if (action == AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD)
+        return selectForAccessibility(selectionPosition() - selectionStep());
+      if (arguments == null)
+        return false;
+      return selectForAccessibility(
+          arguments.getFloat(AccessibilityNodeInfoCompat.ACTION_ARGUMENT_PROGRESS_VALUE, Float.NaN));
+    }
+    return super.performAccessibilityAction(action, arguments);
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event)
+  {
+    if (!canAdjustSelection() || !event.hasNoModifiers())
+      return super.onKeyDown(keyCode, event);
+    return switch (keyCode)
+    {
+      case KeyEvent.KEYCODE_DPAD_LEFT -> selectForAccessibility(selectionPosition() - selectionStep());
+      case KeyEvent.KEYCODE_DPAD_RIGHT -> selectForAccessibility(selectionPosition() + selectionStep());
+      case KeyEvent.KEYCODE_MOVE_HOME -> selectForAccessibility(getData().getXMin());
+      case KeyEvent.KEYCODE_MOVE_END -> selectForAccessibility(getData().getXMax());
+      default -> super.onKeyDown(keyCode, event);
+    };
+  }
+
+  private boolean selectForAccessibility(float requested)
+  {
+    if (Float.isNaN(requested) || Float.isInfinite(requested)
+        || !(getData().getDataSetByIndex(0) instanceof LineDataSet set))
+      return false;
+    final float startX = getHighlightX();
+    final Highlight highlight = ElevationChartUtils.highlightAt(set.getValues(), requested);
+    if (highlight.getX() == startX)
+      return false;
+    highlightValue(highlight, true);
+    if (mSelectionFinishedListener != null)
+      reportSelectionFinished(startX);
+    sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
+    return true;
   }
 
   @Override
@@ -110,8 +220,12 @@ public class ElevationProfileChart extends LineChart
 
   private void reportSelectionFinished()
   {
+    reportSelectionFinished(mGestureStartHighlight == null ? Float.NaN : mGestureStartHighlight.getX());
+  }
+
+  private void reportSelectionFinished(float startX)
+  {
     final float x = getHighlightX();
-    final float startX = mGestureStartHighlight == null ? Float.NaN : mGestureStartHighlight.getX();
     if (!Float.isNaN(x) && x != startX)
       mSelectionFinishedListener.onSelectionFinished(x);
   }
