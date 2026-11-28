@@ -133,6 +133,10 @@ UNIT_TEST(TestDruleSelectorGreaterOrEqual)
 
 UNIT_TEST(TestDruleSelectorInvalid)
 {
+  SelectorExpression expression;
+  TEST(!ParseSelector("population>=", expression), ());
+  TEST(!ParseSelector("bbox_area<=", expression), ());
+
   char const * const badFormats[] = {
       "",         "=badformat", "!=badformat",   ">badformat", "<badformat", ">=badformat", "<=badformat",
       "bad$name", "!bad$name",  "bad$name=1000",

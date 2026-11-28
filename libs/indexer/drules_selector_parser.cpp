@@ -109,7 +109,7 @@ bool ParseSelector(std::string const & str, SelectorExpression & e)
   }
 
   std::string tag(str.begin(), str.begin() + pos);
-  if (!IsTag(tag))
+  if (!IsTag(tag) || pos + len == str.size())
     return false;  // invalid format
 
   e.m_operator = op;
