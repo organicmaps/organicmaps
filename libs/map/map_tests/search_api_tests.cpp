@@ -320,7 +320,7 @@ UNIT_CLASS_TEST(SearchAPITest, NearbyAddressRetrievalAllowsOppositeParity)
   EverywhereSearchParams params;
   params.m_query = "124 Main Street ";
   params.m_inputLocale = "en";
-  params.m_prioritizeAddressMatches = true;
+  params.m_allowNearbyHouseNumbers = true;
   bool delivered = false;
   params.m_onResults = [&](Results results)
   {
@@ -360,7 +360,7 @@ UNIT_CLASS_TEST(SearchAPITest, TypedAddressRankingIsExplicitAndNeverInventsMissi
       EverywhereSearchParams params;
       params.m_query = exact ? "6492 131a st, surrey " : "6498 131a st, surrey ";
       params.m_inputLocale = "en";
-      params.m_prioritizeAddressMatches = enabled;
+      params.m_allowNearbyHouseNumbers = enabled;
       params.m_onResults = [&](Results results)
       {
         if (!results.IsEndMarker())
@@ -416,7 +416,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressSearchFindsDistantStreetBeforeNearbyFuzzyM
     EverywhereSearchParams params;
     params.m_query = query;
     params.m_inputLocale = "en";
-    params.m_prioritizeAddressMatches = true;
+    params.m_allowNearbyHouseNumbers = true;
     params.m_onResults = [&](Results results)
     {
       if (!results.IsEndMarker())
@@ -477,7 +477,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressSearchPreservesAmbiguityAndStreamsExactRes
   EverywhereSearchParams params;
   params.m_query = "123 Main Street";
   params.m_inputLocale = "en";
-  params.m_prioritizeAddressMatches = true;
+  params.m_allowNearbyHouseNumbers = true;
   params.m_onResults = [&](Results results)
   {
     if (!results.IsEndMarker())

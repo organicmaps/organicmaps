@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/address_matcher.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
@@ -187,6 +188,7 @@ private:
   Type m_resultType;
   feature::GeomType m_geomType = feature::GeomType::Undefined;
   bool m_hnPrefixMatch = false;
+  AddressMatchRank m_addressMatch;
 
 #ifdef SEARCH_USE_PROVENANCE
   // The call path in the Geocoder that leads to this result.
