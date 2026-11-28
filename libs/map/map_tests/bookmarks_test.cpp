@@ -4175,6 +4175,7 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
   auto const id = *manager.GetUserMarkIds(contacts.m_categoryId).begin();
   auto const * bookmark = manager.GetBookmark(id);
   TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
+  TEST_EQUAL(bookmark->GetMinTitleZoom(), 14, ());
   auto const upgraded = ImportBookmarks(manager, "contacts", "Contacts", entries, image, 14,
                                         true /* usePointLayout */);
   TEST_EQUAL(upgraded.m_updated, 1, ());
@@ -4185,6 +4186,7 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
   session.DetachBookmark(id, contacts.m_categoryId);
   session.AttachBookmark(id, other);
   TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
+  TEST_EQUAL(bookmark->GetMinTitleZoom(), 15, ());
   auto const symbols = bookmark->GetSymbolNames();
   TEST_EQUAL(symbols->at(14), "contact-s", ());
   TEST_EQUAL(symbols->at(15), "contact-m", ());
@@ -4200,6 +4202,34 @@ UNIT_TEST(BookmarkContactSymbolStaysWithImportedBookmark)
   };
   TEST(find(13) == nullptr, ());
   TEST(find(14) == bookmark, ());
+}
+
+UNIT_TEST(BookmarkPersonIconWorksOutsideImportedContacts)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const group = manager.CreateBookmarkCategory("Favorites");
+  kml::BookmarkData data;
+  data.m_point = mercator::FromLatLon(49, -123);
+  data.m_icon = kml::BookmarkIcon::Person;
+  auto session = manager.GetEditSession();
+  auto const * bookmark = session.CreateBookmark(std::move(data));
+  session.AttachBookmark(bookmark->GetId(), group);
+  TEST_EQUAL(bookmark->GetAnchor(), dp::Center, ());
+  TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
+  TEST_EQUAL(bookmark->GetMinTitleZoom(), 15, ());
+  TEST_EQUAL(bookmark->GetSymbolNames()->at(14), "contact-s", ());
+  TEST_EQUAL(bookmark->GetSymbolNames()->at(15), "contact-m", ());
+
+  for (auto const type : {FileType::Kml, FileType::Kmb})
+  {
+    std::string serialized;
+    MemWriter writer(serialized);
+    TEST(manager.SaveBookmarkCategory(group, writer, type), ());
+    auto const restored = LoadKmlData(MemReader(serialized.data(), serialized.size()), type);
+    TEST(restored, ());
+    TEST_EQUAL(restored->m_bookmarksData.front().m_icon, kml::BookmarkIcon::Person, ());
+  }
 }
 
 UNIT_TEST(BookmarkSourceImportPreservesDifferentContactsAtSamePoint)

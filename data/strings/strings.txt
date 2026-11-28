@@ -47272,3 +47272,7 @@ en = Show fewer bookmarks
 [bookmark_search_limit_reached]
 tags = android-app
 en = Showing up to %1$d bookmarks. Refine your search for more.
+
+[bookmark_person_icon]
+tags = android-app
+en = Use person icon

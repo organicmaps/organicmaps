@@ -128,7 +128,7 @@ public class Bookmark extends MapObject
 
   static native void nativeSetColor(long bookmarkId, @ColorInt int color);
 
-  static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @ColorInt int color,
+  static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @ColorInt int color, int iconType,
                                         @NonNull String description);
   static native void nativeChangeCategory(long oldCatId, long newCatId, long bookmarkId);
 }

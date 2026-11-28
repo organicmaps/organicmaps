@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.ColorInt
@@ -28,6 +29,7 @@ import app.organicmaps.dialog.DeleteConfirmationDialogFragment
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager
 import app.organicmaps.sdk.bookmarks.data.FileType
+import app.organicmaps.sdk.bookmarks.data.Icon
 import app.organicmaps.util.SharingUtils
 import app.organicmaps.util.UiUtils
 import app.organicmaps.widget.colorpicker.ColorPickerFragment
@@ -93,6 +95,20 @@ class EditBookmarkFragment :
             DeleteConfirmationDialogFragment.REQUEST_KEY,
             viewLifecycleOwner,
         ) { _, _ -> deleteAndDismiss() }
+
+        val personIcon = view.findViewById<CheckBox>(R.id.bookmark_person_icon)
+        val bookmark = target as? BookmarkEditTarget
+        personIcon.isVisible = bookmark != null
+        if (bookmark != null) {
+            val originalIconType = bookmark.iconType
+            bookmark.iconType = savedInstanceState?.getInt(STATE_ICON_TYPE, originalIconType) ?: originalIconType
+            val personType = Icon.getPersonType()
+            personIcon.isChecked = bookmark.iconType == personType
+            personIcon.setOnCheckedChangeListener { _, checked ->
+                bookmark.iconType = if (checked) personType else originalIconType.takeUnless { it == personType } ?: 0
+                refreshSwatch()
+            }
+        }
 
         bindTarget()
         initToolbar()
@@ -279,6 +295,7 @@ class EditBookmarkFragment :
         super.onSaveInstanceState(outState)
         outState.putParcelable(STATE_BOOKMARK_CATEGORY, bookmarkCategory)
         target?.let { outState.putInt(STATE_COLOR, it.color) }
+        (target as? BookmarkEditTarget)?.let { outState.putInt(STATE_ICON_TYPE, it.iconType) }
         trackTarget?.let { outState.putBoolean(STATE_VISIBLE, it.stagedVisibility) }
     }
 
@@ -343,6 +360,7 @@ class EditBookmarkFragment :
         private const val EXTRA_KIND = "BookmarkType"
         private const val STATE_BOOKMARK_CATEGORY = "bookmark_category"
         private const val STATE_COLOR = "color"
+        private const val STATE_ICON_TYPE = "icon_type"
         private const val STATE_VISIBLE = "visible"
         private const val TAG = "EditBookmarkFragment"
 

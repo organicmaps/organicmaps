@@ -7,6 +7,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/string_utils.hpp"
+#include <algorithm>
 
 namespace
 {
@@ -53,6 +54,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::BicycleRental: return "bicycle_rental";
   case kml::BookmarkIcon::FastFood: return "fast_food";
   case kml::BookmarkIcon::Airport: return "airport";
+  case kml::BookmarkIcon::Person: return "person";
   case kml::BookmarkIcon::Count: ASSERT(false, ("Invalid bookmark icon type")); return {};
   }
   UNREACHABLE();
@@ -146,11 +148,32 @@ df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
   return df::DepthLayer::SearchMarkLayer;
 }
 
+kml::BookmarkIcon Bookmark::GetIcon() const
+{
+  auto const image = m_data.m_properties.find(kCustomImageProperty);
+  if (image != m_data.m_properties.end() && image->second == "14,contact-s;15,contact-m")
+    return kml::BookmarkIcon::Person;
+  return m_data.m_icon;
+}
+
+int Bookmark::GetMinZoom() const
+{
+  return m_data.m_icon == kml::BookmarkIcon::Person ? std::max(14, m_data.m_minZoom) : m_data.m_minZoom;
+}
+
 bool Bookmark::HasPointLayout() const
 {
+  if (m_data.m_icon == kml::BookmarkIcon::Person)
+    return true;
   auto const layout = m_data.m_properties.find("CustomImageLayout");
   return layout != m_data.m_properties.end() && layout->second == "point" &&
          m_data.m_properties.contains(kCustomImageProperty);
+}
+
+int Bookmark::GetMinTitleZoom() const
+{
+  // Let point-style symbols appear before their captions, like the small POI symbols.
+  return HasPointLayout() ? std::max(15, GetMinZoom()) : GetMinZoom();
 }
 
 dp::Anchor Bookmark::GetAnchor() const
@@ -165,6 +188,12 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
     return symbolNames;
 
   symbolNames = make_unique_dp<SymbolNameZoomInfo>();
+  if (m_data.m_icon == kml::BookmarkIcon::Person)
+  {
+    symbolNames->emplace(GetMinZoom(), "contact-s");
+    symbolNames->insert_or_assign(std::max(15, GetMinZoom()), "contact-m");
+    return symbolNames;
+  }
 
   symbolNames->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
   symbolNames->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));

@@ -210,6 +210,7 @@ enum class BookmarkIcon : uint16_t
   BicycleRental,
   FastFood,
   Airport,
+  Person,
 
   Count
 };
@@ -258,6 +259,7 @@ inline std::string ToString(BookmarkIcon icon)
   case BicycleRental: return "BicycleRental";
   case FastFood: return "FastFood";
   case Airport: return "Airport";
+  case Person: return "Person";
   case Count: return {};
   }
   UNREACHABLE();
