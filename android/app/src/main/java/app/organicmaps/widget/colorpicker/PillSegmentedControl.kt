@@ -8,9 +8,14 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import app.organicmaps.R
 import app.organicmaps.util.ThemeUtils
 
@@ -50,8 +55,11 @@ class PillSegmentedControl @JvmOverloads constructor(
     }
 
     fun setSegments(vararg titles: String) {
+        pillAnimator?.cancel()
+        pillAnimator = null
         labels.clear()
         removeAllViews()
+        selectedIndex = selectedIndex.coerceIn(0, (titles.size - 1).coerceAtLeast(0))
         titles.forEachIndexed { i, title ->
             val tv = TextView(context).apply {
                 text = title
@@ -59,17 +67,31 @@ class PillSegmentedControl @JvmOverloads constructor(
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 setTextColor(ThemeUtils.getColor(context, android.R.attr.textColorPrimary))
                 isClickable = true
+                isFocusable = true
+                isSelected = i == selectedIndex
                 setOnClickListener { selectSegment(i, animate = true) }
             }
+            ViewCompat.setAccessibilityDelegate(
+                tv,
+                object : AccessibilityDelegateCompat() {
+                    override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
+                        super.onInitializeAccessibilityNodeInfo(host, info)
+                        info.className = Button::class.java.name
+                    }
+                },
+            )
             labels.add(tv)
             addView(tv, LayoutParams(0, LayoutParams.MATCH_PARENT, 1f))
         }
+        animatedPillLeft = getPillLeft(selectedIndex)
+        invalidate()
     }
 
     fun selectSegment(index: Int, animate: Boolean = false) {
         if (index !in labels.indices) return
         if (index == selectedIndex && pillAnimator == null) return
         selectedIndex = index
+        labels.forEachIndexed { i, label -> label.isSelected = i == index }
 
         val targetLeft = getPillLeft(index)
         if (animate && width > 0) {

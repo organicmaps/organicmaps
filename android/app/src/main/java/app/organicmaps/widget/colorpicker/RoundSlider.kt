@@ -7,12 +7,19 @@ import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Shader
+import android.os.Bundle
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.SeekBar
 import androidx.annotation.ColorInt
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import app.organicmaps.R
 import app.organicmaps.util.ThemeUtils
+import kotlin.math.roundToInt
 
 /** Custom rounded slider with gradient track and circular thumb. */
 class RoundSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -31,6 +38,7 @@ class RoundSlider @JvmOverloads constructor(context: Context, attrs: AttributeSe
             val clamped = v.coerceIn(0, 255)
             if (field == clamped) return
             field = clamped
+            ViewCompat.setStateDescription(this, clamped.toString())
             invalidate()
         }
 
@@ -59,6 +67,69 @@ class RoundSlider @JvmOverloads constructor(context: Context, attrs: AttributeSe
     private val trackCornerRadius = resources.getDimension(R.dimen.color_picker_slider_track_corner_radius)
     private val trackHeight = resources.getDimension(R.dimen.color_picker_slider_track_height)
     private var thumbRadius = resources.getDimensionPixelSize(R.dimen.color_preset_circle_size) / 2f
+
+    init {
+        isFocusable = true
+        importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+        ViewCompat.setStateDescription(this, value.toString())
+    }
+
+    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {
+        super.onInitializeAccessibilityNodeInfo(info)
+        info.className = SeekBar::class.java.name
+        info.rangeInfo = AccessibilityNodeInfo.RangeInfo.obtain(
+            AccessibilityNodeInfo.RangeInfo.RANGE_TYPE_INT,
+            0f,
+            255f,
+            value.toFloat(),
+        )
+        if (!isEnabled) return
+        info.isScrollable = true
+        if (value < 255) info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
+        if (value > 0) info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD)
+        AccessibilityNodeInfoCompat.wrap(info).addAction(
+            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SET_PROGRESS,
+        )
+    }
+
+    override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean {
+        return when (action) {
+            AccessibilityNodeInfo.ACTION_SCROLL_FORWARD -> changeValue(value + ACCESSIBILITY_STEP)
+
+            AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD -> changeValue(value - ACCESSIBILITY_STEP)
+
+            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SET_PROGRESS.id -> {
+                if (!isEnabled) return false
+                val requested = arguments?.getFloat(
+                    AccessibilityNodeInfoCompat.ACTION_ARGUMENT_PROGRESS_VALUE,
+                    Float.NaN,
+                ) ?: return false
+                if (requested.isFinite()) changeValue(requested.coerceIn(0f, 255f).roundToInt()) else false
+            }
+
+            else -> super.performAccessibilityAction(action, arguments)
+        }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (!isEnabled || !event.hasNoModifiers()) return super.onKeyDown(keyCode, event)
+        return when (keyCode) {
+            KeyEvent.KEYCODE_DPAD_LEFT -> changeValue(value - 1)
+            KeyEvent.KEYCODE_DPAD_RIGHT -> changeValue(value + 1)
+            KeyEvent.KEYCODE_MOVE_HOME -> changeValue(0)
+            KeyEvent.KEYCODE_MOVE_END -> changeValue(255)
+            else -> super.onKeyDown(keyCode, event)
+        }
+    }
+
+    private fun changeValue(requested: Int): Boolean {
+        if (!isEnabled) return false
+        val clamped = requested.coerceIn(0, 255)
+        if (clamped == value) return false
+        value = clamped
+        onValueChangedListener?.onValueChanged(this, value)
+        return true
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -97,33 +168,39 @@ class RoundSlider @JvmOverloads constructor(context: Context, attrs: AttributeSe
         canvas.drawCircle(thumbX, thumbY, thumbRadius, thumbStrokePaint)
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean = when (event.actionMasked) {
-        MotionEvent.ACTION_DOWN -> {
-            isTracking = true
-            parent?.requestDisallowInterceptTouchEvent(true)
-            updateFromTouch(event.x)
-            true
-        }
+    override fun onTouchEvent(event: MotionEvent): Boolean = if (!isEnabled) {
+        isTracking = false
+        parent?.requestDisallowInterceptTouchEvent(false)
+        super.onTouchEvent(event)
+    } else {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                isTracking = true
+                parent?.requestDisallowInterceptTouchEvent(true)
+                updateFromTouch(event.x)
+                true
+            }
 
-        MotionEvent.ACTION_MOVE -> {
-            updateFromTouch(event.x)
-            true
-        }
+            MotionEvent.ACTION_MOVE -> {
+                updateFromTouch(event.x)
+                true
+            }
 
-        MotionEvent.ACTION_UP -> {
-            isTracking = false
-            performClick()
-            parent?.requestDisallowInterceptTouchEvent(false)
-            true
-        }
+            MotionEvent.ACTION_UP -> {
+                isTracking = false
+                performClick()
+                parent?.requestDisallowInterceptTouchEvent(false)
+                true
+            }
 
-        MotionEvent.ACTION_CANCEL -> {
-            isTracking = false
-            parent?.requestDisallowInterceptTouchEvent(false)
-            true
-        }
+            MotionEvent.ACTION_CANCEL -> {
+                isTracking = false
+                parent?.requestDisallowInterceptTouchEvent(false)
+                true
+            }
 
-        else -> super.onTouchEvent(event)
+            else -> super.onTouchEvent(event)
+        }
     }
 
     private fun updateFromTouch(x: Float) {
@@ -132,9 +209,11 @@ class RoundSlider @JvmOverloads constructor(context: Context, attrs: AttributeSe
         val trackEnd = w - thumbRadius
         if (trackEnd <= trackStart) return
         val newValue = ((x - trackStart) / (trackEnd - trackStart) * 255).toInt().coerceIn(0, 255)
-        if (newValue != value) {
-            value = newValue
-            onValueChangedListener?.onValueChanged(this, value)
-        }
+        changeValue(newValue)
+    }
+
+    companion object {
+        // Approximately five percent of the channel range per accessibility scroll action.
+        private const val ACCESSIBILITY_STEP = 13
     }
 }

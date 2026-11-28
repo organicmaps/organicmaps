@@ -23,9 +23,11 @@ import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -94,6 +96,12 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
         segmentedControl.selectSegment(viewModel.state.value.activeTab.ordinal)
         segmentedControl.onSegmentSelectedListener = PillSegmentedControl.OnSegmentSelectedListener { index ->
             viewModel.setActiveTab(ColorPickerTab.entries[index.coerceIn(ColorPickerTab.entries.indices)])
+        }
+
+        spectrumView?.onAccessibilityEditColor = {
+            segmentedControl.selectSegment(ColorPickerTab.SLIDERS.ordinal)
+            viewFlipper?.displayedChild = ColorPickerTab.SLIDERS.ordinal
+            slidersView?.post { slidersView?.focusFirstSlider() }
         }
 
         view.findViewById<View>(R.id.btn_close).setOnClickListener { dismiss() }
@@ -292,7 +300,12 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
         container.removeAllViews()
 
         state.presetColors.forEachIndexed { i, color ->
-            val circle = ImageView(requireContext()).apply {
+            val circle = AppCompatImageButton(requireContext()).apply {
+                background = null
+                setPadding(0, 0, 0, 0)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+                contentDescription = context.describeColor(color, i)
+                isSelected = i == state.selectedPresetIndex
                 tag = i
                 layoutParams = ViewGroup.MarginLayoutParams(circleSize, circleSize).apply {
                     marginStart = presetMargin
@@ -314,6 +327,12 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
                     true
                 }
             }
+            ViewCompat.replaceAccessibilityAction(
+                circle,
+                AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
+                getString(R.string.delete),
+                null,
+            )
             container.addView(circle)
         }
 
@@ -327,23 +346,31 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
 
     private fun updatePresetSelection(oldIndex: Int, state: ColorPickerState) {
         if (oldIndex in state.presetColors.indices) {
-            presetsContainer?.findViewWithTag<ImageView>(oldIndex)
-                ?.setImageDrawable(drawFilledCircle(state.presetColors[oldIndex], circleSize))
+            presetsContainer?.findViewWithTag<ImageView>(oldIndex)?.apply {
+                isSelected = false
+                setImageDrawable(drawFilledCircle(state.presetColors[oldIndex], circleSize))
+            }
         }
         if (state.selectedPresetIndex in state.presetColors.indices) {
-            presetsContainer?.findViewWithTag<ImageView>(state.selectedPresetIndex)
-                ?.setImageDrawable(
+            presetsContainer?.findViewWithTag<ImageView>(state.selectedPresetIndex)?.apply {
+                isSelected = true
+                setImageDrawable(
                     drawCircleWithRing(
                         state.presetColors[state.selectedPresetIndex],
                         circleSize,
                         selectorStroke,
                     ),
                 )
+            }
         }
         presetsContainer?.findViewWithTag<View>(ADD_BUTTON_TAG)?.isVisible = viewModel.canAddPreset()
     }
 
-    private fun createAddButton(size: Int, margin: Int): ImageView = ImageView(requireContext()).apply {
+    private fun createAddButton(size: Int, margin: Int): ImageView = AppCompatImageButton(requireContext()).apply {
+        background = null
+        setPadding(0, 0, 0, 0)
+        scaleType = ImageView.ScaleType.FIT_CENTER
+        contentDescription = getString(R.string.color_picker_save_preset)
         layoutParams = ViewGroup.MarginLayoutParams(size, size).apply {
             marginStart = margin
             bottomMargin = margin

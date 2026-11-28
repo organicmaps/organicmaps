@@ -8,11 +8,15 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Shader
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.core.graphics.withSave
+import androidx.core.view.ViewCompat
 import app.organicmaps.R
 import app.organicmaps.util.ThemeUtils
 
@@ -51,6 +55,54 @@ class SpectrumColorView @JvmOverloads constructor(
         color = ThemeUtils.getColor(context, android.R.attr.colorForeground)
     }
 
+    var onAccessibilityEditColor: (() -> Unit)? = null
+
+    init {
+        isFocusable = true
+        isClickable = true
+        importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+        contentDescription = context.getString(R.string.color_picker_spectrum)
+        updateColorDescription()
+    }
+
+    private fun updateColorDescription() {
+        ViewCompat.setStateDescription(this, context.describeColor(getSelectedColor()))
+    }
+
+    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {
+        super.onInitializeAccessibilityNodeInfo(info)
+        info.className = Button::class.java.name
+        info.isClickable = isEnabled && onAccessibilityEditColor != null
+        info.removeAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_CLICK)
+        if (info.isClickable) {
+            info.addAction(
+                AccessibilityNodeInfo.AccessibilityAction(
+                    AccessibilityNodeInfo.ACTION_CLICK,
+                    context.getString(R.string.color_picker_edit_rgb),
+                ),
+            )
+        }
+    }
+
+    override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean {
+        if (action == AccessibilityNodeInfo.ACTION_CLICK &&
+            (!isEnabled || onAccessibilityEditColor == null)
+        ) {
+            return false
+        }
+        return super.performAccessibilityAction(action, arguments)
+    }
+
+    override fun performClick(): Boolean {
+        if (!isEnabled) return false
+        super.performClick()
+        // A direct spectrum gesture already changes the color; activation without a drag opens the RGB controls.
+        if (isTracking) return true
+        val edit = onAccessibilityEditColor ?: return false
+        edit()
+        return true
+    }
+
     fun setColor(@ColorInt color: Int) {
         if (isTracking) return
         Color.colorToHSV(color, hsvTemp)
@@ -60,6 +112,7 @@ class SpectrumColorView @JvmOverloads constructor(
         hue = hsvTemp[0]
         saturation = hsvTemp[1]
         value = hsvTemp[2]
+        updateColorDescription()
         invalidate()
     }
 
@@ -164,34 +217,40 @@ class SpectrumColorView @JvmOverloads constructor(
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean = when (event.actionMasked) {
-        MotionEvent.ACTION_DOWN -> {
-            isTracking = true
-            parent?.requestDisallowInterceptTouchEvent(true)
-            updateFromTouch(event.x, event.y)
-            true
-        }
+    override fun onTouchEvent(event: MotionEvent): Boolean = if (!isEnabled) {
+        isTracking = false
+        parent?.requestDisallowInterceptTouchEvent(false)
+        super.onTouchEvent(event)
+    } else {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                isTracking = true
+                parent?.requestDisallowInterceptTouchEvent(true)
+                updateFromTouch(event.x, event.y)
+                true
+            }
 
-        MotionEvent.ACTION_MOVE -> {
-            updateFromTouch(event.x, event.y)
-            true
-        }
+            MotionEvent.ACTION_MOVE -> {
+                updateFromTouch(event.x, event.y)
+                true
+            }
 
-        MotionEvent.ACTION_UP -> {
-            updateFromTouch(event.x, event.y)
-            isTracking = false
-            performClick()
-            parent?.requestDisallowInterceptTouchEvent(false)
-            true
-        }
+            MotionEvent.ACTION_UP -> {
+                updateFromTouch(event.x, event.y)
+                performClick()
+                isTracking = false
+                parent?.requestDisallowInterceptTouchEvent(false)
+                true
+            }
 
-        MotionEvent.ACTION_CANCEL -> {
-            isTracking = false
-            parent?.requestDisallowInterceptTouchEvent(false)
-            true
-        }
+            MotionEvent.ACTION_CANCEL -> {
+                isTracking = false
+                parent?.requestDisallowInterceptTouchEvent(false)
+                true
+            }
 
-        else -> super.onTouchEvent(event)
+            else -> super.onTouchEvent(event)
+        }
     }
 
     private fun updateFromTouch(x: Float, y: Float) {
@@ -212,6 +271,7 @@ class SpectrumColorView @JvmOverloads constructor(
             saturation = 1f
             value = 1f - (clampedX - halfW) / halfW
         }
+        updateColorDescription()
         invalidate()
         onColorChangedListener?.onColorChanged(getSelectedColor())
     }

@@ -47151,3 +47151,27 @@ uk = У цьому напрямку треку більше немає. Вибе
 vi = Không còn hành trình theo hướng này. Hãy chọn điểm khác.
 zh-Hans = 此方向上已没有剩余轨迹。请选择其他点。
 zh-Hant = 此方向上已無剩餘軌跡。請選擇其他點。
+
+[color_picker_rgb_value]
+comment = Accessibility description of a color: red, green and blue channel values from 0 to 255
+tags = android-app
+en = Red %1$d, green %2$d, blue %3$d
+ru = Красный %1$d, зелёный %2$d, синий %3$d
+
+[color_picker_color_description]
+comment = Accessibility label for a palette color: one-based position and RGB description
+tags = android-app
+en = Color %1$d, %2$s
+ru = Цвет %1$d, %2$s
+
+[color_picker_save_preset]
+comment = Accessibility label for the button that saves the current color to the palette
+tags = android-app
+en = Save current color
+ru = Сохранить текущий цвет
+
+[color_picker_edit_rgb]
+comment = Accessibility action on the spectrum that opens the RGB sliders for precise color adjustment
+tags = android-app
+en = Edit RGB values
+ru = Изменить значения RGB
