@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +26,7 @@ import androidx.car.app.testing.TestCarContext;
 import androidx.car.app.versioning.CarAppApiLevels;
 import androidx.lifecycle.Lifecycle;
 import app.organicmaps.car.CarAppSessionBase;
+import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.util.IntentUtils;
@@ -47,6 +49,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.robolectric.RobolectricTestRunner;
@@ -190,6 +193,69 @@ public class CarAppSessionReadinessTest
   }
 
   @Test
+  public void phoneTrackNavigationIsShownOnTheCar()
+  {
+    when(mRouting.isFollowingTrack()).thenReturn(true);
+    when(mRouting.isNavigating()).thenReturn(true);
+    when(mManager.getScreenStack()).thenReturn(List.of(mock(Screen.class)));
+    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    mReadiness.complete();
+    verify(mManager).popToRoot();
+    verify(mManager).push(any(NavigationScreen.class));
+
+    // A car navigation screen left below the phone's placeholder is reused.
+    final List<Screen> withNavigation = List.of(mock(Screen.class), navigationScreen());
+    when(mManager.getScreenStack()).thenReturn(withNavigation);
+    mLifecycle.moveToState(Lifecycle.State.CREATED);
+    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    verify(mManager).popTo(NavigationScreen.MARKER);
+    verify(mManager).push(any());
+  }
+
+  @Test
+  public void phoneTrackNavigationFollowsItsStartAndReturnToThePreview()
+  {
+    final ArgumentCaptor<RoutingController.NavigationStateListener> listener =
+        ArgumentCaptor.forClass(RoutingController.NavigationStateListener.class);
+    verify(mRouting).addNavigationStateListener(listener.capture());
+    when(mRouting.isFollowingTrack()).thenReturn(true);
+    when(mRouting.isPlanning()).thenReturn(true);
+    when(mManager.getScreenStack()).thenReturn(List.of(mock(Screen.class)));
+    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    mReadiness.complete();
+    verify(mManager, never()).push(any());
+
+    // An Assistant command on the car, or the phone, starts the previewed track.
+    when(mRouting.isPlanning()).thenReturn(false);
+    when(mRouting.isNavigating()).thenReturn(true);
+    listener.getValue().onNavigationStateChanged(true);
+    verify(mManager).push(any(NavigationScreen.class));
+
+    // Route overview returns the track to its phone preview.
+    final List<Screen> withNavigation = List.of(mock(Screen.class), navigationScreen());
+    when(mManager.getScreenStack()).thenReturn(withNavigation);
+    when(mRouting.isNavigating()).thenReturn(false);
+    when(mRouting.isPlanning()).thenReturn(true);
+    listener.getValue().onNavigationStateChanged(false);
+    verify(mManager, times(2)).popToRoot();
+
+    // An ended journey is closed by the navigation screen itself, after its trip finished message.
+    when(mRouting.isPlanning()).thenReturn(false);
+    listener.getValue().onNavigationStateChanged(false);
+    verify(mManager, times(2)).popToRoot();
+
+    // The phone owns the display.
+    when(mDisplay.isCarDisplayUsed()).thenReturn(false);
+    when(mRouting.isNavigating()).thenReturn(true);
+    listener.getValue().onNavigationStateChanged(true);
+    verify(mManager).push(any());
+
+    mLifecycle.moveToState(Lifecycle.State.DESTROYED);
+    mLifecycle = null;
+    verify(mRouting).removeNavigationStateListener(listener.getValue());
+  }
+
+  @Test
   public void placeScreenIsNotPushedUntilRoutingIsReady()
   {
     mLifecycle.moveToState(Lifecycle.State.STARTED);
@@ -261,6 +327,13 @@ public class CarAppSessionReadinessTest
     when(mDisplay.isCarDisplayUsed()).thenReturn(false);
     mReadiness.complete();
     verify(mManager, never()).push(any());
+  }
+
+  private static Screen navigationScreen()
+  {
+    final Screen screen = mock(Screen.class);
+    when(screen.getMarker()).thenReturn(NavigationScreen.MARKER);
+    return screen;
   }
 
   private static Intent intent(String name)
