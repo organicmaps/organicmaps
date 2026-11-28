@@ -37,7 +37,8 @@
         android:id="@+id/tabs"
         style="@style/MwmWidget.TabLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tabs_height"
+        android:layout_height="wrap_content"
+    android:minHeight="@dimen/tabs_height"
         android:elevation="@dimen/appbar_elevation" />
       <View
         android:id="@+id/tabs_divider"

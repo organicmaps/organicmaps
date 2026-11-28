@@ -35,7 +35,8 @@
   <LinearLayout
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_menu_content_height"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/nav_menu_content_height"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="@dimen/nav_bottom_gap"
@@ -65,7 +66,8 @@
     <Button
       android:id="@+id/stop"
       android:layout_width="0dp"
-      android:layout_height="@dimen/nav_button_height"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/height_block_base"
       android:layout_weight="0.4"
       android:background="?redButtonBackground"
       android:fontFamily="@string/robotoMedium"

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="status_green">#FF8BC34A</color>
+  <color name="status_red">#FFFF8A80</color>
   <color name="cursor_edit_field">@color/text_light</color>
 
   <color name="base_accent">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF3C9BBE</color>
+  <color name="base_accent_transparent">#1E4BB9E6</color>
 
   <color name="icon_tint">#FFC4C6C7</color>
 

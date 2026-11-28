@@ -62,7 +62,8 @@
 
   <style name="MwmWidget.Button.StackedButtonsDialog">
     <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">@dimen/margin_double_plus</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/margin_double_plus</item>
     <item name="android:paddingEnd">@dimen/margin_base</item>
     <item name="android:paddingStart">@dimen/margin_base</item>
     <item name="android:background">?clickableBackground</item>
@@ -70,7 +71,6 @@
     <item name="android:textColor">?buttonDialogTextColor</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
-    <item name="android:lines">2</item>
     <item name="android:gravity">center_vertical|end</item>
   </style>
 
@@ -276,7 +276,10 @@
 
   <style name="MwmWidget.TextView.Item">
     <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">@dimen/height_item_oneline</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/height_item_oneline</item>
+    <item name="android:paddingTop">@dimen/margin_half</item>
+    <item name="android:paddingBottom">@dimen/margin_half</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:paddingStart">@dimen/margin_base_plus</item>
     <item name="android:paddingEnd">@dimen/margin_base_plus</item>
@@ -287,7 +290,8 @@
 
   <style name="MwmWidget.TextView.Search">
     <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">@dimen/search_item_height</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/search_item_height</item>
     <item name="android:paddingStart">@dimen/margin_base_plus</item>
     <item name="android:paddingEnd">@dimen/margin_base_plus</item>
     <item name="android:gravity">center_vertical</item>

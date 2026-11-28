@@ -219,7 +219,7 @@ public final class UiUtils
     layout.getEditText().setError(error);
     layout.getEditText().setTextColor(error == null
                                           ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
-                                          : ContextCompat.getColor(layout.getContext(), R.color.base_red));
+                                          : ContextCompat.getColor(layout.getContext(), R.color.status_red));
   }
 
   public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)

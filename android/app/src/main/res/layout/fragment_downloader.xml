@@ -12,7 +12,8 @@
   <Button
     android:id="@+id/action"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/height_block_base"
     android:layout_alignParentBottom="true"
     android:background="@drawable/button_accent_flat"
     style="@style/MwmWidget.Button.Primary"

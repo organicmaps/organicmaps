@@ -309,7 +309,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     if (ohInfo.isTwentyFourSeven)
     {
       UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.twentyfour_seven));
-      mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_green));
+      mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.status_green));
       UiUtils.hide(mTvSchedulePreviewDescription);
     }
     else if (ohInfo.state == OpeningHoursInfo.RuleState.Open)
@@ -335,7 +335,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       }
 
       UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.editor_time_open));
-      mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_green));
+      mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.status_green));
 
       UiUtils.setTextAndHideIfEmpty(mTvSchedulePreviewDescription, descriptionString);
     }
@@ -378,7 +378,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       }
 
       UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.closed_now));
-      mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_red));
+      mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.status_red));
 
       UiUtils.setTextAndHideIfEmpty(mTvSchedulePreviewDescription, descriptionString);
     }

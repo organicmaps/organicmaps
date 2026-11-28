@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/bottom_sheet_menu_item"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/menu_list_item_height"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/menu_list_item_height"
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
   android:gravity="center_vertical"
@@ -14,7 +15,7 @@
   <ImageView
     android:id="@+id/bottom_sheet_menu_item_icon"
     android:layout_width="@dimen/bookmark_icon_size"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     tools:src="@drawable/ic_menu_download"
     app:tint="?android:textColorSecondary"/>
@@ -23,11 +24,12 @@
     android:textAppearance="@style/MwmTextAppearance.Body1"
     android:layout_width="0dp"
     android:layout_weight="1"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingStart="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:gravity="center_vertical"
-    android:singleLine="true"
+    android:paddingTop="@dimen/margin_half"
+    android:paddingBottom="@dimen/margin_half"
     tools:text="Menu Item" />
   <TextView
     android:id="@+id/bottom_sheet_menu_item_badge"
