@@ -10,15 +10,20 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.text.TextUtils;
 import android.util.Pair;
+import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -52,6 +57,11 @@ public enum TtsPlayer
   public static Runnable sOnReloadCallback = null;
 
   private static final CopyOnWriteArrayList<Runnable> sStateChangedListeners = new CopyOnWriteArrayList<>();
+
+  // Checking every supported language makes ~60 synchronous calls into the engine's process, ~0.1 s in total,
+  // so the check at startup runs here instead of on the UI thread.
+  @VisibleForTesting
+  static Executor sLanguageCheckExecutor = ThreadPool.getWorker();
 
   private ContentObserver mTtsEngineObserver;
   private TextToSpeech mTts;
@@ -228,19 +238,30 @@ public enum TtsPlayer
         notifyStateChanged();
         return;
       }
-      refreshLanguages();
       mTts.setSpeechRate(SPEECH_RATE);
       mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
       mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
       mAudioFocusManager = new AudioFocusManager(context, this::stop);
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
-      mInitializing = false;
-      if (mReloadTriggered && sOnReloadCallback != null)
-      {
-        sOnReloadCallback.run();
-        mReloadTriggered = false;
-      }
-      notifyStateChanged();
+      final TextToSpeech tts = mTts;
+      final List<Pair<String, String>> supported = getSupportedLanguages();
+      final String selectedLanguage = Config.TTS.getLanguage();
+      sLanguageCheckExecutor.execute(() -> {
+        final LanguageCheck check = checkLanguages(tts, supported, selectedLanguage);
+        UiThread.run(() -> {
+          // The engine was switched while its languages were being checked.
+          if (generation != mInitGeneration)
+            return;
+          applyLanguageCheck(check);
+          mInitializing = false;
+          if (mReloadTriggered && sOnReloadCallback != null)
+          {
+            sOnReloadCallback.run();
+            mReloadTriggered = false;
+          }
+          notifyStateChanged();
+        });
+      });
     }));
 
     if (mTtsEngineObserver == null)
@@ -410,13 +431,31 @@ public enum TtsPlayer
     Config.TTS.setVolume(volume);
   }
 
-  private boolean getUsableLanguages(List<LanguageData> outList)
+  private static final class LanguageCheck
   {
-    for (final Pair<String, String> langNamePair : getSupportedLanguages())
+    final List<LanguageData> languages = new ArrayList<>();
+    // The engine threw IllegalArgumentException: it is corrupted internally.
+    boolean engineFailed;
+    // The downloaded language to speak, already set in the engine; null if there is none.
+    @Nullable
+    LanguageData selected;
+  }
+
+  /**
+   * Asks the engine about every supported language and picks the one to speak: the selected language, else the
+   * device's, else English. It only talks to the engine, so it may run on any thread.
+   */
+  @AnyThread
+  private static @NonNull LanguageCheck checkLanguages(@NonNull TextToSpeech tts,
+                                                       @NonNull List<Pair<String, String>> supported,
+                                                       @Nullable String selectedLanguage)
+  {
+    final LanguageCheck check = new LanguageCheck();
+    for (final Pair<String, String> langNamePair : supported)
     {
       try
       {
-        outList.add(new LanguageData(langNamePair.first, langNamePair.second, mTts));
+        check.languages.add(new LanguageData(langNamePair.first, langNamePair.second, tts));
       }
       catch (LanguageData.NotAvailableException ex)
       {
@@ -425,54 +464,66 @@ public enum TtsPlayer
       catch (IllegalArgumentException e)
       {
         Logger.e(TAG, "Failed to get usable languages", e);
-        lockDown();
-        return false;
+        check.engineFailed = true;
+        return check;
       }
     }
 
-    return true;
+    LanguageData lang = findSupportedLanguage(selectedLanguage, check.languages);
+    if (lang == null || !lang.downloaded)
+      lang = getDefaultLanguage(check.languages);
+    if (lang != null && lang.downloaded)
+    {
+      tts.setLanguage(lang.locale);
+      check.selected = lang;
+    }
+    return check;
   }
 
-  private @Nullable LanguageData refreshLanguagesInternal(List<LanguageData> outList)
+  @androidx.annotation.UiThread
+  private void applyLanguageCheck(@NonNull LanguageCheck check)
   {
-    if (!getUsableLanguages(outList))
-      return null;
-
-    if (outList.isEmpty())
-    {
-      // No supported languages found, lock down TTS :(
+    Assert.debug(UiThread.isUiThread(), "TTS state must be changed on the UI thread");
+    // No supported language at all: lock down TTS.
+    if (check.engineFailed || check.languages.isEmpty())
       lockDown();
-      return null;
-    }
-
-    LanguageData res = getSelectedLanguage(outList);
-    if (res == null || !res.downloaded)
-      // Selected locale is not available or not downloaded
-      res = getDefaultLanguage(outList);
-
-    if (res == null || !res.downloaded)
-    {
-      // Default locale can not be used too
+    // Neither the selected language nor a default one is downloaded.
+    else if (check.selected == null)
       Config.TTS.setEnabled(false);
-      return null;
+    else
+    {
+      nativeSetTurnNotificationsLocale(check.selected.internalCode);
+      Config.TTS.setLanguage(check.selected.internalCode);
     }
-
-    return res;
+    mHasUsableLanguage = check.selected != null;
+    setEnabled(Config.TTS.isEnabled());
+    notifyStateChanged();
   }
 
   public @NonNull List<LanguageData> refreshLanguages()
   {
-    List<LanguageData> res = new ArrayList<>();
     if (mUnavailable || mTts == null)
-      return res;
+      return new ArrayList<>();
 
-    LanguageData lang = refreshLanguagesInternal(res);
-    mHasUsableLanguage = lang != null;
-    setLanguage(lang);
+    final LanguageCheck check = checkLanguages(mTts, getSupportedLanguages(), Config.TTS.getLanguage());
+    applyLanguageCheck(check);
+    return check.languages;
+  }
 
-    setEnabled(Config.TTS.isEnabled());
-    notifyStateChanged();
-    return res;
+  @VisibleForTesting
+  void resetForTesting()
+  {
+    if (mTts != null)
+      mTts.shutdown();
+    if (mTtsEngineObserver != null)
+      mContext.getContentResolver().unregisterContentObserver(mTtsEngineObserver);
+    mTts = null;
+    mTtsEngineObserver = null;
+    ++mInitGeneration;
+    mInitializing = false;
+    mUnavailable = false;
+    mHasUsableLanguage = false;
+    mReloadTriggered = false;
   }
 
   @NonNull
