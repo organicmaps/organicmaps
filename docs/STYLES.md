@@ -102,4 +102,18 @@ The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic]
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_*.bin`.
 The processor also produces text versions of these files (`data/drules_*.txt`) to ease debugging.
 
+### Classifier guards (`extra_tag`)
+
+A classifier guard matches a stored feature type, not a raw OSM tag.
+A parent path also matches its stored descendants. Kothic compiles the
+`[hwtag=oneway]` guard below to `extra_tag=hwtag=oneway`.
+
+```mapcss
+line|z15[highway=tertiary] {width: 2;}
+line|z15[highway=tertiary][hwtag=oneway] {width: 3;}
+```
+
+Terrain contour rendering does not evaluate runtime guards. Use a static
+selector such as `line|z18[isoline=step_100]` for 100 m contours.
+
 The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.xml`).
