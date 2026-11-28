@@ -192,17 +192,14 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   p.m_needAddress = true;
   p.m_needHighlighting = true;
   p.m_categorialRequest = params.m_isCategory;
-  bool const prioritizeAddressMatches =
-      params.m_prioritizeAddressMatches && !params.m_isCategory && search::IsAddressQuery(p.m_query);
-  p.m_allowNearbyHouseNumbers = prioritizeAddressMatches;
+  p.m_allowNearbyHouseNumbers = params.m_allowNearbyHouseNumbers && !params.m_isCategory &&
+                               search::IsAddressQuery(p.m_query);
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
-  p.m_onResults = [this, onResults = std::move(params.m_onResults), query = p.m_query,
-                   prioritizeAddressMatches](Results const & results)
+  p.m_onResults = [this, onResults = std::move(params.m_onResults)](Results const & results)
   {
-    auto resolved = prioritizeAddressMatches ? search::RankAddressResults(query, results) : results;
-    RunUITask([onResults, results = std::move(resolved)]() mutable { onResults(std::move(results)); });
+    RunUITask([onResults, results]() mutable { onResults(std::move(results)); });
   };
 
   return Search(std::move(p), true /* forceSearch */);

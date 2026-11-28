@@ -125,7 +125,7 @@ private:
 
   std::vector<PreRankerResult> m_preRankerResults;
   std::vector<RankerResult> m_tentativeResults;
-  std::map<FeatureID, AddressResultMatch> m_addressMatches;
+  std::optional<AddressQuery> m_addressQuery;
   bool m_noSuggests = false;
 };
 }  // namespace search

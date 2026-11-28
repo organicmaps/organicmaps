@@ -28,7 +28,7 @@ struct AddressQuery
   std::vector<std::string> m_streetAndLocalityTokens;
 };
 
-// Interpret formatting once per request and reuse the same tokens for ranking and validation.
+// Parse a query into the mapped address components used for ranking and validation.
 std::optional<AddressQuery> ParseAddressQuery(std::string const & query);
 AddressResultMatch GetAddressResultMatch(AddressQuery const & query, Result const & result,
                                          std::string const & expectedStreet = {});
@@ -41,8 +41,14 @@ AddressResultMatch GetAddressResultMatch(std::string const & query, Result const
 Result const * FindUniqueAddressResult(std::string const & query, Results const & results,
                                        std::string const & expectedStreet = {});
 
-// Prioritize mapped matches and nearby house numbers without inventing a missing address.
-Results RankAddressResults(std::string const & query, Results const & results, std::string const & expectedStreet = {});
+struct AddressMatchRank
+{
+  AddressResultMatch m_match = AddressResultMatch::None;
+  uint64_t m_numberDistance = 0;
+};
+
+// Classify an address and record the distance between nearby civic numbers for the ranker.
+AddressMatchRank GetAddressMatchRank(AddressQuery const & query, Result const & result);
 
 // Returns true only for a point result whose house number and street match the requested address.
 bool IsAddressResultMatchingQuery(std::string const & query, Result const & result,

@@ -270,7 +270,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
       {},  // default timeout
       static_cast<bool>(isCategory),
       std::bind(&OnResults, std::placeholders::_1, timestamp, false, hasPosition, lat, lon)};
-  params.m_prioritizeAddressMatches = true;
+  params.m_allowNearbyHouseNumbers = true;
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(params));
   if (searchStarted)
     g_queryTimestamp = timestamp;
@@ -303,7 +303,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
         {},  // default timeout
         static_cast<bool>(isCategory),
         std::bind(&OnResults, std::placeholders::_1, timestamp, isMapAndTable, hasPosition, lat, lon)};
-    eparams.m_prioritizeAddressMatches = true;
+    eparams.m_allowNearbyHouseNumbers = true;
 
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
     {

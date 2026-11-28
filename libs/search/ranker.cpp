@@ -667,7 +667,9 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_geocoderParams = geocoderParams;
   m_preRankerResults.clear();
   m_tentativeResults.clear();
-  m_addressMatches.clear();
+  m_addressQuery = !params.m_viewportSearch && (geocoderParams.m_isAddressQuery || geocoderParams.m_requireCompleteResults)
+                       ? ParseAddressQuery(params.m_query.m_query)
+                       : std::nullopt;
   m_noSuggests = false;
 }
 
@@ -825,29 +827,16 @@ void Ranker::UpdateResults(bool lastUpdate)
     ProcessSuggestions(m_tentativeResults);
   }
 
-  if ((m_geocoderParams.m_isAddressQuery || m_geocoderParams.m_requireCompleteResults) && !m_params.m_viewportSearch)
+  if (m_addressQuery)
   {
-    auto const query = ParseAddressQuery(m_params.m_query.m_query);
-    if (query)
+    // Apply address ordering within each batch. Keep nearby alternatives so results
+    // already shown during an interactive search do not disappear when a later batch arrives.
+    std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [](auto const & first, auto const & second)
     {
-      for (auto const & result : m_tentativeResults)
-      {
-        if (!lastUpdate)
-          BailIfCancelled();
-        if (!m_addressMatches.contains(result.GetID()))
-          m_addressMatches.emplace(result.GetID(), GetAddressResultMatch(*query, MakeResult(result, true, false)));
-      }
-      if (m_geocoderParams.m_requireCompleteResults)
-        std::erase_if(m_tentativeResults, [&](auto const & result)
-        {
-          auto const match = m_addressMatches.at(result.GetID());
-          return match != AddressResultMatch::Exact && match != AddressResultMatch::Interpolated;
-        });
-
-      // Textual address correctness precedes distance/popularity and the final result limit.
-      std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [&](auto const & first, auto const & second)
-      { return m_addressMatches.at(first.GetID()) > m_addressMatches.at(second.GetID()); });
-    }
+      auto const & a = first.m_addressMatch;
+      auto const & b = second.m_addressMatch;
+      return a.m_match == b.m_match ? a.m_numberDistance < b.m_numberDistance : a.m_match > b.m_match;
+    });
   }
 
   // Emit feature results.
@@ -856,8 +845,8 @@ void Ranker::UpdateResults(bool lastUpdate)
   for (; i < m_tentativeResults.size(); ++i)
   {
     // Do not let a nearby/fuzzy batch consume the quota before other downloaded maps are searched.
-    if (!lastUpdate && m_geocoderParams.m_requireCompleteResults && !m_addressMatches.empty() &&
-        m_addressMatches.at(m_tentativeResults[i].GetID()) != AddressResultMatch::Exact)
+    if (!lastUpdate && m_geocoderParams.m_requireCompleteResults && m_addressQuery &&
+        m_tentativeResults[i].m_addressMatch.m_match != AddressResultMatch::Exact)
       break;
     if (!lastUpdate && count >= m_params.m_batchSize && !m_params.m_viewportSearch && !m_params.m_categorialRequest)
       break;
@@ -936,6 +925,15 @@ void Ranker::MakeRankerResults()
       continue;
 
     ASSERT(m_geocoderParams.m_mode != Mode::Viewport || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
+
+    if (m_addressQuery)
+    {
+      p->m_addressMatch = GetAddressMatchRank(*m_addressQuery, MakeResult(*p, true, false));
+      auto const match = p->m_addressMatch.m_match;
+      if (m_geocoderParams.m_requireCompleteResults && match != AddressResultMatch::Exact &&
+          match != AddressResultMatch::Interpolated)
+        continue;
+    }
 
     // Do not filter any _duplicates_ here. Leave it for high level Results class.
     m_tentativeResults.push_back(std::move(*p));

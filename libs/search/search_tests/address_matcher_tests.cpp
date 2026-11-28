@@ -4,7 +4,6 @@
 
 #include "testing/testing.hpp"
 
-#include <algorithm>
 #include <string>
 
 namespace address_matcher_tests
@@ -48,15 +47,11 @@ UNIT_TEST(AddressMatcher_PreservesExactAddress)
 {
   Results source;
   source.AddResultNoChecks(
-      MakeAddress(49.1208601, -122.8575937, "6486, 131A Street", "Surrey, Canada", {"6486", "131A Street"}));
-  source.AddResultNoChecks(
       MakeAddress(49.1209318, -122.8577086, "6492, 131A Street", "Surrey, Canada", {"6492", "131A Street"}));
   source.AddResultNoChecks(
       MakeAddress(49.1210035, -122.8578235, "6498, 131A Street", "Surrey, Canada", {"6498", "131A Street"}));
 
-  auto const results = RankAddressResults("6498 131A Street", source);
-  TEST_EQUAL(results.GetCount(), 1, ());
-  TEST_EQUAL(results[0].GetString(), "6498, 131A Street", ());
+  TEST_EQUAL(FindUniqueAddressResult("6498 131A Street", source), &source[1], ());
 }
 
 UNIT_TEST(AddressMatcher_PreservesStreetNameOrder)
@@ -115,12 +110,8 @@ UNIT_TEST(AddressMatcher_PreservesDistinctExactAddresses)
   source.AddResultNoChecks(MakeAddress(0, 1, "123, Main Street", "Springfield, Illinois, USA", {"123", "Main Street"}));
   source.AddResultNoChecks(
       MakeAddress(0, 2, "123, Main Street", "Springfield, Massachusetts, USA", {"123", "Main Street"}));
-  auto const results = RankAddressResults("123 Main Street", source);
-  TEST_EQUAL(results.GetCount(), 2, ());
-  TEST_EQUAL(results[0].GetFeatureCenter(), source[1].GetFeatureCenter(), ());
-  TEST_EQUAL(results[1].GetFeatureCenter(), source[2].GetFeatureCenter(), ());
-  TEST(!FindUniqueAddressResult("123 Main Street", results), ());
-  auto const * qualified = FindUniqueAddressResult("123 Main Street Springfield Illinois USA", results);
+  TEST(!FindUniqueAddressResult("123 Main Street", source), ());
+  auto const * qualified = FindUniqueAddressResult("123 Main Street Springfield Illinois USA", source);
   TEST(qualified, ());
   TEST_EQUAL(qualified->GetFeatureCenter(), source[1].GetFeatureCenter(), ());
 }
@@ -216,50 +207,21 @@ UNIT_TEST(AddressMatcher_CompoundHouseNumbersDoNotMatchNearbyNumbers)
        ());
 }
 
-UNIT_TEST(AddressMatcher_NearbyRankingDoesNotRequireSameParity)
+UNIT_TEST(AddressMatcher_ReportsHouseNumberDistanceWithoutRequiringParity)
 {
-  Results source;
-  source.AddResultNoChecks(MakeAddress(0, 0, "Starbucks"));
-  source.AddResultNoChecks(MakeAddress(0, 0.0001, "6486, 131A Street", "Surrey, Canada", {"6486", "131A Street"}));
-  source.AddResultNoChecks(MakeAddress(0, 0.0002, "6497, 131A Street", "Surrey, Canada", {"6497", "131A Street"}));
-  auto const results = RankAddressResults("6498 131A Street", source);
-  TEST_EQUAL(results.GetCount(), source.GetCount(), ());
-  TEST_EQUAL(results[0].GetString(), "6497, 131A Street", ());
-  TEST_EQUAL(GetAddressResultMatch("6498 131A Street", results[0]), AddressResultMatch::Nearby, ());
-  TEST(!IsAddressResultMatchingQuery("6498 131A Street", results[0]), ());
-}
-
-UNIT_TEST(AddressMatcher_PreservesSingleNearbyAddress)
-{
-  Results source;
-  source.AddResultNoChecks(
-      MakeAddress(49.1209318, -122.8577086, "6492, 131A Street", "Surrey, Canada", {"6492", "131A Street"}));
-
-  auto const results = RankAddressResults("6498 131A Street", source);
-  TEST_EQUAL(results.GetCount(), 1, ());
-  TEST_EQUAL(results[0].GetString(), "6492, 131A Street", ());
-}
-
-UNIT_TEST(AddressMatcher_PrioritizesMappedAddressesWithoutLocality)
-{
-  Results source;
-  source.AddResultNoChecks(MakeAddress(49.12, -122.85, "Starbucks"));
-  source.AddResultNoChecks(
-      MakeAddress(49.1207, -122.8575, "6480, 131A Street", "Surrey, Canada", {"6480", "131A Street"}));
-  source.AddResultNoChecks(
-      MakeAddress(49.1209318, -122.8577086, "6492, 131A Street", "Surrey, Canada", {"6492", "131A Street"}));
-  auto const results = RankAddressResults("6498 131a st", source);
-  TEST_EQUAL(results.GetCount(), source.GetCount(), ());
-  TEST_EQUAL(results[0].GetString(), "6492, 131A Street", ());
-  TEST_EQUAL(results[1].GetString(), "6480, 131A Street", ());
-  TEST_EQUAL(results[2].GetString(), "Starbucks", ());
-
-  source.AddResultNoChecks(
-      MakeAddress(49.121, -122.8578, "6498, 131A Street", "Surrey, Canada", {"6498", "131A Street"}));
-  auto const exact = RankAddressResults("6498 131a st", source);
-  TEST_EQUAL(exact.GetCount(), 2, ());
-  TEST_EQUAL(exact[0].GetString(), "6498, 131A Street", ());
-  TEST_EQUAL(exact[1].GetString(), "Starbucks", ());
+  auto const query = ParseAddressQuery("6498 131a st");
+  TEST(query, ());
+  auto const unrelated = MakeAddress(0, 0, "Starbucks");
+  auto const farther = MakeAddress(0, 0, "131A Street, 6486", "Surrey, Canada", {"6486", "131A Street"});
+  auto const nearer = MakeAddress(0, 0, "6497, 131A Street", "Surrey, Canada", {"6497", "131A Street"});
+  auto const exact = MakeAddress(0, 0, "6498, 131A Street", "Surrey, Canada", {"6498", "131A Street"});
+  TEST_EQUAL(GetAddressMatchRank(*query, unrelated).m_match, AddressResultMatch::None, ());
+  TEST_EQUAL(GetAddressMatchRank(*query, farther).m_match, AddressResultMatch::Nearby, ());
+  TEST_EQUAL(GetAddressMatchRank(*query, farther).m_numberDistance, 12, ());
+  TEST_EQUAL(GetAddressMatchRank(*query, nearer).m_match, AddressResultMatch::Nearby, ());
+  TEST_EQUAL(GetAddressMatchRank(*query, nearer).m_numberDistance, 1, ());
+  TEST_EQUAL(GetAddressMatchRank(*query, exact).m_match, AddressResultMatch::Exact, ());
+  TEST(!IsAddressResultMatchingQuery("6498 131A Street", nearer), ());
 }
 
 UNIT_TEST(AddressMatcher_RequiresTheCompleteStreetName)
@@ -270,13 +232,8 @@ UNIT_TEST(AddressMatcher_RequiresTheCompleteStreetName)
   source.AddResultNoChecks(
       MakeAddress(49.1208601, -122.8575937, "6486, Main Street", "Surrey, Canada", {"6486", "Main Street"}));
 
-  auto const results = RankAddressResults("6490 Main Street West", source);
-  TEST_EQUAL(results.GetCount(), 2, ());
-  for (size_t i = 0; i < source.GetCount(); ++i)
-  {
-    TEST_EQUAL(GetAddressResultMatch("6490 Main Street West", source[i]), AddressResultMatch::None, ());
-    TEST_EQUAL(results[i].GetFeatureCenter(), source[i].GetFeatureCenter(), ());
-  }
+  for (auto const & result : source)
+    TEST_EQUAL(GetAddressResultMatch("6490 Main Street West", result), AddressResultMatch::None, ());
 }
 
 UNIT_TEST(AddressMatcher_RejectsUnrelatedAddress)
@@ -285,9 +242,7 @@ UNIT_TEST(AddressMatcher_RejectsUnrelatedAddress)
   source.AddResultNoChecks(
       MakeAddress(49.20538, -122.770653, "16291, 111A Avenue", "Surrey, Canada", {"16291", "111A Avenue"}));
 
-  auto const results = RankAddressResults("11378 158A Street Surrey", source);
-  TEST_EQUAL(results.GetCount(), 1, ());
-  TEST(!IsAddressResultMatchingQuery("11378 158A Street Surrey", results[0]), ());
+  TEST(!IsAddressResultMatchingQuery("11378 158A Street Surrey", source[0]), ());
 }
 
 UNIT_TEST(AddressMatcher_RequiresCompleteStreetIndependentlyOfLocality)
@@ -344,30 +299,6 @@ UNIT_TEST(AddressMatcher_DoesNotInventMissingHouseNumbers)
   source.AddResultNoChecks(
       MakeAddress(49.1209318, -122.8577086, "6492, 131A Street", "Surrey, Canada", {"6492", "131A Street"}));
   for (auto const * query : {"6490 131a st", "6498 131a st", "6498 131a st Surrey Canada"})
-  {
-    auto const results = RankAddressResults(query, source);
-    TEST_EQUAL(results.GetCount(), source.GetCount(), (query));
-    TEST(!FindUniqueAddressResult(query, results), (query));
-    for (auto const & result : results)
-      TEST(std::any_of(source.begin(), source.end(),
-                       [&](Result const & original)
-      {
-        return original.GetFeatureCenter() == result.GetFeatureCenter() && original.GetString() == result.GetString();
-      }),
-           ());
-  }
-}
-
-UNIT_TEST(AddressMatcher_PreservesStreetFirstNearbyResultsAndCancellation)
-{
-  Results source;
-  source.AddResultNoChecks(MakeAddress(0, 0, "131A Street, 6486", "Surrey, Canada", {"6486", "131A Street"}));
-  source.AddResultNoChecks(MakeAddress(0, 1, "131A Street, 6492", "Surrey, Canada", {"6492", "131A Street"}));
-  source.SetEndMarker(true);
-  auto const results = RankAddressResults("6498 131a st", source);
-  TEST_EQUAL(results.GetCount(), 2, ());
-  TEST_EQUAL(results[0].GetString(), "131A Street, 6492", ());
-  TEST(results.IsEndedCancelled(), ());
-  TEST(!FindUniqueAddressResult("6498 131a st", results), ());
+    TEST(!FindUniqueAddressResult(query, source), (query));
 }
 }  // namespace address_matcher_tests

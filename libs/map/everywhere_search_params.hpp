@@ -20,8 +20,7 @@ struct EverywhereSearchParams
 
   OnResults m_onResults;
 
-  // Enables nearby-number retrieval and callback ordering of alternate mapped addresses.
-  // Recognized ordinary address queries already use shared core address ranking on all platforms.
-  bool m_prioritizeAddressMatches = false;
+  // Enables retrieval of nearby house numbers for recognized address queries.
+  bool m_allowNearbyHouseNumbers = false;
 };
 }  // namespace search

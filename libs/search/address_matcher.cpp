@@ -13,7 +13,6 @@
 #include <cctype>
 #include <cstdint>
 #include <optional>
-#include <set>
 #include <string_view>
 #include <vector>
 
@@ -29,13 +28,6 @@ struct ParsedAddress
   std::string m_houseIdentifier;
   std::string m_street;
   std::vector<std::string> m_streetTokens;
-};
-
-struct Candidate
-{
-  size_t m_index = 0;
-  uint64_t m_houseNumber = 0;
-  std::string m_houseIdentifier;
 };
 
 std::string CanonicalizeToken(std::string token)
@@ -293,8 +285,8 @@ std::optional<std::vector<std::string>> ExpectedStreetTokens(std::string const &
   return std::move(parsed->m_streetTokens);
 }
 
-std::optional<Candidate> ParseCandidate(size_t index, Result const & result, AddressQuery const & requested,
-                                        std::vector<std::string> const & expectedStreet)
+AddressMatchRank ClassifyAddressResult(AddressQuery const & requested, Result const & result,
+                                       std::vector<std::string> const & expectedStreet)
 {
   if (!result.HasPoint() || result.IsSuggest())
     return {};
@@ -328,21 +320,12 @@ std::optional<Candidate> ParseCandidate(size_t index, Result const & result, Add
                  requested.m_houseIdentifier != std::to_string(requested.m_houseNumber)))
     return {};
 
-  return Candidate{index, house->first, house->second};
-}
-
-AddressResultMatch ClassifyAddressResult(AddressQuery const & query, Result const & result,
-                                         std::vector<std::string> const & expectedStreet)
-{
-  auto const candidate = ParseCandidate(0, result, query, expectedStreet);
-  if (!candidate)
-    return AddressResultMatch::None;
-  if (candidate->m_houseIdentifier != query.m_houseIdentifier)
-    return AddressResultMatch::Nearby;
+  if (!exact)
+    return {AddressResultMatch::Nearby, difference};
   if (result.GetResultType() == Result::Type::Feature &&
       ftypes::IsAddressInterpolChecker::Instance()(result.GetFeatureType()))
-    return AddressResultMatch::Interpolated;
-  return AddressResultMatch::Exact;
+    return {AddressResultMatch::Interpolated};
+  return {AddressResultMatch::Exact};
 }
 
 }  // namespace
@@ -474,60 +457,9 @@ bool IsAddressQuery(std::string const & query)
   });
 }
 
-Results RankAddressResults(std::string const & query, Results const & results, std::string const & expectedStreet)
+AddressMatchRank GetAddressMatchRank(AddressQuery const & query, Result const & result)
 {
-  auto const requestedAddress = ParseAddressQuery(query);
-  auto const expected = ExpectedStreetTokens(expectedStreet);
-  if (!requestedAddress || !expected)
-    return results;
-
-  std::vector<Candidate> candidates;
-  for (size_t i = 0; i < results.GetCount(); ++i)
-  {
-    auto candidate = ParseCandidate(i, results[i], *requestedAddress, *expected);
-    if (candidate)
-      candidates.push_back(std::move(*candidate));
-  }
-  if (candidates.empty())
-    return results;
-
-  std::stable_sort(candidates.begin(), candidates.end(), [&](Candidate const & first, Candidate const & second)
-  {
-    auto const difference = [&](uint64_t number)
-    {
-      return number > requestedAddress->m_houseNumber ? number - requestedAddress->m_houseNumber
-                                                      : requestedAddress->m_houseNumber - number;
-    };
-    return difference(first.m_houseNumber) < difference(second.m_houseNumber);
-  });
-
-  auto const exact = std::find_if(candidates.begin(), candidates.end(), [&](Candidate const & candidate)
-  { return candidate.m_houseIdentifier == requestedAddress->m_houseIdentifier; });
-  std::set<size_t> candidateIndices;
-  for (auto const & candidate : candidates)
-    candidateIndices.insert(candidate.m_index);
-  size_t insertionIndex = 0;
-  while (insertionIndex < results.GetCount() && results[insertionIndex].IsSuggest())
-    ++insertionIndex;
-
-  Results transformed;
-  for (size_t i = 0; i < results.GetCount(); ++i)
-  {
-    if (i == insertionIndex)
-    {
-      // An address query should not bury its matching addresses below named POIs.
-      // Nearby numbers are ordered by difference; ties and other results retain the engine's order.
-      for (auto const & candidate : candidates)
-        if (exact == candidates.end() || candidate.m_houseIdentifier == requestedAddress->m_houseIdentifier)
-          transformed.AddResultNoChecks(Result(results[candidate.m_index]));
-    }
-    if (!candidateIndices.contains(i))
-      transformed.AddResultNoChecks(Result(results[i]));
-  }
-
-  if (results.IsEndMarker())
-    transformed.SetEndMarker(results.IsEndedCancelled());
-  return transformed;
+  return ClassifyAddressResult(query, result, {});
 }
 
 AddressResultMatch GetAddressResultMatch(std::string const & query, Result const & result,
@@ -543,7 +475,7 @@ AddressResultMatch GetAddressResultMatch(AddressQuery const & query, Result cons
                                          std::string const & expectedStreet)
 {
   auto const expected = ExpectedStreetTokens(expectedStreet);
-  return expected ? ClassifyAddressResult(query, result, *expected) : AddressResultMatch::None;
+  return expected ? ClassifyAddressResult(query, result, *expected).m_match : AddressResultMatch::None;
 }
 
 bool IsAddressResultMatchingQuery(std::string const & query, Result const & result, std::string const & expectedStreet)
@@ -565,7 +497,7 @@ Result const * FindUniqueAddressResult(std::string const & query, Results const 
   bool ambiguous = false;
   for (auto const & result : results)
   {
-    auto const kind = ClassifyAddressResult(*parsed, result, *expected);
+    auto const kind = ClassifyAddressResult(*parsed, result, *expected).m_match;
     if (kind != AddressResultMatch::Exact && kind != AddressResultMatch::Interpolated)
       continue;
     bool const isAddressPoint = result.GetResultType() == Result::Type::Feature &&
@@ -589,7 +521,7 @@ Result const * FindUniqueAddressResult(std::string const & query, Results const 
     // A shop inside the addressed building must not displace its house-number point. A matching
     // POI elsewhere is still a genuinely different location, not grounds to guess a residence.
     for (auto const & result : results)
-      if (ClassifyAddressResult(*parsed, result, *expected) == bestKind &&
+      if (ClassifyAddressResult(*parsed, result, *expected).m_match == bestKind &&
           mercator::DistanceOnEarth(match->GetFeatureCenter(), result.GetFeatureCenter()) >
               kAssociatedAddressPoiRadiusMeters)
         return nullptr;
