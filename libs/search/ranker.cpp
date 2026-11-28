@@ -1,11 +1,13 @@
 #include "search/ranker.hpp"
 
+#include "search/address_matcher.hpp"
 #include "search/emitter.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/highlighting.hpp"
 #include "search/model.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
+#include "search/string_utils.hpp"
 #include "search/token_slice.hpp"
 
 #include "indexer/brands_holder.hpp"
@@ -24,6 +26,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <map>
 #include <memory>
 #include <optional>
 
@@ -44,48 +47,6 @@ template <typename Slice>
 void UpdateNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   bestScores.UpdateIfBetter(GetNameScores(tokens, lang, slice));
-}
-
-// This function supports only street names like "abcdstrasse"/"abcd strasse".
-/// @see Also FeatureNameInserter::AddDACHNames
-std::vector<std::vector<strings::UniString>> ModifyDACHStreet(std::vector<strings::UniString> const & streetTokens)
-{
-  auto const size = streetTokens.size();
-  ASSERT_GREATER(size, 0, ());
-
-  std::vector<std::vector<strings::UniString>> result;
-  for (auto const & sx : GetDACHStreets())
-  {
-    if (!strings::EndsWith(streetTokens.back(), sx.first))
-      continue;
-
-    if (streetTokens.back() == sx.first)
-    {
-      if (size == 1)
-        return {};
-
-      // "Abcd strasse" -> "abcdstrasse".
-      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
-      result.back().back() += sx.first;
-
-      // "Abcd strasse" -> "abcdstr".
-      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
-      result.back().back() += sx.second;
-      return result;
-    }
-
-    // "Abcdstrasse" -> "abcd strasse".
-    auto const name = strings::UniString(streetTokens.back().begin(), streetTokens.back().end() - sx.first.size());
-    result.push_back(streetTokens);
-    result.back().back() = name;
-    result.back().push_back(sx.first);
-
-    // "Abcdstrasse" -> "abcdstr".
-    result.push_back(streetTokens);
-    result.back().back() = name + sx.second;
-  }
-
-  return result;
 }
 
 std::vector<strings::UniString> RemoveStreetSynonyms(std::vector<strings::UniString> const & tokens)
@@ -298,6 +259,11 @@ public:
       return {};
 
     RankerResult res(*ft, center, std::move(name), country);
+    auto const & preInfo = preResult.GetInfo();
+    if (preInfo.m_exactMatch)
+      for (int type = Model::TYPE_VILLAGE; type <= Model::TYPE_COUNTRY; ++type)
+        for (size_t token : preInfo.m_tokenRanges[type])
+          res.m_matchedLocalityTokens.push_back(strings::ToUtf8(m_params.GetToken(token).GetOriginal()));
     res.FillDetails(*ft, m_ranker.m_typeResolver.m_isBuilding(res.GetTypes()),
                     m_ranker.m_typeResolver.m_isHotel(res.GetTypes()));
 
@@ -426,8 +392,8 @@ private:
     /// Why not to prolong until MakeResult? If yes, avoid reading street's FeatureType,
     /// since we already have addr.m_street.m_multilangName
 
-    // Insert exact address (street and house number) instead of empty result name.
-    if (!m_isViewportMode && name.empty())
+    // Address resolution needs street/house-number names even for viewport searches.
+    if ((!m_isViewportMode || m_ranker.m_params.m_needAddress) && name.empty())
     {
       feature::TypesHolder featureTypes(*ft);
       featureTypes.SortBySpec();
@@ -701,6 +667,9 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_geocoderParams = geocoderParams;
   m_preRankerResults.clear();
   m_tentativeResults.clear();
+  m_addressQuery = !params.m_viewportSearch && (geocoderParams.m_isAddressQuery || geocoderParams.m_requireCompleteResults)
+                       ? ParseAddressQuery(params.m_query.m_query)
+                       : std::nullopt;
   m_noSuggests = false;
 }
 
@@ -710,7 +679,7 @@ void Ranker::Finish(bool cancelled)
   m_emitter.Finish(cancelled);
 }
 
-std::string Ranker::ResolveAddress(RankerResult const & res) const
+std::string Ranker::ResolveAddress(RankerResult const & res, Result::AddressIdentity & identity) const
 {
   std::string region, st_hn_post;
 
@@ -722,7 +691,14 @@ std::string Ranker::ResolveAddress(RankerResult const & res) const
   if (m_typeResolver.m_isAddressObject(res.GetTypes()))
   {
     ReverseGeocoder::Address addr;
-    if (!(res.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(res.GetID(), addr)))
+    if (res.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(res.GetID(), addr))
+    {
+      identity = {addr.m_building.m_name, addr.m_street.m_name};
+      addr.m_street.m_multilangName.ForEach([&](int8_t, std::string_view name)
+      { identity.m_streetNames.emplace_back(name); });
+      identity.m_matchedLocalityTokens = res.m_matchedLocalityTokens;
+    }
+    else
       m_reverseGeocoder.GetNearbyAddress(res.GetCenter(), addr);
 
     /// @todo Print "near" for not exact addresses.
@@ -760,7 +736,11 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   Result res(rankerResult.GetCenter(), rankerResult.m_str);
 
   if (needAddress)
-    res.SetAddress(ResolveAddress(rankerResult));
+  {
+    Result::AddressIdentity identity;
+    res.SetAddress(ResolveAddress(rankerResult, identity));
+    res.SetAddressIdentity(std::move(identity));
+  }
 
   switch (rankerResult.GetResultType())
   {
@@ -847,11 +827,27 @@ void Ranker::UpdateResults(bool lastUpdate)
     ProcessSuggestions(m_tentativeResults);
   }
 
+  if (m_addressQuery)
+  {
+    // Apply address ordering within each batch. Keep nearby alternatives so results
+    // already shown during an interactive search do not disappear when a later batch arrives.
+    std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [](auto const & first, auto const & second)
+    {
+      auto const & a = first.m_addressMatch;
+      auto const & b = second.m_addressMatch;
+      return a.m_match == b.m_match ? a.m_numberDistance < b.m_numberDistance : a.m_match > b.m_match;
+    });
+  }
+
   // Emit feature results.
   size_t count = m_emitter.GetResults().GetCount();
   size_t i = 0;
   for (; i < m_tentativeResults.size(); ++i)
   {
+    // Do not let a nearby/fuzzy batch consume the quota before other downloaded maps are searched.
+    if (!lastUpdate && m_geocoderParams.m_requireCompleteResults && m_addressQuery &&
+        m_tentativeResults[i].m_addressMatch.m_match != AddressResultMatch::Exact)
+      break;
     if (!lastUpdate && count >= m_params.m_batchSize && !m_params.m_viewportSearch && !m_params.m_categorialRequest)
       break;
 
@@ -929,6 +925,15 @@ void Ranker::MakeRankerResults()
       continue;
 
     ASSERT(m_geocoderParams.m_mode != Mode::Viewport || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
+
+    if (m_addressQuery)
+    {
+      p->m_addressMatch = GetAddressMatchRank(*m_addressQuery, MakeResult(*p, true, false));
+      auto const match = p->m_addressMatch.m_match;
+      if (m_geocoderParams.m_requireCompleteResults && match != AddressResultMatch::Exact &&
+          match != AddressResultMatch::Interpolated)
+        continue;
+    }
 
     // Do not filter any _duplicates_ here. Leave it for high level Results class.
     m_tentativeResults.push_back(std::move(*p));

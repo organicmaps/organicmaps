@@ -1,0 +1,531 @@
+#include "search/address_matcher.hpp"
+#include "search/string_utils.hpp"
+
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/postcodes_matcher.hpp"
+#include "indexer/search_string_utils.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "base/string_utils.hpp"
+
+#include <algorithm>
+#include <cctype>
+#include <cstdint>
+#include <optional>
+#include <string_view>
+#include <vector>
+
+namespace search
+{
+namespace
+{
+uint64_t constexpr kMaxNearbyHouseNumberDifference = 24;
+double constexpr kAssociatedAddressPoiRadiusMeters = 50.0;
+struct ParsedAddress
+{
+  uint64_t m_houseNumber = 0;
+  std::string m_houseIdentifier;
+  std::string m_street;
+  std::vector<std::string> m_streetTokens;
+};
+
+std::string CanonicalizeToken(std::string token)
+{
+  if (token == "twp" || token == "twnshp")
+    return "township";
+  if (token == "boro")
+    return "borough";
+  if (token.size() > 2)
+  {
+    auto const suffix = token.substr(token.size() - 2);
+    auto const number = token.substr(0, token.size() - 2);
+    if ((suffix == "st" || suffix == "nd" || suffix == "rd" || suffix == "th") &&
+        std::all_of(number.begin(), number.end(), [](char c) { return c >= '0' && c <= '9'; }))
+      return number;
+  }
+
+  return strings::ToUtf8(GetNormalizedStreetName(token));
+}
+
+std::vector<std::string> Tokenize(std::string_view value)
+{
+  std::vector<std::string> tokens;
+  for (auto const & token : NormalizeAndTokenizeString(value))
+    tokens.push_back(CanonicalizeToken(strings::ToUtf8(token)));
+  // Search accepts these country aliases; address validation must accept the same metadata.
+  for (size_t i = 0; i < tokens.size(); ++i)
+  {
+    if (tokens[i] == "us")
+      tokens[i] = "usa";
+    if (tokens[i] == "gb" || tokens[i] == "gbr")
+      tokens[i] = "uk";
+    if (i + 1 < tokens.size() && tokens[i] == "czech" && tokens[i + 1] == "republic")
+    {
+      tokens[i] = "czechia";
+      tokens.erase(tokens.begin() + i + 1);
+    }
+    if (i + 1 < tokens.size() &&
+        ((tokens[i] == "united" && tokens[i + 1] == "kingdom") || (tokens[i] == "great" && tokens[i + 1] == "britain")))
+    {
+      tokens[i] = "uk";
+      tokens.erase(tokens.begin() + i + 1);
+    }
+    if (i + 1 < tokens.size() && tokens[i] == "united" && tokens[i + 1] == "states")
+    {
+      size_t end = i + 2;
+      if (end + 1 < tokens.size() && tokens[end] == "of" && tokens[end + 1] == "america")
+        end += 2;
+      tokens[i] = "usa";
+      tokens.erase(tokens.begin() + i + 1, tokens.begin() + end);
+    }
+  }
+  return tokens;
+}
+
+std::optional<std::pair<uint64_t, std::string>> ParseHouseIdentifier(std::string_view value)
+{
+  auto const numberEnd = value.find_first_not_of("0123456789");
+  auto const digitCount = numberEnd == std::string_view::npos ? value.size() : numberEnd;
+  uint64_t number = 0;
+  if (!strings::to_uint(value.substr(0, digitCount), number))
+    return {};
+  std::string identifier = std::to_string(number);
+  size_t end = digitCount;
+  if (end < value.size() && std::isalpha(static_cast<unsigned char>(value[end])))
+    identifier += static_cast<char>(std::tolower(static_cast<unsigned char>(value[end++])));
+  while (end < value.size() && (value[end] == '/' || value[end] == '-'))
+  {
+    identifier += value[end++];
+    size_t const start = end;
+    while (end < value.size() && value[end] >= '0' && value[end] <= '9')
+      ++end;
+    uint64_t second = 0;
+    if (!strings::to_uint(value.substr(start, end - start), second))
+      return {};
+    identifier += std::to_string(second);
+    if (end < value.size() && std::isalpha(static_cast<unsigned char>(value[end])))
+      identifier += static_cast<char>(std::tolower(static_cast<unsigned char>(value[end++])));
+  }
+  if (end != value.size())
+    return {};
+  return std::pair{number, std::move(identifier)};
+}
+
+std::optional<ParsedAddress> ParseAddress(std::string_view value)
+{
+  // Map regions format addresses in either house/street or street/house order.
+  auto const comma = value.find(',');
+  if (comma != std::string_view::npos)
+  {
+    // Parse the civic component before considering locality/postcode fields.
+    if (auto primary = ParseAddress(value.substr(0, comma)))
+    {
+      auto const context = Tokenize(value.substr(comma + 1));
+      primary->m_streetTokens.insert(primary->m_streetTokens.end(), context.begin(), context.end());
+      return primary;
+    }
+    auto const nextComma = value.find(',', comma + 1);
+    std::string houseField(
+        value.substr(comma + 1, nextComma == std::string_view::npos ? nextComma : nextComma - comma - 1));
+    strings::Trim(houseField);
+    auto const house = ParseHouseIdentifier(houseField);
+    if (house)
+    {
+      auto const street = value.substr(0, comma);
+      auto tokens = Tokenize(street);
+      if (!tokens.empty())
+      {
+        if (nextComma != std::string_view::npos)
+        {
+          auto const context = Tokenize(value.substr(nextComma + 1));
+          tokens.insert(tokens.end(), context.begin(), context.end());
+        }
+        return ParsedAddress{house->first, house->second, std::string(street), std::move(tokens)};
+      }
+    }
+    std::string firstField(value.substr(0, comma));
+    strings::Trim(firstField);
+    if (nextComma != std::string_view::npos && ParseHouseIdentifier(firstField))
+    {
+      if (auto primary = ParseAddress(value.substr(0, nextComma)))
+      {
+        auto const context = Tokenize(value.substr(nextComma + 1));
+        primary->m_streetTokens.insert(primary->m_streetTokens.end(), context.begin(), context.end());
+        return primary;
+      }
+    }
+  }
+  // House-last formats are common outside North America. A comma bounds the street
+  // component so numbers in the locality or postcode cannot become the house number.
+  auto const firstComma = value.find(',');
+  auto const component = value.substr(0, firstComma);
+  auto const last = component.find_last_not_of(" \t\r\n");
+  if (last != std::string_view::npos &&
+      value.find_first_not_of(" \t\r\n0123456789") == value.find_first_not_of(" \t\r\n"))
+  {
+    auto const separator = component.find_last_of(" \t\r\n", last);
+    if (separator != std::string_view::npos)
+    {
+      auto const house = ParseHouseIdentifier(component.substr(separator + 1, last - separator));
+      auto const street = component.substr(0, separator);
+      auto tokens = Tokenize(street);
+      if (house && !tokens.empty())
+      {
+        if (firstComma != std::string_view::npos)
+        {
+          auto const context = Tokenize(value.substr(firstComma + 1));
+          tokens.insert(tokens.end(), context.begin(), context.end());
+        }
+        return ParsedAddress{house->first, house->second, std::string(street), std::move(tokens)};
+      }
+    }
+  }
+  size_t firstNonSpace = value.find_first_not_of(" \t\r\n");
+  if (firstNonSpace == std::string_view::npos)
+    return {};
+  size_t const numberEnd = value.find_first_not_of("0123456789", firstNonSpace);
+  if (numberEnd == std::string_view::npos || numberEnd == firstNonSpace)
+    return {};
+  size_t const identifierEnd = value.find_first_of(" ,\t\r\n", firstNonSpace);
+  if (identifierEnd == std::string_view::npos)
+    return {};
+  size_t const streetStart = value.find_first_not_of(" ,\t\r\n", identifierEnd);
+  if (streetStart == std::string_view::npos)
+    return {};
+  auto const house = ParseHouseIdentifier(value.substr(firstNonSpace, identifierEnd - firstNonSpace));
+  if (!house)
+    return {};
+
+  ParsedAddress address;
+  address.m_houseNumber = house->first;
+  address.m_houseIdentifier = house->second;
+  address.m_street = std::string(value.substr(streetStart));
+  address.m_streetTokens = Tokenize(address.m_street);
+  if (address.m_streetTokens.empty() ||
+      (address.m_streetTokens.size() == 1 && IsStreetSynonym(strings::MakeUniString(address.m_streetTokens.front()))))
+    return {};
+  return address;
+}
+
+bool StreetTokensMatch(std::vector<std::string> const & queryTokens, std::vector<std::string> const & streetTokens,
+                       std::vector<std::string> const & addressTokens)
+{
+  if (queryTokens.size() < streetTokens.size())
+    return false;
+  std::multiset<std::string> remaining(queryTokens.begin(), queryTokens.end());
+  for (auto const & token : streetTokens)
+  {
+    auto const it = remaining.find(token);
+    if (it == remaining.end())
+      return false;
+    remaining.erase(it);
+  }
+  if (streetTokens.empty())
+    return false;
+
+  // Street-type and direction placement varies, but the substantive name must retain its order.
+  auto const isModifier = [](std::string const & token)
+  {
+    return IsStreetSynonym(strings::MakeUniString(token)) || token == "n" || token == "s" || token == "e" ||
+           token == "w" || token == "north" || token == "south" || token == "east" || token == "west";
+  };
+  auto position = queryTokens.begin();
+  for (auto const & token : streetTokens)
+  {
+    if (isModifier(token))
+      continue;
+    while (position != queryTokens.end() && isModifier(*position))
+      ++position;
+    if (position == queryTokens.end() || *position != token)
+      return false;
+    ++position;
+  }
+
+  std::multiset<std::string> address(addressTokens.begin(), addressTokens.end());
+  for (auto const & token : remaining)
+  {
+    auto const it = address.find(token);
+    if (it == address.end())
+      return false;
+    address.erase(it);
+  }
+  return true;
+}
+
+bool StreetMatchesQuery(std::vector<std::string> const & queryTokens, std::vector<std::string> const & streetTokens,
+                        std::vector<std::string> const & addressTokens)
+{
+  if (StreetTokensMatch(queryTokens, streetTokens, addressTokens))
+    return true;
+  if (streetTokens.empty())
+    return false;
+  std::vector<strings::UniString> unicodeTokens;
+  for (auto const & token : streetTokens)
+    unicodeTokens.push_back(strings::MakeUniString(token));
+  for (auto const & variant : ModifyDACHStreet(unicodeTokens))
+  {
+    std::vector<std::string> tokens;
+    for (auto const & token : variant)
+      tokens.push_back(CanonicalizeToken(strings::ToUtf8(token)));
+    if (StreetTokensMatch(queryTokens, tokens, addressTokens))
+      return true;
+  }
+  return false;
+}
+
+// A missing value indicates a malformed constraint. An empty list leaves the query unconstrained.
+std::optional<std::vector<std::string>> ExpectedStreetTokens(std::string const & street)
+{
+  if (street.empty())
+    return std::vector<std::string>{};
+  auto parsed = ParseAddress(RemoveAddressDetails(street));
+  if (!parsed)
+    return {};
+  return std::move(parsed->m_streetTokens);
+}
+
+AddressMatchRank ClassifyAddressResult(AddressQuery const & requested, Result const & result,
+                                       std::vector<std::string> const & expectedStreet)
+{
+  if (!result.HasPoint() || result.IsSuggest())
+    return {};
+
+  auto const & identity = result.GetAddressIdentity();
+  if (!identity)
+    return {};
+  auto const house = ParseHouseIdentifier(identity->m_houseNumber);
+  if (!house)
+    return {};
+  auto addressTokens = Tokenize(result.GetAddress());
+  for (auto const & token : identity->m_matchedLocalityTokens)
+  {
+    auto normalized = Tokenize(token);
+    addressTokens.insert(addressTokens.end(), normalized.begin(), normalized.end());
+  }
+  auto const matchesStreet = [&](std::string const & name)
+  {
+    auto const streetTokens = Tokenize(name);
+    return !streetTokens.empty() && (expectedStreet.empty() || StreetMatchesQuery(expectedStreet, streetTokens, {})) &&
+           StreetMatchesQuery(requested.m_streetAndLocalityTokens, streetTokens, addressTokens);
+  };
+  if (!matchesStreet(identity->m_street) &&
+      !std::any_of(identity->m_streetNames.begin(), identity->m_streetNames.end(), matchesStreet))
+    return {};
+
+  uint64_t const difference = house->first > requested.m_houseNumber ? house->first - requested.m_houseNumber
+                                                                     : requested.m_houseNumber - house->first;
+  bool const exact = house->second == requested.m_houseIdentifier;
+  if (!exact && (difference > kMaxNearbyHouseNumberDifference || house->second != std::to_string(house->first) ||
+                 requested.m_houseIdentifier != std::to_string(requested.m_houseNumber)))
+    return {};
+
+  if (!exact)
+    return {AddressResultMatch::Nearby, difference};
+  if (result.GetResultType() == Result::Type::Feature &&
+      ftypes::IsAddressInterpolChecker::Instance()(result.GetFeatureType()))
+    return {AddressResultMatch::Interpolated};
+  return {AddressResultMatch::Exact};
+}
+
+}  // namespace
+
+std::optional<AddressQuery> ParseAddressQuery(std::string const & query)
+{
+  if (query.size() > 4096 || query.find_first_of("0123456789") == std::string::npos)
+    return {};
+  // Postal address lines delimit street, locality and country just like comma-separated fields.
+  std::string fields;
+  for (char c : query)
+  {
+    if (c != '\r' && c != '\n')
+      fields += c;
+    else if (!fields.empty() && fields.back() != ',')
+      fields += ',';
+  }
+  auto const prepared = RemoveAddressDetails(fields);
+  auto parsed = ParseAddress(prepared);
+  if (!parsed)
+    return {};
+  // Keep postal-only queries intact. In a comma-delimited full address, only the
+  // context is eligible: numbered streets and compound house identifiers stay untouched.
+  auto const comma = prepared.find(',');
+  if (comma == std::string::npos)
+    return AddressQuery{parsed->m_houseNumber, std::move(parsed->m_houseIdentifier), std::move(parsed->m_streetTokens)};
+  auto const streetComponent = ParseAddress(prepared.substr(0, comma));
+  auto const streetSize = Tokenize(parsed->m_street).size();
+  auto const secondComma = prepared.find(',', comma + 1);
+  auto const contextStart = streetComponent                  ? comma + 1
+                          : secondComma == std::string::npos ? secondComma
+                                                             : secondComma + 1;
+  if (contextStart != std::string::npos)
+  {
+    std::multiset<std::string> postcodes;
+    auto const hasDigit = [](std::string const & token)
+    { return std::any_of(token.begin(), token.end(), [](char c) { return c >= '0' && c <= '9'; }); };
+    auto const hasLetter = [](std::string const & token)
+    { return std::any_of(token.begin(), token.end(), [](unsigned char c) { return std::isalpha(c); }); };
+    // Numeric locality identifiers (e.g. Sector 123) are not automatically postcodes.
+    // Recognize a separate postcode field, postcode-before-city, or an alphanumeric tail.
+    for (size_t start = contextStart; start < prepared.size();)
+    {
+      auto const end = prepared.find(',', start);
+      auto const field = Tokenize(prepared.substr(start, end == std::string::npos ? end : end - start));
+      if (!field.empty())
+      {
+        bool const pair = field.size() >= 2 && hasDigit(field[0]) &&
+                          (hasDigit(field[1]) || (field[0].size() == 4 && field[1].size() == 2));
+        size_t const count = pair && LooksLikePostcode(field[0] + " " + field[1], false) ? 2
+                           : hasDigit(field[0]) && LooksLikePostcode(field[0], false)    ? 1
+                                                                                         : 0;
+        postcodes.insert(field.begin(), field.begin() + count);
+        if (count == 0 && field.size() >= 2)
+        {
+          auto const & last = field.back();
+          auto const & previous = field[field.size() - 2];
+          if (hasDigit(previous) && hasLetter(previous) && hasDigit(last) && hasLetter(last) &&
+              LooksLikePostcode(previous + " " + last, false))
+          {
+            postcodes.insert(previous);
+            postcodes.insert(last);
+          }
+          else if (hasDigit(last) && hasLetter(last) && LooksLikePostcode(last, false))
+            postcodes.insert(last);
+          else if (hasLetter(previous) && !hasDigit(previous) && hasDigit(last) && !hasLetter(last) &&
+                   LooksLikePostcode(previous + " " + last, false))
+            postcodes.insert(last);  // Keep the state/province code that precedes its postcode.
+        }
+      }
+      if (end == std::string::npos)
+        break;
+      start = end + 1;
+    }
+    auto & tokens = parsed->m_streetTokens;
+    if (tokens.size() > streetSize + postcodes.size())
+    {
+      for (size_t i = streetSize; i < tokens.size();)
+        if (auto const it = postcodes.find(tokens[i]); it != postcodes.end())
+        {
+          postcodes.erase(it);
+          tokens.erase(tokens.begin() + i);
+        }
+        else
+          ++i;
+    }
+  }
+  return AddressQuery{parsed->m_houseNumber, std::move(parsed->m_houseIdentifier), std::move(parsed->m_streetTokens)};
+}
+
+std::string DebugPrint(AddressResultMatch match)
+{
+  switch (match)
+  {
+  case AddressResultMatch::None: return "None";
+  case AddressResultMatch::Nearby: return "Nearby";
+  case AddressResultMatch::Interpolated: return "Interpolated";
+  case AddressResultMatch::Exact: return "Exact";
+  }
+  UNREACHABLE();
+}
+
+bool IsAddressQuery(std::string const & query)
+{
+  auto const address = ParseAddressQuery(query);
+  if (!address || address->m_streetAndLocalityTokens.empty())
+    return false;
+  auto const first = query.find_first_not_of(" \t\r\n");
+  bool const houseFirst = first != std::string::npos && query[first] >= '0' && query[first] <= '9';
+  auto const & firstToken = address->m_streetAndLocalityTokens.front();
+  bool const numberedStreet = houseFirst &&
+                              (firstToken == "st" || firstToken == "street" || firstToken == "ave" ||
+                               firstToken == "avenue" || firstToken == "rd" || firstToken == "road") &&
+                              !address->m_houseIdentifier.empty() && address->m_houseIdentifier.back() >= 'a' &&
+                              address->m_houseIdentifier.back() <= 'z';
+  return std::any_of(address->m_streetAndLocalityTokens.begin(), address->m_streetAndLocalityTokens.end(),
+                     [&](std::string const & token)
+  {
+    auto const normalized = strings::MakeUniString(token);
+    if (address->m_streetAndLocalityTokens.size() > 1 && IsStreetSynonym(normalized) &&
+        (!numberedStreet || token != address->m_streetAndLocalityTokens.front()))
+      return true;
+    // Some languages join the street type to its name (e.g. Hauptstraße).
+    // Reuse the multilingual dictionary, requiring both a name and a substantial suffix.
+    for (size_t i = 2; i + 4 <= normalized.size(); ++i)
+      if (IsStreetSynonym(strings::UniString(normalized.begin() + i, normalized.end())))
+        return true;
+    return false;
+  });
+}
+
+AddressMatchRank GetAddressMatchRank(AddressQuery const & query, Result const & result)
+{
+  return ClassifyAddressResult(query, result, {});
+}
+
+AddressResultMatch GetAddressResultMatch(std::string const & query, Result const & result,
+                                         std::string const & expectedStreet)
+{
+  auto const requested = ParseAddressQuery(query);
+  if (!requested)
+    return AddressResultMatch::None;
+  return GetAddressResultMatch(*requested, result, expectedStreet);
+}
+
+AddressResultMatch GetAddressResultMatch(AddressQuery const & query, Result const & result,
+                                         std::string const & expectedStreet)
+{
+  auto const expected = ExpectedStreetTokens(expectedStreet);
+  return expected ? ClassifyAddressResult(query, result, *expected).m_match : AddressResultMatch::None;
+}
+
+bool IsAddressResultMatchingQuery(std::string const & query, Result const & result, std::string const & expectedStreet)
+{
+  auto const match = GetAddressResultMatch(query, result, expectedStreet);
+  return match == AddressResultMatch::Exact || match == AddressResultMatch::Interpolated;
+}
+
+Result const * FindUniqueAddressResult(std::string const & query, Results const & results,
+                                       std::string const & expectedStreet)
+{
+  auto const parsed = ParseAddressQuery(query);
+  auto const expected = ExpectedStreetTokens(expectedStreet);
+  if (!parsed || !expected)
+    return nullptr;
+  Result const * match = nullptr;
+  auto bestKind = AddressResultMatch::None;
+  bool bestIsAddressPoint = false;
+  bool ambiguous = false;
+  for (auto const & result : results)
+  {
+    auto const kind = ClassifyAddressResult(*parsed, result, *expected).m_match;
+    if (kind != AddressResultMatch::Exact && kind != AddressResultMatch::Interpolated)
+      continue;
+    bool const isAddressPoint = result.GetResultType() == Result::Type::Feature &&
+                                ftypes::IsAddressChecker::Instance()(result.GetFeatureType());
+    if (kind > bestKind || (kind == bestKind && isAddressPoint && !bestIsAddressPoint))
+    {
+      bestKind = kind;
+      bestIsAddressPoint = isAddressPoint;
+      match = &result;
+      ambiguous = false;
+    }
+    else if (kind == bestKind && isAddressPoint == bestIsAddressPoint &&
+             mercator::DistanceOnEarth(match->GetFeatureCenter(), result.GetFeatureCenter()) >
+                 (isAddressPoint ? kAssociatedAddressPoiRadiusMeters : 0.0))
+      ambiguous = true;
+  }
+  if (ambiguous || !match)
+    return nullptr;
+  if (bestIsAddressPoint)
+  {
+    // A shop inside the addressed building must not displace its house-number point. A matching
+    // POI elsewhere is still a genuinely different location, not grounds to guess a residence.
+    for (auto const & result : results)
+      if (ClassifyAddressResult(*parsed, result, *expected).m_match == bestKind &&
+          mercator::DistanceOnEarth(match->GetFeatureCenter(), result.GetFeatureCenter()) >
+              kAssociatedAddressPoiRadiusMeters)
+        return nullptr;
+  }
+  return match;
+}
+}  // namespace search
