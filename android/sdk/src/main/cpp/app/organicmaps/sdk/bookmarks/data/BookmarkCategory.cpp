@@ -220,6 +220,16 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nat
   return jTypes;
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryBookmarksIcon(
+    JNIEnv *, jclass, jlong catId, jint iconType)
+{
+  auto & manager = frm()->GetBookmarkManager();
+  auto const groupId = static_cast<kml::MarkGroupId>(catId);
+  if (iconType < 0 || iconType >= static_cast<jint>(kml::BookmarkIcon::Count) || !manager.HasBmCategory(groupId))
+    return;
+  manager.GetEditSession().SetCategoryBookmarksIcon(groupId, static_cast<kml::BookmarkIcon>(iconType));
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryBookmarksColor(JNIEnv *,
                                                                                                         jclass,
                                                                                                         jlong catId,

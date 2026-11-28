@@ -86,12 +86,28 @@
     </FrameLayout>
   </LinearLayout>
 
-  <com.google.android.material.checkbox.MaterialCheckBox
-    android:id="@+id/bookmark_person_icon"
-    android:layout_width="wrap_content"
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/bookmark_appearance"
+    style="@style/MwmWidget.TextInput.Filled"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/bookmark_person_icon"
-    android:visibility="gone" />
+    android:layout_marginTop="@dimen/margin_base"
+    android:hint="@string/bookmark_appearance"
+    android:visibility="gone"
+    app:endIconMode="custom"
+    app:endIconDrawable="@drawable/ic_arrow_down"
+    app:endIconTint="?android:textColorSecondary"
+    app:startIconTint="@null">
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/bookmark_appearance_value"
+      style="@style/MwmWidget.TextInput.Filled.EditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:cursorVisible="false"
+      android:focusable="false"
+      android:inputType="none" />
+  </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
     style="@style/MwmWidget.TextInput.Filled"

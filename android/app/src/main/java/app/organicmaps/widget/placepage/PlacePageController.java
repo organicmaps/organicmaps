@@ -35,7 +35,9 @@ import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
+import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
@@ -281,7 +283,17 @@ public class PlacePageController
     target.putLong(TARGET_ID, id);
     target.putBoolean(TARGET_IS_TRACK, isTrack);
     target.putInt(COLOR_TARGET_INITIAL, color);
-    ColorPickerFragment.showForResult(fm, color, COLOR_REQUEST_KEY, target);
+    if (isTrack)
+      ColorPickerFragment.showForResult(fm, color, COLOR_REQUEST_KEY, target);
+    else
+    {
+      final BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(id);
+      if (bookmark != null)
+      {
+        final Icon icon = bookmark.getIcon();
+        ColorPickerFragment.showForResult(fm, icon.argb(), COLOR_REQUEST_KEY, target, icon.getType());
+      }
+    }
   }
 
   static void showCategoryPicker(@NonNull FragmentManager fm, long id, boolean isTrack, long categoryId)
@@ -294,14 +306,25 @@ public class PlacePageController
 
   private void onColorPicked(@NonNull Bundle result)
   {
-    final int color = result.getInt(ColorPickerFragment.RESULT_COLOR);
-    if (color == result.getInt(COLOR_TARGET_INITIAL))
-      return;
     final long id = result.getLong(TARGET_ID);
     final boolean isTrack = result.getBoolean(TARGET_IS_TRACK);
-    final long[] ids = {id};
-    final long[] none = {};
-    BookmarkManager.INSTANCE.changeBookmarksAndTracksColor(isTrack ? none : ids, isTrack ? ids : none, color);
+    if (isTrack)
+    {
+      final int color = result.getInt(ColorPickerFragment.RESULT_COLOR);
+      if (color == result.getInt(COLOR_TARGET_INITIAL))
+        return;
+      BookmarkManager.INSTANCE.changeBookmarksAndTracksColor(new long[0], new long[] {id}, color);
+    }
+    else
+    {
+      final BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(id);
+      if (bookmark == null)
+        return;
+      final Icon icon = bookmark.getIcon();
+      final int color = result.getInt(ColorPickerFragment.RESULT_COLOR, icon.argb());
+      final int type = result.getInt(ColorPickerFragment.RESULT_ICON_TYPE, icon.getType());
+      bookmark.update(bookmark.getName(), new Icon(color, type), bookmark.getDescription());
+    }
 
     refreshMatchingPlacePage(id, isTrack);
   }

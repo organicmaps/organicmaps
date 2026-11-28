@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.ColorInt
@@ -34,6 +33,7 @@ import app.organicmaps.util.SharingUtils
 import app.organicmaps.util.UiUtils
 import app.organicmaps.widget.colorpicker.ColorPickerFragment
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class EditBookmarkFragment :
     BaseMwmDialogFragment(),
@@ -44,6 +44,8 @@ class EditBookmarkFragment :
     private lateinit var etDescription: TextInputEditText
     private lateinit var tvBookmarkGroup: TextInputEditText
     private lateinit var ivColor: ImageView
+    private lateinit var appearanceField: TextInputLayout
+    private lateinit var appearanceValue: TextInputEditText
     private lateinit var ivVisibility: ImageView
     private lateinit var nestedScrollView: NestedScrollView
     private lateinit var toolbar: Toolbar
@@ -80,6 +82,10 @@ class EditBookmarkFragment :
         tvBookmarkGroup = view.findViewById<TextInputEditText>(R.id.tv__bookmark_set)
             .apply { setOnClickListener { selectBookmarkSet() } }
         ivColor = view.findViewById(R.id.iv__bookmark_color)
+        appearanceField = view.findViewById(R.id.bookmark_appearance)
+        appearanceValue = view.findViewById(R.id.bookmark_appearance_value)
+        appearanceValue.setOnClickListener { selectBookmarkColor() }
+        appearanceField.setEndIconOnClickListener { selectBookmarkColor() }
         ivVisibility = view.findViewById<ImageView>(R.id.iv__track_visibility)
             .apply { setOnClickListener { toggleVisibility() } }
         toolbar = view.findViewById(R.id.toolbar)
@@ -96,18 +102,17 @@ class EditBookmarkFragment :
             viewLifecycleOwner,
         ) { _, _ -> deleteAndDismiss() }
 
-        val personIcon = view.findViewById<CheckBox>(R.id.bookmark_person_icon)
         val bookmark = target as? BookmarkEditTarget
-        personIcon.isVisible = bookmark != null
         if (bookmark != null) {
-            val originalIconType = bookmark.iconType
-            bookmark.iconType = savedInstanceState?.getInt(STATE_ICON_TYPE, originalIconType) ?: originalIconType
-            val personType = Icon.getPersonType()
-            personIcon.isChecked = bookmark.iconType == personType
-            personIcon.setOnCheckedChangeListener { _, checked ->
-                bookmark.iconType = if (checked) personType else originalIconType.takeUnless { it == personType } ?: 0
-                refreshSwatch()
-            }
+            bookmark.iconType = savedInstanceState?.getInt(STATE_ICON_TYPE, bookmark.iconType) ?: bookmark.iconType
+            view.findViewById<View>(R.id.color_row).isVisible = false
+            appearanceField.isVisible = true
+        }
+        childFragmentManager.setFragmentResultListener(APPEARANCE_REQUEST_KEY, viewLifecycleOwner) { _, result ->
+            val editedBookmark = target as? BookmarkEditTarget ?: return@setFragmentResultListener
+            editedBookmark.color = result.getInt(ColorPickerFragment.RESULT_COLOR, editedBookmark.color)
+            editedBookmark.iconType = result.getInt(ColorPickerFragment.RESULT_ICON_TYPE, editedBookmark.iconType)
+            refreshSwatch()
         }
 
         bindTarget()
@@ -311,7 +316,11 @@ class EditBookmarkFragment :
 
     private fun selectBookmarkColor() {
         val t = target ?: return
-        ColorPickerFragment.show(childFragmentManager, t.color)
+        if (t is BookmarkEditTarget) {
+            ColorPickerFragment.showForResult(childFragmentManager, t.color, APPEARANCE_REQUEST_KEY, Bundle(), t.iconType)
+        } else {
+            ColorPickerFragment.show(childFragmentManager, t.color)
+        }
     }
 
     override fun onColorSet(@ColorInt color: Int) {
@@ -323,7 +332,15 @@ class EditBookmarkFragment :
 
     private fun refreshSwatch() {
         val t = target ?: return
-        ivColor.setImageDrawable(t.buildSwatch(requireContext()))
+        val swatch = t.buildSwatch(requireContext())
+        if (t is BookmarkEditTarget) {
+            appearanceField.startIconDrawable = swatch
+            appearanceValue.setText(
+                if (t.iconType == Icon.getPersonType()) R.string.bookmark_icon_person else R.string.bookmark_icon_standard,
+            )
+        } else {
+            ivColor.setImageDrawable(swatch)
+        }
     }
 
     private fun refreshCategory() {
@@ -361,6 +378,7 @@ class EditBookmarkFragment :
         private const val STATE_BOOKMARK_CATEGORY = "bookmark_category"
         private const val STATE_COLOR = "color"
         private const val STATE_ICON_TYPE = "icon_type"
+        private const val APPEARANCE_REQUEST_KEY = "EditBookmarkAppearance"
         private const val STATE_VISIBLE = "visible"
         private const val TAG = "EditBookmarkFragment"
 

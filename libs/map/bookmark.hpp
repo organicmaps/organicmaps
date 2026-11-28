@@ -71,6 +71,7 @@ public:
 
   int GetMinZoom() const override;
   kml::BookmarkIcon GetIcon() const;
+  kml::BookmarkData MakeDataWithIcon(kml::BookmarkIcon icon) const;
   int GetMinTitleZoom() const override;
 
   // Whether m_data.m_properties suitable to fill "Key info" part of placepage.

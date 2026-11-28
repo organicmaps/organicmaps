@@ -1,5 +1,6 @@
 package app.organicmaps.bookmarks
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import app.organicmaps.R
 import app.organicmaps.base.BaseMwmToolbarFragment
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager
+import app.organicmaps.sdk.bookmarks.data.Icon
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener
 import app.organicmaps.util.Utils
 import app.organicmaps.widget.ToolbarController
@@ -35,13 +37,14 @@ class BookmarkCategorySettingsFragment :
     private lateinit var editCategoryNameView: TextInputEditText
     private lateinit var editDescView: TextInputEditText
     private lateinit var colorBookmarksBtn: View
+    private lateinit var iconBookmarksBtn: View
     private lateinit var colorTracksBtn: View
 
     // Persisted: the picker is a child fragment that outlives a rotation or process recreation and
     // pushes its result blindly into the parent, so a stale target would recolor the wrong thing.
     private var colorTarget = ColorTarget.BOOKMARKS
 
-    private val categoriesListener = DataChangedListener { updateColorButtonsVisibility() }
+    private val categoriesListener = DataChangedListener { updateAppearanceActionsVisibility() }
 
     private val menuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -141,15 +144,18 @@ class BookmarkCategorySettingsFragment :
 
         colorBookmarksBtn = root.findViewById(R.id.color_bookmarks_btn)
         colorBookmarksBtn.setOnClickListener { showBookmarkColorPicker() }
+        iconBookmarksBtn = root.findViewById(R.id.icon_bookmarks_btn)
+        iconBookmarksBtn.setOnClickListener { showBookmarkIconPicker() }
         colorTracksBtn = root.findViewById(R.id.color_tracks_btn)
         colorTracksBtn.setOnClickListener { showTrackColorPicker() }
 
-        updateColorButtonsVisibility()
+        updateAppearanceActionsVisibility()
     }
 
-    private fun updateColorButtonsVisibility() {
+    private fun updateAppearanceActionsVisibility() {
         val current = BookmarkManager.INSTANCE.getCategoryById(category.id)
         colorBookmarksBtn.isVisible = current.bookmarksCount > 0
+        iconBookmarksBtn.isVisible = current.bookmarksCount > 0
         colorTracksBtn.isVisible = current.tracksCount > 0
     }
 
@@ -196,6 +202,23 @@ class BookmarkCategorySettingsFragment :
             .setMessage(messageRes)
             .setPositiveButton(R.string.ok, null)
             .show()
+    }
+
+    private fun showBookmarkIconPicker() {
+        val choices = arrayOf(getString(R.string.bookmark_icon_standard), getString(R.string.bookmark_icon_person))
+        var selected = -1
+        val dialog = MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.change_all_bookmarks_icon)
+            .setSingleChoiceItems(choices, selected) { d, index ->
+                selected = index
+                (d as androidx.appcompat.app.AlertDialog).getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = true
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                if (selected >= 0) category.setCategoryBookmarksIcon(if (selected == 1) Icon.getPersonType() else 0)
+            }
+            .show()
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = false
     }
 
     private fun showBookmarkColorPicker() {

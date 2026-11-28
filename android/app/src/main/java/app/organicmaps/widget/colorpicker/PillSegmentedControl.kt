@@ -58,6 +58,7 @@ class PillSegmentedControl @JvmOverloads constructor(
                 gravity = Gravity.CENTER
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 setTextColor(ThemeUtils.getColor(context, android.R.attr.textColorPrimary))
+                isSelected = i == selectedIndex
                 isClickable = true
                 setOnClickListener { selectSegment(i, animate = true) }
             }
@@ -69,7 +70,9 @@ class PillSegmentedControl @JvmOverloads constructor(
     fun selectSegment(index: Int, animate: Boolean = false) {
         if (index !in labels.indices) return
         if (index == selectedIndex && pillAnimator == null) return
+        labels.getOrNull(selectedIndex)?.isSelected = false
         selectedIndex = index
+        labels[selectedIndex].isSelected = true
 
         val targetLeft = getPillLeft(index)
         if (animate && width > 0) {

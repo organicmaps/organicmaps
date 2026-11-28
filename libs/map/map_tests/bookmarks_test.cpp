@@ -4232,6 +4232,37 @@ UNIT_TEST(BookmarkPersonIconWorksOutsideImportedContacts)
   }
 }
 
+UNIT_TEST(BookmarkCategoryIconUpdatesOnlyItsBookmarks)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const group = manager.CreateBookmarkCategory("Favorites");
+  auto const other = manager.CreateBookmarkCategory("Other");
+  kml::BookmarkData data;
+  data.m_point = mercator::FromLatLon(49, -123);
+  data.m_icon = kml::BookmarkIcon::Hotel;
+  data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+
+  auto session = manager.GetEditSession();
+  auto const * first = session.CreateBookmark(kml::BookmarkData(data));
+  auto const * second = session.CreateBookmark(kml::BookmarkData(data));
+  auto const * outside = session.CreateBookmark(kml::BookmarkData(data));
+  session.AttachBookmark(first->GetId(), group);
+  session.AttachBookmark(second->GetId(), group);
+  session.AttachBookmark(outside->GetId(), other);
+
+  session.SetCategoryBookmarksIcon(group, kml::BookmarkIcon::Person);
+  TEST_EQUAL(first->GetIcon(), kml::BookmarkIcon::Person, ());
+  TEST_EQUAL(second->GetIcon(), kml::BookmarkIcon::Person, ());
+  TEST_EQUAL(first->GetColor(), kml::PredefinedColor::Red, ());
+  TEST_EQUAL(outside->GetIcon(), kml::BookmarkIcon::Hotel, ());
+
+  session.SetCategoryBookmarksIcon(group, kml::BookmarkIcon::None);
+  TEST_EQUAL(first->GetIcon(), kml::BookmarkIcon::None, ());
+  TEST_EQUAL(first->GetMinZoom(), data.m_minZoom, ());
+  TEST_EQUAL(outside->GetIcon(), kml::BookmarkIcon::Hotel, ());
+}
+
 UNIT_TEST(BookmarkSourceImportPreservesDifferentContactsAtSamePoint)
 {
   BookmarkManager manager(BM_CALLBACKS);

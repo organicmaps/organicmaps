@@ -14,6 +14,7 @@
         android:paddingEnd="@dimen/margin_half">
 
         <TextView
+            android:id="@+id/color_picker_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
@@ -32,6 +33,15 @@
             app:tint="?iconTint" />
 
     </FrameLayout>
+
+    <app.organicmaps.widget.colorpicker.PillSegmentedControl
+        android:id="@+id/bookmark_icon_options"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:visibility="gone" />
 
     <!-- Tab switcher: Grid | Spectrum | Sliders -->
     <app.organicmaps.widget.colorpicker.PillSegmentedControl

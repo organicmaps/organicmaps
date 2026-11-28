@@ -72,6 +72,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private static final String BOOKMARKS_MENU_ID = "BOOKMARKS_MENU_BOTTOM_SHEET";
   private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
+  private static final String APPEARANCE_REQUEST_KEY = "ListBookmarkAppearance";
+  private static final String APPEARANCE_BOOKMARK_ID = "BookmarkId";
   private static final String DELETE_SELECTED_REQUEST_KEY = "DeleteSelectedBookmarksConfirmation";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
@@ -265,6 +267,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
               getAdapter().notifyDataSetChanged();
           }
         });
+
+    getChildFragmentManager().setFragmentResultListener(APPEARANCE_REQUEST_KEY, getViewLifecycleOwner(),
+                                                        (key, result) -> onBookmarkAppearanceChanged(result));
 
     getChildFragmentManager().setFragmentResultListener(DeleteConfirmationDialogFragment.REQUEST_KEY,
                                                         getViewLifecycleOwner(),
@@ -871,8 +876,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     else if (itemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
-      mViewModel.focusItem(bookmark.getBookmarkId(), itemType);
-      ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
+      final Bundle target = new Bundle();
+      target.putLong(APPEARANCE_BOOKMARK_ID, bookmark.getBookmarkId());
+      final Icon icon = bookmark.getIcon();
+      ColorPickerFragment.showForResult(getChildFragmentManager(), icon.argb(), APPEARANCE_REQUEST_KEY, target,
+                                        icon.getType());
     }
     else
     {
@@ -908,18 +916,25 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
           adapter.notifyItemChanged(position);
         }
       }
-      else if (item instanceof BookmarkInfo bookmark)
-      {
-        if (bookmark.getIcon().argb() != color)
-        {
-          final Icon newIcon = new Icon(color, bookmark.getIcon().getType());
-          bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
-          adapter.notifyItemChanged(position);
-        }
-      }
     }
 
     mViewModel.clearFocusedItem();
+  }
+
+  private void onBookmarkAppearanceChanged(@NonNull Bundle result)
+  {
+    final long id = result.getLong(APPEARANCE_BOOKMARK_ID);
+    final BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(id);
+    if (bookmark == null)
+      return;
+
+    final Icon icon = bookmark.getIcon();
+    final int color = result.getInt(ColorPickerFragment.RESULT_COLOR, icon.argb());
+    final int type = result.getInt(ColorPickerFragment.RESULT_ICON_TYPE, icon.getType());
+    bookmark.update(bookmark.getName(), new Icon(color, type), bookmark.getDescription());
+    final int position = getAdapter().getPositionById(id, BookmarkListAdapter.TYPE_BOOKMARK);
+    if (position != RecyclerView.NO_POSITION)
+      getAdapter().notifyItemChanged(position);
   }
 
   /**

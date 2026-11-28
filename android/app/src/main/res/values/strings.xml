@@ -989,5 +989,8 @@
     <string name="bookmark_search_show_all">Show all bookmarks (%1$d)</string>
     <string name="bookmark_search_show_less">Show fewer bookmarks</string>
     <string name="bookmark_search_limit_reached">Showing up to %1$d bookmarks. Refine your search for more.</string>
-    <string name="bookmark_person_icon">Use person icon</string>
+    <string name="bookmark_icon_person">Person</string>
+    <string name="bookmark_appearance">Bookmark appearance</string>
+    <string name="bookmark_icon_standard">Bookmark</string>
+    <string name="change_all_bookmarks_icon">Change icon of all bookmarks</string>
 </resources>

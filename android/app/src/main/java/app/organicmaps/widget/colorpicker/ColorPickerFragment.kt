@@ -33,7 +33,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.organicmaps.R
+import app.organicmaps.sdk.bookmarks.data.Icon
 import app.organicmaps.util.ThemeUtils
+import app.organicmaps.utils.Graphics
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -57,6 +59,7 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
     private var spectrumView: SpectrumColorView? = null
     private var slidersView: ColorSlidersView? = null
     private var preview: ImageView? = null
+    private var iconType: Int? = null
     private var presetsContainer: ViewGroup? = null
     private var activePopup: PopupWindow? = null
     private var layoutChangeListener: View.OnLayoutChangeListener? = null
@@ -79,6 +82,21 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
         slidersView = view.findViewById(R.id.sliders_view)
         preview = view.findViewById(R.id.color_preview)
         presetsContainer = view.findViewById(R.id.presets_container)
+
+        val initialIcon = getInitialIconType()
+        iconType = initialIcon?.let { savedInstanceState?.getInt(RESULT_ICON_TYPE, it) ?: it }
+        val iconOptions = view.findViewById<PillSegmentedControl>(R.id.bookmark_icon_options)
+        iconOptions.isVisible = initialIcon != null
+        if (initialIcon != null) {
+            view.findViewById<TextView>(R.id.color_picker_title).setText(R.string.bookmark_appearance)
+            val personType = Icon.getPersonType()
+            iconOptions.setSegments(getString(R.string.bookmark_icon_standard), getString(R.string.bookmark_icon_person))
+            iconOptions.selectSegment(if (iconType == personType) 1 else 0)
+            iconOptions.onSegmentSelectedListener = PillSegmentedControl.OnSegmentSelectedListener { index ->
+                iconType = if (index == 1) personType else initialIcon.takeUnless { it == personType } ?: 0
+                updatePreview(viewModel.state.value.currentColor)
+            }
+        }
 
         val colorChangedListener = { color: Int -> viewModel.selectColor(color) }
         gridView?.onColorChangedListener = ColorGridView.OnColorChangedListener(colorChangedListener)
@@ -265,17 +283,26 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun getInitialIconType(): Int? =
+        arguments?.takeIf { it.containsKey(EXTRA_INITIAL_ICON_TYPE) }?.getInt(EXTRA_INITIAL_ICON_TYPE)
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        iconType?.let { outState.putInt(RESULT_ICON_TYPE, it) }
+    }
+
     override fun onDismiss(dialog: DialogInterface) {
         if (isResumed) {
-            viewModel.getResultColor()?.let { color ->
-                val requestKey = arguments?.getString(EXTRA_REQUEST_KEY)
-                if (requestKey != null) {
-                    val result = bundleOf(RESULT_COLOR to color)
-                    result.putAll(requireArguments().getBundle(EXTRA_RESULT_TARGET))
-                    parentFragmentManager.setFragmentResult(requestKey, result)
-                } else {
-                    (parentFragment as? OnColorChangeListener)?.onColorSet(color)
-                }
+            val color = viewModel.getResultColor()
+            val changedIconType = iconType?.takeIf { it != getInitialIconType() }
+            val requestKey = arguments?.getString(EXTRA_REQUEST_KEY)
+            if (requestKey != null && (color != null || changedIconType != null)) {
+                val result = Bundle(requireArguments().getBundle(EXTRA_RESULT_TARGET) ?: Bundle())
+                color?.let { result.putInt(RESULT_COLOR, it) }
+                changedIconType?.let { result.putInt(RESULT_ICON_TYPE, it) }
+                parentFragmentManager.setFragmentResult(requestKey, result)
+            } else if (requestKey == null && color != null) {
+                (parentFragment as? OnColorChangeListener)?.onColorSet(color)
             }
         }
         super.onDismiss(dialog)
@@ -283,8 +310,21 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
 
     private fun updatePreview(@ColorInt color: Int) {
         val p = preview ?: return
-        val size = resources.getDimensionPixelSize(R.dimen.color_preview_square_size)
-        p.setImageDrawable(drawRoundedSquare(color, size, size * 0.2f))
+        val selectedIconType = iconType
+        if (selectedIconType != null) {
+            p.setImageDrawable(
+                Graphics.drawCircleAndImage(
+                    color,
+                    R.dimen.color_preview_square_size,
+                    Icon(color, selectedIconType).resId,
+                    R.dimen.bookmark_icon_size,
+                    requireContext(),
+                ),
+            )
+        } else {
+            val size = resources.getDimensionPixelSize(R.dimen.color_preview_square_size)
+            p.setImageDrawable(drawRoundedSquare(color, size, size * 0.2f))
+        }
     }
 
     private fun rebuildPresetViews(state: ColorPickerState) {
@@ -410,8 +450,10 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
 
     companion object {
         const val RESULT_COLOR = "color"
+        const val RESULT_ICON_TYPE = "iconType"
 
         private const val ADD_BUTTON_TAG = -1
+        private const val EXTRA_INITIAL_ICON_TYPE = "initialIconType"
         private const val EXTRA_REQUEST_KEY = "RequestKey"
         private const val EXTRA_RESULT_TARGET = "ResultTarget"
 
@@ -423,13 +465,20 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
         }
 
         @JvmStatic
-        fun showForResult(manager: FragmentManager, @ColorInt initialColor: Int, requestKey: String, target: Bundle) {
+        @JvmOverloads
+        fun showForResult(
+            manager: FragmentManager,
+            @ColorInt initialColor: Int,
+            requestKey: String,
+            target: Bundle,
+            initialIconType: Int? = null,
+        ) {
             ColorPickerFragment().apply {
                 arguments = bundleOf(
                     ColorPickerViewModel.EXTRA_INITIAL_COLOR to initialColor,
                     EXTRA_REQUEST_KEY to requestKey,
                     EXTRA_RESULT_TARGET to target,
-                )
+                ).apply { initialIconType?.let { putInt(EXTRA_INITIAL_ICON_TYPE, it) } }
             }.show(manager, null)
         }
 

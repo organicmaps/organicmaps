@@ -156,6 +156,21 @@ kml::BookmarkIcon Bookmark::GetIcon() const
   return m_data.m_icon;
 }
 
+kml::BookmarkData Bookmark::MakeDataWithIcon(kml::BookmarkIcon icon) const
+{
+  auto data = m_data;
+  auto const previousIcon = GetIcon();
+  if (previousIcon == icon)
+    return data;
+
+  data.m_icon = icon;
+  if (data.m_properties.erase(kCustomImageProperty))
+    data.m_properties.erase("CustomImageLayout");
+  if (previousIcon == kml::BookmarkIcon::Person && m_data.m_icon != kml::BookmarkIcon::Person)
+    data.m_minZoom = 1;
+  return data;
+}
+
 int Bookmark::GetMinZoom() const
 {
   return m_data.m_icon == kml::BookmarkIcon::Person ? std::max(14, m_data.m_minZoom) : m_data.m_minZoom;

@@ -47273,6 +47273,18 @@ en = Show fewer bookmarks
 tags = android-app
 en = Showing up to %1$d bookmarks. Refine your search for more.
 
-[bookmark_person_icon]
+[bookmark_icon_person]
 tags = android-app
-en = Use person icon
+en = Person
+
+[bookmark_appearance]
+tags = android-app
+en = Bookmark appearance
+
+[bookmark_icon_standard]
+tags = android-app
+en = Bookmark
+
+[change_all_bookmarks_icon]
+tags = android-app
+en = Change icon of all bookmarks

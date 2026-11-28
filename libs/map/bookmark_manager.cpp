@@ -3715,6 +3715,13 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
+void BookmarkManager::EditSession::SetCategoryBookmarksIcon(kml::MarkGroupId groupId, kml::BookmarkIcon icon)
+{
+  for (auto const id : m_bmManager.GetUserMarkIds(groupId))
+    if (auto const * bookmark = m_bmManager.GetBookmark(id); bookmark && bookmark->GetIcon() != icon)
+      UpdateBookmark(id, bookmark->MakeDataWithIcon(icon));
+}
+
 void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color)
 {
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);

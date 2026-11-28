@@ -575,6 +575,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     boolean showCategory;
     if (mMapObject.isTrack())
     {
+      mColorIcon.setContentDescription(getString(R.string.change_color));
       Track track = (Track) mMapObject;
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_background_size,
                                             requireContext().getResources());
@@ -585,6 +586,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     }
     else if (mMapObject.isBookmark())
     {
+      mColorIcon.setContentDescription(getString(R.string.bookmark_appearance));
       Bookmark bookmark = (Bookmark) mMapObject;
       Icon icon = bookmark.getIcon();
       if (icon != null)
