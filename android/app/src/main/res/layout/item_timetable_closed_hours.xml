@@ -7,8 +7,9 @@
   android:layout_height="@dimen/editor_height_closed"
   android:paddingTop="@dimen/margin_base">
 
-  <ImageView
+  <ImageButton
     android:id="@+id/iv__remove_closed"
+    android:padding="0dp"
     android:layout_width="@dimen/height_block_base"
     android:layout_height="@dimen/height_block_base"
     android:layout_alignParentEnd="true"

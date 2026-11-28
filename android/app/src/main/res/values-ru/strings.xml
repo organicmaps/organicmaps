@@ -987,4 +987,7 @@
     <string name="navigate_track_finish">Конец трека</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
+    <!-- Accessibility action to remove a break: interval followed by the schedule weekdays -->
+    <string name="editor_remove_break">Удалить перерыв %1$s, %2$s</string>
+    <string name="editor_remove_schedule">Удалить расписание: %1$s, %2$s</string>
 </resources>

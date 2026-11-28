@@ -21,6 +21,7 @@
 
   <ImageView
     android:id="@+id/selected"
+    android:importantForAccessibility="no"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_base"
