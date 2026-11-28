@@ -170,7 +170,8 @@ UNIT_TEST(TrackDirectionArrowsAvoidEndpointsGpuTest)
   {
     std::vector<TestTrack> tracks;
     for (auto const & path : paths)
-      tracks.push_back({path, {{dp::Color::Blue(), lineWidth, 0.0f}}});
+      tracks.push_back(
+          {.m_pathInPixels = path, .m_layers = {{dp::Color::Blue(), lineWidth, 0.0f}}, .m_selected = true});
     return RenderTracks("Track arrows keep endpoint markers clear", kWidth, kHeight, tracks);
   };
 
@@ -200,13 +201,58 @@ UNIT_TEST(TrackDirectionArrowsAvoidEndpointsGpuTest)
   TEST_GREATER(arrowPixels, 0u, ("Direction arrows disappeared away from endpoint markers"));
 }
 
+UNIT_TEST(UnselectedTrackTapersOnlyAtItsFinishGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  // The final section has samples closer together than the taper length.
+  TestTrack track{.m_pathInPixels = {{-80, 25}, {-30, 25}},
+                  .m_layers = {{dp::Color::Blue(), 8.0f, 0.0f}},
+                  .m_otherPathsInPixels = {{{-10, 0}, {65, 0}, {68, 0}, {72, 0}, {76, 0}, {80, 0}}}};
+  auto const image = RenderTracks("Round start and tapered finish", 240, 120, {track}, {.m_zoom = 16});
+  auto const blue = QColor(Qt::blue).rgba();
+  auto const white = QColor(Qt::white).rgba();
+  TEST_EQUAL(image.pixel(198, 57), white, ("No finish marker while browsing"));
+  TEST_LESS(image.pixelColor(37, 35).red(), 128, ("Round cap extends behind the start"));
+  TEST_EQUAL(image.pixel(35, 31), white, ("Start cap stays within the stroke width"));
+  TEST_EQUAL(image.pixel(87, 38), blue, ("Intermediate section end keeps its full width"));
+  TEST_EQUAL(image.pixel(190, 60), blue, ("Taper follows the track center"));
+  TEST_EQUAL(image.pixel(190, 63), white, ("Taper spans multiple GPS samples"));
+  TEST_EQUAL(image.pixel(201, 60), white, ("Finish must end at the recorded point"));
+
+  track.m_pathInPixels = {{-40, 0}, {-40, 30}, {40, 30}, {40, 0}, {-40, 0}};
+  track.m_otherPathsInPixels.clear();
+  auto const loop = RenderTracks("Continuous loop while browsing", 240, 120, {track}, {.m_zoom = 16});
+  TEST_EQUAL(loop.pixel(85, 63), blue, ("Full stroke up to the loop seam"));
+  TEST_EQUAL(loop.pixel(80, 60), blue, ("No combined endpoint marker while browsing"));
+}
+
+UNIT_TEST(UnselectedTrackTaperAcrossTileEdgeGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  df::VisualParams::Init(1.0, 512);
+  int constexpr kZoom = 16;
+  auto const tile = df::GetTileKeyByPoint(mercator::Bounds::FullRect().Center(), kZoom);
+  double const edge = 0.5 * tile.GetWrappedDataRect().SizeX() / df::GetScreenScale(kZoom);
+  // Both paths cross the tile. Only the first finish is close enough to affect pixels in it.
+  auto const image = RenderTracks("Finish taper across a tile boundary", 800, 100,
+                                  {{{{-edge - 20, 0}, {edge + 3, 0}}, {{dp::Color::Blue(), 8.0f, 0.0f}}},
+                                   {{{-edge - 20, 25}, {edge + 80, 25}}, {{dp::Color::Blue(), 8.0f, 0.0f}}}},
+                                  {.m_zoom = kZoom});
+  int const x = static_cast<int>(400 + edge - 4);
+  TEST_EQUAL(image.pixel(x, 50), QColor(Qt::blue).rgba(), ("Centerline reaches the tile boundary"));
+  TEST_EQUAL(image.pixel(x, 53), QColor(Qt::white).rgba(), ("Taper starts before its finish tile"));
+  TEST_LESS(image.pixelColor(x, 28).red(), 64, ("Tile clipping must not create a taper"));
+}
+
 UNIT_TEST(TrackEndpointUsesTopLayerColorGpuTest)
 {
   uint32_t constexpr kWidth = 240;
   uint32_t constexpr kHeight = 160;
   auto const image = track_direction_gpu_test::RenderTracks(
       "Track endpoints use the top layer color", kWidth, kHeight,
-      {{{{-80, 0}, {80, 0}}, {{dp::Color::Blue(), 5.0f, 1.0f}, {dp::Color::Red(), 9.0f, 0.0f}}}});
+      {{.m_pathInPixels = {{-80, 0}, {80, 0}},
+        .m_layers = {{dp::Color::Blue(), 5.0f, 1.0f}, {dp::Color::Red(), 9.0f, 0.0f}},
+        .m_selected = true}});
 
   auto const expected = QColor(Qt::blue).rgba();
   TEST_EQUAL(image.pixel(kWidth / 2 - 80, kHeight / 2), expected, ("Start marker uses the wrong layer"));
@@ -236,15 +282,21 @@ UNIT_TEST(TrackDirectionArrowContrastGpuTest)
   TEST_GREATER(CountPixels(image, kHeight / 2 + 90, isDark), 0u, ("Dark chevron is invisible on yellow"));
   TEST_GREATER_OR_EQUAL(GetPixelSpanY(image, kHeight / 2 - 90, isLight), 4, ("Chevron does not use the track width"));
 
+  auto const selected = RenderTracks(
+      "Selected endpoint contrast", kWidth, kHeight,
+      {{.m_pathInPixels = {{-160, 90}, {160, 90}}, .m_layers = {{dp::Color::Black(), 5.0f, 0.0f}}, .m_selected = true},
+       {.m_pathInPixels = {{-160, 30}, {160, 30}},
+        .m_layers = {{dp::Color::White(), 5.0f, 0.0f}},
+        .m_selected = true}});
   int constexpr kStartX = kWidth / 2 - 160;
   int constexpr kFinishX = kWidth / 2 + 160;
-  TEST_GREATER(CountEndpointPixels(image, kStartX, kHeight / 2 - 90, isLight), 0u,
+  TEST_GREATER(CountEndpointPixels(selected, kStartX, kHeight / 2 - 90, isLight), 0u,
                ("Start marker is invisible on black"));
-  TEST_GREATER(CountEndpointPixels(image, kFinishX, kHeight / 2 - 90, isLight), 0u,
+  TEST_GREATER(CountEndpointPixels(selected, kFinishX, kHeight / 2 - 90, isLight), 0u,
                ("Finish marker is invisible on black"));
-  TEST_GREATER(CountEndpointPixels(image, kStartX, kHeight / 2 - 30, isDark), 0u,
+  TEST_GREATER(CountEndpointPixels(selected, kStartX, kHeight / 2 - 30, isDark), 0u,
                ("Start marker is invisible on white"));
-  TEST_GREATER(CountEndpointPixels(image, kFinishX, kHeight / 2 - 30, isDark), 0u,
+  TEST_GREATER(CountEndpointPixels(selected, kFinishX, kHeight / 2 - 30, isDark), 0u,
                ("Finish marker is invisible on white"));
 }
 
@@ -252,9 +304,10 @@ UNIT_TEST(TrackCombinedEndpointGpuTest)
 {
   uint32_t constexpr kWidth = 240;
   uint32_t constexpr kHeight = 160;
-  auto const image = track_direction_gpu_test::RenderTracks(
-      "Combined track endpoint", kWidth, kHeight,
-      {{{{-60, 0}, {60, 0}, {60, 40}, {-55, 0}}, {{dp::Color::Blue(), 10.0f, 0.0f}}}});
+  auto const image = track_direction_gpu_test::RenderTracks("Combined track endpoint", kWidth, kHeight,
+                                                            {{.m_pathInPixels = {{-60, 0}, {60, 0}, {60, 40}, {-55, 0}},
+                                                              .m_layers = {{dp::Color::Blue(), 10.0f, 0.0f}},
+                                                              .m_selected = true}});
 
   QColor const center = image.pixelColor(kWidth / 2 - 60, kHeight / 2);
   TEST_GREATER(center.red(), 225, ("Combined start/finish marker has no contrasting center dot"));
@@ -332,9 +385,10 @@ UNIT_TEST(TrackDirectionArrowsAvoidOtherTrackEndpointsGpuTest)
   int constexpr kCenterY = kHeight / 2;
   auto const render = [](float crossingWidth)
   {
-    return RenderTracks("Track arrows keep other tracks' endpoint markers clear", kWidth, kHeight,
-                        {{{{-100, 0}, {0, 0}}, {{dp::Color::Blue(), 2.0f, 0.0f}}},
-                         {{{0, -144}, {0, 160}}, {{dp::Color::Red(), crossingWidth, 0.0f}}}});
+    return RenderTracks(
+        "Track arrows keep other tracks' endpoint markers clear", kWidth, kHeight,
+        {{.m_pathInPixels = {{-100, 0}, {0, 0}}, .m_layers = {{dp::Color::Blue(), 2.0f, 0.0f}}, .m_selected = true},
+         {{{0, -144}, {0, 160}}, {{dp::Color::Red(), crossingWidth, 0.0f}}}});
   };
 
   auto const image = render(5.0f);
