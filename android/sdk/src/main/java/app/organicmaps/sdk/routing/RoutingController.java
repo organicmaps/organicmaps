@@ -98,6 +98,7 @@ public class RoutingController
     default void onPoiPickCompleted() {}
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
+    default void onRouteReadyToAutoStart() {}
     default void onDrivingOptionsWarning() {}
 
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
@@ -161,6 +162,7 @@ public class RoutingController
   private TransitRouteInfo mCachedTransitRouteInfo;
 
   private boolean mRouteSaved;
+  private boolean mStartNavigationAfterBuild;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final RoutingListener mRoutingListener = new RoutingListener() {
@@ -176,6 +178,8 @@ public class RoutingController
       final boolean built = mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS;
       if (built)
         onBuiltRoute();
+      else
+        mStartNavigationAfterBuild = false;
 
       // The core follows a track once a pending Start's approach is ready. Navigation observers must see it even
       // while the host is stopped; the host presents it in restore().
@@ -238,15 +242,25 @@ public class RoutingController
 
   private void processRoutingEvent()
   {
-    if (!mContainsCachedResult || mContainer == null || mHasContainerSavedState)
+    final Container container = mContainer;
+    if (!mContainsCachedResult || container == null || mHasContainerSavedState)
       return;
 
     mContainsCachedResult = false;
 
+    if (mStartNavigationAfterBuild
+        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
+    {
+      mStartNavigationAfterBuild = false;
+      container.onRouteReadyToAutoStart();
+      if (mContainer != container)
+        return;
+    }
+
     if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
     {
       if (mLastResultCode == ResultCodes.HAS_WARNINGS)
-        mContainer.onDrivingOptionsWarning();
+        container.onDrivingOptionsWarning();
       updatePlan();
       return;
     }
@@ -453,20 +467,25 @@ public class RoutingController
   @VisibleForTesting
   void build()
   {
-    mContainsCachedResult = false;
     Logger.d(TAG, "build");
+    beginBuild(false);
+    Framework.nativeBuildRoute();
+  }
+
+  private void beginBuild(boolean startNavigation)
+  {
+    mStartNavigationAfterBuild = startNavigation;
+    mContainsCachedResult = false;
     mLastBuildProgress = 0;
     mRouteSaved = false;
+    // This build uses the current settings and route marks, so it consumes any deferred options change.
+    mPendingOptionsRebuild = false;
 
     setBuildState(BuildState.BUILDING);
     if (mContainer != null)
       mContainer.onStartRouteBuilding();
 
     updatePlan();
-
-    // This build uses the current settings and route marks, so it consumes any deferred options change.
-    mPendingOptionsRebuild = false;
-    Framework.nativeBuildRoute();
   }
 
   /**
@@ -567,6 +586,7 @@ public class RoutingController
     checkMapsReady();
     if (isFollowingTrack())
       return;
+    mStartNavigationAfterBuild = false;
     mContainsCachedResult = false;
     setState(State.PREPARE);
     setBuildState(BuildState.NONE);
@@ -618,6 +638,32 @@ public class RoutingController
   }
 
   /**
+   * API-route entry: the core owns the parsed itinerary (order, callbacks, optimization,
+   * start direction) and materializes it via ExecuteRouteApiRequest; here we only drive
+   * UI state and honor the explicit navigation intent.
+   */
+  public void prepareApiRoute(@NonNull Router routerType, boolean startNavigation)
+  {
+    checkMapsReady();
+    // The native API request replaces the marks and retires the previous recovery together.
+    cancel(false /* deleteSavedRoute */, false /* closeNativeRoute */);
+    setState(State.PREPARE);
+
+    mLastRouterType = routerType;
+    Router.set(mLastRouterType);
+    // Build validation can notify the routing UI during the native call.
+    showRoutePlan();
+    beginBuild(startNavigation);
+    Framework.nativeExecuteRouteApiRequest();
+
+    if (isPlanning() && mContainer != null)
+    {
+      mContainer.updateMenu();
+      mContainer.onPlanningStarted();
+    }
+  }
+
+  /**
    * Starts following a successfully built planned route; otherwise does nothing.
    * A track approach refresh keeps the plan open until the core enters following.
    * Requires a created map engine ({@link app.organicmaps.sdk.Map#isEngineCreated()}). The host supplies location
@@ -626,7 +672,7 @@ public class RoutingController
   public void start()
   {
     // Phone and car actions can outlive the built route they were created for.
-    if (!isPlanning() || !isBuilt())
+    if (!canStartNavigation())
       return;
     Logger.d(TAG, "start");
     final boolean followsTrack = isFollowingTrack();
@@ -796,6 +842,7 @@ public class RoutingController
 
   private void resetForTrackBuild()
   {
+    mStartNavigationAfterBuild = false;
     mContainsCachedResult = false;
     mCachedRoutingInfo = null;
     mCachedTransitRouteInfo = null;
@@ -1014,13 +1061,14 @@ public class RoutingController
     updateProgress();
   }
 
-  private void cancelInternal(boolean deleteSavedRoute)
+  private void cancelInternal(boolean deleteSavedRoute, boolean closeNativeRoute)
   {
     mContainsCachedResult = false;
     Logger.d(TAG, "cancelInternal");
 
     resetPoiPickState();
     dropPendingTrackStart();
+    mStartNavigationAfterBuild = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -1029,7 +1077,8 @@ public class RoutingController
     Framework.nativeRouteRemoveElevationActivePoint();
     if (deleteSavedRoute)
       Framework.nativeDeleteSavedRoutePoints();
-    Framework.nativeCloseRouting();
+    if (closeNativeRoute)
+      Framework.nativeCloseRouting();
   }
 
   /**
@@ -1048,11 +1097,16 @@ public class RoutingController
    */
   public boolean cancel(boolean deleteSavedRoute)
   {
+    return cancel(deleteSavedRoute, true /* closeNativeRoute */);
+  }
+
+  private boolean cancel(boolean deleteSavedRoute, boolean closeNativeRoute)
+  {
     if (isPlanning())
     {
       Logger.d(TAG, "cancel: planning");
 
-      cancelInternal(deleteSavedRoute);
+      cancelInternal(deleteSavedRoute, closeNativeRoute);
       cancelPlanning(true);
       return true;
     }
@@ -1061,7 +1115,7 @@ public class RoutingController
     {
       Logger.d(TAG, "cancel: navigating");
 
-      cancelInternal(deleteSavedRoute);
+      cancelInternal(deleteSavedRoute, closeNativeRoute);
       cancelNavigation(true);
       if (mContainer != null)
       {
@@ -1164,6 +1218,16 @@ public class RoutingController
   public boolean isBuilt()
   {
     return mBuildState == BuildState.BUILT;
+  }
+
+  public boolean canStartNavigation()
+  {
+    if (!isPlanning() || !isBuilt())
+      return false;
+    if (isFollowingTrack())
+      return true;
+    final MapObject startPoint = getStartPoint();
+    return startPoint != null && startPoint.isMyPosition();
   }
 
   /**
@@ -1379,49 +1443,12 @@ public class RoutingController
    *
    * @return {@code true} if the point was set.
    */
-  @SuppressWarnings("Duplicates")
   public boolean setStartPoint(@Nullable MapObject point)
   {
     checkMapsReady();
-    final boolean result = setStartPointInternal(point);
+    final boolean result = setEndpoint(RouteMarkType.Start, point);
     finalizePendingPoiPick();
     return result;
-  }
-
-  private boolean setStartPointInternal(@Nullable MapObject point)
-  {
-    Logger.d(TAG, "setStartPoint");
-    if (point != null && isFollowingTrack())
-    {
-      // Route marks belong to a new road plan, which closes the track session first.
-      prepare(point, null /* endPoint */);
-      return true;
-    }
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    boolean isSamePoint = MapObject.same(startPoint, point);
-    if (isSamePoint)
-    {
-      Logger.d(TAG, "setStartPoint: skip the same starting point");
-      return false;
-    }
-
-    if (point != null && point.sameAs(endPoint))
-    {
-      if (startPoint == null)
-      {
-        Logger.d(TAG, "setStartPoint: skip because starting point is empty");
-        return false;
-      }
-
-      Logger.d(TAG, "setStartPoint: swap with end point");
-      endPoint = startPoint;
-    }
-
-    startPoint = point;
-    setPointsInternal(startPoint, endPoint);
-    checkAndBuildRoute();
-    return true;
   }
 
   /**
@@ -1433,40 +1460,41 @@ public class RoutingController
    *
    * @return {@code true} if the point was set.
    */
-  @SuppressWarnings("Duplicates")
   public boolean setEndPoint(@Nullable MapObject point)
   {
     checkMapsReady();
-    final boolean result = setEndPointInternal(point);
+    final boolean result = setEndpoint(RouteMarkType.Finish, point);
     finalizePendingPoiPick();
     return result;
   }
 
-  private boolean setEndPointInternal(@Nullable MapObject point)
+  private boolean setEndpoint(@NonNull RouteMarkType type, @Nullable MapObject point)
   {
-    Logger.d(TAG, "setEndPoint");
-    if (point != null && isFollowingTrack())
+    if (point == null)
+      return false;
+    if (isFollowingTrack())
     {
-      // Route marks belong to a new road plan, starting at the current position when available.
-      prepare(mLocationHelper.getMyPosition(), point);
+      // A new road endpoint replaces the captured track plan.
+      if (type == RouteMarkType.Start)
+        prepare(point, null);
+      else
+        prepare(mLocationHelper.getMyPosition(), point);
       return true;
     }
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    boolean isSamePoint = MapObject.same(endPoint, point);
-    if (isSamePoint)
+    final MapObject current = type == RouteMarkType.Start ? getStartPoint() : getEndPoint();
+    if (MapObject.same(current, point))
       return false;
-
-    if (point != null && point.sameAs(startPoint))
+    final MapObject opposite = type == RouteMarkType.Start ? getEndPoint() : getStartPoint();
+    if (point.sameAs(opposite))
     {
-      if (endPoint == null)
+      if (current == null)
         return false;
-
-      startPoint = endPoint;
+      swapPoints();
+      return true;
     }
-
-    endPoint = point;
-    setPointsInternal(startPoint, endPoint);
+    addRoutePoint(type, point);
+    if (mContainer != null)
+      mContainer.updateMenu();
     checkAndBuildRoute();
     return true;
   }
@@ -1529,13 +1557,12 @@ public class RoutingController
     checkMapsReady();
     Logger.d(TAG, "swapPoints");
 
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    MapObject point = startPoint;
-    startPoint = endPoint;
-    endPoint = point;
-
-    setPointsInternal(startPoint, endPoint);
+    final int count = Framework.nativeGetRoutePoints().length;
+    if (count < 2)
+      return;
+    // Keep stops in order and preserve metadata owned by the core when exchanging endpoints.
+    Framework.nativeMoveRoutePoint(0, count - 1);
+    Framework.nativeMoveRoutePoint(count - 2, 0);
     checkAndBuildRoute();
     if (mContainer != null)
       mContainer.updateMenu();

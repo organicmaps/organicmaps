@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "戻る";
+
+/* Button text (should be short) */
 "cancel" = "キャンセル";
 
 /* Button which deletes downloaded country */

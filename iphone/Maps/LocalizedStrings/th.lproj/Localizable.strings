@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "กลับ";
+
+/* Button text (should be short) */
 "cancel" = "ยกเลิก";
 
 /* Button which deletes downloaded country */

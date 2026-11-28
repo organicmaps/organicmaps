@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Yn ôl";
+
+/* Button text (should be short) */
 "cancel" = "Diddymu";
 
 /* Button which deletes downloaded country */

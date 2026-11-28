@@ -111,14 +111,8 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
         XCTFail("Unexpected url type for \(mode)")
         continue
       }
-      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omURL), mode)
-      XCTAssertEqual(adapter.p1.latitude, 1.1, accuracy: 1e-6, mode)
-      XCTAssertEqual(adapter.p1.longitude, 2.2, accuracy: 1e-6, mode)
-      XCTAssertEqual(adapter.p1.type, .start, mode)
-      XCTAssertFalse(adapter.p1.isMyPosition, mode)
-      XCTAssertEqual(adapter.p2.latitude, 3.3, accuracy: 1e-6, mode)
-      XCTAssertEqual(adapter.p2.longitude, 4.4, accuracy: 1e-6, mode)
-      XCTAssertFalse(adapter.p2.isMyPosition, mode)
+      let adapter = DeepLinkRouteStrategyAdapter()
+      XCTAssertFalse(adapter.startRouteNavigation, mode)
       XCTAssertEqual(adapter.type, expectedRoutingType, mode)
     }
   }

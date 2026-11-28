@@ -42,15 +42,18 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
-  func testApiRouteReplacesExistingStopsWithTheSameRouterType() {
+  func testApiRouteReplacesExistingStopsWithTheSameRouterType() throws {
+    MWMRouter.setType(.vehicle)
     seedRoute()
 
-    MWMRouter.buildApiRoute(with: .ruler,
-                            start: makePoint(type: .start, title: "API start", coordinate: 8),
-                            finish: makePoint(type: .finish, title: "API finish", coordinate: 9))
+    // Coincident endpoints make validation deterministic without downloaded maps.
+    let url = try XCTUnwrap(URL(string: "om://v2/dir?origin=1,1&origin_name=API%20start&destination=1,1&destination_name=API%20finish"))
+    XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(url), .route)
+    MWMRouter.buildApiRoute(with: .vehicle, startRouteNavigation: false)
 
     XCTAssertEqual(MWMRouter.points().map(\.title), ["API start", "API finish"])
-    waitUntilRouteReady()
+    XCTAssertEqual(manager.state, .prepare)
+    XCTAssertFalse(MWMRouter.isRoutingActive())
   }
 
   func test_GivenReversedRouteWithoutFollowMode_WhenReady_ThenCanReverseAgain() {
@@ -236,6 +239,19 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     XCTAssertEqual(titleForButton(.routeAddStop, false), L("placepage_add_stop"))
     XCTAssertEqual(titleForButton(.routeReplaceStop, false), L("placepage_replace_stop"))
     XCTAssertEqual(titleForButton(.routeAddDestination, false), L("route_add_destination"))
+  }
+
+  func testManualEditCancelsPendingApiNavigation() throws {
+    seedEndpoints()
+    let router = try XCTUnwrap(MWMRouter.perform(NSSelectorFromString("router"))?.takeUnretainedValue() as? NSObject)
+    router.setValue(true, forKey: "startNavigationAfterBuild")
+    defer { router.setValue(false, forKey: "startNavigationAfterBuild") }
+
+    select(type: .intermediate, title: "added stop", coordinate: 11)
+
+    XCTAssertEqual(router.value(forKey: "startNavigationAfterBuild") as? Bool, false)
+    waitUntilRouteReady()
+    XCTAssertFalse(MWMRouter.isOnRoute())
   }
 
   private func seedEndpoints() {

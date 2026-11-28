@@ -58,6 +58,7 @@ struct RoutePointJson
   int type = 0;
   std::string title;
   std::string subtitle;
+  std::string callback;
   double x = 0.0;
   double y = 0.0;
   bool replaceWithMyPosition = false;
@@ -68,6 +69,7 @@ RoutePointJson ToRoutePointJson(RouteMarkData const & data)
   return {.type = static_cast<int>(data.m_pointType),
           .title = data.m_title,
           .subtitle = data.m_subTitle,
+          .callback = data.m_callback,
           .x = data.m_position.x,
           .y = data.m_position.y,
           .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
@@ -79,6 +81,7 @@ RouteMarkData ToRouteMarkData(RoutePointJson const & point)
   data.m_pointType = static_cast<RouteMarkType>(point.type);
   data.m_title = point.title;
   data.m_subTitle = point.subtitle;
+  data.m_callback = point.callback;
   data.m_position = {point.x, point.y};
   data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
   return data;
@@ -141,6 +144,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteM
   // Last passed point will be considered as start point.
   data.m_pointType = RouteMarkType::Start;
   data.m_intermediateIndex = 0;
+  data.m_callback.clear();
   if (data.m_isMyPosition)
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
@@ -437,6 +441,7 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
 {
   // @TODO(bykoianko) Remove |code| from callback signature.
   CHECK_EQUAL(code, RouterResultCode::NoError, ());
+  bool const fitToViewport = std::exchange(m_fitRouteToViewport, false);
   HidePreviewSegments();
 
   auto const hasWarnings = InsertRoute(result);
@@ -452,10 +457,10 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
   ASSERT(result.IsValid(), ());
   auto const & active = result.GetActive();
 
-  // An overview helps plan a track even when it contains stops. When adding stops to a road
-  // route, keep the local view so the user can continue editing.
+  // Show the whole track or imported itinerary. Manual road-stop edits keep their local view.
   if (active.IsValid() && !keepViewport &&
-      (followsTrack || (active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)))
+      (followsTrack ||
+       (m_currentRouterType != routing::RouterType::Ruler && (fitToViewport || active.GetSubrouteCount() < 2))))
   {
     m2::RectD routeRect = active.GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
@@ -499,6 +504,7 @@ void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
 {
   if (m_followSession)
     m_followSession->m_startWhenReady = false;
+  m_fitRouteToViewport = false;
   HidePreviewSegments();
   RemoveRoute(true /* deactivateFollowing */);
   CallRouteBuilded(code, storage::CountriesSet());
@@ -506,14 +512,27 @@ void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
 
 void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
+  std::string callback;
+  if (auto const * point = routePoints.GetRoutePoint(type, intermediateIndex); point != nullptr && !point->IsPassed())
+  {
+    // Preview tracking can pass checkpoints too, but must not launch another app.
+    if (m_routingSession.IsFollowing())
+      callback = point->GetMarkData().m_callback;
+  }
   routePoints.PassRoutePoint(type, intermediateIndex);
 
   if (type == RouteMarkType::Finish)
     RemoveRoute(false /* deactivateFollowing */);
 
   SaveRoutePoints();
+  if (!callback.empty())
+  {
+    m_pendingRoutePointCallback = std::move(callback);
+    FlushRoutePointCallback();
+  }
 }
 
 void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
@@ -1063,6 +1082,11 @@ void RoutingManager::ResetRoutingSession()
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
+  ++m_routeRevision;
+  m_fitRouteToViewport = false;
+  // An automatically completed route may still owe its final callback on the next foreground transition.
+  if (!m_routingSession.IsFinished())
+    m_pendingRoutePointCallback.clear();
   m_extrapolator.Enable(false);
   // Hide preview.
   HidePreviewSegments();
@@ -1073,7 +1097,10 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
   RemoveRoute(true /* deactivateFollowing */);
 
   if (removeRoutePoints)
-    RemoveRoutePoints();
+  {
+    m_routePointsTransactions.clear();
+    ClearRoutePoints();
+  }
 
   // Restore the regular router unless InstallFollowedTrack() or SetRouter() is replacing it.
   if (IsFollowingTrack())
@@ -1121,8 +1148,8 @@ void RoutingManager::InstallFollowedTrack(FollowSession session, bool keepViewpo
   auto router = std::make_unique<TrackRouter>(vehicleType, session.m_data);
 
   m_followSession.reset();
-  m_routePointsTransactions.clear();
   CloseRouting(true /* removeRoutePoints */);
+  m_pendingRoutePointCallback.clear();
   DeleteSavedRoutePoints();
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(std::move(router), nullptr);
@@ -1309,6 +1336,29 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
   return result;
 }
 
+void RoutingManager::SetRoutePointCallback(RoutePointCallback && callback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_routePointCallback = std::move(callback);
+  FlushRoutePointCallback();
+}
+
+void RoutingManager::FlushRoutePointCallback()
+{
+  if (!m_routePointCallback || m_pendingRoutePointCallback.empty())
+    return;
+
+  // Platform code may detach its listener during delivery.
+  auto const callback = m_routePointCallback;
+  auto const pending = std::exchange(m_pendingRoutePointCallback, {});
+  callback(pending);
+}
+
+std::vector<RouteMarkData> RoutingManager::DeserializeRoutePointsForTesting(std::string const & data)
+{
+  return DeserializeRoutePoints(data);
+}
+
 size_t RoutingManager::GetRoutePointsCount() const
 {
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1326,6 +1376,7 @@ bool RoutingManager::CouldAddIntermediatePoint() const
 bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 {
   CHECK(!IsFollowingTrack(), ("Leave track following before editing route points"));
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   bool const isIntermediate = markData.m_pointType == RouteMarkType::Intermediate;
@@ -1358,6 +1409,7 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
   CHECK(!IsFollowingTrack(), ("Leave track following before editing route points"));
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto * target = routePoints.GetRoutePointForEdit(type, intermediateIndex);
@@ -1396,8 +1448,44 @@ bool RoutingManager::OptimizeRoutePoints()
   return ReorderIntermediatePoints(layout, nullptr /* added */);
 }
 
+void RoutingManager::ReplaceRoutePoints(std::vector<RouteMarkData> points, bool optimize)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_GREATER_OR_EQUAL(points.size(), 2, ());
+  CHECK_LESS_OR_EQUAL(points.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
+  // Include clearing so mark observers receive the complete replacement in one update.
+  auto editSession = m_bmManager->GetEditSession();
+  CloseRouting(true /* remove route points */);
+  m_pendingRoutePointCallback.clear();
+
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  RoutePointsLayout layout(*m_bmManager);
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    auto & point = points[i];
+    point.m_pointType = i == 0                 ? RouteMarkType::Start
+                      : i + 1 == points.size() ? RouteMarkType::Finish
+                                               : RouteMarkType::Intermediate;
+    point.m_intermediateIndex = point.m_pointType == RouteMarkType::Intermediate ? i - 1 : 0;
+    point.m_isVisible = !point.m_isMyPosition && !point.m_isPassed;
+    if (point.m_isMyPosition)
+    {
+      if (point.m_title.empty())
+        point.m_title = m_callbacks.m_stringsBundleGetter().GetString("core_my_position");
+      if (myPosition.HasPosition())
+        point.m_position = myPosition.GetPivot();
+    }
+    VERIFY(layout.AddRoutePoint(std::move(point)), ());
+  }
+  // An unresolved My Position has a placeholder pivot that cannot define an optimized itinerary.
+  if (optimize && points.size() > 2 && m_currentRouterType != RouterType::Ruler &&
+      (myPosition.HasPosition() || layout.GetMyPositionPoint() == nullptr))
+    ReorderIntermediatePoints(layout, nullptr /* added */);
+}
+
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1433,12 +1521,20 @@ bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveRoutePoint(type, intermediateIndex);
 }
 
 void RoutingManager::RemoveRoutePoints()
+{
+  ++m_routeRevision;
+  m_pendingRoutePointCallback.clear();
+  ClearRoutePoints();
+}
+
+void RoutingManager::ClearRoutePoints()
 {
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   ASSERT(m_bmManager != nullptr, ());
@@ -1448,6 +1544,7 @@ void RoutingManager::RemoveRoutePoints()
 
 void RoutingManager::RemoveIntermediateRoutePoints()
 {
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveIntermediateRoutePoints();
@@ -1475,6 +1572,7 @@ void RoutingManager::RemovePassedRoutePoints()
 void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
                                     RouteMarkType targetType, size_t targetIntermediateIndex)
 {
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.MoveRoutePoint(currentType, currentIntermediateIndex, targetType, targetIntermediateIndex);
@@ -1482,6 +1580,7 @@ void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentInt
 
 void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 {
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
 
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1527,6 +1626,7 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 
 bool RoutingManager::ReverseRoutePoints()
 {
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto const points = routePoints.GetRoutePoints();
@@ -1649,7 +1749,7 @@ bool RoutingManager::HaveRoutePlanningOptionsChanged() const
   return options && options->GetOptions() != LoadRoutePlanningOptions(m_currentRouterType).GetOptions();
 }
 
-void RoutingManager::BuildRoute(uint32_t timeoutSec)
+void RoutingManager::BuildRoute(uint32_t timeoutSec, m2::PointD const & startDirection, bool fitToViewport)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   CHECK(m_numMwmIDs, ("Initialize routing before building a route"));
@@ -1725,7 +1825,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
+  m_fitRouteToViewport = fitToViewport;
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec, startDirection);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
@@ -2019,6 +2120,7 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
       ++it;
 
   // Revert route points.
+  ++m_routeRevision;
   ASSERT(m_bmManager != nullptr, ());
   auto editSession = m_bmManager->GetEditSession();
   editSession.ClearGroup(UserMark::Type::ROUTING);
