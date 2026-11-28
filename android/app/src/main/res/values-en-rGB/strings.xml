@@ -31,6 +31,12 @@
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">To prevent track recording from stopping when the screen is off, please exclude Organic Maps from battery optimisation. On Samsung devices, add it to the \"Never sleeping apps\" list.</string>
 
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Public transport</string>
+    <!-- Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label. -->
+    <string name="ruler">Ruler</string>
+
     <!-- SECTION: gps strings -->
     <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
     <string name="transit_details_title">Journey details</string>

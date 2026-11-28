@@ -27,26 +27,31 @@
         android:id="@+id/vehicle"
         style="@style/MwmWidget.RoutingToolbarCell"
         android:button="@drawable/ic_car"
+        android:contentDescription="@string/routing_options_driving"
         android:checked="true" />
 
       <app.organicmaps.widget.RoutingToolbarButton
         android:id="@+id/pedestrian"
         style="@style/MwmWidget.RoutingToolbarCell"
+        android:contentDescription="@string/routing_options_walking"
         android:button="@drawable/ic_pedestrian" />
 
       <app.organicmaps.widget.RoutingToolbarButton
         android:id="@+id/transit"
         style="@style/MwmWidget.RoutingToolbarCell"
+        android:contentDescription="@string/public_transport"
         android:button="@drawable/ic_transit" />
 
       <app.organicmaps.widget.RoutingToolbarButton
         android:id="@+id/bicycle"
         style="@style/MwmWidget.RoutingToolbarCell"
+        android:contentDescription="@string/routing_options_cycling"
         android:button="@drawable/ic_bike" />
 
       <app.organicmaps.widget.RoutingToolbarButton
         android:id="@+id/ruler"
         style="@style/MwmWidget.RoutingToolbarCell"
+        android:contentDescription="@string/ruler"
         android:button="@drawable/ic_ruler_route" />
     </RadioGroup>
 

@@ -628,6 +628,12 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trilha</string>
 
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Transporte público</string>
+    <!-- Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label. -->
+    <string name="ruler">Régua</string>
+
     <!-- SECTION: gps strings -->
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Cor das trilhas alterada</string>

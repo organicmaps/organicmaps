@@ -146,6 +146,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     final View closeButton = mRoutingTypesContainer.findViewById(R.id.back);
     closeButton.setOnClickListener(v -> mRoutingPlanController.handleBackPress());
+    // Keep the toolbar layout unchanged while providing a 48 dp touch target.
+    final int touchInset = getResources().getDimensionPixelSize(R.dimen.margin_half_plus);
+    closeButton.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      UiUtils.expandTouchAreaForView(v, touchInset, touchInset, touchInset, touchInset);
+    });
 
     setInsets();
     setupBottomSheetBehavior();

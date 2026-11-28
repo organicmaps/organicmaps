@@ -9,4 +9,10 @@
     <string name="route_optimization">Optimisation de l’itinéraire</string>
     <!-- Explains that route optimization automatically reorders intermediate stops -->
     <string name="route_optimization_description">Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.</string>
+
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Transport en commun</string>
+    <!-- Distance measuring tool in the Qt toolbar and routing profile selector, and Android routing profile label. -->
+    <string name="ruler">Règle</string>
 </resources>
