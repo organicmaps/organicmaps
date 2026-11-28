@@ -109,15 +109,20 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       mDrawable = ResourcesCompat.getDrawable(getResources(), mStepType.getDrawable(), null);
       mText = number;
     }
-    setContentDescription(getAccessibilityText(getContext(), mStepType, mText));
+    setContentDescription(getAccessibilityText(getContext(), info, mText));
     invalidate();
     requestLayout();
   }
 
   @Nullable
-  private static String getAccessibilityText(@NonNull Context context, @NonNull TransitStepType type,
+  private static String getAccessibilityText(@NonNull Context context, @NonNull TransitStepInfo info,
                                              @Nullable String text)
   {
+    TransitStepType type = info.getType();
+    if (type == TransitStepType.PEDESTRIAN)
+      return context.getString(R.string.routing_options_walking);
+    if (type == TransitStepType.INTERMEDIATE_POINT)
+      return context.getString(R.string.transit_waypoint_label, info.getIntermediateIndex() + 1);
     @StringRes
     final int typeName = switch (type)
     {
